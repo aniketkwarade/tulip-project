@@ -13394,9 +13394,12 @@ function playWelcomeSplash() {
   }
 
   splash.setAttribute('aria-hidden', 'false');
-  splash.addEventListener('click', event => {
-    dismissSplash(event.target.closest('#enter-tulip-btn') ? 'button' : 'backdrop');
-  }, { once: true });
+  splash.addEventListener('click', () => dismissSplash('splash'), { once: true });
+  splash.addEventListener('keydown', event => {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    event.preventDefault();
+    dismissSplash('keyboard');
+  });
   splashTimerId = window.setTimeout(() => dismissSplash('timer'), splashHoldMs);
   splash.addEventListener('transitionend', (event) => {
     if (event.target !== splash || event.propertyName !== 'opacity') return;

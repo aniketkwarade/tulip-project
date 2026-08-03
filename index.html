@@ -9,7 +9,7 @@
     <link rel="canonical" href="https://tulip-project-six.vercel.app/" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="THE TULIP PROJECT" />
-    <meta property="og:title" content="TULIP — See how climate change connects" />
+    <meta property="og:title" content="TULIP- Discover how human choices affect Earth's climate" />
     <meta property="og:description" content="Explore 1,290 evidence-backed relationships shaping climate, ecosystems, economies, and everyday life." />
     <meta property="og:url" content="https://tulip-project-six.vercel.app/" />
     <meta property="og:image" content="https://tulip-project-six.vercel.app/share-preview.png" />
@@ -17,31 +17,40 @@
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="THE TULIP PROJECT ecological causal network preview" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="TULIP — See how climate change connects" />
+    <meta name="twitter:title" content="TULIP- Discover how human choices affect Earth's climate" />
     <meta name="twitter:description" content="Explore 1,290 evidence-backed relationships shaping climate, ecosystems, economies, and everyday life." />
     <meta name="twitter:image" content="https://tulip-project-six.vercel.app/share-preview.png" />
     <script>
       try {
+        const coarsePointer = window.matchMedia?.('(pointer: coarse)').matches ?? false;
+        const noHover = window.matchMedia?.('(hover: none)').matches ?? false;
+        const touchPoints = navigator.maxTouchPoints || 0;
+        if ((coarsePointer && noHover) || (coarsePointer && touchPoints > 0)) {
+          document.documentElement.classList.add('touch-device-gated');
+        }
+
         const splashVisitCount = Number(window.localStorage.getItem('tulip_welcome_splash_visit_count_v2')) || 0;
         if (splashVisitCount >= 2) {
           document.documentElement.classList.add('welcome-splash-seen');
         }
       } catch {}
     </script>
+    <style>
+      html.touch-device-gated #quote-splash { display: none !important; }
+    </style>
     <!-- Inter Display & Variable Font CDN -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter+Display:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <title>TULIP — See how climate change connects</title>
+    <title>TULIP- Discover how human choices affect Earth's climate</title>
   </head>
   <body class="splash-active">
-    <div id="quote-splash" class="quote-splash" aria-hidden="false">
+    <div id="quote-splash" class="quote-splash" role="button" tabindex="0" aria-label="Enter TULIP" aria-hidden="false">
       <div class="quote-splash-inner">
         <img src="/logo.svg" alt="The TULIP Project" class="quote-splash-logo" />
         <h1 class="quote-splash-title">See how climate change takes shape.</h1>
         <p class="quote-splash-body">Explore how environmental changes begin, how their effects connect, and what we can do to build a healthier planet.</p>
-        <button id="enter-tulip-btn" class="quote-splash-enter" type="button">ENTER TULIP</button>
       </div>
     </div>
     <div id="touch-device-gate" class="touch-device-gate" hidden aria-hidden="true">
@@ -58,7 +67,7 @@
         <p class="touch-device-gate-share-note" id="touch-device-gate-share-note" hidden>Link copied to clipboard.</p>
       </div>
     </div>
-    <div id="app-container">
+    <div id="app-container" data-view-mode="explore">
       <!-- APP LOGO -->
       <a href="./" id="app-logo" class="app-logo" aria-label="Return to the Sphere">
         <img src="/logo.svg" alt="TULIP Logo" />
@@ -898,7 +907,7 @@
         <div class="about-card">
           <div id="about-long-copy" class="about-long-copy">
             <div class="footer-overlay-heading-row">
-              <h2 id="about-title" class="about-title">Tracking Use, Loss, and Impact of Planetary Resources</h2>
+              <h2 id="about-title" class="about-title">Tracking Use, Loss, and Impact on the Planet</h2>
             </div>
 
             <p class="about-section-lead">The TULIP Project helps people understand how human choices affect Earth’s atmosphere, oceans, ecosystems, economies, and future.</p>

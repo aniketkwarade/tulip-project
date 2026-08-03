@@ -12,7 +12,10 @@ const [html, css, main, server, preview] = await Promise.all([
   readFile(path.join(root, 'public/share-preview.png'))
 ]);
 
-assert.match(html, /id="enter-tulip-btn"[^>]*>ENTER TULIP<\/button>/);
+assert.match(html, /id="quote-splash"[^>]*role="button"[^>]*tabindex="0"[^>]*aria-label="Enter TULIP"/);
+assert.doesNotMatch(html, /id="enter-tulip-btn"/);
+assert.match(main, /event\.key !== 'Enter' && event\.key !== ' '/);
+assert.match(main, /dismissSplash\('keyboard'\)/);
 assert.match(main, /const splashHoldMs = 10000;/);
 assert.match(css, /\.phenomena-selector\s*\{[\s\S]*?max-height:[\s\S]*?overflow-y: auto;/);
 assert.equal((html.match(/data-close-footer-overlay/g) || []).length, 0);
