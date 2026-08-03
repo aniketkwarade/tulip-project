@@ -44,13 +44,16 @@ npm run dev
 ## Verify a change
 
 ```bash
-npm test
-npm run build
-npm audit --omit=dev --audit-level=high
+npm run release:check
 ```
 
 The production build is emitted to `dist/` and is intentionally ignored by
 Git.
+
+Production releases flow from a reviewed GitHub `main` commit through Vercel's
+Git integration to <https://tulip-project-six.vercel.app/>. See the
+[production release pipeline](docs/release-pipeline.md) for the permanent
+release and verification contract.
 
 ## Production behavior
 
