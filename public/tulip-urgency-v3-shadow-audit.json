@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
   "audit_name": "TULIP Urgency v3 Shadow Assurance Audit",
-  "generated_at": "2026-08-02T16:53:18.462Z",
-  "registry_generated_at": "2026-08-02T16:53:17.702Z",
+  "generated_at": "2026-08-03T17:14:13.817Z",
+  "registry_generated_at": "2026-08-03T17:14:13.137Z",
   "method_version": "tulip_urgency_v3",
   "calculation_version": "tulip_urgency_v2",
   "band_version": "tulip_urgency_bands_v3_2026_08",

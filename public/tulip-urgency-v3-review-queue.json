@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
   "method_version": "tulip_urgency_v3",
-  "generated_at": "2026-08-02T16:53:17.702Z",
+  "generated_at": "2026-08-03T17:14:13.137Z",
   "policy": {
     "visibility": "show_score_normally",
     "staleness": "per_receipt_next_review_at",

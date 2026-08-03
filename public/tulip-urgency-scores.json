@@ -3,7 +3,7 @@
   "method_version": "tulip_urgency_v2",
   "model_version": "tulip_modeled_global_v1",
   "status": "approved",
-  "generated_at": "2026-08-03T01:31:48.427Z",
+  "generated_at": "2026-08-03T17:14:09.275Z",
   "production_scores_replaced": true,
   "scope": "all_issue_nodes",
   "issue_node_count": 354,
