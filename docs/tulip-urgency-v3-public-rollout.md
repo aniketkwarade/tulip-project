@@ -2,7 +2,7 @@
 
 Status: **public default**.
 
-- Promoted: 2026-08-02T16:53:18.525Z
+- Promoted: 2026-08-03T17:14:13.873Z
 - Numerical scores changed from v2: 0
 - Current-data scientific reviews current: 96 of 96
 - Impact-fallback scientific reviews current: 208 of 208

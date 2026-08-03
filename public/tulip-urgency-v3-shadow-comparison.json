@@ -4,7 +4,7 @@
   "calculation_version": "tulip_urgency_v2",
   "band_version": "tulip_urgency_bands_v3_2026_08",
   "status": "shadow_review",
-  "generated_at": "2026-08-02T16:53:17.702Z",
+  "generated_at": "2026-08-03T17:14:13.137Z",
   "summary": {
     "scored_issue_nodes": 354,
     "excluded_response_nodes": 27,

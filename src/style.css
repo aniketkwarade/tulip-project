@@ -596,7 +596,7 @@ svg {
   visibility: visible;
   width: max-content;
   max-width: none;
-  background: rgba(34, 35, 44, 0.85);
+  background: rgba(35, 35, 35, 0.88);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: none;
@@ -1028,7 +1028,7 @@ svg {
 }
 
 /* Category colors for text & icons */
-.filter-pill[data-filter="all"] { --filter-category-rgb: 184, 212, 255; }
+.filter-pill[data-filter="all"] { --filter-category-rgb: 190, 190, 190; }
 .filter-pill[data-filter="atmosphere"] { --filter-category-rgb: 210, 170, 245; }
 .filter-pill[data-filter="oceans"] { --filter-category-rgb: 70, 190, 235; }
 .filter-pill[data-filter="cryosphere"] { --filter-category-rgb: 165, 220, 255; }
