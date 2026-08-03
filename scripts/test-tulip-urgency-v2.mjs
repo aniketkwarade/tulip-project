@@ -191,7 +191,17 @@ assert.match(mainSource, /receipt\.method === 'modeled'/);
 assert.match(mainSource, /tulipUrgencyStatus === 'approved'/);
 
 // Displayed regions align exactly with score intervals 1–3, 3–5, 5–7 and 7–10.
-assert.match(htmlSource, /data-urgency-band="Low">Low<\/span>[\s\S]*data-urgency-band="Elevated">Elevated<\/span>[\s\S]*data-urgency-band="Rising">Rising<\/span>[\s\S]*data-urgency-band="Critical">Critical<\/span>/);
+const urgencyBandLabels = ['Low', 'Elevated', 'Rising', 'Critical'];
+assert.deepEqual(
+  [...htmlSource.matchAll(/data-urgency-band="([^"]+)"/g)].map(match => match[1]),
+  urgencyBandLabels,
+);
+for (const label of urgencyBandLabels) {
+  assert.match(
+    htmlSource,
+    new RegExp(`data-urgency-band="${label}"[^>]*>[\\s\\S]*?class="urgency-band-abbreviation"[^>]*>${label}<\\/span>`),
+  );
+}
 assert.match(styleSource, /grid-template-columns:\s*2fr 2fr 2fr 3fr/);
 assert.match(htmlSource, /left:\s*22\.222%[\s\S]*left:\s*44\.444%[\s\S]*left:\s*66\.667%/);
 
