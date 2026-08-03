@@ -1,10 +1,15 @@
 import crypto from 'node:crypto';
 import http from 'node:http';
 import { readFile, writeFile, mkdir, stat } from 'node:fs/promises';
-import { watchFile, existsSync } from 'node:fs';
+import { watchFile } from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
 import { fileURLToPath } from 'node:url';
+import {
+  decodeSnapshotPng,
+  isAllowedSnapshotOrigin,
+  resolveSnapshotPath,
+} from './snapshot-security.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -12,6 +17,15 @@ const PUBLIC_DIR = path.join(ROOT, 'public');
 const PORT = Number(process.env.TULIP_BACKEND_PORT || 8787);
 const HOST = process.env.TULIP_BACKEND_HOST || '127.0.0.1';
 const CONTACT_EMAIL = process.env.TULIP_CONTACT_EMAIL || '';
+const SNAPSHOT_ALLOWED_ORIGINS = new Set([
+  'http://127.0.0.1:5176',
+  'http://localhost:5176',
+  `http://${HOST}:${PORT}`,
+  ...String(process.env.TULIP_SNAPSHOT_ALLOWED_ORIGINS || '')
+    .split(',')
+    .map(value => value.trim())
+    .filter(Boolean),
+]);
 const SERVER_SALT = crypto.randomBytes(24).toString('hex');
 const telemetryCounts = new Map();
 const contactAttempts = new Map();
@@ -394,28 +408,32 @@ const server = http.createServer(async (req, res) => {
       if (process.env.TULIP_ENABLE_SNAPSHOT_WRITES !== 'true') {
         return sendJson(res, 403, { error: 'Snapshot writes are disabled.' });
       }
+      if (!isAllowedSnapshotOrigin(req.headers.origin, SNAPSHOT_ALLOWED_ORIGINS)) {
+        return sendJson(res, 403, { error: 'Snapshot origin is not allowed.' });
+      }
       const bodyText = await readBody(req, 8 * 1024 * 1024);
       const { image, filepath } = JSON.parse(bodyText);
-      const resolvedFilepath = path.resolve(String(filepath || ''));
-      if (!resolvedFilepath.startsWith(`${ROOT}${path.sep}`)) {
-        return sendJson(res, 400, { error: 'Snapshot path must stay inside the project.' });
+      let resolvedFilepath;
+      let buffer;
+      try {
+        resolvedFilepath = resolveSnapshotPath(ROOT, filepath);
+        buffer = decodeSnapshotPng(image);
+      } catch (error) {
+        return sendJson(res, 400, { error: error.message });
       }
-      
-      const base64Data = image.replace(/^data:image\/png;base64,/, "");
-      const buffer = Buffer.from(base64Data, 'base64');
-      
+
       const dir = path.dirname(resolvedFilepath);
-      if (!existsSync(dir)) {
-        await mkdir(dir, { recursive: true });
-      }
-      
+      await mkdir(dir, { recursive: true });
       await writeFile(resolvedFilepath, buffer);
       console.log(`[tulip-backend] Snapshot saved successfully to ${resolvedFilepath}`);
-      
-      res.writeHead(200, {
+
+      const responseHeaders = {
         'Content-Type': 'application/json; charset=utf-8',
-        'Access-Control-Allow-Origin': '*'
-      });
+        'Cache-Control': 'no-store',
+        'Vary': 'Origin',
+      };
+      if (req.headers.origin) responseHeaders['Access-Control-Allow-Origin'] = req.headers.origin;
+      res.writeHead(200, responseHeaders);
       return res.end(JSON.stringify({ success: true, filepath: resolvedFilepath }));
     }
 

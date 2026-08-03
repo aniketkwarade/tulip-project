@@ -120,7 +120,7 @@ struct ExplorerFlowView: View {
 
     private func copySelectedLink() {
         NSPasteboard.general.clearContents()
-        NSPasteboard.general.setString("https://tulip.earth/?node=\(selectedNode.id)", forType: .string)
+        NSPasteboard.general.setString("https://tulip-project-six.vercel.app/?node=\(selectedNode.id)", forType: .string)
     }
 }
 

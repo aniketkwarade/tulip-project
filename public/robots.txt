@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://tulip.earth/sitemap.xml
+Sitemap: https://tulip-project-six.vercel.app/sitemap.xml

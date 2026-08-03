@@ -75,7 +75,7 @@ for (const header of [
   assert.ok(globalHeaders[header], `Missing Vercel security header: ${header}`);
 }
 
-assert.match(html, /<link rel="canonical" href="https:\/\/tulip\.earth\/"/);
+assert.match(html, /<link rel="canonical" href="https:\/\/tulip-project-six\.vercel\.app\/"/);
 assert.match(html, /id="contact-btn"[^>]*aria-disabled="true"/);
 assert.match(main, /if \(import\.meta\.env\.PROD\) \{[\s\S]*?loadFallback\(\)/);
 assert.match(main, /VITE_TULIP_REMOTE_REFRESH_ENABLED === 'true'/);
@@ -87,6 +87,6 @@ assert.match(telemetry, /export function initTelemetry[\s\S]*?if \(!TELEMETRY_EN
 assert.match(securityText, /^Contact: https:\/\/github\.com\/aniketkwarade\/tulip-project\/security\/advisories\/new/m);
 assert.match(securityText, /^Expires: 2027-08-03T00:00:00Z$/m);
 assert.match(robots, /^Allow: \/$/m);
-assert.match(sitemap, /<loc>https:\/\/tulip\.earth\/<\/loc>/);
+assert.match(sitemap, /<loc>https:\/\/tulip-project-six\.vercel\.app\/<\/loc>/);
 
 console.log('Public-release checks passed: licensing, ignored secrets, static production, privacy, metadata, and security headers.');

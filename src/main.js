@@ -9,6 +9,7 @@ import { propagateChange } from './propagation.js';
 import { TulipGraph } from './graph.js';
 import { generateAvatarDataURL } from './avatar.js';
 import { initTelemetry, trackEvent } from './telemetry.js';
+import { escapeHtml, safeHttpsUrl } from './security.js';
 import {
   PERSONAL_FOOTPRINT_CONTEXT_VERSION,
   estimateGlobalCarbonPercentile,
@@ -4320,23 +4321,26 @@ function renderDataCenterOperationalSnapshot(summary, anchorId) {
       ${zoneSnapshots.map(item => {
         const snap = item.snapshot || {};
         const sources = (snap.top_power_sources_mw || [])
-          .map(entry => `${entry.fuel}: ${Math.round(entry.value).toLocaleString()} MW`)
+          .map(entry => `${escapeHtml(entry.fuel)}: ${Math.round(entry.value).toLocaleString()} MW`)
           .join(' • ');
+        const location = item.hubs?.length
+          ? item.hubs.map(value => escapeHtml(value)).join(' • ')
+          : item.mapped_states?.map(value => escapeHtml(value)).join(', ');
 
         return `
           <div style="display: flex; flex-direction: column; gap: 6px; padding: 10px 12px; border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 10px; background: rgba(255, 255, 255, 0.02);">
             <div style="display: flex; justify-content: space-between; gap: 10px; align-items: baseline;">
-              <div style="font-size: 13px; color: #ffffff; font-weight: 600;">${item.label}</div>
+              <div style="font-size: 13px; color: #ffffff; font-weight: 600;">${escapeHtml(item.label)}</div>
               <div style="font-size: 12px; color: rgba(255,255,255,0.45);">${snap.captured_at ? new Date(snap.captured_at).toLocaleDateString() : 'Snapshot'}</div>
             </div>
             <div style="font-size: 12px; color: rgba(255,255,255,0.56); line-height: 1.45;">
-              ${item.hubs?.join(' • ') || item.mapped_states?.join(', ') || 'Priority data-center region'}
+              ${location || 'Priority data-center region'}
             </div>
             <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; font-size: 12px;">
-              <div style="padding: 7px 8px; border-radius: 8px; background: rgba(255,255,255,0.03); color: rgba(255,255,255,0.7);">Current CI: <strong style="color:#fff;">${snap.carbon_intensity_gco2eq_kwh ?? '—'}</strong></div>
-              <div style="padding: 7px 8px; border-radius: 8px; background: rgba(255,255,255,0.03); color: rgba(255,255,255,0.7);">24h Avg: <strong style="color:#fff;">${snap.carbon_intensity_24h_avg_gco2eq_kwh ?? '—'}</strong></div>
-              <div style="padding: 7px 8px; border-radius: 8px; background: rgba(255,255,255,0.03); color: rgba(255,255,255,0.7);">Renewables: <strong style="color:#fff;">${snap.renewable_percentage ?? '—'}%</strong></div>
-              <div style="padding: 7px 8px; border-radius: 8px; background: rgba(255,255,255,0.03); color: rgba(255,255,255,0.7);">Carbon-free: <strong style="color:#fff;">${snap.carbon_free_percentage ?? '—'}%</strong></div>
+              <div style="padding: 7px 8px; border-radius: 8px; background: rgba(255,255,255,0.03); color: rgba(255,255,255,0.7);">Current CI: <strong style="color:#fff;">${escapeHtml(snap.carbon_intensity_gco2eq_kwh ?? '—')}</strong></div>
+              <div style="padding: 7px 8px; border-radius: 8px; background: rgba(255,255,255,0.03); color: rgba(255,255,255,0.7);">24h Avg: <strong style="color:#fff;">${escapeHtml(snap.carbon_intensity_24h_avg_gco2eq_kwh ?? '—')}</strong></div>
+              <div style="padding: 7px 8px; border-radius: 8px; background: rgba(255,255,255,0.03); color: rgba(255,255,255,0.7);">Renewables: <strong style="color:#fff;">${escapeHtml(snap.renewable_percentage ?? '—')}%</strong></div>
+              <div style="padding: 7px 8px; border-radius: 8px; background: rgba(255,255,255,0.03); color: rgba(255,255,255,0.7);">Carbon-free: <strong style="color:#fff;">${escapeHtml(snap.carbon_free_percentage ?? '—')}%</strong></div>
             </div>
             ${sources ? `<div style="font-size: 12px; color: rgba(var(--accent-color-rgb), 0.88); line-height: 1.4;">Top sources: ${sources}</div>` : ''}
           </div>
@@ -6236,17 +6240,17 @@ function renderEarthdataCollections(node) {
   }
 
   consoleEarthdataCollections.innerHTML = matches.map(entry => {
-    const shortName = entry.short_name || 'NASA Collection';
-    const version = entry.version_id ? ` v${entry.version_id}` : '';
-    const archiveCenter = entry.archive_center ? ` · ${entry.archive_center}` : '';
-    const summary = entry.summary || 'NASA Earth observation collection relevant to this node.';
-    const href = entry.search_url || entry.access_url || 'https://search.earthdata.nasa.gov/';
+    const shortName = escapeHtml(entry.short_name || 'NASA Collection');
+    const version = entry.version_id ? ` v${escapeHtml(entry.version_id)}` : '';
+    const archiveCenter = entry.archive_center ? ` · ${escapeHtml(entry.archive_center)}` : '';
+    const summary = escapeHtml(entry.summary || 'NASA Earth observation collection relevant to this node.');
+    const href = escapeHtml(safeHttpsUrl(entry.search_url || entry.access_url, 'https://search.earthdata.nasa.gov/'));
 
     return `
       <div style="display:flex; flex-direction:column; gap:4px; padding-top:8px; border-top:1px solid rgba(255,255,255,0.08);">
         <div style="font-size:12px; color: rgba(255, 220, 174, 0.95); font-weight:600; letter-spacing:0.4px;">${shortName}${version}${archiveCenter}</div>
-        <a href="${href}" target="_blank" style="font-size:13px; color:#ffffff; text-decoration:none; font-weight:500; line-height:1.4;">
-          ${entry.title} ↗
+        <a href="${href}" target="_blank" rel="noopener noreferrer" style="font-size:13px; color:#ffffff; text-decoration:none; font-weight:500; line-height:1.4;">
+          ${escapeHtml(entry.title)} ↗
         </a>
         <div style="font-size:12px; color:rgba(255,255,255,0.56); line-height:1.45;">${summary}</div>
       </div>
@@ -6317,17 +6321,17 @@ function renderGraceCollections(node) {
   }
 
   consoleGraceCollections.innerHTML = matches.map(entry => {
-    const shortName = entry.short_name || 'GRACE Collection';
-    const version = entry.version_id ? ` v${entry.version_id}` : '';
-    const archiveCenter = entry.archive_center ? ` · ${entry.archive_center}` : '';
-    const summary = entry.summary || 'GRACE/GRACE-FO collection relevant to this mass-change pathway.';
-    const href = entry.search_url || entry.access_url || 'https://grace.jpl.nasa.gov/';
+    const shortName = escapeHtml(entry.short_name || 'GRACE Collection');
+    const version = entry.version_id ? ` v${escapeHtml(entry.version_id)}` : '';
+    const archiveCenter = entry.archive_center ? ` · ${escapeHtml(entry.archive_center)}` : '';
+    const summary = escapeHtml(entry.summary || 'GRACE/GRACE-FO collection relevant to this mass-change pathway.');
+    const href = escapeHtml(safeHttpsUrl(entry.search_url || entry.access_url, 'https://grace.jpl.nasa.gov/'));
 
     return `
       <div style="display:flex; flex-direction:column; gap:4px; padding-top:8px; border-top:1px solid rgba(255,255,255,0.08);">
         <div style="font-size:12px; color: rgba(96, 165, 250, 0.95); font-weight:600; letter-spacing:0.4px;">${shortName}${version}${archiveCenter}</div>
-        <a href="${href}" target="_blank" style="font-size:13px; color:#ffffff; text-decoration:none; font-weight:500; line-height:1.4;">
-          ${entry.title} ↗
+        <a href="${href}" target="_blank" rel="noopener noreferrer" style="font-size:13px; color:#ffffff; text-decoration:none; font-weight:500; line-height:1.4;">
+          ${escapeHtml(entry.title)} ↗
         </a>
         <div style="font-size:12px; color:rgba(255,255,255,0.56); line-height:1.45;">${summary}</div>
       </div>
@@ -6465,15 +6469,6 @@ const HUMAN_IMPACT_DOMAIN_RULES = [
     consequence: 'Hits jobs, incomes, insurance access, and day-to-day affordability.'
   }
 ];
-
-function escapeHtml(text) {
-  return String(text)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
 
 function getHumanImpactSeverityMeta(fallout) {
   if (fallout >= 0.9) return { label: 'Acute human toll', className: 'severity-acute' };
@@ -13446,9 +13441,9 @@ function bindTouchDeviceGateShareActions() {
   const gate = document.getElementById('touch-device-gate');
   if (!gate || gate.dataset.shareBound === 'true') return;
 
-  const shareUrl = 'https://tulip.earth';
+  const shareUrl = 'https://tulip-project-six.vercel.app';
   const shareTitle = 'TULIP';
-  const shareText = 'Explore TULIP on desktop: https://tulip.earth';
+  const shareText = 'Explore TULIP on desktop: https://tulip-project-six.vercel.app';
   const shareNote = document.getElementById('touch-device-gate-share-note');
 
   gate.addEventListener('click', async (event) => {
