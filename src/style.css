@@ -9985,7 +9985,7 @@ body.footer-overlay-active .tulip-footer-bar {
   border: 1px solid var(--glass-border);
   background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent 38%),
-    var(--glass-surface);
+    rgba(35, 35, 35, 0.88);
   box-shadow: var(--glass-shadow-compact);
 }
 
@@ -10001,6 +10001,10 @@ body.footer-overlay-active .tulip-footer-bar {
   border-radius: inherit;
   background: linear-gradient(120deg, rgba(255, 255, 255, 0.1), transparent 30% 72%, rgba(150, 205, 255, 0.05));
   pointer-events: none;
+}
+
+#filter-bar::before {
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.1), transparent 30% 72%, rgba(255, 255, 255, 0.035));
 }
 
 .filter-pill {
