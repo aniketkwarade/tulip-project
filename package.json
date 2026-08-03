@@ -1,6 +1,6 @@
 {
   "name": "tulip-project",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
   "license": "Apache-2.0",
   "type": "module",
@@ -303,6 +303,7 @@
     "test:launch-readiness": "node scripts/test-launch-readiness.mjs",
     "test:relationship-semantics": "node scripts/test-relationship-semantics.mjs",
     "test:tulip-urgency-v2": "node scripts/test-tulip-urgency-v2.mjs",
+    "test:public-release": "node scripts/test-public-release.mjs",
     "export:tulip-urgency-v3-shadow": "node scripts/export-tulip-urgency-v3-shadow.mjs",
     "review:tulip-urgency-v3-current-data": "node scripts/review-tulip-current-data-v3.mjs",
     "review:tulip-urgency-v3-remaining": "node scripts/review-tulip-remaining-v3.mjs",
@@ -310,7 +311,7 @@
     "audit:tulip-urgency-v3-shadow": "npm run export:tulip-urgency-v3-shadow && node scripts/audit-tulip-urgency-v3-shadow.mjs",
     "promote:tulip-urgency-v3": "npm run review:tulip-urgency-v3-all && npm run audit:tulip-urgency-v3-shadow && node scripts/promote-tulip-urgency-v3.mjs",
     "test:tulip-urgency-v3": "node scripts/test-tulip-urgency-v3.mjs",
-    "test": "npm run test:personal-footprint && npm run test:tulip-urgency-v2 && npm run test:tulip-urgency-v3 && npm run test:relationship-semantics && npm run test:launch-readiness",
+    "test": "npm run test:personal-footprint && npm run test:tulip-urgency-v2 && npm run test:tulip-urgency-v3 && npm run test:relationship-semantics && npm run test:launch-readiness && npm run test:public-release",
     "build": "vite build",
     "preview": "vite preview"
   },

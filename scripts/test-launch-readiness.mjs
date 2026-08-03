@@ -44,6 +44,8 @@ assert.doesNotMatch(html, /Disabled for Reddit/);
 assert.match(css, /\.footer-contact-disabled:hover \.footer-contact-tooltip/);
 assert.doesNotMatch(css, /\.footer-overlay-close(?:\s|,|\{)/);
 assert.match(css, /\.sources-close-btn/);
+assert.match(css, /\.personal-footprint-question-card\s*\{[\s\S]*?scroll-margin-top:\s*260px;/);
+assert.match(css, /\.personal-footprint-pill\s*\{[\s\S]*?scroll-margin-top:\s*330px;/);
 const undersizedPx = [...css.matchAll(/font-size:\s*(\d+(?:\.\d+)?)px/g)]
   .map(match => Number(match[1]))
   .filter(size => size < 12);

@@ -2417,6 +2417,7 @@ svg {
   gap: 20px;
   padding: 26px 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  scroll-margin-top: 260px;
 }
 
 .personal-footprint-module-header {
@@ -2555,6 +2556,7 @@ svg {
 
 .personal-footprint-pill {
   appearance: none;
+  scroll-margin-top: 330px;
   border: 1px solid var(--ui-pill-border);
   border-radius: 999px;
   background: var(--ui-pill-bg-soft);

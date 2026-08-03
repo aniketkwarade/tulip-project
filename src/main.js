@@ -3523,6 +3523,7 @@ function initializeNavigationHistory() {
 }
 
 const DEFAULT_REFRESH_WINDOW_MS = 42 * 24 * 60 * 60 * 1000;
+const REMOTE_REFRESH_ENABLED = import.meta.env.VITE_TULIP_REMOTE_REFRESH_ENABLED === 'true';
 let supportingCatalogsRequested = false;
 
 function scheduleBackgroundTask(task, timeout = 1500) {
@@ -3567,6 +3568,10 @@ function loadDatasetWithUpdateCheck(key, localUrl, remoteUrl, callback) {
   };
 
   loadLocal();
+
+  // Browser-side source refreshes are opt-in. Production uses reviewed,
+  // versioned snapshots and should not contact dozens of third-party services.
+  if (!REMOTE_REFRESH_ENABLED) return;
 
   // Skip update check if we did it recently
   if (lastCheck && (now - parseInt(lastCheck, 10)) < DEFAULT_REFRESH_WINDOW_MS) {
@@ -3614,6 +3619,13 @@ function loadJsonWithApiFallback(apiUrl, fallbackUrl, callback) {
       });
 
   if (apiUrl === fallbackUrl) {
+    loadFallback();
+    return;
+  }
+
+  // Production is a static Vercel deployment. Read the versioned public
+  // snapshots directly instead of probing development-only API routes first.
+  if (import.meta.env.PROD) {
     loadFallback();
     return;
   }

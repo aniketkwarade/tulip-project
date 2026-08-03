@@ -1,0 +1,36 @@
+# Local and source-control state
+.git/
+.github/
+.vercel/
+.env*
+.DS_Store
+
+# Recreated by Vercel
+node_modules/
+dist/
+
+# Non-web projects and research workspaces
+macOS/
+experiments/
+Reference_PDF Output/
+Sphere overlay/
+TIER 1,2,3/
+artifacts/
+assets/
+docs/
+references/
+server/
+scripts/*
+!scripts/local-dev-config.mjs
+
+# Local browser profiles and generated audits
+chrome-debug-profile-unique/
+chrome-snapshot-profile-clean/
+output/
+tmp/
+tmp-*
+
+# Repository-only documentation and scratch files
+*.md
+*.jsonl
+test_tree_random.js

@@ -9,6 +9,8 @@ const ALLOWED_EVENTS = new Set([
   'client_error'
 ]);
 
+const TELEMETRY_ENABLED = import.meta.env.VITE_TULIP_TELEMETRY_ENABLED === 'true';
+
 function cleanValue(value) {
   if (typeof value === 'number' && Number.isFinite(value)) return value;
   if (typeof value === 'boolean') return value;
@@ -29,6 +31,7 @@ function cleanProperties(properties = {}) {
 }
 
 export function trackEvent(event, properties = {}) {
+  if (!TELEMETRY_ENABLED) return;
   if (!ALLOWED_EVENTS.has(event)) return;
   const payload = JSON.stringify({
     event,
@@ -57,6 +60,7 @@ export function trackEvent(event, properties = {}) {
 }
 
 export function initTelemetry() {
+  if (!TELEMETRY_ENABLED) return;
   if (window.__tulipTelemetryInitialized) return;
   window.__tulipTelemetryInitialized = true;
 
