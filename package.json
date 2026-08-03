@@ -313,6 +313,7 @@
     "promote:tulip-urgency-v3": "npm run review:tulip-urgency-v3-all && npm run audit:tulip-urgency-v3-shadow && node scripts/promote-tulip-urgency-v3.mjs",
     "test:tulip-urgency-v3": "node scripts/test-tulip-urgency-v3.mjs",
     "test": "npm run test:personal-footprint && npm run test:tulip-urgency-v2 && npm run test:tulip-urgency-v3 && npm run test:relationship-semantics && npm run test:security-regressions && npm run test:launch-readiness && npm run test:public-release",
+    "release:check": "npm audit --omit=dev --audit-level=high && npm test && npm run build",
     "build": "vite build",
     "preview": "vite preview"
   },

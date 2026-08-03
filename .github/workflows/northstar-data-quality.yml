@@ -20,12 +20,8 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - name: Audit production dependencies
-        run: npm audit --omit=dev --audit-level=high
-      - name: Run regression and public-release checks
-        run: npm test
-      - name: Build production application
-        run: npm run build
+      - name: Run the production release gate
+        run: npm run release:check
 
   northstar-refresh:
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
