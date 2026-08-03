@@ -1,0 +1,69 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const snapshot = {
+  version: 'fcc_hurricane_maria_mobile_network_impact_v1',
+  captured_at: '2026-08-01T00:00:00.000Z',
+  sources: [
+    {
+      id: 'fcc_2017_atlantic_hurricane_communications_report',
+      name: '2017 Atlantic Hurricane Season Impact on Communications Report and Recommendations',
+      publisher: 'Federal Communications Commission, Public Safety and Homeland Security Bureau',
+      publication_date: '2018-08-24',
+      url: 'https://docs.fcc.gov/public/attachments/DOC-353805A1.pdf',
+      source_locators: [
+        'Hurricane Maria wireless impact: 95.6 percent of Puerto Rico cell sites and 76.6 percent of U.S. Virgin Islands cell sites were out at peak; 48 of Puerto Rico\'s 78 municipios had 100 percent of cell sites out.',
+        'Restoration: six months after landfall, 4 percent of Puerto Rico cell sites and 12 percent of U.S. Virgin Islands cell sites remained out of service.',
+        'Service context: the St. Croix 911 call center was completely out for at least ten days, and communications in Puerto Rico were at a virtual standstill for weeks.'
+      ]
+    },
+    {
+      id: 'fcc_hurricane_maria_status_october_22_2017',
+      name: 'Communications Status Report for Areas Impacted by Hurricane Maria, October 22, 2017',
+      publisher: 'Federal Communications Commission',
+      publication_date: '2017-10-22',
+      url: 'https://docs.fcc.gov/public/attachments/DOC-347354A1.pdf',
+      source_locators: [
+        'Wireless service population coverage estimates: approximately 63 percent in Puerto Rico and 91 percent in the U.S. Virgin Islands.',
+        'The status report uses voluntary Disaster Information Reporting System submissions and preserves provider-reporting limitations.'
+      ]
+    }
+  ],
+  metric_contract: {
+    node_id: 'mobile_wireless_networks',
+    metric_id: 'mobile_site_energy_and_availability',
+    unit: 'percent cell sites out, percent population without reported wireless coverage, restoration duration and represented territories',
+    geography: 'Puerto Rico and the U.S. Virgin Islands after Hurricane Maria',
+    assessment_period: '2017-09-20 to 2018-03-20',
+    boundary: 'This is a bounded administrative disaster-impact record for terrestrial mobile wireless service. It does not combine wireline, broadcast, satellite or emergency-call-center outages into the scored wireless burden, and it does not extrapolate the two territories globally.'
+  },
+  accumulated_impact: {
+    puerto_rico_peak_cell_sites_out_percent: 95.6,
+    puerto_rico_peak_cell_sites_out_chart_percent: 95.2,
+    us_virgin_islands_peak_cell_sites_out_percent: 76.6,
+    puerto_rico_municipios_all_cell_sites_out: 48,
+    puerto_rico_total_municipios: 78,
+    puerto_rico_population_with_reported_wireless_coverage_percent_2017_10_22: 63,
+    puerto_rico_population_without_reported_wireless_coverage_percent_2017_10_22: 37,
+    us_virgin_islands_population_with_reported_wireless_coverage_percent_2017_10_22: 91,
+    six_month_restoration_duration_months: 6,
+    puerto_rico_cell_sites_still_out_after_six_months_percent: 4,
+    us_virgin_islands_cell_sites_still_out_after_six_months_percent: 12,
+    st_croix_911_call_center_complete_outage_at_least_days: 10,
+    represented_territory_count: 2,
+    event_start_date: '2017-09-20',
+    six_month_review_date: '2018-03-20'
+  },
+  reviewed_normalization_anchors: {
+    peak_cell_sites_out_percent: [0, 5, 25, 75],
+    population_without_reported_wireless_coverage_percent: [0, 5, 20, 50],
+    restoration_duration_months: [0, 0.25, 1, 6],
+    represented_territory_count: [0, 1, 5, 20]
+  },
+  uncertainty: 'FCC outage data were voluntarily reported through DIRS and may be incomplete. Population coverage is an FCC estimate and is not the same as measured individual service availability; the 37 percent without reported coverage is derived as 100 minus 63 percent. The report prose gives a 95.6 percent Puerto Rico peak while its chart shows 95.2 percent; the receipt retains both and scores the prose value. Six-month residual outage percentages and the separate 911 outage are context rather than additional urgency points. Coverage is limited to two United States territories after one hurricane.'
+};
+
+await fs.writeFile(path.join(ROOT, 'public/fcc-hurricane-maria-mobile-network-impact-snapshot.json'), `${JSON.stringify(snapshot, null, 2)}\n`);
+console.log(JSON.stringify({ output: 'public/fcc-hurricane-maria-mobile-network-impact-snapshot.json', version: snapshot.version, accumulated: snapshot.accumulated_impact }, null, 2));

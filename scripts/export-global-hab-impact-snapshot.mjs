@@ -1,0 +1,54 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+
+const snapshot = {
+  version: 'global_hab_impact_2021_v1',
+  captured_at: '2026-08-01T00:00:00.000Z',
+  sources: [
+    {
+      id: 'hallegraeff_global_hab_assessment_2021',
+      name: 'Perceived global increase in algal blooms is attributable to intensified monitoring and emerging bloom impacts',
+      publisher: 'Communications Earth & Environment',
+      url: 'https://www.nature.com/articles/s43247-021-00178-8',
+      doi: '10.1038/s43247-021-00178-8'
+    }
+  ],
+  assessment: {
+    observation_start_year: 1985,
+    observation_end_year: 2018,
+    observation_years_inclusive: 34,
+    haedat_event_count: 9503,
+    global_regions_assessed: 12,
+    harmful_marine_phytoplankton_taxa_approximate: 200,
+    event_type_shares_pct: {
+      seafood_biotoxin: 48,
+      high_counts_or_discoloration_with_socioeconomic_impact: 43,
+      mass_animal_or_plant_mortality: 7,
+      other: 2,
+      records_with_multiple_event_types: 11
+    },
+    ciguatera_people_affected_annually_range: {
+      low: 10000,
+      high: 50000
+    },
+    trend_finding: 'no_uniform_global_trend_after_adjustment_for_monitoring_effort',
+    geographic_coverage: 'all_12_assessed_global_marine_regions',
+    event_definition: 'A HAEDAT event triggers management action, causes negative economic impact, or has ecological consequences; records without harmful events or monitoring are absent.'
+  },
+  uncertainty: 'HAEDAT coverage varies substantially among regions and records harmful events rather than complete bloom incidence. Event-type percentages are rounded and 11% of records have multiple types, so categories must not be summed. The assessment excludes freshwater harmful algae and macrophyte blooms and found no uniform global temporal increase after accounting for monitoring effort.'
+};
+
+await fs.writeFile(
+  path.join(ROOT, 'public/global-hab-impact-snapshot.json'),
+  `${JSON.stringify(snapshot, null, 2)}\n`
+);
+
+console.log(JSON.stringify({
+  output: 'public/global-hab-impact-snapshot.json',
+  version: snapshot.version,
+  source_count: snapshot.sources.length,
+  event_count: snapshot.assessment.haedat_event_count
+}, null, 2));

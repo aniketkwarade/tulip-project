@@ -1,0 +1,82 @@
+[
+  {
+    "id": "ipcc_ssp1_19",
+    "name": "IPCC SSP1-1.9 Low Emissions Target",
+    "description": "Model target pathway representing sustainable global net greenhouse gas emissions required to limit global warming to ~1.5°C.",
+    "unit": "Gt CO2/yr",
+    "keywords": ["emissions", "carbon", "warming", "climate", "policy", "radiative", "atmosphere"],
+    "timeseries": [
+      {"year": 2015, "value": 36.2},
+      {"year": 2016, "value": 33.5},
+      {"year": 2017, "value": 30.8},
+      {"year": 2018, "value": 27.2},
+      {"year": 2019, "value": 24.1},
+      {"year": 2020, "value": 20.8},
+      {"year": 2021, "value": 17.5},
+      {"year": 2022, "value": 14.2},
+      {"year": 2023, "value": 11.0},
+      {"year": 2024, "value": 7.8}
+    ],
+    "link": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-1/"
+  },
+  {
+    "id": "ipcc_ssp5_85",
+    "name": "IPCC SSP5-8.5 High Emissions baseline",
+    "description": "Baseline scenario representing high fossil-fuel development and fossil-heavy lifestyle choices, leading to ~4.4°C warming.",
+    "unit": "Gt CO2/yr",
+    "keywords": ["emissions", "carbon", "fossil", "warming", "climate", "atmosphere"],
+    "timeseries": [
+      {"year": 2015, "value": 39.5},
+      {"year": 2016, "value": 40.2},
+      {"year": 2017, "value": 41.1},
+      {"year": 2018, "value": 42.0},
+      {"year": 2019, "value": 42.8},
+      {"year": 2020, "value": 41.5},
+      {"year": 2021, "value": 43.2},
+      {"year": 2022, "value": 44.0},
+      {"year": 2023, "value": 44.8},
+      {"year": 2024, "value": 45.5}
+    ],
+    "link": "https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-3/"
+  },
+  {
+    "id": "ipcc_carbon_budget",
+    "name": "IPCC Remaining 1.5°C Carbon Budget",
+    "description": "The estimated remaining cumulative global anthropogenic CO2 emissions allowed from 2015 to limit warming to 1.5°C with a 67% probability.",
+    "unit": "Gt CO2",
+    "keywords": ["carbon", "budget", "emissions", "policy", "climate", "atmosphere"],
+    "timeseries": [
+      {"year": 2015, "value": 550},
+      {"year": 2016, "value": 510},
+      {"year": 2017, "value": 470},
+      {"year": 2018, "value": 430},
+      {"year": 2019, "value": 390},
+      {"year": 2020, "value": 350},
+      {"year": 2021, "value": 310},
+      {"year": 2022, "value": 270},
+      {"year": 2023, "value": 230},
+      {"year": 2024, "value": 190}
+    ],
+    "link": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-5/"
+  },
+  {
+    "id": "ipcc_radiative_forcing",
+    "name": "IPCC Global Radiative Forcing Index",
+    "description": "The net change in global energy balance (incoming minus outgoing radiation) due to cumulative greenhouse gas concentrations.",
+    "unit": "W/m²",
+    "keywords": ["radiative", "forcing", "warming", "climate", "atmosphere", "emissions"],
+    "timeseries": [
+      {"year": 2015, "value": 2.52},
+      {"year": 2016, "value": 2.58},
+      {"year": 2017, "value": 2.64},
+      {"year": 2018, "value": 2.70},
+      {"year": 2019, "value": 2.76},
+      {"year": 2020, "value": 2.82},
+      {"year": 2021, "value": 2.88},
+      {"year": 2022, "value": 2.94},
+      {"year": 2023, "value": 3.00},
+      {"year": 2024, "value": 3.08}
+    ],
+    "link": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-7/"
+  }
+]

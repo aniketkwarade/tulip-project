@@ -1,0 +1,52 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const output = 'public/ipcc-global-cryosphere-impact-snapshot.json';
+const snapshot = {
+  version: 'ipcc_srocc_ar6_cryosphere_observed_impacts_v1',
+  captured_at: new Date().toISOString(),
+  source: {
+    id: 'ipcc_srocc_ar6_global_cryosphere_assessment',
+    name: 'IPCC Special Report on the Ocean and Cryosphere and AR6 WGI cryosphere assessment',
+    publisher: 'Intergovernmental Panel on Climate Change',
+    srocc_url: 'https://www.ipcc.ch/srocc/',
+    mountain_chapter_url: 'https://www.ipcc.ch/srocc/chapter/chapter-2/',
+    polar_chapter_url: 'https://www.ipcc.ch/srocc/chapter/chapter-3-2/',
+    ar6_wgi_chapter_9_url: 'https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-9/'
+  },
+  assessment: {
+    publication_years: [2019, 2021],
+    permafrost_temperature_change_c: 0.29,
+    permafrost_temperature_uncertainty_c: 0.12,
+    permafrost_change_start_year: 2007,
+    permafrost_change_end_year: 2016,
+    arctic_permafrost_global_soil_area_share_pct: 15,
+    mountain_snow_cover_duration_decline_days_per_decade: 5,
+    mountain_snow_cover_duration_decline_likely_low: 0,
+    mountain_snow_cover_duration_decline_likely_high: 10,
+    mountain_snow_observed_start_year_approx: 1950,
+    arctic_june_snow_cover_decline_pct_per_decade: 13.4,
+    arctic_june_snow_cover_decline_uncertainty_pct_per_decade: 5.4,
+    arctic_snow_observed_start_year: 1967,
+    arctic_snow_observed_end_year: 2018,
+    arctic_and_high_mountain_population_million_approx: 700,
+    black_carbon_seasonal_snow_and_sea_ice_direct_forcing_w_m2: 0.04,
+    present_land_snow_black_carbon_and_dust_radiative_effect_w_m2: 0.083,
+    present_land_snow_dust_arctic_surface_radiative_effect_w_m2: 0.292,
+    assessment_scope: 'Global cryosphere synthesis with distinct Arctic, high-mountain and global radiative-effect findings',
+    source_locators: [
+      'SROCC SPM A.1.3 and AR6 WGI Chapter 9: global permafrost temperature increased 0.29 ± 0.12 °C from 2007 to 2016.',
+      'SROCC Chapter 2: lower-elevation mountain snow-cover duration declined on average 5 days per decade since the mid-twentieth century, likely range 0-10.',
+      'SROCC Chapter 3: Arctic June snow-cover extent declined 13.4 ± 5.4 percent per decade from 1967 to 2018.',
+      'SROCC FAQ: around 700 million people live in high mountains and the Arctic in close contact with the cryosphere.',
+      'SROCC Chapter 3: global black-carbon direct radiative forcing in seasonal snow and sea ice is 0.04 W/m²; present land-snow black-carbon and dust effect is 0.083 W/m²; Arctic dust surface effect is 0.292 W/m².'
+    ]
+  },
+  provenance: 'Reviewed IPCC assessment values are transcribed with region, period, likely range and forcing boundary retained. Observed findings remain separate from projections.',
+  uncertainty: 'The assessment synthesizes heterogeneous in-situ, satellite and modeled products. Mountain trends vary by elevation and region; permafrost networks are sparse; aerosol forcing depends on snow state, deposition, albedo feedback and model representation.',
+  failure_behavior: 'Retain the last reviewed assessment and mark stale; never convert projections to observations, apply Arctic rates globally, infer local snowpack or permafrost state, or add overlapping forcing estimates.'
+};
+await fs.writeFile(path.join(ROOT, output), `${JSON.stringify(snapshot, null, 2)}\n`);
+console.log(JSON.stringify({ output, source_id: snapshot.source.id }, null, 2));

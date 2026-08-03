@@ -1,0 +1,102 @@
+{
+  "version": "1.0.0",
+  "audit_name": "TULIP Urgency v3 Shadow Assurance Audit",
+  "generated_at": "2026-08-02T16:53:18.462Z",
+  "registry_generated_at": "2026-08-02T16:53:17.702Z",
+  "method_version": "tulip_urgency_v3",
+  "calculation_version": "tulip_urgency_v2",
+  "band_version": "tulip_urgency_bands_v3_2026_08",
+  "status": "cutover_ready",
+  "scope": {
+    "issue_nodes": 354,
+    "response_nodes_excluded": 27,
+    "receipts": 354
+  },
+  "band_counts": {
+    "Low Concern": 32,
+    "Elevated": 31,
+    "Concerning": 26,
+    "High Risk": 74,
+    "Severe": 62,
+    "Critical": 80,
+    "Extreme": 49
+  },
+  "method_counts": {
+    "current_data": 96,
+    "impact_fallback": 208,
+    "modeled": 50
+  },
+  "scientific_review_counts": {
+    "approved": 354
+  },
+  "validation": {
+    "checks_passed": 15,
+    "checks_total": 15,
+    "checks": [
+      {
+        "check": "shadow_registry_is_not_production",
+        "passed": true
+      },
+      {
+        "check": "all_issue_nodes_have_one_receipt",
+        "passed": true
+      },
+      {
+        "check": "response_nodes_are_excluded",
+        "passed": true
+      },
+      {
+        "check": "all_receipts_are_computationally_valid",
+        "passed": true
+      },
+      {
+        "check": "every_receipt_has_sha256_content_hash",
+        "passed": true
+      },
+      {
+        "check": "every_receipt_has_scientific_review_state",
+        "passed": true
+      },
+      {
+        "check": "all_scores_use_a_v3_band",
+        "passed": true
+      },
+      {
+        "check": "scientific_approval_is_not_inferred_from_computation",
+        "passed": true
+      },
+      {
+        "check": "all_96_current_data_reviews_are_current",
+        "passed": true
+      },
+      {
+        "check": "all_208_impact_fallback_reviews_are_current",
+        "passed": true
+      },
+      {
+        "check": "all_50_modeled_reviews_are_current",
+        "passed": true
+      },
+      {
+        "check": "all_354_reviews_are_current",
+        "passed": true
+      },
+      {
+        "check": "ai_assisted_reviewer_type_is_disclosed",
+        "passed": true
+      },
+      {
+        "check": "human_entailment_review_is_not_implied",
+        "passed": true
+      },
+      {
+        "check": "modeled_method_audit_is_current",
+        "passed": true
+      }
+    ],
+    "computational_assessment": "passed",
+    "scientific_assessment": "all_method_review_gates_passed",
+    "reviewer_disclosure": "All 354 reviews are AI-assisted reproducible reviews, not human expert sign-off. Human entailment review was not performed.",
+    "validity_boundary": "Computational checks prove reproducibility. Scientific-review status records that the declared method and evidence passed the six review criteria; it does not prove an original measurement, modeled estimate, or scientific claim true."
+  }
+}

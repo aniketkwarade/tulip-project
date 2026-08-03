@@ -1,0 +1,110 @@
+{
+  "updated_at": "2026-07-18",
+  "version": "2026-07-18T12:51:01.946Z",
+  "snapshot_family": "ocean_observing_network_support",
+  "source": {
+    "id": "argo_ocean_observing_network",
+    "name": "Argo Ocean Observing Network",
+    "url": "https://argo.ucsd.edu/",
+    "publisher": "Argo / UC San Diego",
+    "access": "open"
+  },
+  "refresh_policy": {
+    "default_days": 35,
+    "notes": "Treat Argo as an operational ocean-observing network snapshot with open access routes and mission expansion pages, not as a single lightweight browser-side feed."
+  },
+  "use_guidance": {
+    "primary_role": "Use for oxygen, pH, ocean-state, and marine-profile support on hypoxia, deoxygenation, fisheries, and ocean carbon uptake nodes.",
+    "caution": "Argo data access is distributed across GDAC mirrors and network tools. This bundle should steer users toward official network access points rather than imply one universal JSON endpoint."
+  },
+  "overview": {
+    "title": "Argo ocean observing support",
+    "description": "Argo is an international program that collects information from inside the ocean using a fleet of robotic instruments that drift with the ocean currents and move up and down between the surface and a mid-water level.",
+    "gdac_summary": "Official GDAC access covers float metadata, trajectory, profile, and technical data through mirrored HTTP, FTP, web-service, and selection-tool routes.",
+    "bgc_summary": "BGC Argo extends the network with pH, oxygen, nitrate, chlorophyll, particle, and irradiance sensors to support ocean acidification, hypoxia, and carbon-uptake observation."
+  },
+  "tools": [
+    {
+      "id": "argo_gdac",
+      "label": "Data from GDACs",
+      "url": "https://argo.ucsd.edu/data/data-from-gdacs/",
+      "type": "data_access",
+      "access": "open"
+    },
+    {
+      "id": "argo_data_products",
+      "label": "Argo Data Products",
+      "url": "https://argo.ucsd.edu/data/argo-data-products/",
+      "type": "products",
+      "access": "open"
+    },
+    {
+      "id": "argo_data_visualizations",
+      "label": "Argo Data Visualizations",
+      "url": "https://argo.ucsd.edu/data/argo-data-visualizations/",
+      "type": "visualization",
+      "access": "open"
+    },
+    {
+      "id": "bgc_argo_mission",
+      "label": "BGC Argo Mission",
+      "url": "https://argo.ucsd.edu/expansion/biogeochemical-argo-mission/",
+      "type": "mission",
+      "access": "open"
+    }
+  ],
+  "data_access_routes": [
+    {
+      "label": "Argo Data Access overview",
+      "url": "https://www.argodatamgt.org/DataAccess.html",
+      "notes": "Official route to GDAC access, web services, DOI snapshots, and selection tools."
+    },
+    {
+      "label": "GDAC HTTP / FTP / S3 services",
+      "url": "https://www.argodatamgt.org/DataAccess.html#ftp-https-s3-data-services",
+      "notes": "Primary machine-access entry point for official NetCDF files and mirrors."
+    },
+    {
+      "label": "Argo DOI snapshots",
+      "url": "https://www.argodatamgt.org/DataAccess.html#argo-doi-digital-object-identifier",
+      "notes": "Versioned snapshots for citable, stable dataset pulls."
+    },
+    {
+      "label": "Euro-Argo data selection tool",
+      "url": "https://dataselection.euro-argo.eu/",
+      "notes": "Interactive subset selection for floats, profiles, and variables."
+    },
+    {
+      "label": "US GDAC data browser",
+      "url": "https://nrlgodae1.nrlmry.navy.mil/cgi-bin/argo_select.pl",
+      "notes": "Legacy query route surfaced from the official Argo GDAC guidance."
+    }
+  ],
+  "expansion_missions": [
+    {
+      "label": "BGC Argo Mission",
+      "url": "https://argo.ucsd.edu/expansion/biogeochemical-argo-mission/"
+    },
+    {
+      "label": "Deep Argo Mission",
+      "url": "https://argo.ucsd.edu/expansion/deep-argo-mission/"
+    },
+    {
+      "label": "Polar Argo",
+      "url": "https://argo.ucsd.edu/expansion/polar-argo/"
+    }
+  ],
+  "bgc_variables": [
+    "pH",
+    "oxygen",
+    "nitrate",
+    "chlorophyll",
+    "suspended particles",
+    "downwelling irradiance"
+  ],
+  "supported_questions": [
+    "Which marine-state nodes should inherit an official observing-network bundle rather than only a catalog or report card?",
+    "Where should oxygen-capable and pH-capable ocean observations appear for hypoxia, deoxygenation, and fisheries support?",
+    "Which ocean bundles should point to GDAC access and BGC Argo mission context without claiming a single live feed?"
+  ]
+}

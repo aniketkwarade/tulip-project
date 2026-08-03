@@ -1,0 +1,962 @@
+{
+  "version": "2026-07-31T15:05:15.489Z",
+  "updated_at": "2026-07-31",
+  "refresh_policy": {
+    "default_days": 35,
+    "notes": "These benchmark products are monthly observational updates suited to snapshot refreshes, not live real-time feeds."
+  },
+  "benchmark_family": "global_surface_temperature",
+  "use_guidance": {
+    "primary_role": "Cross-check the TULIP temperature anchor against multiple observational products while keeping annual synthesis, monthly monitoring, and satellite/catalog context distinct.",
+    "caution": "Do not collapse source differences into fake precision, and do not mix anomaly baselines as though they were numerically interchangeable. Berkeley Earth high-resolution data is marked experimental by the publisher."
+  },
+  "methodology_boundaries": {
+    "anchor_definition": "Observed global mean surface temperature anomaly anchored to annual surface records rather than to an inferred forcing proxy.",
+    "baseline_boundary": "NASA and Berkeley Earth anomalies here are relative to 1951-1980, NOAA monthly reporting often cites the 20th-century average, and WMO/Copernicus frequently cite 1850-1900 or 1991-2020 baselines. Do not collapse those baselines into fake precision.",
+    "satellite_boundary": "AIRS and related catalog surfaces add atmospheric context and discovery paths, but they are not interchangeable with the long surface-temperature record used for the anchor.",
+    "not_a_proxy": "Greenhouse-gas concentrations and radiative forcing explain upstream warming pressure, but they are not themselves the observed temperature metric."
+  },
+  "annual_synthesis": {
+    "latest_complete_year": {
+      "source_id": "wmo_state_of_global_climate_2025",
+      "name": "WMO State of the Global Climate 2025",
+      "url": "https://wmo.int/publication-series/state-of-global-climate/state-of-global-climate-2025",
+      "access": "open_web",
+      "observed_at": "2025",
+      "anomaly_c": 1.43,
+      "baseline_period": "1850-1900",
+      "ranking_note": "Second or third warmest year on record in the WMO synthesis.",
+      "statement": "WMO reports that 2025 remained about 1.43 C above the 1850-1900 average."
+    }
+  },
+  "monitoring_context": [
+    {
+      "source_id": "noaa_ncei_global_climate_june_2026",
+      "name": "NOAA NCEI Global Climate Report, June 2026",
+      "url": "https://www.ncei.noaa.gov/news/global-climate-202606",
+      "access": "open_web",
+      "cadence_note": "Monthly climate report.",
+      "observed_at": "2026-06",
+      "anomaly_c": 1.09,
+      "anomaly_f": 1.96,
+      "baseline_period": "20th-century average",
+      "ranking_note": "Second-warmest June on record globally."
+    },
+    {
+      "source_id": "copernicus_surface_air_temperature_june_2026",
+      "name": "Copernicus Climate Change Service surface air temperature bulletin, June 2026",
+      "url": "https://climate.copernicus.eu/surface-air-temperature-june-2026",
+      "access": "open_web",
+      "cadence_note": "Monthly climate bulletin.",
+      "observed_at": "2026-06",
+      "absolute_c": 16.54,
+      "anomaly_c_vs_1991_2020": 0.56,
+      "anomaly_c_vs_1850_1900": 1.39,
+      "trailing_12_month_anomaly_c_vs_1850_1900": 1.43,
+      "ranking_note": "Second-warmest June globally in the Copernicus record."
+    }
+  ],
+  "satellite_context": [
+    {
+      "source_id": "nasa_giss_airs_support",
+      "name": "NASA GISS GISTEMP v4 supporting data, including AIRS lower-troposphere context",
+      "url": "https://data.giss.nasa.gov/gistemp/data_v4.html",
+      "access": "open_download",
+      "role": "supporting_atmospheric_context",
+      "notes": "NASA documents open AIRS anomaly tables as supporting atmospheric context alongside the surface record."
+    },
+    {
+      "source_id": "nasa_earthdata_cmr_airs_collections",
+      "name": "NASA Earthdata CMR AIRS collection search",
+      "url": "https://cmr.earthdata.nasa.gov/search/collections.json?keyword=AIRS%20temperature&page_size=5",
+      "access": "open_catalog_api",
+      "role": "catalog_discovery",
+      "notes": "Open metadata API for finding AIRS-related temperature collections."
+    },
+    {
+      "source_id": "nasa_earthdata_search_airs",
+      "name": "NASA Earthdata Search AIRS collections",
+      "url": "https://search.earthdata.nasa.gov/search?q=AIRS%20temperature",
+      "access": "mixed_or_gated",
+      "needs_login": true,
+      "login_requirement": "Many granule downloads require Earthdata Login and accepted collection terms.",
+      "role": "download_and_visual_discovery",
+      "notes": "Public search surface with mixed access; download rights vary by collection."
+    }
+  ],
+  "access_surfaces": [
+    {
+      "source_id": "nasa_giss_gistemp_portal",
+      "name": "NASA GISS GISTEMP portal",
+      "surface_type": "portal",
+      "access": "open_download",
+      "url": "https://data.giss.nasa.gov/gistemp/",
+      "notes": "Open monthly and annual surface-temperature tables and graphs."
+    },
+    {
+      "source_id": "berkeley_earth_data_portal",
+      "name": "Berkeley Earth temperature data portal",
+      "surface_type": "portal",
+      "access": "open_download",
+      "url": "https://berkeleyearth.org/data/",
+      "notes": "Open monthly global land-ocean temperature downloads."
+    },
+    {
+      "source_id": "noaa_ncei_geoportal_opensearch",
+      "name": "NOAA NCEI geoportal OpenSearch",
+      "surface_type": "open_api",
+      "access": "open_api",
+      "url": "https://www.ncei.noaa.gov/metadata/granule/geoportal/opensearch?q=global%20temperature&f=json",
+      "notes": "Open metadata API surface for temperature-related datasets."
+    },
+    {
+      "source_id": "nasa_earthdata_cmr_collections_api",
+      "name": "NASA Earthdata CMR collections API",
+      "surface_type": "open_catalog_api",
+      "access": "open_catalog_api",
+      "url": "https://cmr.earthdata.nasa.gov/search/collections.json?keyword=global%20temperature&page_size=5",
+      "notes": "Open metadata search API for NASA temperature collections."
+    },
+    {
+      "source_id": "copernicus_cds_catalogue_api",
+      "name": "Copernicus CDS catalogue API",
+      "surface_type": "open_api",
+      "access": "open_api",
+      "url": "https://cds.climate.copernicus.eu/api/catalogue/v1/datasets?q=surface%20air%20temperature&limit=3",
+      "notes": "Open dataset discovery API for Copernicus Climate Data Store listings."
+    },
+    {
+      "source_id": "copernicus_cds_retrieve_api",
+      "name": "Copernicus CDS retrieve API",
+      "surface_type": "gated_api",
+      "access": "gated_api",
+      "needs_login": true,
+      "login_requirement": "Requires a CDS account, accepted dataset terms, and a ~/.cdsapirc token.",
+      "url": "https://cds.climate.copernicus.eu/how-to-api",
+      "notes": "Retrieval is authenticated even though catalogue discovery is open."
+    },
+    {
+      "source_id": "nasa_earthdata_search_portal",
+      "name": "NASA Earthdata Search portal",
+      "surface_type": "mixed_download_portal",
+      "access": "mixed_or_gated",
+      "needs_login": true,
+      "login_requirement": "Many collection downloads require Earthdata Login.",
+      "url": "https://search.earthdata.nasa.gov/",
+      "notes": "Public portal for search and preview; collection downloads may be gated."
+    }
+  ],
+  "sources": [
+    {
+      "source_id": "nasa_giss_gistemp_v4",
+      "name": "NASA GISS Surface Temperature Analysis (GISTEMP v4)",
+      "url": "https://data.giss.nasa.gov/gistemp/",
+      "download_url": "https://data.giss.nasa.gov/gistemp/tabledata_v4/GLB.Ts+dSST.txt",
+      "access": "open_download",
+      "update_cadence_note": "NASA states the graphs and tables are updated about the 10th of every month.",
+      "baseline_period": "1951-1980",
+      "methodology_note": "sources: GHCN-v4 1880-06/2026 + SST: ERSST v5 1880-06/2026",
+      "provisional": false,
+      "latest_month": {
+        "observed_at": "2026-06",
+        "anomaly_c": 1.18
+      },
+      "latest_complete_year": {
+        "observed_at": "2025",
+        "anomaly_c": 1.19
+      }
+    },
+    {
+      "source_id": "berkeley_earth_high_resolution_global_monthly",
+      "name": "Berkeley Earth High-Resolution Monthly Global Average Temperature",
+      "url": "https://berkeleyearth.org/data/",
+      "download_url": "https://storage.googleapis.com/berkeley-earth-temperature-hr/global/Global_TAVG_monthly.txt",
+      "access": "open_download",
+      "update_cadence_note": "Berkeley Earth publishes this high-resolution monthly global average as an experimental preview and notes it is subject to change.",
+      "baseline_period": "1951-1980",
+      "methodology_note": "% The land analysis was run on 12-Jul-2026 02:32:21",
+      "citation": null,
+      "provisional": true,
+      "latest_month": {
+        "observed_at": "2026-06",
+        "anomaly_c": 1.215
+      },
+      "latest_complete_year": {
+        "observed_at": "2025",
+        "anomaly_c": 1.184
+      }
+    }
+  ],
+  "giss_zonal_annual": {
+    "source_id": "nasa_giss_surface_temperature_analysis",
+    "download_url": "https://data.giss.nasa.gov/gistemp/tabledata_v4/ZonAnn.Ts+dSST.csv",
+    "baseline_period": "1951-1980",
+    "geography": "global and 64N-90N zonal annual surface-temperature anomalies",
+    "records": [
+      {
+        "year": 1880,
+        "global_anomaly_c": -0.18,
+        "arctic_64n_90n_anomaly_c": -0.79
+      },
+      {
+        "year": 1881,
+        "global_anomaly_c": -0.09,
+        "arctic_64n_90n_anomaly_c": -0.84
+      },
+      {
+        "year": 1882,
+        "global_anomaly_c": -0.11,
+        "arctic_64n_90n_anomaly_c": -1.34
+      },
+      {
+        "year": 1883,
+        "global_anomaly_c": -0.18,
+        "arctic_64n_90n_anomaly_c": -0.12
+      },
+      {
+        "year": 1884,
+        "global_anomaly_c": -0.28,
+        "arctic_64n_90n_anomaly_c": -1.25
+      },
+      {
+        "year": 1885,
+        "global_anomaly_c": -0.34,
+        "arctic_64n_90n_anomaly_c": -1.45
+      },
+      {
+        "year": 1886,
+        "global_anomaly_c": -0.32,
+        "arctic_64n_90n_anomaly_c": -1.53
+      },
+      {
+        "year": 1887,
+        "global_anomaly_c": -0.36,
+        "arctic_64n_90n_anomaly_c": -1.71
+      },
+      {
+        "year": 1888,
+        "global_anomaly_c": -0.18,
+        "arctic_64n_90n_anomaly_c": -1.25
+      },
+      {
+        "year": 1889,
+        "global_anomaly_c": -0.11,
+        "arctic_64n_90n_anomaly_c": -0.63
+      },
+      {
+        "year": 1890,
+        "global_anomaly_c": -0.36,
+        "arctic_64n_90n_anomaly_c": -1.09
+      },
+      {
+        "year": 1891,
+        "global_anomaly_c": -0.23,
+        "arctic_64n_90n_anomaly_c": -1.05
+      },
+      {
+        "year": 1892,
+        "global_anomaly_c": -0.27,
+        "arctic_64n_90n_anomaly_c": -1.07
+      },
+      {
+        "year": 1893,
+        "global_anomaly_c": -0.31,
+        "arctic_64n_90n_anomaly_c": -0.61
+      },
+      {
+        "year": 1894,
+        "global_anomaly_c": -0.3,
+        "arctic_64n_90n_anomaly_c": -0.91
+      },
+      {
+        "year": 1895,
+        "global_anomaly_c": -0.23,
+        "arctic_64n_90n_anomaly_c": -0.65
+      },
+      {
+        "year": 1896,
+        "global_anomaly_c": -0.12,
+        "arctic_64n_90n_anomaly_c": -0.85
+      },
+      {
+        "year": 1897,
+        "global_anomaly_c": -0.11,
+        "arctic_64n_90n_anomaly_c": -0.53
+      },
+      {
+        "year": 1898,
+        "global_anomaly_c": -0.28,
+        "arctic_64n_90n_anomaly_c": -1.14
+      },
+      {
+        "year": 1899,
+        "global_anomaly_c": -0.18,
+        "arctic_64n_90n_anomaly_c": -0.99
+      },
+      {
+        "year": 1900,
+        "global_anomaly_c": -0.09,
+        "arctic_64n_90n_anomaly_c": -0.51
+      },
+      {
+        "year": 1901,
+        "global_anomaly_c": -0.15,
+        "arctic_64n_90n_anomaly_c": -0.31
+      },
+      {
+        "year": 1902,
+        "global_anomaly_c": -0.28,
+        "arctic_64n_90n_anomaly_c": -1.47
+      },
+      {
+        "year": 1903,
+        "global_anomaly_c": -0.37,
+        "arctic_64n_90n_anomaly_c": -0.18
+      },
+      {
+        "year": 1904,
+        "global_anomaly_c": -0.48,
+        "arctic_64n_90n_anomaly_c": -0.17
+      },
+      {
+        "year": 1905,
+        "global_anomaly_c": -0.27,
+        "arctic_64n_90n_anomaly_c": 0
+      },
+      {
+        "year": 1906,
+        "global_anomaly_c": -0.23,
+        "arctic_64n_90n_anomaly_c": -0.23
+      },
+      {
+        "year": 1907,
+        "global_anomaly_c": -0.39,
+        "arctic_64n_90n_anomaly_c": -0.54
+      },
+      {
+        "year": 1908,
+        "global_anomaly_c": -0.43,
+        "arctic_64n_90n_anomaly_c": -0.2
+      },
+      {
+        "year": 1909,
+        "global_anomaly_c": -0.49,
+        "arctic_64n_90n_anomaly_c": -0.69
+      },
+      {
+        "year": 1910,
+        "global_anomaly_c": -0.44,
+        "arctic_64n_90n_anomaly_c": -0.58
+      },
+      {
+        "year": 1911,
+        "global_anomaly_c": -0.45,
+        "arctic_64n_90n_anomaly_c": -0.25
+      },
+      {
+        "year": 1912,
+        "global_anomaly_c": -0.37,
+        "arctic_64n_90n_anomaly_c": -0.48
+      },
+      {
+        "year": 1913,
+        "global_anomaly_c": -0.35,
+        "arctic_64n_90n_anomaly_c": -0.45
+      },
+      {
+        "year": 1914,
+        "global_anomaly_c": -0.16,
+        "arctic_64n_90n_anomaly_c": -0.32
+      },
+      {
+        "year": 1915,
+        "global_anomaly_c": -0.15,
+        "arctic_64n_90n_anomaly_c": -0.56
+      },
+      {
+        "year": 1916,
+        "global_anomaly_c": -0.36,
+        "arctic_64n_90n_anomaly_c": -0.48
+      },
+      {
+        "year": 1917,
+        "global_anomaly_c": -0.46,
+        "arctic_64n_90n_anomaly_c": -0.77
+      },
+      {
+        "year": 1918,
+        "global_anomaly_c": -0.3,
+        "arctic_64n_90n_anomaly_c": -0.97
+      },
+      {
+        "year": 1919,
+        "global_anomaly_c": -0.28,
+        "arctic_64n_90n_anomaly_c": -0.66
+      },
+      {
+        "year": 1920,
+        "global_anomaly_c": -0.28,
+        "arctic_64n_90n_anomaly_c": 0.01
+      },
+      {
+        "year": 1921,
+        "global_anomaly_c": -0.19,
+        "arctic_64n_90n_anomaly_c": 0.01
+      },
+      {
+        "year": 1922,
+        "global_anomaly_c": -0.29,
+        "arctic_64n_90n_anomaly_c": -0.25
+      },
+      {
+        "year": 1923,
+        "global_anomaly_c": -0.27,
+        "arctic_64n_90n_anomaly_c": 0.22
+      },
+      {
+        "year": 1924,
+        "global_anomaly_c": -0.27,
+        "arctic_64n_90n_anomaly_c": 0.55
+      },
+      {
+        "year": 1925,
+        "global_anomaly_c": -0.22,
+        "arctic_64n_90n_anomaly_c": -0.03
+      },
+      {
+        "year": 1926,
+        "global_anomaly_c": -0.11,
+        "arctic_64n_90n_anomaly_c": 0.58
+      },
+      {
+        "year": 1927,
+        "global_anomaly_c": -0.22,
+        "arctic_64n_90n_anomaly_c": 0.04
+      },
+      {
+        "year": 1928,
+        "global_anomaly_c": -0.2,
+        "arctic_64n_90n_anomaly_c": 0.67
+      },
+      {
+        "year": 1929,
+        "global_anomaly_c": -0.36,
+        "arctic_64n_90n_anomaly_c": 0.13
+      },
+      {
+        "year": 1930,
+        "global_anomaly_c": -0.16,
+        "arctic_64n_90n_anomaly_c": 0.51
+      },
+      {
+        "year": 1931,
+        "global_anomaly_c": -0.1,
+        "arctic_64n_90n_anomaly_c": 0.57
+      },
+      {
+        "year": 1932,
+        "global_anomaly_c": -0.16,
+        "arctic_64n_90n_anomaly_c": 0.46
+      },
+      {
+        "year": 1933,
+        "global_anomaly_c": -0.29,
+        "arctic_64n_90n_anomaly_c": -0.15
+      },
+      {
+        "year": 1934,
+        "global_anomaly_c": -0.13,
+        "arctic_64n_90n_anomaly_c": 0.89
+      },
+      {
+        "year": 1935,
+        "global_anomaly_c": -0.2,
+        "arctic_64n_90n_anomaly_c": 0.33
+      },
+      {
+        "year": 1936,
+        "global_anomaly_c": -0.15,
+        "arctic_64n_90n_anomaly_c": 0.41
+      },
+      {
+        "year": 1937,
+        "global_anomaly_c": -0.03,
+        "arctic_64n_90n_anomaly_c": 1.23
+      },
+      {
+        "year": 1938,
+        "global_anomaly_c": 0,
+        "arctic_64n_90n_anomaly_c": 1.53
+      },
+      {
+        "year": 1939,
+        "global_anomaly_c": -0.02,
+        "arctic_64n_90n_anomaly_c": 0.56
+      },
+      {
+        "year": 1940,
+        "global_anomaly_c": 0.12,
+        "arctic_64n_90n_anomaly_c": 0.99
+      },
+      {
+        "year": 1941,
+        "global_anomaly_c": 0.18,
+        "arctic_64n_90n_anomaly_c": 0.02
+      },
+      {
+        "year": 1942,
+        "global_anomaly_c": 0.06,
+        "arctic_64n_90n_anomaly_c": 0.72
+      },
+      {
+        "year": 1943,
+        "global_anomaly_c": 0.09,
+        "arctic_64n_90n_anomaly_c": 1.43
+      },
+      {
+        "year": 1944,
+        "global_anomaly_c": 0.2,
+        "arctic_64n_90n_anomaly_c": 1.18
+      },
+      {
+        "year": 1945,
+        "global_anomaly_c": 0.09,
+        "arctic_64n_90n_anomaly_c": 0.66
+      },
+      {
+        "year": 1946,
+        "global_anomaly_c": -0.07,
+        "arctic_64n_90n_anomaly_c": -0.03
+      },
+      {
+        "year": 1947,
+        "global_anomaly_c": -0.03,
+        "arctic_64n_90n_anomaly_c": 1.07
+      },
+      {
+        "year": 1948,
+        "global_anomaly_c": -0.11,
+        "arctic_64n_90n_anomaly_c": 0.12
+      },
+      {
+        "year": 1949,
+        "global_anomaly_c": -0.11,
+        "arctic_64n_90n_anomaly_c": 0.2
+      },
+      {
+        "year": 1950,
+        "global_anomaly_c": -0.17,
+        "arctic_64n_90n_anomaly_c": 0.18
+      },
+      {
+        "year": 1951,
+        "global_anomaly_c": -0.07,
+        "arctic_64n_90n_anomaly_c": 0.07
+      },
+      {
+        "year": 1952,
+        "global_anomaly_c": 0.01,
+        "arctic_64n_90n_anomaly_c": 0.27
+      },
+      {
+        "year": 1953,
+        "global_anomaly_c": 0.08,
+        "arctic_64n_90n_anomaly_c": 1.03
+      },
+      {
+        "year": 1954,
+        "global_anomaly_c": -0.13,
+        "arctic_64n_90n_anomaly_c": 0.8
+      },
+      {
+        "year": 1955,
+        "global_anomaly_c": -0.14,
+        "arctic_64n_90n_anomaly_c": -0.23
+      },
+      {
+        "year": 1956,
+        "global_anomaly_c": -0.19,
+        "arctic_64n_90n_anomaly_c": 0.01
+      },
+      {
+        "year": 1957,
+        "global_anomaly_c": 0.05,
+        "arctic_64n_90n_anomaly_c": 0.09
+      },
+      {
+        "year": 1958,
+        "global_anomaly_c": 0.06,
+        "arctic_64n_90n_anomaly_c": -0.18
+      },
+      {
+        "year": 1959,
+        "global_anomaly_c": 0.03,
+        "arctic_64n_90n_anomaly_c": 0.49
+      },
+      {
+        "year": 1960,
+        "global_anomaly_c": -0.02,
+        "arctic_64n_90n_anomaly_c": 0.34
+      },
+      {
+        "year": 1961,
+        "global_anomaly_c": 0.06,
+        "arctic_64n_90n_anomaly_c": -0.16
+      },
+      {
+        "year": 1962,
+        "global_anomaly_c": 0.03,
+        "arctic_64n_90n_anomaly_c": 0.44
+      },
+      {
+        "year": 1963,
+        "global_anomaly_c": 0.05,
+        "arctic_64n_90n_anomaly_c": -0.16
+      },
+      {
+        "year": 1964,
+        "global_anomaly_c": -0.2,
+        "arctic_64n_90n_anomaly_c": -0.66
+      },
+      {
+        "year": 1965,
+        "global_anomaly_c": -0.11,
+        "arctic_64n_90n_anomaly_c": -0.28
+      },
+      {
+        "year": 1966,
+        "global_anomaly_c": -0.06,
+        "arctic_64n_90n_anomaly_c": -0.76
+      },
+      {
+        "year": 1967,
+        "global_anomaly_c": -0.02,
+        "arctic_64n_90n_anomaly_c": 0.36
+      },
+      {
+        "year": 1968,
+        "global_anomaly_c": -0.08,
+        "arctic_64n_90n_anomaly_c": -0.33
+      },
+      {
+        "year": 1969,
+        "global_anomaly_c": 0.05,
+        "arctic_64n_90n_anomaly_c": -0.03
+      },
+      {
+        "year": 1970,
+        "global_anomaly_c": 0.03,
+        "arctic_64n_90n_anomaly_c": -0.2
+      },
+      {
+        "year": 1971,
+        "global_anomaly_c": -0.08,
+        "arctic_64n_90n_anomaly_c": -0.08
+      },
+      {
+        "year": 1972,
+        "global_anomaly_c": 0.01,
+        "arctic_64n_90n_anomaly_c": -0.37
+      },
+      {
+        "year": 1973,
+        "global_anomaly_c": 0.16,
+        "arctic_64n_90n_anomaly_c": 0.06
+      },
+      {
+        "year": 1974,
+        "global_anomaly_c": -0.07,
+        "arctic_64n_90n_anomaly_c": -0.19
+      },
+      {
+        "year": 1975,
+        "global_anomaly_c": -0.01,
+        "arctic_64n_90n_anomaly_c": 0.1
+      },
+      {
+        "year": 1976,
+        "global_anomaly_c": -0.1,
+        "arctic_64n_90n_anomaly_c": -0.08
+      },
+      {
+        "year": 1977,
+        "global_anomaly_c": 0.18,
+        "arctic_64n_90n_anomaly_c": 0.16
+      },
+      {
+        "year": 1978,
+        "global_anomaly_c": 0.07,
+        "arctic_64n_90n_anomaly_c": -0.16
+      },
+      {
+        "year": 1979,
+        "global_anomaly_c": 0.16,
+        "arctic_64n_90n_anomaly_c": -0.61
+      },
+      {
+        "year": 1980,
+        "global_anomaly_c": 0.25,
+        "arctic_64n_90n_anomaly_c": 0.26
+      },
+      {
+        "year": 1981,
+        "global_anomaly_c": 0.32,
+        "arctic_64n_90n_anomaly_c": 1.09
+      },
+      {
+        "year": 1982,
+        "global_anomaly_c": 0.14,
+        "arctic_64n_90n_anomaly_c": -0.4
+      },
+      {
+        "year": 1983,
+        "global_anomaly_c": 0.31,
+        "arctic_64n_90n_anomaly_c": 0.18
+      },
+      {
+        "year": 1984,
+        "global_anomaly_c": 0.15,
+        "arctic_64n_90n_anomaly_c": 0.36
+      },
+      {
+        "year": 1985,
+        "global_anomaly_c": 0.12,
+        "arctic_64n_90n_anomaly_c": 0.39
+      },
+      {
+        "year": 1986,
+        "global_anomaly_c": 0.18,
+        "arctic_64n_90n_anomaly_c": 0.01
+      },
+      {
+        "year": 1987,
+        "global_anomaly_c": 0.32,
+        "arctic_64n_90n_anomaly_c": -0.36
+      },
+      {
+        "year": 1988,
+        "global_anomaly_c": 0.39,
+        "arctic_64n_90n_anomaly_c": 0.59
+      },
+      {
+        "year": 1989,
+        "global_anomaly_c": 0.27,
+        "arctic_64n_90n_anomaly_c": 0.33
+      },
+      {
+        "year": 1990,
+        "global_anomaly_c": 0.45,
+        "arctic_64n_90n_anomaly_c": 0.58
+      },
+      {
+        "year": 1991,
+        "global_anomaly_c": 0.41,
+        "arctic_64n_90n_anomaly_c": 0.75
+      },
+      {
+        "year": 1992,
+        "global_anomaly_c": 0.22,
+        "arctic_64n_90n_anomaly_c": -0.17
+      },
+      {
+        "year": 1993,
+        "global_anomaly_c": 0.23,
+        "arctic_64n_90n_anomaly_c": 0.54
+      },
+      {
+        "year": 1994,
+        "global_anomaly_c": 0.31,
+        "arctic_64n_90n_anomaly_c": 0.34
+      },
+      {
+        "year": 1995,
+        "global_anomaly_c": 0.44,
+        "arctic_64n_90n_anomaly_c": 1.31
+      },
+      {
+        "year": 1996,
+        "global_anomaly_c": 0.33,
+        "arctic_64n_90n_anomaly_c": 0.76
+      },
+      {
+        "year": 1997,
+        "global_anomaly_c": 0.46,
+        "arctic_64n_90n_anomaly_c": 0.76
+      },
+      {
+        "year": 1998,
+        "global_anomaly_c": 0.61,
+        "arctic_64n_90n_anomaly_c": 0.86
+      },
+      {
+        "year": 1999,
+        "global_anomaly_c": 0.38,
+        "arctic_64n_90n_anomaly_c": 0.4
+      },
+      {
+        "year": 2000,
+        "global_anomaly_c": 0.39,
+        "arctic_64n_90n_anomaly_c": 0.97
+      },
+      {
+        "year": 2001,
+        "global_anomaly_c": 0.53,
+        "arctic_64n_90n_anomaly_c": 1.06
+      },
+      {
+        "year": 2002,
+        "global_anomaly_c": 0.63,
+        "arctic_64n_90n_anomaly_c": 1.25
+      },
+      {
+        "year": 2003,
+        "global_anomaly_c": 0.61,
+        "arctic_64n_90n_anomaly_c": 1.5
+      },
+      {
+        "year": 2004,
+        "global_anomaly_c": 0.53,
+        "arctic_64n_90n_anomaly_c": 0.46
+      },
+      {
+        "year": 2005,
+        "global_anomaly_c": 0.68,
+        "arctic_64n_90n_anomaly_c": 1.99
+      },
+      {
+        "year": 2006,
+        "global_anomaly_c": 0.64,
+        "arctic_64n_90n_anomaly_c": 1.76
+      },
+      {
+        "year": 2007,
+        "global_anomaly_c": 0.66,
+        "arctic_64n_90n_anomaly_c": 2.09
+      },
+      {
+        "year": 2008,
+        "global_anomaly_c": 0.54,
+        "arctic_64n_90n_anomaly_c": 1.53
+      },
+      {
+        "year": 2009,
+        "global_anomaly_c": 0.66,
+        "arctic_64n_90n_anomaly_c": 1.42
+      },
+      {
+        "year": 2010,
+        "global_anomaly_c": 0.72,
+        "arctic_64n_90n_anomaly_c": 2.24
+      },
+      {
+        "year": 2011,
+        "global_anomaly_c": 0.61,
+        "arctic_64n_90n_anomaly_c": 2.32
+      },
+      {
+        "year": 2012,
+        "global_anomaly_c": 0.65,
+        "arctic_64n_90n_anomaly_c": 2.13
+      },
+      {
+        "year": 2013,
+        "global_anomaly_c": 0.68,
+        "arctic_64n_90n_anomaly_c": 1.54
+      },
+      {
+        "year": 2014,
+        "global_anomaly_c": 0.75,
+        "arctic_64n_90n_anomaly_c": 2.06
+      },
+      {
+        "year": 2015,
+        "global_anomaly_c": 0.9,
+        "arctic_64n_90n_anomaly_c": 2.02
+      },
+      {
+        "year": 2016,
+        "global_anomaly_c": 1.01,
+        "arctic_64n_90n_anomaly_c": 3.26
+      },
+      {
+        "year": 2017,
+        "global_anomaly_c": 0.91,
+        "arctic_64n_90n_anomaly_c": 2.51
+      },
+      {
+        "year": 2018,
+        "global_anomaly_c": 0.85,
+        "arctic_64n_90n_anomaly_c": 2.17
+      },
+      {
+        "year": 2019,
+        "global_anomaly_c": 0.98,
+        "arctic_64n_90n_anomaly_c": 2.77
+      },
+      {
+        "year": 2020,
+        "global_anomaly_c": 1.01,
+        "arctic_64n_90n_anomaly_c": 2.86
+      },
+      {
+        "year": 2021,
+        "global_anomaly_c": 0.85,
+        "arctic_64n_90n_anomaly_c": 2.08
+      },
+      {
+        "year": 2022,
+        "global_anomaly_c": 0.89,
+        "arctic_64n_90n_anomaly_c": 2.36
+      },
+      {
+        "year": 2023,
+        "global_anomaly_c": 1.17,
+        "arctic_64n_90n_anomaly_c": 2.57
+      },
+      {
+        "year": 2024,
+        "global_anomaly_c": 1.28,
+        "arctic_64n_90n_anomaly_c": 2.91
+      },
+      {
+        "year": 2025,
+        "global_anomaly_c": 1.19,
+        "arctic_64n_90n_anomaly_c": 2.98
+      }
+    ]
+  },
+  "cross_check": {
+    "annual_alignment": {
+      "comparable_year": "2025",
+      "spread_c": 0.006,
+      "values": [
+        {
+          "source_id": "nasa_giss_gistemp_v4",
+          "observed_at": "2025",
+          "anomaly_c": 1.19
+        },
+        {
+          "source_id": "berkeley_earth_high_resolution_global_monthly",
+          "observed_at": "2025",
+          "anomaly_c": 1.184
+        }
+      ]
+    },
+    "monthly_alignment": {
+      "comparable_month": "2026-06",
+      "spread_c": 0.035,
+      "values": [
+        {
+          "source_id": "nasa_giss_gistemp_v4",
+          "observed_at": "2026-06",
+          "anomaly_c": 1.18
+        },
+        {
+          "source_id": "berkeley_earth_high_resolution_global_monthly",
+          "observed_at": "2026-06",
+          "anomaly_c": 1.215
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_11_noaa_odgi_eesc_burden",
+  "generated_at": "2026-07-31T22:57:30.859Z",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "cfc_saturated_layers",
+      "value": 5.9,
+      "band": "Rising",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "magnitude": 0.5845,
+        "threshold": 0.716,
+        "momentum": 0,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_midlatitude_odgi": 45.3,
+          "latest_antarctic_odgi": 71.6,
+          "equal_domain_mean_odgi": 58.45,
+          "normalized_value": 0.5845,
+          "formula": "mean(ODGI-ML, ODGI-A) / 100",
+          "source_scale": "NOAA defines 0 as the 1980 EESC recovery benchmark and 100 as peak EESC.",
+          "complete_paired_annual_observations": 33,
+          "source_locator": "https://gml.noaa.gov/hats/odgi.html"
+        },
+        "threshold": {
+          "most_stressed_domain": "antarctic",
+          "maximum_current_domain_odgi": 71.6,
+          "normalized_value": 0.716,
+          "formula": "max(ODGI-ML, ODGI-A) / 100",
+          "threshold_basis": "source_defined_peak_to_1980_recovery_scale",
+          "source_locator": "https://gml.noaa.gov/hats/odgi.html"
+        },
+        "momentum": {
+          "latest_annual_change_in_equal_domain_mean_odgi": -1.55,
+          "annual_change_observations": 32,
+          "anchors": [
+            -1.525,
+            -0.65,
+            3.025,
+            5.8075
+          ],
+          "direction": "higher_or_less_negative_is_worse",
+          "source_locator": "https://gml.noaa.gov/hats/odgi.html"
+        },
+        "extent": {
+          "geography": "global lower atmosphere with Antarctic and both-hemisphere mid-latitude stratospheric burden estimates",
+          "normalized_value": 1,
+          "definition": "NOAA derives hemispheric and global surface means from remote sites; the lower atmosphere is well mixed, and the source provides ODGI for the two distinct primary stratospheric regions while stating that Arctic ODGI is expected to lie between them.",
+          "source_locator": "https://gml.noaa.gov/hats/odgi.html"
+        },
+        "latest_eesc_ppt": {
+          "midlatitude": 1511,
+          "antarctic": 3583
+        },
+        "source_snapshot": {
+          "path": "public/noaa-gml-benchmarks.json",
+          "version": "2026-07-31T15:12:02.995Z",
+          "updated_at": "2026-07-31",
+          "release_cycle": "Fall 2024",
+          "source_history_start": 1992,
+          "source_history_end": 2024,
+          "antarctic_csv_url": "https://gml.noaa.gov/odgi/odgi_table1.csv",
+          "midlatitude_csv_url": "https://gml.noaa.gov/odgi/odgi_table2.csv"
+        }
+      },
+      "transformations": [
+        {
+          "type": "source_defined_odgi_normalization",
+          "formula": "Retain NOAA ODGI, already normalized from zero at the 1980 EESC benchmark to 100 at peak EESC; average the two published domains for magnitude and retain the worse domain for threshold proximity."
+        },
+        {
+          "type": "historical_distribution_momentum_normalization",
+          "formula": "Map annual change in the paired-domain mean ODGI through median / p75 / p90 / p97.5 anchors from the complete 1992–2024 series; larger or less-negative changes are worse."
+        }
+      ],
+      "source_ids": [
+        "noaa_global_monitoring_laboratory"
+      ],
+      "uncertainty": "EESC is inferred from measured global mean lower-tropospheric abundances using region-specific transport, mixing, fractional-release and bromine-efficiency assumptions. NOAA notes that a newer EESC formulation would indicate less mid-latitude recovery and that ODGI excludes short-lived halogenated substances not controlled by the Montreal Protocol.",
+      "freshness": "Annual NOAA ODGI/EESC history through 2024; benchmark snapshot refreshed 2026-07-31.",
+      "selection_reason": {
+        "selected_method_passed": "NOAA supplies 33 complete paired annual observations of the node's exact ozone-depleting-substance burden metric, a source-defined recovery/peak scale, current EESC and ODGI for two stratospheric domains, annual momentum, and global-mean observational coverage.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:ff1c189d"
+    }
+  ]
+}

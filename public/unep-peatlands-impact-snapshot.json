@@ -1,0 +1,52 @@
+{
+  "version": "unep_global_peatlands_assessment_2022_2024_snapshot_v1",
+  "captured_at": "2026-07-31T16:51:27.997Z",
+  "source": {
+    "id": "unep_global_peatlands_assessment_2022",
+    "name": "UNEP Global Peatlands Assessment and Global Peatland Hotspot Atlas",
+    "publisher": "United Nations Environment Programme and Global Peatlands Initiative",
+    "assessment_year": 2022,
+    "atlas_year": 2024,
+    "assessment_url": "https://www.unep.org/resources/global-peatlands-assessment-2022",
+    "atlas_release_url": "https://www.unep.org/news-and-stories/press-release/peatlands-degrading-177-countries-putting-climate-goals-risk",
+    "economics_release_url": "https://www.unep.org/news-and-stories/press-release/conserve-and-restore-peatlands-slash-global-emissions-new-report"
+  },
+  "ingestion_job_id": "export_unep_peatlands_impact_snapshot",
+  "metric_contract_ids": [
+    "peatland_condition_and_drained_area"
+  ],
+  "contract_bindings": [
+    {
+      "node_id": "peatland_degradations",
+      "metric_id": "peatland_condition_and_drained_area",
+      "measurement_role": "global_assessment_accumulated_impact_primary"
+    }
+  ],
+  "cadence": "Refresh when UNEP publishes a new global peatland assessment or hotspot atlas.",
+  "provenance": "Reviewed source-reported values from UNEP global assessment, atlas and economics releases. The snapshot keeps damaged share, annual loss, emissions contribution, remediation financing and country extent as separate quantities.",
+  "uncertainty": "Global peatland mapping and condition inventories remain incomplete. Degraded-area share, annual hotspot loss, emissions attribution, financing requirements and national peatland presence have different assessment years and methods. Required investment is a remediation requirement, not observed economic damage.",
+  "failure_behavior": "Retain the last reviewed assessment and mark stale; reject changed units or unreconciled geography counts; never infer burned area, affected population, realized monetary damage or a continuous annual history from assessment totals.",
+  "assessment": {
+    "assessment_year": 2022,
+    "atlas_year": 2024,
+    "global_land_surface_share_range_pct": [
+      3,
+      4
+    ],
+    "global_soil_carbon_share_upper_bound": 0.333333,
+    "drained_or_degraded_current_peatlands_pct": 12,
+    "annual_human_induced_emissions_share_pct": 4,
+    "intact_peatland_destroyed_annually_hectares": 500000,
+    "intact_peatland_destroyed_annually_pct": 0.1,
+    "countries_with_peatlands": 177,
+    "un_member_states": 193,
+    "annual_conservation_and_restoration_investment_need_usd_billion_upper_bound": 46,
+    "tropical_restoration_emissions_reduction_potential_million_tonnes_per_year": 800,
+    "geography_boundary": "Global assessments spanning peatlands reported in 177 of 193 United Nations Member States",
+    "source_locators": [
+      "UNEP Global Peatlands Assessment 2022 publication summary",
+      "UNEP Global Peatland Hotspot Atlas 2024 press release",
+      "UNEP Economics of Peatlands 2021 press release"
+    ]
+  }
+}

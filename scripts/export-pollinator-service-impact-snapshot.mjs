@@ -1,0 +1,55 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+
+const OUTPUT_PATH = path.resolve('public/pollinator-service-impact-snapshot.json');
+const snapshot = {
+  version: 'global_pollinator_service_impact_v1',
+  captured_at: new Date().toISOString(),
+  source: {
+    id: 'global_pollinator_deficits_and_health_burden_study',
+    name: 'Pollinator Deficits, Food Consumption, and Consequences for Human Health',
+    publisher: 'Environmental Health Perspectives / National Institute of Environmental Health Sciences',
+    url: 'https://pubmed.ncbi.nlm.nih.gov/36515549/',
+    doi: '10.1289/EHP10947',
+    assessment_context_url: 'https://files.ipbes.net/ipbes-web-prod-public-files/downloads/pdf/Decision_IPBES_4_1_EN.pdf'
+  },
+  ingestion_job_id: 'export_pollinator_service_impact_snapshot',
+  metric_contract_ids: ['crop_pollination_service_deficit'],
+  contract_bindings: [{
+    node_id: 'pollinator_service_decline',
+    metric_id: 'crop_pollination_service_deficit',
+    measurement_role: 'global_current_pollination_deficit_crop_and_health_burden_assessment'
+  }],
+  cadence: 'Annual literature and IPBES assessment review; replace only with a globally comparable updated burden study.',
+  provenance: 'Peer-reviewed global burden study indexed by the US National Library of Medicine, paired with the IPBES pollination assessment for scope and interpretation. Point estimates and uncertainty intervals are retained separately.',
+  uncertainty: 'The crop losses and mortality burden are modeled estimates, not direct global observations. Climate-specific attainable yields, empirical pollinator attribution, trade, food waste, dietary response, comparative-risk functions and country data affect the estimates. The health interval is wide and the study does not establish a global pollinator abundance trend.',
+  failure_behavior: 'Retain the last reviewed assessment and mark stale. Reject studies without a global crop-and-health boundary. Never treat the uncertainty interval as observed counts, score the IPBES value of all pollination-dependent production as realized loss, or infer global colony collapse from regional observations.',
+  assessment: {
+    publication_year: 2022,
+    burden_period_years: 1,
+    pollinator_dependent_crops_modeled: 63,
+    fruit_production_loss_pct: { midpoint: 4.7, lower_95_ui: 0.8, upper_95_ui: 7.1 },
+    vegetable_production_loss_pct: { midpoint: 3.2, lower_95_ui: 0.4, upper_95_ui: 5.3 },
+    nut_production_loss_pct: { midpoint: 4.7, lower_95_ui: 0.5, upper_95_ui: 6.9 },
+    headline_crop_production_loss_pct: { lower: 3, midpoint: 4, upper: 5 },
+    annual_excess_deaths: { midpoint: 427000, lower_95_ui: 86000, upper_95_ui: 691000 },
+    global_extent_normalized: 1,
+    geographic_scope: 'Global crop production, trade, consumption and comparative health burden by country',
+    source_locators: [
+      'PubMed abstract results: globally, 3-5% of fruit, vegetable and nut production was calculated as lost due to inadequate pollination.',
+      'PubMed abstract results: estimated 427,000 annual excess deaths, with a 95% uncertainty interval of 86,000-691,000.',
+      'Full study methods: 63 major pollinator-dependent crops were evaluated through crop-yield-gap, pollination-attribution, trade and comparative-risk models.',
+      'IPBES summary for policymakers: more than three quarters of leading global food crop types rely to some extent on animal pollination; global wild-pollinator trend data remain incomplete.'
+    ]
+  },
+  excluded_from_scoring: [
+    'US$235-577 billion value of production attributable to pollination',
+    'hypothetical total-pollinator-loss welfare estimates',
+    'three-country economic-loss case studies',
+    'regional colony-loss rates',
+    'uncertainty bounds treated as observations'
+  ]
+};
+
+await fs.writeFile(OUTPUT_PATH, `${JSON.stringify(snapshot, null, 2)}\n`);
+console.log(JSON.stringify({ output: OUTPUT_PATH, modeled_crops: snapshot.assessment.pollinator_dependent_crops_modeled }, null, 2));

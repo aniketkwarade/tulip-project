@@ -1,0 +1,57 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+
+const snapshot = {
+  version: 'global_airport_coastal_flood_impact_2021_v1',
+  captured_at: '2026-08-01T00:00:00.000Z',
+  sources: [
+    {
+      id: 'yesudian_dawson_global_airport_slr_risk_2021',
+      name: 'Global analysis of sea level rise risk to airports',
+      publisher: 'Climate Risk Management',
+      url: 'https://eprints.ncl.ac.uk/272631',
+      doi: '10.1016/j.crm.2020.100266'
+    }
+  ],
+  assessment: {
+    study: {
+      publication_year: 2021,
+      baseline_label: 'Base (current sea level)',
+      airport_and_helipad_locations: 14110,
+      commercial_routes: 34793,
+      global_regions_reported: 8,
+      future_assessment_end_year: 2100,
+      adaptation_design_life_years: 80
+    },
+    present_coastal_flood_exposure: {
+      airports_at_risk: 269,
+      airports_at_risk_share_pct: 1.906449,
+      expected_annual_route_disruptions: 51.87,
+      routes_connected_to_at_risk_airports: 2947,
+      routes_connected_to_at_risk_airports_share_pct: 8.5,
+      regions_with_at_risk_airports: 8,
+      flood_protection_risk_reduction_factor: 23
+    },
+    low_elevation_coastal_zone_context: {
+      airports: 1238,
+      routes_connected_to_airports_share_pct: 42.6,
+      airports_with_five_or_fewer_commercial_routes: 995,
+      scoring_boundary: 'Context only: these airports are in the low-elevation coastal zone but are not all assigned present flood risk, so the broader counts do not supply the burden component.'
+    }
+  },
+  uncertainty: 'This is a global coastal-flood risk assessment, not a record of realized airport closures and not a complete multi-hazard airport-climate inventory. Airport elevations come from OpenFlights, regional flood protection standards are assigned from FLOPROS, and route count is used because globally comparable passenger and cargo volumes were unavailable. The score therefore applies only to airport climate exposure and does not promote the separate airport operational disruption node.'
+};
+
+await fs.writeFile(
+  path.join(ROOT, 'public/global-airport-coastal-flood-impact-snapshot.json'),
+  `${JSON.stringify(snapshot, null, 2)}\n`
+);
+
+console.log(JSON.stringify({
+  output: 'public/global-airport-coastal-flood-impact-snapshot.json',
+  version: snapshot.version,
+  source_count: snapshot.sources.length
+}, null, 2));

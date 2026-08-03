@@ -1,0 +1,943 @@
+{
+  "version": "ceds_v2024_04_01_global_sector_fuel_co2_v1",
+  "captured_at": "2026-08-01T00:00:00.000Z",
+  "metric_contract_ids": [
+    "carbon_pathway_commercial_gas_heat_co2",
+    "carbon_pathway_residential_gas_heat_co2",
+    "carbon_pathway_oil_building_heat_co2",
+    "carbon_pathway_oil_power_co2_output"
+  ],
+  "record_count": 212,
+  "source": {
+    "id": "ceds_v2024_04_01_release_emission_data",
+    "url": "https://zenodo.org/records/10904361",
+    "release_date": "2024-04-01",
+    "archive_file": "CEDS_v_2024_04_01_aggregate.zip",
+    "archive_md5": "636752881e915244bb96b4793d9fb121",
+    "archive_sha256": "913237080a65c9166a0270b9765bb1489701c125aebe0f512f0da2634098d04e",
+    "member_file": "CO2_CEDS_global_emissions_by_sector_fuel_v2024_04_01.csv",
+    "member_sha256": "5568aba2a7a83d5d8a2a658cc0e2e9956470cd70caf3c3bb640493afcb9e1fac"
+  },
+  "metrics": {
+    "commercial_gas_heat_co2": {
+      "metric_id": "carbon_pathway_commercial_gas_heat_co2",
+      "sectors": [
+        "1A4a_Commercial-institutional"
+      ],
+      "fuels": [
+        "natural_gas"
+      ],
+      "unit": "kilotonnes CO2 per year",
+      "geography": "CEDS source-native global aggregate",
+      "cadence": "annual",
+      "direction": "higher_is_worse",
+      "aggregation": "Sum CEDS global CO2 rows for sectors 1A4a_Commercial-institutional and fuels natural_gas.",
+      "observations": [
+        {
+          "year": 1970,
+          "value_kt_co2": 157633.204602
+        },
+        {
+          "year": 1971,
+          "value_kt_co2": 168769.188835
+        },
+        {
+          "year": 1972,
+          "value_kt_co2": 177352.662374
+        },
+        {
+          "year": 1973,
+          "value_kt_co2": 177611.791561
+        },
+        {
+          "year": 1974,
+          "value_kt_co2": 179120.676599
+        },
+        {
+          "year": 1975,
+          "value_kt_co2": 178692.689313
+        },
+        {
+          "year": 1976,
+          "value_kt_co2": 190370.267219
+        },
+        {
+          "year": 1977,
+          "value_kt_co2": 184697.690904
+        },
+        {
+          "year": 1978,
+          "value_kt_co2": 192754.969412
+        },
+        {
+          "year": 1979,
+          "value_kt_co2": 206368.448323
+        },
+        {
+          "year": 1980,
+          "value_kt_co2": 198399.746343
+        },
+        {
+          "year": 1981,
+          "value_kt_co2": 196700.502492
+        },
+        {
+          "year": 1982,
+          "value_kt_co2": 206638.130356
+        },
+        {
+          "year": 1983,
+          "value_kt_co2": 201150.146031
+        },
+        {
+          "year": 1984,
+          "value_kt_co2": 220751.699409
+        },
+        {
+          "year": 1985,
+          "value_kt_co2": 222935.502878
+        },
+        {
+          "year": 1986,
+          "value_kt_co2": 226373.685964
+        },
+        {
+          "year": 1987,
+          "value_kt_co2": 228339.303638
+        },
+        {
+          "year": 1988,
+          "value_kt_co2": 251560.06244
+        },
+        {
+          "year": 1989,
+          "value_kt_co2": 257694.651955
+        },
+        {
+          "year": 1990,
+          "value_kt_co2": 257788.315225
+        },
+        {
+          "year": 1991,
+          "value_kt_co2": 279139.683021
+        },
+        {
+          "year": 1992,
+          "value_kt_co2": 279709.017359
+        },
+        {
+          "year": 1993,
+          "value_kt_co2": 281967.351512
+        },
+        {
+          "year": 1994,
+          "value_kt_co2": 283261.473844
+        },
+        {
+          "year": 1995,
+          "value_kt_co2": 298374.910877
+        },
+        {
+          "year": 1996,
+          "value_kt_co2": 316050.75907
+        },
+        {
+          "year": 1997,
+          "value_kt_co2": 317444.376998
+        },
+        {
+          "year": 1998,
+          "value_kt_co2": 309097.435404
+        },
+        {
+          "year": 1999,
+          "value_kt_co2": 316581.943212
+        },
+        {
+          "year": 2000,
+          "value_kt_co2": 325958.085077
+        },
+        {
+          "year": 2001,
+          "value_kt_co2": 326454.809744
+        },
+        {
+          "year": 2002,
+          "value_kt_co2": 328414.534225
+        },
+        {
+          "year": 2003,
+          "value_kt_co2": 350784.639178
+        },
+        {
+          "year": 2004,
+          "value_kt_co2": 360729.941524
+        },
+        {
+          "year": 2005,
+          "value_kt_co2": 362535.824466
+        },
+        {
+          "year": 2006,
+          "value_kt_co2": 368590.307005
+        },
+        {
+          "year": 2007,
+          "value_kt_co2": 380118.488418
+        },
+        {
+          "year": 2008,
+          "value_kt_co2": 387003.984808
+        },
+        {
+          "year": 2009,
+          "value_kt_co2": 389547.99643
+        },
+        {
+          "year": 2010,
+          "value_kt_co2": 404148.981349
+        },
+        {
+          "year": 2011,
+          "value_kt_co2": 397411.236478
+        },
+        {
+          "year": 2012,
+          "value_kt_co2": 390541.409736
+        },
+        {
+          "year": 2013,
+          "value_kt_co2": 421483.662263
+        },
+        {
+          "year": 2014,
+          "value_kt_co2": 421871.768834
+        },
+        {
+          "year": 2015,
+          "value_kt_co2": 420874.746034
+        },
+        {
+          "year": 2016,
+          "value_kt_co2": 422790.603649
+        },
+        {
+          "year": 2017,
+          "value_kt_co2": 433596.737647
+        },
+        {
+          "year": 2018,
+          "value_kt_co2": 468622.618108
+        },
+        {
+          "year": 2019,
+          "value_kt_co2": 482350.133578
+        },
+        {
+          "year": 2020,
+          "value_kt_co2": 447172.527303
+        },
+        {
+          "year": 2021,
+          "value_kt_co2": 476301.757556
+        },
+        {
+          "year": 2022,
+          "value_kt_co2": 469938.654381
+        }
+      ]
+    },
+    "residential_gas_heat_co2": {
+      "metric_id": "carbon_pathway_residential_gas_heat_co2",
+      "sectors": [
+        "1A4b_Residential"
+      ],
+      "fuels": [
+        "natural_gas"
+      ],
+      "unit": "kilotonnes CO2 per year",
+      "geography": "CEDS source-native global aggregate",
+      "cadence": "annual",
+      "direction": "higher_is_worse",
+      "aggregation": "Sum CEDS global CO2 rows for sectors 1A4b_Residential and fuels natural_gas.",
+      "observations": [
+        {
+          "year": 1970,
+          "value_kt_co2": 368167.097758
+        },
+        {
+          "year": 1971,
+          "value_kt_co2": 389674.262594
+        },
+        {
+          "year": 1972,
+          "value_kt_co2": 414226.885478
+        },
+        {
+          "year": 1973,
+          "value_kt_co2": 408851.862892
+        },
+        {
+          "year": 1974,
+          "value_kt_co2": 414982.194196
+        },
+        {
+          "year": 1975,
+          "value_kt_co2": 436231.131462
+        },
+        {
+          "year": 1976,
+          "value_kt_co2": 451988.249376
+        },
+        {
+          "year": 1977,
+          "value_kt_co2": 446849.006932
+        },
+        {
+          "year": 1978,
+          "value_kt_co2": 467830.501182
+        },
+        {
+          "year": 1979,
+          "value_kt_co2": 487666.28235
+        },
+        {
+          "year": 1980,
+          "value_kt_co2": 489234.258381
+        },
+        {
+          "year": 1981,
+          "value_kt_co2": 486781.299926
+        },
+        {
+          "year": 1982,
+          "value_kt_co2": 498687.439897
+        },
+        {
+          "year": 1983,
+          "value_kt_co2": 498799.946856
+        },
+        {
+          "year": 1984,
+          "value_kt_co2": 554771.912501
+        },
+        {
+          "year": 1985,
+          "value_kt_co2": 577192.821706
+        },
+        {
+          "year": 1986,
+          "value_kt_co2": 607837.221162
+        },
+        {
+          "year": 1987,
+          "value_kt_co2": 601761.90091
+        },
+        {
+          "year": 1988,
+          "value_kt_co2": 628152.195931
+        },
+        {
+          "year": 1989,
+          "value_kt_co2": 650419.420166
+        },
+        {
+          "year": 1990,
+          "value_kt_co2": 657596.868444
+        },
+        {
+          "year": 1991,
+          "value_kt_co2": 730385.30488
+        },
+        {
+          "year": 1992,
+          "value_kt_co2": 724996.700482
+        },
+        {
+          "year": 1993,
+          "value_kt_co2": 759374.044527
+        },
+        {
+          "year": 1994,
+          "value_kt_co2": 743378.557827
+        },
+        {
+          "year": 1995,
+          "value_kt_co2": 768877.644476
+        },
+        {
+          "year": 1996,
+          "value_kt_co2": 849249.122237
+        },
+        {
+          "year": 1997,
+          "value_kt_co2": 812763.725004
+        },
+        {
+          "year": 1998,
+          "value_kt_co2": 795751.27842
+        },
+        {
+          "year": 1999,
+          "value_kt_co2": 825418.220436
+        },
+        {
+          "year": 2000,
+          "value_kt_co2": 854331.138544
+        },
+        {
+          "year": 2001,
+          "value_kt_co2": 858232.237579
+        },
+        {
+          "year": 2002,
+          "value_kt_co2": 879319.886245
+        },
+        {
+          "year": 2003,
+          "value_kt_co2": 921099.866039
+        },
+        {
+          "year": 2004,
+          "value_kt_co2": 917409.804737
+        },
+        {
+          "year": 2005,
+          "value_kt_co2": 918563.434664
+        },
+        {
+          "year": 2006,
+          "value_kt_co2": 911594.475556
+        },
+        {
+          "year": 2007,
+          "value_kt_co2": 929710.644211
+        },
+        {
+          "year": 2008,
+          "value_kt_co2": 953652.676545
+        },
+        {
+          "year": 2009,
+          "value_kt_co2": 946160.767721
+        },
+        {
+          "year": 2010,
+          "value_kt_co2": 991152.749746
+        },
+        {
+          "year": 2011,
+          "value_kt_co2": 969337.45931
+        },
+        {
+          "year": 2012,
+          "value_kt_co2": 930245.052046
+        },
+        {
+          "year": 2013,
+          "value_kt_co2": 992238.513377
+        },
+        {
+          "year": 2014,
+          "value_kt_co2": 970233.878492
+        },
+        {
+          "year": 2015,
+          "value_kt_co2": 968199.088272
+        },
+        {
+          "year": 2016,
+          "value_kt_co2": 996638.242235
+        },
+        {
+          "year": 2017,
+          "value_kt_co2": 1023065.391023
+        },
+        {
+          "year": 2018,
+          "value_kt_co2": 1092640.641268
+        },
+        {
+          "year": 2019,
+          "value_kt_co2": 1118970.484024
+        },
+        {
+          "year": 2020,
+          "value_kt_co2": 1112360.085222
+        },
+        {
+          "year": 2021,
+          "value_kt_co2": 1159734.446919
+        },
+        {
+          "year": 2022,
+          "value_kt_co2": 1104008.759001
+        }
+      ]
+    },
+    "oil_building_heat_co2": {
+      "metric_id": "carbon_pathway_oil_building_heat_co2",
+      "sectors": [
+        "1A4a_Commercial-institutional",
+        "1A4b_Residential"
+      ],
+      "fuels": [
+        "diesel_oil",
+        "heavy_oil",
+        "light_oil"
+      ],
+      "unit": "kilotonnes CO2 per year",
+      "geography": "CEDS source-native global aggregate",
+      "cadence": "annual",
+      "direction": "higher_is_worse",
+      "aggregation": "Sum CEDS global CO2 rows for sectors 1A4a_Commercial-institutional + 1A4b_Residential and fuels diesel_oil + heavy_oil + light_oil.",
+      "observations": [
+        {
+          "year": 1970,
+          "value_kt_co2": 1005678.30582
+        },
+        {
+          "year": 1971,
+          "value_kt_co2": 1049894.866094
+        },
+        {
+          "year": 1972,
+          "value_kt_co2": 1116893.978905
+        },
+        {
+          "year": 1973,
+          "value_kt_co2": 1144808.638686
+        },
+        {
+          "year": 1974,
+          "value_kt_co2": 1047903.332188
+        },
+        {
+          "year": 1975,
+          "value_kt_co2": 1043327.250079
+        },
+        {
+          "year": 1976,
+          "value_kt_co2": 1131837.940109
+        },
+        {
+          "year": 1977,
+          "value_kt_co2": 1118181.183041
+        },
+        {
+          "year": 1978,
+          "value_kt_co2": 1152355.087714
+        },
+        {
+          "year": 1979,
+          "value_kt_co2": 1085745.482055
+        },
+        {
+          "year": 1980,
+          "value_kt_co2": 972646.25262
+        },
+        {
+          "year": 1981,
+          "value_kt_co2": 908854.485067
+        },
+        {
+          "year": 1982,
+          "value_kt_co2": 870603.731515
+        },
+        {
+          "year": 1983,
+          "value_kt_co2": 873437.219128
+        },
+        {
+          "year": 1984,
+          "value_kt_co2": 899284.693416
+        },
+        {
+          "year": 1985,
+          "value_kt_co2": 902647.579431
+        },
+        {
+          "year": 1986,
+          "value_kt_co2": 901394.932279
+        },
+        {
+          "year": 1987,
+          "value_kt_co2": 893960.907615
+        },
+        {
+          "year": 1988,
+          "value_kt_co2": 903209.934435
+        },
+        {
+          "year": 1989,
+          "value_kt_co2": 882226.617148
+        },
+        {
+          "year": 1990,
+          "value_kt_co2": 853645.756896
+        },
+        {
+          "year": 1991,
+          "value_kt_co2": 877071.430344
+        },
+        {
+          "year": 1992,
+          "value_kt_co2": 899404.246942
+        },
+        {
+          "year": 1993,
+          "value_kt_co2": 919098.925726
+        },
+        {
+          "year": 1994,
+          "value_kt_co2": 913511.947553
+        },
+        {
+          "year": 1995,
+          "value_kt_co2": 941753.578556
+        },
+        {
+          "year": 1996,
+          "value_kt_co2": 989930.502236
+        },
+        {
+          "year": 1997,
+          "value_kt_co2": 976397.788677
+        },
+        {
+          "year": 1998,
+          "value_kt_co2": 950586.159581
+        },
+        {
+          "year": 1999,
+          "value_kt_co2": 985662.696636
+        },
+        {
+          "year": 2000,
+          "value_kt_co2": 962961.850091
+        },
+        {
+          "year": 2001,
+          "value_kt_co2": 984224.707714
+        },
+        {
+          "year": 2002,
+          "value_kt_co2": 955078.637124
+        },
+        {
+          "year": 2003,
+          "value_kt_co2": 961950.779292
+        },
+        {
+          "year": 2004,
+          "value_kt_co2": 970183.552792
+        },
+        {
+          "year": 2005,
+          "value_kt_co2": 964577.558878
+        },
+        {
+          "year": 2006,
+          "value_kt_co2": 921504.477631
+        },
+        {
+          "year": 2007,
+          "value_kt_co2": 883814.189388
+        },
+        {
+          "year": 2008,
+          "value_kt_co2": 887431.827613
+        },
+        {
+          "year": 2009,
+          "value_kt_co2": 852898.813384
+        },
+        {
+          "year": 2010,
+          "value_kt_co2": 860901.820142
+        },
+        {
+          "year": 2011,
+          "value_kt_co2": 824925.355081
+        },
+        {
+          "year": 2012,
+          "value_kt_co2": 804667.658779
+        },
+        {
+          "year": 2013,
+          "value_kt_co2": 823197.530126
+        },
+        {
+          "year": 2014,
+          "value_kt_co2": 799713.124227
+        },
+        {
+          "year": 2015,
+          "value_kt_co2": 826326.736428
+        },
+        {
+          "year": 2016,
+          "value_kt_co2": 835394.828762
+        },
+        {
+          "year": 2017,
+          "value_kt_co2": 847725.380392
+        },
+        {
+          "year": 2018,
+          "value_kt_co2": 834318.44991
+        },
+        {
+          "year": 2019,
+          "value_kt_co2": 817339.471047
+        },
+        {
+          "year": 2020,
+          "value_kt_co2": 817160.338584
+        },
+        {
+          "year": 2021,
+          "value_kt_co2": 809640.440882
+        },
+        {
+          "year": 2022,
+          "value_kt_co2": 823892.194831
+        }
+      ]
+    },
+    "oil_power_co2_output": {
+      "metric_id": "carbon_pathway_oil_power_co2_output",
+      "sectors": [
+        "1A1a_Electricity-autoproducer",
+        "1A1a_Electricity-public"
+      ],
+      "fuels": [
+        "diesel_oil",
+        "heavy_oil",
+        "light_oil"
+      ],
+      "unit": "kilotonnes CO2 per year",
+      "geography": "CEDS source-native global aggregate",
+      "cadence": "annual",
+      "direction": "higher_is_worse",
+      "aggregation": "Sum CEDS global CO2 rows for sectors 1A1a_Electricity-autoproducer + 1A1a_Electricity-public and fuels diesel_oil + heavy_oil + light_oil.",
+      "observations": [
+        {
+          "year": 1970,
+          "value_kt_co2": 622629.780533
+        },
+        {
+          "year": 1971,
+          "value_kt_co2": 703202.161824
+        },
+        {
+          "year": 1972,
+          "value_kt_co2": 833424.349127
+        },
+        {
+          "year": 1973,
+          "value_kt_co2": 961958.313761
+        },
+        {
+          "year": 1974,
+          "value_kt_co2": 932387.704947
+        },
+        {
+          "year": 1975,
+          "value_kt_co2": 897688.329079
+        },
+        {
+          "year": 1976,
+          "value_kt_co2": 986159.948857
+        },
+        {
+          "year": 1977,
+          "value_kt_co2": 1027694.429641
+        },
+        {
+          "year": 1978,
+          "value_kt_co2": 1083348.25967
+        },
+        {
+          "year": 1979,
+          "value_kt_co2": 1045719.084681
+        },
+        {
+          "year": 1980,
+          "value_kt_co2": 973022.248459
+        },
+        {
+          "year": 1981,
+          "value_kt_co2": 901803.308711
+        },
+        {
+          "year": 1982,
+          "value_kt_co2": 814709.35047
+        },
+        {
+          "year": 1983,
+          "value_kt_co2": 794144.085742
+        },
+        {
+          "year": 1984,
+          "value_kt_co2": 798093.816605
+        },
+        {
+          "year": 1985,
+          "value_kt_co2": 700633.426343
+        },
+        {
+          "year": 1986,
+          "value_kt_co2": 725630.333678
+        },
+        {
+          "year": 1987,
+          "value_kt_co2": 713688.938927
+        },
+        {
+          "year": 1988,
+          "value_kt_co2": 777787.144243
+        },
+        {
+          "year": 1989,
+          "value_kt_co2": 815506.653234
+        },
+        {
+          "year": 1990,
+          "value_kt_co2": 819668.805962
+        },
+        {
+          "year": 1991,
+          "value_kt_co2": 823792.187718
+        },
+        {
+          "year": 1992,
+          "value_kt_co2": 846004.381616
+        },
+        {
+          "year": 1993,
+          "value_kt_co2": 847324.158584
+        },
+        {
+          "year": 1994,
+          "value_kt_co2": 855108.494597
+        },
+        {
+          "year": 1995,
+          "value_kt_co2": 840210.647481
+        },
+        {
+          "year": 1996,
+          "value_kt_co2": 825019.251895
+        },
+        {
+          "year": 1997,
+          "value_kt_co2": 962928.322009
+        },
+        {
+          "year": 1998,
+          "value_kt_co2": 1002990.629529
+        },
+        {
+          "year": 1999,
+          "value_kt_co2": 937885.31368
+        },
+        {
+          "year": 2000,
+          "value_kt_co2": 920733.658115
+        },
+        {
+          "year": 2001,
+          "value_kt_co2": 915237.343503
+        },
+        {
+          "year": 2002,
+          "value_kt_co2": 794759.73886
+        },
+        {
+          "year": 2003,
+          "value_kt_co2": 792924.127445
+        },
+        {
+          "year": 2004,
+          "value_kt_co2": 808186.535503
+        },
+        {
+          "year": 2005,
+          "value_kt_co2": 807267.269845
+        },
+        {
+          "year": 2006,
+          "value_kt_co2": 747432.800197
+        },
+        {
+          "year": 2007,
+          "value_kt_co2": 776171.246275
+        },
+        {
+          "year": 2008,
+          "value_kt_co2": 752184.579551
+        },
+        {
+          "year": 2009,
+          "value_kt_co2": 708216.988641
+        },
+        {
+          "year": 2010,
+          "value_kt_co2": 731383.302591
+        },
+        {
+          "year": 2011,
+          "value_kt_co2": 779365.073002
+        },
+        {
+          "year": 2012,
+          "value_kt_co2": 828164.462905
+        },
+        {
+          "year": 2013,
+          "value_kt_co2": 827413.876013
+        },
+        {
+          "year": 2014,
+          "value_kt_co2": 785765.569194
+        },
+        {
+          "year": 2015,
+          "value_kt_co2": 742432.178414
+        },
+        {
+          "year": 2016,
+          "value_kt_co2": 692516.48539
+        },
+        {
+          "year": 2017,
+          "value_kt_co2": 637373.553856
+        },
+        {
+          "year": 2018,
+          "value_kt_co2": 578138.987051
+        },
+        {
+          "year": 2019,
+          "value_kt_co2": 536338.898346
+        },
+        {
+          "year": 2020,
+          "value_kt_co2": 478205.137987
+        },
+        {
+          "year": 2021,
+          "value_kt_co2": 520505.405105
+        },
+        {
+          "year": 2022,
+          "value_kt_co2": 550930.505768
+        }
+      ]
+    }
+  },
+  "exclusions": "Each metric uses only its declared sector-fuel rows. Biomass, coal, non-declared oil fuels, natural gas outside the gas metrics, heat production, non-building end uses and non-electricity power rows are excluded as applicable.",
+  "uncertainty": "CEDS is an inventory estimate assembled from activity data, emission factors and scaling inventories rather than a direct global monitor. Fuel and sector assignments, historical revisions and national input quality affect values. The latest release observation is 2022; it is the newest complete year in this source, not a 2026 nowcast. Missing values are never converted to zero."
+}

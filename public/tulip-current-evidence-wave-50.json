@@ -1,0 +1,111 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_50_faostat_world_cattle_stocking_density",
+  "generated_at": "2026-08-01T15:38:12.336Z",
+  "source_snapshot": "public/faostat-cattle-stocking-density-snapshot.json",
+  "source_id": "faostat_land_use_and_livestock_stock_density",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "cattle_stocking_density",
+      "value": 7.8,
+      "band": "Critical",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "magnitude": 1,
+        "threshold": 1,
+        "momentum": 0,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_year": 2024,
+          "latest_cattle_head": 1578614149,
+          "latest_permanent_meadows_and_pastures_thousand_ha": 3058558.71,
+          "latest_cattle_per_permanent_meadow_pasture_ha": 0.516130079,
+          "historical_distribution_anchors_cattle_per_ha": [
+            0.399816,
+            0.441048,
+            0.472489,
+            0.504684
+          ],
+          "direction": "higher_is_worse"
+        },
+        "threshold": {
+          "basis": "historical_distribution_fallback_no_recognized_global_cattle_permanent_pasture_density_threshold",
+          "anchors_cattle_per_ha": [
+            0.399816,
+            0.441048,
+            0.472489,
+            0.504684
+          ],
+          "complete_prior_annual_observations": 63
+        },
+        "momentum": {
+          "prior_year": 2023,
+          "prior_cattle_per_permanent_meadow_pasture_ha": 0.51451356,
+          "latest_annual_change_cattle_per_ha": 0.001617,
+          "historical_change_anchors_cattle_per_ha": [
+            0.003813,
+            0.005682,
+            0.007234,
+            0.009358
+          ]
+        },
+        "extent": {
+          "normalized_value": 1,
+          "geography": "World",
+          "aggregation": "Divide each FAOSTAT World cattle Stocks observation by the same-year World Permanent meadows and pastures Area observation after converting 1000 ha to hectares."
+        },
+        "coverage_gate": {
+          "direct_components": [
+            "magnitude",
+            "threshold",
+            "momentum",
+            "extent"
+          ],
+          "global_scope": true,
+          "current_observation": true
+        },
+        "source_snapshot": {
+          "path": "public/faostat-cattle-stocking-density-snapshot.json",
+          "version": "faostat_world_cattle_stocking_density_1961_2024_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z",
+          "land_use_archive_sha256": "a74c87b4c5faf2d9d755ef6ff202bd06cf05e52a7385ae288dc5e188f12dfb0c",
+          "annual_observations": 64
+        }
+      },
+      "transformations": [
+        {
+          "type": "same_year_world_density_join",
+          "formula": "Divide source-native FAOSTAT World cattle head by source-native World permanent-meadow-and-pasture area converted from thousand hectares to hectares."
+        },
+        {
+          "type": "historical_distribution_normalization",
+          "formula": "Map prior annual median, p75, p90 and p97.5 to 0, 0.33, 0.67 and 1 because no recognized global cattle-permanent-pasture density threshold exists."
+        },
+        {
+          "type": "annual_change_momentum",
+          "formula": "Subtract the prior complete-year density and normalize the latest change against preceding complete annual changes."
+        },
+        {
+          "type": "global_extent",
+          "formula": "Assign full extent because both numerator and denominator are source-native FAOSTAT World aggregates."
+        }
+      ],
+      "source_ids": [
+        "faostat_land_use_and_livestock_stock_density"
+      ],
+      "uncertainty": "This is a global system-density indicator, not a paddock stocking rate. The numerator includes cattle that are not grazing permanent pasture, while the denominator includes permanent meadow and pasture used by other livestock or not stocked in a given year. FAOSTAT marks the meadow-area series as estimated and the latest cattle values as estimated.",
+      "freshness": "Latest complete joined year 2024; FAOSTAT land-use release 2026-07-17T00:00:00; snapshot reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "FAOSTAT supplies 64 complete same-year global cattle-stock and permanent-meadow/pasture observations, covering magnitude, historical position, momentum and global extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:a48bf506"
+    }
+  ]
+}

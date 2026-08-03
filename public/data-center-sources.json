@@ -1,0 +1,428 @@
+{
+  "version": "2026-07-28",
+  "updated_at": "2026-07-28",
+  "refresh_policy": {
+    "default_days": 42,
+    "slow_moving_days": 56,
+    "notes": "Data-center climate metrics are modeled for 6-8 week refresh intervals unless the source is explicitly real-time or near-real-time."
+  },
+  "platform_pull_status": {
+    "registry_refreshed_at": "2026-07-15",
+    "frozen_operational_snapshot": {
+      "route": "/api/data-centers/summary",
+      "public_file": "data-center-platform-summary.json",
+      "captured_at": "2026-06-27T15:25:03.235Z",
+      "status": "stale_needs_refresh"
+    },
+    "frozen_operational_layers": [
+      {
+        "route": "/api/data-centers/operational",
+        "public_file": "data-center-operational-snapshots.json",
+        "captured_at": "2026-06-27T15:25:03.235Z",
+        "status": "stale_needs_refresh"
+      },
+      {
+        "route": "/api/data-centers/electricitymaps",
+        "public_file": "data-center-electricitymaps-us-zones.json",
+        "captured_at": "2026-06-27T15:25:03.235Z",
+        "status": "stale_needs_refresh"
+      },
+      {
+        "route": "/api/data-centers/disclosures",
+        "public_file": "data-center-disclosures.json",
+        "captured_at": "2026-06-27T15:25:03.235Z",
+        "status": "stale_needs_refresh"
+      }
+    ],
+    "refresh_blockers": [
+      "Electricity Maps refresh is currently blocked by an expired API token in the local environment."
+    ],
+    "related_current_support_layers": [
+      {
+        "source_id": "data_center_environment_context",
+        "route": "/api/data-centers/context",
+        "public_file": "data-center-environment-context.json",
+        "updated_at": "2026-07-28"
+      },
+      {
+        "source_id": "openstreetmap_data_center_facilities",
+        "route": "/api/data-centers/facilities",
+        "public_file": "data-center-facilities-osm.json",
+        "updated_at": "2026-07-28"
+      },
+      {
+        "source_id": "wri_aqueduct",
+        "route": "/api/aqueduct/snapshot",
+        "public_file": "aqueduct-snapshot.json",
+        "updated_at": "2026-07-15"
+      },
+      {
+        "source_id": "edgar",
+        "route": "/api/edgar/snapshot",
+        "public_file": "edgar-snapshot.json",
+        "updated_at": "2026-07-15"
+      }
+    ]
+  },
+  "priority_metrics": [
+    {
+      "id": "facility_location_and_lifecycle",
+      "label": "Facility location, identity, and lifecycle",
+      "applies_to": ["data_centers", "ai_data_centers"],
+      "sources": ["openstreetmap_data_center_facilities", "data_center_map_licensed", "datacenters_world_api_candidate"]
+    },
+    {
+      "id": "regional_grid_carbon_intensity",
+      "label": "Regional grid carbon intensity",
+      "applies_to": ["data_centers", "ai_data_centers"],
+      "sources": ["electricity_maps", "eia_opendata", "epa_egrid", "ember_data"]
+    },
+    {
+      "id": "annual_data_center_load",
+      "label": "Annual data-center electricity demand",
+      "applies_to": ["data_centers", "ai_data_centers"],
+      "sources": ["iea_energy_ai", "lbnl_2024_report", "eia_opendata"]
+    },
+    {
+      "id": "ai_load_share",
+      "label": "AI share of total data-center load",
+      "applies_to": ["ai_data_centers"],
+      "sources": ["iea_energy_ai", "lbnl_2024_report"]
+    },
+    {
+      "id": "basin_water_stress",
+      "label": "Basin-level water stress and seasonal water risk",
+      "applies_to": ["data_centers", "ai_data_centers"],
+      "sources": ["wri_aqueduct", "wri_water_risk_atlas", "wri_aqueduct_gee", "google_water"]
+    },
+    {
+      "id": "location_emission_factors",
+      "label": "Location-based and market-based emission factors",
+      "applies_to": ["data_centers", "ai_data_centers"],
+      "sources": ["epa_ghg_factors_hub", "epa_egrid", "electricity_maps"]
+    },
+    {
+      "id": "supply_chain_process_emissions",
+      "label": "Supply-chain and process emissions",
+      "applies_to": ["ai_data_centers"],
+      "sources": ["edgar", "climate_trace", "meta_sustainability", "microsoft_sustainability", "amazon_sustainability"]
+    },
+    {
+      "id": "operator_water_disclosure",
+      "label": "Operator water and energy disclosure coverage",
+      "applies_to": ["data_centers", "ai_data_centers"],
+      "sources": ["google_datacenters", "google_water", "microsoft_sustainability", "meta_sustainability", "amazon_sustainability"]
+    }
+  ],
+  "sources": [
+    {
+      "id": "openstreetmap_data_center_facilities",
+      "name": "OpenStreetMap Data-Center Features",
+      "url": "https://wiki.openstreetmap.org/wiki/Tag:telecom%3Ddata_center",
+      "type": "api_snapshot",
+      "access": "open_odbl",
+      "integration_tier": "integrated",
+      "browser_safe": true,
+      "refresh_days": 42,
+      "region": "Global",
+      "priority_for": ["data_centers", "ai_data_centers"],
+      "metrics_supported": ["facility_location_and_lifecycle"],
+      "route": "/api/data-centers/facilities",
+      "notes": "Global Overpass snapshot of explicitly mapped data-center sites and buildings. Suitable for spatial joins and discovery; incomplete community mapping, geometry duplication, and lifecycle uncertainty mean it must not be treated as a census or capacity measure. Attribution and ODbL share-alike obligations are retained in the snapshot."
+    },
+    {
+      "id": "data_center_map_licensed",
+      "name": "Data Center Map",
+      "url": "https://www.datacentermap.com/research/",
+      "type": "commercial_dataset",
+      "access": "license_required",
+      "integration_tier": "licensed_option",
+      "browser_safe": false,
+      "refresh_days": 42,
+      "region": "Global",
+      "priority_for": ["data_centers", "ai_data_centers"],
+      "metrics_supported": ["facility_location_and_lifecycle"],
+      "notes": "High-value commercial enrichment for address, coordinates, parent-child campus structure, lifecycle, building and whitespace size, power capacity, tier, operational year, and PUE. Data Center Map currently says API access will be available later. Its terms prohibit scraping or copying site content into an external database, so no site records are ingested without a licensing agreement."
+    },
+    {
+      "id": "peeringdb_facilities",
+      "name": "PeeringDB Facilities API",
+      "url": "https://www.peeringdb.com/apidocs/",
+      "type": "api",
+      "access": "public_query_restricted_reuse",
+      "integration_tier": "permission_required",
+      "browser_safe": true,
+      "refresh_days": 42,
+      "region": "Global",
+      "priority_for": ["data_centers"],
+      "metrics_supported": ["facility_location_and_lifecycle"],
+      "notes": "Technically queryable without authentication at lower rate limits and strong for interconnection facilities, networks, IXPs, and coordinates. PeeringDB's Acceptable Use Policy restricts reproduction, bulk transfer, demographic mapping, and commercial applications without permission, so it is not ingested into the platform."
+    },
+    {
+      "id": "datacenters_world_api_candidate",
+      "name": "datacenters.world API",
+      "url": "https://datacenters.world/api",
+      "type": "api",
+      "access": "free_key_available",
+      "integration_tier": "legal_review_required",
+      "browser_safe": true,
+      "refresh_days": 42,
+      "region": "Global",
+      "priority_for": ["data_centers", "ai_data_centers"],
+      "metrics_supported": ["facility_location_and_lifecycle"],
+      "notes": "Documented REST and CSV API with a free 1,000-request monthly tier, facility/operator/country/cloud-region endpoints, coordinates, lifecycle, sparse power and space fields, and source provenance. Because it aggregates PeeringDB alongside OSM and operator pages, confirm downstream redistribution and commercial-use rights before production ingestion."
+    },
+    {
+      "id": "eia_opendata",
+      "name": "U.S. EIA Open Data",
+      "url": "https://www.eia.gov/opendata/",
+      "type": "api",
+      "access": "key_required",
+      "integration_tier": "proxy_recommended",
+      "browser_safe": false,
+      "refresh_days": 42,
+      "region": "United States",
+      "priority_for": ["data_centers", "ai_data_centers"],
+      "metrics_supported": ["regional_grid_carbon_intensity", "annual_data_center_load"],
+      "notes": "Best fit for grid mix, balancing authority load context, and electricity system baselines near U.S. data-center clusters."
+    },
+    {
+      "id": "epa_egrid",
+      "name": "U.S. EPA eGRID",
+      "url": "https://www.epa.gov/egrid",
+      "type": "download",
+      "access": "open",
+      "integration_tier": "ready_now",
+      "browser_safe": true,
+      "refresh_days": 56,
+      "region": "United States",
+      "priority_for": ["data_centers", "ai_data_centers"],
+      "metrics_supported": ["regional_grid_carbon_intensity", "location_emission_factors"],
+      "notes": "Canonical U.S. balancing-authority and subregion emissions factors for location-based accounting."
+    },
+    {
+      "id": "epa_ghg_factors_hub",
+      "name": "U.S. EPA GHG Emission Factors Hub",
+      "url": "https://www.epa.gov/climateleadership/ghg-emission-factors-hub",
+      "type": "reference",
+      "access": "open",
+      "integration_tier": "ready_now",
+      "browser_safe": true,
+      "refresh_days": 56,
+      "region": "United States",
+      "priority_for": ["data_centers", "ai_data_centers"],
+      "metrics_supported": ["location_emission_factors"],
+      "notes": "Best used as factor tables for modeled conversions, not as a real-time operational feed."
+    },
+    {
+      "id": "wri_aqueduct",
+      "name": "WRI Aqueduct",
+      "url": "https://www.wri.org/aqueduct",
+      "type": "download",
+      "access": "open",
+      "integration_tier": "ready_now",
+      "browser_safe": true,
+      "refresh_days": 56,
+      "region": "Global",
+      "priority_for": ["data_centers", "ai_data_centers"],
+      "metrics_supported": ["basin_water_stress"],
+      "notes": "Core global water-risk baseline for siting, cooling-water stress, and regional competition analysis."
+    },
+    {
+      "id": "wri_water_risk_atlas",
+      "name": "WRI Aqueduct Water Risk Atlas",
+      "url": "https://www.wri.org/applications/aqueduct/water-risk-atlas/",
+      "type": "atlas",
+      "access": "open",
+      "integration_tier": "catalog_only",
+      "browser_safe": true,
+      "refresh_days": 56,
+      "region": "Global",
+      "priority_for": ["data_centers", "ai_data_centers"],
+      "metrics_supported": ["basin_water_stress"],
+      "notes": "Useful for manual validation and geographic QA, but not the primary machine-ingestion endpoint."
+    },
+    {
+      "id": "wri_aqueduct_gee",
+      "name": "WRI Aqueduct V4 Monthly Baseline in Google Earth Engine",
+      "url": "https://developers.google.com/earth-engine/datasets/catalog/WRI_Aqueduct_Water_Risk_V4_baseline_monthly",
+      "type": "catalog",
+      "access": "earth_engine",
+      "integration_tier": "proxy_recommended",
+      "browser_safe": false,
+      "refresh_days": 56,
+      "region": "Global",
+      "priority_for": ["data_centers", "ai_data_centers"],
+      "metrics_supported": ["basin_water_stress"],
+      "notes": "Best option for spatial joins against campus coordinates if a backend or scheduled export is introduced."
+    },
+    {
+      "id": "electricity_maps",
+      "name": "Electricity Maps",
+      "url": "https://app.electricitymaps.com/docs",
+      "type": "api",
+      "access": "key_required",
+      "integration_tier": "proxy_required",
+      "browser_safe": false,
+      "refresh_days": 42,
+      "region": "Global",
+      "priority_for": ["data_centers", "ai_data_centers"],
+      "metrics_supported": ["regional_grid_carbon_intensity"],
+      "notes": "High-value source for nodal carbon intensity and operational power context; not safe to call directly from the client. In this platform it is used as a frozen snapshot layer, not a live marginal-emissions feed."
+    },
+    {
+      "id": "ember_data",
+      "name": "Ember Data",
+      "url": "https://ember-energy.org/data/",
+      "type": "download",
+      "access": "open",
+      "integration_tier": "ready_now",
+      "browser_safe": true,
+      "refresh_days": 42,
+      "region": "Global",
+      "priority_for": ["data_centers", "ai_data_centers"],
+      "metrics_supported": ["regional_grid_carbon_intensity"],
+      "notes": "Strong for national power-mix and generation-trend context, especially where subnational grid APIs are unavailable."
+    },
+    {
+      "id": "edgar",
+      "name": "EDGAR Emissions Database",
+      "url": "https://edgar.jrc.ec.europa.eu/",
+      "type": "download",
+      "access": "open",
+      "integration_tier": "ready_now",
+      "browser_safe": true,
+      "refresh_days": 56,
+      "region": "Global",
+      "priority_for": ["data_centers", "ai_data_centers"],
+      "metrics_supported": ["supply_chain_process_emissions"],
+      "notes": "Best suited for supply-chain and sectoral emissions context rather than live facility telemetry."
+    },
+    {
+      "id": "iea_data_stats",
+      "name": "IEA Data and Statistics",
+      "url": "https://www.iea.org/data-and-statistics",
+      "type": "catalog",
+      "access": "mixed",
+      "integration_tier": "reference_only",
+      "browser_safe": false,
+      "refresh_days": 56,
+      "region": "Global",
+      "priority_for": ["data_centers", "ai_data_centers"],
+      "metrics_supported": ["annual_data_center_load"],
+      "notes": "Important strategic source, but many datasets are subscription-bound or not ideal for direct browser ingestion."
+    },
+    {
+      "id": "iea_energy_ai",
+      "name": "IEA Energy and AI",
+      "url": "https://www.iea.org/reports/energy-and-ai",
+      "type": "report",
+      "access": "open",
+      "integration_tier": "reference_only",
+      "browser_safe": true,
+      "refresh_days": 56,
+      "region": "Global",
+      "priority_for": ["ai_data_centers"],
+      "metrics_supported": ["annual_data_center_load", "ai_load_share"],
+      "notes": "Use as calibration and scenario guidance for AI electricity demand, not as an operational API."
+    },
+    {
+      "id": "lbnl_2024_report",
+      "name": "LBNL 2024 Data Center Energy Usage Report",
+      "url": "https://eta.lbl.gov/publications/2024-lbnl-data-center-energy-usage-report",
+      "type": "report",
+      "access": "open",
+      "integration_tier": "reference_only",
+      "browser_safe": true,
+      "refresh_days": 56,
+      "region": "United States",
+      "priority_for": ["data_centers", "ai_data_centers"],
+      "metrics_supported": ["annual_data_center_load", "ai_load_share"],
+      "notes": "High-quality benchmark report for U.S. data-center demand trajectories and scenario framing."
+    },
+    {
+      "id": "google_datacenters",
+      "name": "Google Data Centers",
+      "url": "https://datacenters.google/",
+      "type": "disclosure",
+      "access": "open",
+      "integration_tier": "reference_only",
+      "browser_safe": true,
+      "refresh_days": 56,
+      "region": "Global",
+      "priority_for": ["data_centers"],
+      "metrics_supported": ["operator_water_disclosure"],
+      "notes": "Operator-level campus and sustainability disclosure, useful for site inventory and narrative context."
+    },
+    {
+      "id": "google_water",
+      "name": "Google Data Centers Water Stewardship",
+      "url": "https://datacenters.google/water/",
+      "type": "disclosure",
+      "access": "open",
+      "integration_tier": "reference_only",
+      "browser_safe": true,
+      "refresh_days": 56,
+      "region": "Global",
+      "priority_for": ["data_centers", "ai_data_centers"],
+      "metrics_supported": ["basin_water_stress", "operator_water_disclosure"],
+      "notes": "Useful for framing cooling-water stewardship and basin-level replenishment discussions."
+    },
+    {
+      "id": "microsoft_sustainability",
+      "name": "Microsoft Sustainability Report",
+      "url": "https://www.microsoft.com/en-us/corporate-responsibility/sustainability/report",
+      "type": "disclosure",
+      "access": "open",
+      "integration_tier": "reference_only",
+      "browser_safe": true,
+      "refresh_days": 56,
+      "region": "Global",
+      "priority_for": ["data_centers", "ai_data_centers"],
+      "metrics_supported": ["operator_water_disclosure", "supply_chain_process_emissions"],
+      "notes": "Best for corporate disclosure context, supplier strategy, and water-positive or carbon reporting narratives."
+    },
+    {
+      "id": "meta_sustainability",
+      "name": "Meta Sustainability",
+      "url": "https://sustainability.atmeta.com/",
+      "type": "disclosure",
+      "access": "open",
+      "integration_tier": "reference_only",
+      "browser_safe": true,
+      "refresh_days": 56,
+      "region": "Global",
+      "priority_for": ["data_centers", "ai_data_centers"],
+      "metrics_supported": ["operator_water_disclosure", "supply_chain_process_emissions"],
+      "notes": "Useful as operator disclosure and for benchmarking hyperscale sustainability claims against modeled impacts."
+    },
+    {
+      "id": "amazon_sustainability",
+      "name": "Amazon Sustainability",
+      "url": "https://sustainability.aboutamazon.com/",
+      "type": "disclosure",
+      "access": "open",
+      "integration_tier": "reference_only",
+      "browser_safe": true,
+      "refresh_days": 56,
+      "region": "Global",
+      "priority_for": ["data_centers", "ai_data_centers"],
+      "metrics_supported": ["operator_water_disclosure", "supply_chain_process_emissions"],
+      "notes": "Relevant for AWS-scale operational disclosures and cross-checking claims against public impact models."
+    },
+    {
+      "id": "climate_trace",
+      "name": "Climate TRACE",
+      "url": "https://www.climatetrace.org/",
+      "type": "inventory",
+      "access": "open",
+      "integration_tier": "ready_now",
+      "browser_safe": true,
+      "refresh_days": 42,
+      "region": "Global",
+      "priority_for": ["data_centers", "ai_data_centers"],
+      "metrics_supported": ["supply_chain_process_emissions"],
+      "notes": "Best as a cross-check layer for sector and facility-adjacent emissions where direct operator disclosure is incomplete."
+    }
+  ]
+}

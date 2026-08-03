@@ -1,0 +1,128 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_85_kerala_2018_monsoon_volatility",
+  "generated_at": "2026-08-01T17:30:09.103Z",
+  "source_snapshots": [
+    "public/kerala-2018-monsoon-volatility-impact-snapshot.json"
+  ],
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "monsoon_volatility",
+      "value": 8.4,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2018-08-19",
+      "components": {
+        "biophysical_burden": 0.517,
+        "human_economic_burden": 1,
+        "persistence": 0.945,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "june_1_to_august_19_rainfall_percent_above_normal": 42,
+          "august_first_three_weeks_rainfall_percent_above_normal_unscored": 164,
+          "normalization_anchors_percent": [
+            0,
+            20,
+            60,
+            100
+          ],
+          "anchor_basis": "IMD rainfall departure categories: normal reference, excess beginning at +20 percent and large excess beginning at +60 percent; +100 percent retained as an extreme doubling anchor."
+        },
+        "human_economic_burden": {
+          "damage_and_loss_usd_billions_approx": 3.8,
+          "people_affected_unscored": 5400000,
+          "people_displaced_unscored": 1400000,
+          "deaths_unscored": 433,
+          "roads_destroyed_kilometres_more_than_unscored": 10000,
+          "normalization_anchors_billions": [
+            0,
+            0.01,
+            0.1,
+            1
+          ]
+        },
+        "persistence": {
+          "event_start_date": "2018-06-01",
+          "event_end_date": "2018-08-19",
+          "inclusive_event_day_count": 80,
+          "normalization_anchors_days": [
+            0,
+            7,
+            30,
+            90
+          ]
+        },
+        "extent": {
+          "flooded_district_count": 13,
+          "kerala_district_count": 14,
+          "flooded_district_share_percent_derived": 92.857143,
+          "landslide_affected_district_count_unscored": 10,
+          "normalization_anchors_percent": [
+            0,
+            10,
+            50,
+            90
+          ]
+        },
+        "source_snapshot": {
+          "path": "public/kerala-2018-monsoon-volatility-impact-snapshot.json",
+          "version": "kerala_monsoon_floods_june_august_2018_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z",
+          "source_locators": [
+            "The assessment reports statewide rainfall about 42 percent above normal from June 1 through August 19 and August rainfall 164 percent above normal during the first three weeks.",
+            "Flooding affected 13 of 14 districts, with many areas submerged for more than two weeks and 341 landslides reported across 10 districts.",
+            "The disaster affected 5.4 million people, displaced 1.4 million, caused 433 deaths and generated an assessed damage-and-loss total later reported as about USD 3.8 billion.",
+            "The World Bank reports that Kerala’s 2018 floods and landslides affected 5.4 million people and destroyed more than 10,000 km of roads.",
+            "The same review reports losses of almost USD 3.8 billion.",
+            "The record treats the 2018 monsoon disaster as a Kerala state event and does not transfer its losses to other monsoon regions.",
+            "IMD documents three major Kerala rainfall weeks and reports excess-to-large-excess rainfall across 13 or 14 districts in July and all 14 districts during August 9-15.",
+            "IMD reports Idukki weekly excess rainfall of 217, 233 and 438 percent during the three major rainfall weeks.",
+            "The receipt uses the statewide June-August anomaly rather than selecting the largest district-week value."
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "kerala_seasonal_departure",
+          "formula": "Normalize the statewide 42-percent above-normal June 1-August 19 rainfall against IMD departure-category anchors; retain the shorter 164-percent August anomaly without double counting."
+        },
+        {
+          "type": "matched_assessed_loss",
+          "formula": "Normalize the approximately USD 3.8 billion damage-and-loss assessment; retain affected, displaced, death and road counts as corroborating burden only."
+        },
+        {
+          "type": "reported_monsoon_disaster_window",
+          "formula": "Count June 1 through August 19 inclusively as 80 days, without implying continuous flooding at every location."
+        },
+        {
+          "type": "district_share",
+          "formula": "Divide 13 flooded districts by Kerala’s 14 districts and normalize the resulting 92.857-percent state extent."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "kerala_2018_post_disaster_needs_assessment",
+        "world_bank_kerala_state_partnership_2018_floods",
+        "imd_southwest_monsoon_2018_kerala_rainfall"
+      ],
+      "uncertainty": "The 42 percent value covers June 1-August 19 rather than the full June-September season, while 164 percent is a shorter August anomaly retained as context. Flood severity was compounded by saturated catchments, reservoir operations, channel capacity and landslides, so the receipt does not assign every loss solely to rainfall volatility. The USD 3.8 billion figure is approximate and method-specific. District share describes flooding, not uniform severity. Onset timing is unavailable and is not imputed.",
+      "freshness": "Historical Kerala monsoon disaster assessed through 2018-08-19; government, IMD and World Bank records reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "Kerala, IMD and World Bank records quantify a matched state monsoon anomaly, assessed loss, duration and district-wide extent.",
+        "higher_priority_failures": [
+          "The evidence is a historical Kerala event rather than a current global monsoon aggregation.",
+          "The current reviewed Kerala rainfall-gate pipeline does not yet contain a complete observation season with the required panel and baseline coverage."
+        ]
+      },
+      "input_hash": "fnv1a32:da1611a7"
+    }
+  ]
+}

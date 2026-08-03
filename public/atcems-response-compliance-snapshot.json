@@ -1,0 +1,4020 @@
+{
+  "version": "atcems_monthly_response_goal_compliance_v1",
+  "captured_at": "2026-07-19T03:26:58.547Z",
+  "source": {
+    "id": "austin_travis_county_ems_incidents_by_month",
+    "name": "EMS - Incidents by Month",
+    "url": "https://data.austintexas.gov/Public-Safety/EMS-Incidents-by-Month/gjtj-jt2d",
+    "api_url": "https://data.austintexas.gov/resource/gjtj-jt2d.json",
+    "access": "open_socrata_api"
+  },
+  "ingestion_job_id": "fetch_atcems_response_compliance",
+  "metric_contract_ids": [
+    "atcems_response_goal_miss_rate"
+  ],
+  "cadence": "Monthly source refresh with a rolling 36-month snapshot.",
+  "provenance": "Official Austin-Travis County EMS monthly CAD-derived incident counts and response-goal compliance by service area and incident priority, with the source target retained.",
+  "uncertainty": "Aggregate source percentages are rounded. Priority coding, response-goal definitions, dispatch practices, mutual aid, service-area boundaries, traffic, revisions and partial periods affect values. A goal miss is not proof of capacity exceedance or patient harm.",
+  "failure_behavior": "Retain the last validated snapshot and mark stale; reject duplicate months, missing targets or counts, invalid percentages or fewer than 24 months; never infer dispatch saturation, treatment capacity, causal overload or national EMS performance.",
+  "measurement_boundary": "The primary measure is the source-reported on-time response percentage and its arithmetic complement. Approximate missed-incident counts are derived from rounded percentages and labeled accordingly. This is a bounded local operational proxy, not a direct capacity-exceedance count.",
+  "source_last_updated_epoch_seconds": 1782999141,
+  "record_count": 36,
+  "records": [
+    {
+      "record_id": "atcems_response_compliance_202606",
+      "metric_id": "atcems_response_goal_miss_rate",
+      "measurement_role": "local_monthly_response_goal_miss_operational_proxy",
+      "month_key": 202606,
+      "month_start_date": "2026-06-01T00:00:00.000",
+      "total_incidents": 11929,
+      "city_of_austin_incidents": 9975,
+      "travis_county_incidents": 1804,
+      "other_area_incidents": 150,
+      "source_reported_overall_on_time_pct": 81.4122,
+      "source_reported_city_on_time_pct": 81.562,
+      "source_reported_county_on_time_pct": 80.5589,
+      "source_reported_target_on_time_pct": 90,
+      "derived_overall_response_goal_miss_pct": 18.59,
+      "derived_overall_missed_incidents_approx": 2217,
+      "derived_target_shortfall_percentage_points": 8.59,
+      "priority_breakdown": [
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 1",
+          "incidents": 353,
+          "source_reported_on_time_pct": 80.8259,
+          "derived_response_goal_miss_pct": 19.17,
+          "derived_missed_incidents_approx": 68
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 1",
+          "incidents": 68,
+          "source_reported_on_time_pct": 66.1538,
+          "derived_response_goal_miss_pct": 33.85,
+          "derived_missed_incidents_approx": 23
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 2",
+          "incidents": 1197,
+          "source_reported_on_time_pct": 83.9111,
+          "derived_response_goal_miss_pct": 16.09,
+          "derived_missed_incidents_approx": 193
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 2",
+          "incidents": 221,
+          "source_reported_on_time_pct": 79,
+          "derived_response_goal_miss_pct": 21,
+          "derived_missed_incidents_approx": 46
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 3",
+          "incidents": 3176,
+          "source_reported_on_time_pct": 83.5061,
+          "derived_response_goal_miss_pct": 16.49,
+          "derived_missed_incidents_approx": 524
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 3",
+          "incidents": 584,
+          "source_reported_on_time_pct": 80.4832,
+          "derived_response_goal_miss_pct": 19.52,
+          "derived_missed_incidents_approx": 114
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 4",
+          "incidents": 4271,
+          "source_reported_on_time_pct": 76.0804,
+          "derived_response_goal_miss_pct": 23.92,
+          "derived_missed_incidents_approx": 1022
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 4",
+          "incidents": 745,
+          "source_reported_on_time_pct": 78.4546,
+          "derived_response_goal_miss_pct": 21.55,
+          "derived_missed_incidents_approx": 161
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 5",
+          "incidents": 978,
+          "source_reported_on_time_pct": 96.0596,
+          "derived_response_goal_miss_pct": 3.94,
+          "derived_missed_incidents_approx": 39
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 5",
+          "incidents": 186,
+          "source_reported_on_time_pct": 96.4705,
+          "derived_response_goal_miss_pct": 3.53,
+          "derived_missed_incidents_approx": 7
+        }
+      ],
+      "source_locator": {
+        "query_url": "https://data.austintexas.gov/resource/gjtj-jt2d.json?%24limit=36&%24order=month_key+desc",
+        "metadata_url": "https://data.austintexas.gov/api/views/gjtj-jt2d",
+        "dataset_url": "https://data.austintexas.gov/Public-Safety/EMS-Incidents-by-Month/gjtj-jt2d",
+        "source_fields": [
+          "count_incidents_all",
+          "percent_on_time_all",
+          "percent_on_time_target",
+          "service-area and priority-specific count/compliance fields"
+        ]
+      }
+    },
+    {
+      "record_id": "atcems_response_compliance_202605",
+      "metric_id": "atcems_response_goal_miss_rate",
+      "measurement_role": "local_monthly_response_goal_miss_operational_proxy",
+      "month_key": 202605,
+      "month_start_date": "2026-05-01T00:00:00.000",
+      "total_incidents": 12118,
+      "city_of_austin_incidents": 10247,
+      "travis_county_incidents": 1758,
+      "other_area_incidents": 113,
+      "source_reported_overall_on_time_pct": 82.4561,
+      "source_reported_city_on_time_pct": 82.3657,
+      "source_reported_county_on_time_pct": 83,
+      "source_reported_target_on_time_pct": 90,
+      "derived_overall_response_goal_miss_pct": 17.54,
+      "derived_overall_missed_incidents_approx": 2126,
+      "derived_target_shortfall_percentage_points": 7.54,
+      "priority_breakdown": [
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 1",
+          "incidents": 371,
+          "source_reported_on_time_pct": 74.3016,
+          "derived_response_goal_miss_pct": 25.7,
+          "derived_missed_incidents_approx": 95
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 1",
+          "incidents": 70,
+          "source_reported_on_time_pct": 56.7164,
+          "derived_response_goal_miss_pct": 43.28,
+          "derived_missed_incidents_approx": 30
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 2",
+          "incidents": 1403,
+          "source_reported_on_time_pct": 83.5616,
+          "derived_response_goal_miss_pct": 16.44,
+          "derived_missed_incidents_approx": 231
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 2",
+          "incidents": 234,
+          "source_reported_on_time_pct": 78.6046,
+          "derived_response_goal_miss_pct": 21.4,
+          "derived_missed_incidents_approx": 50
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 3",
+          "incidents": 3098,
+          "source_reported_on_time_pct": 85.9841,
+          "derived_response_goal_miss_pct": 14.02,
+          "derived_missed_incidents_approx": 434
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 3",
+          "incidents": 555,
+          "source_reported_on_time_pct": 84.8722,
+          "derived_response_goal_miss_pct": 15.13,
+          "derived_missed_incidents_approx": 84
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 4",
+          "incidents": 4284,
+          "source_reported_on_time_pct": 76.7603,
+          "derived_response_goal_miss_pct": 23.24,
+          "derived_missed_incidents_approx": 996
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 4",
+          "incidents": 733,
+          "source_reported_on_time_pct": 81.9018,
+          "derived_response_goal_miss_pct": 18.1,
+          "derived_missed_incidents_approx": 133
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 5",
+          "incidents": 1091,
+          "source_reported_on_time_pct": 95.3261,
+          "derived_response_goal_miss_pct": 4.67,
+          "derived_missed_incidents_approx": 51
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 5",
+          "incidents": 166,
+          "source_reported_on_time_pct": 98.7261,
+          "derived_response_goal_miss_pct": 1.27,
+          "derived_missed_incidents_approx": 2
+        }
+      ],
+      "source_locator": {
+        "query_url": "https://data.austintexas.gov/resource/gjtj-jt2d.json?%24limit=36&%24order=month_key+desc",
+        "metadata_url": "https://data.austintexas.gov/api/views/gjtj-jt2d",
+        "dataset_url": "https://data.austintexas.gov/Public-Safety/EMS-Incidents-by-Month/gjtj-jt2d",
+        "source_fields": [
+          "count_incidents_all",
+          "percent_on_time_all",
+          "percent_on_time_target",
+          "service-area and priority-specific count/compliance fields"
+        ]
+      }
+    },
+    {
+      "record_id": "atcems_response_compliance_202604",
+      "metric_id": "atcems_response_goal_miss_rate",
+      "measurement_role": "local_monthly_response_goal_miss_operational_proxy",
+      "month_key": 202604,
+      "month_start_date": "2026-04-01T00:00:00.000",
+      "total_incidents": 11469,
+      "city_of_austin_incidents": 9713,
+      "travis_county_incidents": 1629,
+      "other_area_incidents": 127,
+      "source_reported_overall_on_time_pct": 82.8428,
+      "source_reported_city_on_time_pct": 82.9335,
+      "source_reported_county_on_time_pct": 82.2985,
+      "source_reported_target_on_time_pct": 90,
+      "derived_overall_response_goal_miss_pct": 17.16,
+      "derived_overall_missed_incidents_approx": 1968,
+      "derived_target_shortfall_percentage_points": 7.16,
+      "priority_breakdown": [
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 1",
+          "incidents": 367,
+          "source_reported_on_time_pct": 80.4597,
+          "derived_response_goal_miss_pct": 19.54,
+          "derived_missed_incidents_approx": 72
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 1",
+          "incidents": 68,
+          "source_reported_on_time_pct": 63.492,
+          "derived_response_goal_miss_pct": 36.51,
+          "derived_missed_incidents_approx": 25
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 2",
+          "incidents": 1223,
+          "source_reported_on_time_pct": 83.6823,
+          "derived_response_goal_miss_pct": 16.32,
+          "derived_missed_incidents_approx": 200
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 2",
+          "incidents": 219,
+          "source_reported_on_time_pct": 75.7142,
+          "derived_response_goal_miss_pct": 24.29,
+          "derived_missed_incidents_approx": 53
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 3",
+          "incidents": 3036,
+          "source_reported_on_time_pct": 85.9041,
+          "derived_response_goal_miss_pct": 14.1,
+          "derived_missed_incidents_approx": 428
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 3",
+          "incidents": 544,
+          "source_reported_on_time_pct": 83.8264,
+          "derived_response_goal_miss_pct": 16.17,
+          "derived_missed_incidents_approx": 88
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 4",
+          "incidents": 4019,
+          "source_reported_on_time_pct": 76.983,
+          "derived_response_goal_miss_pct": 23.02,
+          "derived_missed_incidents_approx": 925
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 4",
+          "incidents": 653,
+          "source_reported_on_time_pct": 82,
+          "derived_response_goal_miss_pct": 18,
+          "derived_missed_incidents_approx": 118
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 5",
+          "incidents": 1068,
+          "source_reported_on_time_pct": 96.3582,
+          "derived_response_goal_miss_pct": 3.64,
+          "derived_missed_incidents_approx": 39
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 5",
+          "incidents": 145,
+          "source_reported_on_time_pct": 97.0149,
+          "derived_response_goal_miss_pct": 2.99,
+          "derived_missed_incidents_approx": 4
+        }
+      ],
+      "source_locator": {
+        "query_url": "https://data.austintexas.gov/resource/gjtj-jt2d.json?%24limit=36&%24order=month_key+desc",
+        "metadata_url": "https://data.austintexas.gov/api/views/gjtj-jt2d",
+        "dataset_url": "https://data.austintexas.gov/Public-Safety/EMS-Incidents-by-Month/gjtj-jt2d",
+        "source_fields": [
+          "count_incidents_all",
+          "percent_on_time_all",
+          "percent_on_time_target",
+          "service-area and priority-specific count/compliance fields"
+        ]
+      }
+    },
+    {
+      "record_id": "atcems_response_compliance_202603",
+      "metric_id": "atcems_response_goal_miss_rate",
+      "measurement_role": "local_monthly_response_goal_miss_operational_proxy",
+      "month_key": 202603,
+      "month_start_date": "2026-03-01T00:00:00.000",
+      "total_incidents": 11620,
+      "city_of_austin_incidents": 9710,
+      "travis_county_incidents": 1779,
+      "other_area_incidents": 131,
+      "source_reported_overall_on_time_pct": 83.1349,
+      "source_reported_city_on_time_pct": 82.8762,
+      "source_reported_county_on_time_pct": 84.5731,
+      "source_reported_target_on_time_pct": 90,
+      "derived_overall_response_goal_miss_pct": 16.87,
+      "derived_overall_missed_incidents_approx": 1960,
+      "derived_target_shortfall_percentage_points": 6.87,
+      "priority_breakdown": [
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 1",
+          "incidents": 363,
+          "source_reported_on_time_pct": 77.2594,
+          "derived_response_goal_miss_pct": 22.74,
+          "derived_missed_incidents_approx": 83
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 1",
+          "incidents": 86,
+          "source_reported_on_time_pct": 65.0602,
+          "derived_response_goal_miss_pct": 34.94,
+          "derived_missed_incidents_approx": 30
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 2",
+          "incidents": 1215,
+          "source_reported_on_time_pct": 84.0416,
+          "derived_response_goal_miss_pct": 15.96,
+          "derived_missed_incidents_approx": 194
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 2",
+          "incidents": 254,
+          "source_reported_on_time_pct": 83.6909,
+          "derived_response_goal_miss_pct": 16.31,
+          "derived_missed_incidents_approx": 41
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 3",
+          "incidents": 3113,
+          "source_reported_on_time_pct": 85.5429,
+          "derived_response_goal_miss_pct": 14.46,
+          "derived_missed_incidents_approx": 450
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 3",
+          "incidents": 548,
+          "source_reported_on_time_pct": 84.9019,
+          "derived_response_goal_miss_pct": 15.1,
+          "derived_missed_incidents_approx": 83
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 4",
+          "incidents": 3931,
+          "source_reported_on_time_pct": 77.243,
+          "derived_response_goal_miss_pct": 22.76,
+          "derived_missed_incidents_approx": 895
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 4",
+          "incidents": 712,
+          "source_reported_on_time_pct": 83.5937,
+          "derived_response_goal_miss_pct": 16.41,
+          "derived_missed_incidents_approx": 117
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 5",
+          "incidents": 1088,
+          "source_reported_on_time_pct": 96.0899,
+          "derived_response_goal_miss_pct": 3.91,
+          "derived_missed_incidents_approx": 43
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 5",
+          "incidents": 179,
+          "source_reported_on_time_pct": 97.7011,
+          "derived_response_goal_miss_pct": 2.3,
+          "derived_missed_incidents_approx": 4
+        }
+      ],
+      "source_locator": {
+        "query_url": "https://data.austintexas.gov/resource/gjtj-jt2d.json?%24limit=36&%24order=month_key+desc",
+        "metadata_url": "https://data.austintexas.gov/api/views/gjtj-jt2d",
+        "dataset_url": "https://data.austintexas.gov/Public-Safety/EMS-Incidents-by-Month/gjtj-jt2d",
+        "source_fields": [
+          "count_incidents_all",
+          "percent_on_time_all",
+          "percent_on_time_target",
+          "service-area and priority-specific count/compliance fields"
+        ]
+      }
+    },
+    {
+      "record_id": "atcems_response_compliance_202602",
+      "metric_id": "atcems_response_goal_miss_rate",
+      "measurement_role": "local_monthly_response_goal_miss_operational_proxy",
+      "month_key": 202602,
+      "month_start_date": "2026-02-01T00:00:00.000",
+      "total_incidents": 10547,
+      "city_of_austin_incidents": 8876,
+      "travis_county_incidents": 1554,
+      "other_area_incidents": 117,
+      "source_reported_overall_on_time_pct": 82.4446,
+      "source_reported_city_on_time_pct": 82.4708,
+      "source_reported_county_on_time_pct": 82.2909,
+      "source_reported_target_on_time_pct": 90,
+      "derived_overall_response_goal_miss_pct": 17.56,
+      "derived_overall_missed_incidents_approx": 1852,
+      "derived_target_shortfall_percentage_points": 7.56,
+      "priority_breakdown": [
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 1",
+          "incidents": 350,
+          "source_reported_on_time_pct": 80,
+          "derived_response_goal_miss_pct": 20,
+          "derived_missed_incidents_approx": 70
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 1",
+          "incidents": 78,
+          "source_reported_on_time_pct": 69.863,
+          "derived_response_goal_miss_pct": 30.14,
+          "derived_missed_incidents_approx": 24
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 2",
+          "incidents": 1065,
+          "source_reported_on_time_pct": 83.0541,
+          "derived_response_goal_miss_pct": 16.95,
+          "derived_missed_incidents_approx": 180
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 2",
+          "incidents": 201,
+          "source_reported_on_time_pct": 77.0833,
+          "derived_response_goal_miss_pct": 22.92,
+          "derived_missed_incidents_approx": 46
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 3",
+          "incidents": 2695,
+          "source_reported_on_time_pct": 86.0007,
+          "derived_response_goal_miss_pct": 14,
+          "derived_missed_incidents_approx": 377
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 3",
+          "incidents": 499,
+          "source_reported_on_time_pct": 84.3817,
+          "derived_response_goal_miss_pct": 15.62,
+          "derived_missed_incidents_approx": 78
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 4",
+          "incidents": 3712,
+          "source_reported_on_time_pct": 76.1176,
+          "derived_response_goal_miss_pct": 23.88,
+          "derived_missed_incidents_approx": 887
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 4",
+          "incidents": 615,
+          "source_reported_on_time_pct": 80.586,
+          "derived_response_goal_miss_pct": 19.41,
+          "derived_missed_incidents_approx": 119
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 5",
+          "incidents": 1054,
+          "source_reported_on_time_pct": 96.2655,
+          "derived_response_goal_miss_pct": 3.73,
+          "derived_missed_incidents_approx": 39
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 5",
+          "incidents": 161,
+          "source_reported_on_time_pct": 94.7019,
+          "derived_response_goal_miss_pct": 5.3,
+          "derived_missed_incidents_approx": 9
+        }
+      ],
+      "source_locator": {
+        "query_url": "https://data.austintexas.gov/resource/gjtj-jt2d.json?%24limit=36&%24order=month_key+desc",
+        "metadata_url": "https://data.austintexas.gov/api/views/gjtj-jt2d",
+        "dataset_url": "https://data.austintexas.gov/Public-Safety/EMS-Incidents-by-Month/gjtj-jt2d",
+        "source_fields": [
+          "count_incidents_all",
+          "percent_on_time_all",
+          "percent_on_time_target",
+          "service-area and priority-specific count/compliance fields"
+        ]
+      }
+    },
+    {
+      "record_id": "atcems_response_compliance_202601",
+      "metric_id": "atcems_response_goal_miss_rate",
+      "measurement_role": "local_monthly_response_goal_miss_operational_proxy",
+      "month_key": 202601,
+      "month_start_date": "2026-01-01T00:00:00.000",
+      "total_incidents": 11126,
+      "city_of_austin_incidents": 9332,
+      "travis_county_incidents": 1643,
+      "other_area_incidents": 151,
+      "source_reported_overall_on_time_pct": 82.9223,
+      "source_reported_city_on_time_pct": 83.0396,
+      "source_reported_county_on_time_pct": 82.2355,
+      "source_reported_target_on_time_pct": 90,
+      "derived_overall_response_goal_miss_pct": 17.08,
+      "derived_overall_missed_incidents_approx": 1900,
+      "derived_target_shortfall_percentage_points": 7.08,
+      "priority_breakdown": [
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 1",
+          "incidents": 481,
+          "source_reported_on_time_pct": 79.2207,
+          "derived_response_goal_miss_pct": 20.78,
+          "derived_missed_incidents_approx": 100
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 1",
+          "incidents": 82,
+          "source_reported_on_time_pct": 61.8421,
+          "derived_response_goal_miss_pct": 38.16,
+          "derived_missed_incidents_approx": 31
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 2",
+          "incidents": 1111,
+          "source_reported_on_time_pct": 83.6174,
+          "derived_response_goal_miss_pct": 16.38,
+          "derived_missed_incidents_approx": 182
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 2",
+          "incidents": 217,
+          "source_reported_on_time_pct": 82.8431,
+          "derived_response_goal_miss_pct": 17.16,
+          "derived_missed_incidents_approx": 37
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 3",
+          "incidents": 2735,
+          "source_reported_on_time_pct": 86.1035,
+          "derived_response_goal_miss_pct": 13.9,
+          "derived_missed_incidents_approx": 380
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 3",
+          "incidents": 501,
+          "source_reported_on_time_pct": 81.9532,
+          "derived_response_goal_miss_pct": 18.05,
+          "derived_missed_incidents_approx": 90
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 4",
+          "incidents": 3863,
+          "source_reported_on_time_pct": 77.1405,
+          "derived_response_goal_miss_pct": 22.86,
+          "derived_missed_incidents_approx": 883
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 4",
+          "incidents": 650,
+          "source_reported_on_time_pct": 80.2816,
+          "derived_response_goal_miss_pct": 19.72,
+          "derived_missed_incidents_approx": 128
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 5",
+          "incidents": 1142,
+          "source_reported_on_time_pct": 96.9043,
+          "derived_response_goal_miss_pct": 3.1,
+          "derived_missed_incidents_approx": 35
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 5",
+          "incidents": 193,
+          "source_reported_on_time_pct": 96.7391,
+          "derived_response_goal_miss_pct": 3.26,
+          "derived_missed_incidents_approx": 6
+        }
+      ],
+      "source_locator": {
+        "query_url": "https://data.austintexas.gov/resource/gjtj-jt2d.json?%24limit=36&%24order=month_key+desc",
+        "metadata_url": "https://data.austintexas.gov/api/views/gjtj-jt2d",
+        "dataset_url": "https://data.austintexas.gov/Public-Safety/EMS-Incidents-by-Month/gjtj-jt2d",
+        "source_fields": [
+          "count_incidents_all",
+          "percent_on_time_all",
+          "percent_on_time_target",
+          "service-area and priority-specific count/compliance fields"
+        ]
+      }
+    },
+    {
+      "record_id": "atcems_response_compliance_202512",
+      "metric_id": "atcems_response_goal_miss_rate",
+      "measurement_role": "local_monthly_response_goal_miss_operational_proxy",
+      "month_key": 202512,
+      "month_start_date": "2025-12-01T00:00:00.000",
+      "total_incidents": 11204,
+      "city_of_austin_incidents": 9396,
+      "travis_county_incidents": 1674,
+      "other_area_incidents": 134,
+      "source_reported_overall_on_time_pct": 82.0172,
+      "source_reported_city_on_time_pct": 81.9298,
+      "source_reported_county_on_time_pct": 82.5211,
+      "source_reported_target_on_time_pct": 90,
+      "derived_overall_response_goal_miss_pct": 17.98,
+      "derived_overall_missed_incidents_approx": 2015,
+      "derived_target_shortfall_percentage_points": 7.98,
+      "priority_breakdown": [
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 1",
+          "incidents": 711,
+          "source_reported_on_time_pct": 77.4045,
+          "derived_response_goal_miss_pct": 22.6,
+          "derived_missed_incidents_approx": 161
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 1",
+          "incidents": 110,
+          "source_reported_on_time_pct": 67.3076,
+          "derived_response_goal_miss_pct": 32.69,
+          "derived_missed_incidents_approx": 36
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 2",
+          "incidents": 1218,
+          "source_reported_on_time_pct": 79.2985,
+          "derived_response_goal_miss_pct": 20.7,
+          "derived_missed_incidents_approx": 252
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 2",
+          "incidents": 242,
+          "source_reported_on_time_pct": 78.1659,
+          "derived_response_goal_miss_pct": 21.83,
+          "derived_missed_incidents_approx": 53
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 3",
+          "incidents": 2539,
+          "source_reported_on_time_pct": 86.2312,
+          "derived_response_goal_miss_pct": 13.77,
+          "derived_missed_incidents_approx": 350
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 3",
+          "incidents": 518,
+          "source_reported_on_time_pct": 85.7749,
+          "derived_response_goal_miss_pct": 14.23,
+          "derived_missed_incidents_approx": 74
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 4",
+          "incidents": 3891,
+          "source_reported_on_time_pct": 76.9945,
+          "derived_response_goal_miss_pct": 23.01,
+          "derived_missed_incidents_approx": 895
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 4",
+          "incidents": 638,
+          "source_reported_on_time_pct": 80.0347,
+          "derived_response_goal_miss_pct": 19.97,
+          "derived_missed_incidents_approx": 127
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 5",
+          "incidents": 1037,
+          "source_reported_on_time_pct": 95.9308,
+          "derived_response_goal_miss_pct": 4.07,
+          "derived_missed_incidents_approx": 42
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 5",
+          "incidents": 166,
+          "source_reported_on_time_pct": 98.1132,
+          "derived_response_goal_miss_pct": 1.89,
+          "derived_missed_incidents_approx": 3
+        }
+      ],
+      "source_locator": {
+        "query_url": "https://data.austintexas.gov/resource/gjtj-jt2d.json?%24limit=36&%24order=month_key+desc",
+        "metadata_url": "https://data.austintexas.gov/api/views/gjtj-jt2d",
+        "dataset_url": "https://data.austintexas.gov/Public-Safety/EMS-Incidents-by-Month/gjtj-jt2d",
+        "source_fields": [
+          "count_incidents_all",
+          "percent_on_time_all",
+          "percent_on_time_target",
+          "service-area and priority-specific count/compliance fields"
+        ]
+      }
+    },
+    {
+      "record_id": "atcems_response_compliance_202511",
+      "metric_id": "atcems_response_goal_miss_rate",
+      "measurement_role": "local_monthly_response_goal_miss_operational_proxy",
+      "month_key": 202511,
+      "month_start_date": "2025-11-01T00:00:00.000",
+      "total_incidents": 10750,
+      "city_of_austin_incidents": 9046,
+      "travis_county_incidents": 1561,
+      "other_area_incidents": 143,
+      "source_reported_overall_on_time_pct": 81.6336,
+      "source_reported_city_on_time_pct": 81.1835,
+      "source_reported_county_on_time_pct": 84.2837,
+      "source_reported_target_on_time_pct": 90,
+      "derived_overall_response_goal_miss_pct": 18.37,
+      "derived_overall_missed_incidents_approx": 1974,
+      "derived_target_shortfall_percentage_points": 8.37,
+      "priority_breakdown": [
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 1",
+          "incidents": 705,
+          "source_reported_on_time_pct": 76.6153,
+          "derived_response_goal_miss_pct": 23.38,
+          "derived_missed_incidents_approx": 165
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 1",
+          "incidents": 97,
+          "source_reported_on_time_pct": 67.3913,
+          "derived_response_goal_miss_pct": 32.61,
+          "derived_missed_incidents_approx": 32
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 2",
+          "incidents": 1050,
+          "source_reported_on_time_pct": 82.4853,
+          "derived_response_goal_miss_pct": 17.51,
+          "derived_missed_incidents_approx": 184
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 2",
+          "incidents": 226,
+          "source_reported_on_time_pct": 82.0754,
+          "derived_response_goal_miss_pct": 17.92,
+          "derived_missed_incidents_approx": 41
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 3",
+          "incidents": 2588,
+          "source_reported_on_time_pct": 85.5279,
+          "derived_response_goal_miss_pct": 14.47,
+          "derived_missed_incidents_approx": 375
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 3",
+          "incidents": 496,
+          "source_reported_on_time_pct": 88.8888,
+          "derived_response_goal_miss_pct": 11.11,
+          "derived_missed_incidents_approx": 55
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 4",
+          "incidents": 3687,
+          "source_reported_on_time_pct": 74.558,
+          "derived_response_goal_miss_pct": 25.44,
+          "derived_missed_incidents_approx": 938
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 4",
+          "incidents": 571,
+          "source_reported_on_time_pct": 79.0606,
+          "derived_response_goal_miss_pct": 20.94,
+          "derived_missed_incidents_approx": 120
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 5",
+          "incidents": 1016,
+          "source_reported_on_time_pct": 95.8592,
+          "derived_response_goal_miss_pct": 4.14,
+          "derived_missed_incidents_approx": 42
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 5",
+          "incidents": 171,
+          "source_reported_on_time_pct": 100,
+          "derived_response_goal_miss_pct": 0,
+          "derived_missed_incidents_approx": 0
+        }
+      ],
+      "source_locator": {
+        "query_url": "https://data.austintexas.gov/resource/gjtj-jt2d.json?%24limit=36&%24order=month_key+desc",
+        "metadata_url": "https://data.austintexas.gov/api/views/gjtj-jt2d",
+        "dataset_url": "https://data.austintexas.gov/Public-Safety/EMS-Incidents-by-Month/gjtj-jt2d",
+        "source_fields": [
+          "count_incidents_all",
+          "percent_on_time_all",
+          "percent_on_time_target",
+          "service-area and priority-specific count/compliance fields"
+        ]
+      }
+    },
+    {
+      "record_id": "atcems_response_compliance_202510",
+      "metric_id": "atcems_response_goal_miss_rate",
+      "measurement_role": "local_monthly_response_goal_miss_operational_proxy",
+      "month_key": 202510,
+      "month_start_date": "2025-10-01T00:00:00.000",
+      "total_incidents": 11516,
+      "city_of_austin_incidents": 9713,
+      "travis_county_incidents": 1677,
+      "other_area_incidents": 126,
+      "source_reported_overall_on_time_pct": 79.5045,
+      "source_reported_city_on_time_pct": 79.3988,
+      "source_reported_county_on_time_pct": 80.1298,
+      "source_reported_target_on_time_pct": 90,
+      "derived_overall_response_goal_miss_pct": 20.5,
+      "derived_overall_missed_incidents_approx": 2360,
+      "derived_target_shortfall_percentage_points": 10.5,
+      "priority_breakdown": [
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 1",
+          "incidents": 662,
+          "source_reported_on_time_pct": 73.1825,
+          "derived_response_goal_miss_pct": 26.82,
+          "derived_missed_incidents_approx": 178
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 1",
+          "incidents": 112,
+          "source_reported_on_time_pct": 59.4339,
+          "derived_response_goal_miss_pct": 40.57,
+          "derived_missed_incidents_approx": 45
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 2",
+          "incidents": 1164,
+          "source_reported_on_time_pct": 79.6985,
+          "derived_response_goal_miss_pct": 20.3,
+          "derived_missed_incidents_approx": 236
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 2",
+          "incidents": 233,
+          "source_reported_on_time_pct": 77.7272,
+          "derived_response_goal_miss_pct": 22.27,
+          "derived_missed_incidents_approx": 52
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 3",
+          "incidents": 2810,
+          "source_reported_on_time_pct": 84.2185,
+          "derived_response_goal_miss_pct": 15.78,
+          "derived_missed_incidents_approx": 443
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 3",
+          "incidents": 514,
+          "source_reported_on_time_pct": 83.7209,
+          "derived_response_goal_miss_pct": 16.28,
+          "derived_missed_incidents_approx": 84
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 4",
+          "incidents": 3952,
+          "source_reported_on_time_pct": 72.3531,
+          "derived_response_goal_miss_pct": 27.65,
+          "derived_missed_incidents_approx": 1093
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 4",
+          "incidents": 630,
+          "source_reported_on_time_pct": 77.0053,
+          "derived_response_goal_miss_pct": 22.99,
+          "derived_missed_incidents_approx": 145
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 5",
+          "incidents": 1125,
+          "source_reported_on_time_pct": 95.3729,
+          "derived_response_goal_miss_pct": 4.63,
+          "derived_missed_incidents_approx": 52
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 5",
+          "incidents": 188,
+          "source_reported_on_time_pct": 95.5555,
+          "derived_response_goal_miss_pct": 4.44,
+          "derived_missed_incidents_approx": 8
+        }
+      ],
+      "source_locator": {
+        "query_url": "https://data.austintexas.gov/resource/gjtj-jt2d.json?%24limit=36&%24order=month_key+desc",
+        "metadata_url": "https://data.austintexas.gov/api/views/gjtj-jt2d",
+        "dataset_url": "https://data.austintexas.gov/Public-Safety/EMS-Incidents-by-Month/gjtj-jt2d",
+        "source_fields": [
+          "count_incidents_all",
+          "percent_on_time_all",
+          "percent_on_time_target",
+          "service-area and priority-specific count/compliance fields"
+        ]
+      }
+    },
+    {
+      "record_id": "atcems_response_compliance_202509",
+      "metric_id": "atcems_response_goal_miss_rate",
+      "measurement_role": "local_monthly_response_goal_miss_operational_proxy",
+      "month_key": 202509,
+      "month_start_date": "2025-09-01T00:00:00.000",
+      "total_incidents": 11260,
+      "city_of_austin_incidents": 9384,
+      "travis_county_incidents": 1733,
+      "other_area_incidents": 143,
+      "source_reported_overall_on_time_pct": 78.8089,
+      "source_reported_city_on_time_pct": 78.6602,
+      "source_reported_county_on_time_pct": 79.6158,
+      "source_reported_target_on_time_pct": 90,
+      "derived_overall_response_goal_miss_pct": 21.19,
+      "derived_overall_missed_incidents_approx": 2386,
+      "derived_target_shortfall_percentage_points": 11.19,
+      "priority_breakdown": [
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 1",
+          "incidents": 671,
+          "source_reported_on_time_pct": 76.32,
+          "derived_response_goal_miss_pct": 23.68,
+          "derived_missed_incidents_approx": 159
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 1",
+          "incidents": 88,
+          "source_reported_on_time_pct": 69.0476,
+          "derived_response_goal_miss_pct": 30.95,
+          "derived_missed_incidents_approx": 27
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 2",
+          "incidents": 1158,
+          "source_reported_on_time_pct": 79.0467,
+          "derived_response_goal_miss_pct": 20.95,
+          "derived_missed_incidents_approx": 243
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 2",
+          "incidents": 265,
+          "source_reported_on_time_pct": 69.685,
+          "derived_response_goal_miss_pct": 30.32,
+          "derived_missed_incidents_approx": 80
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 3",
+          "incidents": 3275,
+          "source_reported_on_time_pct": 81.9709,
+          "derived_response_goal_miss_pct": 18.03,
+          "derived_missed_incidents_approx": 590
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 3",
+          "incidents": 601,
+          "source_reported_on_time_pct": 81.9642,
+          "derived_response_goal_miss_pct": 18.04,
+          "derived_missed_incidents_approx": 108
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 4",
+          "incidents": 3242,
+          "source_reported_on_time_pct": 69.6345,
+          "derived_response_goal_miss_pct": 30.37,
+          "derived_missed_incidents_approx": 984
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 4",
+          "incidents": 614,
+          "source_reported_on_time_pct": 78.3542,
+          "derived_response_goal_miss_pct": 21.65,
+          "derived_missed_incidents_approx": 133
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 5",
+          "incidents": 1038,
+          "source_reported_on_time_pct": 97.1486,
+          "derived_response_goal_miss_pct": 2.85,
+          "derived_missed_incidents_approx": 30
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 5",
+          "incidents": 165,
+          "source_reported_on_time_pct": 97.4522,
+          "derived_response_goal_miss_pct": 2.55,
+          "derived_missed_incidents_approx": 4
+        }
+      ],
+      "source_locator": {
+        "query_url": "https://data.austintexas.gov/resource/gjtj-jt2d.json?%24limit=36&%24order=month_key+desc",
+        "metadata_url": "https://data.austintexas.gov/api/views/gjtj-jt2d",
+        "dataset_url": "https://data.austintexas.gov/Public-Safety/EMS-Incidents-by-Month/gjtj-jt2d",
+        "source_fields": [
+          "count_incidents_all",
+          "percent_on_time_all",
+          "percent_on_time_target",
+          "service-area and priority-specific count/compliance fields"
+        ]
+      }
+    },
+    {
+      "record_id": "atcems_response_compliance_202508",
+      "metric_id": "atcems_response_goal_miss_rate",
+      "measurement_role": "local_monthly_response_goal_miss_operational_proxy",
+      "month_key": 202508,
+      "month_start_date": "2025-08-01T00:00:00.000",
+      "total_incidents": 11661,
+      "city_of_austin_incidents": 9846,
+      "travis_county_incidents": 1679,
+      "other_area_incidents": 136,
+      "source_reported_overall_on_time_pct": 77.9973,
+      "source_reported_city_on_time_pct": 77.7862,
+      "source_reported_county_on_time_pct": 79.2674,
+      "source_reported_target_on_time_pct": 90,
+      "derived_overall_response_goal_miss_pct": 22,
+      "derived_overall_missed_incidents_approx": 2566,
+      "derived_target_shortfall_percentage_points": 12,
+      "priority_breakdown": [
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 1",
+          "incidents": 657,
+          "source_reported_on_time_pct": 75.9933,
+          "derived_response_goal_miss_pct": 24.01,
+          "derived_missed_incidents_approx": 158
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 1",
+          "incidents": 112,
+          "source_reported_on_time_pct": 58.9473,
+          "derived_response_goal_miss_pct": 41.05,
+          "derived_missed_incidents_approx": 46
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 2",
+          "incidents": 1184,
+          "source_reported_on_time_pct": 78.4574,
+          "derived_response_goal_miss_pct": 21.54,
+          "derived_missed_incidents_approx": 255
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 2",
+          "incidents": 229,
+          "source_reported_on_time_pct": 73.3644,
+          "derived_response_goal_miss_pct": 26.64,
+          "derived_missed_incidents_approx": 61
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 3",
+          "incidents": 3659,
+          "source_reported_on_time_pct": 82.0776,
+          "derived_response_goal_miss_pct": 17.92,
+          "derived_missed_incidents_approx": 656
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 3",
+          "incidents": 629,
+          "source_reported_on_time_pct": 81.2824,
+          "derived_response_goal_miss_pct": 18.72,
+          "derived_missed_incidents_approx": 118
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 4",
+          "incidents": 3181,
+          "source_reported_on_time_pct": 66.2723,
+          "derived_response_goal_miss_pct": 33.73,
+          "derived_missed_incidents_approx": 1073
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 4",
+          "incidents": 523,
+          "source_reported_on_time_pct": 77.3504,
+          "derived_response_goal_miss_pct": 22.65,
+          "derived_missed_incidents_approx": 118
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 5",
+          "incidents": 1165,
+          "source_reported_on_time_pct": 95.6678,
+          "derived_response_goal_miss_pct": 4.33,
+          "derived_missed_incidents_approx": 50
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 5",
+          "incidents": 186,
+          "source_reported_on_time_pct": 96,
+          "derived_response_goal_miss_pct": 4,
+          "derived_missed_incidents_approx": 7
+        }
+      ],
+      "source_locator": {
+        "query_url": "https://data.austintexas.gov/resource/gjtj-jt2d.json?%24limit=36&%24order=month_key+desc",
+        "metadata_url": "https://data.austintexas.gov/api/views/gjtj-jt2d",
+        "dataset_url": "https://data.austintexas.gov/Public-Safety/EMS-Incidents-by-Month/gjtj-jt2d",
+        "source_fields": [
+          "count_incidents_all",
+          "percent_on_time_all",
+          "percent_on_time_target",
+          "service-area and priority-specific count/compliance fields"
+        ]
+      }
+    },
+    {
+      "record_id": "atcems_response_compliance_202507",
+      "metric_id": "atcems_response_goal_miss_rate",
+      "measurement_role": "local_monthly_response_goal_miss_operational_proxy",
+      "month_key": 202507,
+      "month_start_date": "2025-07-01T00:00:00.000",
+      "total_incidents": 11183,
+      "city_of_austin_incidents": 9371,
+      "travis_county_incidents": 1633,
+      "other_area_incidents": 179,
+      "source_reported_overall_on_time_pct": 81.2068,
+      "source_reported_city_on_time_pct": 81.5424,
+      "source_reported_county_on_time_pct": 79.1978,
+      "source_reported_target_on_time_pct": 90,
+      "derived_overall_response_goal_miss_pct": 18.79,
+      "derived_overall_missed_incidents_approx": 2102,
+      "derived_target_shortfall_percentage_points": 8.79,
+      "priority_breakdown": [
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 1",
+          "incidents": 607,
+          "source_reported_on_time_pct": 76.923,
+          "derived_response_goal_miss_pct": 23.08,
+          "derived_missed_incidents_approx": 140
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 1",
+          "incidents": 115,
+          "source_reported_on_time_pct": 54.7368,
+          "derived_response_goal_miss_pct": 45.26,
+          "derived_missed_incidents_approx": 52
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 2",
+          "incidents": 1715,
+          "source_reported_on_time_pct": 82.7943,
+          "derived_response_goal_miss_pct": 17.21,
+          "derived_missed_incidents_approx": 295
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 2",
+          "incidents": 314,
+          "source_reported_on_time_pct": 70.9897,
+          "derived_response_goal_miss_pct": 29.01,
+          "derived_missed_incidents_approx": 91
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 3",
+          "incidents": 2195,
+          "source_reported_on_time_pct": 83.5254,
+          "derived_response_goal_miss_pct": 16.47,
+          "derived_missed_incidents_approx": 362
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 3",
+          "incidents": 400,
+          "source_reported_on_time_pct": 80.7486,
+          "derived_response_goal_miss_pct": 19.25,
+          "derived_missed_incidents_approx": 77
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 4",
+          "incidents": 3612,
+          "source_reported_on_time_pct": 75.2768,
+          "derived_response_goal_miss_pct": 24.72,
+          "derived_missed_incidents_approx": 893
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 4",
+          "incidents": 602,
+          "source_reported_on_time_pct": 80.7321,
+          "derived_response_goal_miss_pct": 19.27,
+          "derived_missed_incidents_approx": 116
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 5",
+          "incidents": 1242,
+          "source_reported_on_time_pct": 95.9866,
+          "derived_response_goal_miss_pct": 4.01,
+          "derived_missed_incidents_approx": 50
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 5",
+          "incidents": 202,
+          "source_reported_on_time_pct": 96.8421,
+          "derived_response_goal_miss_pct": 3.16,
+          "derived_missed_incidents_approx": 6
+        }
+      ],
+      "source_locator": {
+        "query_url": "https://data.austintexas.gov/resource/gjtj-jt2d.json?%24limit=36&%24order=month_key+desc",
+        "metadata_url": "https://data.austintexas.gov/api/views/gjtj-jt2d",
+        "dataset_url": "https://data.austintexas.gov/Public-Safety/EMS-Incidents-by-Month/gjtj-jt2d",
+        "source_fields": [
+          "count_incidents_all",
+          "percent_on_time_all",
+          "percent_on_time_target",
+          "service-area and priority-specific count/compliance fields"
+        ]
+      }
+    },
+    {
+      "record_id": "atcems_response_compliance_202506",
+      "metric_id": "atcems_response_goal_miss_rate",
+      "measurement_role": "local_monthly_response_goal_miss_operational_proxy",
+      "month_key": 202506,
+      "month_start_date": "2025-06-01T00:00:00.000",
+      "total_incidents": 10875,
+      "city_of_austin_incidents": 9185,
+      "travis_county_incidents": 1562,
+      "other_area_incidents": 128,
+      "source_reported_overall_on_time_pct": 82.8103,
+      "source_reported_city_on_time_pct": 83.2982,
+      "source_reported_county_on_time_pct": 79.931,
+      "source_reported_target_on_time_pct": 90,
+      "derived_overall_response_goal_miss_pct": 17.19,
+      "derived_overall_missed_incidents_approx": 1869,
+      "derived_target_shortfall_percentage_points": 7.19,
+      "priority_breakdown": [
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 1",
+          "incidents": 690,
+          "source_reported_on_time_pct": 77.7243,
+          "derived_response_goal_miss_pct": 22.28,
+          "derived_missed_incidents_approx": 154
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 1",
+          "incidents": 104,
+          "source_reported_on_time_pct": 66.6666,
+          "derived_response_goal_miss_pct": 33.33,
+          "derived_missed_incidents_approx": 35
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 2",
+          "incidents": 3372,
+          "source_reported_on_time_pct": 80.8841,
+          "derived_response_goal_miss_pct": 19.12,
+          "derived_missed_incidents_approx": 645
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 2",
+          "incidents": 612,
+          "source_reported_on_time_pct": 72.0338,
+          "derived_response_goal_miss_pct": 27.97,
+          "derived_missed_incidents_approx": 171
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 3",
+          "incidents": 1150,
+          "source_reported_on_time_pct": 75.9813,
+          "derived_response_goal_miss_pct": 24.02,
+          "derived_missed_incidents_approx": 276
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 3",
+          "incidents": 177,
+          "source_reported_on_time_pct": 78.7878,
+          "derived_response_goal_miss_pct": 21.21,
+          "derived_missed_incidents_approx": 38
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 4",
+          "incidents": 2964,
+          "source_reported_on_time_pct": 86.1327,
+          "derived_response_goal_miss_pct": 13.87,
+          "derived_missed_incidents_approx": 411
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 4",
+          "incidents": 501,
+          "source_reported_on_time_pct": 87.4429,
+          "derived_response_goal_miss_pct": 12.56,
+          "derived_missed_incidents_approx": 63
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 5",
+          "incidents": 1009,
+          "source_reported_on_time_pct": 95.278,
+          "derived_response_goal_miss_pct": 4.72,
+          "derived_missed_incidents_approx": 48
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 5",
+          "incidents": 168,
+          "source_reported_on_time_pct": 98.1012,
+          "derived_response_goal_miss_pct": 1.9,
+          "derived_missed_incidents_approx": 3
+        }
+      ],
+      "source_locator": {
+        "query_url": "https://data.austintexas.gov/resource/gjtj-jt2d.json?%24limit=36&%24order=month_key+desc",
+        "metadata_url": "https://data.austintexas.gov/api/views/gjtj-jt2d",
+        "dataset_url": "https://data.austintexas.gov/Public-Safety/EMS-Incidents-by-Month/gjtj-jt2d",
+        "source_fields": [
+          "count_incidents_all",
+          "percent_on_time_all",
+          "percent_on_time_target",
+          "service-area and priority-specific count/compliance fields"
+        ]
+      }
+    },
+    {
+      "record_id": "atcems_response_compliance_202505",
+      "metric_id": "atcems_response_goal_miss_rate",
+      "measurement_role": "local_monthly_response_goal_miss_operational_proxy",
+      "month_key": 202505,
+      "month_start_date": "2025-05-01T00:00:00.000",
+      "total_incidents": 11569,
+      "city_of_austin_incidents": 9741,
+      "travis_county_incidents": 1667,
+      "other_area_incidents": 161,
+      "source_reported_overall_on_time_pct": 81.6091,
+      "source_reported_city_on_time_pct": 81.6602,
+      "source_reported_county_on_time_pct": 81.3034,
+      "source_reported_target_on_time_pct": 90,
+      "derived_overall_response_goal_miss_pct": 18.39,
+      "derived_overall_missed_incidents_approx": 2128,
+      "derived_target_shortfall_percentage_points": 8.39,
+      "priority_breakdown": [
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 1",
+          "incidents": 735,
+          "source_reported_on_time_pct": 71.4076,
+          "derived_response_goal_miss_pct": 28.59,
+          "derived_missed_incidents_approx": 210
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 1",
+          "incidents": 114,
+          "source_reported_on_time_pct": 64.8148,
+          "derived_response_goal_miss_pct": 35.19,
+          "derived_missed_incidents_approx": 40
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 2",
+          "incidents": 3490,
+          "source_reported_on_time_pct": 79.5101,
+          "derived_response_goal_miss_pct": 20.49,
+          "derived_missed_incidents_approx": 715
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 2",
+          "incidents": 634,
+          "source_reported_on_time_pct": 74.6666,
+          "derived_response_goal_miss_pct": 25.33,
+          "derived_missed_incidents_approx": 161
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 3",
+          "incidents": 1242,
+          "source_reported_on_time_pct": 75,
+          "derived_response_goal_miss_pct": 25,
+          "derived_missed_incidents_approx": 311
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 3",
+          "incidents": 165,
+          "source_reported_on_time_pct": 78.2894,
+          "derived_response_goal_miss_pct": 21.71,
+          "derived_missed_incidents_approx": 36
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 4",
+          "incidents": 3204,
+          "source_reported_on_time_pct": 84.7487,
+          "derived_response_goal_miss_pct": 15.25,
+          "derived_missed_incidents_approx": 489
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 4",
+          "incidents": 582,
+          "source_reported_on_time_pct": 88.6639,
+          "derived_response_goal_miss_pct": 11.34,
+          "derived_missed_incidents_approx": 66
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 5",
+          "incidents": 1070,
+          "source_reported_on_time_pct": 94.6428,
+          "derived_response_goal_miss_pct": 5.36,
+          "derived_missed_incidents_approx": 57
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 5",
+          "incidents": 172,
+          "source_reported_on_time_pct": 96.9696,
+          "derived_response_goal_miss_pct": 3.03,
+          "derived_missed_incidents_approx": 5
+        }
+      ],
+      "source_locator": {
+        "query_url": "https://data.austintexas.gov/resource/gjtj-jt2d.json?%24limit=36&%24order=month_key+desc",
+        "metadata_url": "https://data.austintexas.gov/api/views/gjtj-jt2d",
+        "dataset_url": "https://data.austintexas.gov/Public-Safety/EMS-Incidents-by-Month/gjtj-jt2d",
+        "source_fields": [
+          "count_incidents_all",
+          "percent_on_time_all",
+          "percent_on_time_target",
+          "service-area and priority-specific count/compliance fields"
+        ]
+      }
+    },
+    {
+      "record_id": "atcems_response_compliance_202504",
+      "metric_id": "atcems_response_goal_miss_rate",
+      "measurement_role": "local_monthly_response_goal_miss_operational_proxy",
+      "month_key": 202504,
+      "month_start_date": "2025-04-01T00:00:00.000",
+      "total_incidents": 11169,
+      "city_of_austin_incidents": 9460,
+      "travis_county_incidents": 1570,
+      "other_area_incidents": 139,
+      "source_reported_overall_on_time_pct": 82.6167,
+      "source_reported_city_on_time_pct": 82.723,
+      "source_reported_county_on_time_pct": 81.9739,
+      "source_reported_target_on_time_pct": 90,
+      "derived_overall_response_goal_miss_pct": 17.38,
+      "derived_overall_missed_incidents_approx": 1942,
+      "derived_target_shortfall_percentage_points": 7.38,
+      "priority_breakdown": [
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 1",
+          "incidents": 742,
+          "source_reported_on_time_pct": 75.7575,
+          "derived_response_goal_miss_pct": 24.24,
+          "derived_missed_incidents_approx": 180
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 1",
+          "incidents": 98,
+          "source_reported_on_time_pct": 69.1489,
+          "derived_response_goal_miss_pct": 30.85,
+          "derived_missed_incidents_approx": 30
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 2",
+          "incidents": 3481,
+          "source_reported_on_time_pct": 79.6996,
+          "derived_response_goal_miss_pct": 20.3,
+          "derived_missed_incidents_approx": 707
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 2",
+          "incidents": 620,
+          "source_reported_on_time_pct": 73.544,
+          "derived_response_goal_miss_pct": 26.46,
+          "derived_missed_incidents_approx": 164
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 3",
+          "incidents": 1168,
+          "source_reported_on_time_pct": 78.687,
+          "derived_response_goal_miss_pct": 21.31,
+          "derived_missed_incidents_approx": 249
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 3",
+          "incidents": 153,
+          "source_reported_on_time_pct": 80.1369,
+          "derived_response_goal_miss_pct": 19.86,
+          "derived_missed_incidents_approx": 30
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 4",
+          "incidents": 3027,
+          "source_reported_on_time_pct": 85.3264,
+          "derived_response_goal_miss_pct": 14.67,
+          "derived_missed_incidents_approx": 444
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 4",
+          "incidents": 546,
+          "source_reported_on_time_pct": 91.2765,
+          "derived_response_goal_miss_pct": 8.72,
+          "derived_missed_incidents_approx": 48
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 5",
+          "incidents": 1042,
+          "source_reported_on_time_pct": 95.5208,
+          "derived_response_goal_miss_pct": 4.48,
+          "derived_missed_incidents_approx": 47
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 5",
+          "incidents": 153,
+          "source_reported_on_time_pct": 96.6216,
+          "derived_response_goal_miss_pct": 3.38,
+          "derived_missed_incidents_approx": 5
+        }
+      ],
+      "source_locator": {
+        "query_url": "https://data.austintexas.gov/resource/gjtj-jt2d.json?%24limit=36&%24order=month_key+desc",
+        "metadata_url": "https://data.austintexas.gov/api/views/gjtj-jt2d",
+        "dataset_url": "https://data.austintexas.gov/Public-Safety/EMS-Incidents-by-Month/gjtj-jt2d",
+        "source_fields": [
+          "count_incidents_all",
+          "percent_on_time_all",
+          "percent_on_time_target",
+          "service-area and priority-specific count/compliance fields"
+        ]
+      }
+    },
+    {
+      "record_id": "atcems_response_compliance_202503",
+      "metric_id": "atcems_response_goal_miss_rate",
+      "measurement_role": "local_monthly_response_goal_miss_operational_proxy",
+      "month_key": 202503,
+      "month_start_date": "2025-03-01T00:00:00.000",
+      "total_incidents": 11544,
+      "city_of_austin_incidents": 9764,
+      "travis_county_incidents": 1642,
+      "other_area_incidents": 138,
+      "source_reported_overall_on_time_pct": 83.8616,
+      "source_reported_city_on_time_pct": 84.1094,
+      "source_reported_county_on_time_pct": 82.3722,
+      "source_reported_target_on_time_pct": 90,
+      "derived_overall_response_goal_miss_pct": 16.14,
+      "derived_overall_missed_incidents_approx": 1863,
+      "derived_target_shortfall_percentage_points": 6.14,
+      "priority_breakdown": [
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 1",
+          "incidents": 731,
+          "source_reported_on_time_pct": 74.4493,
+          "derived_response_goal_miss_pct": 25.55,
+          "derived_missed_incidents_approx": 187
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 1",
+          "incidents": 106,
+          "source_reported_on_time_pct": 71.134,
+          "derived_response_goal_miss_pct": 28.87,
+          "derived_missed_incidents_approx": 31
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 2",
+          "incidents": 3524,
+          "source_reported_on_time_pct": 81.3604,
+          "derived_response_goal_miss_pct": 18.64,
+          "derived_missed_incidents_approx": 657
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 2",
+          "incidents": 634,
+          "source_reported_on_time_pct": 75.1243,
+          "derived_response_goal_miss_pct": 24.88,
+          "derived_missed_incidents_approx": 158
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 3",
+          "incidents": 1213,
+          "source_reported_on_time_pct": 80.3819,
+          "derived_response_goal_miss_pct": 19.62,
+          "derived_missed_incidents_approx": 238
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 3",
+          "incidents": 154,
+          "source_reported_on_time_pct": 77.931,
+          "derived_response_goal_miss_pct": 22.07,
+          "derived_missed_incidents_approx": 34
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 4",
+          "incidents": 3136,
+          "source_reported_on_time_pct": 87.0435,
+          "derived_response_goal_miss_pct": 12.96,
+          "derived_missed_incidents_approx": 406
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 4",
+          "incidents": 598,
+          "source_reported_on_time_pct": 90.538,
+          "derived_response_goal_miss_pct": 9.46,
+          "derived_missed_incidents_approx": 57
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 5",
+          "incidents": 1160,
+          "source_reported_on_time_pct": 94.9633,
+          "derived_response_goal_miss_pct": 5.04,
+          "derived_missed_incidents_approx": 58
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 5",
+          "incidents": 150,
+          "source_reported_on_time_pct": 94.3661,
+          "derived_response_goal_miss_pct": 5.63,
+          "derived_missed_incidents_approx": 8
+        }
+      ],
+      "source_locator": {
+        "query_url": "https://data.austintexas.gov/resource/gjtj-jt2d.json?%24limit=36&%24order=month_key+desc",
+        "metadata_url": "https://data.austintexas.gov/api/views/gjtj-jt2d",
+        "dataset_url": "https://data.austintexas.gov/Public-Safety/EMS-Incidents-by-Month/gjtj-jt2d",
+        "source_fields": [
+          "count_incidents_all",
+          "percent_on_time_all",
+          "percent_on_time_target",
+          "service-area and priority-specific count/compliance fields"
+        ]
+      }
+    },
+    {
+      "record_id": "atcems_response_compliance_202502",
+      "metric_id": "atcems_response_goal_miss_rate",
+      "measurement_role": "local_monthly_response_goal_miss_operational_proxy",
+      "month_key": 202502,
+      "month_start_date": "2025-02-01T00:00:00.000",
+      "total_incidents": 10461,
+      "city_of_austin_incidents": 8889,
+      "travis_county_incidents": 1439,
+      "other_area_incidents": 133,
+      "source_reported_overall_on_time_pct": 84.7497,
+      "source_reported_city_on_time_pct": 84.9773,
+      "source_reported_county_on_time_pct": 83.3208,
+      "source_reported_target_on_time_pct": 90,
+      "derived_overall_response_goal_miss_pct": 15.25,
+      "derived_overall_missed_incidents_approx": 1595,
+      "derived_target_shortfall_percentage_points": 5.25,
+      "priority_breakdown": [
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 1",
+          "incidents": 684,
+          "source_reported_on_time_pct": 78.1395,
+          "derived_response_goal_miss_pct": 21.86,
+          "derived_missed_incidents_approx": 150
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 1",
+          "incidents": 105,
+          "source_reported_on_time_pct": 71.2871,
+          "derived_response_goal_miss_pct": 28.71,
+          "derived_missed_incidents_approx": 30
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 2",
+          "incidents": 3305,
+          "source_reported_on_time_pct": 81.537,
+          "derived_response_goal_miss_pct": 18.46,
+          "derived_missed_incidents_approx": 610
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 2",
+          "incidents": 581,
+          "source_reported_on_time_pct": 77.3851,
+          "derived_response_goal_miss_pct": 22.61,
+          "derived_missed_incidents_approx": 131
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 3",
+          "incidents": 1173,
+          "source_reported_on_time_pct": 79.3381,
+          "derived_response_goal_miss_pct": 20.66,
+          "derived_missed_incidents_approx": 242
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 3",
+          "incidents": 121,
+          "source_reported_on_time_pct": 75,
+          "derived_response_goal_miss_pct": 25,
+          "derived_missed_incidents_approx": 30
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 4",
+          "incidents": 2660,
+          "source_reported_on_time_pct": 89.5756,
+          "derived_response_goal_miss_pct": 10.42,
+          "derived_missed_incidents_approx": 277
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 4",
+          "incidents": 472,
+          "source_reported_on_time_pct": 92.4205,
+          "derived_response_goal_miss_pct": 7.58,
+          "derived_missed_incidents_approx": 36
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 5",
+          "incidents": 1067,
+          "source_reported_on_time_pct": 95.5134,
+          "derived_response_goal_miss_pct": 4.49,
+          "derived_missed_incidents_approx": 48
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 5",
+          "incidents": 160,
+          "source_reported_on_time_pct": 95.302,
+          "derived_response_goal_miss_pct": 4.7,
+          "derived_missed_incidents_approx": 8
+        }
+      ],
+      "source_locator": {
+        "query_url": "https://data.austintexas.gov/resource/gjtj-jt2d.json?%24limit=36&%24order=month_key+desc",
+        "metadata_url": "https://data.austintexas.gov/api/views/gjtj-jt2d",
+        "dataset_url": "https://data.austintexas.gov/Public-Safety/EMS-Incidents-by-Month/gjtj-jt2d",
+        "source_fields": [
+          "count_incidents_all",
+          "percent_on_time_all",
+          "percent_on_time_target",
+          "service-area and priority-specific count/compliance fields"
+        ]
+      }
+    },
+    {
+      "record_id": "atcems_response_compliance_202501",
+      "metric_id": "atcems_response_goal_miss_rate",
+      "measurement_role": "local_monthly_response_goal_miss_operational_proxy",
+      "month_key": 202501,
+      "month_start_date": "2025-01-01T00:00:00.000",
+      "total_incidents": 11164,
+      "city_of_austin_incidents": 9323,
+      "travis_county_incidents": 1708,
+      "other_area_incidents": 133,
+      "source_reported_overall_on_time_pct": 84.4279,
+      "source_reported_city_on_time_pct": 84.8033,
+      "source_reported_county_on_time_pct": 82.3455,
+      "source_reported_target_on_time_pct": 90,
+      "derived_overall_response_goal_miss_pct": 15.57,
+      "derived_overall_missed_incidents_approx": 1738,
+      "derived_target_shortfall_percentage_points": 5.57,
+      "priority_breakdown": [
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 1",
+          "incidents": 695,
+          "source_reported_on_time_pct": 74.8484,
+          "derived_response_goal_miss_pct": 25.15,
+          "derived_missed_incidents_approx": 175
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 1",
+          "incidents": 119,
+          "source_reported_on_time_pct": 72.5663,
+          "derived_response_goal_miss_pct": 27.43,
+          "derived_missed_incidents_approx": 33
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 2",
+          "incidents": 3392,
+          "source_reported_on_time_pct": 81.0934,
+          "derived_response_goal_miss_pct": 18.91,
+          "derived_missed_incidents_approx": 641
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 2",
+          "incidents": 718,
+          "source_reported_on_time_pct": 77.1676,
+          "derived_response_goal_miss_pct": 22.83,
+          "derived_missed_incidents_approx": 164
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 3",
+          "incidents": 1153,
+          "source_reported_on_time_pct": 80.417,
+          "derived_response_goal_miss_pct": 19.58,
+          "derived_missed_incidents_approx": 226
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 3",
+          "incidents": 168,
+          "source_reported_on_time_pct": 77.8481,
+          "derived_response_goal_miss_pct": 22.15,
+          "derived_missed_incidents_approx": 37
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 4",
+          "incidents": 2835,
+          "source_reported_on_time_pct": 90.5202,
+          "derived_response_goal_miss_pct": 9.48,
+          "derived_missed_incidents_approx": 269
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 4",
+          "incidents": 511,
+          "source_reported_on_time_pct": 90.9297,
+          "derived_response_goal_miss_pct": 9.07,
+          "derived_missed_incidents_approx": 46
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 5",
+          "incidents": 1248,
+          "source_reported_on_time_pct": 92.2813,
+          "derived_response_goal_miss_pct": 7.72,
+          "derived_missed_incidents_approx": 96
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 5",
+          "incidents": 192,
+          "source_reported_on_time_pct": 91.2087,
+          "derived_response_goal_miss_pct": 8.79,
+          "derived_missed_incidents_approx": 17
+        }
+      ],
+      "source_locator": {
+        "query_url": "https://data.austintexas.gov/resource/gjtj-jt2d.json?%24limit=36&%24order=month_key+desc",
+        "metadata_url": "https://data.austintexas.gov/api/views/gjtj-jt2d",
+        "dataset_url": "https://data.austintexas.gov/Public-Safety/EMS-Incidents-by-Month/gjtj-jt2d",
+        "source_fields": [
+          "count_incidents_all",
+          "percent_on_time_all",
+          "percent_on_time_target",
+          "service-area and priority-specific count/compliance fields"
+        ]
+      }
+    },
+    {
+      "record_id": "atcems_response_compliance_202412",
+      "metric_id": "atcems_response_goal_miss_rate",
+      "measurement_role": "local_monthly_response_goal_miss_operational_proxy",
+      "month_key": 202412,
+      "month_start_date": "2024-12-01T00:00:00.000",
+      "total_incidents": 10975,
+      "city_of_austin_incidents": 9244,
+      "travis_county_incidents": 1609,
+      "other_area_incidents": 122,
+      "source_reported_overall_on_time_pct": 85.0378,
+      "source_reported_city_on_time_pct": 85.4717,
+      "source_reported_county_on_time_pct": 82.5333,
+      "source_reported_target_on_time_pct": 90,
+      "derived_overall_response_goal_miss_pct": 14.96,
+      "derived_overall_missed_incidents_approx": 1642,
+      "derived_target_shortfall_percentage_points": 4.96,
+      "priority_breakdown": [
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 1",
+          "incidents": 681,
+          "source_reported_on_time_pct": 74.8417,
+          "derived_response_goal_miss_pct": 25.16,
+          "derived_missed_incidents_approx": 171
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 1",
+          "incidents": 87,
+          "source_reported_on_time_pct": 65.8823,
+          "derived_response_goal_miss_pct": 34.12,
+          "derived_missed_incidents_approx": 30
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 2",
+          "incidents": 3210,
+          "source_reported_on_time_pct": 82.8145,
+          "derived_response_goal_miss_pct": 17.19,
+          "derived_missed_incidents_approx": 552
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 2",
+          "incidents": 654,
+          "source_reported_on_time_pct": 76.8388,
+          "derived_response_goal_miss_pct": 23.16,
+          "derived_missed_incidents_approx": 151
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 3",
+          "incidents": 1162,
+          "source_reported_on_time_pct": 80.0541,
+          "derived_response_goal_miss_pct": 19.95,
+          "derived_missed_incidents_approx": 232
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 3",
+          "incidents": 166,
+          "source_reported_on_time_pct": 83.0065,
+          "derived_response_goal_miss_pct": 16.99,
+          "derived_missed_incidents_approx": 28
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 4",
+          "incidents": 2909,
+          "source_reported_on_time_pct": 90.1515,
+          "derived_response_goal_miss_pct": 9.85,
+          "derived_missed_incidents_approx": 286
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 4",
+          "incidents": 510,
+          "source_reported_on_time_pct": 89.4382,
+          "derived_response_goal_miss_pct": 10.56,
+          "derived_missed_incidents_approx": 54
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 5",
+          "incidents": 1282,
+          "source_reported_on_time_pct": 92.6359,
+          "derived_response_goal_miss_pct": 7.36,
+          "derived_missed_incidents_approx": 94
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 5",
+          "incidents": 192,
+          "source_reported_on_time_pct": 93.2584,
+          "derived_response_goal_miss_pct": 6.74,
+          "derived_missed_incidents_approx": 13
+        }
+      ],
+      "source_locator": {
+        "query_url": "https://data.austintexas.gov/resource/gjtj-jt2d.json?%24limit=36&%24order=month_key+desc",
+        "metadata_url": "https://data.austintexas.gov/api/views/gjtj-jt2d",
+        "dataset_url": "https://data.austintexas.gov/Public-Safety/EMS-Incidents-by-Month/gjtj-jt2d",
+        "source_fields": [
+          "count_incidents_all",
+          "percent_on_time_all",
+          "percent_on_time_target",
+          "service-area and priority-specific count/compliance fields"
+        ]
+      }
+    },
+    {
+      "record_id": "atcems_response_compliance_202411",
+      "metric_id": "atcems_response_goal_miss_rate",
+      "measurement_role": "local_monthly_response_goal_miss_operational_proxy",
+      "month_key": 202411,
+      "month_start_date": "2024-11-01T00:00:00.000",
+      "total_incidents": 11240,
+      "city_of_austin_incidents": 9620,
+      "travis_county_incidents": 1540,
+      "other_area_incidents": 80,
+      "source_reported_overall_on_time_pct": 82.9623,
+      "source_reported_city_on_time_pct": 83.3462,
+      "source_reported_county_on_time_pct": 80.5222,
+      "source_reported_target_on_time_pct": 90,
+      "derived_overall_response_goal_miss_pct": 17.04,
+      "derived_overall_missed_incidents_approx": 1915,
+      "derived_target_shortfall_percentage_points": 7.04,
+      "priority_breakdown": [
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 1",
+          "incidents": 672,
+          "source_reported_on_time_pct": 78.9902,
+          "derived_response_goal_miss_pct": 21.01,
+          "derived_missed_incidents_approx": 141
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 1",
+          "incidents": 85,
+          "source_reported_on_time_pct": 60,
+          "derived_response_goal_miss_pct": 40,
+          "derived_missed_incidents_approx": 34
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 2",
+          "incidents": 3270,
+          "source_reported_on_time_pct": 79.364,
+          "derived_response_goal_miss_pct": 20.64,
+          "derived_missed_incidents_approx": 675
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 2",
+          "incidents": 608,
+          "source_reported_on_time_pct": 74.4425,
+          "derived_response_goal_miss_pct": 25.56,
+          "derived_missed_incidents_approx": 155
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 3",
+          "incidents": 1175,
+          "source_reported_on_time_pct": 80.9099,
+          "derived_response_goal_miss_pct": 19.09,
+          "derived_missed_incidents_approx": 224
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 3",
+          "incidents": 155,
+          "source_reported_on_time_pct": 77.3972,
+          "derived_response_goal_miss_pct": 22.6,
+          "derived_missed_incidents_approx": 35
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 4",
+          "incidents": 3006,
+          "source_reported_on_time_pct": 87.5963,
+          "derived_response_goal_miss_pct": 12.4,
+          "derived_missed_incidents_approx": 373
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 4",
+          "incidents": 509,
+          "source_reported_on_time_pct": 90.389,
+          "derived_response_goal_miss_pct": 9.61,
+          "derived_missed_incidents_approx": 49
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 5",
+          "incidents": 1497,
+          "source_reported_on_time_pct": 87.8744,
+          "derived_response_goal_miss_pct": 12.13,
+          "derived_missed_incidents_approx": 182
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 5",
+          "incidents": 183,
+          "source_reported_on_time_pct": 88.304,
+          "derived_response_goal_miss_pct": 11.7,
+          "derived_missed_incidents_approx": 21
+        }
+      ],
+      "source_locator": {
+        "query_url": "https://data.austintexas.gov/resource/gjtj-jt2d.json?%24limit=36&%24order=month_key+desc",
+        "metadata_url": "https://data.austintexas.gov/api/views/gjtj-jt2d",
+        "dataset_url": "https://data.austintexas.gov/Public-Safety/EMS-Incidents-by-Month/gjtj-jt2d",
+        "source_fields": [
+          "count_incidents_all",
+          "percent_on_time_all",
+          "percent_on_time_target",
+          "service-area and priority-specific count/compliance fields"
+        ]
+      }
+    },
+    {
+      "record_id": "atcems_response_compliance_202410",
+      "metric_id": "atcems_response_goal_miss_rate",
+      "measurement_role": "local_monthly_response_goal_miss_operational_proxy",
+      "month_key": 202410,
+      "month_start_date": "2024-10-01T00:00:00.000",
+      "total_incidents": 11925,
+      "city_of_austin_incidents": 10258,
+      "travis_county_incidents": 1598,
+      "other_area_incidents": 69,
+      "source_reported_overall_on_time_pct": 79.8411,
+      "source_reported_city_on_time_pct": 80.1033,
+      "source_reported_county_on_time_pct": 78.1484,
+      "source_reported_target_on_time_pct": 90,
+      "derived_overall_response_goal_miss_pct": 20.16,
+      "derived_overall_missed_incidents_approx": 2404,
+      "derived_target_shortfall_percentage_points": 10.16,
+      "priority_breakdown": [
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 1",
+          "incidents": 772,
+          "source_reported_on_time_pct": 71.4285,
+          "derived_response_goal_miss_pct": 28.57,
+          "derived_missed_incidents_approx": 221
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 1",
+          "incidents": 72,
+          "source_reported_on_time_pct": 62.6865,
+          "derived_response_goal_miss_pct": 37.31,
+          "derived_missed_incidents_approx": 27
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 2",
+          "incidents": 3536,
+          "source_reported_on_time_pct": 76.4828,
+          "derived_response_goal_miss_pct": 23.52,
+          "derived_missed_incidents_approx": 832
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 2",
+          "incidents": 594,
+          "source_reported_on_time_pct": 67.6625,
+          "derived_response_goal_miss_pct": 32.34,
+          "derived_missed_incidents_approx": 192
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 3",
+          "incidents": 1121,
+          "source_reported_on_time_pct": 76.0456,
+          "derived_response_goal_miss_pct": 23.95,
+          "derived_missed_incidents_approx": 269
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 3",
+          "incidents": 168,
+          "source_reported_on_time_pct": 73.7179,
+          "derived_response_goal_miss_pct": 26.28,
+          "derived_missed_incidents_approx": 44
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 4",
+          "incidents": 3065,
+          "source_reported_on_time_pct": 85.9927,
+          "derived_response_goal_miss_pct": 14.01,
+          "derived_missed_incidents_approx": 429
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 4",
+          "incidents": 565,
+          "source_reported_on_time_pct": 89.3442,
+          "derived_response_goal_miss_pct": 10.66,
+          "derived_missed_incidents_approx": 60
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 5",
+          "incidents": 1764,
+          "source_reported_on_time_pct": 83.8371,
+          "derived_response_goal_miss_pct": 16.16,
+          "derived_missed_incidents_approx": 285
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 5",
+          "incidents": 199,
+          "source_reported_on_time_pct": 89.947,
+          "derived_response_goal_miss_pct": 10.05,
+          "derived_missed_incidents_approx": 20
+        }
+      ],
+      "source_locator": {
+        "query_url": "https://data.austintexas.gov/resource/gjtj-jt2d.json?%24limit=36&%24order=month_key+desc",
+        "metadata_url": "https://data.austintexas.gov/api/views/gjtj-jt2d",
+        "dataset_url": "https://data.austintexas.gov/Public-Safety/EMS-Incidents-by-Month/gjtj-jt2d",
+        "source_fields": [
+          "count_incidents_all",
+          "percent_on_time_all",
+          "percent_on_time_target",
+          "service-area and priority-specific count/compliance fields"
+        ]
+      }
+    },
+    {
+      "record_id": "atcems_response_compliance_202409",
+      "metric_id": "atcems_response_goal_miss_rate",
+      "measurement_role": "local_monthly_response_goal_miss_operational_proxy",
+      "month_key": 202409,
+      "month_start_date": "2024-09-01T00:00:00.000",
+      "total_incidents": 11758,
+      "city_of_austin_incidents": 10099,
+      "travis_county_incidents": 1594,
+      "other_area_incidents": 65,
+      "source_reported_overall_on_time_pct": 81.161,
+      "source_reported_city_on_time_pct": 81.5387,
+      "source_reported_county_on_time_pct": 78.7145,
+      "source_reported_target_on_time_pct": 90,
+      "derived_overall_response_goal_miss_pct": 18.84,
+      "derived_overall_missed_incidents_approx": 2215,
+      "derived_target_shortfall_percentage_points": 8.84,
+      "priority_breakdown": [
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 1",
+          "incidents": 807,
+          "source_reported_on_time_pct": 71.7877,
+          "derived_response_goal_miss_pct": 28.21,
+          "derived_missed_incidents_approx": 228
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 1",
+          "incidents": 118,
+          "source_reported_on_time_pct": 63.8888,
+          "derived_response_goal_miss_pct": 36.11,
+          "derived_missed_incidents_approx": 43
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 2",
+          "incidents": 3383,
+          "source_reported_on_time_pct": 78.6583,
+          "derived_response_goal_miss_pct": 21.34,
+          "derived_missed_incidents_approx": 722
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 2",
+          "incidents": 581,
+          "source_reported_on_time_pct": 72.2419,
+          "derived_response_goal_miss_pct": 27.76,
+          "derived_missed_incidents_approx": 161
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 3",
+          "incidents": 1115,
+          "source_reported_on_time_pct": 77.2683,
+          "derived_response_goal_miss_pct": 22.73,
+          "derived_missed_incidents_approx": 253
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 3",
+          "incidents": 159,
+          "source_reported_on_time_pct": 73.4693,
+          "derived_response_goal_miss_pct": 26.53,
+          "derived_missed_incidents_approx": 42
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 4",
+          "incidents": 3014,
+          "source_reported_on_time_pct": 87.509,
+          "derived_response_goal_miss_pct": 12.49,
+          "derived_missed_incidents_approx": 376
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 4",
+          "incidents": 519,
+          "source_reported_on_time_pct": 89.1156,
+          "derived_response_goal_miss_pct": 10.88,
+          "derived_missed_incidents_approx": 56
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 5",
+          "incidents": 1780,
+          "source_reported_on_time_pct": 84.1115,
+          "derived_response_goal_miss_pct": 15.89,
+          "derived_missed_incidents_approx": 283
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 5",
+          "incidents": 217,
+          "source_reported_on_time_pct": 86.2433,
+          "derived_response_goal_miss_pct": 13.76,
+          "derived_missed_incidents_approx": 30
+        }
+      ],
+      "source_locator": {
+        "query_url": "https://data.austintexas.gov/resource/gjtj-jt2d.json?%24limit=36&%24order=month_key+desc",
+        "metadata_url": "https://data.austintexas.gov/api/views/gjtj-jt2d",
+        "dataset_url": "https://data.austintexas.gov/Public-Safety/EMS-Incidents-by-Month/gjtj-jt2d",
+        "source_fields": [
+          "count_incidents_all",
+          "percent_on_time_all",
+          "percent_on_time_target",
+          "service-area and priority-specific count/compliance fields"
+        ]
+      }
+    },
+    {
+      "record_id": "atcems_response_compliance_202408",
+      "metric_id": "atcems_response_goal_miss_rate",
+      "measurement_role": "local_monthly_response_goal_miss_operational_proxy",
+      "month_key": 202408,
+      "month_start_date": "2024-08-01T00:00:00.000",
+      "total_incidents": 12439,
+      "city_of_austin_incidents": 10698,
+      "travis_county_incidents": 1677,
+      "other_area_incidents": 64,
+      "source_reported_overall_on_time_pct": 80.793,
+      "source_reported_city_on_time_pct": 81.1142,
+      "source_reported_county_on_time_pct": 78.7067,
+      "source_reported_target_on_time_pct": 90,
+      "derived_overall_response_goal_miss_pct": 19.21,
+      "derived_overall_missed_incidents_approx": 2389,
+      "derived_target_shortfall_percentage_points": 9.21,
+      "priority_breakdown": [
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 1",
+          "incidents": 843,
+          "source_reported_on_time_pct": 75.2956,
+          "derived_response_goal_miss_pct": 24.7,
+          "derived_missed_incidents_approx": 208
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 1",
+          "incidents": 117,
+          "source_reported_on_time_pct": 59.4594,
+          "derived_response_goal_miss_pct": 40.54,
+          "derived_missed_incidents_approx": 47
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 2",
+          "incidents": 3586,
+          "source_reported_on_time_pct": 77.1888,
+          "derived_response_goal_miss_pct": 22.81,
+          "derived_missed_incidents_approx": 818
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 2",
+          "incidents": 633,
+          "source_reported_on_time_pct": 72.9372,
+          "derived_response_goal_miss_pct": 27.06,
+          "derived_missed_incidents_approx": 171
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 3",
+          "incidents": 1210,
+          "source_reported_on_time_pct": 77.7489,
+          "derived_response_goal_miss_pct": 22.25,
+          "derived_missed_incidents_approx": 269
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 3",
+          "incidents": 145,
+          "source_reported_on_time_pct": 73.7226,
+          "derived_response_goal_miss_pct": 26.28,
+          "derived_missed_incidents_approx": 38
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 4",
+          "incidents": 3154,
+          "source_reported_on_time_pct": 87.3607,
+          "derived_response_goal_miss_pct": 12.64,
+          "derived_missed_incidents_approx": 399
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 4",
+          "incidents": 595,
+          "source_reported_on_time_pct": 89.8039,
+          "derived_response_goal_miss_pct": 10.2,
+          "derived_missed_incidents_approx": 61
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 5",
+          "incidents": 1905,
+          "source_reported_on_time_pct": 83.2854,
+          "derived_response_goal_miss_pct": 16.71,
+          "derived_missed_incidents_approx": 318
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 5",
+          "incidents": 187,
+          "source_reported_on_time_pct": 82.6347,
+          "derived_response_goal_miss_pct": 17.37,
+          "derived_missed_incidents_approx": 32
+        }
+      ],
+      "source_locator": {
+        "query_url": "https://data.austintexas.gov/resource/gjtj-jt2d.json?%24limit=36&%24order=month_key+desc",
+        "metadata_url": "https://data.austintexas.gov/api/views/gjtj-jt2d",
+        "dataset_url": "https://data.austintexas.gov/Public-Safety/EMS-Incidents-by-Month/gjtj-jt2d",
+        "source_fields": [
+          "count_incidents_all",
+          "percent_on_time_all",
+          "percent_on_time_target",
+          "service-area and priority-specific count/compliance fields"
+        ]
+      }
+    },
+    {
+      "record_id": "atcems_response_compliance_202407",
+      "metric_id": "atcems_response_goal_miss_rate",
+      "measurement_role": "local_monthly_response_goal_miss_operational_proxy",
+      "month_key": 202407,
+      "month_start_date": "2024-07-01T00:00:00.000",
+      "total_incidents": 12053,
+      "city_of_austin_incidents": 10418,
+      "travis_county_incidents": 1558,
+      "other_area_incidents": 77,
+      "source_reported_overall_on_time_pct": 81.1697,
+      "source_reported_city_on_time_pct": 81.6652,
+      "source_reported_county_on_time_pct": 77.8321,
+      "source_reported_target_on_time_pct": 90,
+      "derived_overall_response_goal_miss_pct": 18.83,
+      "derived_overall_missed_incidents_approx": 2270,
+      "derived_target_shortfall_percentage_points": 8.83,
+      "priority_breakdown": [
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 1",
+          "incidents": 830,
+          "source_reported_on_time_pct": 74.8,
+          "derived_response_goal_miss_pct": 25.2,
+          "derived_missed_incidents_approx": 209
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 1",
+          "incidents": 103,
+          "source_reported_on_time_pct": 67.3469,
+          "derived_response_goal_miss_pct": 32.65,
+          "derived_missed_incidents_approx": 34
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 2",
+          "incidents": 3447,
+          "source_reported_on_time_pct": 76.319,
+          "derived_response_goal_miss_pct": 23.68,
+          "derived_missed_incidents_approx": 816
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 2",
+          "incidents": 585,
+          "source_reported_on_time_pct": 71.5302,
+          "derived_response_goal_miss_pct": 28.47,
+          "derived_missed_incidents_approx": 167
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 3",
+          "incidents": 1247,
+          "source_reported_on_time_pct": 78.4081,
+          "derived_response_goal_miss_pct": 21.59,
+          "derived_missed_incidents_approx": 269
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 3",
+          "incidents": 156,
+          "source_reported_on_time_pct": 72.3404,
+          "derived_response_goal_miss_pct": 27.66,
+          "derived_missed_incidents_approx": 43
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 4",
+          "incidents": 3055,
+          "source_reported_on_time_pct": 89.2128,
+          "derived_response_goal_miss_pct": 10.79,
+          "derived_missed_incidents_approx": 330
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 4",
+          "incidents": 539,
+          "source_reported_on_time_pct": 86.3247,
+          "derived_response_goal_miss_pct": 13.68,
+          "derived_missed_incidents_approx": 74
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 5",
+          "incidents": 1839,
+          "source_reported_on_time_pct": 85.0324,
+          "derived_response_goal_miss_pct": 14.97,
+          "derived_missed_incidents_approx": 275
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 5",
+          "incidents": 175,
+          "source_reported_on_time_pct": 86.3354,
+          "derived_response_goal_miss_pct": 13.66,
+          "derived_missed_incidents_approx": 24
+        }
+      ],
+      "source_locator": {
+        "query_url": "https://data.austintexas.gov/resource/gjtj-jt2d.json?%24limit=36&%24order=month_key+desc",
+        "metadata_url": "https://data.austintexas.gov/api/views/gjtj-jt2d",
+        "dataset_url": "https://data.austintexas.gov/Public-Safety/EMS-Incidents-by-Month/gjtj-jt2d",
+        "source_fields": [
+          "count_incidents_all",
+          "percent_on_time_all",
+          "percent_on_time_target",
+          "service-area and priority-specific count/compliance fields"
+        ]
+      }
+    },
+    {
+      "record_id": "atcems_response_compliance_202406",
+      "metric_id": "atcems_response_goal_miss_rate",
+      "measurement_role": "local_monthly_response_goal_miss_operational_proxy",
+      "month_key": 202406,
+      "month_start_date": "2024-06-01T00:00:00.000",
+      "total_incidents": 12147,
+      "city_of_austin_incidents": 10448,
+      "travis_county_incidents": 1633,
+      "other_area_incidents": 66,
+      "source_reported_overall_on_time_pct": 80.7983,
+      "source_reported_city_on_time_pct": 81.5436,
+      "source_reported_county_on_time_pct": 76.0368,
+      "source_reported_target_on_time_pct": 90,
+      "derived_overall_response_goal_miss_pct": 19.2,
+      "derived_overall_missed_incidents_approx": 2332,
+      "derived_target_shortfall_percentage_points": 9.2,
+      "priority_breakdown": [
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 1",
+          "incidents": 828,
+          "source_reported_on_time_pct": 70.3457,
+          "derived_response_goal_miss_pct": 29.65,
+          "derived_missed_incidents_approx": 246
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 1",
+          "incidents": 118,
+          "source_reported_on_time_pct": 61.4678,
+          "derived_response_goal_miss_pct": 38.53,
+          "derived_missed_incidents_approx": 45
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 2",
+          "incidents": 3307,
+          "source_reported_on_time_pct": 77.1122,
+          "derived_response_goal_miss_pct": 22.89,
+          "derived_missed_incidents_approx": 757
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 2",
+          "incidents": 633,
+          "source_reported_on_time_pct": 64.3902,
+          "derived_response_goal_miss_pct": 35.61,
+          "derived_missed_incidents_approx": 225
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 3",
+          "incidents": 1210,
+          "source_reported_on_time_pct": 77.5132,
+          "derived_response_goal_miss_pct": 22.49,
+          "derived_missed_incidents_approx": 272
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 3",
+          "incidents": 173,
+          "source_reported_on_time_pct": 76.8292,
+          "derived_response_goal_miss_pct": 23.17,
+          "derived_missed_incidents_approx": 40
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 4",
+          "incidents": 3167,
+          "source_reported_on_time_pct": 88.2516,
+          "derived_response_goal_miss_pct": 11.75,
+          "derived_missed_incidents_approx": 372
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 4",
+          "incidents": 523,
+          "source_reported_on_time_pct": 91.1447,
+          "derived_response_goal_miss_pct": 8.86,
+          "derived_missed_incidents_approx": 46
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 5",
+          "incidents": 1936,
+          "source_reported_on_time_pct": 85.9242,
+          "derived_response_goal_miss_pct": 14.08,
+          "derived_missed_incidents_approx": 273
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 5",
+          "incidents": 186,
+          "source_reported_on_time_pct": 85.7142,
+          "derived_response_goal_miss_pct": 14.29,
+          "derived_missed_incidents_approx": 27
+        }
+      ],
+      "source_locator": {
+        "query_url": "https://data.austintexas.gov/resource/gjtj-jt2d.json?%24limit=36&%24order=month_key+desc",
+        "metadata_url": "https://data.austintexas.gov/api/views/gjtj-jt2d",
+        "dataset_url": "https://data.austintexas.gov/Public-Safety/EMS-Incidents-by-Month/gjtj-jt2d",
+        "source_fields": [
+          "count_incidents_all",
+          "percent_on_time_all",
+          "percent_on_time_target",
+          "service-area and priority-specific count/compliance fields"
+        ]
+      }
+    },
+    {
+      "record_id": "atcems_response_compliance_202405",
+      "metric_id": "atcems_response_goal_miss_rate",
+      "measurement_role": "local_monthly_response_goal_miss_operational_proxy",
+      "month_key": 202405,
+      "month_start_date": "2024-05-01T00:00:00.000",
+      "total_incidents": 12466,
+      "city_of_austin_incidents": 10689,
+      "travis_county_incidents": 1710,
+      "other_area_incidents": 67,
+      "source_reported_overall_on_time_pct": 81.3131,
+      "source_reported_city_on_time_pct": 81.8842,
+      "source_reported_county_on_time_pct": 77.707,
+      "source_reported_target_on_time_pct": 90,
+      "derived_overall_response_goal_miss_pct": 18.69,
+      "derived_overall_missed_incidents_approx": 2330,
+      "derived_target_shortfall_percentage_points": 8.69,
+      "priority_breakdown": [
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 1",
+          "incidents": 789,
+          "source_reported_on_time_pct": 71.7985,
+          "derived_response_goal_miss_pct": 28.2,
+          "derived_missed_incidents_approx": 223
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 1",
+          "incidents": 136,
+          "source_reported_on_time_pct": 58.1967,
+          "derived_response_goal_miss_pct": 41.8,
+          "derived_missed_incidents_approx": 57
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 2",
+          "incidents": 3472,
+          "source_reported_on_time_pct": 78.185,
+          "derived_response_goal_miss_pct": 21.82,
+          "derived_missed_incidents_approx": 757
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 2",
+          "incidents": 645,
+          "source_reported_on_time_pct": 72.0516,
+          "derived_response_goal_miss_pct": 27.95,
+          "derived_missed_incidents_approx": 180
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 3",
+          "incidents": 1241,
+          "source_reported_on_time_pct": 78.8215,
+          "derived_response_goal_miss_pct": 21.18,
+          "derived_missed_incidents_approx": 263
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 3",
+          "incidents": 185,
+          "source_reported_on_time_pct": 69.186,
+          "derived_response_goal_miss_pct": 30.81,
+          "derived_missed_incidents_approx": 57
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 4",
+          "incidents": 3274,
+          "source_reported_on_time_pct": 87.088,
+          "derived_response_goal_miss_pct": 12.91,
+          "derived_missed_incidents_approx": 423
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 4",
+          "incidents": 558,
+          "source_reported_on_time_pct": 89.419,
+          "derived_response_goal_miss_pct": 10.58,
+          "derived_missed_incidents_approx": 59
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 5",
+          "incidents": 1913,
+          "source_reported_on_time_pct": 86.1564,
+          "derived_response_goal_miss_pct": 13.84,
+          "derived_missed_incidents_approx": 265
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 5",
+          "incidents": 186,
+          "source_reported_on_time_pct": 87.4285,
+          "derived_response_goal_miss_pct": 12.57,
+          "derived_missed_incidents_approx": 23
+        }
+      ],
+      "source_locator": {
+        "query_url": "https://data.austintexas.gov/resource/gjtj-jt2d.json?%24limit=36&%24order=month_key+desc",
+        "metadata_url": "https://data.austintexas.gov/api/views/gjtj-jt2d",
+        "dataset_url": "https://data.austintexas.gov/Public-Safety/EMS-Incidents-by-Month/gjtj-jt2d",
+        "source_fields": [
+          "count_incidents_all",
+          "percent_on_time_all",
+          "percent_on_time_target",
+          "service-area and priority-specific count/compliance fields"
+        ]
+      }
+    },
+    {
+      "record_id": "atcems_response_compliance_202404",
+      "metric_id": "atcems_response_goal_miss_rate",
+      "measurement_role": "local_monthly_response_goal_miss_operational_proxy",
+      "month_key": 202404,
+      "month_start_date": "2024-04-01T00:00:00.000",
+      "total_incidents": 11193,
+      "city_of_austin_incidents": 9630,
+      "travis_county_incidents": 1514,
+      "other_area_incidents": 49,
+      "source_reported_overall_on_time_pct": 82.5433,
+      "source_reported_city_on_time_pct": 83.1384,
+      "source_reported_county_on_time_pct": 78.7294,
+      "source_reported_target_on_time_pct": 90,
+      "derived_overall_response_goal_miss_pct": 17.46,
+      "derived_overall_missed_incidents_approx": 1954,
+      "derived_target_shortfall_percentage_points": 7.46,
+      "priority_breakdown": [
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 1",
+          "incidents": 758,
+          "source_reported_on_time_pct": 74.2532,
+          "derived_response_goal_miss_pct": 25.75,
+          "derived_missed_incidents_approx": 195
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 1",
+          "incidents": 99,
+          "source_reported_on_time_pct": 62.7659,
+          "derived_response_goal_miss_pct": 37.23,
+          "derived_missed_incidents_approx": 37
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 2",
+          "incidents": 3043,
+          "source_reported_on_time_pct": 78.0412,
+          "derived_response_goal_miss_pct": 21.96,
+          "derived_missed_incidents_approx": 668
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 2",
+          "incidents": 570,
+          "source_reported_on_time_pct": 70.471,
+          "derived_response_goal_miss_pct": 29.53,
+          "derived_missed_incidents_approx": 168
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 3",
+          "incidents": 1149,
+          "source_reported_on_time_pct": 82.1264,
+          "derived_response_goal_miss_pct": 17.87,
+          "derived_missed_incidents_approx": 205
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 3",
+          "incidents": 167,
+          "source_reported_on_time_pct": 77.8481,
+          "derived_response_goal_miss_pct": 22.15,
+          "derived_missed_incidents_approx": 37
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 4",
+          "incidents": 3049,
+          "source_reported_on_time_pct": 89.8843,
+          "derived_response_goal_miss_pct": 10.12,
+          "derived_missed_incidents_approx": 308
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 4",
+          "incidents": 525,
+          "source_reported_on_time_pct": 88.5775,
+          "derived_response_goal_miss_pct": 11.42,
+          "derived_missed_incidents_approx": 60
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 5",
+          "incidents": 1631,
+          "source_reported_on_time_pct": 85.4678,
+          "derived_response_goal_miss_pct": 14.53,
+          "derived_missed_incidents_approx": 237
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 5",
+          "incidents": 153,
+          "source_reported_on_time_pct": 90.9774,
+          "derived_response_goal_miss_pct": 9.02,
+          "derived_missed_incidents_approx": 14
+        }
+      ],
+      "source_locator": {
+        "query_url": "https://data.austintexas.gov/resource/gjtj-jt2d.json?%24limit=36&%24order=month_key+desc",
+        "metadata_url": "https://data.austintexas.gov/api/views/gjtj-jt2d",
+        "dataset_url": "https://data.austintexas.gov/Public-Safety/EMS-Incidents-by-Month/gjtj-jt2d",
+        "source_fields": [
+          "count_incidents_all",
+          "percent_on_time_all",
+          "percent_on_time_target",
+          "service-area and priority-specific count/compliance fields"
+        ]
+      }
+    },
+    {
+      "record_id": "atcems_response_compliance_202403",
+      "metric_id": "atcems_response_goal_miss_rate",
+      "measurement_role": "local_monthly_response_goal_miss_operational_proxy",
+      "month_key": 202403,
+      "month_start_date": "2024-03-01T00:00:00.000",
+      "total_incidents": 11428,
+      "city_of_austin_incidents": 9806,
+      "travis_county_incidents": 1557,
+      "other_area_incidents": 65,
+      "source_reported_overall_on_time_pct": 83.6947,
+      "source_reported_city_on_time_pct": 84.0201,
+      "source_reported_county_on_time_pct": 81.6283,
+      "source_reported_target_on_time_pct": 90,
+      "derived_overall_response_goal_miss_pct": 16.31,
+      "derived_overall_missed_incidents_approx": 1863,
+      "derived_target_shortfall_percentage_points": 6.31,
+      "priority_breakdown": [
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 1",
+          "incidents": 729,
+          "source_reported_on_time_pct": 78.3258,
+          "derived_response_goal_miss_pct": 21.67,
+          "derived_missed_incidents_approx": 158
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 1",
+          "incidents": 102,
+          "source_reported_on_time_pct": 64.2857,
+          "derived_response_goal_miss_pct": 35.71,
+          "derived_missed_incidents_approx": 36
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 2",
+          "incidents": 3240,
+          "source_reported_on_time_pct": 80.4143,
+          "derived_response_goal_miss_pct": 19.59,
+          "derived_missed_incidents_approx": 635
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 2",
+          "incidents": 617,
+          "source_reported_on_time_pct": 74.6166,
+          "derived_response_goal_miss_pct": 25.38,
+          "derived_missed_incidents_approx": 157
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 3",
+          "incidents": 1173,
+          "source_reported_on_time_pct": 80.5031,
+          "derived_response_goal_miss_pct": 19.5,
+          "derived_missed_incidents_approx": 229
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 3",
+          "incidents": 146,
+          "source_reported_on_time_pct": 79.4117,
+          "derived_response_goal_miss_pct": 20.59,
+          "derived_missed_incidents_approx": 30
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 4",
+          "incidents": 2896,
+          "source_reported_on_time_pct": 89.7013,
+          "derived_response_goal_miss_pct": 10.3,
+          "derived_missed_incidents_approx": 298
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 4",
+          "incidents": 501,
+          "source_reported_on_time_pct": 93.1818,
+          "derived_response_goal_miss_pct": 6.82,
+          "derived_missed_incidents_approx": 34
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 5",
+          "incidents": 1768,
+          "source_reported_on_time_pct": 86.4716,
+          "derived_response_goal_miss_pct": 13.53,
+          "derived_missed_incidents_approx": 239
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 5",
+          "incidents": 191,
+          "source_reported_on_time_pct": 87.5,
+          "derived_response_goal_miss_pct": 12.5,
+          "derived_missed_incidents_approx": 24
+        }
+      ],
+      "source_locator": {
+        "query_url": "https://data.austintexas.gov/resource/gjtj-jt2d.json?%24limit=36&%24order=month_key+desc",
+        "metadata_url": "https://data.austintexas.gov/api/views/gjtj-jt2d",
+        "dataset_url": "https://data.austintexas.gov/Public-Safety/EMS-Incidents-by-Month/gjtj-jt2d",
+        "source_fields": [
+          "count_incidents_all",
+          "percent_on_time_all",
+          "percent_on_time_target",
+          "service-area and priority-specific count/compliance fields"
+        ]
+      }
+    },
+    {
+      "record_id": "atcems_response_compliance_202402",
+      "metric_id": "atcems_response_goal_miss_rate",
+      "measurement_role": "local_monthly_response_goal_miss_operational_proxy",
+      "month_key": 202402,
+      "month_start_date": "2024-02-01T00:00:00.000",
+      "total_incidents": 10432,
+      "city_of_austin_incidents": 8947,
+      "travis_county_incidents": 1440,
+      "other_area_incidents": 45,
+      "source_reported_overall_on_time_pct": 81.7628,
+      "source_reported_city_on_time_pct": 82.1317,
+      "source_reported_county_on_time_pct": 79.405,
+      "source_reported_target_on_time_pct": 90,
+      "derived_overall_response_goal_miss_pct": 18.24,
+      "derived_overall_missed_incidents_approx": 1903,
+      "derived_target_shortfall_percentage_points": 8.24,
+      "priority_breakdown": [
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 1",
+          "incidents": 693,
+          "source_reported_on_time_pct": 72.3472,
+          "derived_response_goal_miss_pct": 27.65,
+          "derived_missed_incidents_approx": 192
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 1",
+          "incidents": 124,
+          "source_reported_on_time_pct": 58.9285,
+          "derived_response_goal_miss_pct": 41.07,
+          "derived_missed_incidents_approx": 51
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 2",
+          "incidents": 3015,
+          "source_reported_on_time_pct": 79.0987,
+          "derived_response_goal_miss_pct": 20.9,
+          "derived_missed_incidents_approx": 630
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 2",
+          "incidents": 535,
+          "source_reported_on_time_pct": 72.6562,
+          "derived_response_goal_miss_pct": 27.34,
+          "derived_missed_incidents_approx": 146
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 3",
+          "incidents": 1152,
+          "source_reported_on_time_pct": 80.6509,
+          "derived_response_goal_miss_pct": 19.35,
+          "derived_missed_incidents_approx": 223
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 3",
+          "incidents": 144,
+          "source_reported_on_time_pct": 82.1705,
+          "derived_response_goal_miss_pct": 17.83,
+          "derived_missed_incidents_approx": 26
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 4",
+          "incidents": 2593,
+          "source_reported_on_time_pct": 89.0243,
+          "derived_response_goal_miss_pct": 10.98,
+          "derived_missed_incidents_approx": 285
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 4",
+          "incidents": 464,
+          "source_reported_on_time_pct": 91.1392,
+          "derived_response_goal_miss_pct": 8.86,
+          "derived_missed_incidents_approx": 41
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 5",
+          "incidents": 1494,
+          "source_reported_on_time_pct": 82.1917,
+          "derived_response_goal_miss_pct": 17.81,
+          "derived_missed_incidents_approx": 266
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 5",
+          "incidents": 173,
+          "source_reported_on_time_pct": 84.049,
+          "derived_response_goal_miss_pct": 15.95,
+          "derived_missed_incidents_approx": 28
+        }
+      ],
+      "source_locator": {
+        "query_url": "https://data.austintexas.gov/resource/gjtj-jt2d.json?%24limit=36&%24order=month_key+desc",
+        "metadata_url": "https://data.austintexas.gov/api/views/gjtj-jt2d",
+        "dataset_url": "https://data.austintexas.gov/Public-Safety/EMS-Incidents-by-Month/gjtj-jt2d",
+        "source_fields": [
+          "count_incidents_all",
+          "percent_on_time_all",
+          "percent_on_time_target",
+          "service-area and priority-specific count/compliance fields"
+        ]
+      }
+    },
+    {
+      "record_id": "atcems_response_compliance_202401",
+      "metric_id": "atcems_response_goal_miss_rate",
+      "measurement_role": "local_monthly_response_goal_miss_operational_proxy",
+      "month_key": 202401,
+      "month_start_date": "2024-01-01T00:00:00.000",
+      "total_incidents": 11242,
+      "city_of_austin_incidents": 9618,
+      "travis_county_incidents": 1570,
+      "other_area_incidents": 54,
+      "source_reported_overall_on_time_pct": 79.623,
+      "source_reported_city_on_time_pct": 79.9401,
+      "source_reported_county_on_time_pct": 77.614,
+      "source_reported_target_on_time_pct": 90,
+      "derived_overall_response_goal_miss_pct": 20.38,
+      "derived_overall_missed_incidents_approx": 2291,
+      "derived_target_shortfall_percentage_points": 10.38,
+      "priority_breakdown": [
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 1",
+          "incidents": 786,
+          "source_reported_on_time_pct": 69.5224,
+          "derived_response_goal_miss_pct": 30.48,
+          "derived_missed_incidents_approx": 240
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 1",
+          "incidents": 123,
+          "source_reported_on_time_pct": 61.8181,
+          "derived_response_goal_miss_pct": 38.18,
+          "derived_missed_incidents_approx": 47
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 2",
+          "incidents": 3265,
+          "source_reported_on_time_pct": 75.967,
+          "derived_response_goal_miss_pct": 24.03,
+          "derived_missed_incidents_approx": 785
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 2",
+          "incidents": 592,
+          "source_reported_on_time_pct": 68.1415,
+          "derived_response_goal_miss_pct": 31.86,
+          "derived_missed_incidents_approx": 189
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 3",
+          "incidents": 1189,
+          "source_reported_on_time_pct": 79.0534,
+          "derived_response_goal_miss_pct": 20.95,
+          "derived_missed_incidents_approx": 249
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 3",
+          "incidents": 149,
+          "source_reported_on_time_pct": 76.2962,
+          "derived_response_goal_miss_pct": 23.7,
+          "derived_missed_incidents_approx": 35
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 4",
+          "incidents": 2778,
+          "source_reported_on_time_pct": 88.7872,
+          "derived_response_goal_miss_pct": 11.21,
+          "derived_missed_incidents_approx": 311
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 4",
+          "incidents": 523,
+          "source_reported_on_time_pct": 90.7865,
+          "derived_response_goal_miss_pct": 9.21,
+          "derived_missed_incidents_approx": 48
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 5",
+          "incidents": 1600,
+          "source_reported_on_time_pct": 79.0836,
+          "derived_response_goal_miss_pct": 20.92,
+          "derived_missed_incidents_approx": 335
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 5",
+          "incidents": 183,
+          "source_reported_on_time_pct": 85.8823,
+          "derived_response_goal_miss_pct": 14.12,
+          "derived_missed_incidents_approx": 26
+        }
+      ],
+      "source_locator": {
+        "query_url": "https://data.austintexas.gov/resource/gjtj-jt2d.json?%24limit=36&%24order=month_key+desc",
+        "metadata_url": "https://data.austintexas.gov/api/views/gjtj-jt2d",
+        "dataset_url": "https://data.austintexas.gov/Public-Safety/EMS-Incidents-by-Month/gjtj-jt2d",
+        "source_fields": [
+          "count_incidents_all",
+          "percent_on_time_all",
+          "percent_on_time_target",
+          "service-area and priority-specific count/compliance fields"
+        ]
+      }
+    },
+    {
+      "record_id": "atcems_response_compliance_202312",
+      "metric_id": "atcems_response_goal_miss_rate",
+      "measurement_role": "local_monthly_response_goal_miss_operational_proxy",
+      "month_key": 202312,
+      "month_start_date": "2023-12-01T00:00:00.000",
+      "total_incidents": 11128,
+      "city_of_austin_incidents": 9431,
+      "travis_county_incidents": 1640,
+      "other_area_incidents": 57,
+      "source_reported_overall_on_time_pct": 80.7681,
+      "source_reported_city_on_time_pct": 81.2903,
+      "source_reported_county_on_time_pct": 77.6964,
+      "source_reported_target_on_time_pct": 90,
+      "derived_overall_response_goal_miss_pct": 19.23,
+      "derived_overall_missed_incidents_approx": 2140,
+      "derived_target_shortfall_percentage_points": 9.23,
+      "priority_breakdown": [
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 1",
+          "incidents": 763,
+          "source_reported_on_time_pct": 76.0225,
+          "derived_response_goal_miss_pct": 23.98,
+          "derived_missed_incidents_approx": 183
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 1",
+          "incidents": 123,
+          "source_reported_on_time_pct": 58.4745,
+          "derived_response_goal_miss_pct": 41.53,
+          "derived_missed_incidents_approx": 51
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 2",
+          "incidents": 3168,
+          "source_reported_on_time_pct": 76.9104,
+          "derived_response_goal_miss_pct": 23.09,
+          "derived_missed_incidents_approx": 731
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 2",
+          "incidents": 620,
+          "source_reported_on_time_pct": 70.8263,
+          "derived_response_goal_miss_pct": 29.17,
+          "derived_missed_incidents_approx": 181
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 3",
+          "incidents": 1123,
+          "source_reported_on_time_pct": 79.0825,
+          "derived_response_goal_miss_pct": 20.92,
+          "derived_missed_incidents_approx": 235
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 3",
+          "incidents": 185,
+          "source_reported_on_time_pct": 77.0114,
+          "derived_response_goal_miss_pct": 22.99,
+          "derived_missed_incidents_approx": 43
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 4",
+          "incidents": 2850,
+          "source_reported_on_time_pct": 89.4552,
+          "derived_response_goal_miss_pct": 10.54,
+          "derived_missed_incidents_approx": 301
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 4",
+          "incidents": 519,
+          "source_reported_on_time_pct": 89.1156,
+          "derived_response_goal_miss_pct": 10.88,
+          "derived_missed_incidents_approx": 56
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 5",
+          "incidents": 1527,
+          "source_reported_on_time_pct": 80.2399,
+          "derived_response_goal_miss_pct": 19.76,
+          "derived_missed_incidents_approx": 302
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 5",
+          "incidents": 193,
+          "source_reported_on_time_pct": 85.7954,
+          "derived_response_goal_miss_pct": 14.2,
+          "derived_missed_incidents_approx": 27
+        }
+      ],
+      "source_locator": {
+        "query_url": "https://data.austintexas.gov/resource/gjtj-jt2d.json?%24limit=36&%24order=month_key+desc",
+        "metadata_url": "https://data.austintexas.gov/api/views/gjtj-jt2d",
+        "dataset_url": "https://data.austintexas.gov/Public-Safety/EMS-Incidents-by-Month/gjtj-jt2d",
+        "source_fields": [
+          "count_incidents_all",
+          "percent_on_time_all",
+          "percent_on_time_target",
+          "service-area and priority-specific count/compliance fields"
+        ]
+      }
+    },
+    {
+      "record_id": "atcems_response_compliance_202311",
+      "metric_id": "atcems_response_goal_miss_rate",
+      "measurement_role": "local_monthly_response_goal_miss_operational_proxy",
+      "month_key": 202311,
+      "month_start_date": "2023-11-01T00:00:00.000",
+      "total_incidents": 10410,
+      "city_of_austin_incidents": 8905,
+      "travis_county_incidents": 1448,
+      "other_area_incidents": 57,
+      "source_reported_overall_on_time_pct": 80.6548,
+      "source_reported_city_on_time_pct": 81.2575,
+      "source_reported_county_on_time_pct": 76.8588,
+      "source_reported_target_on_time_pct": 90,
+      "derived_overall_response_goal_miss_pct": 19.35,
+      "derived_overall_missed_incidents_approx": 2014,
+      "derived_target_shortfall_percentage_points": 9.35,
+      "priority_breakdown": [
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 1",
+          "incidents": 743,
+          "source_reported_on_time_pct": 72.4783,
+          "derived_response_goal_miss_pct": 27.52,
+          "derived_missed_incidents_approx": 204
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 1",
+          "incidents": 114,
+          "source_reported_on_time_pct": 63.3027,
+          "derived_response_goal_miss_pct": 36.7,
+          "derived_missed_incidents_approx": 42
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 2",
+          "incidents": 3010,
+          "source_reported_on_time_pct": 77.8736,
+          "derived_response_goal_miss_pct": 22.13,
+          "derived_missed_incidents_approx": 666
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 2",
+          "incidents": 541,
+          "source_reported_on_time_pct": 68.3593,
+          "derived_response_goal_miss_pct": 31.64,
+          "derived_missed_incidents_approx": 171
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 3",
+          "incidents": 1049,
+          "source_reported_on_time_pct": 77.6785,
+          "derived_response_goal_miss_pct": 22.32,
+          "derived_missed_incidents_approx": 234
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 3",
+          "incidents": 149,
+          "source_reported_on_time_pct": 72.9927,
+          "derived_response_goal_miss_pct": 27.01,
+          "derived_missed_incidents_approx": 40
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 4",
+          "incidents": 2655,
+          "source_reported_on_time_pct": 88.5582,
+          "derived_response_goal_miss_pct": 11.44,
+          "derived_missed_incidents_approx": 304
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 4",
+          "incidents": 496,
+          "source_reported_on_time_pct": 90.625,
+          "derived_response_goal_miss_pct": 9.38,
+          "derived_missed_incidents_approx": 47
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 5",
+          "incidents": 1448,
+          "source_reported_on_time_pct": 82.8397,
+          "derived_response_goal_miss_pct": 17.16,
+          "derived_missed_incidents_approx": 248
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 5",
+          "incidents": 148,
+          "source_reported_on_time_pct": 81.25,
+          "derived_response_goal_miss_pct": 18.75,
+          "derived_missed_incidents_approx": 28
+        }
+      ],
+      "source_locator": {
+        "query_url": "https://data.austintexas.gov/resource/gjtj-jt2d.json?%24limit=36&%24order=month_key+desc",
+        "metadata_url": "https://data.austintexas.gov/api/views/gjtj-jt2d",
+        "dataset_url": "https://data.austintexas.gov/Public-Safety/EMS-Incidents-by-Month/gjtj-jt2d",
+        "source_fields": [
+          "count_incidents_all",
+          "percent_on_time_all",
+          "percent_on_time_target",
+          "service-area and priority-specific count/compliance fields"
+        ]
+      }
+    },
+    {
+      "record_id": "atcems_response_compliance_202310",
+      "metric_id": "atcems_response_goal_miss_rate",
+      "measurement_role": "local_monthly_response_goal_miss_operational_proxy",
+      "month_key": 202310,
+      "month_start_date": "2023-10-01T00:00:00.000",
+      "total_incidents": 11262,
+      "city_of_austin_incidents": 9730,
+      "travis_county_incidents": 1483,
+      "other_area_incidents": 49,
+      "source_reported_overall_on_time_pct": 80.7255,
+      "source_reported_city_on_time_pct": 80.8531,
+      "source_reported_county_on_time_pct": 79.8829,
+      "source_reported_target_on_time_pct": 90,
+      "derived_overall_response_goal_miss_pct": 19.27,
+      "derived_overall_missed_incidents_approx": 2171,
+      "derived_target_shortfall_percentage_points": 9.27,
+      "priority_breakdown": [
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 1",
+          "incidents": 753,
+          "source_reported_on_time_pct": 69.8389,
+          "derived_response_goal_miss_pct": 30.16,
+          "derived_missed_incidents_approx": 227
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 1",
+          "incidents": 86,
+          "source_reported_on_time_pct": 68.421,
+          "derived_response_goal_miss_pct": 31.58,
+          "derived_missed_incidents_approx": 27
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 2",
+          "incidents": 3140,
+          "source_reported_on_time_pct": 76.7976,
+          "derived_response_goal_miss_pct": 23.2,
+          "derived_missed_incidents_approx": 729
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 2",
+          "incidents": 554,
+          "source_reported_on_time_pct": 72.8813,
+          "derived_response_goal_miss_pct": 27.12,
+          "derived_missed_incidents_approx": 150
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 3",
+          "incidents": 1123,
+          "source_reported_on_time_pct": 77.178,
+          "derived_response_goal_miss_pct": 22.82,
+          "derived_missed_incidents_approx": 256
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 3",
+          "incidents": 175,
+          "source_reported_on_time_pct": 77.1929,
+          "derived_response_goal_miss_pct": 22.81,
+          "derived_missed_incidents_approx": 40
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 4",
+          "incidents": 2990,
+          "source_reported_on_time_pct": 87.8085,
+          "derived_response_goal_miss_pct": 12.19,
+          "derived_missed_incidents_approx": 365
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 4",
+          "incidents": 496,
+          "source_reported_on_time_pct": 87.4418,
+          "derived_response_goal_miss_pct": 12.56,
+          "derived_missed_incidents_approx": 62
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 5",
+          "incidents": 1724,
+          "source_reported_on_time_pct": 83.9552,
+          "derived_response_goal_miss_pct": 16.04,
+          "derived_missed_incidents_approx": 277
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 5",
+          "incidents": 172,
+          "source_reported_on_time_pct": 91.1949,
+          "derived_response_goal_miss_pct": 8.81,
+          "derived_missed_incidents_approx": 15
+        }
+      ],
+      "source_locator": {
+        "query_url": "https://data.austintexas.gov/resource/gjtj-jt2d.json?%24limit=36&%24order=month_key+desc",
+        "metadata_url": "https://data.austintexas.gov/api/views/gjtj-jt2d",
+        "dataset_url": "https://data.austintexas.gov/Public-Safety/EMS-Incidents-by-Month/gjtj-jt2d",
+        "source_fields": [
+          "count_incidents_all",
+          "percent_on_time_all",
+          "percent_on_time_target",
+          "service-area and priority-specific count/compliance fields"
+        ]
+      }
+    },
+    {
+      "record_id": "atcems_response_compliance_202309",
+      "metric_id": "atcems_response_goal_miss_rate",
+      "measurement_role": "local_monthly_response_goal_miss_operational_proxy",
+      "month_key": 202309,
+      "month_start_date": "2023-09-01T00:00:00.000",
+      "total_incidents": 11778,
+      "city_of_austin_incidents": 10151,
+      "travis_county_incidents": 1571,
+      "other_area_incidents": 56,
+      "source_reported_overall_on_time_pct": 79.7695,
+      "source_reported_city_on_time_pct": 80.1401,
+      "source_reported_county_on_time_pct": 77.3268,
+      "source_reported_target_on_time_pct": 90,
+      "derived_overall_response_goal_miss_pct": 20.23,
+      "derived_overall_missed_incidents_approx": 2383,
+      "derived_target_shortfall_percentage_points": 10.23,
+      "priority_breakdown": [
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 1",
+          "incidents": 847,
+          "source_reported_on_time_pct": 71.7847,
+          "derived_response_goal_miss_pct": 28.22,
+          "derived_missed_incidents_approx": 239
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 1",
+          "incidents": 121,
+          "source_reported_on_time_pct": 67.2727,
+          "derived_response_goal_miss_pct": 32.73,
+          "derived_missed_incidents_approx": 40
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 2",
+          "incidents": 3162,
+          "source_reported_on_time_pct": 75.6346,
+          "derived_response_goal_miss_pct": 24.37,
+          "derived_missed_incidents_approx": 770
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 2",
+          "incidents": 560,
+          "source_reported_on_time_pct": 70.3358,
+          "derived_response_goal_miss_pct": 29.66,
+          "derived_missed_incidents_approx": 166
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 3",
+          "incidents": 1277,
+          "source_reported_on_time_pct": 77.3553,
+          "derived_response_goal_miss_pct": 22.64,
+          "derived_missed_incidents_approx": 289
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 3",
+          "incidents": 177,
+          "source_reported_on_time_pct": 73.9393,
+          "derived_response_goal_miss_pct": 26.06,
+          "derived_missed_incidents_approx": 46
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 4",
+          "incidents": 2975,
+          "source_reported_on_time_pct": 86.8225,
+          "derived_response_goal_miss_pct": 13.18,
+          "derived_missed_incidents_approx": 392
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 4",
+          "incidents": 527,
+          "source_reported_on_time_pct": 86.9955,
+          "derived_response_goal_miss_pct": 13,
+          "derived_missed_incidents_approx": 69
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 5",
+          "incidents": 1890,
+          "source_reported_on_time_pct": 83.2752,
+          "derived_response_goal_miss_pct": 16.72,
+          "derived_missed_incidents_approx": 316
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 5",
+          "incidents": 186,
+          "source_reported_on_time_pct": 83.7209,
+          "derived_response_goal_miss_pct": 16.28,
+          "derived_missed_incidents_approx": 30
+        }
+      ],
+      "source_locator": {
+        "query_url": "https://data.austintexas.gov/resource/gjtj-jt2d.json?%24limit=36&%24order=month_key+desc",
+        "metadata_url": "https://data.austintexas.gov/api/views/gjtj-jt2d",
+        "dataset_url": "https://data.austintexas.gov/Public-Safety/EMS-Incidents-by-Month/gjtj-jt2d",
+        "source_fields": [
+          "count_incidents_all",
+          "percent_on_time_all",
+          "percent_on_time_target",
+          "service-area and priority-specific count/compliance fields"
+        ]
+      }
+    },
+    {
+      "record_id": "atcems_response_compliance_202308",
+      "metric_id": "atcems_response_goal_miss_rate",
+      "measurement_role": "local_monthly_response_goal_miss_operational_proxy",
+      "month_key": 202308,
+      "month_start_date": "2023-08-01T00:00:00.000",
+      "total_incidents": 12471,
+      "city_of_austin_incidents": 10745,
+      "travis_county_incidents": 1657,
+      "other_area_incidents": 69,
+      "source_reported_overall_on_time_pct": 79.5155,
+      "source_reported_city_on_time_pct": 79.7609,
+      "source_reported_county_on_time_pct": 77.9092,
+      "source_reported_target_on_time_pct": 90,
+      "derived_overall_response_goal_miss_pct": 20.48,
+      "derived_overall_missed_incidents_approx": 2555,
+      "derived_target_shortfall_percentage_points": 10.48,
+      "priority_breakdown": [
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 1",
+          "incidents": 848,
+          "source_reported_on_time_pct": 72.704,
+          "derived_response_goal_miss_pct": 27.3,
+          "derived_missed_incidents_approx": 231
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 1",
+          "incidents": 117,
+          "source_reported_on_time_pct": 59.4594,
+          "derived_response_goal_miss_pct": 40.54,
+          "derived_missed_incidents_approx": 47
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 2",
+          "incidents": 3288,
+          "source_reported_on_time_pct": 74.873,
+          "derived_response_goal_miss_pct": 25.13,
+          "derived_missed_incidents_approx": 826
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 2",
+          "incidents": 653,
+          "source_reported_on_time_pct": 71.2439,
+          "derived_response_goal_miss_pct": 28.76,
+          "derived_missed_incidents_approx": 188
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 3",
+          "incidents": 1335,
+          "source_reported_on_time_pct": 76.9968,
+          "derived_response_goal_miss_pct": 23,
+          "derived_missed_incidents_approx": 307
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 3",
+          "incidents": 163,
+          "source_reported_on_time_pct": 76,
+          "derived_response_goal_miss_pct": 24,
+          "derived_missed_incidents_approx": 39
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 4",
+          "incidents": 3098,
+          "source_reported_on_time_pct": 85.513,
+          "derived_response_goal_miss_pct": 14.49,
+          "derived_missed_incidents_approx": 449
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 4",
+          "incidents": 533,
+          "source_reported_on_time_pct": 88.8646,
+          "derived_response_goal_miss_pct": 11.14,
+          "derived_missed_incidents_approx": 59
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 5",
+          "incidents": 2176,
+          "source_reported_on_time_pct": 84,
+          "derived_response_goal_miss_pct": 16,
+          "derived_missed_incidents_approx": 348
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 5",
+          "incidents": 191,
+          "source_reported_on_time_pct": 85.7923,
+          "derived_response_goal_miss_pct": 14.21,
+          "derived_missed_incidents_approx": 27
+        }
+      ],
+      "source_locator": {
+        "query_url": "https://data.austintexas.gov/resource/gjtj-jt2d.json?%24limit=36&%24order=month_key+desc",
+        "metadata_url": "https://data.austintexas.gov/api/views/gjtj-jt2d",
+        "dataset_url": "https://data.austintexas.gov/Public-Safety/EMS-Incidents-by-Month/gjtj-jt2d",
+        "source_fields": [
+          "count_incidents_all",
+          "percent_on_time_all",
+          "percent_on_time_target",
+          "service-area and priority-specific count/compliance fields"
+        ]
+      }
+    },
+    {
+      "record_id": "atcems_response_compliance_202307",
+      "metric_id": "atcems_response_goal_miss_rate",
+      "measurement_role": "local_monthly_response_goal_miss_operational_proxy",
+      "month_key": 202307,
+      "month_start_date": "2023-07-01T00:00:00.000",
+      "total_incidents": 12107,
+      "city_of_austin_incidents": 10409,
+      "travis_county_incidents": 1640,
+      "other_area_incidents": 58,
+      "source_reported_overall_on_time_pct": 81.5609,
+      "source_reported_city_on_time_pct": 81.8625,
+      "source_reported_county_on_time_pct": 79.6271,
+      "source_reported_target_on_time_pct": 90,
+      "derived_overall_response_goal_miss_pct": 18.44,
+      "derived_overall_missed_incidents_approx": 2232,
+      "derived_target_shortfall_percentage_points": 8.44,
+      "priority_breakdown": [
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 1",
+          "incidents": 859,
+          "source_reported_on_time_pct": 76.0104,
+          "derived_response_goal_miss_pct": 23.99,
+          "derived_missed_incidents_approx": 206
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 1",
+          "incidents": 125,
+          "source_reported_on_time_pct": 66.0714,
+          "derived_response_goal_miss_pct": 33.93,
+          "derived_missed_incidents_approx": 42
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 2",
+          "incidents": 3230,
+          "source_reported_on_time_pct": 78.0084,
+          "derived_response_goal_miss_pct": 21.99,
+          "derived_missed_incidents_approx": 710
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 2",
+          "incidents": 626,
+          "source_reported_on_time_pct": 70.7563,
+          "derived_response_goal_miss_pct": 29.24,
+          "derived_missed_incidents_approx": 183
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 3",
+          "incidents": 1309,
+          "source_reported_on_time_pct": 77.207,
+          "derived_response_goal_miss_pct": 22.79,
+          "derived_missed_incidents_approx": 298
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 3",
+          "incidents": 151,
+          "source_reported_on_time_pct": 76.3888,
+          "derived_response_goal_miss_pct": 23.61,
+          "derived_missed_incidents_approx": 36
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 4",
+          "incidents": 3144,
+          "source_reported_on_time_pct": 88.6732,
+          "derived_response_goal_miss_pct": 11.33,
+          "derived_missed_incidents_approx": 356
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 4",
+          "incidents": 536,
+          "source_reported_on_time_pct": 92.3404,
+          "derived_response_goal_miss_pct": 7.66,
+          "derived_missed_incidents_approx": 41
+        },
+        {
+          "geography": "city_of_austin",
+          "priority": "Priority 5",
+          "incidents": 1867,
+          "source_reported_on_time_pct": 83.5487,
+          "derived_response_goal_miss_pct": 16.45,
+          "derived_missed_incidents_approx": 307
+        },
+        {
+          "geography": "travis_county_outside_city",
+          "priority": "Priority 5",
+          "incidents": 202,
+          "source_reported_on_time_pct": 86.7403,
+          "derived_response_goal_miss_pct": 13.26,
+          "derived_missed_incidents_approx": 27
+        }
+      ],
+      "source_locator": {
+        "query_url": "https://data.austintexas.gov/resource/gjtj-jt2d.json?%24limit=36&%24order=month_key+desc",
+        "metadata_url": "https://data.austintexas.gov/api/views/gjtj-jt2d",
+        "dataset_url": "https://data.austintexas.gov/Public-Safety/EMS-Incidents-by-Month/gjtj-jt2d",
+        "source_fields": [
+          "count_incidents_all",
+          "percent_on_time_all",
+          "percent_on_time_target",
+          "service-area and priority-specific count/compliance fields"
+        ]
+      }
+    }
+  ]
+}

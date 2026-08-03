@@ -1,0 +1,112 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_8_iea_data_centres",
+  "generated_at": "2026-07-31T22:57:23.602Z",
+  "source_snapshot": "public/iea-data-centre-impact-snapshot.json",
+  "source_id": "iea_energy_and_ai",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "data_centers",
+      "value": 8.3,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "biophysical_burden": 0.846,
+        "human_economic_burden": 1,
+        "persistence": 0.33,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "global_electricity_consumption_twh": 415,
+          "global_electricity_consumption_share_pct": 1.5,
+          "indirect_power_emissions_mt_co2": 180,
+          "anchors_mt_co2": [
+            0,
+            50,
+            100,
+            250
+          ],
+          "boundary": "Electricity-related indirect emissions only; backup power is excluded by the source figure."
+        },
+        "human_economic_burden": {
+          "global_investment_usd_billion": 500,
+          "anchors_usd_billion": [
+            0,
+            100,
+            250,
+            500
+          ],
+          "investment_change_since_2022": "nearly doubled",
+          "boundary": "Economic scale and infrastructure commitment, not observed economic damage."
+        },
+        "persistence": {
+          "source_reported_annual_growth_rate_pct": 12,
+          "source_reported_growth_period_years": 5,
+          "anchors_years": [
+            0,
+            5,
+            10,
+            20
+          ]
+        },
+        "extent": {
+          "normalized_value": 1,
+          "regions_explicitly_assessed": [
+            "United States",
+            "China",
+            "Europe",
+            "Asia excluding China",
+            "Rest of world"
+          ],
+          "geography_boundary": "Global IEA model with exhaustive regional partitions"
+        },
+        "excluded_projections": {
+          "projected_2030_global_electricity_consumption_twh": 945,
+          "projected_2030_share_global_electricity_pct": 3
+        },
+        "source_snapshot": {
+          "path": "public/iea-data-centre-impact-snapshot.json",
+          "version": "iea_energy_and_ai_2025_data_centres_snapshot_v1",
+          "captured_at": "2026-07-31T16:44:03.657Z",
+          "source_locators": [
+            "IEA Energy demand from AI, current global data-centre demand section",
+            "IEA AI and climate change, current indirect emissions section",
+            "IEA Energy and AI executive summary, current global investment statement"
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "current_assessment_burden_ranges",
+          "formula": "Normalize source-reported current indirect CO2 emissions and global investment through named fixed ranges; do not score projected electricity demand."
+        },
+        {
+          "type": "source_reported_growth_persistence",
+          "formula": "Use the IEA-reported five-year period behind the 12% annual growth estimate without reconstructing missing annual observations."
+        },
+        {
+          "type": "global_model_extent",
+          "formula": "The IEA global total is partitioned across five exhaustive world regions."
+        }
+      ],
+      "source_ids": [
+        "iea_energy_and_ai"
+      ],
+      "uncertainty": "IEA describes substantial uncertainty around current and future electricity demand. Facility coverage, server stock and utilization, cooling, behind-the-meter power, electricity mix, investment accounting and rapid technology change affect estimates. AI is a subset and is not separated as a current global total here.",
+      "freshness": "IEA Energy and AI 2025 assessment of 2024 global data centres; snapshot captured 2026-07-31T16:44:03.657Z.",
+      "selection_reason": {
+        "selected_method_passed": "IEA quantifies current global electricity use, indirect emissions, investment, a five-year growth period and exhaustive regional extent for data centres.",
+        "higher_priority_failures": [
+          "Only a five-year growth statement is available, below the 20-complete-annual-observation gate.",
+          "No recognized urgency threshold or 60-month source series supports current-data normalization."
+        ]
+      },
+      "input_hash": "fnv1a32:c49b8e91"
+    }
+  ]
+}

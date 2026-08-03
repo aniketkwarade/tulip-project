@@ -1,0 +1,94 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_10_nsidc_september_extent",
+  "generated_at": "2026-07-31T22:57:30.587Z",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "sea_ice_season_loss",
+      "value": 3.4,
+      "band": "Elevated",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "magnitude": 0.373187,
+        "threshold": 0.373187,
+        "momentum": 0,
+        "extent": 0.259356
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_september_extent_million_km2": 4.75,
+          "baseline_1981_2010_mean_extent_million_km2": 6.413333,
+          "extent_deficit_million_km2": 1.663333,
+          "complete_annual_observations": 47,
+          "anchors": [
+            0.333333,
+            1.608333,
+            2.041333,
+            2.372833
+          ],
+          "source_locator": "https://noaadata.apps.nsidc.org/NOAA/G02135/north/monthly/data/N_09_extent_v4.0.csv"
+        },
+        "threshold": {
+          "latest_september_extent_million_km2": 4.75,
+          "threshold_basis": "historical_distribution_fallback_lower_is_worse",
+          "anchors": [
+            6.08,
+            4.805,
+            4.372,
+            4.0405
+          ],
+          "source_locator": "https://noaadata.apps.nsidc.org/NOAA/G02135/north/monthly/data/N_09_extent_v4.0.csv"
+        },
+        "momentum": {
+          "latest_year_over_year_extent_change_million_km2": 0.4,
+          "annual_change_observations": 46,
+          "anchors": [
+            -0.07,
+            -0.4675,
+            -0.895,
+            -1.06875
+          ],
+          "source_locator": "https://noaadata.apps.nsidc.org/NOAA/G02135/north/monthly/data/N_09_extent_v4.0.csv"
+        },
+        "extent": {
+          "fraction_of_1981_2010_september_extent_lost": 0.259356,
+          "normalized_value": 0.259356,
+          "formula": "(1981–2010 mean September extent - latest September extent) / 1981–2010 mean September extent",
+          "source_locator": "https://noaadata.apps.nsidc.org/NOAA/G02135/north/monthly/data/N_09_extent_v4.0.csv"
+        },
+        "source_snapshot": {
+          "path": "public/nsidc-sea-ice-snapshot.json",
+          "version": "2026-07-31T15:07:23.349Z",
+          "updated_at": "2026-07-31",
+          "measurement_boundary": "Northern Hemisphere September monthly mean sea-ice extent and area in million square kilometres from NOAA/NSIDC Sea Ice Index Version 4. Extent uses the product 15-percent concentration threshold; September extent is not identical to annual minimum extent, ice thickness, age or season length.",
+          "source_history_start": 1979,
+          "source_history_end": 2025
+        }
+      },
+      "transformations": [
+        {
+          "type": "fixed_climatology_extent_deficit",
+          "formula": "Latest NOAA/NSIDC Northern Hemisphere September monthly mean sea-ice extent subtracted from the complete 1981–2010 source mean."
+        },
+        {
+          "type": "historical_distribution_normalization_lower_is_worse",
+          "formula": "Map annual September extent through median / p25 / p10 / p2.5 anchors; map extent deficit and annual loss through the corresponding worse-direction distributions."
+        }
+      ],
+      "source_ids": [
+        "national_snow_and_ice_data_center"
+      ],
+      "uncertainty": "Passive-microwave retrieval, sensor transitions, melt ponds, coastal masks, concentration threshold, near-real-time replacement and weather-driven annual variability affect extent and area. September monthly mean extent is a bounded pan-Arctic retreat indicator; it is not a direct observation of season length, ice thickness, ice age or local-sector retreat.",
+      "freshness": "NOAA/NSIDC Sea Ice Index Version 4 September record through 2025; snapshot refreshed 2026-07-31.",
+      "selection_reason": {
+        "selected_method_passed": "NOAA/NSIDC supplies 47 consistent annual pan-Arctic September extent observations, a complete fixed climatology, current deficit, lower-tail position, momentum and quantified fraction of reference extent lost.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:2ec8144f"
+    }
+  ]
+}

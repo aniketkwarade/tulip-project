@@ -1,0 +1,9 @@
+eia_grid_snapshot:
+  type: json.JSONDataset
+  filepath: ../../public/eia-hourly-grid-snapshot.json
+
+eia_kedro_pilot_result:
+  type: json.JSONDataset
+  filepath: data/05_model_output/eia-kedro-pilot-result.json
+  save_args:
+    indent: 2

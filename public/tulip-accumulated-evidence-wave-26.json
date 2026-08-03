@@ -1,0 +1,122 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_26_fao_unccd_global_dryland_degradation",
+  "generated_at": "2026-07-31T22:57:27.412Z",
+  "source_snapshot": "public/fao-unccd-global-dryland-degradation-impact-snapshot.json",
+  "source_id": "fao_unccd_global_dryland_degradation_impact",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "desertification_frontiers",
+      "value": 7.9,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2021",
+      "components": {
+        "biophysical_burden": 0.8416,
+        "human_economic_burden": 0.67,
+        "persistence": 0.978,
+        "extent": 0.518135
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "global_desertification_area_billion_hectares": 1.14,
+          "source_year": 1998,
+          "anchors_billion_hectares": [
+            0,
+            0.25,
+            0.75,
+            1.5
+          ],
+          "boundary": "GLASOD/UNEP accumulated area affected by desertification; not current annual degradation, drought extent or all land degradation."
+        },
+        "human_economic_burden": {
+          "people_directly_affected_million": 200,
+          "people_at_risk_million_context_only": 1000,
+          "anchors_million_people": [
+            0,
+            50,
+            200,
+            1000
+          ],
+          "boundary": "Only the source-labelled directly affected population is normalized; the at-risk population is retained without addition."
+        },
+        "persistence": {
+          "desertification_annual_rate_million_hectares_per_year": 5.8,
+          "source_year": 1991,
+          "anchors_million_hectares_per_year": [
+            0,
+            1,
+            3,
+            6
+          ],
+          "independent_context": {
+            "annual_land_becoming_unproductive_from_desertification_and_drought_million_hectares": 12,
+            "annual_grain_production_loss_from_desertification_and_drought_million_tonnes": 20
+          },
+          "boundary": "The desertification-only annual rate is normalized. The newer combined desertification-and-drought estimate remains context and is not substituted."
+        },
+        "extent": {
+          "affected_countries_minimum": 100,
+          "reference_country_count": 193,
+          "normalized_value": 0.518135,
+          "global_dryland_area_billion_hectares": 6.1,
+          "global_dryland_land_share_pct": 41.3,
+          "global_dryland_population_billion": 2.1,
+          "boundary": "Minimum affected-country count divided by 193 UN member states; no claim of uniform country area or severity."
+        },
+        "source_snapshot": {
+          "path": "public/fao-unccd-global-dryland-degradation-impact-snapshot.json",
+          "version": "fao_unccd_global_dryland_degradation_impact_v1",
+          "captured_at": "2026-07-31T21:10:11.622Z",
+          "source_locators": {
+            "biophysical_burden": "FAO Carbon sequestration in dryland soils, desertification extent section and GLASOD Table 4: 1.14 billion hectares affected.",
+            "persistence": "FAO Carbon sequestration in dryland soils, Table 5: approximately 5.8 million hectares per year desertification rate in mid-latitude drylands.",
+            "human_burden": "FAO synthesis: approximately 200 million people directly affected and more than 1 billion at risk; UNCCD 2021 synthesis independently states livelihoods of more than 1 billion people in about 100 countries are threatened.",
+            "extent": "FAO synthesis: desertification affects more than 100 countries on all continents; FAO Global Dryland Assessment: 6.1 billion hectares of drylands; UNCCD: drylands cover 41.3 percent of land and are home to 2.1 billion people."
+          },
+          "excluded_from_scoring": [
+            "1 billion people at risk, retained as context rather than added to 200 million directly affected",
+            "12 million hectares and 20 million tonnes annual desertification-and-drought figures, retained as independent context rather than substituted for the desertification-only rate",
+            "global land-degradation costs that are not dryland-specific",
+            "current trend, attribution or local uniformity inference",
+            "missing uncertainty as zero"
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "fixed_accumulated_desertification_area",
+          "formula": "Normalize the FAO-synthesized 1.14 billion hectares affected through declared cross-scale area anchors."
+        },
+        {
+          "type": "directly_affected_population_only",
+          "formula": "Normalize the source-labelled 200 million people directly affected; retain but do not add the population at risk."
+        },
+        {
+          "type": "documented_annual_desertification_rate",
+          "formula": "Normalize the desertification-only 5.8 million hectares per year through declared annual-rate anchors; do not silently substitute the combined drought figure."
+        },
+        {
+          "type": "minimum_country_extent",
+          "formula": "Divide the source minimum of 100 affected countries by 193 UN member states and retain the all-continent scope."
+        }
+      ],
+      "source_ids": [
+        "fao_unccd_global_dryland_degradation_impact"
+      ],
+      "uncertainty": "The global desertification-area and annual-rate estimates synthesize older UNEP and GLASOD assessments whose definitions, baselines, remote-sensing coverage and soil/vegetation criteria differ. The affected-population figures are global order-of-magnitude estimates, not a household census. Climate variability and degradation are not interchangeable, and the figures should not be interpreted as a current annual monitoring series.",
+      "freshness": "UNCCD synthesis 2021; underlying global desertification extent 1998 and annual-rate 1991; snapshot captured 2026-07-31T21:10:11.622Z.",
+      "selection_reason": {
+        "selected_method_passed": "FAO and UNCCD quantify accumulated dryland desertification area, directly affected people, a recurring annual desertification rate and cross-continent country extent, while preserving the age and comparability limits of the underlying assessments.",
+        "higher_priority_failures": [
+          "The UNCCD portal does not yet supply a source-consistent current global annual panel with magnitude plus threshold or momentum.",
+          "The accumulated estimates are older assessment syntheses and therefore are not mislabeled as current observations."
+        ]
+      },
+      "input_hash": "fnv1a32:d5ec8e55"
+    }
+  ]
+}

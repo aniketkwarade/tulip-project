@@ -1,0 +1,117 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_73_us_fema_managed_retreat",
+  "generated_at": "2026-08-01T16:50:32.722Z",
+  "source_snapshots": [
+    "public/us-fema-managed-retreat-impact-snapshot.json"
+  ],
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "managed_retreat_pressure",
+      "value": 7.7,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "biophysical_burden": 0.887855,
+        "human_economic_burden": 0.6997,
+        "persistence": 0.846,
+        "extent": 0.33
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "completed_acquisitions": 69415,
+          "total_fema_mitigated_properties": 95762,
+          "acquisition_share_pct": 72.5,
+          "normalization_anchors_properties": [
+            0,
+            1000,
+            10000,
+            100000
+          ]
+        },
+        "human_economic_burden": {
+          "average_federal_cost_per_acquisition_usd_2008_2014": 136000,
+          "typical_process_duration_years_lower_bound": 2,
+          "normalization_anchors_usd": [
+            0,
+            25000,
+            100000,
+            500000
+          ],
+          "boundary": "The audited period-specific average is not multiplied by acquisitions outside 2008-2014."
+        },
+        "persistence": {
+          "accumulation_start_year": 1989,
+          "accumulation_end_year": 2025,
+          "accumulation_period_years": 36,
+          "permanent_open_space": true,
+          "normalization_anchors_years": [
+            0,
+            5,
+            20,
+            50
+          ]
+        },
+        "extent": {
+          "represented_country": "United States",
+          "represented_country_count": 1,
+          "normalization_anchors_countries": [
+            0,
+            1,
+            10,
+            100
+          ]
+        },
+        "source_snapshot": {
+          "path": "public/us-fema-managed-retreat-impact-snapshot.json",
+          "version": "us_fema_flood_property_acquisitions_1989_2025_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z",
+          "source_locators": [
+            "Figure 2 discussion: 69,415 acquisitions, 72.5 percent of 95,762 FEMA-mitigated properties, fiscal years 1989-2025.",
+            "Cost discussion: average federal cost was USD 136,000 per acquisition in 2008-2014 FEMA data.",
+            "Acquisition definition and process discussion: willing-seller purchase and demolition; acquired land becomes open space in perpetuity; process typically takes at least two to three years."
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "completed_acquisition_lower_bound",
+          "formula": "Use only GAO-reported completed FEMA acquisitions as the realized lower bound of formal managed-retreat evaluation; exclude general exposure, unmitigated repetitive-loss properties and non-retreat mitigation."
+        },
+        {
+          "type": "period_matched_average_cost",
+          "formula": "Normalize the audited USD 136,000 average federal acquisition cost for 2008-2014 without multiplying it by the full 1989-2025 count."
+        },
+        {
+          "type": "accumulation_window",
+          "formula": "Use 36 completed fiscal years from 1989 through 2025 as the accumulated administrative record; retain the permanent open-space requirement as unscored context."
+        },
+        {
+          "type": "bounded_extent",
+          "formula": "Normalize the one represented country; do not generalize the FEMA program globally."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "gao_26_109045_fema_flood_property_acquisitions"
+      ],
+      "uncertainty": "The 69,415 properties are completed acquisitions, not all properties considered, submitted, approved or eligible, and not all were repetitive-loss properties. The USD 136,000 average applies to FEMA data for 2008-2014 and is not multiplied by the full 1989-2025 acquisition count. The 36-year period measures accumulation of completed acquisitions, not an individual household’s relocation duration. The inventory is United States-only.",
+      "freshness": "FEMA acquisition totals through fiscal year 2025; GAO report published 2026-03-26.",
+      "selection_reason": {
+        "selected_method_passed": "GAO’s audited FEMA totals quantify completed voluntary acquisitions, their share of mitigated properties, an average federal acquisition cost, a 36-year accumulation window and bounded national coverage.",
+        "higher_priority_failures": [
+          "Completed United States acquisitions are not a current global aggregation of properties under retreat consideration.",
+          "The report does not provide method-comparable global annual magnitude, threshold and momentum components."
+        ]
+      },
+      "input_hash": "fnv1a32:ced2e872"
+    }
+  ]
+}

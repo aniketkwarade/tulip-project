@@ -1,0 +1,566 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_40_global_final_promotion",
+  "generated_at": "2026-08-01T15:38:04.461Z",
+  "promoted_node_count": 10,
+  "receipts": [
+    {
+      "node_id": "antarctic_bottom_water_decline",
+      "value": 8.9,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2023",
+      "components": {
+        "biophysical_burden": 0.835,
+        "human_economic_burden": 0.89,
+        "persistence": 0.835,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "assessment_year": 2023,
+        "decline_since_1990s_pct": 30,
+        "years_approx": 30,
+        "salty_oxygen_rich_water_sinking_trillion_tonnes_per_year": 250,
+        "excess_atmospheric_heat_absorbed_by_ocean_pct_lower_bound": 90,
+        "global_extent": 1,
+        "evidence_boundary": "Observation-based circumpolar transport decline; the annual sinking-water mass is system scale, not a loss amount.",
+        "source_snapshot": {
+          "path": "public/global-final-promotion-impact-snapshot.json",
+          "version": "global_final_promotion_assessments_2026_v1",
+          "captured_at": "2026-07-31T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Normalize the retained global burden against declared four-point anchors and clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        },
+        {
+          "type": "boundary_preservation",
+          "formula": "Retain approximate values and confidence intervals as reported; do not infer missing fuel splits, cases, local exposure or causal attribution."
+        }
+      ],
+      "source_ids": [
+        "csiro_antarctic_bottom_water_observations_2023"
+      ],
+      "uncertainty": "Values retain each publisher’s global method and period. Approximate shares remain labeled, uncertainty intervals are preserved where reported, fuel-specific industrial-heat nodes do not receive an invented coal-gas split, and missing observations never become zero. Observation-based circumpolar transport decline; the annual sinking-water mass is system scale, not a loss amount.",
+      "freshness": "Latest reviewed global assessment through 2023.",
+      "selection_reason": {
+        "selected_method_passed": "A global quantitative observation or assessment supplies accumulated burden, human/economic relevance, persistence and extent.",
+        "higher_priority_failures": [
+          "The current-data gate lacks a complete global history with magnitude plus threshold or recent momentum for this exact node."
+        ]
+      },
+      "input_hash": "fnv1a32:a15b4af8"
+    },
+    {
+      "node_id": "phytoplankton_decline",
+      "value": 8.9,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2015",
+      "components": {
+        "biophysical_burden": 0.802,
+        "human_economic_burden": 0.868,
+        "persistence": 0.9175,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "end_year": 2015,
+        "start_year": 1998,
+        "annual_primary_production_decline_pgc": 0.8,
+        "primary_production_decline_pct_per_decade": 2.1,
+        "chlorophyte_production_decline_pct_per_decade": 14.3,
+        "global_extent": 1,
+        "evidence_boundary": "Global assimilated ocean-colour model result; chlorophyll processing sensitivity and regional compensating changes remain explicit.",
+        "source_snapshot": {
+          "path": "public/global-final-promotion-impact-snapshot.json",
+          "version": "global_final_promotion_assessments_2026_v1",
+          "captured_at": "2026-07-31T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Normalize the retained global burden against declared four-point anchors and clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        },
+        {
+          "type": "boundary_preservation",
+          "formula": "Retain approximate values and confidence intervals as reported; do not infer missing fuel splits, cases, local exposure or causal attribution."
+        }
+      ],
+      "source_ids": [
+        "nasa_global_ocean_primary_production_1998_2015"
+      ],
+      "uncertainty": "Values retain each publisher’s global method and period. Approximate shares remain labeled, uncertainty intervals are preserved where reported, fuel-specific industrial-heat nodes do not receive an invented coal-gas split, and missing observations never become zero. Global assimilated ocean-colour model result; chlorophyll processing sensitivity and regional compensating changes remain explicit.",
+      "freshness": "Latest reviewed global assessment through 2015.",
+      "selection_reason": {
+        "selected_method_passed": "A global quantitative observation or assessment supplies accumulated burden, human/economic relevance, persistence and extent.",
+        "higher_priority_failures": [
+          "The current-data gate lacks a complete global history with magnitude plus threshold or recent momentum for this exact node."
+        ]
+      },
+      "input_hash": "fnv1a32:eecf35db"
+    },
+    {
+      "node_id": "marine_pathogen_range_expansion",
+      "value": 9.3,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "biophysical_burden": 0.941887,
+        "human_economic_burden": 0.868,
+        "persistence": 0.9076,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "observation_year": 2024,
+        "suitable_coastline_km": 91195,
+        "increase_from_previous_record_pct": 3.2,
+        "assessed_history_start_year": 1982,
+        "global_extent": 1,
+        "evidence_boundary": "Environmental suitability for pathogenic Vibrio is not a count of infections or proof of transmission on every suitable coast.",
+        "source_snapshot": {
+          "path": "public/global-final-promotion-impact-snapshot.json",
+          "version": "global_final_promotion_assessments_2026_v1",
+          "captured_at": "2026-07-31T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Normalize the retained global burden against declared four-point anchors and clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        },
+        {
+          "type": "boundary_preservation",
+          "formula": "Retain approximate values and confidence intervals as reported; do not infer missing fuel splits, cases, local exposure or causal attribution."
+        }
+      ],
+      "source_ids": [
+        "lancet_countdown_vibrio_indicator_2025"
+      ],
+      "uncertainty": "Values retain each publisher’s global method and period. Approximate shares remain labeled, uncertainty intervals are preserved where reported, fuel-specific industrial-heat nodes do not receive an invented coal-gas split, and missing observations never become zero. Environmental suitability for pathogenic Vibrio is not a count of infections or proof of transmission on every suitable coast.",
+      "freshness": "Latest reviewed global assessment through 2024.",
+      "selection_reason": {
+        "selected_method_passed": "A global quantitative observation or assessment supplies accumulated burden, human/economic relevance, persistence and extent.",
+        "higher_priority_failures": [
+          "The current-data gate lacks a complete global history with magnitude plus threshold or recent momentum for this exact node."
+        ]
+      },
+      "input_hash": "fnv1a32:14af55ae"
+    },
+    {
+      "node_id": "tropospheric_ozone",
+      "value": 9.3,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2015",
+      "components": {
+        "biophysical_burden": 0.913257,
+        "human_economic_burden": 0.901,
+        "persistence": 0.89,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "observation_year": 2015,
+        "attributable_deaths": 254000,
+        "attributable_deaths_lower_95_ui": 97000,
+        "attributable_deaths_upper_95_ui": 422000,
+        "dalys_million": 4.1,
+        "history_years": 25,
+        "global_extent": 1,
+        "evidence_boundary": "Comparative-risk burden for ozone-attributable COPD; it is not a direct global concentration series.",
+        "source_snapshot": {
+          "path": "public/global-final-promotion-impact-snapshot.json",
+          "version": "global_final_promotion_assessments_2026_v1",
+          "captured_at": "2026-07-31T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Normalize the retained global burden against declared four-point anchors and clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        },
+        {
+          "type": "boundary_preservation",
+          "formula": "Retain approximate values and confidence intervals as reported; do not infer missing fuel splits, cases, local exposure or causal attribution."
+        }
+      ],
+      "source_ids": [
+        "iarc_gbd_ambient_air_pollution_2015"
+      ],
+      "uncertainty": "Values retain each publisher’s global method and period. Approximate shares remain labeled, uncertainty intervals are preserved where reported, fuel-specific industrial-heat nodes do not receive an invented coal-gas split, and missing observations never become zero. Comparative-risk burden for ozone-attributable COPD; it is not a direct global concentration series.",
+      "freshness": "Latest reviewed global assessment through 2015.",
+      "selection_reason": {
+        "selected_method_passed": "A global quantitative observation or assessment supplies accumulated burden, human/economic relevance, persistence and extent.",
+        "higher_priority_failures": [
+          "The current-data gate lacks a complete global history with magnitude plus threshold or recent momentum for this exact node."
+        ]
+      },
+      "input_hash": "fnv1a32:dd136c0e"
+    },
+    {
+      "node_id": "diesel_freight_co2",
+      "value": 8.5,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "biophysical_burden": 0.78,
+        "human_economic_burden": 0.853333,
+        "persistence": 0.7525,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "observation_year": 2024,
+        "road_transport_co2_gt": 6,
+        "truck_share_pct_approx": 33.333333,
+        "truck_co2_gt_approx": 2,
+        "growth_since_2015_pct": 8,
+        "global_extent": 1,
+        "evidence_boundary": "Truck CO2 is the source-reported about-one-third share of global road CO2; the node label is retained but the assessment does not split diesel from other non-electric fuels.",
+        "source_snapshot": {
+          "path": "public/global-final-promotion-impact-snapshot.json",
+          "version": "global_final_promotion_assessments_2026_v1",
+          "captured_at": "2026-07-31T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Normalize the retained global burden against declared four-point anchors and clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        },
+        {
+          "type": "boundary_preservation",
+          "formula": "Retain approximate values and confidence intervals as reported; do not infer missing fuel splits, cases, local exposure or causal attribution."
+        }
+      ],
+      "source_ids": [
+        "iea_breakthrough_agenda_road_transport_2025"
+      ],
+      "uncertainty": "Values retain each publisher’s global method and period. Approximate shares remain labeled, uncertainty intervals are preserved where reported, fuel-specific industrial-heat nodes do not receive an invented coal-gas split, and missing observations never become zero. Truck CO2 is the source-reported about-one-third share of global road CO2; the node label is retained but the assessment does not split diesel from other non-electric fuels.",
+      "freshness": "Latest reviewed global assessment through 2024.",
+      "selection_reason": {
+        "selected_method_passed": "A global quantitative observation or assessment supplies accumulated burden, human/economic relevance, persistence and extent.",
+        "higher_priority_failures": [
+          "The current-data gate lacks a complete global history with magnitude plus threshold or recent momentum for this exact node."
+        ]
+      },
+      "input_hash": "fnv1a32:63911c4f"
+    },
+    {
+      "node_id": "fossil_hydrogen_co2",
+      "value": 9.1,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "biophysical_burden": 0.912,
+        "human_economic_burden": 0.89,
+        "persistence": 0.835,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "observation_year": 2024,
+        "hydrogen_production_mt_approx": 100,
+        "production_emissions_mt_co2e_approx": 1300,
+        "low_emissions_share_pct_less_than": 1,
+        "fossil_supply_share_pct_lower_bound": 99,
+        "stable_intensity_years": 5,
+        "global_extent": 1,
+        "evidence_boundary": "IEA global production and lifecycle emissions; low-emissions hydrogen remains separately reported and is not counted as fossil.",
+        "source_snapshot": {
+          "path": "public/global-final-promotion-impact-snapshot.json",
+          "version": "global_final_promotion_assessments_2026_v1",
+          "captured_at": "2026-07-31T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Normalize the retained global burden against declared four-point anchors and clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        },
+        {
+          "type": "boundary_preservation",
+          "formula": "Retain approximate values and confidence intervals as reported; do not infer missing fuel splits, cases, local exposure or causal attribution."
+        }
+      ],
+      "source_ids": [
+        "iea_breakthrough_agenda_hydrogen_2025"
+      ],
+      "uncertainty": "Values retain each publisher’s global method and period. Approximate shares remain labeled, uncertainty intervals are preserved where reported, fuel-specific industrial-heat nodes do not receive an invented coal-gas split, and missing observations never become zero. IEA global production and lifecycle emissions; low-emissions hydrogen remains separately reported and is not counted as fossil.",
+      "freshness": "Latest reviewed global assessment through 2024.",
+      "selection_reason": {
+        "selected_method_passed": "A global quantitative observation or assessment supplies accumulated burden, human/economic relevance, persistence and extent.",
+        "higher_priority_failures": [
+          "The current-data gate lacks a complete global history with magnitude plus threshold or recent momentum for this exact node."
+        ]
+      },
+      "input_hash": "fnv1a32:9638c7d7"
+    },
+    {
+      "node_id": "construction_material_co2",
+      "value": 8.7,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "biophysical_burden": 0.835,
+        "human_economic_burden": 0.89,
+        "persistence": 0.736,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "observation_year": 2024,
+        "industry_direct_co2_gt": 9,
+        "heavy_industry_direct_co2_gt": 6,
+        "heavy_industry_share_pct": 70,
+        "industrial_heat_nonrenewable_share_pct": 88,
+        "heat_share_energy_related_co2_pct": 37,
+        "cement_production_mt": 4160,
+        "cement_low_emissions_fuel_share_pct": 5,
+        "assessment_span_years": 6,
+        "global_extent": 1,
+        "evidence_boundary": "Heavy-industry CO2 covers steel, cement and chemicals; it is a construction-material system burden rather than a project-level embodied-carbon inventory.",
+        "source_snapshot": {
+          "path": "public/global-final-promotion-impact-snapshot.json",
+          "version": "global_final_promotion_assessments_2026_v1",
+          "captured_at": "2026-07-31T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Normalize the retained global burden against declared four-point anchors and clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        },
+        {
+          "type": "boundary_preservation",
+          "formula": "Retain approximate values and confidence intervals as reported; do not infer missing fuel splits, cases, local exposure or causal attribution."
+        }
+      ],
+      "source_ids": [
+        "iea_global_industry_transition_assessments"
+      ],
+      "uncertainty": "Values retain each publisher’s global method and period. Approximate shares remain labeled, uncertainty intervals are preserved where reported, fuel-specific industrial-heat nodes do not receive an invented coal-gas split, and missing observations never become zero. Heavy-industry CO2 covers steel, cement and chemicals; it is a construction-material system burden rather than a project-level embodied-carbon inventory.",
+      "freshness": "Latest reviewed global assessment through 2024.",
+      "selection_reason": {
+        "selected_method_passed": "A global quantitative observation or assessment supplies accumulated burden, human/economic relevance, persistence and extent.",
+        "higher_priority_failures": [
+          "The current-data gate lacks a complete global history with magnitude plus threshold or recent momentum for this exact node."
+        ]
+      },
+      "input_hash": "fnv1a32:efbe9754"
+    },
+    {
+      "node_id": "cement_kiln_fuel_co2",
+      "value": 8.9,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "biophysical_burden": 0.8614,
+        "human_economic_burden": 0.945,
+        "persistence": 0.736,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "observation_year": 2024,
+        "industry_direct_co2_gt": 9,
+        "heavy_industry_direct_co2_gt": 6,
+        "heavy_industry_share_pct": 70,
+        "industrial_heat_nonrenewable_share_pct": 88,
+        "heat_share_energy_related_co2_pct": 37,
+        "cement_production_mt": 4160,
+        "cement_low_emissions_fuel_share_pct": 5,
+        "assessment_span_years": 6,
+        "global_extent": 1,
+        "evidence_boundary": "Production and low-emissions-fuel gap quantify kiln transition burden; process and fuel CO2 are not added or falsely separated.",
+        "source_snapshot": {
+          "path": "public/global-final-promotion-impact-snapshot.json",
+          "version": "global_final_promotion_assessments_2026_v1",
+          "captured_at": "2026-07-31T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Normalize the retained global burden against declared four-point anchors and clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        },
+        {
+          "type": "boundary_preservation",
+          "formula": "Retain approximate values and confidence intervals as reported; do not infer missing fuel splits, cases, local exposure or causal attribution."
+        }
+      ],
+      "source_ids": [
+        "iea_global_industry_transition_assessments"
+      ],
+      "uncertainty": "Values retain each publisher’s global method and period. Approximate shares remain labeled, uncertainty intervals are preserved where reported, fuel-specific industrial-heat nodes do not receive an invented coal-gas split, and missing observations never become zero. Production and low-emissions-fuel gap quantify kiln transition burden; process and fuel CO2 are not added or falsely separated.",
+      "freshness": "Latest reviewed global assessment through 2024.",
+      "selection_reason": {
+        "selected_method_passed": "A global quantitative observation or assessment supplies accumulated burden, human/economic relevance, persistence and extent.",
+        "higher_priority_failures": [
+          "The current-data gate lacks a complete global history with magnitude plus threshold or recent momentum for this exact node."
+        ]
+      },
+      "input_hash": "fnv1a32:7e5efd7e"
+    },
+    {
+      "node_id": "coal_industrial_heat_co2",
+      "value": 8.9,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "biophysical_burden": 0.901,
+        "human_economic_burden": 0.868,
+        "persistence": 0.736,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "observation_year": 2024,
+        "industry_direct_co2_gt": 9,
+        "heavy_industry_direct_co2_gt": 6,
+        "heavy_industry_share_pct": 70,
+        "industrial_heat_nonrenewable_share_pct": 88,
+        "heat_share_energy_related_co2_pct": 37,
+        "cement_production_mt": 4160,
+        "cement_low_emissions_fuel_share_pct": 5,
+        "assessment_span_years": 6,
+        "global_extent": 1,
+        "evidence_boundary": "Global non-renewable industrial-heat burden supports coal_industrial_heat_co2; the source does not provide a coal-gas split, so neither receipt claims a fuel-specific mass.",
+        "source_snapshot": {
+          "path": "public/global-final-promotion-impact-snapshot.json",
+          "version": "global_final_promotion_assessments_2026_v1",
+          "captured_at": "2026-07-31T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Normalize the retained global burden against declared four-point anchors and clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        },
+        {
+          "type": "boundary_preservation",
+          "formula": "Retain approximate values and confidence intervals as reported; do not infer missing fuel splits, cases, local exposure or causal attribution."
+        }
+      ],
+      "source_ids": [
+        "iea_global_industry_transition_assessments"
+      ],
+      "uncertainty": "Values retain each publisher’s global method and period. Approximate shares remain labeled, uncertainty intervals are preserved where reported, fuel-specific industrial-heat nodes do not receive an invented coal-gas split, and missing observations never become zero. Global non-renewable industrial-heat burden supports coal_industrial_heat_co2; the source does not provide a coal-gas split, so neither receipt claims a fuel-specific mass.",
+      "freshness": "Latest reviewed global assessment through 2024.",
+      "selection_reason": {
+        "selected_method_passed": "A global quantitative observation or assessment supplies accumulated burden, human/economic relevance, persistence and extent.",
+        "higher_priority_failures": [
+          "The current-data gate lacks a complete global history with magnitude plus threshold or recent momentum for this exact node."
+        ]
+      },
+      "input_hash": "fnv1a32:254bae03"
+    },
+    {
+      "node_id": "gas_industrial_heat_co2",
+      "value": 8.9,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "biophysical_burden": 0.901,
+        "human_economic_burden": 0.868,
+        "persistence": 0.736,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "observation_year": 2024,
+        "industry_direct_co2_gt": 9,
+        "heavy_industry_direct_co2_gt": 6,
+        "heavy_industry_share_pct": 70,
+        "industrial_heat_nonrenewable_share_pct": 88,
+        "heat_share_energy_related_co2_pct": 37,
+        "cement_production_mt": 4160,
+        "cement_low_emissions_fuel_share_pct": 5,
+        "assessment_span_years": 6,
+        "global_extent": 1,
+        "evidence_boundary": "Global non-renewable industrial-heat burden supports gas_industrial_heat_co2; the source does not provide a coal-gas split, so neither receipt claims a fuel-specific mass.",
+        "source_snapshot": {
+          "path": "public/global-final-promotion-impact-snapshot.json",
+          "version": "global_final_promotion_assessments_2026_v1",
+          "captured_at": "2026-07-31T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Normalize the retained global burden against declared four-point anchors and clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        },
+        {
+          "type": "boundary_preservation",
+          "formula": "Retain approximate values and confidence intervals as reported; do not infer missing fuel splits, cases, local exposure or causal attribution."
+        }
+      ],
+      "source_ids": [
+        "iea_global_industry_transition_assessments"
+      ],
+      "uncertainty": "Values retain each publisher’s global method and period. Approximate shares remain labeled, uncertainty intervals are preserved where reported, fuel-specific industrial-heat nodes do not receive an invented coal-gas split, and missing observations never become zero. Global non-renewable industrial-heat burden supports gas_industrial_heat_co2; the source does not provide a coal-gas split, so neither receipt claims a fuel-specific mass.",
+      "freshness": "Latest reviewed global assessment through 2024.",
+      "selection_reason": {
+        "selected_method_passed": "A global quantitative observation or assessment supplies accumulated burden, human/economic relevance, persistence and extent.",
+        "higher_priority_failures": [
+          "The current-data gate lacks a complete global history with magnitude plus threshold or recent momentum for this exact node."
+        ]
+      },
+      "input_hash": "fnv1a32:35203d35"
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+
+const OUTPUT_PATH = path.resolve('public/unep-cooling-equity-impact-snapshot.json');
+const snapshot = {
+  version: 'unep_global_cooling_watch_2025_equity_snapshot_v1',
+  captured_at: new Date().toISOString(),
+  source: {
+    id: 'unep_global_cooling_watch_2025',
+    name: 'UNEP Global Cooling Watch 2025',
+    publisher: 'United Nations Environment Programme',
+    report_year: 2025,
+    baseline_year: 2022,
+    report_page_url: 'https://www.unep.org/resources/global-cooling-watch-2025',
+    findings_url: 'https://www.unep.org/news-and-stories/story/warming-world-new-report-charts-how-expand-cooling-access-all-without',
+    press_release_url: 'https://www.unep.org/news-and-stories/press-release/amid-rising-heat-sustainable-cooling-can-slash-emissions-and-save'
+  },
+  ingestion_job_id: 'export_unep_cooling_equity_impact_snapshot',
+  metric_contract_ids: ['heat_exposure_without_safe_affordable_cooling', 'cooling_system_capacity_emissions_and_refrigerant_transition'],
+  contract_bindings: [
+    { node_id: 'cooling_equity_gaps', metric_id: 'heat_exposure_without_safe_affordable_cooling', measurement_role: 'global_assessment_accumulated_impact_primary' },
+    { node_id: 'air_conditioning_refrigerants', metric_id: 'cooling_system_capacity_emissions_and_refrigerant_transition', measurement_role: 'global_assessment_accumulated_cooling_pressure_primary' }
+  ],
+  cadence: 'Refresh with each UNEP Global Cooling Watch release.',
+  provenance: 'Reviewed source-reported current baseline and access-gap values from UNEP Global Cooling Watch 2025 and its official findings page. Future business-as-usual and sustainable-pathway values are retained only as projections.',
+  uncertainty: 'Cooling-access definitions combine mechanical, passive and service-quality dimensions and vary by assessment. Current emissions are modeled sector estimates. The report does not attribute all heat deaths to absent cooling, provide a country-level access denominator, or supply an annual observation series.',
+  failure_behavior: 'Retain the last reviewed assessment and mark stale; never count projected 2050 outcomes as current observations, infer household protection from equipment ownership, attribute all heat deaths to cooling access, or convert missing countries to zero.',
+  assessment: {
+    report_year: 2025,
+    baseline_year: 2022,
+    people_lacking_adequate_cooling_lower_bound_billion: 1,
+    current_cooling_capacity_tw: 22,
+    current_cooling_emissions_gt_co2e: 4.1,
+    business_as_usual_2050_capacity_tw_projection: 68,
+    business_as_usual_2050_emissions_gt_co2e_projection: 7.2,
+    people_needing_access_by_2050_projection_billion: 3,
+    countries_with_explicit_cooling_emissions_targets: 29,
+    countries_referencing_cooling_in_climate_or_energy_plans: 134,
+    global_cooling_pledge_signatories: 72,
+    signatory_share_global_cooling_emissions_pct: 80,
+    geography_boundary: 'Global assessment of cooling access, capacity and sector emissions',
+    source_locators: [
+      'UNEP Global Cooling Watch 2025 report page',
+      'UNEP official report findings story',
+      'UNEP official COP30 press release'
+    ]
+  }
+};
+
+await fs.writeFile(OUTPUT_PATH, `${JSON.stringify(snapshot, null, 2)}\n`);
+console.log(JSON.stringify({ output: OUTPUT_PATH, baseline_year: snapshot.assessment.baseline_year, metric_contract_ids: snapshot.metric_contract_ids }, null, 2));

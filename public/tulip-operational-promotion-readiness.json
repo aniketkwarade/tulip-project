@@ -1,0 +1,271 @@
+{
+  "version": "1.0.0",
+  "generated_at": "2026-08-01T14:58:12.424Z",
+  "cohort": "operationally_bound nodes in the 206-node evidence-hunt target",
+  "node_count": 3,
+  "summary": {
+    "current_data_readiness": {
+      "blocked_history_gate": 1,
+      "blocked_no_numeric_measure": 2
+    },
+    "historical_gate_pass": 0,
+    "global_aggregation_signal": 0,
+    "numeric_signal": 1,
+    "direction_ambiguous": 3
+  },
+  "limitations": [
+    "This profiler tests snapshot grain and candidate fields; it does not approve a score or infer normalization anchors.",
+    "A high row count does not pass the historical gate unless the node-specific global series has enough distinct annual or monthly observations.",
+    "Geographic breadth is a screening signal, not a completed global aggregation.",
+    "Metric direction must be reviewed against the source and cannot be inferred solely from a node label."
+  ],
+  "nodes": [
+    {
+      "node_id": "monsoon_volatility",
+      "node_name": "Monsoon Volatility",
+      "sphere": "atmosphere",
+      "target_rank": 237,
+      "metric_contract": {
+        "metric_id": "monsoon_onset_and_seasonal_rainfall_variability",
+        "metric_name": "Monsoon rainfall-gate anomaly and seasonal rainfall variability",
+        "unit": "days from baseline rainfall-gate date and percent seasonal rainfall anomaly reported separately",
+        "geography": "IMD Kerala-onset 14-location rainfall panel represented by declared NASA POWER grid points",
+        "cadence": "daily source observations with annual complete-season synthesis",
+        "observation_time_field": "rainfall_day",
+        "source_id": "nasa_power_monsoon_rainfall_pilot",
+        "completeness": {
+          "populated": 11,
+          "required": 11,
+          "ratio": 1
+        }
+      },
+      "direction": {
+        "status": "ambiguous",
+        "direction": null,
+        "reason": "Index sign or anomaly magnitude is not inherently equivalent to urgency."
+      },
+      "binding_profiles": [
+        {
+          "pipeline_id": "fetch_power_indian_monsoon_rainfall",
+          "source_id": "nasa_power_monsoon_rainfall_pilot",
+          "metric_contract_id": "monsoon_onset_and_seasonal_rainfall_variability",
+          "measurement_role": "bounded_gridded_rainfall_gate_and_seasonal_anomaly_primary",
+          "snapshot_path": "public/power-monsoon-snapshot.json",
+          "snapshot_record_count": 1,
+          "snapshot_observed_at": null,
+          "snapshot_sha256": "b8c9375af978cf9cf60c18fd5cda2847b5af47e14caad9fc981ddc2cdc2a8582",
+          "load_status": "loaded",
+          "snapshot_version": "power_indian_monsoon_rainfall_2025_v1",
+          "snapshot_updated_at": "2026-07-19T01:24:06.075Z",
+          "snapshot_uncertainty": "NASA POWER is a gridded reanalysis-derived product, not the IMD station network. Grid assignment, precipitation bias, requested point coordinates, missing values, the station-mean aggregation, baseline, and retrospective replacement affect the result.",
+          "snapshot_failure_behavior": "Retain the last validated complete-season snapshot and mark stale; reject fewer than 27 complete baseline years, an incomplete observation panel, or an absent rainfall-gate date; never fill missing rainfall with zero.",
+          "profile": {
+            "matched_records": 1,
+            "distinct_years": 1,
+            "first_year": 2025,
+            "last_year": 2025,
+            "distinct_months": 0,
+            "global_record_count": 0,
+            "country_or_area_value_count": 0,
+            "station_count": 0,
+            "has_coordinates": false,
+            "numeric_fields": [
+              {
+                "field": "baseline_mean_seasonal_panel_rainfall_mm",
+                "populated_rows": 1,
+                "coverage": 1
+              },
+              {
+                "field": "baseline_valid_onset_years",
+                "populated_rows": 1,
+                "coverage": 1
+              },
+              {
+                "field": "complete_reference_locations",
+                "populated_rows": 1,
+                "coverage": 1
+              },
+              {
+                "field": "onset_anomaly_days",
+                "populated_rows": 1,
+                "coverage": 1
+              },
+              {
+                "field": "rainfall_gate_consecutive_days",
+                "populated_rows": 1,
+                "coverage": 1
+              },
+              {
+                "field": "rainfall_gate_locations_required",
+                "populated_rows": 1,
+                "coverage": 1
+              },
+              {
+                "field": "rainfall_gate_panel_fraction",
+                "populated_rows": 1,
+                "coverage": 1
+              },
+              {
+                "field": "reference_location_count",
+                "populated_rows": 1,
+                "coverage": 1
+              },
+              {
+                "field": "seasonal_panel_mean_rainfall_mm",
+                "populated_rows": 1,
+                "coverage": 1
+              },
+              {
+                "field": "seasonal_rainfall_anomaly_mm",
+                "populated_rows": 1,
+                "coverage": 1
+              },
+              {
+                "field": "seasonal_rainfall_anomaly_pct",
+                "populated_rows": 1,
+                "coverage": 1
+              },
+              {
+                "field": "seasonal_rainfall_standardized_anomaly",
+                "populated_rows": 1,
+                "coverage": 1
+              }
+            ],
+            "has_numeric_measure": true
+          }
+        }
+      ],
+      "readiness": {
+        "numeric_signal": true,
+        "historical_distribution_gate": false,
+        "global_aggregation_signal": false,
+        "current_data_readiness": "blocked_history_gate",
+        "next_action": "Use a recognized threshold, extend the snapshot history, or build a four-component accumulated-impact dossier."
+      }
+    },
+    {
+      "node_id": "urban_hydrologic_supply_shortfall",
+      "node_name": "Urban Hydrologic Supply Shortfall",
+      "sphere": "sociopolitical",
+      "target_rank": 238,
+      "metric_contract": {
+        "metric_id": "global_safely_managed_drinking_water_service_gap",
+        "metric_name": "Global safely managed drinking-water service gap",
+        "unit": "people and percent of global population",
+        "geography": "global population and WHO/UNICEF reporting regions",
+        "cadence": "annual JMP release",
+        "observation_time_field": "reporting_year",
+        "source_id": "who_unicef_jmp_2025",
+        "completeness": {
+          "populated": 11,
+          "required": 11,
+          "ratio": 1
+        }
+      },
+      "direction": {
+        "status": "ambiguous",
+        "direction": null,
+        "reason": "No defensible direction can be inferred from the metric contract text."
+      },
+      "binding_profiles": [
+        {
+          "pipeline_id": "export_global_drinking_water_service_impact_snapshot",
+          "source_id": "who_unicef_jmp_2025",
+          "metric_contract_id": "global_safely_managed_drinking_water_service_gap",
+          "measurement_role": "global_service_gap_primary",
+          "snapshot_path": "public/global-drinking-water-service-impact-snapshot.json",
+          "snapshot_record_count": null,
+          "snapshot_observed_at": null,
+          "snapshot_sha256": "1fe9c8873b996aca01f9280d853761bc5d6a533ab8c56c4a29073510bb9fe4da",
+          "load_status": "loaded",
+          "snapshot_version": "who_unicef_jmp_2025_drinking_water_snapshot_v1",
+          "snapshot_updated_at": "2026-07-31T22:18:24.717Z",
+          "snapshot_uncertainty": "Safely managed service requires accessibility, availability and freedom from contamination; national monitoring coverage and modeled estimates vary. The gap does not isolate hydrologic supply, treatment plant capacity or raw-water quality.",
+          "snapshot_failure_behavior": "Retain the last reviewed JMP release and mark stale; never add mutually nested service categories, infer utility rationing or treatment failure, or replace missing countries with zero.",
+          "profile": {
+            "matched_records": 0,
+            "distinct_years": 0,
+            "first_year": null,
+            "last_year": null,
+            "distinct_months": 0,
+            "global_record_count": 0,
+            "country_or_area_value_count": 0,
+            "station_count": 0,
+            "has_coordinates": false,
+            "numeric_fields": [],
+            "has_numeric_measure": false
+          }
+        }
+      ],
+      "readiness": {
+        "numeric_signal": false,
+        "historical_distribution_gate": false,
+        "global_aggregation_signal": false,
+        "current_data_readiness": "blocked_no_numeric_measure",
+        "next_action": "Repair the ingestion so a quantitative measure is retained."
+      }
+    },
+    {
+      "node_id": "urban_source_water_treatment_constraint",
+      "node_name": "Urban Source-Water Treatment Constraint",
+      "sphere": "sociopolitical",
+      "target_rank": 239,
+      "metric_contract": {
+        "metric_id": "global_safely_managed_drinking_water_service_gap",
+        "metric_name": "Global safely managed drinking-water service gap",
+        "unit": "people and percent of global population",
+        "geography": "global population and WHO/UNICEF reporting regions",
+        "cadence": "annual JMP release",
+        "observation_time_field": "reporting_year",
+        "source_id": "who_unicef_jmp_2025",
+        "completeness": {
+          "populated": 11,
+          "required": 11,
+          "ratio": 1
+        }
+      },
+      "direction": {
+        "status": "ambiguous",
+        "direction": null,
+        "reason": "No defensible direction can be inferred from the metric contract text."
+      },
+      "binding_profiles": [
+        {
+          "pipeline_id": "export_global_drinking_water_service_impact_snapshot",
+          "source_id": "who_unicef_jmp_2025",
+          "metric_contract_id": "global_safely_managed_drinking_water_service_gap",
+          "measurement_role": "global_service_gap_primary",
+          "snapshot_path": "public/global-drinking-water-service-impact-snapshot.json",
+          "snapshot_record_count": null,
+          "snapshot_observed_at": null,
+          "snapshot_sha256": "1fe9c8873b996aca01f9280d853761bc5d6a533ab8c56c4a29073510bb9fe4da",
+          "load_status": "loaded",
+          "snapshot_version": "who_unicef_jmp_2025_drinking_water_snapshot_v1",
+          "snapshot_updated_at": "2026-07-31T22:18:24.717Z",
+          "snapshot_uncertainty": "Safely managed service requires accessibility, availability and freedom from contamination; national monitoring coverage and modeled estimates vary. The gap does not isolate hydrologic supply, treatment plant capacity or raw-water quality.",
+          "snapshot_failure_behavior": "Retain the last reviewed JMP release and mark stale; never add mutually nested service categories, infer utility rationing or treatment failure, or replace missing countries with zero.",
+          "profile": {
+            "matched_records": 0,
+            "distinct_years": 0,
+            "first_year": null,
+            "last_year": null,
+            "distinct_months": 0,
+            "global_record_count": 0,
+            "country_or_area_value_count": 0,
+            "station_count": 0,
+            "has_coordinates": false,
+            "numeric_fields": [],
+            "has_numeric_measure": false
+          }
+        }
+      ],
+      "readiness": {
+        "numeric_signal": false,
+        "historical_distribution_gate": false,
+        "global_aggregation_signal": false,
+        "current_data_readiness": "blocked_no_numeric_measure",
+        "next_action": "Repair the ingestion so a quantitative measure is retained."
+      }
+    }
+  ]
+}

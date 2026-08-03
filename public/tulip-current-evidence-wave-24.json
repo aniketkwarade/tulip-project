@@ -1,0 +1,107 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_24_copernicus_global_ocean_ph",
+  "generated_at": "2026-07-31T22:57:34.529Z",
+  "source_snapshot": "public/copernicus-global-ocean-ph-snapshot.json",
+  "source_id": "copernicus_marine_global_ocean_ph",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "ocean_acidification",
+      "value": 10,
+      "band": "Critical",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "magnitude": 1,
+        "threshold": 1,
+        "momentum": 1,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "baseline_year": 1985,
+          "baseline_global_mean_surface_ph": 8.107793,
+          "latest_year": 2024,
+          "latest_global_mean_surface_ph": 8.042169,
+          "cumulative_ph_decline": 0.065624,
+          "complete_annual_observations": 40,
+          "anchors_ph_decline": [
+            0.027658,
+            0.044268,
+            0.057411,
+            0.062484
+          ]
+        },
+        "threshold": {
+          "latest_global_mean_surface_ph": 8.042169,
+          "threshold_basis": "historical_distribution_fallback",
+          "direction": "lower_is_worse",
+          "anchors_ph": [
+            8.080135,
+            8.063524,
+            8.050382,
+            8.045309
+          ]
+        },
+        "momentum": {
+          "latest_year_over_year_ph_change": -0.00322,
+          "annual_change_observations": 39,
+          "direction": "lower_is_worse",
+          "anchors_ph_change": [
+            -0.00175,
+            -0.002132,
+            -0.002435,
+            -0.003174
+          ]
+        },
+        "extent": {
+          "geography": "Global ocean",
+          "normalized_value": 1,
+          "definition": "Annual area-averaged global surface seawater pH on the total scale. No omega-aragonite value is inferred, and the series is not a local coastal exposure estimate."
+        },
+        "source_snapshot": {
+          "path": "public/copernicus-global-ocean-ph-snapshot.json",
+          "version": "copernicus_global_ocean_ph_area_averaged_202511_v1",
+          "captured_at": "2026-07-31T18:05:26.405Z",
+          "product_id": "GLOBAL_OMI_HEALTH_carbon_ph_area_averaged",
+          "dataset_id": "global_omi_health_carbon_ph_area_averaged_202511",
+          "native_file_sha256": "1f38cc72e032e926848c7db959126b19d930984e73f21a73164d559a603e958a",
+          "latest_uncertainty_standard_deviation": 0.014035,
+          "excluded_from_scoring": [
+            "regional trend map cells",
+            "aragonite saturation inferred from pH",
+            "future projections",
+            "North American coastal climatology"
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "global_area_averaged_series",
+          "formula": "Retain the source annual global mean pH and source uncertainty; do not aggregate the regional trend map or combine the North American climatology."
+        },
+        {
+          "type": "historical_distribution_normalization",
+          "formula": "Use all 40 complete annual observations to map cumulative decline and lower-is-worse current pH through median / p75 / p90 / p97.5 positions."
+        },
+        {
+          "type": "lower_is_worse_momentum",
+          "formula": "Map the latest annual pH change against the complete 39-value annual-change distribution, reversing direction because a larger decline is worse."
+        }
+      ],
+      "source_ids": [
+        "copernicus_marine_global_ocean_ph"
+      ],
+      "uncertainty": "The global series is a multi-observation reprocessing product rather than uniform direct sampling. Carbon-system inputs, sparse observations, reconstruction, spatial weighting, pH scale, changing coverage and product revisions affect annual estimates. Source standard-deviation values are retained.",
+      "freshness": "Copernicus Marine annual global surface-ocean pH series through 2024; snapshot captured 2026-07-31T18:05:26.405Z.",
+      "selection_reason": {
+        "selected_method_passed": "The source supplies 40 complete annual global observations, a current global magnitude, historical position, annual momentum and explicit global extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:c894e12c"
+    }
+  ]
+}

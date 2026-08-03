@@ -1,0 +1,67 @@
+{
+  "generated_at": "2026-08-02T00:58:54.395Z",
+  "dataset": "TULIP final relationship graph",
+  "grain": "one directed source-to-target relationship per edge key",
+  "totals": {
+    "nodes": 381,
+    "final_edges": 1290,
+    "authored_input_edges": 623,
+    "response_nodes": 27,
+    "response_outgoing_edges": 112,
+    "context_edges": 3,
+    "suppressed_edge_rules": 340,
+    "semantic_redirects": 30
+  },
+  "semantic_roles": {
+    "increases": 1165,
+    "enables": 41,
+    "context": 3,
+    "constrains": 2,
+    "reduces": 79
+  },
+  "relationship_type_origin": {
+    "semantic_fallback": 155,
+    "authored": 1135
+  },
+  "findings": [
+    {
+      "code": "signed_relationship_presentation",
+      "severity": "high",
+      "evidence": "81 negative relationships across 41 target nodes",
+      "impact": "Incoming and outgoing topology can no longer be mistaken for positive triggering.",
+      "remediation": "Every edge now carries a signed consumer semantic role.",
+      "status": "resolved"
+    },
+    {
+      "code": "context_in_causal_graph",
+      "severity": "high",
+      "evidence": "3 context-only relationships",
+      "impact": "Context associations no longer enter causal trails, loops, or propagation.",
+      "remediation": "Assigned context-only direction and separate UI grouping.",
+      "status": "resolved"
+    },
+    {
+      "code": "missing_detailed_relationship_type",
+      "severity": "medium",
+      "evidence": "155 relationships required bounded semantic fallback types",
+      "impact": "No final relationship type remains null.",
+      "remediation": "Fallback types are explicit and provenance-marked for later domain refinement.",
+      "status": "resolved"
+    },
+    {
+      "code": "authored_to_final_lineage",
+      "severity": "medium",
+      "evidence": "623 authored inputs; 340 suppression rules; 30 redirects; 1290 final edges",
+      "impact": "Dropped or redirected authored relationships are inspectable instead of silent.",
+      "remediation": "Lineage is exported with the runtime graph contract and checked for duplicate authored keys.",
+      "status": "resolved"
+    }
+  ],
+  "failures": [],
+  "ok": true,
+  "assumptions": [
+    "Response nodes remain beneficial interventions rather than being inverted into deficit nodes.",
+    "Numeric influence remains a display/salience weight and is not presented as a scientific effect estimate.",
+    "Evidence validity remains governed by the existing source-entailment audit."
+  ]
+}

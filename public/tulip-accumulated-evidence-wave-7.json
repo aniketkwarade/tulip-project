@@ -1,0 +1,112 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_7_fao_fishery_protein_dependence",
+  "generated_at": "2026-07-31T22:57:23.338Z",
+  "source_snapshot": "public/fao-fishery-protein-impact-snapshot.json",
+  "source_id": "fao_the_state_of_world_fisheries_and_aquaculture_2024",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "fishery_protein_dependence",
+      "value": 9.6,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2021",
+      "components": {
+        "biophysical_burden": 1,
+        "human_economic_burden": 0.868,
+        "persistence": 1,
+        "extent": 0.99
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "global_aquatic_animal_food_consumption_million_tonnes": 162.5,
+          "per_capita_kg_1961": 9.1,
+          "per_capita_kg_2021": 20.6,
+          "per_capita_increase_pct": 126.373626,
+          "anchors_increase_pct": [
+            0,
+            25,
+            50,
+            100
+          ],
+          "boundary": "Dependency pressure only; this component does not assert ecological damage or unsustainable harvest."
+        },
+        "human_economic_burden": {
+          "people_receiving_at_least_20pct_animal_protein_billion": 3.2,
+          "animal_protein_dependency_threshold_pct": 20,
+          "anchors_billion_people": [
+            0,
+            1,
+            2,
+            4
+          ],
+          "primary_sector_employment_million_context_only": 61.8,
+          "first_sale_value_usd_billion_context_only": 472
+        },
+        "persistence": {
+          "start_year": 1961,
+          "end_year": 2021,
+          "assessed_year_span": 60,
+          "anchors_years": [
+            0,
+            10,
+            25,
+            50
+          ]
+        },
+        "extent": {
+          "normalized_value": 0.99,
+          "source_reported_regional_production_shares_pct": {
+            "asia": 70,
+            "europe": 9,
+            "latin_america_caribbean": 9,
+            "africa": 7,
+            "northern_america": 3,
+            "oceania": 1
+          },
+          "source_reported_share_sum_pct": 99,
+          "geography_boundary": "Global FAO assessment with production distributed across all inhabited regions"
+        },
+        "source_snapshot": {
+          "path": "public/fao-fishery-protein-impact-snapshot.json",
+          "version": "fao_sofia_2024_fishery_protein_dependence_snapshot_v1",
+          "captured_at": "2026-07-31T16:41:56.344Z",
+          "source_locators": [
+            "FAO SOFIA 2024 official publication page",
+            "FAO official SOFIA 2024 in-numbers news release"
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "source_endpoint_dependence_change",
+          "formula": "(2021 global per-capita aquatic-food consumption / 1961 value - 1) × 100; endpoints are source reported and no intervening annual series is fabricated."
+        },
+        {
+          "type": "population_dependence_range",
+          "formula": "Normalize the source-reported population receiving at least 20% of animal protein from aquatic foods through a named fixed range."
+        },
+        {
+          "type": "source_regional_extent",
+          "formula": "Sum source-reported aquatic-animal production shares across Asia, Europe, Latin America and the Caribbean, Africa, Northern America and Oceania."
+        }
+      ],
+      "source_ids": [
+        "fao_the_state_of_world_fisheries_and_aquaculture_2024"
+      ],
+      "uncertainty": "Informal production, trade allocation, apparent-consumption accounting, food-balance estimation, population denominators and revisions affect values. Aquatic-food reliance is not itself evidence of ecological damage, food insecurity or unsustainable harvest.",
+      "freshness": "FAO SOFIA 2024 with consumption dependence through 2021 and production context for 2022; snapshot captured 2026-07-31T16:41:56.344Z.",
+      "selection_reason": {
+        "selected_method_passed": "FAO quantifies accumulated global consumption dependence, a population-level animal-protein reliance threshold, six-region production extent and a sixty-year endpoint comparison.",
+        "higher_priority_failures": [
+          "The assessment summary supplies endpoints rather than a complete 20-year annual observation series for the contracted dependency measure.",
+          "No recognized urgency threshold or source-consistent recent momentum series is available for current-data scoring."
+        ]
+      },
+      "input_hash": "fnv1a32:9095c4af"
+    }
+  ]
+}

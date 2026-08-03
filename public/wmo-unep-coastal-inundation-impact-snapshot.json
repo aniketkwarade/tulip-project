@@ -1,0 +1,57 @@
+{
+  "version": "wmo_unep_global_coastal_inundation_impact_v1",
+  "captured_at": "2026-07-31T18:27:29.012Z",
+  "source": {
+    "id": "wmo_unep_global_coastal_inundation_assessments",
+    "name": "WMO State of the Climate 2025 Update and UNEP Coastal Flood Exposure",
+    "publishers": [
+      "World Meteorological Organization",
+      "United Nations Environment Programme"
+    ],
+    "wmo_url": "https://public.wmo.int/sites/default/files/2025-11/State%20of%20the%20Climate%202025%20Update%20COP30%20%2831%20oct%29.pdf",
+    "unep_url": "https://www.unep.org/news-and-stories/story/worlds-fastest-growing-coastal-city-bracing-itself-climate-change"
+  },
+  "ingestion_job_id": "export_wmo_unep_coastal_inundation_impact_snapshot",
+  "metric_contract_ids": [
+    "storm_surge_threshold_exposure"
+  ],
+  "contract_bindings": [
+    {
+      "node_id": "coastal_inundation_risk",
+      "metric_id": "storm_surge_threshold_exposure",
+      "measurement_role": "global_accumulated_coastal_hazard_and_population_exposure_assessment"
+    }
+  ],
+  "cadence": "Annual WMO global-climate update and UNEP coastal-exposure assessment review.",
+  "provenance": "Official WMO observed global mean sea-level rates and current low-lying-coast exposure paired with UNEP current additional 1-in-20 annual coastal-flood exposure. Observation, exposure and projection boundaries remain separate.",
+  "uncertainty": "Low-lying-coast and coastal-flood exposure depend on elevation, population, protection and hazard models. Preliminary 2025 sea-level data are affected by natural variability. Exposure is not realized annual displacement or loss.",
+  "failure_behavior": "Retain the last reviewed assessment pair and mark stale; reject changed periods, probabilities or population boundaries. Never add overlapping exposed populations, treat exposure as annual victims or score future projections as current impact.",
+  "assessment": {
+    "assessment_year": 2025,
+    "satellite_record_start_year": 1993,
+    "assessment_period_years": 32,
+    "early_sea_level_rate_period": "1993-2002",
+    "early_sea_level_rise_rate_mm_per_year": 2.1,
+    "recent_sea_level_rate_period": "2016-2025",
+    "recent_sea_level_rise_rate_mm_per_year": 4.1,
+    "sea_level_rate_increase_pct": 95.238095,
+    "low_lying_coastal_population_exposed_million": 900,
+    "low_lying_coastal_population_share_pct": 11,
+    "additional_people_with_one_in_twenty_annual_coastal_flood_chance_million": 14,
+    "coastal_flood_extent_comparison_period_years": 20,
+    "annual_flood_probability_denominator_years": 20,
+    "geographic_scope": "global low-lying coasts and coastal communities",
+    "global_extent_normalized": 1,
+    "source_locators": [
+      "WMO State of the Climate 2025 Update: nearly 11 percent of the global population, around 900 million people, live on low-lying coasts directly exposed to coastal hazards.",
+      "WMO State of the Climate 2025 Update: sea-level rise rate increased from 2.1 mm/year in 1993-2002 to 4.1 mm/year in 2016-2025.",
+      "UNEP: coastal-flood extent increased over 20 years, leaving 14 million more people with a 1-in-20 annual flooding chance."
+    ]
+  },
+  "excluded_from_scoring": [
+    "2050 city projections",
+    "2100 sea-level scenarios",
+    "future asset exposure",
+    "exposure relabeled as realized loss"
+  ]
+}

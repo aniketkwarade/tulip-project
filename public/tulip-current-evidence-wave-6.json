@@ -1,0 +1,340 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_6_faostat_global_histories",
+  "generated_at": "2026-07-31T22:57:29.414Z",
+  "promoted_node_count": 3,
+  "rejected_candidates": [
+    {
+      "node_id": "feed_crop_dependency",
+      "reason": "The current FAOSTAT Food Balance Sheet release supplies only 14 annual observations (2010–2023), below the 20-year historical-distribution gate."
+    },
+    {
+      "node_id": "food_import_exposure",
+      "reason": "The current FAOSTAT Food Balance Sheet release supplies only 14 annual observations and no declared cross-commodity global weighting scheme."
+    },
+    {
+      "node_id": "fertilizer_production",
+      "reason": "The product series has enough years, but recent reporting-country coverage falls too sharply to support a defensible current global aggregation without treating missing production as zero."
+    },
+    {
+      "node_id": "wetlands_drainage_scales",
+      "reason": "The FAOSTAT series covers agricultural cropland and grassland organic soils only, not the broader global wetland-drainage node boundary."
+    }
+  ],
+  "receipts": [
+    {
+      "node_id": "crop_yield_volatility",
+      "value": 4,
+      "band": "Elevated",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "magnitude": 0.138349,
+        "threshold": 0.138349,
+        "momentum": 0.419535,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_mean_absolute_yield_anomaly_pct": 3.372609,
+          "historical_median_baseline_pct": 2.965156,
+          "excess_over_baseline_percentage_points": 0.407453,
+          "complete_annual_observations": 64,
+          "anchors": [
+            0,
+            0.971886,
+            2.28922,
+            3.393868
+          ],
+          "source_locator": "https://bulks-faostat.fao.org/production/Production_Crops_Livestock_E_All_Data_(Normalized).zip"
+        },
+        "threshold": {
+          "latest_mean_absolute_yield_anomaly_pct": 3.372609,
+          "threshold_basis": "historical_distribution_fallback",
+          "anchors": [
+            2.965156,
+            3.937041,
+            5.254375,
+            6.359023
+          ],
+          "source_locator": "https://bulks-faostat.fao.org/production/Production_Crops_Livestock_E_All_Data_(Normalized).zip"
+        },
+        "momentum": {
+          "latest_year_over_year_change_percentage_points": 1.394221,
+          "annual_change_observations": 63,
+          "anchors": [
+            -0.151226,
+            1.073931,
+            2.290203,
+            3.29607
+          ],
+          "source_locator": "https://bulks-faostat.fao.org/production/Production_Crops_Livestock_E_All_Data_(Normalized).zip"
+        },
+        "extent": {
+          "global_crop_series_present": 3,
+          "required_global_crop_series": 3,
+          "normalized_value": 1,
+          "definition": "Complete FAOSTAT World aggregate coverage for wheat, maize and rice in the latest retained year.",
+          "source_locator": "https://bulks-faostat.fao.org/production/Production_Crops_Livestock_E_All_Data_(Normalized).zip"
+        },
+        "crop_panel": [
+          {
+            "item": "Wheat",
+            "yield_kg_ha": 3637.4,
+            "fitted_trend_yield_kg_ha": 3702.327356,
+            "absolute_anomaly_pct": 1.75369,
+            "source_flag": "A"
+          },
+          {
+            "item": "Maize (corn)",
+            "yield_kg_ha": 5802.2,
+            "fitted_trend_yield_kg_ha": 6010.079279,
+            "absolute_anomaly_pct": 3.458844,
+            "source_flag": "A"
+          },
+          {
+            "item": "Rice",
+            "yield_kg_ha": 4757.3,
+            "fitted_trend_yield_kg_ha": 5002.696923,
+            "absolute_anomaly_pct": 4.905293,
+            "source_flag": "A"
+          }
+        ],
+        "source_snapshot": {
+          "path": "public/faostat-agriculture-snapshot.json",
+          "version": "faostat_agriculture_metrics_v4",
+          "captured_at": "2026-07-31T14:47:29.019Z",
+          "release": {
+            "dataset_code": "QCL",
+            "dataset_name": "Production: Crops and livestock products",
+            "release_date": "2025-12-31T00:00:00",
+            "file_rows": 4209110,
+            "file_size": "33127KB",
+            "source_url": "https://bulks-faostat.fao.org/production/Production_Crops_Livestock_E_All_Data_(Normalized).zip"
+          },
+          "annual_panel_start": 1961,
+          "annual_panel_end": 2024
+        }
+      },
+      "transformations": [
+        {
+          "type": "crop_specific_fixed_window_detrending",
+          "formula": "Fit a separate 1961–latest linear yield trend to each FAOSTAT World wheat, maize and rice series; calculate each annual absolute percent anomaly from its own trend."
+        },
+        {
+          "type": "unitless_global_staple_panel",
+          "formula": "For complete years, take the equal-crop mean of the three crop-specific absolute percentage anomalies; raw crop yields are never added together."
+        },
+        {
+          "type": "historical_distribution_normalization",
+          "formula": "Map annual panel volatility and its year-over-year change through median / p75 / p90 / p97.5 anchors."
+        }
+      ],
+      "source_ids": [
+        "faostat"
+      ],
+      "uncertainty": "FAOSTAT flags combine official, estimated, imputed, and aggregate values. World and regional records inherit reporting and estimation uncertainty. Fertilizer product tonnes are not nutrient tonnes. Food import dependency depends on food-balance conventions, stock variation, re-exports, commodity aggregation, and mass rather than calorie weighting. Yield detrending is descriptive, not climate attribution. Drained-organic-soil estimates use Tier 1 geospatial area and emission-factor methods and cover agricultural cropland and grassland rather than all wetlands. The equal-crop panel is a global staple indicator, not a production-weighted estimate of every crop or an attribution of volatility to climate.",
+      "freshness": "Annual FAOSTAT QCL World aggregates through 2024; snapshot captured 2026-07-31T14:47:29.019Z.",
+      "selection_reason": {
+        "selected_method_passed": "FAOSTAT supplies 64 complete annual World observations for each of wheat, maize and rice; the unitless detrended panel supplies current magnitude, historical position, momentum and complete panel extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:62cd3fc5"
+    },
+    {
+      "node_id": "peat_oxidation_pulse",
+      "value": 7.7,
+      "band": "Critical",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2022",
+      "components": {
+        "magnitude": 0.996271,
+        "threshold": 0.996271,
+        "momentum": 0,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_global_agricultural_drained_organic_soil_co2_kt": 830200.724,
+          "reference_year": 1990,
+          "reference_global_co2_kt": 750897.1094,
+          "increase_against_reference_co2_kt": 79303.6146,
+          "complete_non_imputed_annual_observations": 33,
+          "anchors": [
+            34554.1428,
+            66062.1018,
+            75770.27162,
+            79343.99406
+          ],
+          "source_locator": "https://bulks-faostat.fao.org/production/Emissions_Drained_Organic_Soils_E_All_Data_(Normalized).zip"
+        },
+        "threshold": {
+          "latest_global_agricultural_drained_organic_soil_co2_kt": 830200.724,
+          "threshold_basis": "historical_distribution_fallback",
+          "anchors": [
+            785451.2522,
+            816959.2112,
+            826667.38102,
+            830241.10346
+          ],
+          "source_locator": "https://bulks-faostat.fao.org/production/Emissions_Drained_Organic_Soils_E_All_Data_(Normalized).zip"
+        },
+        "momentum": {
+          "latest_year_over_year_change_co2_kt": -201.8973,
+          "annual_change_observations": 32,
+          "anchors": [
+            2618.3547,
+            3826.507775,
+            5350.98039,
+            5730.341947
+          ],
+          "source_locator": "https://bulks-faostat.fao.org/production/Emissions_Drained_Organic_Soils_E_All_Data_(Normalized).zip"
+        },
+        "extent": {
+          "geography": "World",
+          "normalized_value": 1,
+          "definition": "The source supplies a World aggregate for its stated cropland-and-grassland drained-organic-soil boundary.",
+          "source_locator": "https://bulks-faostat.fao.org/production/Emissions_Drained_Organic_Soils_E_All_Data_(Normalized).zip"
+        },
+        "source_snapshot": {
+          "path": "public/faostat-agriculture-snapshot.json",
+          "version": "faostat_agriculture_metrics_v4",
+          "captured_at": "2026-07-31T14:47:29.019Z",
+          "release": {
+            "dataset_code": "GV",
+            "dataset_name": "Climate Change: Agrifood systems emissions: Emissions from Drained organic soils",
+            "release_date": "2025-10-28T00:00:00",
+            "file_rows": 87484,
+            "file_size": "572KB",
+            "source_url": "https://bulks-faostat.fao.org/production/Emissions_Drained_Organic_Soils_E_All_Data_(Normalized).zip"
+          },
+          "source_method": "FAO TIER 1",
+          "measurement_boundary": "FAOSTAT Tier 1 estimated annual carbon-dioxide emissions from cropland and grassland organic soils under agricultural drainage; fire and non-agricultural wetland drainage are outside this record.",
+          "excluded_imputed_years": [
+            2023,
+            2024
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "official_world_inventory_series",
+          "formula": "Retain FAOSTAT World annual Tier 1 carbon-dioxide emissions from drained agricultural organic soils; do not sum country rows with the World aggregate."
+        },
+        {
+          "type": "non_imputed_current_cutoff",
+          "formula": "Use the latest source record not flagged I; retain later imputed records as metadata rather than treating repeated imputation as observed zero momentum."
+        },
+        {
+          "type": "historical_distribution_normalization",
+          "formula": "Map annual global emissions, change since the first retained year and year-over-year momentum through median / p75 / p90 / p97.5 anchors."
+        }
+      ],
+      "source_ids": [
+        "faostat"
+      ],
+      "uncertainty": "FAOSTAT flags combine official, estimated, imputed, and aggregate values. World and regional records inherit reporting and estimation uncertainty. Fertilizer product tonnes are not nutrient tonnes. Food import dependency depends on food-balance conventions, stock variation, re-exports, commodity aggregation, and mass rather than calorie weighting. Yield detrending is descriptive, not climate attribution. Drained-organic-soil estimates use Tier 1 geospatial area and emission-factor methods and cover agricultural cropland and grassland rather than all wetlands. The indicator covers oxidation emissions from agriculturally drained cropland and grassland organic soils; peat fire, intact peatlands and non-agricultural drainage are outside the measurement boundary.",
+      "freshness": "Annual FAOSTAT GV Tier 1 World series through the latest non-imputed year 2022; snapshot captured 2026-07-31T14:47:29.019Z.",
+      "selection_reason": {
+        "selected_method_passed": "The official FAOSTAT World inventory supplies 33 non-imputed annual estimates of a direct peat-oxidation pathway, including magnitude, historical position, momentum and global extent for the stated agricultural boundary.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:c5641dbe"
+    },
+    {
+      "node_id": "agricultural_nitrogen_application",
+      "value": 7.7,
+      "band": "Critical",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "magnitude": 0.984865,
+        "threshold": 0.984865,
+        "momentum": 0,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_nitrogen_use_kg_per_cropland_ha": 71.29,
+          "reference_year": 1961,
+          "reference_nitrogen_use_kg_per_cropland_ha": 8.57,
+          "increase_against_reference_kg_per_ha": 62.72,
+          "complete_annual_observations": 64,
+          "anchors": [
+            43.89,
+            55.18,
+            60.598,
+            62.822
+          ],
+          "source_locator": "https://bulks-faostat.fao.org/production/Inputs_FertilizersNutrient_E_All_Data_(Normalized).zip"
+        },
+        "threshold": {
+          "latest_nitrogen_use_kg_per_cropland_ha": 71.29,
+          "threshold_basis": "historical_distribution_fallback",
+          "anchors": [
+            52.46,
+            63.75,
+            69.168,
+            71.392
+          ],
+          "source_locator": "https://bulks-faostat.fao.org/production/Inputs_FertilizersNutrient_E_All_Data_(Normalized).zip"
+        },
+        "momentum": {
+          "latest_year_over_year_change_kg_per_ha": 0.58,
+          "annual_change_observations": 63,
+          "anchors": [
+            1.29,
+            2.03,
+            2.73,
+            3.7405
+          ],
+          "source_locator": "https://bulks-faostat.fao.org/production/Inputs_FertilizersNutrient_E_All_Data_(Normalized).zip"
+        },
+        "extent": {
+          "geography": "World",
+          "normalized_value": 1,
+          "definition": "FAOSTAT source-reported World aggregate use per area of cropland for total nutrient nitrogen.",
+          "source_locator": "https://bulks-faostat.fao.org/production/Inputs_FertilizersNutrient_E_All_Data_(Normalized).zip"
+        },
+        "source_snapshot": {
+          "path": "public/faostat-agriculture-snapshot.json",
+          "version": "faostat_agriculture_metrics_v4",
+          "captured_at": "2026-07-31T14:47:29.019Z",
+          "release": {
+            "dataset_code": "RFN",
+            "dataset_name": "Land, Inputs and Sustainability: Fertilizers by Nutrient",
+            "release_date": "2026-07-30T00:00:00",
+            "file_rows": 256304,
+            "file_size": "1983KB",
+            "source_url": "https://bulks-faostat.fao.org/production/Inputs_FertilizersNutrient_E_All_Data_(Normalized).zip"
+          },
+          "measurement_boundary": "Synthetic fertilizer nutrient nitrogen use per area of cropland; organic manure, crop-specific timing and farm-level application are outside this indicator."
+        }
+      },
+      "transformations": [
+        {
+          "type": "source_reported_global_application_intensity",
+          "formula": "Retain FAOSTAT World total nutrient nitrogen use per area of cropland in kg N/ha; do not substitute fertilizer production or sales."
+        },
+        {
+          "type": "historical_distribution_normalization",
+          "formula": "Map application intensity, increase from 1961 and annual change through median / p75 / p90 / p97.5 anchors."
+        }
+      ],
+      "source_ids": [
+        "faostat"
+      ],
+      "uncertainty": "FAOSTAT flags combine official, estimated, imputed, and aggregate values. World and regional records inherit reporting and estimation uncertainty. Fertilizer product tonnes are not nutrient tonnes. Food import dependency depends on food-balance conventions, stock variation, re-exports, commodity aggregation, and mass rather than calorie weighting. Yield detrending is descriptive, not climate attribution. Drained-organic-soil estimates use Tier 1 geospatial area and emission-factor methods and cover agricultural cropland and grassland rather than all wetlands. The source World aggregate is an estimated synthetic-fertilizer intensity and does not represent organic nitrogen inputs or individual farm application.",
+      "freshness": "Annual FAOSTAT RFN World series through 2024; snapshot captured 2026-07-31T14:47:29.019Z.",
+      "selection_reason": {
+        "selected_method_passed": "FAOSTAT supplies 64 complete annual World observations in the node contract's kg nitrogen per hectare unit, including magnitude, historical position, momentum and global scope for the stated synthetic-fertilizer boundary.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:cd9428d6"
+    }
+  ]
+}

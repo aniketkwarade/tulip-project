@@ -1,0 +1,180 @@
+{
+  "updated_at": "2026-07-25",
+  "captured_at": "2026-07-25T13:55:52.484Z",
+  "version": "noaa_psl_marine_heatwave_measurement_snapshot_v1",
+  "snapshot_family": "marine_heatwave_operational_measurement",
+  "ingestion_job_id": "fetch_noaa_psl_marine_heatwave_coverage",
+  "metric_contract_ids": [
+    "marine_heatwave_days_and_intensity"
+  ],
+  "cadence": "monthly NOAA PSL forecast-discussion refresh with daily portal monitoring",
+  "provenance": "NOAA PSL source-reported monthly share of global ocean experiencing marine heatwaves, retaining trend-preserved and detrended values and their historical ranks separately.",
+  "uncertainty": "The source does not report a statistical interval. OISST retrieval, interpolation, 1991-2020 baseline, percentile threshold, trend treatment, ocean mask and monthly aggregation affect coverage.",
+  "failure_behavior": "Retain the last validated observation and mark stale; reject missing paired trend treatments, invalid percentages or a report older than the previous calendar year; never infer ecosystem damage from thermal coverage.",
+  "source": {
+    "id": "noaa_marine_heatwaves",
+    "name": "NOAA PSL Marine Heatwaves",
+    "url": "https://psl.noaa.gov/marine-heatwaves/",
+    "publisher": "NOAA Physical Sciences Laboratory",
+    "access": "open"
+  },
+  "refresh_policy": {
+    "default_days": 14,
+    "notes": "Treat as an operational marine-heatwave and SST anomaly snapshot. Refresh on forecast-cycle updates and product changes rather than as a browser-live feed."
+  },
+  "use_guidance": {
+    "primary_role": "Use for marine heatwave observation, threshold, and forecast support on ocean-state nodes where thermal anomalies are central.",
+    "caution": "This layer is strongest for marine heatwave diagnostics and forecasting. It complements Argo, WOD, and coral products rather than replacing broader marine chemistry or oxygen support."
+  },
+  "overview": {
+    "title": "Marine Heatwaves : NOAA Physical Sciences Laboratory",
+    "dataset_count": 9,
+    "forecast_emphasis": "Observed OISST anomalies, quantile thresholds, and NMME marine heatwave forecast probability files are exposed directly from the NOAA PSL page."
+  },
+  "measurement_boundary": "This snapshot measures the source-reported monthly global-ocean area share in marine-heatwave conditions. It does not yet provide grid-cell event-days or cumulative degree-Celsius-days and must not substitute for those components.",
+  "record_count": 2,
+  "records": [
+    {
+      "record_id": "global-ocean-area-trend-retained-2026-june",
+      "metric_id": "marine_heatwave_days_and_intensity",
+      "component": "global_ocean_area_coverage",
+      "treatment": "long_term_sst_trend_retained",
+      "observation_period": "June 2026",
+      "unit": "percent of global ocean area",
+      "value": 33,
+      "historical_rank": 12,
+      "ranking_start_year": 1991,
+      "source_locator": "https://psl.noaa.gov/marine-heatwaves/#status"
+    },
+    {
+      "record_id": "global-ocean-area-detrended-2026-june",
+      "metric_id": "marine_heatwave_days_and_intensity",
+      "component": "global_ocean_area_coverage",
+      "treatment": "linear_1991_2020_sst_trend_removed",
+      "observation_period": "June 2026",
+      "unit": "percent of global ocean area",
+      "value": 22,
+      "historical_rank": 15,
+      "ranking_start_year": 1991,
+      "source_locator": "https://psl.noaa.gov/marine-heatwaves/#status"
+    }
+  ],
+  "tools": [
+    {
+      "id": "psl_mhw_home",
+      "label": "NOAA PSL Marine Heatwaves",
+      "url": "https://psl.noaa.gov/marine-heatwaves/",
+      "type": "portal",
+      "access": "open"
+    },
+    {
+      "id": "writ_ocean_maps",
+      "label": "WRIT Ocean Maps and Vertical Cross-sections",
+      "url": "https://psl.noaa.gov/data/oceanwrit/map/",
+      "type": "analysis_tool",
+      "access": "open"
+    },
+    {
+      "id": "writ_ocean_timeseries",
+      "label": "WRIT Ocean Time-series Extraction and Analysis",
+      "url": "https://psl.noaa.gov/data/atmoswrit/timeseries/",
+      "type": "analysis_tool",
+      "access": "open"
+    },
+    {
+      "id": "cpc_mhw_monitoring",
+      "label": "Marine Heatwave Monitoring and Forecast",
+      "url": "https://origin.cpc.ncep.noaa.gov/products/GODAS/MarineHeatWave.html",
+      "type": "monitoring",
+      "access": "open"
+    }
+  ],
+  "operational_datasets": [
+    {
+      "label": "Marine Heatwave prediction from 1991-2020 (with trend)",
+      "url": "https://downloads.psl.noaa.gov/Datasets/marinehw/nmme_mhw_forecast_probability_1991_2020.nc",
+      "type": "observational_download"
+    },
+    {
+      "label": "Marine Heatwave prediction from 1991-2020 (detrended)",
+      "url": "https://downloads.psl.noaa.gov/Datasets/marinehw/nmme_mhw_forecast_probability_detrended_1991_2020.nc",
+      "type": "observational_download"
+    },
+    {
+      "label": "Ocean and sea ice mask",
+      "url": "https://downloads.psl.noaa.gov/Datasets/marinehw/oisst_land_sea_ice_mask_NMMEgrid.nc",
+      "type": "observational_download"
+    },
+    {
+      "label": "Extended Marine Heatwave prediction starting 2021 (with trend)",
+      "url": "https://downloads.psl.noaa.gov/Datasets/marinehw/NMME_prob90_latest.nc",
+      "type": "observational_download"
+    },
+    {
+      "label": "Extended Marine Heatwave prediction starting 2021 (detrended)",
+      "url": "https://downloads.psl.noaa.gov/Datasets/marinehw/NMME_prob90_detrend_latest.nc",
+      "type": "observational_download"
+    },
+    {
+      "label": "Observed Sea Surface Temperature Anomaly (OISSTv2) starting 1990 (with trended)",
+      "url": "https://downloads.psl.noaa.gov/Datasets/marinehw/oisst.mon.anom_latest.nc",
+      "type": "observational_download"
+    },
+    {
+      "label": "Observed Sea Surface Temperature Anomaly (OISSTv2) starting 1990 (detrended)",
+      "url": "https://downloads.psl.noaa.gov/Datasets/marinehw/oisst.mon.detrend.anom_latest.nc",
+      "type": "observational_download"
+    },
+    {
+      "label": "Observed Marine Heatwave threshold 90% (OISSTv2) starting 1990 (with trended)",
+      "url": "https://downloads.psl.noaa.gov/Datasets/marinehw/oisst.mon.quantile90_latest.nc",
+      "type": "observational_download"
+    },
+    {
+      "label": "Observed Marine Heatwave threshold 90% (OISSTv2) starting 1990 (detrended)",
+      "url": "https://downloads.psl.noaa.gov/Datasets/marinehw/oisst.mon.detrend.quantile90_latest.nc",
+      "type": "observational_download"
+    }
+  ],
+  "supporting_links": [
+    {
+      "label": "NOAA high-resolution OISST daily dataset",
+      "url": "https://psl.noaa.gov/data/gridded/data.noaa.oisst.v2.highres.html"
+    },
+    {
+      "label": "NOAA ERSST V5 monthly dataset",
+      "url": "https://psl.noaa.gov/data/gridded/data.noaa.ersst.v5.html"
+    },
+    {
+      "label": "NOAA Global Ocean Monitoring and Observing Program ocean heat",
+      "url": "https://globalocean.noaa.gov/the-ocean/ocean-heat/"
+    }
+  ],
+  "recent_news": [
+    {
+      "date": "06/09/2025",
+      "url": "https://www.nytimes.com/2025/06/09/climate/see-how-marine-heat-waves-are-spreading-across-the-globe.html",
+      "title": "See How Marine Heat Waves Are Spreading Across the Globe"
+    },
+    {
+      "date": "07/07/2023",
+      "url": "https://www.climate.gov/news-features/featured-images/ocean-warming-1991-doubles-size-marine-heat-wave-forecasted-september",
+      "title": "Ocean warming since 1991 doubles the size of the marine heat wave forecasted for September 2023"
+    },
+    {
+      "date": "06/28/2023",
+      "url": "https://research.noaa.gov/2023/06/28/global-ocean-roiled-by-marine-heatwaves-with-more-on-the-way/",
+      "title": "Global ocean roiled by marine heatwaves, with more on the way"
+    },
+    {
+      "date": "04/18/2023",
+      "url": "https://theconversation.com/el-nino-is-coming-and-ocean-temps-are-already-at-record-highs-that-can-spell-disaster-for-fish-and-corals-202424",
+      "title": "El Niño is coming, and ocean temps are already at record highs – that can spell disaster for fish and corals"
+    }
+  ],
+  "supported_questions": [
+    "Which ocean nodes should inherit direct marine heatwave observation and forecast support beyond coral-specific thermal stress layers?",
+    "Where should observed SST anomalies, marine heatwave thresholds, and forecast probability downloads appear as attached evidence bundles?",
+    "Which ocean nodes need a thermal-anomaly support family that is stronger than report-style narrative evidence but narrower than general ocean observation catalogs?"
+  ]
+}

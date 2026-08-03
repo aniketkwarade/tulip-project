@@ -1,0 +1,57 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const rawSeries = {
+  commercial_gas_heat_co2: [[1970,157633.204602],[1971,168769.188835],[1972,177352.662374],[1973,177611.791561],[1974,179120.676599],[1975,178692.689313],[1976,190370.267219],[1977,184697.690904],[1978,192754.969412],[1979,206368.448323],[1980,198399.746343],[1981,196700.502492],[1982,206638.130356],[1983,201150.146031],[1984,220751.699409],[1985,222935.502878],[1986,226373.685964],[1987,228339.303638],[1988,251560.06244],[1989,257694.651955],[1990,257788.315225],[1991,279139.683021],[1992,279709.017359],[1993,281967.351512],[1994,283261.473844],[1995,298374.910877],[1996,316050.75907],[1997,317444.376998],[1998,309097.435404],[1999,316581.943212],[2000,325958.085077],[2001,326454.809744],[2002,328414.534225],[2003,350784.639178],[2004,360729.941524],[2005,362535.824466],[2006,368590.307005],[2007,380118.488418],[2008,387003.984808],[2009,389547.99643],[2010,404148.981349],[2011,397411.236478],[2012,390541.409736],[2013,421483.662263],[2014,421871.768834],[2015,420874.746034],[2016,422790.603649],[2017,433596.737647],[2018,468622.618108],[2019,482350.133578],[2020,447172.527303],[2021,476301.757556],[2022,469938.654381]],
+  residential_gas_heat_co2: [[1970,368167.097758],[1971,389674.262594],[1972,414226.885478],[1973,408851.862892],[1974,414982.194196],[1975,436231.131462],[1976,451988.249376],[1977,446849.006932],[1978,467830.501182],[1979,487666.28235],[1980,489234.258381],[1981,486781.299926],[1982,498687.439897],[1983,498799.946856],[1984,554771.912501],[1985,577192.821706],[1986,607837.221162],[1987,601761.90091],[1988,628152.195931],[1989,650419.420166],[1990,657596.868444],[1991,730385.30488],[1992,724996.700482],[1993,759374.044527],[1994,743378.557827],[1995,768877.644476],[1996,849249.122237],[1997,812763.725004],[1998,795751.27842],[1999,825418.220436],[2000,854331.138544],[2001,858232.237579],[2002,879319.886245],[2003,921099.866039],[2004,917409.804737],[2005,918563.434664],[2006,911594.475556],[2007,929710.644211],[2008,953652.676545],[2009,946160.767721],[2010,991152.749746],[2011,969337.45931],[2012,930245.052046],[2013,992238.513377],[2014,970233.878492],[2015,968199.088272],[2016,996638.242235],[2017,1023065.391023],[2018,1092640.641268],[2019,1118970.484024],[2020,1112360.085222],[2021,1159734.446919],[2022,1104008.759001]],
+  oil_building_heat_co2: [[1970,1005678.30582],[1971,1049894.866094],[1972,1116893.978905],[1973,1144808.638686],[1974,1047903.332188],[1975,1043327.250079],[1976,1131837.940109],[1977,1118181.183041],[1978,1152355.087714],[1979,1085745.482055],[1980,972646.25262],[1981,908854.485067],[1982,870603.731515],[1983,873437.219128],[1984,899284.693416],[1985,902647.579431],[1986,901394.932279],[1987,893960.907615],[1988,903209.934435],[1989,882226.617148],[1990,853645.756896],[1991,877071.430344],[1992,899404.246942],[1993,919098.925726],[1994,913511.947553],[1995,941753.578556],[1996,989930.502236],[1997,976397.788677],[1998,950586.159581],[1999,985662.696636],[2000,962961.850091],[2001,984224.707714],[2002,955078.637124],[2003,961950.779292],[2004,970183.552792],[2005,964577.558878],[2006,921504.477631],[2007,883814.189388],[2008,887431.827613],[2009,852898.813384],[2010,860901.820142],[2011,824925.355081],[2012,804667.658779],[2013,823197.530126],[2014,799713.124227],[2015,826326.736428],[2016,835394.828762],[2017,847725.380392],[2018,834318.44991],[2019,817339.471047],[2020,817160.338584],[2021,809640.440882],[2022,823892.194831]],
+  oil_power_co2_output: [[1970,622629.780533],[1971,703202.161824],[1972,833424.349127],[1973,961958.313761],[1974,932387.704947],[1975,897688.329079],[1976,986159.948857],[1977,1027694.429641],[1978,1083348.25967],[1979,1045719.084681],[1980,973022.248459],[1981,901803.308711],[1982,814709.35047],[1983,794144.085742],[1984,798093.816605],[1985,700633.426343],[1986,725630.333678],[1987,713688.938927],[1988,777787.144243],[1989,815506.653234],[1990,819668.805962],[1991,823792.187718],[1992,846004.381616],[1993,847324.158584],[1994,855108.494597],[1995,840210.647481],[1996,825019.251895],[1997,962928.322009],[1998,1002990.629529],[1999,937885.31368],[2000,920733.658115],[2001,915237.343503],[2002,794759.73886],[2003,792924.127445],[2004,808186.535503],[2005,807267.269845],[2006,747432.800197],[2007,776171.246275],[2008,752184.579551],[2009,708216.988641],[2010,731383.302591],[2011,779365.073002],[2012,828164.462905],[2013,827413.876013],[2014,785765.569194],[2015,742432.178414],[2016,692516.48539],[2017,637373.553856],[2018,578138.987051],[2019,536338.898346],[2020,478205.137987],[2021,520505.405105],[2022,550930.505768]]
+};
+
+const contracts = {
+  commercial_gas_heat_co2: { metric_id: 'carbon_pathway_commercial_gas_heat_co2', sectors: ['1A4a_Commercial-institutional'], fuels: ['natural_gas'] },
+  residential_gas_heat_co2: { metric_id: 'carbon_pathway_residential_gas_heat_co2', sectors: ['1A4b_Residential'], fuels: ['natural_gas'] },
+  oil_building_heat_co2: { metric_id: 'carbon_pathway_oil_building_heat_co2', sectors: ['1A4a_Commercial-institutional', '1A4b_Residential'], fuels: ['diesel_oil', 'heavy_oil', 'light_oil'] },
+  oil_power_co2_output: { metric_id: 'carbon_pathway_oil_power_co2_output', sectors: ['1A1a_Electricity-autoproducer', '1A1a_Electricity-public'], fuels: ['diesel_oil', 'heavy_oil', 'light_oil'] }
+};
+
+const metrics = Object.fromEntries(Object.entries(contracts).map(([node_id, contract]) => [node_id, {
+  ...contract,
+  unit: 'kilotonnes CO2 per year',
+  geography: 'CEDS source-native global aggregate',
+  cadence: 'annual',
+  direction: 'higher_is_worse',
+  aggregation: `Sum CEDS global CO2 rows for sectors ${contract.sectors.join(' + ')} and fuels ${contract.fuels.join(' + ')}.`,
+  observations: rawSeries[node_id].map(([year, value_kt_co2]) => ({ year, value_kt_co2 }))
+}]));
+
+for (const [nodeId, metric] of Object.entries(metrics)) {
+  if (metric.observations.length !== 53 || metric.observations.some((record, index) => record.year !== 1970 + index || !Number.isFinite(record.value_kt_co2))) {
+    throw new Error(`${nodeId}: CEDS annual-series validation failed.`);
+  }
+}
+
+const snapshot = {
+  version: 'ceds_v2024_04_01_global_sector_fuel_co2_v1',
+  captured_at: '2026-08-01T00:00:00.000Z',
+  metric_contract_ids: Object.values(contracts).map(contract => contract.metric_id),
+  record_count: Object.values(metrics).reduce((sum, metric) => sum + metric.observations.length, 0),
+  source: {
+    id: 'ceds_v2024_04_01_release_emission_data',
+    url: 'https://zenodo.org/records/10904361',
+    release_date: '2024-04-01',
+    archive_file: 'CEDS_v_2024_04_01_aggregate.zip',
+    archive_md5: '636752881e915244bb96b4793d9fb121',
+    archive_sha256: '913237080a65c9166a0270b9765bb1489701c125aebe0f512f0da2634098d04e',
+    member_file: 'CO2_CEDS_global_emissions_by_sector_fuel_v2024_04_01.csv',
+    member_sha256: '5568aba2a7a83d5d8a2a658cc0e2e9956470cd70caf3c3bb640493afcb9e1fac'
+  },
+  metrics,
+  exclusions: 'Each metric uses only its declared sector-fuel rows. Biomass, coal, non-declared oil fuels, natural gas outside the gas metrics, heat production, non-building end uses and non-electricity power rows are excluded as applicable.',
+  uncertainty: 'CEDS is an inventory estimate assembled from activity data, emission factors and scaling inventories rather than a direct global monitor. Fuel and sector assignments, historical revisions and national input quality affect values. The latest release observation is 2022; it is the newest complete year in this source, not a 2026 nowcast. Missing values are never converted to zero.'
+};
+
+await fs.writeFile(path.join(ROOT, 'public/ceds-sector-fuel-co2-snapshot.json'), `${JSON.stringify(snapshot, null, 2)}\n`);
+console.log(JSON.stringify({ output: 'public/ceds-sector-fuel-co2-snapshot.json', metrics: Object.keys(metrics), records: snapshot.record_count }, null, 2));

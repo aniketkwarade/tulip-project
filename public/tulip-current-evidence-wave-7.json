@@ -1,0 +1,104 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_7_noaa_aggi_global_history",
+  "generated_at": "2026-07-31T22:57:29.701Z",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "solar_radiation_trapping",
+      "value": 9.5,
+      "band": "Critical",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "magnitude": 1,
+        "threshold": 1,
+        "momentum": 0.799836,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_total_effective_radiative_forcing_w_m2": 3.539,
+          "reference_year": 1979,
+          "reference_total_effective_radiative_forcing_w_m2": 1.796,
+          "increase_against_reference_w_m2": 1.743,
+          "complete_annual_observations": 46,
+          "anchors": [
+            0.8685,
+            1.26675,
+            1.55,
+            1.686375
+          ],
+          "source_locator": "https://gml.noaa.gov/aggi/aggi.html"
+        },
+        "threshold": {
+          "latest_total_effective_radiative_forcing_w_m2": 3.539,
+          "latest_aggi_1990_equals_1": 1.538,
+          "threshold_basis": "historical_distribution_fallback",
+          "anchors": [
+            2.6645,
+            3.06275,
+            3.346,
+            3.482375
+          ],
+          "source_locator": "https://gml.noaa.gov/aggi/aggi.html"
+        },
+        "momentum": {
+          "latest_year_over_year_forcing_change_w_m2": 0.052,
+          "annual_change_observations": 45,
+          "anchors": [
+            0.039,
+            0.043,
+            0.0496,
+            0.0557
+          ],
+          "source_locator": "https://gml.noaa.gov/aggi/aggi.html"
+        },
+        "extent": {
+          "geography": "global atmosphere",
+          "normalized_value": 1,
+          "definition": "NOAA derives the annual total from global atmospheric abundance averages measured by its remote-site reference network.",
+          "source_locator": "https://gml.noaa.gov/aggi/aggi.html"
+        },
+        "latest_gas_components_w_m2": {
+          "co2": 2.333,
+          "ch4": 0.567,
+          "n2o": 0.226,
+          "cfcs": 0.298,
+          "hcfcs": 0.06,
+          "hfcs": 0.055,
+          "total": 3.539
+        },
+        "source_snapshot": {
+          "path": "public/noaa-gml-benchmarks.json",
+          "version": "2026-07-31T15:12:02.995Z",
+          "updated_at": "2026-07-31",
+          "annual_panel_start": 1979,
+          "annual_panel_end": 2024
+        }
+      },
+      "transformations": [
+        {
+          "type": "source_reported_global_effective_radiative_forcing",
+          "formula": "Retain NOAA AGGI Table 2 total long-lived-greenhouse-gas effective radiative forcing and gas contributions in W m−2 relative to the source preindustrial baseline."
+        },
+        {
+          "type": "historical_distribution_normalization",
+          "formula": "Map the total forcing, its increase from 1979 and its annual change through median / p75 / p90 / p97.5 anchors from the complete 1979–2024 series."
+        }
+      ],
+      "source_ids": [
+        "noaa_global_monitoring_laboratory"
+      ],
+      "uncertainty": "NOAA reports roughly 10% uncertainty for the radiative-forcing expressions and less than 1% abundance-measurement uncertainty for the most abundant gases. The AGGI excludes spatially heterogeneous short-lived forcing agents and slower surface-temperature feedbacks.",
+      "freshness": "Annual NOAA AGGI history through 2024; benchmark snapshot refreshed 2026-07-31.",
+      "selection_reason": {
+        "selected_method_passed": "NOAA supplies 46 complete annual global observations of the node's exact effective-radiative-forcing metric, including current magnitude, historical position, annual momentum and global observing-network scope.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:70cbf0d7"
+    }
+  ]
+}

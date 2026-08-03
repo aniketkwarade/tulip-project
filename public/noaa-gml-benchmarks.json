@@ -1,0 +1,2069 @@
+{
+  "updated_at": "2026-07-31",
+  "version": "2026-07-31T15:12:02.995Z",
+  "benchmark_family": "atmospheric_composition_concentrations_forcing_and_ozone_depleting_gas_burden",
+  "source": {
+    "id": "noaa_gml_benchmarks",
+    "name": "NOAA Global Monitoring Laboratory",
+    "access": "open_html_benchmarks"
+  },
+  "refresh_policy": {
+    "default_days": 35,
+    "notes": "Refresh roughly monthly for CO2 and CH4 trend pages, and annually when NOAA updates AGGI."
+  },
+  "use_guidance": {
+    "primary_role": "Operational atmospheric benchmark layer for CO2, CH4, greenhouse-gas radiative forcing, and ozone-depleting-gas burden.",
+    "caution": "Treat AGGI and ODGI as annual benchmarks and trend pages as monthly observational updates rather than instant real-time telemetry."
+  },
+  "benchmarks": {
+    "co2": {
+      "observed_month": "2026-06",
+      "value": 431.44,
+      "unit": "ppm",
+      "updated_label": "Jul 05, 2026",
+      "url": "https://gml.noaa.gov/ccgg/trends/"
+    },
+    "ch4": {
+      "observed_month": "2026-03",
+      "value": 1937.86,
+      "unit": "ppb",
+      "updated_label": "Jul 05, 2026",
+      "url": "https://gml.noaa.gov/ccgg/trends_ch4/"
+    },
+    "aggi": {
+      "release_cycle": "Fall 2025",
+      "benchmark_year": 2024,
+      "aggi": 1.54,
+      "forcing_increase_since_1990_pct": 54,
+      "co2_share_of_increase_pct": 81,
+      "global_co2_ppm_2024": 422.8,
+      "global_ch4_ppb_2024": null,
+      "annual_radiative_forcing": [
+        {
+          "year": 1979,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 1.054,
+            "ch4": 0.432,
+            "n2o": 0.108,
+            "cfcs": 0.194,
+            "hcfcs": 0.008,
+            "hfcs": 0.001,
+            "total": 1.796
+          },
+          "co2_equivalent_ppm": 389,
+          "aggi_1990_equals_1": 0.78,
+          "annual_percent_change": 0
+        },
+        {
+          "year": 1980,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 1.088,
+            "ch4": 0.439,
+            "n2o": 0.108,
+            "cfcs": 0.204,
+            "hcfcs": 0.009,
+            "hfcs": 0.001,
+            "total": 1.849
+          },
+          "co2_equivalent_ppm": 393,
+          "aggi_1990_equals_1": 0.803,
+          "annual_percent_change": 2.3
+        },
+        {
+          "year": 1981,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 1.107,
+            "ch4": 0.446,
+            "n2o": 0.111,
+            "cfcs": 0.215,
+            "hcfcs": 0.01,
+            "hfcs": 0.001,
+            "total": 1.89
+          },
+          "co2_equivalent_ppm": 396,
+          "aggi_1990_equals_1": 0.822,
+          "annual_percent_change": 1.8
+        },
+        {
+          "year": 1982,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 1.119,
+            "ch4": 0.453,
+            "n2o": 0.115,
+            "cfcs": 0.226,
+            "hcfcs": 0.011,
+            "hfcs": 0.001,
+            "total": 1.925
+          },
+          "co2_equivalent_ppm": 399,
+          "aggi_1990_equals_1": 0.837,
+          "annual_percent_change": 1.5
+        },
+        {
+          "year": 1983,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 1.147,
+            "ch4": 0.456,
+            "n2o": 0.117,
+            "cfcs": 0.237,
+            "hcfcs": 0.012,
+            "hfcs": 0.001,
+            "total": 1.97
+          },
+          "co2_equivalent_ppm": 402,
+          "aggi_1990_equals_1": 0.856,
+          "annual_percent_change": 2
+        },
+        {
+          "year": 1984,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 1.172,
+            "ch4": 0.459,
+            "n2o": 0.12,
+            "cfcs": 0.248,
+            "hcfcs": 0.013,
+            "hfcs": 0.002,
+            "total": 2.013
+          },
+          "co2_equivalent_ppm": 405,
+          "aggi_1990_equals_1": 0.875,
+          "annual_percent_change": 1.9
+        },
+        {
+          "year": 1985,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 1.195,
+            "ch4": 0.464,
+            "n2o": 0.122,
+            "cfcs": 0.26,
+            "hcfcs": 0.014,
+            "hfcs": 0.002,
+            "total": 2.057
+          },
+          "co2_equivalent_ppm": 409,
+          "aggi_1990_equals_1": 0.894,
+          "annual_percent_change": 1.9
+        },
+        {
+          "year": 1986,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 1.219,
+            "ch4": 0.469,
+            "n2o": 0.126,
+            "cfcs": 0.273,
+            "hcfcs": 0.015,
+            "hfcs": 0.002,
+            "total": 2.103
+          },
+          "co2_equivalent_ppm": 412,
+          "aggi_1990_equals_1": 0.914,
+          "annual_percent_change": 2
+        },
+        {
+          "year": 1987,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 1.246,
+            "ch4": 0.474,
+            "n2o": 0.125,
+            "cfcs": 0.287,
+            "hcfcs": 0.016,
+            "hfcs": 0.002,
+            "total": 2.15
+          },
+          "co2_equivalent_ppm": 416,
+          "aggi_1990_equals_1": 0.934,
+          "annual_percent_change": 2
+        },
+        {
+          "year": 1988,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 1.286,
+            "ch4": 0.478,
+            "n2o": 0.127,
+            "cfcs": 0.304,
+            "hcfcs": 0.017,
+            "hfcs": 0.002,
+            "total": 2.213
+          },
+          "co2_equivalent_ppm": 421,
+          "aggi_1990_equals_1": 0.962,
+          "annual_percent_change": 2.8
+        },
+        {
+          "year": 1989,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 1.311,
+            "ch4": 0.483,
+            "n2o": 0.131,
+            "cfcs": 0.317,
+            "hcfcs": 0.018,
+            "hfcs": 0.003,
+            "total": 2.262
+          },
+          "co2_equivalent_ppm": 425,
+          "aggi_1990_equals_1": 0.983,
+          "annual_percent_change": 2.1
+        },
+        {
+          "year": 1990,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 1.332,
+            "ch4": 0.487,
+            "n2o": 0.133,
+            "cfcs": 0.327,
+            "hcfcs": 0.02,
+            "hfcs": 0.003,
+            "total": 2.301
+          },
+          "co2_equivalent_ppm": 428,
+          "aggi_1990_equals_1": 1,
+          "annual_percent_change": 1.7
+        },
+        {
+          "year": 1991,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 1.353,
+            "ch4": 0.491,
+            "n2o": 0.135,
+            "cfcs": 0.335,
+            "hcfcs": 0.021,
+            "hfcs": 0.003,
+            "total": 2.338
+          },
+          "co2_equivalent_ppm": 431,
+          "aggi_1990_equals_1": 1.016,
+          "annual_percent_change": 1.6
+        },
+        {
+          "year": 1992,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 1.364,
+            "ch4": 0.495,
+            "n2o": 0.137,
+            "cfcs": 0.343,
+            "hcfcs": 0.022,
+            "hfcs": 0.003,
+            "total": 2.364
+          },
+          "co2_equivalent_ppm": 433,
+          "aggi_1990_equals_1": 1.028,
+          "annual_percent_change": 1.1
+        },
+        {
+          "year": 1993,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 1.375,
+            "ch4": 0.495,
+            "n2o": 0.138,
+            "cfcs": 0.346,
+            "hcfcs": 0.024,
+            "hfcs": 0.004,
+            "total": 2.382
+          },
+          "co2_equivalent_ppm": 434,
+          "aggi_1990_equals_1": 1.035,
+          "annual_percent_change": 0.8
+        },
+        {
+          "year": 1994,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 1.399,
+            "ch4": 0.497,
+            "n2o": 0.14,
+            "cfcs": 0.348,
+            "hcfcs": 0.025,
+            "hfcs": 0.004,
+            "total": 2.413
+          },
+          "co2_equivalent_ppm": 437,
+          "aggi_1990_equals_1": 1.049,
+          "annual_percent_change": 1.4
+        },
+        {
+          "year": 1995,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 1.427,
+            "ch4": 0.5,
+            "n2o": 0.14,
+            "cfcs": 0.349,
+            "hcfcs": 0.027,
+            "hfcs": 0.005,
+            "total": 2.448
+          },
+          "co2_equivalent_ppm": 440,
+          "aggi_1990_equals_1": 1.064,
+          "annual_percent_change": 1.5
+        },
+        {
+          "year": 1996,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 1.455,
+            "ch4": 0.501,
+            "n2o": 0.142,
+            "cfcs": 0.35,
+            "hcfcs": 0.028,
+            "hfcs": 0.005,
+            "total": 2.481
+          },
+          "co2_equivalent_ppm": 443,
+          "aggi_1990_equals_1": 1.078,
+          "annual_percent_change": 1.4
+        },
+        {
+          "year": 1997,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 1.472,
+            "ch4": 0.502,
+            "n2o": 0.145,
+            "cfcs": 0.35,
+            "hcfcs": 0.03,
+            "hfcs": 0.006,
+            "total": 2.505
+          },
+          "co2_equivalent_ppm": 445,
+          "aggi_1990_equals_1": 1.089,
+          "annual_percent_change": 1.1
+        },
+        {
+          "year": 1998,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 1.513,
+            "ch4": 0.506,
+            "n2o": 0.148,
+            "cfcs": 0.35,
+            "hcfcs": 0.031,
+            "hfcs": 0.007,
+            "total": 2.555
+          },
+          "co2_equivalent_ppm": 449,
+          "aggi_1990_equals_1": 1.111,
+          "annual_percent_change": 2.2
+        },
+        {
+          "year": 1999,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 1.545,
+            "ch4": 0.509,
+            "n2o": 0.152,
+            "cfcs": 0.35,
+            "hcfcs": 0.033,
+            "hfcs": 0.008,
+            "total": 2.596
+          },
+          "co2_equivalent_ppm": 452,
+          "aggi_1990_equals_1": 1.128,
+          "annual_percent_change": 1.7
+        },
+        {
+          "year": 2000,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 1.563,
+            "ch4": 0.509,
+            "n2o": 0.155,
+            "cfcs": 0.349,
+            "hcfcs": 0.035,
+            "hfcs": 0.008,
+            "total": 2.619
+          },
+          "co2_equivalent_ppm": 454,
+          "aggi_1990_equals_1": 1.138,
+          "annual_percent_change": 1
+        },
+        {
+          "year": 2001,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 1.587,
+            "ch4": 0.509,
+            "n2o": 0.158,
+            "cfcs": 0.348,
+            "hcfcs": 0.036,
+            "hfcs": 0.01,
+            "total": 2.647
+          },
+          "co2_equivalent_ppm": 456,
+          "aggi_1990_equals_1": 1.15,
+          "annual_percent_change": 1.2
+        },
+        {
+          "year": 2002,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 1.617,
+            "ch4": 0.509,
+            "n2o": 0.16,
+            "cfcs": 0.347,
+            "hcfcs": 0.038,
+            "hfcs": 0.011,
+            "total": 2.682
+          },
+          "co2_equivalent_ppm": 459,
+          "aggi_1990_equals_1": 1.166,
+          "annual_percent_change": 1.5
+        },
+        {
+          "year": 2003,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 1.656,
+            "ch4": 0.511,
+            "n2o": 0.162,
+            "cfcs": 0.345,
+            "hcfcs": 0.039,
+            "hfcs": 0.012,
+            "total": 2.725
+          },
+          "co2_equivalent_ppm": 463,
+          "aggi_1990_equals_1": 1.184,
+          "annual_percent_change": 1.9
+        },
+        {
+          "year": 2004,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 1.683,
+            "ch4": 0.511,
+            "n2o": 0.164,
+            "cfcs": 0.344,
+            "hcfcs": 0.04,
+            "hfcs": 0.013,
+            "total": 2.755
+          },
+          "co2_equivalent_ppm": 466,
+          "aggi_1990_equals_1": 1.197,
+          "annual_percent_change": 1.3
+        },
+        {
+          "year": 2005,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 1.713,
+            "ch4": 0.51,
+            "n2o": 0.166,
+            "cfcs": 0.342,
+            "hcfcs": 0.042,
+            "hfcs": 0.015,
+            "total": 2.788
+          },
+          "co2_equivalent_ppm": 469,
+          "aggi_1990_equals_1": 1.212,
+          "annual_percent_change": 1.4
+        },
+        {
+          "year": 2006,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 1.745,
+            "ch4": 0.51,
+            "n2o": 0.17,
+            "cfcs": 0.34,
+            "hcfcs": 0.043,
+            "hfcs": 0.016,
+            "total": 2.825
+          },
+          "co2_equivalent_ppm": 472,
+          "aggi_1990_equals_1": 1.228,
+          "annual_percent_change": 1.6
+        },
+        {
+          "year": 2007,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 1.771,
+            "ch4": 0.512,
+            "n2o": 0.172,
+            "cfcs": 0.338,
+            "hcfcs": 0.045,
+            "hfcs": 0.018,
+            "total": 2.856
+          },
+          "co2_equivalent_ppm": 475,
+          "aggi_1990_equals_1": 1.241,
+          "annual_percent_change": 1.4
+        },
+        {
+          "year": 2008,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 1.802,
+            "ch4": 0.514,
+            "n2o": 0.175,
+            "cfcs": 0.336,
+            "hcfcs": 0.048,
+            "hfcs": 0.02,
+            "total": 2.894
+          },
+          "co2_equivalent_ppm": 478,
+          "aggi_1990_equals_1": 1.258,
+          "annual_percent_change": 1.6
+        },
+        {
+          "year": 2009,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 1.824,
+            "ch4": 0.517,
+            "n2o": 0.177,
+            "cfcs": 0.334,
+            "hcfcs": 0.049,
+            "hfcs": 0.021,
+            "total": 2.922
+          },
+          "co2_equivalent_ppm": 481,
+          "aggi_1990_equals_1": 1.27,
+          "annual_percent_change": 1.2
+        },
+        {
+          "year": 2010,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 1.857,
+            "ch4": 0.519,
+            "n2o": 0.18,
+            "cfcs": 0.331,
+            "hcfcs": 0.051,
+            "hfcs": 0.023,
+            "total": 2.961
+          },
+          "co2_equivalent_ppm": 484,
+          "aggi_1990_equals_1": 1.287,
+          "annual_percent_change": 1.7
+        },
+        {
+          "year": 2011,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 1.884,
+            "ch4": 0.52,
+            "n2o": 0.183,
+            "cfcs": 0.329,
+            "hcfcs": 0.053,
+            "hfcs": 0.025,
+            "total": 2.994
+          },
+          "co2_equivalent_ppm": 487,
+          "aggi_1990_equals_1": 1.301,
+          "annual_percent_change": 1.4
+        },
+        {
+          "year": 2012,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 1.913,
+            "ch4": 0.522,
+            "n2o": 0.186,
+            "cfcs": 0.327,
+            "hcfcs": 0.054,
+            "hfcs": 0.026,
+            "total": 3.029
+          },
+          "co2_equivalent_ppm": 490,
+          "aggi_1990_equals_1": 1.316,
+          "annual_percent_change": 1.5
+        },
+        {
+          "year": 2013,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 1.953,
+            "ch4": 0.524,
+            "n2o": 0.189,
+            "cfcs": 0.324,
+            "hcfcs": 0.056,
+            "hfcs": 0.028,
+            "total": 3.074
+          },
+          "co2_equivalent_ppm": 494,
+          "aggi_1990_equals_1": 1.336,
+          "annual_percent_change": 2
+        },
+        {
+          "year": 2014,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 1.98,
+            "ch4": 0.528,
+            "n2o": 0.193,
+            "cfcs": 0.322,
+            "hcfcs": 0.057,
+            "hfcs": 0.03,
+            "total": 3.11
+          },
+          "co2_equivalent_ppm": 498,
+          "aggi_1990_equals_1": 1.352,
+          "annual_percent_change": 1.6
+        },
+        {
+          "year": 2015,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 2.013,
+            "ch4": 0.532,
+            "n2o": 0.196,
+            "cfcs": 0.32,
+            "hcfcs": 0.058,
+            "hfcs": 0.032,
+            "total": 3.152
+          },
+          "co2_equivalent_ppm": 502,
+          "aggi_1990_equals_1": 1.37,
+          "annual_percent_change": 1.8
+        },
+        {
+          "year": 2016,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 2.062,
+            "ch4": 0.535,
+            "n2o": 0.199,
+            "cfcs": 0.318,
+            "hcfcs": 0.059,
+            "hfcs": 0.035,
+            "total": 3.208
+          },
+          "co2_equivalent_ppm": 507,
+          "aggi_1990_equals_1": 1.394,
+          "annual_percent_change": 2.4
+        },
+        {
+          "year": 2017,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 2.092,
+            "ch4": 0.538,
+            "n2o": 0.201,
+            "cfcs": 0.316,
+            "hcfcs": 0.06,
+            "hfcs": 0.037,
+            "total": 3.244
+          },
+          "co2_equivalent_ppm": 510,
+          "aggi_1990_equals_1": 1.41,
+          "annual_percent_change": 1.6
+        },
+        {
+          "year": 2018,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 2.125,
+            "ch4": 0.541,
+            "n2o": 0.205,
+            "cfcs": 0.314,
+            "hcfcs": 0.06,
+            "hfcs": 0.04,
+            "total": 3.285
+          },
+          "co2_equivalent_ppm": 514,
+          "aggi_1990_equals_1": 1.428,
+          "annual_percent_change": 1.8
+        },
+        {
+          "year": 2019,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 2.159,
+            "ch4": 0.544,
+            "n2o": 0.208,
+            "cfcs": 0.312,
+            "hcfcs": 0.061,
+            "hfcs": 0.042,
+            "total": 3.326
+          },
+          "co2_equivalent_ppm": 518,
+          "aggi_1990_equals_1": 1.446,
+          "annual_percent_change": 1.8
+        },
+        {
+          "year": 2020,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 2.192,
+            "ch4": 0.549,
+            "n2o": 0.211,
+            "cfcs": 0.309,
+            "hcfcs": 0.061,
+            "hfcs": 0.044,
+            "total": 3.366
+          },
+          "co2_equivalent_ppm": 522,
+          "aggi_1990_equals_1": 1.463,
+          "annual_percent_change": 1.8
+        },
+        {
+          "year": 2021,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 2.223,
+            "ch4": 0.554,
+            "n2o": 0.215,
+            "cfcs": 0.306,
+            "hcfcs": 0.061,
+            "hfcs": 0.047,
+            "total": 3.407
+          },
+          "co2_equivalent_ppm": 526,
+          "aggi_1990_equals_1": 1.481,
+          "annual_percent_change": 1.8
+        },
+        {
+          "year": 2022,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 2.256,
+            "ch4": 0.56,
+            "n2o": 0.219,
+            "cfcs": 0.303,
+            "hcfcs": 0.061,
+            "hfcs": 0.05,
+            "total": 3.45
+          },
+          "co2_equivalent_ppm": 530,
+          "aggi_1990_equals_1": 1.499,
+          "annual_percent_change": 1.9
+        },
+        {
+          "year": 2023,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 2.287,
+            "ch4": 0.564,
+            "n2o": 0.223,
+            "cfcs": 0.301,
+            "hcfcs": 0.061,
+            "hfcs": 0.052,
+            "total": 3.487
+          },
+          "co2_equivalent_ppm": 534,
+          "aggi_1990_equals_1": 1.516,
+          "annual_percent_change": 1.6
+        },
+        {
+          "year": 2024,
+          "effective_radiative_forcing_w_m2": {
+            "co2": 2.333,
+            "ch4": 0.567,
+            "n2o": 0.226,
+            "cfcs": 0.298,
+            "hcfcs": 0.06,
+            "hfcs": 0.055,
+            "total": 3.539
+          },
+          "co2_equivalent_ppm": 539,
+          "aggi_1990_equals_1": 1.538,
+          "annual_percent_change": 2.3
+        }
+      ],
+      "url": "https://gml.noaa.gov/aggi/aggi.html"
+    },
+    "odgi": {
+      "release_cycle": "Fall 2024",
+      "benchmark_year": 2024,
+      "definition": "NOAA defines ODGI as 100 at peak ozone-depleting halogen abundance and zero at the 1980 abundance benchmark.",
+      "measurement_boundary": "Global mean lower-tropospheric abundances of long-lived chlorine- and bromine-containing chemicals, transformed by NOAA into present-day EESC and ODGI for the Antarctic and mid-latitude stratosphere.",
+      "annual_antarctic": [
+        {
+          "year": 1992,
+          "contributions_ppt": {
+            "cfc12": 861,
+            "cfc11": 789,
+            "ch3cl": 500,
+            "ch3br": 583,
+            "ccl4": 431,
+            "ch3ccl3": 400,
+            "halons": 346,
+            "cfc113": 215,
+            "hcfcs": 41,
+            "wmo_minor": 18
+          },
+          "reactive_halogen_sum_ppt": 4184,
+          "eesc_ppt": 3544,
+          "legacy_odgi": 97.7,
+          "odgi": 69.6,
+          "domain": "antarctic"
+        },
+        {
+          "year": 1993,
+          "contributions_ppt": {
+            "cfc12": 876,
+            "cfc11": 795,
+            "ch3cl": 500,
+            "ch3br": 583,
+            "ccl4": 429,
+            "ch3ccl3": 393,
+            "halons": 368,
+            "cfc113": 219,
+            "hcfcs": 44,
+            "wmo_minor": 18
+          },
+          "reactive_halogen_sum_ppt": 4226,
+          "eesc_ppt": 3666,
+          "legacy_odgi": 99,
+          "odgi": 75.7,
+          "domain": "antarctic"
+        },
+        {
+          "year": 1994,
+          "contributions_ppt": {
+            "cfc12": 885,
+            "cfc11": 796,
+            "ch3cl": 501,
+            "ch3br": 583,
+            "ccl4": 425,
+            "ch3ccl3": 370,
+            "halons": 394,
+            "cfc113": 224,
+            "hcfcs": 48,
+            "wmo_minor": 18
+          },
+          "reactive_halogen_sum_ppt": 4244,
+          "eesc_ppt": 3784,
+          "legacy_odgi": 100,
+          "odgi": 81.6,
+          "domain": "antarctic"
+        },
+        {
+          "year": 1995,
+          "contributions_ppt": {
+            "cfc12": 895,
+            "cfc11": 793,
+            "ch3cl": 508,
+            "ch3br": 583,
+            "ccl4": 422,
+            "ch3ccl3": 333,
+            "halons": 416,
+            "cfc113": 226,
+            "hcfcs": 53,
+            "wmo_minor": 19
+          },
+          "reactive_halogen_sum_ppt": 4248,
+          "eesc_ppt": 3888,
+          "legacy_odgi": 99.4,
+          "odgi": 86.8,
+          "domain": "antarctic"
+        },
+        {
+          "year": 1996,
+          "contributions_ppt": {
+            "cfc12": 907,
+            "cfc11": 789,
+            "ch3cl": 500,
+            "ch3br": 585,
+            "ccl4": 418,
+            "ch3ccl3": 296,
+            "halons": 427,
+            "cfc113": 227,
+            "hcfcs": 59,
+            "wmo_minor": 19
+          },
+          "reactive_halogen_sum_ppt": 4227,
+          "eesc_ppt": 3974,
+          "legacy_odgi": 99.2,
+          "odgi": 91.1,
+          "domain": "antarctic"
+        },
+        {
+          "year": 1997,
+          "contributions_ppt": {
+            "cfc12": 915,
+            "cfc11": 786,
+            "ch3cl": 492,
+            "ch3br": 582,
+            "ccl4": 414,
+            "ch3ccl3": 254,
+            "halons": 443,
+            "cfc113": 226,
+            "hcfcs": 65,
+            "wmo_minor": 19
+          },
+          "reactive_halogen_sum_ppt": 4196,
+          "eesc_ppt": 4041,
+          "legacy_odgi": 98.3,
+          "odgi": 94.5,
+          "domain": "antarctic"
+        },
+        {
+          "year": 1998,
+          "contributions_ppt": {
+            "cfc12": 920,
+            "cfc11": 782,
+            "ch3cl": 505,
+            "ch3br": 594,
+            "ccl4": 411,
+            "ch3ccl3": 214,
+            "halons": 453,
+            "cfc113": 225,
+            "hcfcs": 70,
+            "wmo_minor": 20
+          },
+          "reactive_halogen_sum_ppt": 4194,
+          "eesc_ppt": 4088,
+          "legacy_odgi": 98.8,
+          "odgi": 96.8,
+          "domain": "antarctic"
+        },
+        {
+          "year": 1999,
+          "contributions_ppt": {
+            "cfc12": 926,
+            "cfc11": 778,
+            "ch3cl": 513,
+            "ch3br": 596,
+            "ccl4": 407,
+            "ch3ccl3": 179,
+            "halons": 467,
+            "cfc113": 223,
+            "hcfcs": 76,
+            "wmo_minor": 21
+          },
+          "reactive_halogen_sum_ppt": 4185,
+          "eesc_ppt": 4119,
+          "legacy_odgi": 97.5,
+          "odgi": 98.4,
+          "domain": "antarctic"
+        },
+        {
+          "year": 2000,
+          "contributions_ppt": {
+            "cfc12": 930,
+            "cfc11": 773,
+            "ch3cl": 506,
+            "ch3br": 572,
+            "ccl4": 402,
+            "ch3ccl3": 149,
+            "halons": 477,
+            "cfc113": 222,
+            "hcfcs": 81,
+            "wmo_minor": 21
+          },
+          "reactive_halogen_sum_ppt": 4133,
+          "eesc_ppt": 4140,
+          "legacy_odgi": 95.4,
+          "odgi": 99.4,
+          "domain": "antarctic"
+        },
+        {
+          "year": 2001,
+          "contributions_ppt": {
+            "cfc12": 932,
+            "cfc11": 768,
+            "ch3cl": 496,
+            "ch3br": 545,
+            "ccl4": 397,
+            "ch3ccl3": 124,
+            "halons": 483,
+            "cfc113": 221,
+            "hcfcs": 87,
+            "wmo_minor": 20
+          },
+          "reactive_halogen_sum_ppt": 4072,
+          "eesc_ppt": 4151,
+          "legacy_odgi": 93,
+          "odgi": 100,
+          "domain": "antarctic"
+        },
+        {
+          "year": 2002,
+          "contributions_ppt": {
+            "cfc12": 934,
+            "cfc11": 763,
+            "ch3cl": 491,
+            "ch3br": 529,
+            "ccl4": 393,
+            "ch3ccl3": 103,
+            "halons": 488,
+            "cfc113": 219,
+            "hcfcs": 92,
+            "wmo_minor": 20
+          },
+          "reactive_halogen_sum_ppt": 4031,
+          "eesc_ppt": 4151,
+          "legacy_odgi": 91.9,
+          "odgi": 100,
+          "domain": "antarctic"
+        },
+        {
+          "year": 2003,
+          "contributions_ppt": {
+            "cfc12": 934,
+            "cfc11": 756,
+            "ch3cl": 494,
+            "ch3br": 525,
+            "ccl4": 388,
+            "ch3ccl3": 86,
+            "halons": 491,
+            "cfc113": 217,
+            "hcfcs": 96,
+            "wmo_minor": 20
+          },
+          "reactive_halogen_sum_ppt": 4007,
+          "eesc_ppt": 4137,
+          "legacy_odgi": 91,
+          "odgi": 99.3,
+          "domain": "antarctic"
+        },
+        {
+          "year": 2004,
+          "contributions_ppt": {
+            "cfc12": 933,
+            "cfc11": 750,
+            "ch3cl": 491,
+            "ch3br": 515,
+            "ccl4": 384,
+            "ch3ccl3": 72,
+            "halons": 498,
+            "cfc113": 215,
+            "hcfcs": 100,
+            "wmo_minor": 19
+          },
+          "reactive_halogen_sum_ppt": 3977,
+          "eesc_ppt": 4117,
+          "legacy_odgi": 89.9,
+          "odgi": 98.3,
+          "domain": "antarctic"
+        },
+        {
+          "year": 2005,
+          "contributions_ppt": {
+            "cfc12": 932,
+            "cfc11": 743,
+            "ch3cl": 492,
+            "ch3br": 505,
+            "ccl4": 380,
+            "ch3ccl3": 60,
+            "halons": 504,
+            "cfc113": 213,
+            "hcfcs": 103,
+            "wmo_minor": 18
+          },
+          "reactive_halogen_sum_ppt": 3952,
+          "eesc_ppt": 4094,
+          "legacy_odgi": 89,
+          "odgi": 97.1,
+          "domain": "antarctic"
+        },
+        {
+          "year": 2006,
+          "contributions_ppt": {
+            "cfc12": 931,
+            "cfc11": 737,
+            "ch3cl": 492,
+            "ch3br": 496,
+            "ccl4": 376,
+            "ch3ccl3": 50,
+            "halons": 505,
+            "cfc113": 212,
+            "hcfcs": 107,
+            "wmo_minor": 18
+          },
+          "reactive_halogen_sum_ppt": 3923,
+          "eesc_ppt": 4069,
+          "legacy_odgi": 87.9,
+          "odgi": 95.9,
+          "domain": "antarctic"
+        },
+        {
+          "year": 2007,
+          "contributions_ppt": {
+            "cfc12": 927,
+            "cfc11": 731,
+            "ch3cl": 495,
+            "ch3br": 488,
+            "ccl4": 371,
+            "ch3ccl3": 42,
+            "halons": 504,
+            "cfc113": 210,
+            "hcfcs": 111,
+            "wmo_minor": 18
+          },
+          "reactive_halogen_sum_ppt": 3897,
+          "eesc_ppt": 4043,
+          "legacy_odgi": 87.3,
+          "odgi": 94.6,
+          "domain": "antarctic"
+        },
+        {
+          "year": 2008,
+          "contributions_ppt": {
+            "cfc12": 923,
+            "cfc11": 724,
+            "ch3cl": 497,
+            "ch3br": 481,
+            "ccl4": 366,
+            "ch3ccl3": 35,
+            "halons": 502,
+            "cfc113": 208,
+            "hcfcs": 116,
+            "wmo_minor": 18
+          },
+          "reactive_halogen_sum_ppt": 3869,
+          "eesc_ppt": 4017,
+          "legacy_odgi": 85.8,
+          "odgi": 93.3,
+          "domain": "antarctic"
+        },
+        {
+          "year": 2009,
+          "contributions_ppt": {
+            "cfc12": 919,
+            "cfc11": 719,
+            "ch3cl": 496,
+            "ch3br": 463,
+            "ccl4": 359,
+            "ch3ccl3": 29,
+            "halons": 498,
+            "cfc113": 206,
+            "hcfcs": 121,
+            "wmo_minor": 17
+          },
+          "reactive_halogen_sum_ppt": 3827,
+          "eesc_ppt": 3990,
+          "legacy_odgi": 84.3,
+          "odgi": 91.9,
+          "domain": "antarctic"
+        },
+        {
+          "year": 2010,
+          "contributions_ppt": {
+            "cfc12": 913,
+            "cfc11": 713,
+            "ch3cl": 493,
+            "ch3br": 454,
+            "ccl4": 356,
+            "ch3ccl3": 25,
+            "halons": 495,
+            "cfc113": 204,
+            "hcfcs": 125,
+            "wmo_minor": 17
+          },
+          "reactive_halogen_sum_ppt": 3795,
+          "eesc_ppt": 3963,
+          "legacy_odgi": 83.5,
+          "odgi": 90.6,
+          "domain": "antarctic"
+        },
+        {
+          "year": 2011,
+          "contributions_ppt": {
+            "cfc12": 908,
+            "cfc11": 707,
+            "ch3cl": 490,
+            "ch3br": 456,
+            "ccl4": 351,
+            "ch3ccl3": 21,
+            "halons": 490,
+            "cfc113": 202,
+            "hcfcs": 129,
+            "wmo_minor": 17
+          },
+          "reactive_halogen_sum_ppt": 3772,
+          "eesc_ppt": 3933,
+          "legacy_odgi": 0,
+          "odgi": 89.1,
+          "domain": "antarctic"
+        },
+        {
+          "year": 2012,
+          "contributions_ppt": {
+            "cfc12": 904,
+            "cfc11": 702,
+            "ch3cl": 491,
+            "ch3br": 453,
+            "ccl4": 346,
+            "ch3ccl3": 17,
+            "halons": 486,
+            "cfc113": 200,
+            "hcfcs": 134,
+            "wmo_minor": 17
+          },
+          "reactive_halogen_sum_ppt": 3749,
+          "eesc_ppt": 3902,
+          "legacy_odgi": 0,
+          "odgi": 87.5,
+          "domain": "antarctic"
+        },
+        {
+          "year": 2013,
+          "contributions_ppt": {
+            "cfc12": 899,
+            "cfc11": 696,
+            "ch3cl": 495,
+            "ch3br": 444,
+            "ccl4": 341,
+            "ch3ccl3": 14,
+            "halons": 481,
+            "cfc113": 199,
+            "hcfcs": 138,
+            "wmo_minor": 17
+          },
+          "reactive_halogen_sum_ppt": 3723,
+          "eesc_ppt": 3872,
+          "legacy_odgi": 0,
+          "odgi": 86,
+          "domain": "antarctic"
+        },
+        {
+          "year": 2014,
+          "contributions_ppt": {
+            "cfc12": 893,
+            "cfc11": 691,
+            "ch3cl": 493,
+            "ch3br": 430,
+            "ccl4": 337,
+            "ch3ccl3": 12,
+            "halons": 474,
+            "cfc113": 197,
+            "hcfcs": 141,
+            "wmo_minor": 17
+          },
+          "reactive_halogen_sum_ppt": 3685,
+          "eesc_ppt": 3843,
+          "legacy_odgi": 0,
+          "odgi": 84.6,
+          "domain": "antarctic"
+        },
+        {
+          "year": 2015,
+          "contributions_ppt": {
+            "cfc12": 888,
+            "cfc11": 688,
+            "ch3cl": 499,
+            "ch3br": 429,
+            "ccl4": 332,
+            "ch3ccl3": 10,
+            "halons": 467,
+            "cfc113": 195,
+            "hcfcs": 145,
+            "wmo_minor": 16
+          },
+          "reactive_halogen_sum_ppt": 3670,
+          "eesc_ppt": 3815,
+          "legacy_odgi": 0,
+          "odgi": 83.2,
+          "domain": "antarctic"
+        },
+        {
+          "year": 2016,
+          "contributions_ppt": {
+            "cfc12": 883,
+            "cfc11": 684,
+            "ch3cl": 506,
+            "ch3br": 437,
+            "ccl4": 327,
+            "ch3ccl3": 8,
+            "halons": 460,
+            "cfc113": 194,
+            "hcfcs": 147,
+            "wmo_minor": 15
+          },
+          "reactive_halogen_sum_ppt": 3661,
+          "eesc_ppt": 3786,
+          "legacy_odgi": 0,
+          "odgi": 81.7,
+          "domain": "antarctic"
+        },
+        {
+          "year": 2017,
+          "contributions_ppt": {
+            "cfc12": 877,
+            "cfc11": 681,
+            "ch3cl": 502,
+            "ch3br": 431,
+            "ccl4": 323,
+            "ch3ccl3": 7,
+            "halons": 452,
+            "cfc113": 192,
+            "hcfcs": 149,
+            "wmo_minor": 15
+          },
+          "reactive_halogen_sum_ppt": 3630,
+          "eesc_ppt": 3759,
+          "legacy_odgi": 0,
+          "odgi": 80.4,
+          "domain": "antarctic"
+        },
+        {
+          "year": 2018,
+          "contributions_ppt": {
+            "cfc12": 872,
+            "cfc11": 679,
+            "ch3cl": 498,
+            "ch3br": 426,
+            "ccl4": 319,
+            "ch3ccl3": 6,
+            "halons": 445,
+            "cfc113": 191,
+            "hcfcs": 150,
+            "wmo_minor": 15
+          },
+          "reactive_halogen_sum_ppt": 3602,
+          "eesc_ppt": 3735,
+          "legacy_odgi": 0,
+          "odgi": 79.2,
+          "domain": "antarctic"
+        },
+        {
+          "year": 2019,
+          "contributions_ppt": {
+            "cfc12": 866,
+            "cfc11": 676,
+            "ch3cl": 497,
+            "ch3br": 422,
+            "ccl4": 315,
+            "ch3ccl3": 5,
+            "halons": 439,
+            "cfc113": 189,
+            "hcfcs": 151,
+            "wmo_minor": 15
+          },
+          "reactive_halogen_sum_ppt": 3574,
+          "eesc_ppt": 3711,
+          "legacy_odgi": 0,
+          "odgi": 78,
+          "domain": "antarctic"
+        },
+        {
+          "year": 2020,
+          "contributions_ppt": {
+            "cfc12": 858,
+            "cfc11": 669,
+            "ch3cl": 497,
+            "ch3br": 427,
+            "ccl4": 311,
+            "ch3ccl3": 4,
+            "halons": 431,
+            "cfc113": 187,
+            "hcfcs": 152,
+            "wmo_minor": 14
+          },
+          "reactive_halogen_sum_ppt": 3551,
+          "eesc_ppt": 3686,
+          "legacy_odgi": 0,
+          "odgi": 76.7,
+          "domain": "antarctic"
+        },
+        {
+          "year": 2021,
+          "contributions_ppt": {
+            "cfc12": 852,
+            "cfc11": 662,
+            "ch3cl": 499,
+            "ch3br": 426,
+            "ccl4": 306,
+            "ch3ccl3": 4,
+            "halons": 424,
+            "cfc113": 185,
+            "hcfcs": 152,
+            "wmo_minor": 14
+          },
+          "reactive_halogen_sum_ppt": 3524,
+          "eesc_ppt": 3660,
+          "legacy_odgi": 0,
+          "odgi": 75.4,
+          "domain": "antarctic"
+        },
+        {
+          "year": 2022,
+          "contributions_ppt": {
+            "cfc12": 845,
+            "cfc11": 655,
+            "ch3cl": 499,
+            "ch3br": 424,
+            "ccl4": 301,
+            "ch3ccl3": 3,
+            "halons": 418,
+            "cfc113": 184,
+            "hcfcs": 153,
+            "wmo_minor": 14
+          },
+          "reactive_halogen_sum_ppt": 3495,
+          "eesc_ppt": 3635,
+          "legacy_odgi": 0,
+          "odgi": 74.2,
+          "domain": "antarctic"
+        },
+        {
+          "year": 2023,
+          "contributions_ppt": {
+            "cfc12": 839,
+            "cfc11": 648,
+            "ch3cl": 495,
+            "ch3br": 415,
+            "ccl4": 297,
+            "ch3ccl3": 3,
+            "halons": 414,
+            "cfc113": 182,
+            "hcfcs": 152,
+            "wmo_minor": 14
+          },
+          "reactive_halogen_sum_ppt": 3460,
+          "eesc_ppt": 3609,
+          "legacy_odgi": 0,
+          "odgi": 72.9,
+          "domain": "antarctic"
+        },
+        {
+          "year": 2024,
+          "contributions_ppt": {
+            "cfc12": 832,
+            "cfc11": 641,
+            "ch3cl": 498,
+            "ch3br": 418,
+            "ccl4": 294,
+            "ch3ccl3": 3,
+            "halons": 407,
+            "cfc113": 181,
+            "hcfcs": 151,
+            "wmo_minor": 14
+          },
+          "reactive_halogen_sum_ppt": 3438,
+          "eesc_ppt": 3583,
+          "legacy_odgi": 0,
+          "odgi": 71.6,
+          "domain": "antarctic"
+        }
+      ],
+      "annual_midlatitude": [
+        {
+          "year": 1992,
+          "contributions_ppt": {
+            "cfc12": 230,
+            "cfc11": 375,
+            "ch3cl": 242,
+            "ch3br": 326,
+            "ccl4": 242,
+            "ch3ccl3": 271,
+            "halons": 172,
+            "cfc113": 69,
+            "hcfcs": 13,
+            "wmo_minor": 6
+          },
+          "reactive_halogen_sum_ppt": 1945,
+          "eesc_ppt": 1795,
+          "legacy_odgi": 98.8,
+          "odgi": 82,
+          "domain": "midlatitude"
+        },
+        {
+          "year": 1993,
+          "contributions_ppt": {
+            "cfc12": 234,
+            "cfc11": 377,
+            "ch3cl": 242,
+            "ch3br": 326,
+            "ccl4": 240,
+            "ch3ccl3": 266,
+            "halons": 184,
+            "cfc113": 71,
+            "hcfcs": 14,
+            "wmo_minor": 6
+          },
+          "reactive_halogen_sum_ppt": 1961,
+          "eesc_ppt": 1846,
+          "legacy_odgi": 99.7,
+          "odgi": 88.6,
+          "domain": "midlatitude"
+        },
+        {
+          "year": 1994,
+          "contributions_ppt": {
+            "cfc12": 237,
+            "cfc11": 378,
+            "ch3cl": 242,
+            "ch3br": 326,
+            "ccl4": 238,
+            "ch3ccl3": 250,
+            "halons": 196,
+            "cfc113": 72,
+            "hcfcs": 16,
+            "wmo_minor": 6
+          },
+          "reactive_halogen_sum_ppt": 1961,
+          "eesc_ppt": 1888,
+          "legacy_odgi": 100,
+          "odgi": 94,
+          "domain": "midlatitude"
+        },
+        {
+          "year": 1995,
+          "contributions_ppt": {
+            "cfc12": 239,
+            "cfc11": 377,
+            "ch3cl": 246,
+            "ch3br": 326,
+            "ccl4": 236,
+            "ch3ccl3": 225,
+            "halons": 207,
+            "cfc113": 73,
+            "hcfcs": 18,
+            "wmo_minor": 6
+          },
+          "reactive_halogen_sum_ppt": 1953,
+          "eesc_ppt": 1917,
+          "legacy_odgi": 98.4,
+          "odgi": 97.6,
+          "domain": "midlatitude"
+        },
+        {
+          "year": 1996,
+          "contributions_ppt": {
+            "cfc12": 242,
+            "cfc11": 375,
+            "ch3cl": 242,
+            "ch3br": 327,
+            "ccl4": 234,
+            "ch3ccl3": 200,
+            "halons": 213,
+            "cfc113": 73,
+            "hcfcs": 20,
+            "wmo_minor": 7
+          },
+          "reactive_halogen_sum_ppt": 1933,
+          "eesc_ppt": 1932,
+          "legacy_odgi": 97.4,
+          "odgi": 99.6,
+          "domain": "midlatitude"
+        },
+        {
+          "year": 1997,
+          "contributions_ppt": {
+            "cfc12": 245,
+            "cfc11": 373,
+            "ch3cl": 238,
+            "ch3br": 326,
+            "ccl4": 232,
+            "ch3ccl3": 172,
+            "halons": 221,
+            "cfc113": 73,
+            "hcfcs": 22,
+            "wmo_minor": 7
+          },
+          "reactive_halogen_sum_ppt": 1908,
+          "eesc_ppt": 1935,
+          "legacy_odgi": 95.5,
+          "odgi": 100,
+          "domain": "midlatitude"
+        },
+        {
+          "year": 1998,
+          "contributions_ppt": {
+            "cfc12": 246,
+            "cfc11": 371,
+            "ch3cl": 244,
+            "ch3br": 333,
+            "ccl4": 230,
+            "ch3ccl3": 145,
+            "halons": 227,
+            "cfc113": 72,
+            "hcfcs": 24,
+            "wmo_minor": 7
+          },
+          "reactive_halogen_sum_ppt": 1899,
+          "eesc_ppt": 1928,
+          "legacy_odgi": 95.3,
+          "odgi": 99.1,
+          "domain": "midlatitude"
+        },
+        {
+          "year": 1999,
+          "contributions_ppt": {
+            "cfc12": 248,
+            "cfc11": 369,
+            "ch3cl": 248,
+            "ch3br": 333,
+            "ccl4": 228,
+            "ch3ccl3": 121,
+            "halons": 233,
+            "cfc113": 72,
+            "hcfcs": 26,
+            "wmo_minor": 7
+          },
+          "reactive_halogen_sum_ppt": 1886,
+          "eesc_ppt": 1918,
+          "legacy_odgi": 92.7,
+          "odgi": 97.8,
+          "domain": "midlatitude"
+        },
+        {
+          "year": 2000,
+          "contributions_ppt": {
+            "cfc12": 249,
+            "cfc11": 367,
+            "ch3cl": 245,
+            "ch3br": 320,
+            "ccl4": 225,
+            "ch3ccl3": 101,
+            "halons": 239,
+            "cfc113": 71,
+            "hcfcs": 28,
+            "wmo_minor": 8
+          },
+          "reactive_halogen_sum_ppt": 1852,
+          "eesc_ppt": 1907,
+          "legacy_odgi": 89.3,
+          "odgi": 96.4,
+          "domain": "midlatitude"
+        },
+        {
+          "year": 2001,
+          "contributions_ppt": {
+            "cfc12": 249,
+            "cfc11": 364,
+            "ch3cl": 240,
+            "ch3br": 305,
+            "ccl4": 222,
+            "ch3ccl3": 84,
+            "halons": 242,
+            "cfc113": 71,
+            "hcfcs": 30,
+            "wmo_minor": 8
+          },
+          "reactive_halogen_sum_ppt": 1815,
+          "eesc_ppt": 1890,
+          "legacy_odgi": 85.5,
+          "odgi": 94.2,
+          "domain": "midlatitude"
+        },
+        {
+          "year": 2002,
+          "contributions_ppt": {
+            "cfc12": 250,
+            "cfc11": 362,
+            "ch3cl": 238,
+            "ch3br": 296,
+            "ccl4": 220,
+            "ch3ccl3": 70,
+            "halons": 245,
+            "cfc113": 71,
+            "hcfcs": 32,
+            "wmo_minor": 7
+          },
+          "reactive_halogen_sum_ppt": 1789,
+          "eesc_ppt": 1866,
+          "legacy_odgi": 83.5,
+          "odgi": 91.1,
+          "domain": "midlatitude"
+        },
+        {
+          "year": 2003,
+          "contributions_ppt": {
+            "cfc12": 250,
+            "cfc11": 359,
+            "ch3cl": 239,
+            "ch3br": 294,
+            "ccl4": 217,
+            "ch3ccl3": 58,
+            "halons": 246,
+            "cfc113": 70,
+            "hcfcs": 33,
+            "wmo_minor": 7
+          },
+          "reactive_halogen_sum_ppt": 1774,
+          "eesc_ppt": 1840,
+          "legacy_odgi": 81.9,
+          "odgi": 87.7,
+          "domain": "midlatitude"
+        },
+        {
+          "year": 2004,
+          "contributions_ppt": {
+            "cfc12": 250,
+            "cfc11": 356,
+            "ch3cl": 238,
+            "ch3br": 288,
+            "ccl4": 215,
+            "ch3ccl3": 48,
+            "halons": 249,
+            "cfc113": 69,
+            "hcfcs": 35,
+            "wmo_minor": 7
+          },
+          "reactive_halogen_sum_ppt": 1755,
+          "eesc_ppt": 1816,
+          "legacy_odgi": 79.9,
+          "odgi": 84.7,
+          "domain": "midlatitude"
+        },
+        {
+          "year": 2005,
+          "contributions_ppt": {
+            "cfc12": 249,
+            "cfc11": 353,
+            "ch3cl": 238,
+            "ch3br": 283,
+            "ccl4": 213,
+            "ch3ccl3": 40,
+            "halons": 251,
+            "cfc113": 69,
+            "hcfcs": 36,
+            "wmo_minor": 7
+          },
+          "reactive_halogen_sum_ppt": 1739,
+          "eesc_ppt": 1795,
+          "legacy_odgi": 78.2,
+          "odgi": 82,
+          "domain": "midlatitude"
+        },
+        {
+          "year": 2006,
+          "contributions_ppt": {
+            "cfc12": 249,
+            "cfc11": 350,
+            "ch3cl": 238,
+            "ch3br": 277,
+            "ccl4": 210,
+            "ch3ccl3": 34,
+            "halons": 251,
+            "cfc113": 68,
+            "hcfcs": 37,
+            "wmo_minor": 7
+          },
+          "reactive_halogen_sum_ppt": 1722,
+          "eesc_ppt": 1776,
+          "legacy_odgi": 76.3,
+          "odgi": 79.4,
+          "domain": "midlatitude"
+        },
+        {
+          "year": 2007,
+          "contributions_ppt": {
+            "cfc12": 248,
+            "cfc11": 347,
+            "ch3cl": 239,
+            "ch3br": 273,
+            "ccl4": 208,
+            "ch3ccl3": 28,
+            "halons": 251,
+            "cfc113": 68,
+            "hcfcs": 39,
+            "wmo_minor": 6
+          },
+          "reactive_halogen_sum_ppt": 1707,
+          "eesc_ppt": 1757,
+          "legacy_odgi": 75,
+          "odgi": 77,
+          "domain": "midlatitude"
+        },
+        {
+          "year": 2008,
+          "contributions_ppt": {
+            "cfc12": 247,
+            "cfc11": 344,
+            "ch3cl": 240,
+            "ch3br": 269,
+            "ccl4": 205,
+            "ch3ccl3": 24,
+            "halons": 249,
+            "cfc113": 67,
+            "hcfcs": 40,
+            "wmo_minor": 6
+          },
+          "reactive_halogen_sum_ppt": 1691,
+          "eesc_ppt": 1740,
+          "legacy_odgi": 72.6,
+          "odgi": 74.8,
+          "domain": "midlatitude"
+        },
+        {
+          "year": 2009,
+          "contributions_ppt": {
+            "cfc12": 246,
+            "cfc11": 341,
+            "ch3cl": 240,
+            "ch3br": 259,
+            "ccl4": 201,
+            "ch3ccl3": 20,
+            "halons": 246,
+            "cfc113": 66,
+            "hcfcs": 42,
+            "wmo_minor": 6
+          },
+          "reactive_halogen_sum_ppt": 1668,
+          "eesc_ppt": 1723,
+          "legacy_odgi": 70.1,
+          "odgi": 72.6,
+          "domain": "midlatitude"
+        },
+        {
+          "year": 2010,
+          "contributions_ppt": {
+            "cfc12": 244,
+            "cfc11": 339,
+            "ch3cl": 238,
+            "ch3br": 254,
+            "ccl4": 199,
+            "ch3ccl3": 17,
+            "halons": 244,
+            "cfc113": 66,
+            "hcfcs": 43,
+            "wmo_minor": 6
+          },
+          "reactive_halogen_sum_ppt": 1650,
+          "eesc_ppt": 1705,
+          "legacy_odgi": 68.8,
+          "odgi": 70.3,
+          "domain": "midlatitude"
+        },
+        {
+          "year": 2011,
+          "contributions_ppt": {
+            "cfc12": 243,
+            "cfc11": 336,
+            "ch3cl": 237,
+            "ch3br": 255,
+            "ccl4": 196,
+            "ch3ccl3": 14,
+            "halons": 241,
+            "cfc113": 65,
+            "hcfcs": 45,
+            "wmo_minor": 6
+          },
+          "reactive_halogen_sum_ppt": 1638,
+          "eesc_ppt": 1686,
+          "legacy_odgi": 0,
+          "odgi": 67.9,
+          "domain": "midlatitude"
+        },
+        {
+          "year": 2012,
+          "contributions_ppt": {
+            "cfc12": 242,
+            "cfc11": 333,
+            "ch3cl": 237,
+            "ch3br": 253,
+            "ccl4": 194,
+            "ch3ccl3": 12,
+            "halons": 239,
+            "cfc113": 65,
+            "hcfcs": 46,
+            "wmo_minor": 6
+          },
+          "reactive_halogen_sum_ppt": 1626,
+          "eesc_ppt": 1669,
+          "legacy_odgi": 0,
+          "odgi": 65.7,
+          "domain": "midlatitude"
+        },
+        {
+          "year": 2013,
+          "contributions_ppt": {
+            "cfc12": 240,
+            "cfc11": 330,
+            "ch3cl": 239,
+            "ch3br": 249,
+            "ccl4": 191,
+            "ch3ccl3": 10,
+            "halons": 235,
+            "cfc113": 64,
+            "hcfcs": 48,
+            "wmo_minor": 6
+          },
+          "reactive_halogen_sum_ppt": 1612,
+          "eesc_ppt": 1654,
+          "legacy_odgi": 0,
+          "odgi": 63.7,
+          "domain": "midlatitude"
+        },
+        {
+          "year": 2014,
+          "contributions_ppt": {
+            "cfc12": 239,
+            "cfc11": 328,
+            "ch3cl": 239,
+            "ch3br": 241,
+            "ccl4": 189,
+            "ch3ccl3": 8,
+            "halons": 231,
+            "cfc113": 63,
+            "hcfcs": 49,
+            "wmo_minor": 6
+          },
+          "reactive_halogen_sum_ppt": 1592,
+          "eesc_ppt": 1640,
+          "legacy_odgi": 0,
+          "odgi": 61.9,
+          "domain": "midlatitude"
+        },
+        {
+          "year": 2015,
+          "contributions_ppt": {
+            "cfc12": 238,
+            "cfc11": 327,
+            "ch3cl": 241,
+            "ch3br": 240,
+            "ccl4": 186,
+            "ch3ccl3": 7,
+            "halons": 227,
+            "cfc113": 63,
+            "hcfcs": 50,
+            "wmo_minor": 6
+          },
+          "reactive_halogen_sum_ppt": 1584,
+          "eesc_ppt": 1624,
+          "legacy_odgi": 0,
+          "odgi": 59.8,
+          "domain": "midlatitude"
+        },
+        {
+          "year": 2016,
+          "contributions_ppt": {
+            "cfc12": 236,
+            "cfc11": 325,
+            "ch3cl": 244,
+            "ch3br": 245,
+            "ccl4": 183,
+            "ch3ccl3": 6,
+            "halons": 222,
+            "cfc113": 62,
+            "hcfcs": 51,
+            "wmo_minor": 5
+          },
+          "reactive_halogen_sum_ppt": 1580,
+          "eesc_ppt": 1610,
+          "legacy_odgi": 0,
+          "odgi": 58,
+          "domain": "midlatitude"
+        },
+        {
+          "year": 2017,
+          "contributions_ppt": {
+            "cfc12": 235,
+            "cfc11": 323,
+            "ch3cl": 243,
+            "ch3br": 241,
+            "ccl4": 181,
+            "ch3ccl3": 5,
+            "halons": 218,
+            "cfc113": 62,
+            "hcfcs": 51,
+            "wmo_minor": 5
+          },
+          "reactive_halogen_sum_ppt": 1564,
+          "eesc_ppt": 1599,
+          "legacy_odgi": 0,
+          "odgi": 56.6,
+          "domain": "midlatitude"
+        },
+        {
+          "year": 2018,
+          "contributions_ppt": {
+            "cfc12": 233,
+            "cfc11": 323,
+            "ch3cl": 241,
+            "ch3br": 239,
+            "ccl4": 179,
+            "ch3ccl3": 4,
+            "halons": 214,
+            "cfc113": 61,
+            "hcfcs": 52,
+            "wmo_minor": 5
+          },
+          "reactive_halogen_sum_ppt": 1550,
+          "eesc_ppt": 1587,
+          "legacy_odgi": 0,
+          "odgi": 55.1,
+          "domain": "midlatitude"
+        },
+        {
+          "year": 2019,
+          "contributions_ppt": {
+            "cfc12": 232,
+            "cfc11": 321,
+            "ch3cl": 240,
+            "ch3br": 236,
+            "ccl4": 176,
+            "ch3ccl3": 4,
+            "halons": 210,
+            "cfc113": 61,
+            "hcfcs": 52,
+            "wmo_minor": 5
+          },
+          "reactive_halogen_sum_ppt": 1537,
+          "eesc_ppt": 1575,
+          "legacy_odgi": 0,
+          "odgi": 53.5,
+          "domain": "midlatitude"
+        },
+        {
+          "year": 2020,
+          "contributions_ppt": {
+            "cfc12": 230,
+            "cfc11": 318,
+            "ch3cl": 240,
+            "ch3br": 239,
+            "ccl4": 174,
+            "ch3ccl3": 3,
+            "halons": 206,
+            "cfc113": 60,
+            "hcfcs": 52,
+            "wmo_minor": 5
+          },
+          "reactive_halogen_sum_ppt": 1527,
+          "eesc_ppt": 1562,
+          "legacy_odgi": 0,
+          "odgi": 51.8,
+          "domain": "midlatitude"
+        },
+        {
+          "year": 2021,
+          "contributions_ppt": {
+            "cfc12": 228,
+            "cfc11": 314,
+            "ch3cl": 241,
+            "ch3br": 238,
+            "ccl4": 171,
+            "ch3ccl3": 3,
+            "halons": 202,
+            "cfc113": 60,
+            "hcfcs": 53,
+            "wmo_minor": 5
+          },
+          "reactive_halogen_sum_ppt": 1515,
+          "eesc_ppt": 1550,
+          "legacy_odgi": 0,
+          "odgi": 50.3,
+          "domain": "midlatitude"
+        },
+        {
+          "year": 2022,
+          "contributions_ppt": {
+            "cfc12": 226,
+            "cfc11": 311,
+            "ch3cl": 241,
+            "ch3br": 237,
+            "ccl4": 169,
+            "ch3ccl3": 2,
+            "halons": 199,
+            "cfc113": 59,
+            "hcfcs": 53,
+            "wmo_minor": 4
+          },
+          "reactive_halogen_sum_ppt": 1501,
+          "eesc_ppt": 1538,
+          "legacy_odgi": 0,
+          "odgi": 48.7,
+          "domain": "midlatitude"
+        },
+        {
+          "year": 2023,
+          "contributions_ppt": {
+            "cfc12": 224,
+            "cfc11": 308,
+            "ch3cl": 239,
+            "ch3br": 232,
+            "ccl4": 166,
+            "ch3ccl3": 2,
+            "halons": 196,
+            "cfc113": 59,
+            "hcfcs": 52,
+            "wmo_minor": 4
+          },
+          "reactive_halogen_sum_ppt": 1483,
+          "eesc_ppt": 1525,
+          "legacy_odgi": 0,
+          "odgi": 47.1,
+          "domain": "midlatitude"
+        },
+        {
+          "year": 2024,
+          "contributions_ppt": {
+            "cfc12": 222,
+            "cfc11": 304,
+            "ch3cl": 241,
+            "ch3br": 234,
+            "ccl4": 164,
+            "ch3ccl3": 2,
+            "halons": 192,
+            "cfc113": 58,
+            "hcfcs": 52,
+            "wmo_minor": 4
+          },
+          "reactive_halogen_sum_ppt": 1474,
+          "eesc_ppt": 1511,
+          "legacy_odgi": 0,
+          "odgi": 45.3,
+          "domain": "midlatitude"
+        }
+      ],
+      "url": "https://gml.noaa.gov/hats/odgi.html",
+      "antarctic_csv_url": "https://gml.noaa.gov/odgi/odgi_table1.csv",
+      "midlatitude_csv_url": "https://gml.noaa.gov/odgi/odgi_table2.csv"
+    }
+  }
+}

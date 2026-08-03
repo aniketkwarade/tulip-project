@@ -1,0 +1,53 @@
+{
+  "version": "fao_sofi_2025_food_insecurity_2024_v1",
+  "captured_at": "2026-07-31T17:03:57.463Z",
+  "source": {
+    "id": "fao_state_of_food_security_and_nutrition_2025",
+    "name": "The State of Food Security and Nutrition in the World 2025",
+    "publisher": "FAO, IFAD, UNICEF, WFP and WHO",
+    "assessment_year": 2025,
+    "observation_year": 2024,
+    "report_url": "https://www.fao.org/publications/fao-flagship-publications/the-state-of-food-security-and-nutrition-in-the-world/2025/en",
+    "release_url": "https://www.fao.org/newsroom/detail/global-hunger-declines--but-rises-in-africa-and-western-asia--un-report/",
+    "launch_url": "https://www.fao.org/newsroom/detail/sofi-2025--fao-calls-for-urgent--coordinated-and-inclusive-action-to-end-global-hunger/"
+  },
+  "ingestion_job_id": "export_fao_sofi_food_insecurity_impact_snapshot",
+  "metric_contract_ids": [
+    "food_insecurity_prevalence_fies"
+  ],
+  "contract_bindings": [
+    {
+      "node_id": "food_insecurity",
+      "metric_id": "food_insecurity_prevalence_fies",
+      "measurement_role": "global_assessment_accumulated_human_burden_primary"
+    }
+  ],
+  "cadence": "Refresh with each annual SOFI release after reconciling revised historical estimates.",
+  "provenance": "Reviewed source-reported SOFI 2025 estimates for 2024 global hunger, moderate or severe food insecurity and inability to afford a healthy diet. Source-reported uncertainty bounds and comparison years remain separate.",
+  "uncertainty": "SOFI combines surveys, statistical models, population estimates and affordability calculations. Rounded people counts, uncertainty ranges, revisions and differing indicator definitions affect comparison. Hunger, moderate or severe food insecurity and diet unaffordability are related but not interchangeable.",
+  "failure_behavior": "Retain the last reviewed assessment and mark stale; reject changed indicator definitions or unreconciled observation years; never add overlapping populations, treat rounded counts as exact, replace a missing region with zero or count projections as current.",
+  "assessment": {
+    "observation_year": 2024,
+    "global_hunger_prevalence_pct": 8.2,
+    "global_hunger_people_million_estimate": 673,
+    "global_hunger_people_million_lower": 638,
+    "global_hunger_people_million_upper": 720,
+    "global_moderate_or_severe_food_insecurity_prevalence_pct": 28,
+    "global_moderate_or_severe_food_insecurity_people_billion_rounded": 2.3,
+    "global_unable_to_afford_healthy_diet_people_billion_rounded": 2.6,
+    "additional_people_facing_hunger_since_2020_million": 90,
+    "additional_people_facing_hunger_since_2015_million": 100,
+    "africa_hunger_people_million": 307,
+    "africa_hunger_prevalence_pct": 20.2,
+    "comparison_interval_start_year": 2015,
+    "comparison_interval_years": 9,
+    "population_denominator_billion_implied_from_hunger_estimate": 8.207317,
+    "unable_to_afford_healthy_diet_share_pct_implied": 31.68,
+    "derivation_boundary": "The implied population denominator is 0.673 billion / 0.082. The affordability share is 2.6 billion divided by that denominator. Both are labeled derived because source people counts are rounded.",
+    "source_locators": [
+      "FAO joint-agency SOFI 2025 release: 673 million people or 8.2 percent faced hunger in 2024, with 638-720 million uncertainty range.",
+      "FAO SOFI 2025 launch: around 2.3 billion people faced moderate or severe food insecurity and 2.6 billion could not afford a healthy diet in 2024.",
+      "FAO SOFI 2025 launch: 90 million more people faced hunger than in 2020 and 100 million more than in 2015."
+    ]
+  }
+}

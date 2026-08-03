@@ -1,0 +1,42 @@
+{
+  "updated_at": "2026-07-15",
+  "version": "2026-07-15T23:59:00.000Z",
+  "snapshot_family": "mangrove_extent_support",
+  "source": {
+    "id": "global_mangrove_watch",
+    "name": "Global Mangrove Watch",
+    "url": "https://www.globalmangrovewatch.org/",
+    "publisher": "Global Mangrove Watch",
+    "access": "open_download"
+  },
+  "refresh_policy": {
+    "default_days": 56,
+    "notes": "Treat Global Mangrove Watch as a coastal-ecosystem snapshot family. Refresh when new extent or monitoring releases appear."
+  },
+  "use_guidance": {
+    "primary_role": "Support mangrove buffer loss with direct extent-monitoring context plus flood-protection reasoning.",
+    "caution": "This bundle is for mangrove extent and coastal-protection support, not a local hazard forecast."
+  },
+  "overview": {
+    "title": "Global Mangrove Watch",
+    "description": "Global Mangrove Watch maps mangrove extent change and provides a direct evidence family for coastal buffering, storm protection, and habitat loss.",
+    "dataset_scope": "global mangrove extent change support",
+    "primary_use": "coastal protection and habitat-loss grounding"
+  },
+  "tools": [
+    {
+      "id": "global_mangrove_watch_home",
+      "label": "Global Mangrove Watch",
+      "url": "https://www.globalmangrovewatch.org/",
+      "type": "portal",
+      "access": "open"
+    },
+    {
+      "id": "mangrove_protection_paper",
+      "label": "Global flood protection benefits of mangroves",
+      "url": "https://doi.org/10.1038/s41598-020-61136-6",
+      "type": "paper",
+      "access": "open"
+    }
+  ]
+}

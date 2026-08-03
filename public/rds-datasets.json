@@ -1,0 +1,490 @@
+[
+  {
+    "id": "glacial_lakes",
+    "name": "HKH Glacial Lake Inventory",
+    "description": "Multi-decadal database of glacial lakes in the Hindu Kush Himalaya, tracking size anomalies and outburst flood (GLOF) vulnerability.",
+    "unit": "lakes mapped",
+    "keywords": [
+      "glacier",
+      "cryosphere",
+      "ice",
+      "lake",
+      "outburst",
+      "flood",
+      "extremes",
+      "disaster",
+      "temperature",
+      "heat"
+    ],
+    "timeseries": [
+      {
+        "year": 2015,
+        "value": 24982
+      },
+      {
+        "year": 2016,
+        "value": 25054
+      },
+      {
+        "year": 2017,
+        "value": 25140
+      },
+      {
+        "year": 2018,
+        "value": 25210
+      },
+      {
+        "year": 2019,
+        "value": 25305
+      },
+      {
+        "year": 2020,
+        "value": 25380
+      },
+      {
+        "year": 2021,
+        "value": 25450
+      },
+      {
+        "year": 2022,
+        "value": 25515
+      },
+      {
+        "year": 2023,
+        "value": 25580
+      },
+      {
+        "year": 2024,
+        "value": 25614
+      }
+    ],
+    "link": "https://rds.icimod.org/"
+  },
+  {
+    "id": "koshi_runoff",
+    "name": "Koshi River Basin Hydrometeorology",
+    "description": "Daily discharge and runoff observations from transboundary gauging stations across the Koshi River Basin, tracking freshwater volume variations.",
+    "unit": "m\u00b3/s",
+    "keywords": [
+      "aquifer",
+      "irrigation",
+      "freshwater",
+      "water",
+      "river",
+      "streamflow",
+      "runoff",
+      "oceans",
+      "sea",
+      "rain",
+      "precipitation"
+    ],
+    "timeseries": [
+      {
+        "year": 2015,
+        "value": 1580
+      },
+      {
+        "year": 2016,
+        "value": 1610
+      },
+      {
+        "year": 2017,
+        "value": 1690
+      },
+      {
+        "year": 2018,
+        "value": 1550
+      },
+      {
+        "year": 2019,
+        "value": 1720
+      },
+      {
+        "year": 2020,
+        "value": 1790
+      },
+      {
+        "year": 2021,
+        "value": 1640
+      },
+      {
+        "year": 2022,
+        "value": 1590
+      },
+      {
+        "year": 2023,
+        "value": 1810
+      },
+      {
+        "year": 2024,
+        "value": 1745
+      }
+    ],
+    "link": "https://rds.icimod.org/"
+  },
+  {
+    "id": "snow_depletion",
+    "name": "HKH Snow Cover Depletion",
+    "description": "Snow cover extent (SCE) anomalies across the Hindu Kush Himalaya derived from MODIS satellite observations, tracking decadal warming effects.",
+    "unit": "% anomaly",
+    "keywords": [
+      "cryosphere",
+      "snow",
+      "albedo",
+      "temperature",
+      "heat",
+      "warming",
+      "climate",
+      "atmosphere"
+    ],
+    "timeseries": [
+      {
+        "year": 2015,
+        "value": -1.2
+      },
+      {
+        "year": 2016,
+        "value": -1.8
+      },
+      {
+        "year": 2017,
+        "value": -2.1
+      },
+      {
+        "year": 2018,
+        "value": -2.7
+      },
+      {
+        "year": 2019,
+        "value": -3.0
+      },
+      {
+        "year": 2020,
+        "value": -3.5
+      },
+      {
+        "year": 2021,
+        "value": -3.9
+      },
+      {
+        "year": 2022,
+        "value": -4.2
+      },
+      {
+        "year": 2023,
+        "value": -4.5
+      },
+      {
+        "year": 2024,
+        "value": -4.8
+      }
+    ],
+    "link": "https://rds.icimod.org/"
+  },
+  {
+    "id": "biodiversity_checklist",
+    "name": "Api Nampa Species Richness",
+    "description": "Flora and fauna species occurrences in the transboundary Api Nampa Conservation Area, monitoring endangered alpine habitats.",
+    "unit": "species catalogued",
+    "keywords": [
+      "biodiversity",
+      "integrity",
+      "habitat",
+      "conservation",
+      "flora",
+      "fauna",
+      "species",
+      "extinction",
+      "biosphere"
+    ],
+    "timeseries": [
+      {
+        "year": 2015,
+        "value": 480
+      },
+      {
+        "year": 2016,
+        "value": 485
+      },
+      {
+        "year": 2017,
+        "value": 492
+      },
+      {
+        "year": 2018,
+        "value": 505
+      },
+      {
+        "year": 2019,
+        "value": 512
+      },
+      {
+        "year": 2020,
+        "value": 518
+      },
+      {
+        "year": 2021,
+        "value": 524
+      },
+      {
+        "year": 2022,
+        "value": 530
+      },
+      {
+        "year": 2023,
+        "value": 538
+      },
+      {
+        "year": 2024,
+        "value": 543
+      }
+    ],
+    "link": "https://rds.icimod.org/"
+  },
+  {
+    "id": "forest_degradation",
+    "name": "HKH Land Cover & Forest Loss",
+    "description": "Satellite-based decadal forest canopy monitoring, documenting deforestation, agricultural expansion, and soil degradation.",
+    "unit": "% canopy cover",
+    "keywords": [
+      "deforestation",
+      "forest",
+      "land cover",
+      "agriculture",
+      "farming",
+      "soil",
+      "biosphere",
+      "pesticide",
+      "agricultural",
+      "nitrous",
+      "nitrogen",
+      "phosphorus",
+      "fertilizer"
+    ],
+    "timeseries": [
+      {
+        "year": 2015,
+        "value": 78.4
+      },
+      {
+        "year": 2016,
+        "value": 78.0
+      },
+      {
+        "year": 2017,
+        "value": 77.5
+      },
+      {
+        "year": 2018,
+        "value": 76.9
+      },
+      {
+        "year": 2019,
+        "value": 76.4
+      },
+      {
+        "year": 2020,
+        "value": 75.8
+      },
+      {
+        "year": 2021,
+        "value": 75.3
+      },
+      {
+        "year": 2022,
+        "value": 74.8
+      },
+      {
+        "year": 2023,
+        "value": 74.2
+      },
+      {
+        "year": 2024,
+        "value": 73.8
+      }
+    ],
+    "link": "https://rds.icimod.org/"
+  },
+  {
+    "id": "aws_observations",
+    "name": "AWS Meteorological Data",
+    "description": "Hourly atmospheric observations from high-altitude Automatic Weather Stations, providing ground truth for climate projections.",
+    "unit": "active AWS units",
+    "keywords": [
+      "atmosphere",
+      "air",
+      "temp",
+      "precipitation",
+      "weather",
+      "wind",
+      "climate"
+    ],
+    "timeseries": [
+      {
+        "year": 2015,
+        "value": 8
+      },
+      {
+        "year": 2016,
+        "value": 10
+      },
+      {
+        "year": 2017,
+        "value": 11
+      },
+      {
+        "year": 2018,
+        "value": 14
+      },
+      {
+        "year": 2019,
+        "value": 15
+      },
+      {
+        "year": 2020,
+        "value": 17
+      },
+      {
+        "year": 2021,
+        "value": 18
+      },
+      {
+        "year": 2022,
+        "value": 20
+      },
+      {
+        "year": 2023,
+        "value": 21
+      },
+      {
+        "year": 2024,
+        "value": 22
+      }
+    ],
+    "link": "https://rds.icimod.org/"
+  },
+  {
+    "id": "black_carbon",
+    "name": "HKH PM2.5 & Black Carbon",
+    "description": "Surface and column concentrations of black carbon aerosols, tracking air pollution transport and soot deposition on glacial surfaces.",
+    "unit": "\u00b5g/m\u00b3",
+    "keywords": [
+      "pollution",
+      "pm25",
+      "aerosol",
+      "carbon",
+      "coal",
+      "health",
+      "emissions",
+      "greenhouse",
+      "co2",
+      "methane",
+      "atmosphere"
+    ],
+    "timeseries": [
+      {
+        "year": 2015,
+        "value": 44.5
+      },
+      {
+        "year": 2016,
+        "value": 43.1
+      },
+      {
+        "year": 2017,
+        "value": 42.8
+      },
+      {
+        "year": 2018,
+        "value": 41.2
+      },
+      {
+        "year": 2019,
+        "value": 40.5
+      },
+      {
+        "year": 2020,
+        "value": 35.8
+      },
+      {
+        "year": 2021,
+        "value": 39.2
+      },
+      {
+        "year": 2022,
+        "value": 38.9
+      },
+      {
+        "year": 2023,
+        "value": 38.7
+      },
+      {
+        "year": 2024,
+        "value": 38.5
+      }
+    ],
+    "link": "https://rds.icimod.org/"
+  },
+  {
+    "id": "flood_warning",
+    "name": "HKH Community Flood Warning System",
+    "description": "Telemetry and telemetry-equipped streamflow measurements feeding the community-based flood early warning system.",
+    "unit": "communities protected",
+    "keywords": [
+      "disaster",
+      "storm",
+      "flood",
+      "cyclone",
+      "extremes",
+      "sociopolitical",
+      "risk",
+      "water",
+      "river",
+      "oceans",
+      "coastal"
+    ],
+    "timeseries": [
+      {
+        "year": 2015,
+        "value": 42
+      },
+      {
+        "year": 2016,
+        "value": 48
+      },
+      {
+        "year": 2017,
+        "value": 55
+      },
+      {
+        "year": 2018,
+        "value": 62
+      },
+      {
+        "year": 2019,
+        "value": 74
+      },
+      {
+        "year": 2020,
+        "value": 85
+      },
+      {
+        "year": 2021,
+        "value": 98
+      },
+      {
+        "year": 2022,
+        "value": 110
+      },
+      {
+        "year": 2023,
+        "value": 125
+      },
+      {
+        "year": 2024,
+        "value": 138
+      }
+    ],
+    "link": "https://rds.icimod.org/"
+  }
+]

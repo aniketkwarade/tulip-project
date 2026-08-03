@@ -1,0 +1,209 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_14_ipbes_biodiversity_and_invasive_species",
+  "generated_at": "2026-07-31T22:57:25.209Z",
+  "source_snapshot": "public/ipbes-biodiversity-invasive-impact-snapshot.json",
+  "source_id": "ipbes_global_biodiversity_and_invasive_species_assessments",
+  "promoted_node_count": 2,
+  "receipts": [
+    {
+      "node_id": "biodiversity_intactness_loss",
+      "value": 7.1,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2019",
+      "components": {
+        "biophysical_burden": 0.556667,
+        "human_economic_burden": 0.6445,
+        "persistence": 0.8636,
+        "extent": 0.75
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "native_species_average_abundance_decline_pct_lower_bound": 20,
+          "species_threatened_with_extinction_million_approx_context_only": 1,
+          "anchors_pct": [
+            0,
+            10,
+            25,
+            50
+          ]
+        },
+        "human_economic_burden": {
+          "annual_global_crop_output_at_risk_2015_usd_billion_range": [
+            235,
+            577
+          ],
+          "scored_lower_bound_2015_usd_billion": 235,
+          "anchors_2015_usd_billion": [
+            0,
+            50,
+            250,
+            750
+          ],
+          "boundary": "A source-reported ecosystem-service risk from pollinator loss; not a realized loss or a valuation of all biodiversity."
+        },
+        "persistence": {
+          "decline_reference_start_year": 1900,
+          "assessment_year": 2019,
+          "persistence_years": 119,
+          "anchors_years": [
+            0,
+            25,
+            75,
+            150
+          ]
+        },
+        "extent": {
+          "land_surface_significantly_altered_pct": 75,
+          "marine_environment_cumulative_impacts_pct_context_only": 66,
+          "normalized_value": 0.75,
+          "boundary": "Terrestrial extent is scored; marine cumulative-impact extent remains separate context and is not added."
+        },
+        "source_snapshot": {
+          "path": "public/ipbes-biodiversity-invasive-impact-snapshot.json",
+          "version": "ipbes_global_biodiversity_invasive_assessments_v1",
+          "captured_at": "2026-07-31T17:31:10.561Z",
+          "source_locators": [
+            "IPBES Global Assessment Summary for Policymakers A3: average abundance of native species in most major terrestrial biomes has fallen by at least 20 percent, mostly since 1900.",
+            "IPBES Global Assessment Summary for Policymakers A4: 75 percent of land surface is significantly altered and cumulative impacts affect 66 percent of the ocean area.",
+            "IPBES Global Assessment Summary for Policymakers A5: around one million animal and plant species are threatened with extinction.",
+            "IPBES Global Assessment Summary for Policymakers A3: 235-577 billion 2015 US dollars in annual global crop output is at risk from pollinator loss."
+          ],
+          "excluded_from_scoring": [
+            "future extinction projections",
+            "future invasive-species spread projections",
+            "raw occurrence counts and source volume",
+            "unpriced nature contributions added to economic totals"
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "fixed_assessment_ranges",
+          "formula": "Normalize the source lower-bound native-abundance decline and lower end of the crop-output-at-risk range through named ranges."
+        },
+        {
+          "type": "source_reported_decline_duration",
+          "formula": "Use the explicit IPBES statement that most native-abundance decline occurred since 1900 through the 2019 assessment."
+        },
+        {
+          "type": "non_additive_extent",
+          "formula": "Use the source-reported altered terrestrial share as extent; do not add the overlapping marine cumulative-impact share."
+        }
+      ],
+      "source_ids": [
+        "ipbes_global_biodiversity_and_invasive_species_assessments"
+      ],
+      "uncertainty": "IPBES synthesizes heterogeneous monitoring, models, red lists, economic studies and expert assessment. Taxonomic and geographic coverage, baseline choice, extinction attribution, undocumented impacts, benefit valuation and inflation affect estimates. Several findings are explicitly established but incomplete.",
+      "freshness": "IPBES Global Assessment 2019; snapshot captured 2026-07-31T17:31:10.561Z.",
+      "selection_reason": {
+        "selected_method_passed": "IPBES quantifies accumulated native-species abundance loss, economic output at risk from lost pollination, century-scale persistence and global terrestrial extent.",
+        "higher_priority_failures": [
+          "The operational GBIF occurrence snapshot is presence-only and effort-sensitive; it cannot produce a source-consistent global abundance or intactness series that passes the current-data gate."
+        ]
+      },
+      "input_hash": "fnv1a32:d650547c"
+    },
+    {
+      "node_id": "invasive_species_encroachment",
+      "value": 8.9,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2023",
+      "components": {
+        "biophysical_burden": 0.89,
+        "human_economic_burden": 0.78418,
+        "persistence": 0.879,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "recorded_global_extinctions_with_invasive_species_as_contributor_pct": 60,
+          "sole_driver_pct_context_only": 16,
+          "anchors_pct": [
+            0,
+            10,
+            30,
+            75
+          ],
+          "boundary": "Contributor share is not re-labeled as sole causation."
+        },
+        "human_economic_burden": {
+          "annual_global_economic_cost_2019_usd_billion_lower_bound": 423,
+          "cost_price_year": 2019,
+          "anchors_2019_usd_billion": [
+            0,
+            50,
+            250,
+            750
+          ],
+          "boundary": "Source lower bound retained in 2019 US dollars without inflation adjustment."
+        },
+        "persistence": {
+          "cost_growth_reference_start_year": 1970,
+          "economic_cost_year": 2019,
+          "persistence_years": 49,
+          "economic_cost_quadrupling_period_years_context_only": 10,
+          "anchors_years": [
+            0,
+            10,
+            30,
+            60
+          ]
+        },
+        "extent": {
+          "source_statement": "People and nature are threatened in all regions of Earth.",
+          "normalized_value": 1,
+          "established_alien_species_recorded_worldwide_lower_bound_context_only": 37000
+        },
+        "source_snapshot": {
+          "path": "public/ipbes-biodiversity-invasive-impact-snapshot.json",
+          "version": "ipbes_global_biodiversity_invasive_assessments_v1",
+          "captured_at": "2026-07-31T17:31:10.561Z",
+          "source_locators": [
+            "IPBES Invasive Alien Species Assessment: more than 37,000 established alien species and more than 3,500 invasive species with documented negative impacts are recorded worldwide.",
+            "IPBES Invasive Alien Species Assessment: people and nature are threatened in all regions of Earth and about 200 new alien species are recorded each year.",
+            "IPBES Invasive Alien Species Assessment: annual global economic costs exceeded 423 billion US dollars in 2019 and had at least quadrupled each decade since 1970.",
+            "IPBES Invasive Alien Species Assessment: invasive alien species contributed to 60 percent of recorded global plant and animal extinctions and were the sole driver in 16 percent."
+          ],
+          "excluded_from_scoring": [
+            "future extinction projections",
+            "future invasive-species spread projections",
+            "raw occurrence counts and source volume",
+            "unpriced nature contributions added to economic totals"
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "fixed_assessment_ranges",
+          "formula": "Normalize source-reported extinction contribution and the lower-bound 2019 economic cost through named ranges."
+        },
+        {
+          "type": "source_cost_record_duration",
+          "formula": "Use the 1970-2019 assessment interval over which IPBES reports cost growth; do not project another decade."
+        },
+        {
+          "type": "all_region_extent",
+          "formula": "Map the explicit source statement that impacts occur in all Earth regions to full global-region extent; do not infer equal severity."
+        }
+      ],
+      "source_ids": [
+        "ipbes_global_biodiversity_and_invasive_species_assessments"
+      ],
+      "uncertainty": "IPBES synthesizes heterogeneous monitoring, models, red lists, economic studies and expert assessment. Taxonomic and geographic coverage, baseline choice, extinction attribution, undocumented impacts, benefit valuation and inflation affect estimates. Several findings are explicitly established but incomplete.",
+      "freshness": "IPBES Invasive Alien Species Assessment 2023, economic-cost year 2019; snapshot captured 2026-07-31T17:31:10.561Z.",
+      "selection_reason": {
+        "selected_method_passed": "IPBES quantifies extinction contribution, a lower-bound annual economic cost, multi-decade persistence and impacts in all regions of Earth.",
+        "higher_priority_failures": [
+          "The operational GBIF occurrence snapshot is presence-only and effort-sensitive; it cannot distinguish introduction, establishment, invasiveness or impact in a current global trend."
+        ]
+      },
+      "input_hash": "fnv1a32:440d5327"
+    }
+  ]
+}

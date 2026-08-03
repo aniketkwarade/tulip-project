@@ -1,0 +1,121 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_61_iea_energy_affordability",
+  "generated_at": "2026-08-01T16:02:33.215Z",
+  "source_snapshots": [
+    "public/iea-energy-affordability-impact-snapshot.json"
+  ],
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "energy_affordability_crisis",
+      "value": 7.9,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2022",
+      "components": {
+        "biophysical_burden": 0.7195,
+        "human_economic_burden": 0.835,
+        "persistence": 0.585,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "additional_households_in_energy_poverty_since_2019": 160000000,
+          "normalization_anchors_households": [
+            0,
+            10000000,
+            100000000,
+            500000000
+          ]
+        },
+        "human_economic_burden": {
+          "emergency_government_support_usd": 550000000000,
+          "normalization_anchors_usd": [
+            0,
+            10000000000,
+            100000000000,
+            1000000000000
+          ]
+        },
+        "persistence": {
+          "accumulation_start_year": 2019,
+          "accumulation_end_year": 2022,
+          "inclusive_years": 4,
+          "normalization_anchors_years": [
+            0,
+            1,
+            5,
+            20
+          ]
+        },
+        "extent": {
+          "geographic_scope": "global",
+          "normalized_value": 1
+        },
+        "unscored_context": {
+          "people_without_reliable_energy_services": 2500000000,
+          "tracking_sdg7": {
+            "people_without_electricity_2022": 685000000,
+            "increase_from_2021": 10000000,
+            "people_without_clean_cooking_2022": 2100000000,
+            "household_air_pollution_premature_deaths_per_year": 3200000
+          },
+          "excluded_projection": {
+            "people_who_may_return_to_traditional_cooking": 100000000,
+            "reason": "Forward-looking estimate is not accumulated observed burden."
+          }
+        },
+        "source_snapshot": {
+          "path": "public/iea-energy-affordability-impact-snapshot.json",
+          "version": "iea_energy_affordability_impact_2022_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z",
+          "iea_report_sha256": "7d37620e542d982a17e14d9d97b3b9a5c693bcd280ef78a3458ca712730d470a",
+          "tracking_sdg7_html_sha256": "399491401b16d8938e96793c689fe9f0ac40e0c133ecab70cc682a85b6704b3a"
+        }
+      },
+      "transformations": [
+        {
+          "type": "exact_energy_poverty_burden",
+          "formula": "Normalize the IEA estimate of 160 million additional households pushed into energy poverty since 2019; do not add overlapping people-without-access totals."
+        },
+        {
+          "type": "emergency_response_burden",
+          "formula": "Normalize the reported USD 550 billion emergency government response without treating spending as household income loss."
+        },
+        {
+          "type": "inclusive_period",
+          "formula": "Represent the reported since-2019 interval through the 2022 assessment as four inclusive calendar years."
+        },
+        {
+          "type": "projection_exclusion",
+          "formula": "Exclude the projected 100 million people who may return to traditional cooking because projected impact is not accumulated burden."
+        },
+        {
+          "type": "global_assessment_extent",
+          "formula": "Use full extent for the source-declared worldwide energy crisis while retaining uneven country severity."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "iea_energy_efficiency_2022_energy_poverty",
+        "tracking_sdg7_2024_energy_access_reversal"
+      ],
+      "uncertainty": "The 160-million-household burden and USD 550 billion response are IEA global estimates for the 2019-2022 crisis period, not a household-level administrative census or a current 2026 observation. Energy-poverty definitions vary across countries. The SDG7 access totals overlap with broader unreliable-service estimates and are retained only as context. No disconnection count is inferred, and the projected 100-million-person return to traditional cooking is excluded from scoring.",
+      "freshness": "IEA crisis estimates are as of 2022; the SDG7 access reversal was published 2024-06-11; sources reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "IEA quantifies additional households pushed into energy poverty, emergency government spending, a bounded multi-year period and global extent under the exact energy-affordability contract.",
+        "higher_priority_failures": [
+          "No harmonized global household-expenditure-to-income series provides at least 20 annual or 60 monthly observations.",
+          "The available assessment does not supply a current global magnitude plus threshold or momentum at the current-data coverage gate."
+        ]
+      },
+      "input_hash": "fnv1a32:2f242ba1"
+    }
+  ]
+}

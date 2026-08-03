@@ -1,0 +1,80 @@
+{
+  "version": "unep_unwater_sdg_6_6_1_freshwater_2024_v1",
+  "captured_at": "2026-07-31T21:47:06.642Z",
+  "source": {
+    "id": "unep_un_water_progress_on_water_related_ecosystems_2024",
+    "name": "Progress on Water-related Ecosystems – 2024 Update",
+    "publisher": "UN-Water and United Nations Environment Programme",
+    "assessment_year": 2024,
+    "url": "https://www.unwater.org/publications/progress-water-related-ecosystems-2024-update",
+    "report_url": "https://www.unwater.org/sites/default/files/2024-08/SDG6_Indicator_Report_661_Progress-on-Water-related-Ecosystems_2024_EN.pdf",
+    "indicator": "SDG 6.6.1"
+  },
+  "ingestion_job_id": "export_unep_unwater_freshwater_impact_snapshot",
+  "metric_contract_ids": [
+    "epa_nrsa_poor_biological_condition",
+    "usgs_daily_discharge_regime",
+    "surface_water_inflow_deficit",
+    "surface_water_storage_instability"
+  ],
+  "contract_bindings": [
+    {
+      "node_id": "freshwater_ecosystem_collapse",
+      "metric_id": "epa_nrsa_poor_biological_condition",
+      "measurement_role": "global_assessment_accumulated_freshwater_ecosystem_degradation_primary"
+    },
+    {
+      "node_id": "river_flow_regime_shift",
+      "metric_id": "usgs_daily_discharge_regime",
+      "measurement_role": "global_assessment_accumulated_reduced_river_flow_basin_inventory_primary"
+    },
+    {
+      "node_id": "surface_water_inflow_deficit",
+      "metric_id": "surface_water_inflow_deficit",
+      "measurement_role": "global_assessment_accumulated_significantly_reduced_inflow_basin_inventory_primary"
+    },
+    {
+      "node_id": "surface_water_storage_instability",
+      "metric_id": "surface_water_storage_instability",
+      "measurement_role": "global_assessment_accumulated_permanent_surface_water_recession_primary"
+    }
+  ],
+  "cadence": "Refresh with each UNEP and UN-Water SDG 6.6.1 progress assessment after reconciling observation epochs and basin definitions.",
+  "provenance": "Reviewed global aggregated SDG 6.6.1 findings for freshwater ecosystem status, basin flow trends and exposed population. The freshwater species-population decline is retained as a report-cited global synthesis rather than a live taxon series.",
+  "uncertainty": "Country reporting, satellite coverage, basin delineation, trend significance, observation epochs, monitoring density and national indicator composition vary. A country is counted degraded when at least one included ecosystem type is degraded; this does not mean every freshwater ecosystem in that country is degraded.",
+  "failure_behavior": "Retain the last reviewed assessment and mark stale; reject changed country or basin denominators without reconciliation; never add potentially overlapping exposed populations, turn one degraded type into total national collapse, infer causes from flow change or fill unreported ecosystems with zero.",
+  "assessment": {
+    "assessment_year": 2024,
+    "countries_reporting": 185,
+    "countries_with_one_or_more_degraded_water_related_ecosystem_types_lower_bound": 90,
+    "countries_with_degradation_pct": 50,
+    "freshwater_species_population_decline_reference_year": 1970,
+    "freshwater_species_population_decline_pct": 83,
+    "freshwater_decline_persistence_years": 54,
+    "total_river_basins_assessed": 12572,
+    "river_basins_with_significantly_decreased_flow": 402,
+    "reduced_flow_basin_count_increase_multiple_vs_15_years_earlier": 5,
+    "reduced_flow_comparison_years": 15,
+    "people_in_reduced_flow_basins_million": 107.5,
+    "total_surface_water_basins_assessed": 13894,
+    "surface_water_basins_with_receding_permanent_water": 364,
+    "people_in_receding_surface_water_basins_million": 93.1,
+    "permanent_water_baseline_start_year": 2000,
+    "permanent_water_baseline_end_year": 2019,
+    "permanent_water_observation_start_year": 2017,
+    "permanent_water_observation_end_year": 2021,
+    "permanent_water_evidence_span_years": 21,
+    "source_locators": [
+      "UN-Water 2024 update: one or more water-related ecosystem types are degraded in 50 percent of countries, more than 90 of 185 reporting countries.",
+      "UN-Water 2024 report: freshwater species populations have declined globally by 83 percent since 1970.",
+      "UN-Water 2024 update: river flow significantly decreased in 402 of 12,572 basins, a fivefold increase from 15 years earlier, with 107.5 million people living in those basins.",
+      "UN-Water 2024 update: permanent surface water receded in 364 of 13,894 basins, where 93.1 million people live."
+    ]
+  },
+  "excluded_from_scoring": [
+    "2030 targets and acceleration needs",
+    "the sum of potentially overlapping reduced-flow and receding-water populations",
+    "regional case studies",
+    "unreported ecosystems treated as stable or degraded"
+  ]
+}

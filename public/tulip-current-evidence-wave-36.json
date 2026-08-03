@@ -1,0 +1,135 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_36_ipcc_aerosol_cooling_loss",
+  "generated_at": "2026-07-31T19:25:29.530Z",
+  "source_snapshot": "public/ipcc-aerosol-cooling-loss-snapshot.json",
+  "source_id": "ipcc_ar6_global_aerosol_erf_time_series",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "aerosol_cooling_loss",
+      "value": 9.1,
+      "band": "Critical",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2019",
+      "components": {
+        "magnitude": 1,
+        "threshold": 1,
+        "momentum": 0.590851,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "maximum_cooling_year": 1991,
+          "maximum_cooling_erf_w_m2": -1.524401905143926,
+          "latest_year": 2019,
+          "latest_total_aerosol_erf_w_m2": -1.058340266771186,
+          "cooling_loss_w_m2": 0.466062,
+          "complete_prior_post_peak_annual_observations": 27,
+          "historical_distribution_anchors_w_m2": [
+            0.221004,
+            0.30353,
+            0.419031,
+            0.459836
+          ],
+          "percentiles": [
+            "median",
+            "75th",
+            "90th",
+            "97.5th"
+          ]
+        },
+        "threshold": {
+          "cooling_loss_fraction_of_maximum": 0.305734,
+          "complete_prior_post_peak_annual_observations": 27,
+          "historical_distribution_anchors_fraction": [
+            0.144977,
+            0.199114,
+            0.274882,
+            0.30165
+          ],
+          "boundary": "No recognized physical danger threshold exists; the required historical-distribution fallback measures the fraction of the assessed maximum cooling mask already lost."
+        },
+        "momentum": {
+          "window_years": 10,
+          "current_window": [
+            2010,
+            2019
+          ],
+          "current_linear_change_w_m2_per_decade": 0.276539,
+          "complete_prior_rolling_windows": 20,
+          "historical_distribution_anchors_w_m2_per_decade": [
+            0.14377,
+            0.240741,
+            0.287401,
+            0.300837
+          ],
+          "direction": "A more positive trend is worse because aerosol ERF is becoming less negative."
+        },
+        "extent": {
+          "geographic_scope": "Global mean effective radiative forcing",
+          "normalized_value": 1
+        },
+        "source_snapshot": {
+          "path": "public/ipcc-aerosol-cooling-loss-snapshot.json",
+          "version": "ipcc_ar6_aerosol_cooling_loss_v1",
+          "captured_at": "2026-07-31T19:25:29.484Z",
+          "source_file_sha256": "420e5b0bb96d6b19eed6bf1f1e890bf6f9e8548f29b6600c628c80a7e66ed63e",
+          "source_complete_annual_observations": 270,
+          "retained_complete_annual_observations": 30,
+          "latest_ipcc_assessed_range_w_m2": [
+            -1.7,
+            -0.4
+          ],
+          "excluded_from_scoring": [
+            "future forcing scenarios",
+            "regional aerosol trends",
+            "SO2 emissions as a proxy for total aerosol forcing",
+            "source-count or evidence-volume multipliers",
+            "missing observations as zero"
+          ]
+        },
+        "coverage_gate": {
+          "direct_components": [
+            "magnitude",
+            "threshold",
+            "momentum",
+            "extent"
+          ],
+          "global_scope": true,
+          "current_observation": true
+        }
+      },
+      "transformations": [
+        {
+          "type": "cooling_loss_from_assessed_maximum",
+          "formula": "Subtract the most negative assessed annual aerosol ERF from the latest value; a positive difference is cooling-mask loss."
+        },
+        {
+          "type": "post_peak_historical_distribution",
+          "formula": "Normalize the latest absolute loss and the loss fraction through median, 75th, 90th and 97.5th percentiles of 27 complete prior post-peak annual values."
+        },
+        {
+          "type": "rolling_decadal_momentum_distribution",
+          "formula": "Calculate ordinary-least-squares change for each complete 10-year 1990-2019 window and normalize the 2010-2019 change through 20 prior windows."
+        },
+        {
+          "type": "global_mean_extent",
+          "formula": "Use the IPCC global-mean effective-radiative-forcing boundary; do not infer regional uniformity."
+        }
+      ],
+      "source_ids": [
+        "ipcc_ar6_global_aerosol_erf_time_series"
+      ],
+      "uncertainty": "Aerosol forcing is assessment-constrained rather than directly observed, with especially large aerosol-cloud uncertainty. IPCC assesses total aerosol ERF in 2019 as -1.1 [-1.7, -0.4] W m-2 and has low confidence in the magnitude of post-2014 change because lines of evidence conflict. The annual best-estimate series must not be interpreted as uncertainty-free observations.",
+      "freshness": "AR6 annual forcing series through 2019; IPCC physical-science assessment release cadence; snapshot captured 2026-07-31T19:25:29.484Z.",
+      "selection_reason": {
+        "selected_method_passed": "The IPCC AR6 Chapter 7 authors’ checksum-bound global annual series directly supplies total anthropogenic aerosol ERF, a 27-year post-maximum loss history and 20 prior decadal momentum windows. Magnitude, threshold fallback, momentum and global extent therefore provide 100% current-component coverage.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:3dcb1bf9"
+    }
+  ]
+}

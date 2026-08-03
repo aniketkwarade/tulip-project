@@ -1,0 +1,109 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_17_wmo_unesco_glacier_water",
+  "generated_at": "2026-07-31T22:57:26.021Z",
+  "source_snapshot": "public/wmo-unesco-glacier-water-impact-snapshot.json",
+  "source_id": "wmo_unesco_global_glacier_water_assessments",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "glacier_meltwater_dependency",
+      "value": 8.3,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "biophysical_burden": 0.835,
+        "human_economic_burden": 0.78,
+        "persistence": 0.67,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "global_glacier_mass_loss_gt": 450,
+          "sea_level_equivalent_mm_context_only": 1.2,
+          "anchors_gt": [
+            0,
+            100,
+            300,
+            600
+          ],
+          "measurement_support": {
+            "field_glaciers_approx": 500,
+            "geodetic_glaciers_lower_bound": 200000,
+            "geodetic_coverage_pct": 96
+          }
+        },
+        "human_economic_burden": {
+          "people_relying_on_glacier_and_snow_melt_billion_lower_bound": 2,
+          "anchors_billion_people": [
+            0,
+            0.5,
+            1.5,
+            3
+          ],
+          "boundary": "Dependence on melt from glaciers and snow; not glacier-only water-supply share and not a count experiencing shortage."
+        },
+        "persistence": {
+          "consecutive_all_region_loss_years": 3,
+          "small_glacier_region_peak_water_status": "most have likely passed peak water",
+          "anchors_years": [
+            0,
+            1,
+            3,
+            10
+          ]
+        },
+        "extent": {
+          "glaciated_regions_with_loss": 19,
+          "glaciated_regions_assessed": 19,
+          "normalized_value": 1
+        },
+        "source_snapshot": {
+          "path": "public/wmo-unesco-glacier-water-impact-snapshot.json",
+          "version": "wmo_sgwr_2024_unesco_wwdr_2025_glacier_water_v1",
+          "captured_at": "2026-07-31T18:12:40.094Z",
+          "source_locators": [
+            "WMO State of Global Water Resources 2024, Snow cover and glaciers chapter: 450 Gt lost, all 19 regions, third consecutive year.",
+            "WMO report methods: approximately 500 field glaciers and more than 200,000 geodetically measured glaciers, covering 96 percent of global glaciers.",
+            "UN International Year of Glaciers Preservation key message 7: more than 2 billion people rely on melt from glaciers and snow for freshwater."
+          ],
+          "excluded_from_scoring": [
+            "coastal population exposed to sea-level rise",
+            "future glacier-loss projections",
+            "regional Colombian loss rate",
+            "mountain-water users not explicitly tied to glacier or snow melt"
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "global_glacier_mass_burden",
+          "formula": "Normalize the source-reported 2024 global glacier mass loss through a fixed gigatonne range; retain sea-level equivalent as context only."
+        },
+        {
+          "type": "bounded_meltwater_dependence",
+          "formula": "Normalize the official lower-bound population relying on glacier-and-snow melt while preserving its snow-inclusive exposure boundary."
+        },
+        {
+          "type": "all_region_persistence_and_extent",
+          "formula": "Use the source-reported third consecutive all-region loss year and divide 19 loss regions by 19 assessed regions."
+        }
+      ],
+      "source_ids": [
+        "wmo_unesco_global_glacier_water_assessments"
+      ],
+      "uncertainty": "The WMO global mass estimate combines about 500 field-monitored glaciers and geodetic measurements covering more than 200,000 glaciers. Preliminary 2024 observations, regional scaling and mass-balance methods affect the estimate. The human figure covers melt from glaciers and snow and must not be interpreted as glacier-only volume share or observed shortage.",
+      "freshness": "WMO State of Global Water Resources 2024 and UN glacier-water assessment 2025; snapshot captured 2026-07-31T18:12:40.094Z.",
+      "selection_reason": {
+        "selected_method_passed": "Official global assessments quantify glacier mass loss, glacier-and-snow meltwater dependence, consecutive persistence and complete glacier-region extent.",
+        "higher_priority_failures": [
+          "No harmonized current global series measures glacier-derived runoff as a share of seasonal human water supply, so the current-data method does not pass the exact node contract."
+        ]
+      },
+      "input_hash": "fnv1a32:18de05bf"
+    }
+  ]
+}

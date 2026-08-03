@@ -1,0 +1,42 @@
+{
+  "version": "fao_global_topsoil_erosion_impact_v1",
+  "captured_at": "2026-07-31T19:09:58.309Z",
+  "source": {
+    "id": "fao_global_topsoil_erosion_burden",
+    "name": "Global Soil Partnership endorses guidelines on sustainable soil management",
+    "publisher": "Food and Agriculture Organization of the United Nations",
+    "url": "https://www.fao.org/newsroom/detail/Global-Soil-Partnership-endorses-guidelines-on-sustainable-soil-management/en"
+  },
+  "ingestion_job_id": "export_fao_global_topsoil_erosion_impact_snapshot",
+  "metric_contract_ids": [
+    "soil_erosion_rate"
+  ],
+  "contract_bindings": [
+    {
+      "node_id": "topsoil_erosion_acceleration",
+      "metric_id": "soil_erosion_rate",
+      "measurement_role": "global_annual_arable_soil_loss_and_agricultural_production_burden"
+    }
+  ],
+  "cadence": "Annual FAO Global Soil Partnership assessment review.",
+  "provenance": "Official FAO Global Soil Partnership summary of global annual arable-soil erosion and associated agricultural-production loss. Source units and annual recurrence are retained.",
+  "uncertainty": "The summary provides point estimates without observation-level uncertainty. Global aggregation combines heterogeneous climates, soils, land uses and methods; erosion, deposition and soil formation vary. Agricultural-production loss depends on valuation and attribution assumptions.",
+  "failure_behavior": "Retain the last reviewed assessment and mark stale. Reject changed units, annualization or arable-land boundaries. Never infer remaining topsoil stock, distribute a global estimate uniformly, fill missing uncertainty with zero, or treat the point estimate as a globally comparable acceleration trend.",
+  "assessment": {
+    "statement_year": 2017,
+    "global_arable_soil_lost_billion_tonnes_per_year": 75,
+    "global_agricultural_production_lost_usd_billion_per_year": 400,
+    "recurrence_days_per_year": 365,
+    "geographic_scope": "Global arable land",
+    "global_extent_normalized": 1,
+    "source_locator": "FAO newsroom statement: globally 75 billion tonnes of soil are lost from arable land each year and an estimated US$400 billion in agricultural production is lost.",
+    "measurement_boundary": "Annual global burden estimate, not current acceleration, net soil balance, remaining soil depth or a country panel."
+  },
+  "excluded_from_scoring": [
+    "Malawi case-study rates",
+    "2050 projected production loss",
+    "remaining topsoil stock",
+    "local rate inference",
+    "unreported uncertainty as zero"
+  ]
+}

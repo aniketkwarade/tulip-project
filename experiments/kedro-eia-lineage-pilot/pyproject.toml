@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tulip-kedro-eia-lineage-pilot"
+version = "0.1.0"
+description = "Isolated Kedro and Kedro-Viz adoption pilot for one TULIP EIA snapshot."
+requires-python = ">=3.10"
+dependencies = [
+  "kedro==1.5.0",
+  "kedro-datasets==9.5.0",
+  "kedro-viz==12.4.0"
+]
+
+[tool.kedro]
+package_name = "tulip_kedro_pilot"
+project_name = "TULIP EIA Lineage Pilot"
+kedro_init_version = "1.5.0"
+source_dir = "src"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.kedro_telemetry]
+project_id = "014d86ef457a4599b6fdf96d761879a9"

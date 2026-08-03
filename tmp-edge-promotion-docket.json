@@ -1,0 +1,26 @@
+{
+  "generated_at": "2026-07-27T02:06:32.257Z",
+  "graph_profile": {
+    "id": "northstar",
+    "plan": "Northstar",
+    "baselineNodeCount": 512,
+    "addedAnchorCount": 122,
+    "totalAnchorCount": 199,
+    "reversible": true,
+    "targetNodeCount": 768,
+    "actualNodeCount": 795,
+    "canonicalProceduralNodeCount": 596
+  },
+  "totals": {
+    "nodes": 381,
+    "edges": 1290,
+    "family_supported": 0,
+    "promotion_queue": 0,
+    "residual_expansion": 0,
+    "anchor_hypotheses": 0
+  },
+  "by_expansion_family": [],
+  "by_topology_rule": [],
+  "by_recommended_action": [],
+  "rows": []
+}

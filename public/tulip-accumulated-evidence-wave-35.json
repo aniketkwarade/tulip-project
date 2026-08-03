@@ -1,0 +1,184 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_35_global_drinking_water_and_distribution_loss",
+  "generated_at": "2026-07-31T22:18:24.809Z",
+  "promoted_node_count": 2,
+  "receipts": [
+    {
+      "node_id": "drinking_water_treatment_stress",
+      "value": 8.7,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "biophysical_burden": 0.8515,
+        "human_economic_burden": 0.8515,
+        "persistence": 0.868,
+        "extent": 0.829016
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "safely_managed_drinking_water_coverage_pct": 74,
+          "service_gap_pct": 26,
+          "anchors_pct": [
+            0,
+            5,
+            15,
+            35
+          ],
+          "boundary": "Service gap combines availability, accessibility and quality; it is not a plant-downtime count."
+        },
+        "human_economic_burden": {
+          "people_lacking_safely_managed_drinking_water_billion": 2.1,
+          "people_drinking_surface_water_million": 106,
+          "anchors_billion_people": [
+            0,
+            0.25,
+            1,
+            3
+          ]
+        },
+        "persistence": {
+          "trend_start_year": 2000,
+          "observation_year": 2024,
+          "years": 24,
+          "anchors_years": [
+            0,
+            5,
+            15,
+            30
+          ]
+        },
+        "extent": {
+          "countries_with_safely_managed_estimates": 160,
+          "denominator": 193,
+          "normalized_value": 0.829016
+        },
+        "source_snapshot": {
+          "path": "public/global-drinking-water-service-impact-snapshot.json",
+          "version": "who_unicef_jmp_2025_drinking_water_snapshot_v1",
+          "captured_at": "2026-07-31T22:18:24.717Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "safely_managed_service_gap",
+          "formula": "Subtract JMP safely managed drinking-water coverage from 100 percent."
+        },
+        {
+          "type": "nonoverlapping_population_total",
+          "formula": "Normalize only the top-level population lacking safely managed service; do not add nested service categories."
+        },
+        {
+          "type": "long_term_jmp_span",
+          "formula": "Use the source-consistent 2000-2024 monitoring interval."
+        },
+        {
+          "type": "reporting_extent",
+          "formula": "Divide countries with safely managed estimates by 193 UN Member States."
+        }
+      ],
+      "source_ids": [
+        "who_unicef_jmp_2025"
+      ],
+      "uncertainty": "Safely managed service requires accessibility, availability and freedom from contamination; national monitoring coverage and modeled estimates vary. The gap does not isolate hydrologic supply, treatment plant capacity or raw-water quality.",
+      "freshness": "Reviewed global assessment as of 2024; snapshot captured 2026-07-31T22:18:24.717Z.",
+      "selection_reason": {
+        "selected_method_passed": "WHO/UNICEF quantifies the global safely managed drinking-water gap, affected population, 24-year persistence and country coverage.",
+        "higher_priority_failures": [
+          "The report does not provide a complete annual global treatment-plant exceedance or downtime series.",
+          "The service gap is therefore accumulated impact rather than a current operational treatment score."
+        ]
+      },
+      "input_hash": "fnv1a32:6ddfb7bf"
+    },
+    {
+      "node_id": "urban_distribution_water_loss",
+      "value": 9,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2018",
+      "components": {
+        "biophysical_burden": 0.8944,
+        "human_economic_burden": 0.89,
+        "persistence": 0.769,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "global_non_revenue_water_billion_m3_per_year": 126,
+          "anchors_billion_m3": [
+            0,
+            25,
+            75,
+            150
+          ],
+          "boundary": "Non-revenue water combines physical and apparent losses."
+        },
+        "human_economic_burden": {
+          "global_economic_loss_usd_billion_per_year": 40,
+          "anchors_usd_billion": [
+            0,
+            5,
+            20,
+            50
+          ]
+        },
+        "persistence": {
+          "assessment_year": 2018,
+          "receipt_year": 2026,
+          "years": 8,
+          "anchors_years": [
+            0,
+            2,
+            5,
+            15
+          ]
+        },
+        "extent": {
+          "geography": "Global public-water utility non-revenue water estimate",
+          "normalized_value": 1
+        },
+        "source_snapshot": {
+          "path": "public/world-bank-global-non-revenue-water-impact-snapshot.json",
+          "version": "world_bank_global_non_revenue_water_snapshot_v1",
+          "captured_at": "2026-07-31T22:18:24.761Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "source_reported_non_revenue_water",
+          "formula": "Normalize the World Bank global annual volume without relabeling it as leakage."
+        },
+        {
+          "type": "source_reported_economic_loss",
+          "formula": "Normalize the separate global annual waste and foregone-revenue estimate."
+        },
+        {
+          "type": "minimum_assessment_persistence",
+          "formula": "Use elapsed years since the reviewed estimate as a conservative persistence floor."
+        },
+        {
+          "type": "global_utility_extent",
+          "formula": "Use full extent for the source-reported global public-utility estimate."
+        }
+      ],
+      "source_ids": [
+        "world_bank_global_non_revenue_water_assessment"
+      ],
+      "uncertainty": "The estimate is older and combines physical losses, meter error, illegal connections and unbilled authorized use. Utility coverage, exchange rates and valuation methods vary.",
+      "freshness": "Reviewed global assessment as of 2018; snapshot captured 2026-07-31T22:18:24.761Z.",
+      "selection_reason": {
+        "selected_method_passed": "World Bank quantifies global non-revenue-water volume, economic loss, persistent burden and global utility scope.",
+        "higher_priority_failures": [
+          "No method-comparable 20-year annual global non-revenue-water series is available.",
+          "The assessment does not separate physical leakage from apparent and commercial losses."
+        ]
+      },
+      "input_hash": "fnv1a32:0c556c4c"
+    }
+  ]
+}

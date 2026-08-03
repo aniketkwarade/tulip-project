@@ -1,0 +1,255 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "status": "shadow_review",
+  "generated_at": "2026-08-03T01:31:47.494Z",
+  "summary": {
+    "pilot_nodes": 12,
+    "current_data": 4,
+    "impact_fallback": 8,
+    "modeled": 0,
+    "production_scores_replaced": false
+  },
+  "comparison": [
+    {
+      "node_id": "temp",
+      "node_name": "Global Temperature",
+      "legacy_score": 7.7,
+      "legacy_band": "Critical",
+      "v2_score": 7.3,
+      "v2_band": "Critical",
+      "score_delta": -0.4,
+      "legacy_rank": 4,
+      "v2_rank": 11,
+      "rank_change": -7,
+      "band_change": "unchanged",
+      "method": "current_data",
+      "sensitivity": {
+        "minimum": 7.2,
+        "maximum": 7.4,
+        "max_delta": 0.1,
+        "rank_unstable": false
+      }
+    },
+    {
+      "node_id": "methane",
+      "node_name": "Methane Emissions",
+      "legacy_score": 7.4,
+      "legacy_band": "Critical",
+      "v2_score": 7.6,
+      "v2_band": "Critical",
+      "score_delta": 0.2,
+      "legacy_rank": 5,
+      "v2_rank": 7,
+      "rank_change": -2,
+      "band_change": "unchanged",
+      "method": "current_data",
+      "sensitivity": {
+        "minimum": 7.6,
+        "maximum": 7.7,
+        "max_delta": 0.1,
+        "rank_unstable": true
+      }
+    },
+    {
+      "node_id": "deforestation",
+      "node_name": "Deforestation",
+      "legacy_score": 8.7,
+      "legacy_band": "Critical",
+      "v2_score": 7.7,
+      "v2_band": "Critical",
+      "score_delta": -1,
+      "legacy_rank": 1,
+      "v2_rank": 6,
+      "rank_change": -5,
+      "band_change": "unchanged",
+      "method": "impact_fallback",
+      "sensitivity": {
+        "minimum": 7.7,
+        "maximum": 7.8,
+        "max_delta": 0.1,
+        "rank_unstable": false
+      }
+    },
+    {
+      "node_id": "industry_farming",
+      "node_name": "Industry Farming",
+      "legacy_score": 8.6,
+      "legacy_band": "Critical",
+      "v2_score": 8.2,
+      "v2_band": "Critical",
+      "score_delta": -0.4,
+      "legacy_rank": 2,
+      "v2_rank": 3,
+      "rank_change": -1,
+      "band_change": "unchanged",
+      "method": "impact_fallback",
+      "sensitivity": {
+        "minimum": 8.2,
+        "maximum": 8.3,
+        "max_delta": 0.1,
+        "rank_unstable": false
+      }
+    },
+    {
+      "node_id": "food",
+      "node_name": "Agricultural Demand",
+      "legacy_score": 7,
+      "legacy_band": "Critical",
+      "v2_score": 9.3,
+      "v2_band": "Critical",
+      "score_delta": 2.3,
+      "legacy_rank": 9,
+      "v2_rank": 1,
+      "rank_change": 8,
+      "band_change": "unchanged",
+      "method": "impact_fallback",
+      "sensitivity": {
+        "minimum": 9.3,
+        "maximum": 9.4,
+        "max_delta": 0.1,
+        "rank_unstable": false
+      }
+    },
+    {
+      "node_id": "urbanization",
+      "node_name": "Urbanization",
+      "legacy_score": 7,
+      "legacy_band": "Critical",
+      "v2_score": 7.6,
+      "v2_band": "Critical",
+      "score_delta": 0.6,
+      "legacy_rank": 10,
+      "v2_rank": 8,
+      "rank_change": 2,
+      "band_change": "unchanged",
+      "method": "impact_fallback",
+      "sensitivity": {
+        "minimum": 7.4,
+        "maximum": 7.7,
+        "max_delta": 0.2,
+        "rank_unstable": true
+      }
+    },
+    {
+      "node_id": "fast_fashion",
+      "node_name": "Fast Fashion",
+      "legacy_score": 7.2,
+      "legacy_band": "Critical",
+      "v2_score": 8.1,
+      "v2_band": "Critical",
+      "score_delta": 0.9,
+      "legacy_rank": 6,
+      "v2_rank": 4,
+      "rank_change": 2,
+      "band_change": "unchanged",
+      "method": "impact_fallback",
+      "sensitivity": {
+        "minimum": 8.1,
+        "maximum": 8.2,
+        "max_delta": 0.1,
+        "rank_unstable": true
+      }
+    },
+    {
+      "node_id": "migration",
+      "node_name": "Migration",
+      "legacy_score": 5,
+      "legacy_band": "Rising",
+      "v2_score": 7.6,
+      "v2_band": "Critical",
+      "score_delta": 2.6,
+      "legacy_rank": 12,
+      "v2_rank": 9,
+      "rank_change": 3,
+      "band_change": "Rising → Critical",
+      "method": "impact_fallback",
+      "sensitivity": {
+        "minimum": 7.5,
+        "maximum": 7.7,
+        "max_delta": 0.1,
+        "rank_unstable": true
+      }
+    },
+    {
+      "node_id": "resource_depletion",
+      "node_name": "Resource Depletion",
+      "legacy_score": 7.1,
+      "legacy_band": "Critical",
+      "v2_score": 8.5,
+      "v2_band": "Critical",
+      "score_delta": 1.4,
+      "legacy_rank": 8,
+      "v2_rank": 2,
+      "rank_change": 6,
+      "band_change": "unchanged",
+      "method": "impact_fallback",
+      "sensitivity": {
+        "minimum": 8.5,
+        "maximum": 8.6,
+        "max_delta": 0.1,
+        "rank_unstable": false
+      }
+    },
+    {
+      "node_id": "carbon_emission",
+      "node_name": "Carbon Emission",
+      "legacy_score": 8.2,
+      "legacy_band": "Critical",
+      "v2_score": 7.6,
+      "v2_band": "Critical",
+      "score_delta": -0.6,
+      "legacy_rank": 3,
+      "v2_rank": 10,
+      "rank_change": -7,
+      "band_change": "unchanged",
+      "method": "current_data",
+      "sensitivity": {
+        "minimum": 7.5,
+        "maximum": 7.7,
+        "max_delta": 0.1,
+        "rank_unstable": true
+      }
+    },
+    {
+      "node_id": "personal_conveyance",
+      "node_name": "Personal Conveyance",
+      "legacy_score": 6.6,
+      "legacy_band": "Rising",
+      "v2_score": 7.9,
+      "v2_band": "Critical",
+      "score_delta": 1.3,
+      "legacy_rank": 11,
+      "v2_rank": 5,
+      "rank_change": 6,
+      "band_change": "Rising → Critical",
+      "method": "impact_fallback",
+      "sensitivity": {
+        "minimum": 7.9,
+        "maximum": 8,
+        "max_delta": 0.1,
+        "rank_unstable": false
+      }
+    },
+    {
+      "node_id": "environ_anomalies",
+      "node_name": "Compound Climate Hazards",
+      "legacy_score": 7.2,
+      "legacy_band": "Critical",
+      "v2_score": 6.2,
+      "v2_band": "Rising",
+      "score_delta": -1,
+      "legacy_rank": 7,
+      "v2_rank": 12,
+      "rank_change": -5,
+      "band_change": "Critical → Rising",
+      "method": "current_data",
+      "sensitivity": {
+        "minimum": 6,
+        "maximum": 6.5,
+        "max_delta": 0.3,
+        "rank_unstable": false
+      }
+    }
+  ]
+}

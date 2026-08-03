@@ -1,0 +1,107 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_18_undrr_global_drought",
+  "generated_at": "2026-07-31T22:57:26.283Z",
+  "source_snapshot": "public/undrr-global-drought-impact-snapshot.json",
+  "source_id": "undrr_gar_2025_global_drought_impacts",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "drought_persistence",
+      "value": 8.6,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "biophysical_burden": 0.7228,
+        "human_economic_burden": 0.89,
+        "persistence": 0.89,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "recorded_drought_count_increase_pct": 29,
+          "comparison_period_years": 20,
+          "anchors_pct": [
+            0,
+            10,
+            25,
+            50
+          ],
+          "boundary": "Recorded global drought occurrence change; not SPI magnitude or attributable climate trend."
+        },
+        "human_economic_burden": {
+          "people_affected_billion_lower_bound": 1.5,
+          "recorded_economic_cost_usd_billion_context": 125,
+          "period": "decade ending 2017",
+          "anchors_billion_people": [
+            0,
+            0.1,
+            0.5,
+            2
+          ]
+        },
+        "persistence": {
+          "occurrence_change_period_years": 20,
+          "anchors_years": [
+            0,
+            5,
+            10,
+            25
+          ]
+        },
+        "extent": {
+          "geographic_scope": "countries in every world region",
+          "normalized_value": 1,
+          "boundary": "Full global-region scope; not the fraction of global land under drought at one time."
+        },
+        "source_snapshot": {
+          "path": "public/undrr-global-drought-impact-snapshot.json",
+          "version": "undrr_gar_2025_global_drought_impact_v1",
+          "captured_at": "2026-07-31T18:15:44.188Z",
+          "source_locators": [
+            "GAR 2025 drought hazard exploration: at least 1.5 billion people affected and US$125 billion cost in the decade to 2017.",
+            "GAR 2025 drought hazard exploration: recorded droughts increased 29 percent over the past 20 years.",
+            "GAR 2025 drought hazard exploration: droughts are widespread and affect countries in every region of the world.",
+            "GAR 2025 drought hazard exploration: present drought-induced losses estimated at approximately US$307 billion annually (context only)."
+          ],
+          "excluded_from_scoring": [
+            "2050 population projection",
+            "modeled US$307 billion annual loss",
+            "livestock-death share",
+            "regional hotspot counts",
+            "local SPI inferred from global impacts"
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "recorded_occurrence_change",
+          "formula": "Normalize the source-reported 29-percent increase in recorded drought occurrence over 20 years through a fixed percentage range."
+        },
+        {
+          "type": "non_additive_human_burden",
+          "formula": "Normalize the source-reported lower-bound population affected in one fixed decade; do not add annual or hotspot populations."
+        },
+        {
+          "type": "global_scope_without_area_inference",
+          "formula": "Use the assessment statement that drought affects countries in every world region; do not infer concurrent land-area coverage."
+        }
+      ],
+      "source_ids": [
+        "undrr_gar_2025_global_drought_impacts"
+      ],
+      "uncertainty": "Drought onset, duration, direct and indirect losses and affected-population reporting are incomplete and definition-sensitive. The US$307 billion annual figure is an estimated current loss burden, not a reconciled observation inventory. The 1.5 billion affected count and US$125 billion recorded cost use the decade ending in 2017.",
+      "freshness": "UNDRR GAR 2025 global drought assessment; snapshot captured 2026-07-31T18:15:44.188Z.",
+      "selection_reason": {
+        "selected_method_passed": "UNDRR quantifies global drought occurrence growth, affected population, a two-decade persistence window and all-region scope.",
+        "higher_priority_failures": [
+          "The operational Copernicus snapshot is a six-location SPI-6 panel and cannot supply a defensible current global drought-duration aggregation."
+        ]
+      },
+      "input_hash": "fnv1a32:2a264559"
+    }
+  ]
+}

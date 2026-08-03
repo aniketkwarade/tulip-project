@@ -1,0 +1,117 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_40_noaa_florida_current_transport",
+  "generated_at": "2026-07-31T22:57:36.234Z",
+  "source_snapshot": "public/noaa-florida-current-snapshot.json",
+  "source_id": "noaa_florida_current_transport_time_series_data_products",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "gulf_stream_slowdown",
+      "value": 3.6,
+      "band": "Elevated",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "magnitude": 0.227934,
+        "threshold": 0.227934,
+        "momentum": 0,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_complete_year": 2025,
+          "latest_annual_mean_transport_sverdrups": 31.316352,
+          "noaa_long_term_reference_transport_sverdrups": 32,
+          "latest_shortfall_from_reference_sverdrups": 0.683648,
+          "complete_prior_annual_observations": 22,
+          "historical_distribution_anchors_shortfall_sverdrups": [
+            0.276301,
+            0.866052,
+            1.04434,
+            1.467791
+          ]
+        },
+        "threshold": {
+          "latest_annual_mean_transport_sverdrups": 31.316352,
+          "threshold_basis": "historical_distribution_fallback",
+          "direction": "lower_is_worse",
+          "historical_distribution_anchors_transport_sverdrups_in_worsening_order": [
+            31.723699,
+            31.133948,
+            30.95566,
+            30.532209
+          ]
+        },
+        "momentum": {
+          "latest_year_over_year_decline_sverdrups": -0.742855,
+          "complete_prior_annual_change_observations": 21,
+          "historical_distribution_anchors_decline_sverdrups": [
+            -0.045535,
+            0.659371,
+            1.196713,
+            1.62713
+          ]
+        },
+        "extent": {
+          "normalized_value": 1,
+          "definition": "Complete coverage of the node contract’s declared Florida Straits 27N section; this does not imply worldwide spatial coverage or represent the full AMOC."
+        },
+        "source_snapshot": {
+          "path": "public/noaa-florida-current-snapshot.json",
+          "version": "2026-07-31T20:09:04.507Z",
+          "captured_at": "2026-07-31T20:09:04.507Z",
+          "product_versions": {
+            "2000-2007": "v2",
+            "2008-present": "v3"
+          },
+          "latest_valid_daily_observations": 318
+        },
+        "coverage_gate": {
+          "direct_components": [
+            "magnitude",
+            "threshold",
+            "momentum",
+            "extent"
+          ],
+          "global_scope": true,
+          "current_observation": true
+        }
+      },
+      "transformations": [
+        {
+          "type": "complete_calendar_year_aggregation",
+          "formula": "Average only NOAA daily v3 transport values with valid quality flags 0, 1 or 3; require at least 300 valid days per year and never impute missing days."
+        },
+        {
+          "type": "reference_shortfall",
+          "formula": "Subtract the annual mean transport from NOAA’s documented 32 Sv long-term mean so a larger shortfall means greater slowdown urgency."
+        },
+        {
+          "type": "reverse_direction_historical_distribution",
+          "formula": "Map annual transport through prior-year median / p25 / p10 / p2.5 anchors expressed in worsening order because lower transport is worse."
+        },
+        {
+          "type": "annual_decline_momentum",
+          "formula": "Subtract the latest annual mean from the preceding annual mean and normalize that decline through prior complete annual changes."
+        },
+        {
+          "type": "bounded_node_domain_extent",
+          "formula": "Assign full extent only for the exact 27N section specified by the reviewed node contract; retain explicit exclusions for downstream path and AMOC."
+        }
+      ],
+      "source_ids": [
+        "noaa_florida_current_transport_time_series_data_products"
+      ],
+      "uncertainty": "Transport increases downstream through entrainment, path and volume transport are different, vertical layers can vary incoherently, cable and satellite records require corrections, and wind-driven gyre flow is not interchangeable with overturning. The section includes wind-driven and overturning contributions, and annual section transport must not be interpreted as a basin-wide AMOC observation.",
+      "freshness": "NOAA daily v3 transport through complete calendar year 2025; snapshot captured 2026-07-31T20:09:04.507Z.",
+      "selection_reason": {
+        "selected_method_passed": "NOAA supplies 23 complete annual observations of the exact 27N section contract, including current magnitude, historical position, annual momentum and full node-domain extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:baf9f02e"
+    }
+  ]
+}

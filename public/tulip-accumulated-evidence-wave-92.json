@@ -1,0 +1,117 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_92_peru_jellyfish_bycatch",
+  "generated_at": "2026-08-01T17:55:50.543Z",
+  "source_snapshots": [
+    "public/peru-jellyfish-bycatch-impact-snapshot.json"
+  ],
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "jellyfish_swarm_surges",
+      "value": 8.6,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2008/09",
+      "components": {
+        "biophysical_burden": 0.868,
+        "human_economic_burden": 0.835,
+        "persistence": 0.820652,
+        "extent": 0.846
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "jellyfish_catch_share_threshold_percent": 30,
+          "share_of_hauls_above_threshold_percent": 5,
+          "normalization_anchors_percent": [
+            0,
+            5,
+            15,
+            40
+          ]
+        },
+        "human_economic_burden": {
+          "bounded_loss_usd_more_than": 200000,
+          "rejected_catch_mass_tonnes": 387,
+          "normalization_anchors_usd": [
+            0,
+            25000,
+            100000,
+            300000
+          ]
+        },
+        "persistence": {
+          "observed_fishing_day_count": 35,
+          "normalization_anchors_days": [
+            0,
+            3,
+            14,
+            60
+          ]
+        },
+        "extent": {
+          "rejected_catch_event_count": 13,
+          "processing_plant_rejection_threshold_percent": 40,
+          "normalization_anchors_events": [
+            0,
+            1,
+            5,
+            20
+          ]
+        },
+        "unscored_context": {
+          "hauls_above_10_percent_jellyfish_catch_share_percent": 10,
+          "seasonal_loss_extrapolation_usd": 1200000,
+          "national_annual_loss_extrapolation_usd": 7100000
+        },
+        "source_snapshot": {
+          "path": "public/peru-jellyfish-bycatch-impact-snapshot.json",
+          "version": "peru_chrysaora_plocamia_bycatch_2008_2009_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z",
+          "source_locators": [
+            "During austral summer 2008–2009 off southern Peru, Chrysaora plocamia exceeded 30 percent of catch weight in 5 percent of observed hauls.",
+            "Processing plants refused catches when jellyfish exceeded 40 percent by weight.",
+            "The study estimated more than US$200,000 of losses during 35 fishing days using observer bycatch rates and interviews with processing-factory employees.",
+            "The report preserves the Peru observer result that jellyfish exceeded 10 percent of catch weight in 10 percent of hauls and exceeded 30 percent in 5 percent of hauls.",
+            "Catches above the 40-percent rejection threshold were refused 13 times at Ilo, with about 387 tonnes discarded.",
+            "The bounded 35-day economic loss was approximately US$200,000; seasonal and national extrapolations are excluded from scoring."
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "observer_based_relative_biomass",
+          "formula": "Normalize the documented greater-than-30-percent jellyfish share of catch weight; retain that this occurred in 5 percent of hauls and do not convert it to water-column density."
+        },
+        {
+          "type": "bounded_realized_loss",
+          "formula": "Normalize the source-reported lower-bound US$200,000 loss over the observed 35 fishing days; exclude seasonal and national extrapolations."
+        },
+        {
+          "type": "event_duration_and_operational_extent",
+          "formula": "Normalize 35 observed fishing days and 13 catch-rejection events; retain the 387-tonne discard as unconverted burden context."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "quinones_peru_jellyfish_bycatch_profit_2013",
+        "pices_jellyfish_working_group_peru_bycatch_2017"
+      ],
+      "uncertainty": "Catch-share observations are a fishery-dependent relative-biomass indicator, not an individuals-per-cubic-metre water-column survey. Loss estimates combine observer records with factory interviews and are specific to fishing and processing practices at the time. The source reports values as thresholds or approximate lower bounds. Seasonal, national and climate-linked extrapolations remain unscored, and a single regional episode does not establish a global upward trend in jellyfish blooms.",
+      "freshness": "Historical southern-Peru 2008/09 fishery episode reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "Fishery-observer catch composition, a documented processing threshold, rejected events and discarded mass directly connect a quantified jellyfish load to realized operational and economic burden.",
+        "higher_priority_failures": [
+          "The observation covers one regional fishery rather than a global aggregation.",
+          "The evidence does not supply 20 complete annual observations, 60 monthly observations or a recognized ecological threshold for a current-data score."
+        ]
+      },
+      "input_hash": "fnv1a32:ad172c62"
+    }
+  ]
+}

@@ -1,0 +1,228 @@
+{
+  "generated_at": "2026-07-17T12:55:00Z",
+  "scope": "Research queue only. Candidate phenomena and relationships are not approved graph truth until relationship-specific source readback is complete.",
+  "missing_phenomenon_candidates": [
+    {
+      "priority": 1,
+      "candidate": "Food Insecurity and Undernutrition",
+      "proposed_sphere": "health",
+      "status": "missing_first_class_anchor",
+      "why_missing": "The graph contains agricultural demand, crop-yield volatility, food-import exposure, price volatility, and migration, but no first-class food-insecurity or undernutrition outcome.",
+      "candidate_drivers": ["crop_yield_volatility", "food_import_exposure", "staple_food_price_volatility", "conflict_risk_escalation", "drought_persistence"],
+      "candidate_effects": ["migration", "public_health_heat_burden", "agricultural_labor_exposure"],
+      "confidence": "high",
+      "official_sources": [
+        "https://www.who.int/en/news-room/fact-sheets/detail/climate-change-and-health",
+        "https://www.who.int/publications/m/item/the-state-of-food-security-and-nutrition-in-the-world-2024"
+      ]
+    },
+    {
+      "priority": 2,
+      "candidate": "Climate-Related Mental Health Burden",
+      "proposed_sphere": "health",
+      "status": "missing_first_class_anchor",
+      "why_missing": "The graph models heat, disasters, displacement, migration, insurance retreat, and recovery inequality without a mental-health or psychosocial outcome node.",
+      "candidate_drivers": ["migration", "disaster_recovery_inequality", "heat_related_mortality_burden", "wildfire_regime_shift", "insurance_retreat"],
+      "candidate_effects": ["health_system_climate_resilience_gap", "conflict_risk_escalation", "agricultural_labor_exposure"],
+      "confidence": "high",
+      "official_sources": [
+        "https://www.who.int/en/news-room/fact-sheets/detail/climate-change-and-health",
+        "https://www.who.int/news/item/03-06-2022-why-mental-health-is-a-priority-for-action-on-climate-change"
+      ]
+    },
+    {
+      "priority": 3,
+      "candidate": "Heat-Related Labor Productivity Loss",
+      "proposed_sphere": "economy",
+      "status": "missing_first_class_anchor",
+      "why_missing": "Occupational heat exposure and wet-bulb heat exist, but their productivity and income pathway is not represented as an outcome.",
+      "candidate_drivers": ["occupational_heat_exposure", "wet_bulb_heat", "compound_day_night_heat_extremes", "cooling_equity_gaps"],
+      "candidate_effects": ["crop_yield_volatility", "food_import_exposure", "adaptation_capital_shortfall", "disaster_recovery_inequality"],
+      "confidence": "high",
+      "official_sources": [
+        "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-12/",
+        "https://www.who.int/news-room/fact-sheets/detail/climate-change-heat-and-health"
+      ]
+    },
+    {
+      "priority": 4,
+      "candidate": "Nutrient Pollution and Biogeochemical Flow Disruption",
+      "proposed_sphere": "freshwater",
+      "status": "missing_system_anchor",
+      "why_missing": "Fertilizer runoff, manure, wastewater, eutrophication, harmful algal blooms, hypoxia, and fishery impacts exist as fragments without a nitrogen-phosphorus system anchor.",
+      "candidate_drivers": ["fertilizer_production", "nitrogen_fertilizer_runoff", "wastewater_bypass_discharge", "industry_farming"],
+      "candidate_effects": ["estuary_eutrophication", "harmful_algal_blooms", "coastal_hypoxia", "freshwater_ecosystem_collapse"],
+      "confidence": "high",
+      "official_sources": [
+        "https://www.unep.org/topics/ocean-seas-and-coasts/ecosystem-degradation-pollution/nutrient-management/nutrients/uneps",
+        "https://www.unep.org/indicator-1411a",
+        "https://www.stockholmresilience.org/research/planetary-boundaries.html"
+      ]
+    },
+    {
+      "priority": 5,
+      "candidate": "Toxic Chemical Pressure and Novel Entities",
+      "proposed_sphere": "biosphere",
+      "status": "missing_system_anchor",
+      "why_missing": "The graph has plastics, pesticides, solvents, e-waste, and industrial waste nodes, but no cross-system chemical-pollution anchor or cumulative toxic-pressure pathway.",
+      "candidate_drivers": ["plastics_petrochemicals", "pesticide_bioaccumulation_chains", "e_waste_lead_soil_bleeding", "industrial_solvent_vapors"],
+      "candidate_effects": ["freshwater_ecosystem_collapse", "marine_food_web_simplification", "air_pollution_health_burden", "biodiversity_intactness_loss"],
+      "confidence": "medium",
+      "official_sources": [
+        "https://www.unep.org/interactives/wwqa/",
+        "https://www.stockholmresilience.org/research/planetary-boundaries.html"
+      ]
+    },
+    {
+      "priority": 6,
+      "candidate": "Seagrass Meadow Decline",
+      "proposed_sphere": "oceans",
+      "status": "missing_ecosystem_anchor",
+      "why_missing": "Mangroves, coral reefs, kelp, and generic blue-carbon habitat loss are present, but seagrass is absent despite distinct drivers and ecosystem functions.",
+      "candidate_drivers": ["marine_heatwaves", "estuary_eutrophication", "coastal_erosion", "ocean_acidification"],
+      "candidate_effects": ["blue_carbon_habitat_loss", "marine_food_web_simplification", "fish_landing_supply_disruption", "coastal_hypoxia"],
+      "confidence": "high",
+      "official_sources": [
+        "https://coast.noaa.gov/states/fast-facts/blue-carbon.html",
+        "https://sanctuaries.noaa.gov/visit/ecosystems/seagrass.html"
+      ]
+    },
+    {
+      "priority": 7,
+      "candidate": "Freshwater Biodiversity Decline",
+      "proposed_sphere": "freshwater",
+      "status": "missing_ecosystem_anchor",
+      "why_missing": "Freshwater ecosystem collapse is present, but the graph lacks a measurable biodiversity-state node linking flow alteration, warming, pollution, fragmentation, and invasive species.",
+      "candidate_drivers": ["river_flow_regime_shift", "riverine_habitat_fragmentation", "water_stress", "invasive_species_encroachment", "wastewater_bypass_discharge"],
+      "candidate_effects": ["freshwater_ecosystem_collapse", "fishery_protein_dependence", "biodiversity_intactness_loss"],
+      "confidence": "medium",
+      "official_sources": [
+        "https://www.unep.org/interactives/wwqa/",
+        "https://ict.ipbes.net/ipbes-ict-guide/data-and-knowledge-management/citations-of-ipbes-assessments/nexus-assessment"
+      ]
+    },
+    {
+      "priority": 8,
+      "candidate": "Urban Heat Island Intensity",
+      "proposed_sphere": "atmosphere",
+      "status": "missing_physical_exposure_anchor",
+      "why_missing": "Urban heat action, cooling inequity, parking expansion, canopy loss, and heat-health burden exist, but the physical urban heat-island exposure is not a reviewed anchor.",
+      "candidate_drivers": ["urban_tree_canopy_loss", "urban_sprawl_housing", "asphalt_pavement_heat_absorbers", "urbanization"],
+      "candidate_effects": ["public_health_heat_burden", "heat_related_mortality_burden", "grid_peak_load_stress", "cooling_equity_gaps"],
+      "confidence": "medium",
+      "official_sources": [
+        "https://www.who.int/news-room/fact-sheets/detail/climate-change-heat-and-health",
+        "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-12/"
+      ]
+    },
+    {
+      "priority": 9,
+      "candidate": "Crop Nutrient-Density Decline",
+      "proposed_sphere": "agriculture",
+      "status": "missing_food_quality_outcome",
+      "why_missing": "The graph models yield volatility but not the distinct decline in crop nutritional quality associated with higher carbon dioxide and climate stress.",
+      "candidate_drivers": ["carbon_emission", "temp", "soil_humus_decline"],
+      "candidate_effects": ["food_import_exposure", "public_health_heat_burden"],
+      "confidence": "medium",
+      "official_sources": [
+        "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-12/"
+      ]
+    },
+    {
+      "priority": 10,
+      "candidate": "Climate-Sensitive Aeroallergen Burden",
+      "proposed_sphere": "health",
+      "status": "missing_health_outcome",
+      "why_missing": "The graph covers ozone, particulate pollution, and heat but not changing pollen seasons and aeroallergen exposure as a distinct climate-sensitive pathway.",
+      "candidate_drivers": ["temp", "carbon_emission", "humidity_amplification"],
+      "candidate_effects": ["air_pollution_health_burden", "health_system_climate_resilience_gap"],
+      "confidence": "medium",
+      "official_sources": [
+        "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-12/",
+        "https://www.who.int/en/news-room/fact-sheets/detail/climate-change-and-health"
+      ]
+    }
+  ],
+  "api_ingestion_candidates": [
+    {
+      "priority": 1,
+      "source": "GBIF Occurrence API",
+      "access": "Open search API; authenticated asynchronous downloads for large extracts",
+      "graph_fit": "Species range contraction, invasive species, extinction risk, pollinator and freshwater biodiversity indicators",
+      "recommended_contract": "Monthly bounded occurrence summaries by taxon, region, time, basis of record, coordinate quality, and sampling volume",
+      "official_url": "https://techdocs.gbif.org/en/openapi/v1/occurrence"
+    },
+    {
+      "priority": 2,
+      "source": "OBIS API and Open Data",
+      "access": "Open JSON API and AWS Open Data",
+      "graph_fit": "Marine species redistribution, marine biodiversity, food-web change, seagrass and reef context",
+      "recommended_contract": "Monthly or quarterly spatial-temporal occurrence aggregates with QC flags, SST, salinity, depth, and Red List category retained",
+      "official_url": "https://obis.org/data/access/"
+    },
+    {
+      "priority": 3,
+      "source": "USGS Modernized Water Data APIs",
+      "access": "Open OGC/STAC APIs; key recommended for higher request rates",
+      "graph_fit": "Streamflow, groundwater, water quality, flood impacts, reservoir and drought context in the United States",
+      "recommended_contract": "Daily station snapshots with stable site IDs, parameter codes, observation timestamps, QA status, basin geography, and missingness tests",
+      "official_url": "https://api.waterdata.usgs.gov/docs/"
+    },
+    {
+      "priority": 4,
+      "source": "FAOSTAT API Developer Portal",
+      "access": "Open API and machine-readable JSON/CSV",
+      "graph_fit": "Food insecurity, fertilizer, livestock, land use, emissions, crop production, food balance, and price context",
+      "recommended_contract": "Upgrade the current download/catalog surface to API snapshots keyed by domain, area, item, element, year, unit, and release date",
+      "official_url": "https://faostat.fao.org/"
+    },
+    {
+      "priority": 5,
+      "source": "World Bank Indicators API v2",
+      "access": "Open; no API key required",
+      "graph_fit": "Exposure, vulnerability, infrastructure, poverty, urbanization, energy, health, and macroeconomic context",
+      "recommended_contract": "Annual country indicators with indicator code, source ID, unit, observation year, country/aggregate flag, and revision metadata",
+      "official_url": "https://datahelpdesk.worldbank.org/knowledgebase/articles/889392"
+    },
+    {
+      "priority": 6,
+      "source": "WHO World Health Data Hub / OData",
+      "access": "Open OData; endpoint transition must be verified before implementation",
+      "graph_fit": "Heat mortality, air-pollution burden, infectious disease, undernutrition, health-system capacity, and mental-health indicators",
+      "recommended_contract": "Build against the replacement World Health Data Hub interface, not the deprecated legacy GHO/Athena endpoints; retain indicator code, dimensions, denominator, estimate bounds, and observation period",
+      "official_url": "https://www.who.int/data/gho/legacy"
+    },
+    {
+      "priority": 7,
+      "source": "Copernicus Marine Toolbox API",
+      "access": "Free account and credentials required",
+      "graph_fit": "Ocean temperature, salinity, currents, biogeochemistry, sea ice, chlorophyll, oxygen, and marine heatwave context",
+      "recommended_contract": "Server-side scheduled subsets with product/dataset IDs, variable names, spatial/temporal bounds, depth, units, QUID/PUM version, and provenance",
+      "official_url": "https://help.marine.copernicus.eu/en/articles/4794731-which-programmatic-access-services-are-available"
+    },
+    {
+      "priority": 8,
+      "source": "Copernicus CDS / CEMS API",
+      "access": "Free account and CDS API key required",
+      "graph_fit": "ERA5 climatic impact drivers, soil moisture, drought, flood forecasting, river discharge, fire weather, and compound-event context",
+      "recommended_contract": "Server-side snapshot jobs with dataset version, request payload, spatial/temporal scope, units, reanalysis/forecast class, and late-revision handling",
+      "official_url": "https://cds.climate.copernicus.eu/how-to-api"
+    },
+    {
+      "priority": 9,
+      "source": "NASA FIRMS API",
+      "access": "Free MAP_KEY required",
+      "graph_fit": "Active fire, wildfire regime, smoke, infrastructure exposure, agriculture, and land-cover disturbance",
+      "recommended_contract": "Daily bounded VIIRS/MODIS snapshots retaining sensor, acquisition time, confidence, FRP, day/night, processing class, and missing-data notices",
+      "official_url": "https://firms.modaps.eosdis.nasa.gov/api/"
+    },
+    {
+      "priority": 10,
+      "source": "UN Statistics SDG API",
+      "access": "Open official SDG API",
+      "graph_fit": "Food insecurity, water and sanitation, health, disaster loss, coastal eutrophication, protected systems, and adaptation indicators",
+      "recommended_contract": "Annual official series snapshots keyed by goal, target, indicator, series code, area, disaggregation, unit, observation status, and custodian agency",
+      "official_url": "https://unstats.un.org/sdgs/UNSDGAPIV5/swagger/index.html"
+    }
+  ]
+}

@@ -1,0 +1,154 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_53_global_fisheries_conflict",
+  "generated_at": "2026-08-01T15:38:09.090Z",
+  "source_snapshots": [
+    "public/global-fisheries-conflict-impact-snapshot.json"
+  ],
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "fishery_border_dispute_zones",
+      "value": 8.9,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2016",
+      "components": {
+        "biophysical_burden": 0.86272,
+        "human_economic_burden": 0.803339,
+        "persistence": 0.923,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "unique_event_count": 542,
+          "actor_event_row_count": 1200,
+          "intensity_scale_min": 1,
+          "intensity_scale_max": 5,
+          "event_counts_by_intensity": {
+            "1": 227,
+            "2": 105,
+            "3": 161,
+            "4": 36,
+            "5": 13
+          },
+          "normalization_anchors_events": [
+            0,
+            50,
+            250,
+            750
+          ]
+        },
+        "human_economic_burden": {
+          "high_intensity_levels": [
+            4,
+            5
+          ],
+          "high_intensity_event_count": 49,
+          "high_intensity_event_share_pct": 9.04059,
+          "death_associated_action_event_count": 13,
+          "normalization_anchors_high_intensity_event_share_pct": [
+            0,
+            1,
+            5,
+            15
+          ],
+          "scoring_boundary": "The intensity category records observed action severity. It does not supply a casualty count or economic-loss estimate."
+        },
+        "persistence": {
+          "first_year": 1974,
+          "last_year": 2016,
+          "inclusive_observation_years": 43,
+          "years_with_recorded_events": 42,
+          "source_reported_frequency_increased_over_period": true,
+          "normalization_anchors_years": [
+            0,
+            5,
+            20,
+            50
+          ],
+          "scoring_boundary": "Duration describes persistence of recorded international fisheries conflict as a global phenomenon, not the duration of each individual event."
+        },
+        "extent": {
+          "unique_actor_code_count": 94,
+          "represented_continents": [
+            "Africa",
+            "Asia",
+            "Europe",
+            "North America",
+            "Oceania",
+            "South America"
+          ],
+          "represented_continent_count": 6,
+          "intercontinental_event_count": 195,
+          "intercontinental_event_share_pct": 35.97786,
+          "normalization_anchors_inhabited_continents": [
+            0,
+            1,
+            3,
+            6
+          ],
+          "scoring_boundary": "Actor codes include countries, territories and the European Union; the score therefore uses inhabited-continent coverage rather than relabeling all actor codes as sovereign countries."
+        },
+        "source_snapshot": {
+          "path": "public/global-fisheries-conflict-impact-snapshot.json",
+          "version": "international_fishery_conflict_database_1974_2016_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z",
+          "reproduction": {
+            "workbook_sheet": "IFCD",
+            "workbook_range": "A1:R1201",
+            "event_key": "Event ID",
+            "event_year_field": "Event date (year)",
+            "intensity_field": "Intensity lvl of action type (Spijkers et al. 2018)",
+            "actor_code_field": "Country code",
+            "continent_field": "Continent",
+            "deduplication": "Group the 1,200 actor-event rows by Event ID; require exactly one event year and one intensity level per event before aggregating."
+          },
+          "quality_checks": {
+            "event_id_blank_row_count": 0,
+            "inconsistent_event_year_count": 0,
+            "inconsistent_event_intensity_count": 0
+          }
+        }
+      },
+      "transformations": [
+        {
+          "type": "deduplicated_accumulated_event_burden_normalization",
+          "formula": "Deduplicate actor-event rows by Event ID, verify one year and one intensity per event, and normalize the 542 resulting conflict events. Do not add points for workbook rows or source volume."
+        },
+        {
+          "type": "high_intensity_human_security_burden_normalization",
+          "formula": "Normalize the share of unique events at action-intensity levels 4 or 5. Retain the 13 death-associated actions as corroborating severity evidence without converting events into casualty counts."
+        },
+        {
+          "type": "observed_phenomenon_duration_normalization",
+          "formula": "Normalize the inclusive 1974–2016 observation interval as persistence of the recorded global phenomenon. Do not convert the year without a recorded event into zero."
+        },
+        {
+          "type": "inhabited_continent_extent_normalization",
+          "formula": "Normalize the six represented inhabited continents; retain the actor-code and intercontinental-event totals as coverage evidence without treating every code as a sovereign country."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1–10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "jcu_international_fishery_conflict_database_2020",
+        "spijkers_international_fisheries_conflict_predictors_2021"
+      ],
+      "uncertainty": "The database is constructed from LexisNexis media reports and selected search terms, so reporting intensity, language, geographic visibility and source availability affect event capture. It is not a complete census of every fisheries dispute. The categorical action scale does not quantify casualties or economic losses, actor codes include territories and the European Union, and the record ends in 2016. No missing year is converted to zero for scoring.",
+      "freshness": "The global event record covers 1974–2016; the deposited 2020 workbook and 2021 peer-reviewed analysis were directly reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "The deposited global event workbook directly quantifies 542 deduplicated fisheries-conflict events, categorical human-security severity, 43 years of persistence and coverage across all six inhabited continents.",
+        "higher_priority_failures": [
+          "The event record ends in 2016 and cannot represent current global urgency in 2026.",
+          "No reviewed post-2016 continuation supplies a current endpoint, recent momentum and comparable global coverage."
+        ]
+      },
+      "input_hash": "fnv1a32:b99d1225"
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_48_edgar_global_nmvoc",
+  "generated_at": "2026-08-01T15:38:11.364Z",
+  "source_snapshot": "public/edgar-global-air-pollutant-snapshot.json",
+  "source_id": "edgar_global_air_pollutant_emissions_v81",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "volatile_organic_compounds",
+      "value": 9,
+      "band": "Critical",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2022",
+      "components": {
+        "magnitude": 1,
+        "threshold": 1,
+        "momentum": 0.536657,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_year": 2022,
+          "latest_global_nmvoc_emissions_gg": 138115.182136,
+          "historical_distribution_anchors_gg": [
+            107437.615098,
+            121944.273872,
+            130675.374122,
+            134232.417729
+          ],
+          "complete_prior_annual_observations": 52,
+          "direction": "higher_is_worse"
+        },
+        "threshold": {
+          "basis": "historical_distribution_fallback_no_recognized_global_emissions_threshold",
+          "anchors_gg": [
+            107437.615098,
+            121944.273872,
+            130675.374122,
+            134232.417729
+          ],
+          "minimum_observation_gate": 20
+        },
+        "momentum": {
+          "prior_year": 2021,
+          "prior_global_nmvoc_emissions_gg": 135891.837778,
+          "latest_annual_change_gg": 2223.344358,
+          "historical_change_anchors_gg": [
+            1061.386691,
+            1861.5716,
+            2456.774844,
+            3368.478736
+          ]
+        },
+        "extent": {
+          "normalized_value": 1,
+          "geography": "World",
+          "aggregation": "Sum finite annual EDGAR country-total rows once; do not add sector sheets or regional groups."
+        },
+        "coverage_gate": {
+          "direct_components": [
+            "magnitude",
+            "threshold",
+            "momentum",
+            "extent"
+          ],
+          "global_scope": true,
+          "current_observation": true
+        },
+        "source_snapshot": {
+          "path": "public/edgar-global-air-pollutant-snapshot.json",
+          "version": "edgar_v81_global_air_pollutant_2022_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z",
+          "source_release": "EDGAR v8.1 August 2024",
+          "archive_sha256": "e25ceb744534609bc88f98d26bb1fd611cb3763e1e803a8287421a2b3ebffe5a",
+          "records": 53
+        }
+      },
+      "transformations": [
+        {
+          "type": "source_native_global_aggregation",
+          "formula": "Sum each finite EDGAR country-total row exactly once for each year; exclude regional and sector-sheet duplication."
+        },
+        {
+          "type": "historical_distribution_normalization",
+          "formula": "Map the prior annual median, p75, p90 and p97.5 to 0, 0.33, 0.67 and 1 because no recognized global NMVOC emissions threshold exists."
+        },
+        {
+          "type": "annual_change_momentum",
+          "formula": "Subtract the prior complete year and normalize the latest annual change against the preceding complete annual-change distribution."
+        },
+        {
+          "type": "global_extent",
+          "formula": "Assign full extent because the aggregation covers the EDGAR global country inventory."
+        }
+      ],
+      "source_ids": [
+        "edgar_global_air_pollutant_emissions_v81"
+      ],
+      "uncertainty": "EDGAR emissions combine source activity data, technology penetration, abatement assumptions and emission factors. The series measures anthropogenic NMVOC emissions, not ambient VOC concentration or toxicity-weighted exposure. Large-scale biomass burning and LULUCF are excluded.",
+      "freshness": "EDGAR v8.1 August 2024; latest complete observation year 2022; snapshot captured 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "EDGAR supplies 53 complete global annual NMVOC observations, including latest magnitude, historical-distribution threshold position, annual momentum and global extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:90f47f9d"
+    }
+  ]
+}

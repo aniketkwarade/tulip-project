@@ -1,0 +1,125 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_34_groundwater_well_thresholds",
+  "generated_at": "2026-07-31T19:03:44.528Z",
+  "source_snapshot": "public/global-groundwater-level-trends-snapshot.json",
+  "source_id": "global_in_situ_groundwater_level_trends_study",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "groundwater_depletion_wells",
+      "value": 7.2,
+      "band": "Critical",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "magnitude": 0.721634,
+        "threshold": 0.646516,
+        "momentum": 0.67,
+        "extent": 0.75
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "wells_deepening_over_0_1_m_per_year": 49068,
+          "denominator": 169717,
+          "derived_share_pct": 28.911659,
+          "direction": "positive source slope means groundwater level becomes deeper",
+          "anchors_pct": [
+            0,
+            10,
+            25,
+            50
+          ]
+        },
+        "threshold": {
+          "wells_deepening_over_0_5_m_per_year": 12874,
+          "denominator": 169717,
+          "derived_share_pct": 7.585569,
+          "study_rapid_decline_threshold_m_per_year": 0.5,
+          "anchors_pct": [
+            0,
+            2,
+            8,
+            20
+          ]
+        },
+        "momentum": {
+          "measurement_boundary": "Aquifer-system comparison companion; it is not represented as a change in the well share.",
+          "accelerated_decline_share_pct": 30,
+          "comparison_aquifer_systems": 542,
+          "null_expectation_pct": 12.5,
+          "anchors_pct": [
+            12.5,
+            20,
+            30,
+            50
+          ],
+          "counterevidence": {
+            "decelerated_pct": 20,
+            "reversed_pct": 16,
+            "continued_rise_pct": 13
+          }
+        },
+        "extent": {
+          "global_groundwater_withdrawal_coverage_pct_approx": 75,
+          "countries_count_lower_bound": 40,
+          "normalized_value": 0.75,
+          "boundary": "Country withdrawal coverage, not a randomized share of global wells, aquifers, land or population."
+        },
+        "source_data": {
+          "path": "public/global-groundwater-level-trends-snapshot.json",
+          "version": "global_in_situ_groundwater_level_trends_v2",
+          "archive_url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41586-023-06879-8/MediaObjects/41586_2023_6879_MOESM3_ESM.zip",
+          "archive_sha256": "3954538c7a13c72725b900fc09f5a84951bb2a51a8d65757b27fa66d138af315",
+          "csv_file": "SourceDataFig1.csv",
+          "csv_sha256": "0601fa864de4c2513d3d7df0f55d1c007508446a7d13e40b9a23633d98700dd2",
+          "derivation": "Counts are deterministic filters of the checksum-bound Figure 1 CSV: slope > 0.1, > 0.5, < -0.1 and < -0.5 m/year. Positive slopes mean deepening.",
+          "counterevidence": {
+            "wells_shallowing_over_0_1_m_per_year": 20081,
+            "wells_shallowing_over_0_1_m_per_year_pct": 11.83205,
+            "wells_shallowing_over_0_5_m_per_year": 3204,
+            "wells_shallowing_over_0_5_m_per_year_pct": 1.887849
+          },
+          "excluded_from_scoring": [
+            "global storage-volume inference",
+            "unmonitored-aquifer or unmonitored-well zeros",
+            "causal attribution to pumping alone",
+            "remaining groundwater fraction",
+            "regional well-depth extrapolation",
+            "claim that the monitoring-well sample is randomized or spatially representative"
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "checksum_bound_well_filter",
+          "formula": "Count each Figure 1 source-data row with Theil-Sen slope > 0.1 m/year and divide by all 169,717 complete well slopes."
+        },
+        {
+          "type": "checksum_bound_rapid_well_filter",
+          "formula": "Count each Figure 1 source-data row with Theil-Sen slope > 0.5 m/year and divide by the unchanged source-data denominator."
+        },
+        {
+          "type": "bounded_aquifer_acceleration_companion",
+          "formula": "Use the published 542-system long-history acceleration result only for momentum; do not relabel it as a changing well share."
+        },
+        {
+          "type": "withdrawal_weighted_scope",
+          "formula": "Use the study-reported approximate withdrawal coverage and preserve its non-random monitoring boundary."
+        }
+      ],
+      "source_ids": [
+        "global_in_situ_groundwater_level_trends_study"
+      ],
+      "uncertainty": "Well density, monitoring duration, aquifer delineation, datum, screen depth, withdrawals, recharge and national coverage vary. Countries in scope represent about 75% of global groundwater withdrawals but not 75% of aquifers or land. Level decline is not storage volume, depletion attribution or remaining-resource fraction.",
+      "freshness": "Primary global in-situ study published 2024; well-level Figure 1 source data checksum 0601fa864de4c2513d3d7df0f55d1c007508446a7d13e40b9a23633d98700dd2; snapshot captured 2026-07-31T19:03:44.479Z.",
+      "selection_reason": {
+        "selected_method_passed": "The checksum-bound source data directly supply well-level current magnitude and rapid-threshold exceedance across 169,717 monitoring wells. The same global study supplies multi-decadal aquifer acceleration and country withdrawal coverage, so the current-data gate passes without substituting aquifer prevalence for well prevalence.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:9f7c09ca"
+    }
+  ]
+}

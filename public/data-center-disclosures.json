@@ -1,0 +1,83 @@
+{
+  "captured_at": "2026-06-27T15:25:03.235Z",
+  "excluded_from_operational_scoring": true,
+  "operators": [
+    {
+      "operator": "Google",
+      "operator_key": "google",
+      "cadence": "annual_or_periodic",
+      "excluded_from_operational_scoring": true,
+      "source_urls": [
+        "https://datacenters.google/",
+        "https://datacenters.google/water/"
+      ],
+      "fields": {
+        "sustainability_report": "linked_from_operator_portal",
+        "dedicated_water_page": "present",
+        "portfolio_data_center_directory": "present",
+        "data_center_specific_water_context": "present",
+        "ai_specific_operational_disclosure": "limited",
+        "third_party_assurance": "unknown",
+        "comparability": "limited"
+      },
+      "notes": "Use for operator context and stewardship claims only, not for core operational scoring."
+    },
+    {
+      "operator": "Microsoft",
+      "operator_key": "microsoft",
+      "cadence": "annual",
+      "excluded_from_operational_scoring": true,
+      "source_urls": [
+        "https://www.microsoft.com/en-us/corporate-responsibility/sustainability/report"
+      ],
+      "fields": {
+        "sustainability_report": "present",
+        "dedicated_water_page": "unknown",
+        "portfolio_data_center_directory": "not_in_primary_source",
+        "data_center_specific_water_context": "mixed",
+        "ai_specific_operational_disclosure": "limited",
+        "third_party_assurance": "unknown",
+        "comparability": "limited"
+      },
+      "notes": "Normalize as corporate disclosure metadata; keep separate from grid and water-risk layers."
+    },
+    {
+      "operator": "Meta",
+      "operator_key": "meta",
+      "cadence": "annual_or_periodic",
+      "excluded_from_operational_scoring": true,
+      "source_urls": [
+        "https://sustainability.atmeta.com/"
+      ],
+      "fields": {
+        "sustainability_report": "present",
+        "dedicated_water_page": "unknown",
+        "portfolio_data_center_directory": "mixed",
+        "data_center_specific_water_context": "mixed",
+        "ai_specific_operational_disclosure": "limited",
+        "third_party_assurance": "unknown",
+        "comparability": "limited"
+      },
+      "notes": "Useful for contextual disclosure and operator claims; not used for core operational scoring."
+    },
+    {
+      "operator": "Amazon",
+      "operator_key": "amazon",
+      "cadence": "annual_or_periodic",
+      "excluded_from_operational_scoring": true,
+      "source_urls": [
+        "https://sustainability.aboutamazon.com/"
+      ],
+      "fields": {
+        "sustainability_report": "present",
+        "dedicated_water_page": "unknown",
+        "portfolio_data_center_directory": "not_in_primary_source",
+        "data_center_specific_water_context": "mixed",
+        "ai_specific_operational_disclosure": "limited",
+        "third_party_assurance": "unknown",
+        "comparability": "limited"
+      },
+      "notes": "Normalize as disclosure metadata only; avoid treating CSR narrative as operational telemetry."
+    }
+  ]
+}

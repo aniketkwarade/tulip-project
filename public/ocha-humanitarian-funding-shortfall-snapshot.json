@@ -1,0 +1,2551 @@
+{
+  "version": "ocha_hpc_fts_plan_funding_2025_v1",
+  "captured_at": "2026-07-19T03:18:41.910Z",
+  "source": {
+    "id": "ocha_humanitarian_programme_cycle_public_api",
+    "name": "OCHA Humanitarian Programme Cycle Public API",
+    "url": "https://api.hpc.tools/v1/public",
+    "docs_url": "https://api.hpc.tools/docs/v1/",
+    "access": "open_api_with_public_rate_limit"
+  },
+  "ingestion_job_id": "fetch_ocha_humanitarian_funding_shortfall",
+  "metric_contract_ids": [
+    "humanitarian_response_funding_shortfall_operation_bound_metric",
+    "humanitarian_plan_reported_resource_gap",
+    "humanitarian_plan_positive_requirement_revision"
+  ],
+  "plan_year": 2025,
+  "cadence": "Monthly during the plan year with completed-year revision checks.",
+  "provenance": "Official OCHA released plan requirements joined by plan ID to Financial Tracking Service incoming funding grouped by destination plan.",
+  "uncertainty": "FTS captures reported plan-linked financial flows, not all resources available or aid delivered. Reporting delays, revisions, exchange rates, unlinked or shared flows, requirement revisions, and funding outside FTS affect the gap.",
+  "failure_behavior": "Retain the last validated snapshot and mark stale; reject missing reports, duplicate IDs, invalid values, or a materially empty join; never count pledges as funding or infer operational sufficiency.",
+  "measurement_boundary": "Reported current requirement minus reported incoming plan-linked FTS funding supplies the financial shortfall and resource-gap measures. A positive current-versus-original requirement revision supplies only a bounded financial surge-demand proxy. None of these measures establishes people reached, timely disbursement, equitable allocation, physical access, service delivery, or sufficient response capacity.",
+  "record_count": 46,
+  "plans_with_reported_funding": 46,
+  "plans_without_grouped_reported_funding": 0,
+  "total_revised_requirement_usd": 45473727648,
+  "total_fts_reported_funding_usd": 15565238862,
+  "total_reported_funding_shortfall_usd": 29910166126,
+  "plans_with_positive_requirement_revision": 5,
+  "total_positive_requirement_revision_usd": 2101403422,
+  "records": [
+    {
+      "record_id": "ocha_fts_plan_1217_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1217,
+      "plan_code": "RSYR25",
+      "plan_name": "Syrian Arab Republic Regional Refugee and Resilience Plan (3RP) 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-01-01",
+      "plan_end_date": "2025-12-31",
+      "plan_type": [
+        "Regional response plan"
+      ],
+      "locations": [
+        {
+          "location_id": 66,
+          "name": "Egypt",
+          "iso3": "EGY",
+          "admin_level": 0
+        },
+        {
+          "location_id": 229,
+          "name": "Türkiye",
+          "iso3": "TUR",
+          "admin_level": 0
+        },
+        {
+          "location_id": 124,
+          "name": "Lebanon",
+          "iso3": "LBN",
+          "admin_level": 0
+        },
+        {
+          "location_id": 114,
+          "name": "Jordan",
+          "iso3": "JOR",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 4695986530,
+      "revised_requirement_usd": 4695986530,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 535622319,
+      "fts_reported_pledges_usd": 0,
+      "reported_funding_shortfall_usd": 4160364211,
+      "reported_funding_coverage_pct": 11.41,
+      "reported_shortfall_pct": 88.59,
+      "reported_financial_resource_gap_usd": 4160364211,
+      "reported_financial_resource_gap_pct": 88.59,
+      "positive_requirement_revision_usd": 0,
+      "positive_requirement_revision_pct": 0,
+      "positive_requirement_revision_reported": false,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1217",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1220_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1220,
+      "plan_code": "HSDN25",
+      "plan_name": "Sudan Humanitarian Needs and Response Plan 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-01-01",
+      "plan_end_date": "2025-12-31",
+      "plan_type": [
+        "Humanitarian needs and response plan"
+      ],
+      "locations": [
+        {
+          "location_id": 212,
+          "name": "Sudan",
+          "iso3": "SDN",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 4162518656,
+      "revised_requirement_usd": 4162518656,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 1595330246,
+      "fts_reported_pledges_usd": 1508550,
+      "reported_funding_shortfall_usd": 2567188410,
+      "reported_funding_coverage_pct": 38.33,
+      "reported_shortfall_pct": 61.67,
+      "reported_financial_resource_gap_usd": 2567188410,
+      "reported_financial_resource_gap_pct": 61.67,
+      "positive_requirement_revision_usd": 0,
+      "positive_requirement_revision_pct": 0,
+      "positive_requirement_revision_reported": false,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1220",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1261_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1261,
+      "plan_code": "HCOD25",
+      "plan_name": "République Démocratique du Congo Besoins Humanitaires et Plan de Réponse 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-01-01",
+      "plan_end_date": "2025-12-31",
+      "plan_type": [
+        "Humanitarian needs and response plan"
+      ],
+      "locations": [
+        {
+          "location_id": 52,
+          "name": "Democratic Republic of the Congo",
+          "iso3": "COD",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 2538016151,
+      "revised_requirement_usd": 2538016151,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 647590665,
+      "fts_reported_pledges_usd": 0,
+      "reported_funding_shortfall_usd": 1890425486,
+      "reported_funding_coverage_pct": 25.52,
+      "reported_shortfall_pct": 74.48,
+      "reported_financial_resource_gap_usd": 1890425486,
+      "reported_financial_resource_gap_pct": 74.48,
+      "positive_requirement_revision_usd": 0,
+      "positive_requirement_revision_pct": 0,
+      "positive_requirement_revision_reported": false,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1261",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1276_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1276,
+      "plan_code": "FSYR25",
+      "plan_name": "Syrian Arab Republic Humanitarian Response Priorities – January-December 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-01-01",
+      "plan_end_date": "2025-12-31",
+      "plan_type": [
+        "Flash appeal"
+      ],
+      "locations": [
+        {
+          "location_id": 218,
+          "name": "Syrian Arab Republic",
+          "iso3": "SYR",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 1236523386,
+      "revised_requirement_usd": 3186585280,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 1330066781,
+      "fts_reported_pledges_usd": 5388861,
+      "reported_funding_shortfall_usd": 1856518499,
+      "reported_funding_coverage_pct": 41.74,
+      "reported_shortfall_pct": 58.26,
+      "reported_financial_resource_gap_usd": 1856518499,
+      "reported_financial_resource_gap_pct": 58.26,
+      "positive_requirement_revision_usd": 1950061894,
+      "positive_requirement_revision_pct": 157.71,
+      "positive_requirement_revision_reported": true,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1276",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1262_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1262,
+      "plan_code": "HYEM25",
+      "plan_name": "Yemen Humanitarian Needs and Response Plan 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-01-01",
+      "plan_end_date": "2025-12-31",
+      "plan_type": [
+        "Humanitarian needs and response plan"
+      ],
+      "locations": [
+        {
+          "location_id": 248,
+          "name": "Yemen",
+          "iso3": "YEM",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 2478772922,
+      "revised_requirement_usd": 2478772922,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 714631778,
+      "fts_reported_pledges_usd": 835777,
+      "reported_funding_shortfall_usd": 1764141144,
+      "reported_funding_coverage_pct": 28.83,
+      "reported_shortfall_pct": 71.17,
+      "reported_financial_resource_gap_usd": 1764141144,
+      "reported_financial_resource_gap_pct": 71.17,
+      "positive_requirement_revision_usd": 0,
+      "positive_requirement_revision_pct": 0,
+      "positive_requirement_revision_reported": false,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1262",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1263_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1263,
+      "plan_code": "HAFG25",
+      "plan_name": "Afghanistan Humanitarian Needs and Response Plan 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-01-01",
+      "plan_end_date": "2025-12-31",
+      "plan_type": [
+        "Humanitarian needs and response plan"
+      ],
+      "locations": [
+        {
+          "location_id": 1,
+          "name": "Afghanistan",
+          "iso3": "AFG",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 2416811546,
+      "revised_requirement_usd": 2416811546,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 949335073,
+      "fts_reported_pledges_usd": 0,
+      "reported_funding_shortfall_usd": 1467476473,
+      "reported_funding_coverage_pct": 39.28,
+      "reported_shortfall_pct": 60.72,
+      "reported_financial_resource_gap_usd": 1467476473,
+      "reported_financial_resource_gap_pct": 60.72,
+      "positive_requirement_revision_usd": 0,
+      "positive_requirement_revision_pct": 0,
+      "positive_requirement_revision_reported": false,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1263",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1273_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1273,
+      "plan_code": "FPSE25",
+      "plan_name": "Escalation of Hostilities in the OPT Flash Appeal 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-01-01",
+      "plan_end_date": "2025-12-31",
+      "plan_type": [
+        "Flash appeal"
+      ],
+      "locations": [
+        {
+          "location_id": 171,
+          "name": "Occupied Palestinian Territory",
+          "iso3": "PSE",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 4073058682,
+      "revised_requirement_usd": 4073058682,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 2733714009,
+      "fts_reported_pledges_usd": 1092293,
+      "reported_funding_shortfall_usd": 1339344673,
+      "reported_funding_coverage_pct": 67.12,
+      "reported_shortfall_pct": 32.88,
+      "reported_financial_resource_gap_usd": 1339344673,
+      "reported_financial_resource_gap_pct": 32.88,
+      "positive_requirement_revision_usd": 0,
+      "positive_requirement_revision_pct": 0,
+      "positive_requirement_revision_reported": false,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1273",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1219_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1219,
+      "plan_code": "RREG25",
+      "plan_name": "Venezuela Regional Refugee and Migrant Response Plan (RMRP) 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-01-01",
+      "plan_end_date": "2025-12-31",
+      "plan_type": [
+        "Regional response plan"
+      ],
+      "locations": [
+        {
+          "location_id": 32,
+          "name": "Brazil",
+          "iso3": "BRA",
+          "admin_level": 0
+        },
+        {
+          "location_id": 13,
+          "name": "Aruba (Netherlands)",
+          "iso3": "ABW",
+          "admin_level": 0
+        },
+        {
+          "location_id": 144,
+          "name": "Mexico",
+          "iso3": "MEX",
+          "admin_level": 0
+        },
+        {
+          "location_id": 54,
+          "name": "Costa Rica",
+          "iso3": "CRI",
+          "admin_level": 0
+        },
+        {
+          "location_id": 95,
+          "name": "Guyana",
+          "iso3": "GUY",
+          "admin_level": 0
+        },
+        {
+          "location_id": 65,
+          "name": "Ecuador",
+          "iso3": "ECU",
+          "admin_level": 0
+        },
+        {
+          "location_id": 239,
+          "name": "Uruguay",
+          "iso3": "URY",
+          "admin_level": 0
+        },
+        {
+          "location_id": 45,
+          "name": "Chile",
+          "iso3": "CHL",
+          "admin_level": 0
+        },
+        {
+          "location_id": 58,
+          "name": "Curaçao (Netherlands)",
+          "iso3": "CUW",
+          "admin_level": 0
+        },
+        {
+          "location_id": 27,
+          "name": "Bolivia, Plurinational State of",
+          "iso3": "BOL",
+          "admin_level": 0
+        },
+        {
+          "location_id": 172,
+          "name": "Panama",
+          "iso3": "PAN",
+          "admin_level": 0
+        },
+        {
+          "location_id": 174,
+          "name": "Paraguay",
+          "iso3": "PRY",
+          "admin_level": 0
+        },
+        {
+          "location_id": 227,
+          "name": "Trinidad and Tobago",
+          "iso3": "TTO",
+          "admin_level": 0
+        },
+        {
+          "location_id": 11,
+          "name": "Argentina",
+          "iso3": "ARG",
+          "admin_level": 0
+        },
+        {
+          "location_id": 49,
+          "name": "Colombia",
+          "iso3": "COL",
+          "admin_level": 0
+        },
+        {
+          "location_id": 64,
+          "name": "Dominican Republic",
+          "iso3": "DOM",
+          "admin_level": 0
+        },
+        {
+          "location_id": 175,
+          "name": "Peru",
+          "iso3": "PER",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 1395806906,
+      "revised_requirement_usd": 1395806906,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 136687985,
+      "fts_reported_pledges_usd": 107286,
+      "reported_funding_shortfall_usd": 1259118921,
+      "reported_funding_coverage_pct": 9.79,
+      "reported_shortfall_pct": 90.21,
+      "reported_financial_resource_gap_usd": 1259118921,
+      "reported_financial_resource_gap_pct": 90.21,
+      "positive_requirement_revision_usd": 0,
+      "positive_requirement_revision_pct": 0,
+      "positive_requirement_revision_reported": false,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1219",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1221_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1221,
+      "plan_code": "HSOM25",
+      "plan_name": "Somalia Humanitarian Needs and Response Plan 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-01-01",
+      "plan_end_date": "2025-12-31",
+      "plan_type": [
+        "Humanitarian needs and response plan"
+      ],
+      "locations": [
+        {
+          "location_id": 206,
+          "name": "Somalia",
+          "iso3": "SOM",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 1421988955,
+      "revised_requirement_usd": 1421988955,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 380995058,
+      "fts_reported_pledges_usd": 100000,
+      "reported_funding_shortfall_usd": 1040993897,
+      "reported_funding_coverage_pct": 26.79,
+      "reported_shortfall_pct": 73.21,
+      "reported_financial_resource_gap_usd": 1040993897,
+      "reported_financial_resource_gap_pct": 73.21,
+      "positive_requirement_revision_usd": 0,
+      "positive_requirement_revision_pct": 0,
+      "positive_requirement_revision_reported": false,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1221",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1260_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1260,
+      "plan_code": "HTCD25",
+      "plan_name": "Tchad Besoins Humanitaires et Plan de Réponse 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-01-01",
+      "plan_end_date": "2025-12-31",
+      "plan_type": [
+        "Humanitarian needs and response plan"
+      ],
+      "locations": [
+        {
+          "location_id": 44,
+          "name": "Chad",
+          "iso3": "TCD",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 1454258243,
+      "revised_requirement_usd": 1454258243,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 435609229,
+      "fts_reported_pledges_usd": 0,
+      "reported_funding_shortfall_usd": 1018649014,
+      "reported_funding_coverage_pct": 29.95,
+      "reported_shortfall_pct": 70.05,
+      "reported_financial_resource_gap_usd": 1018649014,
+      "reported_financial_resource_gap_pct": 70.05,
+      "positive_requirement_revision_usd": 0,
+      "positive_requirement_revision_pct": 0,
+      "positive_requirement_revision_reported": false,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1260",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1223_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1223,
+      "plan_code": "HSSD25",
+      "plan_name": "South Sudan Humanitarian Needs and Response Plan 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-01-01",
+      "plan_end_date": "2025-12-31",
+      "plan_type": [
+        "Humanitarian needs and response plan"
+      ],
+      "locations": [
+        {
+          "location_id": 211,
+          "name": "South Sudan",
+          "iso3": "SSD",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 1669778643,
+      "revised_requirement_usd": 1694778653,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 752693346,
+      "fts_reported_pledges_usd": 4675589,
+      "reported_funding_shortfall_usd": 942085307,
+      "reported_funding_coverage_pct": 44.41,
+      "reported_shortfall_pct": 55.59,
+      "reported_financial_resource_gap_usd": 942085307,
+      "reported_financial_resource_gap_pct": 55.59,
+      "positive_requirement_revision_usd": 25000010,
+      "positive_requirement_revision_pct": 1.5,
+      "positive_requirement_revision_reported": true,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1223",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1275_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1275,
+      "plan_code": "HMMR25b",
+      "plan_name": "Myanmar Original Humanitarian Needs and Response Plan 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-01-01",
+      "plan_end_date": "2025-12-31",
+      "plan_type": [
+        "Humanitarian needs and response plan"
+      ],
+      "locations": [
+        {
+          "location_id": 153,
+          "name": "Myanmar",
+          "iso3": "MMR",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 1137811569,
+      "revised_requirement_usd": 1137811569,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 196863168,
+      "fts_reported_pledges_usd": 453000,
+      "reported_funding_shortfall_usd": 940948401,
+      "reported_funding_coverage_pct": 17.3,
+      "reported_shortfall_pct": 82.7,
+      "reported_financial_resource_gap_usd": 940948401,
+      "reported_financial_resource_gap_pct": 82.7,
+      "positive_requirement_revision_usd": 0,
+      "positive_requirement_revision_pct": 0,
+      "positive_requirement_revision_reported": false,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1275",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1271_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1271,
+      "plan_code": "HUKR25",
+      "plan_name": "Ukraine Humanitarian Needs and Response Plan 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-01-01",
+      "plan_end_date": "2025-12-31",
+      "plan_type": [
+        "Humanitarian needs and response plan"
+      ],
+      "locations": [
+        {
+          "location_id": 234,
+          "name": "Ukraine",
+          "iso3": "UKR",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 2633534010,
+      "revised_requirement_usd": 2633534010,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 1699295973,
+      "fts_reported_pledges_usd": 1112761,
+      "reported_funding_shortfall_usd": 934238037,
+      "reported_funding_coverage_pct": 64.53,
+      "reported_shortfall_pct": 35.47,
+      "reported_financial_resource_gap_usd": 934238037,
+      "reported_financial_resource_gap_pct": 35.47,
+      "positive_requirement_revision_usd": 0,
+      "positive_requirement_revision_pct": 0,
+      "positive_requirement_revision_reported": false,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1271",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1257_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1257,
+      "plan_code": "HHTI25",
+      "plan_name": "Haiti Besoins Humanitaires et Plan de Réponse 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-01-01",
+      "plan_end_date": "2025-12-31",
+      "plan_type": [
+        "Humanitarian needs and response plan"
+      ],
+      "locations": [
+        {
+          "location_id": 96,
+          "name": "Haiti",
+          "iso3": "HTI",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 908159989,
+      "revised_requirement_usd": 908159989,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 226328264,
+      "fts_reported_pledges_usd": 2000000,
+      "reported_funding_shortfall_usd": 681831725,
+      "reported_funding_coverage_pct": 24.92,
+      "reported_shortfall_pct": 75.08,
+      "reported_financial_resource_gap_usd": 681831725,
+      "reported_financial_resource_gap_pct": 75.08,
+      "positive_requirement_revision_usd": 0,
+      "positive_requirement_revision_pct": 0,
+      "positive_requirement_revision_reported": false,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1257",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1274_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1274,
+      "plan_code": "HNGA25",
+      "plan_name": "Nigeria Humanitarian Needs and Response Plan 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-01-01",
+      "plan_end_date": "2025-12-31",
+      "plan_type": [
+        "Humanitarian needs and response plan"
+      ],
+      "locations": [
+        {
+          "location_id": 163,
+          "name": "Nigeria",
+          "iso3": "NGA",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 910246471,
+      "revised_requirement_usd": 910246471,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 272564168,
+      "fts_reported_pledges_usd": 653595,
+      "reported_funding_shortfall_usd": 637682303,
+      "reported_funding_coverage_pct": 29.94,
+      "reported_shortfall_pct": 70.06,
+      "reported_financial_resource_gap_usd": 637682303,
+      "reported_financial_resource_gap_pct": 70.06,
+      "positive_requirement_revision_usd": 0,
+      "positive_requirement_revision_pct": 0,
+      "positive_requirement_revision_reported": false,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1274",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1218_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1218,
+      "plan_code": "RUKRN25",
+      "plan_name": "Ukraine Situation Regional Refugee Response Plan 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-01-01",
+      "plan_end_date": "2025-12-31",
+      "plan_type": [
+        "Regional response plan"
+      ],
+      "locations": [
+        {
+          "location_id": 203,
+          "name": "Slovakia",
+          "iso3": "SVK",
+          "admin_level": 0
+        },
+        {
+          "location_id": 178,
+          "name": "Poland",
+          "iso3": "POL",
+          "admin_level": 0
+        },
+        {
+          "location_id": 60,
+          "name": "Czech Republic",
+          "iso3": "CZE",
+          "admin_level": 0
+        },
+        {
+          "location_id": 70,
+          "name": "Estonia",
+          "iso3": "EST",
+          "admin_level": 0
+        },
+        {
+          "location_id": 35,
+          "name": "Bulgaria",
+          "iso3": "BGR",
+          "admin_level": 0
+        },
+        {
+          "location_id": 101,
+          "name": "Hungary",
+          "iso3": "HUN",
+          "admin_level": 0
+        },
+        {
+          "location_id": 146,
+          "name": "Moldova, Republic of",
+          "iso3": "MDA",
+          "admin_level": 0
+        },
+        {
+          "location_id": 183,
+          "name": "Romania",
+          "iso3": "ROU",
+          "admin_level": 0
+        },
+        {
+          "location_id": 129,
+          "name": "Lithuania",
+          "iso3": "LTU",
+          "admin_level": 0
+        },
+        {
+          "location_id": 123,
+          "name": "Latvia",
+          "iso3": "LVA",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 690313063,
+      "revised_requirement_usd": 690313063,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 98288567,
+      "fts_reported_pledges_usd": 0,
+      "reported_funding_shortfall_usd": 592024496,
+      "reported_funding_coverage_pct": 14.24,
+      "reported_shortfall_pct": 85.76,
+      "reported_financial_resource_gap_usd": 592024496,
+      "reported_financial_resource_gap_pct": 85.76,
+      "positive_requirement_revision_usd": 0,
+      "positive_requirement_revision_pct": 0,
+      "positive_requirement_revision_reported": false,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1218",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1222_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1222,
+      "plan_code": "HMLI25",
+      "plan_name": "Mali Besoins Humanitaires et Plan de Réponse 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-01-01",
+      "plan_end_date": "2025-12-31",
+      "plan_type": [
+        "Humanitarian needs and response plan"
+      ],
+      "locations": [
+        {
+          "location_id": 137,
+          "name": "Mali",
+          "iso3": "MLI",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 771314315,
+      "revised_requirement_usd": 771314315,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 179892132,
+      "fts_reported_pledges_usd": 0,
+      "reported_funding_shortfall_usd": 591422183,
+      "reported_funding_coverage_pct": 23.32,
+      "reported_shortfall_pct": 76.68,
+      "reported_financial_resource_gap_usd": 591422183,
+      "reported_financial_resource_gap_pct": 76.68,
+      "positive_requirement_revision_usd": 0,
+      "positive_requirement_revision_pct": 0,
+      "positive_requirement_revision_reported": false,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1222",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1215_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1215,
+      "plan_code": "RETHKENUGA25",
+      "plan_name": "South Sudan Regional Refugee Response Plan 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-01-01",
+      "plan_end_date": "2025-12-31",
+      "plan_type": [
+        "Regional response plan"
+      ],
+      "locations": [
+        {
+          "location_id": 116,
+          "name": "Kenya",
+          "iso3": "KEN",
+          "admin_level": 0
+        },
+        {
+          "location_id": 71,
+          "name": "Ethiopia",
+          "iso3": "ETH",
+          "admin_level": 0
+        },
+        {
+          "location_id": 233,
+          "name": "Uganda",
+          "iso3": "UGA",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 713594695,
+      "revised_requirement_usd": 713594695,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 125129073,
+      "fts_reported_pledges_usd": 0,
+      "reported_funding_shortfall_usd": 588465622,
+      "reported_funding_coverage_pct": 17.54,
+      "reported_shortfall_pct": 82.46,
+      "reported_financial_resource_gap_usd": 588465622,
+      "reported_financial_resource_gap_pct": 82.46,
+      "positive_requirement_revision_usd": 0,
+      "positive_requirement_revision_pct": 0,
+      "positive_requirement_revision_reported": false,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1215",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1213_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1213,
+      "plan_code": "RDRC_RRP25",
+      "plan_name": "Democratic Republic of the Congo Regional Refugee Response Plan 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-01-01",
+      "plan_end_date": "2025-12-31",
+      "plan_type": [
+        "Regional response plan"
+      ],
+      "locations": [
+        {
+          "location_id": 221,
+          "name": "Tanzania, United Republic of",
+          "iso3": "TZA",
+          "admin_level": 0
+        },
+        {
+          "location_id": 233,
+          "name": "Uganda",
+          "iso3": "UGA",
+          "admin_level": 0
+        },
+        {
+          "location_id": 185,
+          "name": "Rwanda",
+          "iso3": "RWA",
+          "admin_level": 0
+        },
+        {
+          "location_id": 249,
+          "name": "Zambia",
+          "iso3": "ZMB",
+          "admin_level": 0
+        },
+        {
+          "location_id": 7,
+          "name": "Angola",
+          "iso3": "AGO",
+          "admin_level": 0
+        },
+        {
+          "location_id": 37,
+          "name": "Burundi",
+          "iso3": "BDI",
+          "admin_level": 0
+        },
+        {
+          "location_id": 51,
+          "name": "Congo",
+          "iso3": "COG",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 0,
+      "revised_requirement_usd": 781325185,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 220293416,
+      "fts_reported_pledges_usd": 0,
+      "reported_funding_shortfall_usd": 561031769,
+      "reported_funding_coverage_pct": 28.19,
+      "reported_shortfall_pct": 71.81,
+      "reported_financial_resource_gap_usd": 561031769,
+      "reported_financial_resource_gap_pct": 71.81,
+      "positive_requirement_revision_usd": 0,
+      "positive_requirement_revision_pct": 0,
+      "positive_requirement_revision_reported": false,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1213",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1259_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1259,
+      "plan_code": "HBFA25",
+      "plan_name": "Burkina Faso Besoins Humanitaires et Plan de Réponse 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-01-01",
+      "plan_end_date": "2025-12-31",
+      "plan_type": [
+        "Humanitarian needs and response plan"
+      ],
+      "locations": [
+        {
+          "location_id": 36,
+          "name": "Burkina Faso",
+          "iso3": "BFA",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 792565236,
+      "revised_requirement_usd": 792565236,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 254752679,
+      "fts_reported_pledges_usd": 841525,
+      "reported_funding_shortfall_usd": 537812557,
+      "reported_funding_coverage_pct": 32.14,
+      "reported_shortfall_pct": 67.86,
+      "reported_financial_resource_gap_usd": 537812557,
+      "reported_financial_resource_gap_pct": 67.86,
+      "positive_requirement_revision_usd": 0,
+      "positive_requirement_revision_pct": 0,
+      "positive_requirement_revision_reported": false,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1259",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1211_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1211,
+      "plan_code": "RIRNPAK25",
+      "plan_name": "Afghanistan Situation Regional Refugee Response Plan 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-01-01",
+      "plan_end_date": "2025-12-31",
+      "plan_type": [
+        "Regional response plan"
+      ],
+      "locations": [
+        {
+          "location_id": 105,
+          "name": "Iran, Islamic Republic of",
+          "iso3": "IRN",
+          "admin_level": 0
+        },
+        {
+          "location_id": 169,
+          "name": "Pakistan",
+          "iso3": "PAK",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 622010264,
+      "revised_requirement_usd": 622010264,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 112771192,
+      "fts_reported_pledges_usd": 0,
+      "reported_funding_shortfall_usd": 509239072,
+      "reported_funding_coverage_pct": 18.13,
+      "reported_shortfall_pct": 81.87,
+      "reported_financial_resource_gap_usd": 509239072,
+      "reported_financial_resource_gap_pct": 81.87,
+      "positive_requirement_revision_usd": 0,
+      "positive_requirement_revision_pct": 0,
+      "positive_requirement_revision_reported": false,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1211",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1277_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1277,
+      "plan_code": "HVEN25",
+      "plan_name": "Venezuela Plan de Respuesta Humanitaria 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-01-01",
+      "plan_end_date": "2025-12-31",
+      "plan_type": [
+        "Humanitarian response plan"
+      ],
+      "locations": [
+        {
+          "location_id": 242,
+          "name": "Venezuela, Bolivarian Republic of",
+          "iso3": "VEN",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 0,
+      "revised_requirement_usd": 606497714,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 109517396,
+      "fts_reported_pledges_usd": 0,
+      "reported_funding_shortfall_usd": 496980318,
+      "reported_funding_coverage_pct": 18.06,
+      "reported_shortfall_pct": 81.94,
+      "reported_financial_resource_gap_usd": 496980318,
+      "reported_financial_resource_gap_pct": 81.94,
+      "positive_requirement_revision_usd": 0,
+      "positive_requirement_revision_pct": 0,
+      "positive_requirement_revision_reported": false,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1277",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1216_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1216,
+      "plan_code": "RRSDN25",
+      "plan_name": "Sudan Emergency: Regional Refugee Response Plan 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-01-01",
+      "plan_end_date": "2025-12-31",
+      "plan_type": [
+        "Regional response plan"
+      ],
+      "locations": [
+        {
+          "location_id": 127,
+          "name": "Libya",
+          "iso3": "LBY",
+          "admin_level": 0
+        },
+        {
+          "location_id": 233,
+          "name": "Uganda",
+          "iso3": "UGA",
+          "admin_level": 0
+        },
+        {
+          "location_id": 66,
+          "name": "Egypt",
+          "iso3": "EGY",
+          "admin_level": 0
+        },
+        {
+          "location_id": 71,
+          "name": "Ethiopia",
+          "iso3": "ETH",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 611760722,
+      "revised_requirement_usd": 611760722,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 117879331,
+      "fts_reported_pledges_usd": 0,
+      "reported_funding_shortfall_usd": 493881391,
+      "reported_funding_coverage_pct": 19.27,
+      "reported_shortfall_pct": 80.73,
+      "reported_financial_resource_gap_usd": 493881391,
+      "reported_financial_resource_gap_pct": 80.73,
+      "positive_requirement_revision_usd": 0,
+      "positive_requirement_revision_pct": 0,
+      "positive_requirement_revision_reported": false,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1216",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1264_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1264,
+      "plan_code": "HNER25",
+      "plan_name": "Niger Besoins Humanitaires et Plan de Réponse 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-01-01",
+      "plan_end_date": "2025-12-31",
+      "plan_type": [
+        "Humanitarian needs and response plan"
+      ],
+      "locations": [
+        {
+          "location_id": 162,
+          "name": "Niger",
+          "iso3": "NER",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 603027582,
+      "revised_requirement_usd": 603027582,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 141349647,
+      "fts_reported_pledges_usd": 0,
+      "reported_funding_shortfall_usd": 461677935,
+      "reported_funding_coverage_pct": 23.44,
+      "reported_shortfall_pct": 76.56,
+      "reported_financial_resource_gap_usd": 461677935,
+      "reported_financial_resource_gap_pct": 76.56,
+      "positive_requirement_revision_usd": 0,
+      "positive_requirement_revision_pct": 0,
+      "positive_requirement_revision_reported": false,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1264",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1212_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1212,
+      "plan_code": "RBGD25",
+      "plan_name": "Rohingya Humanitarian Crisis Joint Response Plan 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-01-01",
+      "plan_end_date": "2025-12-31",
+      "plan_type": [
+        "Regional response plan"
+      ],
+      "locations": [
+        {
+          "location_id": 19,
+          "name": "Bangladesh",
+          "iso3": "BGD",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 934521017,
+      "revised_requirement_usd": 934521017,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 485981781,
+      "fts_reported_pledges_usd": 0,
+      "reported_funding_shortfall_usd": 448539236,
+      "reported_funding_coverage_pct": 52,
+      "reported_shortfall_pct": 48,
+      "reported_financial_resource_gap_usd": 448539236,
+      "reported_financial_resource_gap_pct": 48,
+      "positive_requirement_revision_usd": 0,
+      "positive_requirement_revision_pct": 0,
+      "positive_requirement_revision_reported": false,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1212",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1266_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1266,
+      "plan_code": "HCMR25",
+      "plan_name": "Cameroon Humanitarian Response Plan 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-01-01",
+      "plan_end_date": "2025-12-31",
+      "plan_type": [
+        "Humanitarian response plan"
+      ],
+      "locations": [
+        {
+          "location_id": 39,
+          "name": "Cameroon",
+          "iso3": "CMR",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 359298328,
+      "revised_requirement_usd": 359298328,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 83310101,
+      "fts_reported_pledges_usd": 0,
+      "reported_funding_shortfall_usd": 275988227,
+      "reported_funding_coverage_pct": 23.19,
+      "reported_shortfall_pct": 76.81,
+      "reported_financial_resource_gap_usd": 275988227,
+      "reported_financial_resource_gap_pct": 76.81,
+      "positive_requirement_revision_usd": 0,
+      "positive_requirement_revision_pct": 0,
+      "positive_requirement_revision_reported": false,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1266",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1208_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1208,
+      "plan_code": "HCOL25",
+      "plan_name": "Colombia Necesidades Humanitarias y Plan de Respuesta 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-01-01",
+      "plan_end_date": "2025-12-31",
+      "plan_type": [
+        "Humanitarian needs and response plan"
+      ],
+      "locations": [
+        {
+          "location_id": 49,
+          "name": "Colombia",
+          "iso3": "COL",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 342308343,
+      "revised_requirement_usd": 342308343,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 89610377,
+      "fts_reported_pledges_usd": 0,
+      "reported_funding_shortfall_usd": 252697966,
+      "reported_funding_coverage_pct": 26.18,
+      "reported_shortfall_pct": 73.82,
+      "reported_financial_resource_gap_usd": 252697966,
+      "reported_financial_resource_gap_pct": 73.82,
+      "positive_requirement_revision_usd": 0,
+      "positive_requirement_revision_pct": 0,
+      "positive_requirement_revision_reported": false,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1208",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1267_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1267,
+      "plan_code": "HMOZ25",
+      "plan_name": "Mozambique Humanitarian Needs and Response Plan 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-01-01",
+      "plan_end_date": "2025-12-31",
+      "plan_type": [
+        "Humanitarian needs and response plan"
+      ],
+      "locations": [
+        {
+          "location_id": 152,
+          "name": "Mozambique",
+          "iso3": "MOZ",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 352096942,
+      "revised_requirement_usd": 352096942,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 101954721,
+      "fts_reported_pledges_usd": 0,
+      "reported_funding_shortfall_usd": 250142221,
+      "reported_funding_coverage_pct": 28.96,
+      "reported_shortfall_pct": 71.04,
+      "reported_financial_resource_gap_usd": 250142221,
+      "reported_financial_resource_gap_pct": 71.04,
+      "positive_requirement_revision_usd": 0,
+      "positive_requirement_revision_pct": 0,
+      "positive_requirement_revision_reported": false,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1267",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1256_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1256,
+      "plan_code": "HCAF25",
+      "plan_name": "République Centrafricaine Besoins Humanitaires et Plan de Réponse 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-01-01",
+      "plan_end_date": "2025-12-31",
+      "plan_type": [
+        "Humanitarian needs and response plan"
+      ],
+      "locations": [
+        {
+          "location_id": 43,
+          "name": "Central African Republic",
+          "iso3": "CAF",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 326056578,
+      "revised_requirement_usd": 326056578,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 124043451,
+      "fts_reported_pledges_usd": 0,
+      "reported_funding_shortfall_usd": 202013127,
+      "reported_funding_coverage_pct": 38.04,
+      "reported_shortfall_pct": 61.96,
+      "reported_financial_resource_gap_usd": 202013127,
+      "reported_financial_resource_gap_pct": 61.96,
+      "positive_requirement_revision_usd": 0,
+      "positive_requirement_revision_pct": 0,
+      "positive_requirement_revision_reported": false,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1256",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1364_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1364,
+      "plan_code": "FMOZ25a",
+      "plan_name": "Mozambique Tropical Cyclones Flash Appeal 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-01-01",
+      "plan_end_date": "2025-06-30",
+      "plan_type": [
+        "Flash appeal"
+      ],
+      "locations": [
+        {
+          "location_id": 152,
+          "name": "Mozambique",
+          "iso3": "MOZ",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 88297242,
+      "revised_requirement_usd": 197543124,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 16347850,
+      "fts_reported_pledges_usd": 0,
+      "reported_funding_shortfall_usd": 181195274,
+      "reported_funding_coverage_pct": 8.28,
+      "reported_shortfall_pct": 91.72,
+      "reported_financial_resource_gap_usd": 181195274,
+      "reported_financial_resource_gap_pct": 91.72,
+      "positive_requirement_revision_usd": 109245882,
+      "positive_requirement_revision_pct": 123.73,
+      "positive_requirement_revision_reported": true,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1364",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1285_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1285,
+      "plan_code": "FMOZ25",
+      "plan_name": "Mozambique Drought Flash Appeal 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-01-01",
+      "plan_end_date": "2025-07-31",
+      "plan_type": [
+        "Flash appeal"
+      ],
+      "locations": [
+        {
+          "location_id": 152,
+          "name": "Mozambique",
+          "iso3": "MOZ",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 133082917,
+      "revised_requirement_usd": 133082917,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 1731562,
+      "fts_reported_pledges_usd": 0,
+      "reported_funding_shortfall_usd": 131351355,
+      "reported_funding_coverage_pct": 1.3,
+      "reported_shortfall_pct": 98.7,
+      "reported_financial_resource_gap_usd": 131351355,
+      "reported_financial_resource_gap_pct": 98.7,
+      "positive_requirement_revision_usd": 0,
+      "positive_requirement_revision_pct": 0,
+      "positive_requirement_revision_reported": false,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1285",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1270_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1270,
+      "plan_code": "HHND25",
+      "plan_name": "Honduras Necesidades Humanitarias y Plan de Respuesta 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-01-01",
+      "plan_end_date": "2025-12-31",
+      "plan_type": [
+        "Humanitarian needs and response plan"
+      ],
+      "locations": [
+        {
+          "location_id": 99,
+          "name": "Honduras",
+          "iso3": "HND",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 138491372,
+      "revised_requirement_usd": 138491372,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 9510410,
+      "fts_reported_pledges_usd": 0,
+      "reported_funding_shortfall_usd": 128980962,
+      "reported_funding_coverage_pct": 6.87,
+      "reported_shortfall_pct": 93.13,
+      "reported_financial_resource_gap_usd": 128980962,
+      "reported_financial_resource_gap_pct": 93.13,
+      "positive_requirement_revision_usd": 0,
+      "positive_requirement_revision_pct": 0,
+      "positive_requirement_revision_reported": false,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1270",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1280_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1280,
+      "plan_code": "FZWE25",
+      "plan_name": "Zimbabwe Drought Flash Appeal 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-01-01",
+      "plan_end_date": "2025-06-01",
+      "plan_type": [
+        "Flash appeal"
+      ],
+      "locations": [
+        {
+          "location_id": 250,
+          "name": "Zimbabwe",
+          "iso3": "ZWE",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 143095554,
+      "revised_requirement_usd": 143095554,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 20592857,
+      "fts_reported_pledges_usd": 0,
+      "reported_funding_shortfall_usd": 122502697,
+      "reported_funding_coverage_pct": 14.39,
+      "reported_shortfall_pct": 85.61,
+      "reported_financial_resource_gap_usd": 122502697,
+      "reported_financial_resource_gap_pct": 85.61,
+      "positive_requirement_revision_usd": 0,
+      "positive_requirement_revision_pct": 0,
+      "positive_requirement_revision_reported": false,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1280",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1399_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1399,
+      "plan_code": "HMMR25a",
+      "plan_name": "Myanmar Earthquake HNRP Flash Addendum 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-04-01",
+      "plan_end_date": "2025-12-31",
+      "plan_type": [
+        "Humanitarian needs and response plan"
+      ],
+      "locations": [
+        {
+          "location_id": 153,
+          "name": "Myanmar",
+          "iso3": "MMR",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 275150034,
+      "revised_requirement_usd": 275150034,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 182402655,
+      "fts_reported_pledges_usd": 11127,
+      "reported_funding_shortfall_usd": 92747379,
+      "reported_funding_coverage_pct": 66.29,
+      "reported_shortfall_pct": 33.71,
+      "reported_financial_resource_gap_usd": 92747379,
+      "reported_financial_resource_gap_pct": 33.71,
+      "positive_requirement_revision_usd": 0,
+      "positive_requirement_revision_pct": 0,
+      "positive_requirement_revision_reported": false,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1399",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1286_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1286,
+      "plan_code": "FLBN25",
+      "plan_name": "Lebanon Flash Appeal 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-01-01",
+      "plan_end_date": "2025-03-31",
+      "plan_type": [
+        "Flash appeal"
+      ],
+      "locations": [
+        {
+          "location_id": 124,
+          "name": "Lebanon",
+          "iso3": "LBN",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 371357000,
+      "revised_requirement_usd": 371357000,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 283429330,
+      "fts_reported_pledges_usd": 0,
+      "reported_funding_shortfall_usd": 87927670,
+      "reported_funding_coverage_pct": 76.32,
+      "reported_shortfall_pct": 23.68,
+      "reported_financial_resource_gap_usd": 87927670,
+      "reported_financial_resource_gap_pct": 23.68,
+      "positive_requirement_revision_usd": 0,
+      "positive_requirement_revision_pct": 0,
+      "positive_requirement_revision_reported": false,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1286",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1269_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1269,
+      "plan_code": "HGTM25",
+      "plan_name": "Guatemala Necesidades Humanitarias y Plan de Respuesta 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-01-01",
+      "plan_end_date": "2025-12-31",
+      "plan_type": [
+        "Humanitarian needs and response plan"
+      ],
+      "locations": [
+        {
+          "location_id": 91,
+          "name": "Guatemala",
+          "iso3": "GTM",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 100563396,
+      "revised_requirement_usd": 100563396,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 22407595,
+      "fts_reported_pledges_usd": 0,
+      "reported_funding_shortfall_usd": 78155801,
+      "reported_funding_coverage_pct": 22.28,
+      "reported_shortfall_pct": 77.72,
+      "reported_financial_resource_gap_usd": 78155801,
+      "reported_financial_resource_gap_pct": 77.72,
+      "positive_requirement_revision_usd": 0,
+      "positive_requirement_revision_pct": 0,
+      "positive_requirement_revision_reported": false,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1269",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1278_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1278,
+      "plan_code": "FZMB25",
+      "plan_name": "Zambia Drought Flash Appeal 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-01-01",
+      "plan_end_date": "2025-06-30",
+      "plan_type": [
+        "Flash appeal"
+      ],
+      "locations": [
+        {
+          "location_id": 249,
+          "name": "Zambia",
+          "iso3": "ZMB",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 90919034,
+      "revised_requirement_usd": 90919034,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 14204574,
+      "fts_reported_pledges_usd": 0,
+      "reported_funding_shortfall_usd": 76714460,
+      "reported_funding_coverage_pct": 15.62,
+      "reported_shortfall_pct": 84.38,
+      "reported_financial_resource_gap_usd": 76714460,
+      "reported_financial_resource_gap_pct": 84.38,
+      "positive_requirement_revision_usd": 0,
+      "positive_requirement_revision_pct": 0,
+      "positive_requirement_revision_reported": false,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1278",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1268_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1268,
+      "plan_code": "HSLV25",
+      "plan_name": "El Salvador Necesidades Humanitarias y Plan de Respuesta 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-01-01",
+      "plan_end_date": "2025-12-31",
+      "plan_type": [
+        "Humanitarian needs and response plan"
+      ],
+      "locations": [
+        {
+          "location_id": 67,
+          "name": "El Salvador",
+          "iso3": "SLV",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 66923449,
+      "revised_requirement_usd": 66923449,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 18069094,
+      "fts_reported_pledges_usd": 0,
+      "reported_funding_shortfall_usd": 48854355,
+      "reported_funding_coverage_pct": 27,
+      "reported_shortfall_pct": 73,
+      "reported_financial_resource_gap_usd": 48854355,
+      "reported_financial_resource_gap_pct": 73,
+      "positive_requirement_revision_usd": 0,
+      "positive_requirement_revision_pct": 0,
+      "positive_requirement_revision_reported": false,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1268",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1214_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1214,
+      "plan_code": "RRHOAY25",
+      "plan_name": "Regional Migrant Response Plan for Horn of Africa to Yemen and Southern Africa 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-01-01",
+      "plan_end_date": "2025-12-31",
+      "plan_type": [
+        "Regional response plan"
+      ],
+      "locations": [
+        {
+          "location_id": 62,
+          "name": "Djibouti",
+          "iso3": "DJI",
+          "admin_level": 0
+        },
+        {
+          "location_id": 71,
+          "name": "Ethiopia",
+          "iso3": "ETH",
+          "admin_level": 0
+        },
+        {
+          "location_id": 206,
+          "name": "Somalia",
+          "iso3": "SOM",
+          "admin_level": 0
+        },
+        {
+          "location_id": 116,
+          "name": "Kenya",
+          "iso3": "KEN",
+          "admin_level": 0
+        },
+        {
+          "location_id": 221,
+          "name": "Tanzania, United Republic of",
+          "iso3": "TZA",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 61287055,
+      "revised_requirement_usd": 61287055,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 18231081,
+      "fts_reported_pledges_usd": 0,
+      "reported_funding_shortfall_usd": 43055974,
+      "reported_funding_coverage_pct": 29.75,
+      "reported_shortfall_pct": 70.25,
+      "reported_financial_resource_gap_usd": 43055974,
+      "reported_financial_resource_gap_pct": 70.25,
+      "positive_requirement_revision_usd": 0,
+      "positive_requirement_revision_pct": 0,
+      "positive_requirement_revision_reported": false,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1214",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1281_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1281,
+      "plan_code": "FMWI25",
+      "plan_name": "Malawi Drought Response Flash Appeal 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-01-01",
+      "plan_end_date": "2025-06-01",
+      "plan_type": [
+        "Flash appeal"
+      ],
+      "locations": [
+        {
+          "location_id": 134,
+          "name": "Malawi",
+          "iso3": "MWI",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 57478430,
+      "revised_requirement_usd": 57478430,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 23292529,
+      "fts_reported_pledges_usd": 0,
+      "reported_funding_shortfall_usd": 34185901,
+      "reported_funding_coverage_pct": 40.52,
+      "reported_shortfall_pct": 59.48,
+      "reported_financial_resource_gap_usd": 34185901,
+      "reported_financial_resource_gap_pct": 59.48,
+      "positive_requirement_revision_usd": 0,
+      "positive_requirement_revision_pct": 0,
+      "positive_requirement_revision_reported": false,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1281",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1283_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1283,
+      "plan_code": "OVNM25b",
+      "plan_name": "Viet Nam 24-25 Joint Response Plan for Typhoon Yagi and Floods 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-01-01",
+      "plan_end_date": "2025-06-30",
+      "plan_type": [
+        "Other"
+      ],
+      "locations": [
+        {
+          "location_id": 243,
+          "name": "Viet Nam",
+          "iso3": "VNM",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 37218750,
+      "revised_requirement_usd": 37218750,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 3497089,
+      "fts_reported_pledges_usd": 0,
+      "reported_funding_shortfall_usd": 33721661,
+      "reported_funding_coverage_pct": 9.4,
+      "reported_shortfall_pct": 90.6,
+      "reported_financial_resource_gap_usd": 33721661,
+      "reported_financial_resource_gap_pct": 90.6,
+      "positive_requirement_revision_usd": 0,
+      "positive_requirement_revision_pct": 0,
+      "positive_requirement_revision_reported": false,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1283",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1431_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1431,
+      "plan_code": "OPAK25",
+      "plan_name": "Pakistan Floods Support Plan 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-10-20",
+      "plan_end_date": "2025-12-31",
+      "plan_type": [
+        "Other"
+      ],
+      "locations": [
+        {
+          "location_id": 169,
+          "name": "Pakistan",
+          "iso3": "PAK",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 85687180,
+      "revised_requirement_usd": 85687180,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 52453334,
+      "fts_reported_pledges_usd": 0,
+      "reported_funding_shortfall_usd": 33233846,
+      "reported_funding_coverage_pct": 61.21,
+      "reported_shortfall_pct": 38.79,
+      "reported_financial_resource_gap_usd": 33233846,
+      "reported_financial_resource_gap_pct": 38.79,
+      "positive_requirement_revision_usd": 0,
+      "positive_requirement_revision_pct": 0,
+      "positive_requirement_revision_reported": false,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1431",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1465_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1465,
+      "plan_code": "OVNM25a",
+      "plan_name": "Viet Nam 25-26 Joint Response Plan Multiple Typhoons and Floods 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-10-28",
+      "plan_end_date": "2025-12-31",
+      "plan_type": [
+        "Other"
+      ],
+      "locations": [
+        {
+          "location_id": 243,
+          "name": "Viet Nam",
+          "iso3": "VNM",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 26591473,
+      "revised_requirement_usd": 35036655,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 6780338,
+      "fts_reported_pledges_usd": 0,
+      "reported_funding_shortfall_usd": 28256317,
+      "reported_funding_coverage_pct": 19.35,
+      "reported_shortfall_pct": 80.65,
+      "reported_financial_resource_gap_usd": 28256317,
+      "reported_financial_resource_gap_pct": 80.65,
+      "positive_requirement_revision_usd": 8445182,
+      "positive_requirement_revision_pct": 31.76,
+      "positive_requirement_revision_reported": true,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1465",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1284_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1284,
+      "plan_code": "OBGD25",
+      "plan_name": "Bangladesh Cyclone Remal and Monsoon Floods Response Plan 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-01-01",
+      "plan_end_date": "2025-03-31",
+      "plan_type": [
+        "Other"
+      ],
+      "locations": [
+        {
+          "location_id": 19,
+          "name": "Bangladesh",
+          "iso3": "BGD",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 35614832,
+      "revised_requirement_usd": 35614832,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 15885109,
+      "fts_reported_pledges_usd": 0,
+      "reported_funding_shortfall_usd": 19729723,
+      "reported_funding_coverage_pct": 44.6,
+      "reported_shortfall_pct": 55.4,
+      "reported_financial_resource_gap_usd": 19729723,
+      "reported_financial_resource_gap_pct": 55.4,
+      "positive_requirement_revision_usd": 0,
+      "positive_requirement_revision_pct": 0,
+      "positive_requirement_revision_reported": false,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1284",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1602_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1602,
+      "plan_code": "OCUB25",
+      "plan_name": "Cuba Plan of Action 2025 – Response to Hurricane Melissa",
+      "plan_year": 2025,
+      "plan_start_date": "2025-10-29",
+      "plan_end_date": "2025-12-31",
+      "plan_type": [
+        "Other"
+      ],
+      "locations": [
+        {
+          "location_id": 57,
+          "name": "Cuba",
+          "iso3": "CUB",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 12373568,
+      "revised_requirement_usd": 12373568,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 5743438,
+      "fts_reported_pledges_usd": 0,
+      "reported_funding_shortfall_usd": 6630130,
+      "reported_funding_coverage_pct": 46.42,
+      "reported_shortfall_pct": 53.58,
+      "reported_financial_resource_gap_usd": 6630130,
+      "reported_financial_resource_gap_pct": 53.58,
+      "positive_requirement_revision_usd": 0,
+      "positive_requirement_revision_pct": 0,
+      "positive_requirement_revision_reported": false,
+      "funding_status": "underfunded_against_current_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1602",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    },
+    {
+      "record_id": "ocha_fts_plan_1325_2025",
+      "metric_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+      "metric_roles": [
+        "named_released_plan_reported_funding_gap_primary",
+        "named_released_plan_reported_financial_resource_gap_primary",
+        "named_released_plan_positive_financial_requirement_revision_proxy"
+      ],
+      "plan_id": 1325,
+      "plan_code": "OPHL25",
+      "plan_name": "Philippines Tropical Cyclones and Floods Humanitarian Needs and Priorities 2025",
+      "plan_year": 2025,
+      "plan_start_date": "2025-01-01",
+      "plan_end_date": "2025-04-30",
+      "plan_type": [
+        "Other"
+      ],
+      "locations": [
+        {
+          "location_id": 176,
+          "name": "Philippines",
+          "iso3": "PHL",
+          "admin_level": 0
+        }
+      ],
+      "original_requirement_usd": 8230297,
+      "revised_requirement_usd": 16880751,
+      "requirement_basis": "current revised requirement",
+      "fts_reported_funding_usd": 18558091,
+      "fts_reported_pledges_usd": 0,
+      "reported_funding_shortfall_usd": 0,
+      "reported_funding_coverage_pct": 109.94,
+      "reported_shortfall_pct": 0,
+      "reported_financial_resource_gap_usd": 0,
+      "reported_financial_resource_gap_pct": 0,
+      "positive_requirement_revision_usd": 8650454,
+      "positive_requirement_revision_pct": 105.11,
+      "positive_requirement_revision_reported": true,
+      "funding_status": "reported_funding_meets_or_exceeds_requirement",
+      "funding_present_in_grouped_fts_result": true,
+      "source_locator": {
+        "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+        "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+        "api_docs_url": "https://api.hpc.tools/docs/v1/",
+        "join_key": "plan.id=1325",
+        "funding_report": "report2 incoming funding grouped by destination Plan",
+        "pledge_treatment": "retained separately and excluded from fts_reported_funding_usd"
+      }
+    }
+  ]
+}

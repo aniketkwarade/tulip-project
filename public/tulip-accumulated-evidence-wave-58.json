@@ -1,0 +1,209 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_58_noaa_transport_avalanche",
+  "generated_at": "2026-08-01T15:48:19.593Z",
+  "source_snapshots": [
+    "public/noaa-transport-avalanche-impact-snapshot.json"
+  ],
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "mountain_pass_avalanches",
+      "value": 2.7,
+      "band": "Low",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "biophysical_burden": 0.04884,
+        "human_economic_burden": 0.001124,
+        "persistence": 0.602,
+        "extent": 0.33
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "qualifying_event_records": 37,
+          "event_ids": [
+            949399,
+            941630,
+            937231,
+            1009831,
+            1004330,
+            1004341,
+            1004370,
+            1071498,
+            1091078,
+            1091266,
+            1083697,
+            1073032,
+            1091416,
+            1089518,
+            1099341,
+            1090935,
+            1090697,
+            1090853,
+            1090929,
+            1090932,
+            1091398,
+            1091445,
+            1090833,
+            1091124,
+            1081432,
+            1076150,
+            1095882,
+            1150839,
+            1160995,
+            1160996,
+            1239143,
+            1238246,
+            1237689,
+            1237095,
+            1237039,
+            1228423,
+            1309525
+          ],
+          "normalization_anchors_events": [
+            0,
+            250,
+            5000,
+            50000
+          ]
+        },
+        "human_economic_burden": {
+          "injuries": 2,
+          "deaths": 0,
+          "total_reported_damage_usd": 340500,
+          "normalization_anchors_usd": [
+            0,
+            100000000,
+            1000000000,
+            10000000000
+          ]
+        },
+        "persistence": {
+          "start_year": 2020,
+          "end_year": 2025,
+          "observation_window_years": 6,
+          "years_with_qualifying_records": 5,
+          "normalization_anchors_years": [
+            0,
+            1,
+            6,
+            30
+          ]
+        },
+        "extent": {
+          "states_with_qualifying_records": 10,
+          "directly_assessed_countries": [
+            "United States"
+          ],
+          "directly_assessed_country_count": 1,
+          "normalization_anchors_countries": [
+            0,
+            1,
+            5,
+            25
+          ]
+        },
+        "annual_observations": [
+          {
+            "year": 2020,
+            "events": 0,
+            "injuries": 0,
+            "deaths": 0,
+            "reported_damage_usd": 0
+          },
+          {
+            "year": 2021,
+            "events": 3,
+            "injuries": 1,
+            "deaths": 0,
+            "reported_damage_usd": 250000
+          },
+          {
+            "year": 2022,
+            "events": 5,
+            "injuries": 0,
+            "deaths": 0,
+            "reported_damage_usd": 0
+          },
+          {
+            "year": 2023,
+            "events": 19,
+            "injuries": 1,
+            "deaths": 0,
+            "reported_damage_usd": 75500
+          },
+          {
+            "year": 2024,
+            "events": 3,
+            "injuries": 0,
+            "deaths": 0,
+            "reported_damage_usd": 5000
+          },
+          {
+            "year": 2025,
+            "events": 7,
+            "injuries": 0,
+            "deaths": 0,
+            "reported_damage_usd": 10000
+          }
+        ],
+        "source_snapshot": {
+          "path": "public/noaa-transport-avalanche-impact-snapshot.json",
+          "version": "noaa_ncei_transport_avalanche_2020_2025_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z",
+          "file_hashes": {
+            "2020": "895c56fd46991c4d9a135d67558dc4b447a02a2314efac0ace645135b98f9c9d",
+            "2021": "60c1daf96dbe8eafd48c80df5b70df51a0125ab95d467ee7009a646761d57715",
+            "2022": "7d6b79d0049a6edec96b061738289daddba90be26fc9afe7b0a6fd617f21452e",
+            "2023": "713784bed40d9e5a95b1d6240a654f865f3ef97703713105c7b35437270da134",
+            "2024": "2070b83eccab041b36360ab73645b9a249c3eefc5b92b5b3fc0cbba4d9fcc09c",
+            "2025": "447b536ce7796585b923b946f0b85be538bde142858674f5d0b45a3b4c134bf5"
+          }
+        }
+      },
+      "transformations": [
+        {
+          "type": "exact_event_type_filter",
+          "formula": "Select NOAA Storm Events rows whose EVENT_TYPE exactly equals Avalanche."
+        },
+        {
+          "type": "bounded_transport_text_filter",
+          "formula": "Require explicit avalanche language, a road/highway/interstate/route/lane identifier, and an impact term in the combined location and event narrative."
+        },
+        {
+          "type": "complete_year_boundary",
+          "formula": "Aggregate complete calendar years 2020-2025 and retain 2020 as a zero-event observation, not missing source data."
+        },
+        {
+          "type": "shared_inventory_anchors",
+          "formula": "Use the same event, damage, persistence and country anchors as the broader NOAA storm-event wave so a small text-derived subset cannot self-saturate."
+        },
+        {
+          "type": "bounded_country_extent",
+          "formula": "Normalize the one directly assessed country; ten states do not become global coverage."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "noaa_ncei_storm_events_bulk_csv",
+        "noaa_ncei_storm_events_database_documentation"
+      ],
+      "uncertainty": "The text classifier is deterministic and requires explicit avalanche, transport-corridor and impact language, but narratives are not standardized and may omit qualifying closures. Reported damage is nominal and often blank or zero; closure duration is not consistently available. The U.S.-only result is not extrapolated globally. Event counts are operational reports rather than a sensor-derived avalanche-frequency trend.",
+      "freshness": "NOAA bulk files revised through 2026-07-28; scored period ends with complete calendar year 2025; snapshot reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "A deterministic NOAA event/narrative filter quantifies accumulated avalanche intersections with named U.S. transport corridors, injuries, reported damage, five-year persistence and one-country extent.",
+        "higher_priority_failures": [
+          "The source is restricted to the United States rather than a defensible current global transport-corridor aggregation.",
+          "Administrative narratives do not provide a global current avalanche frequency, closure-hours threshold and momentum series."
+        ]
+      },
+      "input_hash": "fnv1a32:870f429a"
+    }
+  ]
+}

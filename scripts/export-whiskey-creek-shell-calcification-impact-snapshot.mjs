@@ -1,0 +1,79 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const snapshot = {
+  version: 'whiskey_creek_oyster_larval_calcification_2007_2008_v1',
+  captured_at: '2026-08-01T00:00:00.000Z',
+  sources: [
+    {
+      id: 'oregon_oah_biennial_report_2018_whiskey_creek',
+      name: 'Oregon Ocean Acidification and Hypoxia Biennial Report 2018',
+      publisher: 'State of Oregon',
+      publication_date: '2019-01-01',
+      url: 'https://www.oregon.gov/lcd/Commission/Documents/2019-11_Item_5_OAH_ATTACH_A_BIENNIAL_REPORT_2018.pdf',
+      source_locators: [
+        'Whiskey Creek Shellfish Hatchery observed direct acidification impacts beginning in 2007, with larval culture reduced by 75 percent or more.',
+        'Researchers and hatchery operators linked the failures to summer upwelling of deep acidified water and developed water-chemistry management practices.',
+        'The report bounds the event to oyster larvae at the Netarts Bay hatchery rather than inferring biological failure from regional chemistry alone.'
+      ]
+    },
+    {
+      id: 'noaa_changing_ocean_chemistry_whiskey_creek',
+      name: 'Changing Ocean Chemistry: A National Climate Assessment Technical Input',
+      publisher: 'National Oceanic and Atmospheric Administration',
+      publication_date: '2013-01-01',
+      url: 'https://repository.library.noaa.gov/view/noaa/40601/noaa_40601_DS1.pdf',
+      source_locators: [
+        'High larval mortality began in July 2007 and persisted through the end of the growing season in October; magnitude and duration were unprecedented in the hatchery\'s 30-year history.',
+        'Whiskey Creek produced about 2.5 billion eyed larvae in 2008, approximately 25 percent of a normal season, implying a documented normal level of about 10 billion.',
+        'Pacific coast hatcheries produced 40-60 billion eyed larvae annually and supported a USD 270 million-per-year shellfish industry.'
+      ]
+    },
+    {
+      id: 'noaa_oap_pacific_northwest_shellfish_acidification_2015',
+      name: 'Impacts of Coastal Acidification on the Pacific Northwest Shellfish Industry',
+      publisher: 'NOAA Ocean Acidification Program',
+      publication_date: '2015-10-02',
+      url: 'https://oceanacidification.noaa.gov/oap_pubs/impacts-of-coastal-acidification-on-the-pacific-northwest-shellfish-industry-and-adaptation-strategies-implemented-in-response/',
+      source_locators: [
+        'Commercial hatcheries experienced unprecedented Pacific-oyster larval mortality beginning in 2007.',
+        'Whiskey Creek records showed a high correlation between inflowing aragonite saturation state and larval-group survival, linking increased carbon dioxide to the hatchery failures.',
+        'Commercial treatment and monitoring systems restored billions of additional larvae, while the reviewed minimum aragonite saturation threshold for viable larval groups was about 1.7.'
+      ]
+    }
+  ],
+  metric_contract: {
+    node_id: 'shell_calcification_failures',
+    metric_id: 'carbonate_saturation_and_shellfish_growth_impairment',
+    unit: 'aragonite saturation state, larval-culture reduction, eyed-larvae production shortfall, affected production seasons and bounded supply dependence',
+    geography: 'Whiskey Creek Shellfish Hatchery, Netarts Bay, Oregon, and its West Coast grower supply boundary',
+    assessment_period: '2007-07-01 to 2008-10-31',
+    boundary: 'The receipt pairs hatchery intake chemistry with species- and life-stage-specific Pacific oyster larval survival and production. It does not infer failure from pH alone, transfer the threshold to other species or life stages, or count the full regional industry value as a realized loss.'
+  },
+  accumulated_impact: {
+    pacific_oyster_larval_culture_reduction_percent_at_least: 75,
+    reviewed_commercial_viability_aragonite_saturation_threshold: 1.7,
+    actual_2008_eyed_larvae_production: 2500000000,
+    actual_2008_fraction_of_normal_production: 0.25,
+    derived_normal_season_eyed_larvae_production: 10000000000,
+    derived_2008_eyed_larvae_production_shortfall: 7500000000,
+    affected_production_season_count: 2,
+    first_failure_start: '2007-07-01',
+    assessment_end_date: '2008-10-31',
+    west_coast_oyster_operations_supplied_percent_min: 50,
+    west_coast_oyster_operations_supplied_percent_max: 85,
+    broader_industry_annual_value_usd_unscored: 270000000
+  },
+  reviewed_normalization_anchors: {
+    larval_culture_reduction_percent: [0, 10, 30, 75],
+    eyed_larvae_production_shortfall: [0, 10000000, 1000000000, 10000000000],
+    affected_production_season_count: [0, 0.25, 1, 3],
+    supplied_operation_share_percent: [0, 5, 25, 75]
+  },
+  uncertainty: 'The 75 percent value is a lower bound on larval-culture reduction and is not a universal species threshold. Normal production is derived from the source statement that 2.5 billion was 25 percent of normal; the resulting 7.5-billion shortfall is an output estimate, not a dollar loss. The 1.7 aragonite saturation threshold is hatchery-, species-, life-stage- and method-specific. Bacterial disease was an early competing hypothesis, and multiple stressors can affect larvae; the receipt relies on the later paired chemistry and cohort evidence. The 50 percent supply share is the conservative end of the documented 50-85 percent range. The USD 270 million regional industry value remains unscored context.'
+};
+
+await fs.writeFile(path.join(ROOT, 'public/whiskey-creek-shell-calcification-impact-snapshot.json'), `${JSON.stringify(snapshot, null, 2)}\n`);
+console.log(JSON.stringify({ output: 'public/whiskey-creek-shell-calcification-impact-snapshot.json', version: snapshot.version, accumulated: snapshot.accumulated_impact }, null, 2));

@@ -1,0 +1,224 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_72_cape_town_water_demand_and_rationing",
+  "generated_at": "2026-08-01T16:48:03.804Z",
+  "source_snapshots": [
+    "public/cape-town-water-demand-rationing-impact-snapshot.json"
+  ],
+  "promoted_node_count": 2,
+  "receipts": [
+    {
+      "node_id": "urban_water_demand_peak",
+      "value": 8.1,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2018-02",
+      "components": {
+        "biophysical_burden": 0.868,
+        "human_economic_burden": 0.695667,
+        "persistence": 0.78,
+        "extent": 0.78
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "summer_peak_2015_mld": 1200,
+          "actual_demand_2018_mld": 500,
+          "restricted_target_mld": 450,
+          "peak_reduction_mld": 700,
+          "peak_reduction_pct": 58.333333,
+          "target_exceedance_mld": 50,
+          "demand_management_period_years": 3,
+          "normalization_anchors_peak_reduction_mld": [
+            0,
+            50,
+            250,
+            1000
+          ]
+        },
+        "human_economic_burden": {
+          "water_service_revenue_under_recovery_zar": 1700000000,
+          "normalization_anchors_zar": [
+            0,
+            100000000,
+            1000000000,
+            10000000000
+          ]
+        },
+        "persistence": {
+          "demand_management_period_years": 3,
+          "normalization_anchors_years": [
+            0,
+            0.5,
+            2,
+            5
+          ]
+        },
+        "extent": {
+          "represented_population": 4000000,
+          "represented_country": "South Africa",
+          "normalization_anchors_people": [
+            0,
+            100000,
+            1000000,
+            10000000
+          ]
+        },
+        "source_snapshot": {
+          "path": "public/cape-town-water-demand-rationing-impact-snapshot.json",
+          "version": "cape_town_water_demand_and_level_6b_2015_2018_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z",
+          "source_locators": [
+            "Demand-management section: peak summer consumption fell from about 1,200 MLD in 2015 to about 500 MLD in 2018 against a 450 MLD target.",
+            "Restriction chronology: Level 6B applied from 1 February through 30 September 2018 with a 50 litre-per-person daily limit and four million represented residents.",
+            "Drought-tariff annex: approximately ZAR 1.7 billion anticipated water-service revenue under-recovery in 2017/18.",
+            "Restriction transition summary: Level 5 began 1 October 2018 and Level 3 began 1 December 2018, confirming the end boundary of Level 6B."
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "reported_peak_gap",
+          "formula": "Subtract the utility-reported 2018 actual demand of about 500 MLD from the reported 2015 summer peak of about 1,200 MLD, retaining the 450 MLD restricted target and 50 MLD target exceedance."
+        },
+        {
+          "type": "service_revenue_burden",
+          "formula": "Use the City-reported ZAR 1.7 billion anticipated water-service revenue under-recovery; do not substitute total provincial drought losses."
+        },
+        {
+          "type": "demand_management_persistence",
+          "formula": "Use the three-year February 2015 to February 2018 peak-demand comparison period."
+        },
+        {
+          "type": "bounded_service_extent",
+          "formula": "Normalize the City-reported four-million-person service population; do not extrapolate one utility to national or global coverage."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "city_cape_town_water_outlook_2018",
+        "city_cape_town_level_3_restrictions_2018"
+      ],
+      "uncertainty": "The Outlook reports approximate peak-demand values and a municipal target, so the derived reduction and exceedance inherit rounding. The ZAR 1.7 billion value is anticipated water-service revenue under-recovery, not total drought damage. Four million is the City’s represented population calculation for the 50-litre limit, not a connection count. Level 6B was a formal restriction and conservation limit; Day Zero shutoff was a contingency that did not occur. Coverage is one metropolitan service area in one country.",
+      "freshness": "Cape Town 2018 drought episode; official reports reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "The City utility report quantifies summer peak demand, actual demand, its restricted target, service-revenue burden, a multi-year management period and represented population within a named service area.",
+        "higher_priority_failures": [
+          "The observation is a dated metropolitan accumulated-impact episode, not a current global utility-demand aggregation.",
+          "The three annual peak points do not satisfy the 20-annual-observation historical-distribution gate."
+        ]
+      },
+      "input_hash": "fnv1a32:02363570"
+    },
+    {
+      "node_id": "urban_water_rationing_zones",
+      "value": 8.6,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2018-09-30",
+      "components": {
+        "biophysical_burden": 0.981667,
+        "human_economic_burden": 0.695667,
+        "persistence": 0.853333,
+        "extent": 0.78
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "peak_reduction_pct": 58.333333,
+          "actual_demand_2018_mld": 500,
+          "restricted_target_mld": 450,
+          "normalization_anchors_pct": [
+            0,
+            10,
+            30,
+            60
+          ]
+        },
+        "human_economic_burden": {
+          "water_service_revenue_under_recovery_zar": 1700000000,
+          "normalization_anchors_zar": [
+            0,
+            100000000,
+            1000000000,
+            10000000000
+          ]
+        },
+        "persistence": {
+          "restriction_stage": "Level 6B",
+          "start_date": "2018-02-01",
+          "end_date": "2018-09-30",
+          "duration_months": 8,
+          "personal_limit_litres_per_day": 50,
+          "normalization_anchors_months": [
+            0,
+            1,
+            3,
+            12
+          ]
+        },
+        "extent": {
+          "represented_population": 4000000,
+          "represented_country": "South Africa",
+          "normalization_anchors_people": [
+            0,
+            100000,
+            1000000,
+            10000000
+          ]
+        },
+        "source_snapshot": {
+          "path": "public/cape-town-water-demand-rationing-impact-snapshot.json",
+          "version": "cape_town_water_demand_and_level_6b_2015_2018_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z",
+          "source_locators": [
+            "Demand-management section: peak summer consumption fell from about 1,200 MLD in 2015 to about 500 MLD in 2018 against a 450 MLD target.",
+            "Restriction chronology: Level 6B applied from 1 February through 30 September 2018 with a 50 litre-per-person daily limit and four million represented residents.",
+            "Drought-tariff annex: approximately ZAR 1.7 billion anticipated water-service revenue under-recovery in 2017/18.",
+            "Restriction transition summary: Level 5 began 1 October 2018 and Level 3 began 1 December 2018, confirming the end boundary of Level 6B."
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_restriction_severity",
+          "formula": "Use the utility-reported 58.333333 percent reduction from the 2015 summer peak to 2018 demand as the system burden accompanying formal Level 6B; do not score the unrealized Day Zero shutoff."
+        },
+        {
+          "type": "service_revenue_burden",
+          "formula": "Use the City-reported ZAR 1.7 billion anticipated water-service revenue under-recovery; do not substitute total provincial drought losses."
+        },
+        {
+          "type": "formal_stage_duration",
+          "formula": "Count eight months from Level 6B taking effect on 1 February 2018 through its replacement by Level 5 on 1 October 2018."
+        },
+        {
+          "type": "bounded_service_extent",
+          "formula": "Normalize the four million residents explicitly used in the City’s 50-litre-per-day calculation; do not infer customer connections."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "city_cape_town_water_outlook_2018",
+        "city_cape_town_level_3_restrictions_2018"
+      ],
+      "uncertainty": "The Outlook reports approximate peak-demand values and a municipal target, so the derived reduction and exceedance inherit rounding. The ZAR 1.7 billion value is anticipated water-service revenue under-recovery, not total drought damage. Four million is the City’s represented population calculation for the 50-litre limit, not a connection count. Level 6B was a formal restriction and conservation limit; Day Zero shutoff was a contingency that did not occur. Coverage is one metropolitan service area in one country.",
+      "freshness": "Cape Town 2018 drought episode; official reports reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "The City’s administrative record documents a formal restriction stage, per-person limit, exact effective dates, represented population and quantified service-revenue burden.",
+        "higher_priority_failures": [
+          "The restriction ended in 2018 and is not a current global rationing-zone aggregation.",
+          "A single metropolitan episode cannot support current global magnitude, momentum and extent coverage."
+        ]
+      },
+      "input_hash": "fnv1a32:a7d9755a"
+    }
+  ]
+}

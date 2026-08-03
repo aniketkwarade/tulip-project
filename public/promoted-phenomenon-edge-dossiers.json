@@ -1,0 +1,1496 @@
+{
+  "version": "promoted_phenomenon_edge_dossier_v1",
+  "generated_at": "2026-07-31T22:56:30.097Z",
+  "policy": "Each approved phenomenon requires three complete incoming dossiers and one bounded downstream effect dossier.",
+  "summary": {
+    "anchors": 4,
+    "dossiers": 16
+  },
+  "anchors": [
+    {
+      "id": "food_insecurity",
+      "approval": {
+        "id": "food_insecurity",
+        "sequence": 1,
+        "status": "approved_and_promoted",
+        "approved_at": "2026-07-17",
+        "boundary": "Food insecurity only; undernutrition remains separate."
+      },
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 3,
+        "observed_incoming_drivers": 9,
+        "qualified_incoming_drivers": 8,
+        "qualification_basis": "complete_promoted_edge_dossiers",
+        "status": "pass"
+      },
+      "dossiers": [
+        {
+          "edge_key": "crop_yield_volatility->food_insecurity",
+          "relationship_level": "direct",
+          "confidence": "moderate",
+          "promotion_status": "promoted",
+          "mechanism": "Yield instability can reduce local food availability and increase price and access stress.",
+          "geographic_scope": "Global mechanism with regional expression and explicit metric bounds.",
+          "temporal_scope": "Seasonal to multi-decadal.",
+          "moderators": [
+            "baseline vulnerability",
+            "management and policy",
+            "local environmental conditions"
+          ],
+          "alternative_explanations": [
+            "measurement coverage change",
+            "co-occurring pressures"
+          ],
+          "counterevidence": "Magnitude and attribution can weaken or reverse across places and periods; the edge is not deterministic.",
+          "indicator": {
+            "metric_id": "food_insecurity_edge_evidence",
+            "role": "driver"
+          },
+          "source_locators": [
+            {
+              "url": "https://www.fao.org/sustainable-development-goals-data-portal/data/indicators/212-prevalence-of-moderate-or-severe-food-insecurity-in-the-population-based-on-the-food-insecurity-experience-scale/en",
+              "locator": "mechanism and definition page",
+              "source_type": "authoritative"
+            },
+            {
+              "url": "https://www.ipcc.ch/report/ar6/wg2/chapter/chapter-5/",
+              "locator": "assessment chapter or dataset documentation",
+              "source_type": "independent_assessment"
+            }
+          ],
+          "evidence_basis": "direct"
+        },
+        {
+          "edge_key": "food_import_exposure->food_insecurity",
+          "relationship_level": "direct",
+          "confidence": "moderate",
+          "promotion_status": "promoted",
+          "mechanism": "Import dependence transmits external supply and price shocks into household food access.",
+          "geographic_scope": "Global mechanism with regional expression and explicit metric bounds.",
+          "temporal_scope": "Seasonal to multi-decadal.",
+          "moderators": [
+            "baseline vulnerability",
+            "management and policy",
+            "local environmental conditions"
+          ],
+          "alternative_explanations": [
+            "measurement coverage change",
+            "co-occurring pressures"
+          ],
+          "counterevidence": "Magnitude and attribution can weaken or reverse across places and periods; the edge is not deterministic.",
+          "indicator": {
+            "metric_id": "food_insecurity_edge_evidence",
+            "role": "driver"
+          },
+          "source_locators": [
+            {
+              "url": "https://www.fao.org/sustainable-development-goals-data-portal/data/indicators/212-prevalence-of-moderate-or-severe-food-insecurity-in-the-population-based-on-the-food-insecurity-experience-scale/en",
+              "locator": "mechanism and definition page",
+              "source_type": "authoritative"
+            },
+            {
+              "url": "https://www.ipcc.ch/report/ar6/wg2/chapter/chapter-5/",
+              "locator": "assessment chapter or dataset documentation",
+              "source_type": "independent_assessment"
+            }
+          ],
+          "evidence_basis": "direct"
+        },
+        {
+          "edge_key": "food_insecurity->migration",
+          "relationship_level": "indirect",
+          "confidence": "moderate",
+          "promotion_status": "promoted",
+          "mechanism": "Sustained food-access loss can contribute to livelihood displacement alongside conflict and economic factors.",
+          "geographic_scope": "Global mechanism with regional expression and explicit metric bounds.",
+          "temporal_scope": "Seasonal to multi-decadal.",
+          "moderators": [
+            "baseline vulnerability",
+            "management and policy",
+            "local environmental conditions"
+          ],
+          "alternative_explanations": [
+            "measurement coverage change",
+            "co-occurring pressures"
+          ],
+          "counterevidence": "Magnitude and attribution can weaken or reverse across places and periods; the edge is not deterministic.",
+          "indicator": {
+            "metric_id": "migration_edge_evidence",
+            "role": "effect"
+          },
+          "source_locators": [
+            {
+              "url": "https://www.fao.org/sustainable-development-goals-data-portal/data/indicators/212-prevalence-of-moderate-or-severe-food-insecurity-in-the-population-based-on-the-food-insecurity-experience-scale/en",
+              "locator": "mechanism and definition page",
+              "source_type": "authoritative"
+            },
+            {
+              "url": "https://www.ipcc.ch/report/ar6/wg2/chapter/chapter-5/",
+              "locator": "assessment chapter or dataset documentation",
+              "source_type": "independent_assessment"
+            }
+          ],
+          "evidence_basis": "indirect"
+        },
+        {
+          "edge_key": "staple_food_price_volatility->food_insecurity",
+          "relationship_level": "direct",
+          "confidence": "high",
+          "version": "research_track_batch_two_edge_dossier_v1",
+          "promotion_status": "promoted",
+          "reviewed_at": "2026-07-17",
+          "source": "staple_food_price_volatility",
+          "target": "food_insecurity",
+          "mechanism": "Large or unstable staple-price changes reduce purchasing power and planning security for households with limited income or food reserves.",
+          "geographic_scope": "Households exposed to the affected staple market, especially low-income and import-dependent populations.",
+          "temporal_scope": "Weeks to months, potentially longer under sustained shocks.",
+          "moderators": [
+            "income",
+            "social protection",
+            "own production",
+            "market access"
+          ],
+          "alternative_explanations": [
+            "conflict",
+            "job loss",
+            "health shocks"
+          ],
+          "counterevidence": "Some producers benefit from higher prices and safety nets can mitigate household food-access effects.",
+          "indicator": {
+            "metric_id": "staple_food_price_volatility_and_affordability",
+            "metric_name": "Staple-food price variance and affordability relative to household income",
+            "unit": "local currency per kilogram, percent change, and percent of household expenditure",
+            "geography": "country, market, or subnational price series",
+            "cadence": "monthly",
+            "observation_time_field": "reference_month",
+            "source_id": "faostat",
+            "transformation": "Use a defined staple basket, inflation-adjusted prices, comparable market coverage, and household-expenditure context; retain supply and policy shock annotations.",
+            "uncertainty": "Prices reflect currency changes, market selection, subsidies, reporting gaps, and quality differences as well as physical supply.",
+            "threshold_provenance": "Country-specific historical volatility and affordability baseline.",
+            "failure_behavior": "Do not publish a price-volatility trend from sparse or incomparable market observations."
+          },
+          "source_locators": [
+            {
+              "url": "https://www.fao.org/fileadmin/templates/est/meetings/price_volatility/Price_volatility_TechPaper_V3_clean.pdf",
+              "locator": "FAO: volatility, household exposure, and food-security implications",
+              "source_type": "authoritative_assessment"
+            },
+            {
+              "url": "https://www.worldbank.org/en/results/2024/04/11/increasing-connectivity-for-enhanced-food-supply-chain-resilience",
+              "locator": "World Bank: transport costs, food prices, and food security",
+              "source_type": "independent_authoritative"
+            }
+          ],
+          "evidence_basis": "direct"
+        },
+        {
+          "edge_key": "desertification_frontiers->food_insecurity",
+          "relationship_level": "direct",
+          "confidence": "high",
+          "version": "open_backlog_wave_one_v1",
+          "promotion_status": "promoted",
+          "reviewed_at": "2026-07-17",
+          "source": "desertification_frontiers",
+          "target": "food_insecurity",
+          "mechanism": "Persistent loss of soil, vegetation, water availability, and ecosystem services can reduce or destabilize crop and livestock production and erode household capacity to absorb climate and market shocks.",
+          "geographic_scope": "Named dryland food system and exposed population with production, access, and livelihood indicators stated separately.",
+          "temporal_scope": "Growing-season losses through chronic multi-year livelihood effects.",
+          "moderators": [
+            "market access",
+            "irrigation",
+            "income diversity",
+            "social protection",
+            "land tenure",
+            "restoration"
+          ],
+          "alternative_explanations": [
+            "conflict",
+            "commodity-price shocks",
+            "trade disruption",
+            "crop disease",
+            "acute disaster"
+          ],
+          "counterevidence": "Land condition is only one component of food security, and imports, income, irrigation, technology, and social protection can buffer local production losses.",
+          "indicator": {
+            "metric_id": "dryland_land_degradation_extent_and_condition",
+            "metric_name": "Dryland land-degradation extent and condition",
+            "unit": "hectares and percent of fixed dryland baseline, with land productivity, vegetation cover, soil condition, and carbon-stock components reported separately",
+            "geography": "named dryland assessment unit, watershed, rangeland, agricultural district, or country reporting boundary",
+            "cadence": "annual land-condition update with multi-year trend review",
+            "observation_time_field": "land_condition_assessment_year",
+            "source_id": "fao_unccd_global_dryland_degradation_impact",
+            "transformation": "Retain the dryland definition, fixed spatial baseline, land-cover class, productivity trajectory, soil and vegetation observations, climate covariates, management history, degradation criterion, restoration activity, and uncertainty.",
+            "uncertainty": "Climate variability, sensor changes, land-cover classification, grazing intensity, crop cycles, soil sampling, choice of baseline, and older global assessment methods can change apparent extent and direction.",
+            "threshold_provenance": "Use the UNCCD reporting framework or a named regional assessment; no single productivity decline or drought year establishes persistent degradation.",
+            "failure_behavior": "Do not infer persistent degradation from aridity, drought, bare soil, or a one-year vegetation anomaly without a fixed boundary and multi-indicator evidence."
+          },
+          "source_locators": [
+            {
+              "url": "https://www.ipcc.ch/srccl/chapter/chapter-3/",
+              "locator": "IPCC assesses combined climate and degradation pressures as contributing to food insecurity and reduced ecosystem services, with strong context dependence.",
+              "source_type": "authoritative_assessment"
+            },
+            {
+              "url": "https://www.unccd.int/land-and-life/desertification/overview",
+              "locator": "UNCCD lists lack of food security among the economic, social, and environmental problems aggravated by desertification.",
+              "source_type": "independent_authoritative"
+            }
+          ],
+          "evidence_basis": "direct"
+        },
+        {
+          "edge_key": "industry_farming->food_insecurity",
+          "relationship_level": "indirect",
+          "confidence": "medium",
+          "promotion_status": "promoted",
+          "source": "industry_farming",
+          "target": "food_insecurity",
+          "mechanism": "Input dependence, soil degradation, and water stress can increase food-security risk when yields, prices, or access are affected.",
+          "geographic_scope": "Global assessment; interpret through named regional or local conditions.",
+          "temporal_scope": "Observed multi-year trend or stated hazard interval.",
+          "moderators": [
+            "regional conditions",
+            "baseline exposure",
+            "adaptation and management",
+            "non-climate stressors"
+          ],
+          "alternative_explanations": [
+            "natural variability",
+            "local land use",
+            "measurement uncertainty",
+            "governance and exposure differences"
+          ],
+          "counterevidence": "This relationship does not determine local magnitude or timing without a bounded observation and local attribution.",
+          "indicator": {
+            "metric_id": "relationship_industry_farming_food_insecurity",
+            "metric_name": "industry_farming to food_insecurity pathway",
+            "unit": "bounded relationship evidence and local supporting observations",
+            "geography": "named geography or assessed global domain",
+            "cadence": "reviewed on source update",
+            "source_id": "ipcc_ar6_synthesis_report",
+            "transformation": "Retain source scope and do not convert assessment language into local attribution.",
+            "uncertainty": "Assessment confidence and local moderators apply.",
+            "threshold_provenance": "Authoritative assessment cited in the relationship dossier.",
+            "failure_behavior": "Keep the pathway indirect or research-track where local evidence is absent."
+          },
+          "source_locators": [
+            {
+              "url": "https://www.fao.org/climate-change/en/",
+              "locator": "Authoritative assessment directly supporting this bounded pathway.",
+              "source_type": "authoritative_assessment"
+            },
+            {
+              "url": "https://www.ipcc.ch/report/ar6/wg2/chapter/technical-summary/?lang=en",
+              "locator": "Independent assessment of scope, mechanisms, and limitations.",
+              "source_type": "independent_authoritative"
+            }
+          ],
+          "evidence_basis": "indirect"
+        },
+        {
+          "edge_key": "environ_anomalies->food_insecurity",
+          "relationship_level": "indirect",
+          "confidence": "medium",
+          "promotion_status": "promoted",
+          "source": "environ_anomalies",
+          "target": "food_insecurity",
+          "mechanism": "Compound hazards can disrupt food production, access, and livelihoods alongside conflict, inequality, and market conditions.",
+          "geographic_scope": "Global assessment; interpret through named regional or local conditions.",
+          "temporal_scope": "Observed multi-year trend or stated hazard interval.",
+          "moderators": [
+            "regional conditions",
+            "baseline exposure",
+            "adaptation and management",
+            "non-climate stressors"
+          ],
+          "alternative_explanations": [
+            "natural variability",
+            "local land use",
+            "measurement uncertainty",
+            "governance and exposure differences"
+          ],
+          "counterevidence": "This relationship does not determine local magnitude or timing without a bounded observation and local attribution.",
+          "indicator": {
+            "metric_id": "relationship_environ_anomalies_food_insecurity",
+            "metric_name": "environ_anomalies to food_insecurity pathway",
+            "unit": "bounded relationship evidence and local supporting observations",
+            "geography": "named geography or assessed global domain",
+            "cadence": "reviewed on source update",
+            "source_id": "ipcc_ar6_synthesis_report",
+            "transformation": "Retain source scope and do not convert assessment language into local attribution.",
+            "uncertainty": "Assessment confidence and local moderators apply.",
+            "threshold_provenance": "Authoritative assessment cited in the relationship dossier.",
+            "failure_behavior": "Keep the pathway indirect or research-track where local evidence is absent."
+          },
+          "source_locators": [
+            {
+              "url": "https://www.ipcc.ch/report/ar6/wg1/chapter/summary-for-policymakers/",
+              "locator": "Authoritative assessment directly supporting this bounded pathway.",
+              "source_type": "authoritative_assessment"
+            },
+            {
+              "url": "https://www.ipcc.ch/report/ar6/wg2/chapter/technical-summary/?lang=en",
+              "locator": "Independent assessment of scope, mechanisms, and limitations.",
+              "source_type": "independent_authoritative"
+            }
+          ],
+          "evidence_basis": "indirect"
+        },
+        {
+          "edge_key": "food_insecurity->humanitarian_resource_gaps",
+          "relationship_level": "indirect",
+          "confidence": "medium",
+          "promotion_status": "promoted",
+          "source": "food_insecurity",
+          "target": "humanitarian_resource_gaps",
+          "mechanism": "Rising acute hunger increases demand for food assistance while access constraints and funding shortfalls can leave humanitarian needs unmet.",
+          "geographic_scope": "Global assessment; magnitude and timing require a named regional observation.",
+          "temporal_scope": "Observed or assessed over the reporting interval stated by the cited source.",
+          "moderators": [
+            "local baseline conditions",
+            "management and adaptation",
+            "exposure duration",
+            "measurement uncertainty"
+          ],
+          "alternative_explanations": [
+            "other sectoral pressures",
+            "natural variability",
+            "local infrastructure and governance",
+            "unmeasured confounding stressors"
+          ],
+          "counterevidence": "The pathway does not establish a universal local magnitude, timing, or single-cause attribution.",
+          "indicator": {
+            "metric_id": "backlog_pathway_food_insecurity_humanitarian_resource_gaps",
+            "metric_name": "Bounded pathway evidence",
+            "unit": "source-defined observation with named geography and interval",
+            "geography": "named geography or assessed global domain",
+            "cadence": "reviewed when either source is updated",
+            "source_id": "humanitarian",
+            "transformation": "Retain source scope and do not convert assessment language into local attribution.",
+            "uncertainty": "Source confidence and local moderators apply.",
+            "threshold_provenance": "No universal threshold; use the cited source definition.",
+            "failure_behavior": "Keep the edge indirect or research-track if its bounded conditions are unavailable."
+          },
+          "source_locators": [
+            {
+              "url": "https://www.wfp.org/news/wfp-requires-us169-billion-2025-respond-unrelenting-humanitarian-needs",
+              "locator": "Primary authoritative statement of the bounded mechanism.",
+              "source_type": "authoritative_mechanism"
+            },
+            {
+              "url": "https://www.wfp.org/publications/food-security-impact-reduction-wfp-funding",
+              "locator": "Independent authoritative corroboration and scope limitation.",
+              "source_type": "independent_authoritative"
+            }
+          ],
+          "evidence_basis": "indirect"
+        },
+        {
+          "edge_key": "humanitarian_access_constraints->food_insecurity",
+          "relationship_level": "indirect",
+          "confidence": "medium",
+          "promotion_status": "promoted",
+          "source": "humanitarian_access_constraints",
+          "target": "food_insecurity",
+          "mechanism": "Blocked routes, insecurity, and administrative restrictions can prevent food assistance from reaching populations in crisis.",
+          "geographic_scope": "Apply only within the named basin, airshed, production system, or humanitarian response context.",
+          "temporal_scope": "Observed or assessed over the source reporting interval.",
+          "moderators": [
+            "local baseline and capacity",
+            "management practices",
+            "exposure duration",
+            "hydrology or atmospheric transport"
+          ],
+          "alternative_explanations": [
+            "other sectoral pressures",
+            "natural variability",
+            "governance and infrastructure",
+            "measurement uncertainty"
+          ],
+          "counterevidence": "The mechanism does not establish a universal local magnitude or single-cause attribution.",
+          "indicator": {
+            "metric_id": "backlog_batch_four_humanitarian_access_constraints_food_insecurity",
+            "metric_name": "Bounded mechanism observation",
+            "unit": "source-defined measurement with named boundary and interval",
+            "geography": "named basin, airshed, operation, or response context",
+            "cadence": "source update or event-based",
+            "source_id": "humanitarian",
+            "transformation": "Preserve source units, boundary, sign, and uncertainty.",
+            "uncertainty": "Local conditions and management can change magnitude.",
+            "threshold_provenance": "Use source-defined thresholds only.",
+            "failure_behavior": "Keep research-track when the bounded observation is absent."
+          },
+          "source_locators": [
+            {
+              "url": "https://www.wfp.org/news/wfp-requires-us169-billion-2025-respond-unrelenting-humanitarian-needs",
+              "locator": "Primary authoritative mechanism statement.",
+              "source_type": "authoritative_mechanism"
+            },
+            {
+              "url": "https://www.wfp.org/publications/food-security-impact-reduction-wfp-funding",
+              "locator": "Independent authoritative corroboration.",
+              "source_type": "independent_authoritative"
+            }
+          ],
+          "evidence_basis": "indirect"
+        },
+        {
+          "edge_key": "humanitarian_response_funding_shortfall->food_insecurity",
+          "relationship_level": "indirect",
+          "confidence": "medium",
+          "promotion_status": "promoted",
+          "source": "humanitarian_response_funding_shortfall",
+          "target": "food_insecurity",
+          "mechanism": "Funding cuts can reduce food assistance coverage and ration size, allowing acute hunger to worsen among people who depend on aid.",
+          "geographic_scope": "Apply only within the named basin, airshed, production system, or humanitarian response context.",
+          "temporal_scope": "Observed or assessed over the source reporting interval.",
+          "moderators": [
+            "local baseline and capacity",
+            "management practices",
+            "exposure duration",
+            "hydrology or atmospheric transport"
+          ],
+          "alternative_explanations": [
+            "other sectoral pressures",
+            "natural variability",
+            "governance and infrastructure",
+            "measurement uncertainty"
+          ],
+          "counterevidence": "The mechanism does not establish a universal local magnitude or single-cause attribution.",
+          "indicator": {
+            "metric_id": "backlog_batch_four_humanitarian_response_funding_shortfall_food_insecurity",
+            "metric_name": "Bounded mechanism observation",
+            "unit": "source-defined measurement with named boundary and interval",
+            "geography": "named basin, airshed, operation, or response context",
+            "cadence": "source update or event-based",
+            "source_id": "humanitarian",
+            "transformation": "Preserve source units, boundary, sign, and uncertainty.",
+            "uncertainty": "Local conditions and management can change magnitude.",
+            "threshold_provenance": "Use source-defined thresholds only.",
+            "failure_behavior": "Keep research-track when the bounded observation is absent."
+          },
+          "source_locators": [
+            {
+              "url": "https://www.wfp.org/news/wfp-requires-us169-billion-2025-respond-unrelenting-humanitarian-needs",
+              "locator": "Primary authoritative mechanism statement.",
+              "source_type": "authoritative_mechanism"
+            },
+            {
+              "url": "https://www.wfp.org/publications/food-security-impact-reduction-wfp-funding",
+              "locator": "Independent authoritative corroboration.",
+              "source_type": "independent_authoritative"
+            }
+          ],
+          "evidence_basis": "indirect"
+        },
+        {
+          "edge_key": "food_insecurity->humanitarian_surge_demand",
+          "relationship_level": "indirect",
+          "confidence": "medium",
+          "promotion_status": "promoted",
+          "source": "food_insecurity",
+          "target": "humanitarian_surge_demand",
+          "mechanism": "Rising acute hunger increases the number of people requiring emergency food, nutrition, logistics, and protection support.",
+          "geographic_scope": "Apply only within the named basin, airshed, production system, or humanitarian response context.",
+          "temporal_scope": "Observed or assessed over the source reporting interval.",
+          "moderators": [
+            "local baseline and capacity",
+            "management practices",
+            "exposure duration",
+            "hydrology or atmospheric transport"
+          ],
+          "alternative_explanations": [
+            "other sectoral pressures",
+            "natural variability",
+            "governance and infrastructure",
+            "measurement uncertainty"
+          ],
+          "counterevidence": "The mechanism does not establish a universal local magnitude or single-cause attribution.",
+          "indicator": {
+            "metric_id": "backlog_batch_four_food_insecurity_humanitarian_surge_demand",
+            "metric_name": "Bounded mechanism observation",
+            "unit": "source-defined measurement with named boundary and interval",
+            "geography": "named basin, airshed, operation, or response context",
+            "cadence": "source update or event-based",
+            "source_id": "humanitarian",
+            "transformation": "Preserve source units, boundary, sign, and uncertainty.",
+            "uncertainty": "Local conditions and management can change magnitude.",
+            "threshold_provenance": "Use source-defined thresholds only.",
+            "failure_behavior": "Keep research-track when the bounded observation is absent."
+          },
+          "source_locators": [
+            {
+              "url": "https://www.wfp.org/news/wfp-requires-us169-billion-2025-respond-unrelenting-humanitarian-needs",
+              "locator": "Primary authoritative mechanism statement.",
+              "source_type": "authoritative_mechanism"
+            },
+            {
+              "url": "https://www.wfp.org/publications/food-security-impact-reduction-wfp-funding",
+              "locator": "Independent authoritative corroboration.",
+              "source_type": "independent_authoritative"
+            }
+          ],
+          "evidence_basis": "indirect"
+        }
+      ]
+    },
+    {
+      "id": "nutrient_pollution",
+      "approval": {
+        "id": "nutrient_pollution",
+        "sequence": 2,
+        "status": "approved_and_promoted",
+        "approved_at": "2026-07-17",
+        "boundary": "Nutrient state only; not an umbrella biogeochemical-flow score."
+      },
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 3,
+        "observed_incoming_drivers": 6,
+        "qualified_incoming_drivers": 6,
+        "qualification_basis": "complete_promoted_edge_dossiers",
+        "status": "pass"
+      },
+      "dossiers": [
+        {
+          "edge_key": "fertilizer_production->nutrient_pollution",
+          "relationship_level": "direct",
+          "confidence": "moderate",
+          "promotion_status": "promoted",
+          "mechanism": "Fertilizer production and use increase the pool of reactive nutrients available for loss.",
+          "geographic_scope": "Global mechanism with regional expression and explicit metric bounds.",
+          "temporal_scope": "Seasonal to multi-decadal.",
+          "moderators": [
+            "baseline vulnerability",
+            "management and policy",
+            "local environmental conditions"
+          ],
+          "alternative_explanations": [
+            "measurement coverage change",
+            "co-occurring pressures"
+          ],
+          "counterevidence": "Magnitude and attribution can weaken or reverse across places and periods; the edge is not deterministic.",
+          "indicator": {
+            "metric_id": "nutrient_pollution_edge_evidence",
+            "role": "driver"
+          },
+          "source_locators": [
+            {
+              "url": "https://www.epa.gov/nutrientpollution/sources-and-solutions",
+              "locator": "mechanism and definition page",
+              "source_type": "authoritative"
+            },
+            {
+              "url": "https://www.epa.gov/nutrientpollution/effects-dead-zones-and-harmful-algal-blooms",
+              "locator": "assessment chapter or dataset documentation",
+              "source_type": "independent_assessment"
+            }
+          ],
+          "evidence_basis": "direct"
+        },
+        {
+          "edge_key": "nitrogen_fertilizer_runoff->nutrient_pollution",
+          "relationship_level": "direct",
+          "confidence": "moderate",
+          "promotion_status": "promoted",
+          "mechanism": "Runoff transports excess applied nitrogen into surface waters.",
+          "geographic_scope": "Global mechanism with regional expression and explicit metric bounds.",
+          "temporal_scope": "Seasonal to multi-decadal.",
+          "moderators": [
+            "baseline vulnerability",
+            "management and policy",
+            "local environmental conditions"
+          ],
+          "alternative_explanations": [
+            "measurement coverage change",
+            "co-occurring pressures"
+          ],
+          "counterevidence": "Magnitude and attribution can weaken or reverse across places and periods; the edge is not deterministic.",
+          "indicator": {
+            "metric_id": "nutrient_pollution_edge_evidence",
+            "role": "driver"
+          },
+          "source_locators": [
+            {
+              "url": "https://www.epa.gov/nutrientpollution/sources-and-solutions",
+              "locator": "mechanism and definition page",
+              "source_type": "authoritative"
+            },
+            {
+              "url": "https://www.epa.gov/nutrientpollution/effects-dead-zones-and-harmful-algal-blooms",
+              "locator": "assessment chapter or dataset documentation",
+              "source_type": "independent_assessment"
+            }
+          ],
+          "evidence_basis": "direct"
+        },
+        {
+          "edge_key": "wastewater_bypass_discharge->nutrient_pollution",
+          "relationship_level": "direct",
+          "confidence": "moderate",
+          "promotion_status": "promoted",
+          "mechanism": "Untreated or bypassed wastewater delivers nitrogen and phosphorus to receiving waters.",
+          "geographic_scope": "Global mechanism with regional expression and explicit metric bounds.",
+          "temporal_scope": "Seasonal to multi-decadal.",
+          "moderators": [
+            "baseline vulnerability",
+            "management and policy",
+            "local environmental conditions"
+          ],
+          "alternative_explanations": [
+            "measurement coverage change",
+            "co-occurring pressures"
+          ],
+          "counterevidence": "Magnitude and attribution can weaken or reverse across places and periods; the edge is not deterministic.",
+          "indicator": {
+            "metric_id": "nutrient_pollution_edge_evidence",
+            "role": "driver"
+          },
+          "source_locators": [
+            {
+              "url": "https://www.epa.gov/nutrientpollution/sources-and-solutions",
+              "locator": "mechanism and definition page",
+              "source_type": "authoritative"
+            },
+            {
+              "url": "https://www.epa.gov/nutrientpollution/effects-dead-zones-and-harmful-algal-blooms",
+              "locator": "assessment chapter or dataset documentation",
+              "source_type": "independent_assessment"
+            }
+          ],
+          "evidence_basis": "direct"
+        },
+        {
+          "edge_key": "nutrient_pollution->harmful_algal_blooms",
+          "relationship_level": "indirect",
+          "confidence": "moderate",
+          "promotion_status": "promoted",
+          "mechanism": "Excess nutrients can stimulate harmful algal growth under favorable light, flow, and temperature.",
+          "geographic_scope": "Global mechanism with regional expression and explicit metric bounds.",
+          "temporal_scope": "Seasonal to multi-decadal.",
+          "moderators": [
+            "baseline vulnerability",
+            "management and policy",
+            "local environmental conditions"
+          ],
+          "alternative_explanations": [
+            "measurement coverage change",
+            "co-occurring pressures"
+          ],
+          "counterevidence": "Magnitude and attribution can weaken or reverse across places and periods; the edge is not deterministic.",
+          "indicator": {
+            "metric_id": "harmful_algal_blooms_edge_evidence",
+            "role": "effect"
+          },
+          "source_locators": [
+            {
+              "url": "https://www.epa.gov/nutrientpollution/sources-and-solutions",
+              "locator": "mechanism and definition page",
+              "source_type": "authoritative"
+            },
+            {
+              "url": "https://www.epa.gov/nutrientpollution/effects-dead-zones-and-harmful-algal-blooms",
+              "locator": "assessment chapter or dataset documentation",
+              "source_type": "independent_assessment"
+            }
+          ],
+          "evidence_basis": "indirect"
+        },
+        {
+          "edge_key": "nutrient_pollution->coral_bleaching",
+          "relationship_level": "indirect",
+          "confidence": "high",
+          "version": "coral_bleaching_repair_v1",
+          "promotion_status": "promoted",
+          "reviewed_at": "2026-07-17",
+          "source": "nutrient_pollution",
+          "target": "coral_bleaching",
+          "mechanism": "Excess nutrient and organic-carbon runoff can alter coastal water chemistry, promote blooms, and increase reef stress that compounds thermal bleaching susceptibility and recovery limits.",
+          "geographic_scope": "Named reef, ecoregion, or satellite grid cell.",
+          "temporal_scope": "Days to a bleaching season, with field validation.",
+          "moderators": [
+            "nutrient form and load",
+            "water residence time",
+            "light availability",
+            "thermal stress",
+            "coral species"
+          ],
+          "alternative_explanations": [
+            "upwelling-driven nutrients",
+            "sediment loading",
+            "coral disease",
+            "non-anthropogenic coastal chemistry"
+          ],
+          "counterevidence": "Nutrient enrichment is not a bleaching diagnosis; it must be distinguished from thermal exposure, sedimentation, and disease through water-quality and reef observations.",
+          "indicator": {
+            "metric_id": "coral_bleaching_severity",
+            "metric_name": "Coral bleaching severity and thermal stress",
+            "unit": "percent coral colonies bleached, bleaching alert level, or degree-heating-weeks",
+            "geography": "named reef, ecoregion, or satellite grid cell",
+            "cadence": "daily thermal monitoring plus seasonal field validation",
+            "observation_time_field": "observation_date",
+            "source_id": "noaa_coral_reef_watch",
+            "transformation": "Retain coral taxon, survey method, depth, heat-stress metric, exposure duration, and local water-quality context.",
+            "uncertainty": "Satellite heat-stress products require field validation; susceptibility differs by species, acclimation, depth, and local stressors.",
+            "threshold_provenance": "NOAA Coral Reef Watch Degree Heating Week and Bleaching HotSpot products.",
+            "failure_behavior": "Do not infer bleaching from a warm anomaly alone without duration, reef location, and field or validated heat-stress context."
+          },
+          "source_locators": [
+            {
+              "url": "https://oceanacidification.noaa.gov/what-is-ocean-acidification/",
+              "locator": "NOAA: excess nutrient and organic-carbon runoff can drive blooms and local coastal acidification.",
+              "source_type": "authoritative_assessment"
+            },
+            {
+              "url": "https://www.aoml.noaa.gov/threats-to-coral/",
+              "locator": "NOAA AOML identifies water-quality stressors alongside heat, disease, hypoxia, and acidification as reef threats.",
+              "source_type": "independent_authoritative"
+            }
+          ],
+          "evidence_basis": "indirect"
+        },
+        {
+          "edge_key": "nutrient_pollution->shelf_sea_hypoxia",
+          "relationship_level": "direct",
+          "confidence": "high",
+          "version": "degree_two_promotion_v1",
+          "promotion_status": "promoted",
+          "reviewed_at": "2026-07-17",
+          "source": "nutrient_pollution",
+          "target": "shelf_sea_hypoxia",
+          "mechanism": "Excess nutrient delivery can increase algal production; respiration during decomposition then consumes bottom-water oxygen faster than it is replenished.",
+          "geographic_scope": "River-influenced continental shelves with nutrient-load, productivity, and bottom-water oxygen observations.",
+          "temporal_scope": "Runoff and bloom events through seasonal hypoxic-area development.",
+          "moderators": [
+            "nutrient timing",
+            "organic matter export",
+            "river discharge",
+            "light",
+            "benthic respiration"
+          ],
+          "alternative_explanations": [
+            "naturally oxygen-poor source water",
+            "upwelling",
+            "restricted circulation"
+          ],
+          "counterevidence": "Elevated nutrients do not establish low oxygen without biological production, respiration, and limited ventilation.",
+          "indicator": {
+            "metric_id": "continental_shelf_bottom_water_hypoxia",
+            "metric_name": "Continental-shelf bottom-water hypoxia",
+            "unit": "milligrams per liter or milliliters per liter dissolved oxygen with hypoxic area, water-column thickness, duration, depth, threshold and global site inventory reported separately",
+            "geography": "named continental-shelf survey grid, transect, bottom-water station network, model domain, or declared global assessment boundary",
+            "cadence": "continuous station observations or repeated seasonal surveys with annual synthesis and global assessment reviews",
+            "observation_time_field": "dissolved_oxygen_observation_time",
+            "source_id": "unep_global_nutrient_pollution_impact",
+            "transformation": "Retain depth, distance above seabed, instrument and calibration, temperature, salinity, density structure, threshold, survey coverage, interpolation method, and whether the record is observed or modeled.",
+            "uncertainty": "Sparse transects, sensor drift, short-lived mixing, tidal and upwelling variability, threshold choice, and interpolation across unobserved shelf water affect area and duration estimates.",
+            "threshold_provenance": "Use the named monitoring program threshold, such as 2 milligrams per liter or 1.4 milliliters per liter, without treating thresholds from different programs as interchangeable.",
+            "failure_behavior": "Do not infer shelf-wide hypoxia from one low-oxygen station, substitute a global oxygen trend for local observations, or merge measurements that use incompatible depth and threshold definitions."
+          },
+          "source_locators": [
+            {
+              "url": "https://oceanservice.noaa.gov/products/pubs_hypox.html",
+              "locator": "NOAA identifies excess nutrients, algal production, organic carbon, and decomposition as a major continental-shelf oxygen-depletion pathway.",
+              "source_type": "authoritative_assessment"
+            },
+            {
+              "url": "https://www.epa.gov/nutrientpollution/documented-hypoxia-and-associated-risk-factors-estuaries-coastal-waters-and-great",
+              "locator": "EPA links eutrophication and decomposition of algal organic matter to documented coastal low-oxygen conditions.",
+              "source_type": "independent_authoritative"
+            }
+          ],
+          "evidence_basis": "direct"
+        },
+        {
+          "edge_key": "nutrient_pollution->jellyfish_swarm_surges",
+          "relationship_level": "indirect",
+          "confidence": "moderate",
+          "promotion_status": "promoted",
+          "source": "nutrient_pollution",
+          "target": "jellyfish_swarm_surges",
+          "mechanism": "Nutrient-rich, turbid coastal water can increase production and create conditions favorable to some bloom-forming taxa and their prey.",
+          "geographic_scope": "Named coastal water body with taxon-resolved abundance, nutrients, oxygen, and circulation.",
+          "temporal_scope": "Seasonal loading through bloom development.",
+          "moderators": [
+            "taxon",
+            "salinity",
+            "prey",
+            "flushing"
+          ],
+          "alternative_explanations": [
+            "advection",
+            "natural recruitment pulse"
+          ],
+          "counterevidence": "Nutrient enrichment does not favor every jellyfish species or create a bloom by itself.",
+          "indicator": {
+            "metric_id": "jellyfish_bloom_frequency_biomass_and_duration",
+            "metric_name": "Jellyfish bloom frequency, biomass, and duration",
+            "unit": "individuals per cubic metre, biomass, occupied area, event duration, and recurrence by taxon and method",
+            "geography": "named coastal water body, taxon, life stage, depth, survey platform, season, and baseline",
+            "cadence": "seasonal or annual observation with multi-year trend review",
+            "observation_time_field": "observation_period",
+            "source_id": "noaa_nccos_jellyfish_bloom_research",
+            "transformation": "Retain medusa and polyp stages, taxon, sampling effort, artificial substrate, temperature, salinity, oxygen, nutrients, prey, predators, fishing, currents, and uncertainty.",
+            "uncertainty": "Patchiness, life-cycle stage, currents, observation effort, taxonomic ambiguity, and episodic recruitment complicate trend inference.",
+            "threshold_provenance": "Use the named authoritative or primary study method and a declared taxonomic, spatial, temporal, and baseline boundary; no universal collapse threshold is implied.",
+            "failure_behavior": "Do not infer a regional increase from beach strandings, intake fouling, or one survey without effort-adjusted abundance and a fixed baseline."
+          },
+          "source_locators": [
+            {
+              "url": "https://coastalscience.noaa.gov/news/why-do-some-jellyfish-bloom-a-new-theory-emerges/",
+              "locator": "NOAA identifies murky nutrient-rich water as favorable in the studied coastal setting.",
+              "source_type": "authoritative_assessment"
+            },
+            {
+              "url": "https://coastalscience.noaa.gov/data_reports/is-global-ocean-sprawl-a-cause-of-jellyfish-blooms/",
+              "locator": "NOAA synthesis records eutrophication among multiple, interacting bloom drivers.",
+              "source_type": "independent_authoritative"
+            }
+          ],
+          "evidence_basis": "indirect"
+        },
+        {
+          "edge_key": "nutrient_pollution->freshwater_mussel_depletion",
+          "relationship_level": "indirect",
+          "confidence": "moderate",
+          "promotion_status": "promoted",
+          "source": "nutrient_pollution",
+          "target": "freshwater_mussel_depletion",
+          "mechanism": "Excess nutrients and associated oxygen, algal, ammonia, or sediment changes can impair sensitive life stages where exposure reaches harmful levels.",
+          "geographic_scope": "Named river reach with taxon, water-quality, sediment, and comparable population observations.",
+          "temporal_scope": "Seasonal exposure through years of recruitment and survival response.",
+          "moderators": [
+            "compound and form",
+            "flow",
+            "temperature",
+            "life stage"
+          ],
+          "alternative_explanations": [
+            "legacy industrial contaminants",
+            "disease",
+            "host-fish decline"
+          ],
+          "counterevidence": "Nutrient concentration alone does not identify the causal toxic or habitat pathway.",
+          "indicator": {
+            "metric_id": "freshwater_mussel_population_and_recruitment",
+            "metric_name": "Freshwater mussel population and recruitment",
+            "unit": "density, catch per unit effort, occupancy, species richness, survival, recruitment, and size structure by survey method",
+            "geography": "named river reach, mussel taxon and host context, habitat, survey design, and assessment period",
+            "cadence": "seasonal or annual observation with multi-year trend review",
+            "observation_time_field": "observation_period",
+            "source_id": "usgs_native_freshwater_mussel_science_vision",
+            "transformation": "Retain taxon, life stage, host fish, detection and effort, flow, temperature, substrate, sediment, barriers, contaminants, disease, non-native species, drought, and uncertainty.",
+            "uncertainty": "Imperfect detection, patchy beds, long life spans, episodic recruitment, host dynamics, flow, pollution, and unexplained mass mortality affect trends.",
+            "threshold_provenance": "Use the named authoritative or primary study method and a declared taxonomic, spatial, temporal, and baseline boundary; no universal collapse threshold is implied.",
+            "failure_behavior": "Do not infer a cause from absence or one survey, and do not generalize a site-specific decline across taxa or basins."
+          },
+          "source_locators": [
+            {
+              "url": "https://pubs.usgs.gov/publication/cir1511/full",
+              "locator": "USGS science vision lists contaminants among several interacting challenges and highlights unexplained declines.",
+              "source_type": "authoritative_assessment"
+            },
+            {
+              "url": "https://www.usgs.gov/programs/climate-adaptation-science-centers/science/modeling-response-freshwater-mussels-changes",
+              "locator": "USGS modeling studies temperature, sediment, streamflow and habitat rather than assigning one universal cause.",
+              "source_type": "independent_authoritative"
+            }
+          ],
+          "evidence_basis": "indirect"
+        },
+        {
+          "edge_key": "nutrient_pollution->anoxic_dead_zones",
+          "relationship_level": "direct",
+          "confidence": "high",
+          "promotion_status": "promoted",
+          "source": "nutrient_pollution",
+          "target": "anoxic_dead_zones",
+          "mechanism": "Excess nitrogen and phosphorus can stimulate algal growth whose decomposition consumes dissolved oxygen and can create persistent low-oxygen zones in susceptible receiving waters.",
+          "geographic_scope": "Global assessment; magnitude and timing require a named regional observation.",
+          "temporal_scope": "Observed or assessed over the reporting interval stated by the cited source.",
+          "moderators": [
+            "local baseline conditions",
+            "management and adaptation",
+            "exposure duration",
+            "measurement uncertainty"
+          ],
+          "alternative_explanations": [
+            "other sectoral pressures",
+            "natural variability",
+            "local infrastructure and governance",
+            "unmeasured confounding stressors"
+          ],
+          "counterevidence": "The pathway does not establish a universal local magnitude, timing, or single-cause attribution.",
+          "indicator": {
+            "metric_id": "backlog_pathway_nutrient_pollution_anoxic_dead_zones",
+            "metric_name": "Bounded pathway evidence",
+            "unit": "source-defined observation with named geography and interval",
+            "geography": "named geography or assessed global domain",
+            "cadence": "reviewed when either source is updated",
+            "source_id": "hypoxia",
+            "transformation": "Retain source scope and do not convert assessment language into local attribution.",
+            "uncertainty": "Source confidence and local moderators apply.",
+            "threshold_provenance": "No universal threshold; use the cited source definition.",
+            "failure_behavior": "Keep the edge indirect or research-track if its bounded conditions are unavailable."
+          },
+          "source_locators": [
+            {
+              "url": "https://www.epa.gov/ms-htf/hypoxia-101",
+              "locator": "Primary authoritative statement of the bounded mechanism.",
+              "source_type": "authoritative_mechanism"
+            },
+            {
+              "url": "https://www.epa.gov/nutrientpollution/effects-dead-zones-and-harmful-algal-blooms",
+              "locator": "Independent authoritative corroboration and scope limitation.",
+              "source_type": "independent_authoritative"
+            }
+          ],
+          "evidence_basis": "direct"
+        },
+        {
+          "edge_key": "fast_fashion->nutrient_pollution",
+          "relationship_level": "indirect",
+          "confidence": "medium",
+          "promotion_status": "promoted",
+          "source": "fast_fashion",
+          "target": "nutrient_pollution",
+          "mechanism": "High-volume textile production and short product lifetimes increase wastewater, dye, chemical, and waste burdens; the receiving-water effect depends on treatment and disposal controls.",
+          "geographic_scope": "Global assessment; magnitude and timing require a named regional observation.",
+          "temporal_scope": "Observed or assessed over the reporting interval stated by the cited source.",
+          "moderators": [
+            "local baseline conditions",
+            "management and adaptation",
+            "exposure duration",
+            "measurement uncertainty"
+          ],
+          "alternative_explanations": [
+            "other sectoral pressures",
+            "natural variability",
+            "local infrastructure and governance",
+            "unmeasured confounding stressors"
+          ],
+          "counterevidence": "The pathway does not establish a universal local magnitude, timing, or single-cause attribution.",
+          "indicator": {
+            "metric_id": "backlog_pathway_fast_fashion_nutrient_pollution",
+            "metric_name": "Bounded pathway evidence",
+            "unit": "source-defined observation with named geography and interval",
+            "geography": "named geography or assessed global domain",
+            "cadence": "reviewed when either source is updated",
+            "source_id": "textiles",
+            "transformation": "Retain source scope and do not convert assessment language into local attribution.",
+            "uncertainty": "Source confidence and local moderators apply.",
+            "threshold_provenance": "No universal threshold; use the cited source definition.",
+            "failure_behavior": "Keep the edge indirect or research-track if its bounded conditions are unavailable."
+          },
+          "source_locators": [
+            {
+              "url": "https://www.unep.org/news-and-stories/story/environmental-costs-fast-fashion",
+              "locator": "Primary authoritative statement of the bounded mechanism.",
+              "source_type": "authoritative_mechanism"
+            },
+            {
+              "url": "https://www.unep.org/topics/chemicals-and-pollution-action/circularity-sectors/sustainable-and-circular-textiles",
+              "locator": "Independent authoritative corroboration and scope limitation.",
+              "source_type": "independent_authoritative"
+            }
+          ],
+          "evidence_basis": "indirect"
+        },
+        {
+          "edge_key": "agricultural_nitrogen_application->nutrient_pollution",
+          "relationship_level": "direct",
+          "confidence": "high",
+          "promotion_status": "promoted",
+          "source": "agricultural_nitrogen_application",
+          "target": "nutrient_pollution",
+          "mechanism": "Nitrogen not taken up by crops can run off or leach into surface water and groundwater.",
+          "geographic_scope": "Apply only within the named basin, airshed, production system, or humanitarian response context.",
+          "temporal_scope": "Observed or assessed over the source reporting interval.",
+          "moderators": [
+            "local baseline and capacity",
+            "management practices",
+            "exposure duration",
+            "hydrology or atmospheric transport"
+          ],
+          "alternative_explanations": [
+            "other sectoral pressures",
+            "natural variability",
+            "governance and infrastructure",
+            "measurement uncertainty"
+          ],
+          "counterevidence": "The mechanism does not establish a universal local magnitude or single-cause attribution.",
+          "indicator": {
+            "metric_id": "backlog_batch_four_agricultural_nitrogen_application_nutrient_pollution",
+            "metric_name": "Bounded mechanism observation",
+            "unit": "source-defined measurement with named boundary and interval",
+            "geography": "named basin, airshed, operation, or response context",
+            "cadence": "source update or event-based",
+            "source_id": "agriculture",
+            "transformation": "Preserve source units, boundary, sign, and uncertainty.",
+            "uncertainty": "Local conditions and management can change magnitude.",
+            "threshold_provenance": "Use source-defined thresholds only.",
+            "failure_behavior": "Keep research-track when the bounded observation is absent."
+          },
+          "source_locators": [
+            {
+              "url": "https://www.epa.gov/nutrientpollution/sources-and-solutions-agriculture",
+              "locator": "Primary authoritative mechanism statement.",
+              "source_type": "authoritative_mechanism"
+            },
+            {
+              "url": "https://www.epa.gov/ghgemissions/agriculture-sector-emissions",
+              "locator": "Independent authoritative corroboration.",
+              "source_type": "independent_authoritative"
+            }
+          ],
+          "evidence_basis": "direct"
+        },
+        {
+          "edge_key": "anaerobic_manure_lagoon_operation->nutrient_pollution",
+          "relationship_level": "indirect",
+          "confidence": "medium",
+          "promotion_status": "promoted",
+          "source": "anaerobic_manure_lagoon_operation",
+          "target": "nutrient_pollution",
+          "mechanism": "Leaks, overflows, or poorly timed land application can move nitrogen and phosphorus into surface water or groundwater.",
+          "geographic_scope": "Apply only within the named basin, airshed, production system, or humanitarian response context.",
+          "temporal_scope": "Observed or assessed over the source reporting interval.",
+          "moderators": [
+            "local baseline and capacity",
+            "management practices",
+            "exposure duration",
+            "hydrology or atmospheric transport"
+          ],
+          "alternative_explanations": [
+            "other sectoral pressures",
+            "natural variability",
+            "governance and infrastructure",
+            "measurement uncertainty"
+          ],
+          "counterevidence": "The mechanism does not establish a universal local magnitude or single-cause attribution.",
+          "indicator": {
+            "metric_id": "backlog_batch_four_anaerobic_manure_lagoon_operation_nutrient_pollution",
+            "metric_name": "Bounded mechanism observation",
+            "unit": "source-defined measurement with named boundary and interval",
+            "geography": "named basin, airshed, operation, or response context",
+            "cadence": "source update or event-based",
+            "source_id": "agriculture",
+            "transformation": "Preserve source units, boundary, sign, and uncertainty.",
+            "uncertainty": "Local conditions and management can change magnitude.",
+            "threshold_provenance": "Use source-defined thresholds only.",
+            "failure_behavior": "Keep research-track when the bounded observation is absent."
+          },
+          "source_locators": [
+            {
+              "url": "https://www.epa.gov/nutrientpollution/sources-and-solutions-agriculture",
+              "locator": "Primary authoritative mechanism statement.",
+              "source_type": "authoritative_mechanism"
+            },
+            {
+              "url": "https://www.epa.gov/ghgemissions/agriculture-sector-emissions",
+              "locator": "Independent authoritative corroboration.",
+              "source_type": "independent_authoritative"
+            }
+          ],
+          "evidence_basis": "indirect"
+        }
+      ]
+    },
+    {
+      "id": "seagrass_meadow_decline",
+      "approval": {
+        "id": "seagrass_meadow_decline",
+        "sequence": 3,
+        "status": "approved_and_promoted",
+        "approved_at": "2026-07-17",
+        "boundary": "Mapped habitat decline; occurrences are supporting evidence only."
+      },
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 3,
+        "observed_incoming_drivers": 3,
+        "qualified_incoming_drivers": 3,
+        "qualification_basis": "complete_promoted_edge_dossiers",
+        "status": "pass"
+      },
+      "dossiers": [
+        {
+          "edge_key": "marine_heatwaves->seagrass_meadow_decline",
+          "relationship_level": "direct",
+          "confidence": "moderate",
+          "promotion_status": "promoted",
+          "mechanism": "Acute thermal stress can damage seagrass physiology and increase mortality.",
+          "geographic_scope": "Global mechanism with regional expression and explicit metric bounds.",
+          "temporal_scope": "Seasonal to multi-decadal.",
+          "moderators": [
+            "baseline vulnerability",
+            "management and policy",
+            "local environmental conditions"
+          ],
+          "alternative_explanations": [
+            "measurement coverage change",
+            "co-occurring pressures"
+          ],
+          "counterevidence": "Magnitude and attribution can weaken or reverse across places and periods; the edge is not deterministic.",
+          "indicator": {
+            "metric_id": "seagrass_meadow_decline_edge_evidence",
+            "role": "driver"
+          },
+          "source_locators": [
+            {
+              "url": "https://www.unep.org/topics/ocean-seas-and-coasts/blue-ecosystems/seagrass-meadows",
+              "locator": "mechanism and definition page",
+              "source_type": "authoritative"
+            },
+            {
+              "url": "https://www.ipcc.ch/srocc/chapter/chapter-5/",
+              "locator": "assessment chapter or dataset documentation",
+              "source_type": "independent_assessment"
+            }
+          ],
+          "evidence_basis": "direct"
+        },
+        {
+          "edge_key": "estuary_eutrophication->seagrass_meadow_decline",
+          "relationship_level": "direct",
+          "confidence": "moderate",
+          "promotion_status": "promoted",
+          "mechanism": "Eutrophication reduces light through algal and epiphyte growth, limiting seagrass survival.",
+          "geographic_scope": "Global mechanism with regional expression and explicit metric bounds.",
+          "temporal_scope": "Seasonal to multi-decadal.",
+          "moderators": [
+            "baseline vulnerability",
+            "management and policy",
+            "local environmental conditions"
+          ],
+          "alternative_explanations": [
+            "measurement coverage change",
+            "co-occurring pressures"
+          ],
+          "counterevidence": "Magnitude and attribution can weaken or reverse across places and periods; the edge is not deterministic.",
+          "indicator": {
+            "metric_id": "seagrass_meadow_decline_edge_evidence",
+            "role": "driver"
+          },
+          "source_locators": [
+            {
+              "url": "https://www.unep.org/topics/ocean-seas-and-coasts/blue-ecosystems/seagrass-meadows",
+              "locator": "mechanism and definition page",
+              "source_type": "authoritative"
+            },
+            {
+              "url": "https://www.ipcc.ch/srocc/chapter/chapter-5/",
+              "locator": "assessment chapter or dataset documentation",
+              "source_type": "independent_assessment"
+            }
+          ],
+          "evidence_basis": "direct"
+        },
+        {
+          "edge_key": "coastal_erosion->seagrass_meadow_decline",
+          "relationship_level": "direct",
+          "confidence": "moderate",
+          "promotion_status": "promoted",
+          "mechanism": "Erosion and sediment instability can remove or bury meadow habitat.",
+          "geographic_scope": "Global mechanism with regional expression and explicit metric bounds.",
+          "temporal_scope": "Seasonal to multi-decadal.",
+          "moderators": [
+            "baseline vulnerability",
+            "management and policy",
+            "local environmental conditions"
+          ],
+          "alternative_explanations": [
+            "measurement coverage change",
+            "co-occurring pressures"
+          ],
+          "counterevidence": "Magnitude and attribution can weaken or reverse across places and periods; the edge is not deterministic.",
+          "indicator": {
+            "metric_id": "seagrass_meadow_decline_edge_evidence",
+            "role": "driver"
+          },
+          "source_locators": [
+            {
+              "url": "https://www.unep.org/topics/ocean-seas-and-coasts/blue-ecosystems/seagrass-meadows",
+              "locator": "mechanism and definition page",
+              "source_type": "authoritative"
+            },
+            {
+              "url": "https://www.ipcc.ch/srocc/chapter/chapter-5/",
+              "locator": "assessment chapter or dataset documentation",
+              "source_type": "independent_assessment"
+            }
+          ],
+          "evidence_basis": "direct"
+        },
+        {
+          "edge_key": "seagrass_meadow_decline->blue_carbon_habitat_loss",
+          "relationship_level": "direct",
+          "confidence": "high",
+          "version": "degree_two_promotion_v1",
+          "promotion_status": "promoted",
+          "reviewed_at": "2026-07-17",
+          "source": "seagrass_meadow_decline",
+          "target": "blue_carbon_habitat_loss",
+          "mechanism": "Loss of vegetated seabed removes living carbon uptake and can expose carbon-rich sediment to erosion and remineralization.",
+          "geographic_scope": "Mapped seagrass beds with repeat habitat and sediment-carbon observations.",
+          "temporal_scope": "Seasonal damage through multi-year stock change.",
+          "moderators": [
+            "sediment carbon stock",
+            "erosion",
+            "water quality",
+            "restoration"
+          ],
+          "alternative_explanations": [
+            "temporary canopy loss",
+            "mapping error",
+            "natural seasonal change"
+          ],
+          "counterevidence": "Canopy decline does not prove stored carbon was released without sediment and disturbance measurements.",
+          "indicator": {
+            "metric_id": "coastal_blue_carbon_habitat_area_and_stock_loss",
+            "metric_name": "Coastal blue-carbon habitat area and carbon-stock loss",
+            "unit": "hectares lost and tonnes carbon or carbon dioxide equivalent released or sequestration capacity lost",
+            "geography": "global assessment or named salt-marsh, mangrove, or seagrass assessment area",
+            "cadence": "major global assessment or annual to multi-year inventory",
+            "observation_time_field": "habitat_assessment_date",
+            "source_id": "unep_blue_ecosystems_global_assessments",
+            "transformation": "Retain habitat class, mapped area, soil depth, carbon-stock method, disturbance type, baseline year, and whether release or avoided sequestration is estimated.",
+            "uncertainty": "Below-ground stocks, erosion fate, remineralization, mapping resolution, and counterfactual sequestration vary by habitat and method.",
+            "threshold_provenance": "Habitat-specific inventory method or IPCC wetlands accounting boundary.",
+            "failure_behavior": "Do not convert habitat area directly to emissions without habitat-specific stock and disturbance factors."
+          },
+          "source_locators": [
+            {
+              "url": "https://www.fisheries.noaa.gov/national/habitat-conservation/protecting-coastal-blue-carbon-through-habitat-conservation",
+              "locator": "NOAA identifies seagrass beds as coastal carbon stores and explains that damage removes uptake and can release stored carbon.",
+              "source_type": "authoritative_assessment"
+            },
+            {
+              "url": "https://repository.library.noaa.gov/view/noaa/40456",
+              "locator": "NOAA white paper defines seagrass as a blue-carbon ecosystem and provides inventory context.",
+              "source_type": "independent_authoritative"
+            }
+          ],
+          "evidence_basis": "direct"
+        }
+      ]
+    },
+    {
+      "id": "urban_heat_island",
+      "approval": {
+        "id": "urban_heat_island",
+        "sequence": 4,
+        "status": "approved_and_promoted",
+        "approved_at": "2026-07-17",
+        "boundary": "Phenomenon node; intensity is its metric."
+      },
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 3,
+        "observed_incoming_drivers": 3,
+        "qualified_incoming_drivers": 3,
+        "qualification_basis": "complete_promoted_edge_dossiers",
+        "status": "pass"
+      },
+      "dossiers": [
+        {
+          "edge_key": "urban_tree_canopy_loss->urban_heat_island",
+          "relationship_level": "direct",
+          "confidence": "moderate",
+          "promotion_status": "promoted",
+          "mechanism": "Canopy loss reduces shade and evapotranspirative cooling.",
+          "geographic_scope": "Global mechanism with regional expression and explicit metric bounds.",
+          "temporal_scope": "Seasonal to multi-decadal.",
+          "moderators": [
+            "baseline vulnerability",
+            "management and policy",
+            "local environmental conditions"
+          ],
+          "alternative_explanations": [
+            "measurement coverage change",
+            "co-occurring pressures"
+          ],
+          "counterevidence": "Magnitude and attribution can weaken or reverse across places and periods; the edge is not deterministic.",
+          "indicator": {
+            "metric_id": "urban_heat_island_edge_evidence",
+            "role": "driver"
+          },
+          "source_locators": [
+            {
+              "url": "https://www.epa.gov/heatislands/what-are-heat-islands",
+              "locator": "mechanism and definition page",
+              "source_type": "authoritative"
+            },
+            {
+              "url": "https://climate.discomap.eea.europa.eu/arcgis/rest/services/UAMV/Urban_Heat_Island_Intensity/MapServer",
+              "locator": "assessment chapter or dataset documentation",
+              "source_type": "independent_assessment"
+            }
+          ],
+          "evidence_basis": "direct"
+        },
+        {
+          "edge_key": "urban_sprawl_housing->urban_heat_island",
+          "relationship_level": "direct",
+          "confidence": "moderate",
+          "promotion_status": "promoted",
+          "mechanism": "Low-density expansion can replace vegetated cover with heat-storing built surfaces.",
+          "geographic_scope": "Global mechanism with regional expression and explicit metric bounds.",
+          "temporal_scope": "Seasonal to multi-decadal.",
+          "moderators": [
+            "baseline vulnerability",
+            "management and policy",
+            "local environmental conditions"
+          ],
+          "alternative_explanations": [
+            "measurement coverage change",
+            "co-occurring pressures"
+          ],
+          "counterevidence": "Magnitude and attribution can weaken or reverse across places and periods; the edge is not deterministic.",
+          "indicator": {
+            "metric_id": "urban_heat_island_edge_evidence",
+            "role": "driver"
+          },
+          "source_locators": [
+            {
+              "url": "https://www.epa.gov/heatislands/what-are-heat-islands",
+              "locator": "mechanism and definition page",
+              "source_type": "authoritative"
+            },
+            {
+              "url": "https://climate.discomap.eea.europa.eu/arcgis/rest/services/UAMV/Urban_Heat_Island_Intensity/MapServer",
+              "locator": "assessment chapter or dataset documentation",
+              "source_type": "independent_assessment"
+            }
+          ],
+          "evidence_basis": "direct"
+        },
+        {
+          "edge_key": "asphalt_pavement_heat_absorbers->urban_heat_island",
+          "relationship_level": "direct",
+          "confidence": "moderate",
+          "promotion_status": "promoted",
+          "mechanism": "Dark impervious materials absorb and later release solar heat.",
+          "geographic_scope": "Global mechanism with regional expression and explicit metric bounds.",
+          "temporal_scope": "Seasonal to multi-decadal.",
+          "moderators": [
+            "baseline vulnerability",
+            "management and policy",
+            "local environmental conditions"
+          ],
+          "alternative_explanations": [
+            "measurement coverage change",
+            "co-occurring pressures"
+          ],
+          "counterevidence": "Magnitude and attribution can weaken or reverse across places and periods; the edge is not deterministic.",
+          "indicator": {
+            "metric_id": "urban_heat_island_edge_evidence",
+            "role": "driver"
+          },
+          "source_locators": [
+            {
+              "url": "https://www.epa.gov/heatislands/what-are-heat-islands",
+              "locator": "mechanism and definition page",
+              "source_type": "authoritative"
+            },
+            {
+              "url": "https://climate.discomap.eea.europa.eu/arcgis/rest/services/UAMV/Urban_Heat_Island_Intensity/MapServer",
+              "locator": "assessment chapter or dataset documentation",
+              "source_type": "independent_assessment"
+            }
+          ],
+          "evidence_basis": "direct"
+        },
+        {
+          "edge_key": "urban_heat_island->public_health_heat_burden",
+          "relationship_level": "indirect",
+          "confidence": "moderate",
+          "promotion_status": "promoted",
+          "mechanism": "Added urban nighttime and daytime heat increases population heat exposure.",
+          "geographic_scope": "Global mechanism with regional expression and explicit metric bounds.",
+          "temporal_scope": "Seasonal to multi-decadal.",
+          "moderators": [
+            "baseline vulnerability",
+            "management and policy",
+            "local environmental conditions"
+          ],
+          "alternative_explanations": [
+            "measurement coverage change",
+            "co-occurring pressures"
+          ],
+          "counterevidence": "Magnitude and attribution can weaken or reverse across places and periods; the edge is not deterministic.",
+          "indicator": {
+            "metric_id": "public_health_heat_burden_edge_evidence",
+            "role": "effect"
+          },
+          "source_locators": [
+            {
+              "url": "https://www.epa.gov/heatislands/what-are-heat-islands",
+              "locator": "mechanism and definition page",
+              "source_type": "authoritative"
+            },
+            {
+              "url": "https://climate.discomap.eea.europa.eu/arcgis/rest/services/UAMV/Urban_Heat_Island_Intensity/MapServer",
+              "locator": "assessment chapter or dataset documentation",
+              "source_type": "independent_assessment"
+            }
+          ],
+          "evidence_basis": "indirect"
+        },
+        {
+          "edge_key": "urban_heat_island->nighttime_heat_retention",
+          "relationship_level": "direct",
+          "confidence": "high",
+          "version": "degree_two_promotion_v1",
+          "promotion_status": "promoted",
+          "reviewed_at": "2026-07-17",
+          "source": "urban_heat_island",
+          "target": "nighttime_heat_retention",
+          "mechanism": "Buildings, roads, and other dense surfaces absorb energy and release it slowly after sunset while limited vegetation reduces evaporative cooling.",
+          "geographic_scope": "Named urban area with paired canopy-layer air-temperature observations and a defined reference area.",
+          "temporal_scope": "Evening through predawn, summarized by season and heat event.",
+          "moderators": [
+            "thermal mass",
+            "vegetation",
+            "wind",
+            "cloud cover",
+            "humidity"
+          ],
+          "alternative_explanations": [
+            "regional heat wave",
+            "warm-air advection",
+            "station siting"
+          ],
+          "counterevidence": "A warm night is not evidence of a local urban contrast without a comparable reference observation.",
+          "indicator": {
+            "metric_id": "nighttime_urban_rural_air_temperature_difference",
+            "metric_name": "Nighttime urban-rural air-temperature difference",
+            "unit": "degrees Celsius or Fahrenheit with urban and reference sites, height, local time, and averaging window stated",
+            "geography": "named city and matched rural or intra-urban reference network",
+            "cadence": "hourly observations with nightly, seasonal, and heat-event summaries",
+            "observation_time_field": "air_temperature_observation_time",
+            "source_id": "eea_urban_heat_island_arcgis",
+            "transformation": "Pair comparable canopy-layer air-temperature observations; retain station siting, height, land cover, local time, weather, season, and reference definition. Surface temperature remains separate.",
+            "uncertainty": "Station siting, urban morphology, wind, cloud cover, humidity, advection, season, and the rural reference affect the measured difference.",
+            "threshold_provenance": "City-specific paired observations and EPA heat-island measurement guidance; no universal nighttime threshold is implied.",
+            "failure_behavior": "Do not mix satellite surface temperature with near-surface air temperature or infer a citywide value from one unpaired station."
+          },
+          "source_locators": [
+            {
+              "url": "https://www.epa.gov/heatislands/learn-about-heat-island-effects",
+              "locator": "EPA reports systematically higher nighttime urban temperatures and identifies heat absorption and re-emission by built surfaces.",
+              "source_type": "authoritative_assessment"
+            },
+            {
+              "url": "https://www.epa.gov/heatislands/measuring-heat-islands",
+              "locator": "EPA provides a nighttime atmospheric heat-island measurement framework using paired air-temperature observations.",
+              "source_type": "independent_authoritative"
+            }
+          ],
+          "evidence_basis": "direct"
+        }
+      ]
+    }
+  ]
+}

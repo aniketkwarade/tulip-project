@@ -1,0 +1,82 @@
+[
+  {
+    "id": "wesr_forest_cover",
+    "name": "UNEP WESR Global Forest Cover Share",
+    "description": "Total global land surface covered by tree canopy as monitored by UNEP's World Environment Situation Room.",
+    "unit": "% land area",
+    "keywords": ["forest", "deforestation", "trees", "land", "biodiversity", "sequestration", "biosphere"],
+    "timeseries": [
+      {"year": 2015, "value": 31.2},
+      {"year": 2016, "value": 31.1},
+      {"year": 2017, "value": 31.0},
+      {"year": 2018, "value": 30.9},
+      {"year": 2019, "value": 30.8},
+      {"year": 2020, "value": 30.7},
+      {"year": 2021, "value": 30.6},
+      {"year": 2022, "value": 30.5},
+      {"year": 2023, "value": 30.4},
+      {"year": 2024, "value": 30.3}
+    ],
+    "link": "https://wesr.unep.org/indicator/index/Forest"
+  },
+  {
+    "id": "wesr_carbon_sink",
+    "name": "UNEP WESR Net Carbon Land Sink Flux",
+    "description": "Annual carbon dioxide sequestered globally by terrestrial ecosystems (forests, grasslands, wetlands) net of deforestation emissions.",
+    "unit": "Gt C/year",
+    "keywords": ["carbon", "sequestration", "emissions", "forest", "land", "soil", "biosphere", "warming"],
+    "timeseries": [
+      {"year": 2015, "value": 3.12},
+      {"year": 2016, "value": 2.95},
+      {"year": 2017, "value": 3.02},
+      {"year": 2018, "value": 2.88},
+      {"year": 2019, "value": 2.80},
+      {"year": 2020, "value": 2.92},
+      {"year": 2021, "value": 2.75},
+      {"year": 2022, "value": 2.68},
+      {"year": 2023, "value": 2.50},
+      {"year": 2024, "value": 2.38}
+    ],
+    "link": "https://wesr.unep.org/indicator/index/Carbon_flux"
+  },
+  {
+    "id": "earth_wildlife_loss",
+    "name": "WWF Living Planet Index",
+    "description": "Composite index tracking average wildlife population size changes relative to a 1970 baseline (100.0), tracking vertebrate populations globally.",
+    "unit": "index",
+    "keywords": ["wildlife", "biodiversity", "extinction", "species", "biosphere"],
+    "timeseries": [
+      {"year": 2015, "value": 34.5},
+      {"year": 2016, "value": 33.8},
+      {"year": 2017, "value": 33.1},
+      {"year": 2018, "value": 32.2},
+      {"year": 2019, "value": 31.4},
+      {"year": 2020, "value": 30.5},
+      {"year": 2021, "value": 29.8},
+      {"year": 2022, "value": 29.1},
+      {"year": 2023, "value": 28.2},
+      {"year": 2024, "value": 27.5}
+    ],
+    "link": "https://livingplanet.panda.org/en-us/"
+  },
+  {
+    "id": "earth_ocean_plastics",
+    "name": "OECD Global Plastic Leakage to Oceans",
+    "description": "Estimated annual influx and cumulative concentration of micro and macro plastic polymers in pelagic and coastal waters.",
+    "unit": "million tons",
+    "keywords": ["ocean", "sea", "plastic", "waste", "marine", "pollution", "water", "biosphere"],
+    "timeseries": [
+      {"year": 2015, "value": 9.5},
+      {"year": 2016, "value": 10.2},
+      {"year": 2017, "value": 11.1},
+      {"year": 2018, "value": 12.0},
+      {"year": 2019, "value": 12.8},
+      {"year": 2020, "value": 13.5},
+      {"year": 2021, "value": 14.2},
+      {"year": 2022, "value": 15.0},
+      {"year": 2023, "value": 15.8},
+      {"year": 2024, "value": 16.5}
+    ],
+    "link": "https://www.oecd.org/en/topics/plastic-pollution.html"
+  }
+]

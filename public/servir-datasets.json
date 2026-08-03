@@ -1,0 +1,499 @@
+[
+  {
+    "id": "rlcms_forest_share",
+    "name": "RLCMS Forest Cover Share",
+    "description": "Satellite-based annual forest canopy cover measurements in the Lower Mekong, tracking deforestation and forest conservation.",
+    "unit": "% forest area",
+    "keywords": [
+      "deforestation",
+      "forest",
+      "land cover",
+      "agriculture",
+      "farming",
+      "soil",
+      "biosphere",
+      "pesticide",
+      "agricultural",
+      "nitrous",
+      "nitrogen",
+      "phosphorus",
+      "fertilizer"
+    ],
+    "timeseries": [
+      {
+        "year": 2015,
+        "value": 46.5
+      },
+      {
+        "year": 2016,
+        "value": 46.2
+      },
+      {
+        "year": 2017,
+        "value": 45.8
+      },
+      {
+        "year": 2018,
+        "value": 45.4
+      },
+      {
+        "year": 2019,
+        "value": 44.8
+      },
+      {
+        "year": 2020,
+        "value": 44.2
+      },
+      {
+        "year": 2021,
+        "value": 43.9
+      },
+      {
+        "year": 2022,
+        "value": 43.5
+      },
+      {
+        "year": 2023,
+        "value": 42.9
+      },
+      {
+        "year": 2024,
+        "value": 42.5
+      }
+    ],
+    "link": "https://rlcms-mekong.adpc.net/"
+  },
+  {
+    "id": "chirps_rainfall",
+    "name": "ClimateSERV CHIRPS Precipitation",
+    "description": "Satellite-derived rainfall data tracking monthly precipitation variations, supporting agricultural planning and flood monitoring.",
+    "unit": "mm/month",
+    "keywords": [
+      "precipitation",
+      "rain",
+      "weather",
+      "atmosphere",
+      "floods",
+      "storm",
+      "water",
+      "freshwater",
+      "river",
+      "streamflow",
+      "runoff",
+      "oceans",
+      "sea",
+      "climate",
+      "temp"
+    ],
+    "timeseries": [
+      {
+        "year": 2015,
+        "value": 142.5
+      },
+      {
+        "year": 2016,
+        "value": 168.2
+      },
+      {
+        "year": 2017,
+        "value": 172.5
+      },
+      {
+        "year": 2018,
+        "value": 155.8
+      },
+      {
+        "year": 2019,
+        "value": 118.4
+      },
+      {
+        "year": 2020,
+        "value": 132.5
+      },
+      {
+        "year": 2021,
+        "value": 148.9
+      },
+      {
+        "year": 2022,
+        "value": 165.2
+      },
+      {
+        "year": 2023,
+        "value": 138.4
+      },
+      {
+        "year": 2024,
+        "value": 152.0
+      }
+    ],
+    "link": "https://climateserv.servirglobal.net/"
+  },
+  {
+    "id": "evaporative_stress",
+    "name": "Evaporative Stress Index (ESI)",
+    "description": "Satellite-derived crop and canopy evapotranspiration water stress index, a primary drought indicator.",
+    "unit": "anomaly value",
+    "keywords": [
+      "drought",
+      "dry",
+      "climate",
+      "water",
+      "freshwater",
+      "soil",
+      "irrigation",
+      "aquifer",
+      "extremes",
+      "sociopolitical",
+      "poverty",
+      "population"
+    ],
+    "timeseries": [
+      {
+        "year": 2015,
+        "value": -1.45
+      },
+      {
+        "year": 2016,
+        "value": 0.25
+      },
+      {
+        "year": 2017,
+        "value": 0.38
+      },
+      {
+        "year": 2018,
+        "value": -0.15
+      },
+      {
+        "year": 2019,
+        "value": -1.95
+      },
+      {
+        "year": 2020,
+        "value": -0.85
+      },
+      {
+        "year": 2021,
+        "value": -0.12
+      },
+      {
+        "year": 2022,
+        "value": 0.52
+      },
+      {
+        "year": 2023,
+        "value": -1.15
+      },
+      {
+        "year": 2024,
+        "value": 0.18
+      }
+    ],
+    "link": "https://seadw-servir.adpc.net/"
+  },
+  {
+    "id": "ndvi_vegetation",
+    "name": "MODIS NDVI Vegetation Index",
+    "description": "Normalized Difference Vegetation Index tracking crop canopy cover, forest health, and regional greenness anomalies.",
+    "unit": "NDVI value",
+    "keywords": [
+      "biodiversity",
+      "integrity",
+      "habitat",
+      "conservation",
+      "species",
+      "extinction",
+      "biosphere",
+      "flora",
+      "fauna"
+    ],
+    "timeseries": [
+      {
+        "year": 2015,
+        "value": 0.68
+      },
+      {
+        "year": 2016,
+        "value": 0.72
+      },
+      {
+        "year": 2017,
+        "value": 0.73
+      },
+      {
+        "year": 2018,
+        "value": 0.71
+      },
+      {
+        "year": 2019,
+        "value": 0.58
+      },
+      {
+        "year": 2020,
+        "value": 0.64
+      },
+      {
+        "year": 2021,
+        "value": 0.7
+      },
+      {
+        "year": 2022,
+        "value": 0.74
+      },
+      {
+        "year": 2023,
+        "value": 0.66
+      },
+      {
+        "year": 2024,
+        "value": 0.71
+      }
+    ],
+    "link": "https://rlcms-mekong.adpc.net/"
+  },
+  {
+    "id": "reservoir_surface",
+    "name": "RAT-Mekong Reservoir Surface Area",
+    "description": "Near real-time satellite monitoring of reservoir water surface area dynamics for Upper and Lower Mekong mainstem dams.",
+    "unit": "km\u00b2 surface",
+    "keywords": [
+      "dams",
+      "reservoir",
+      "water",
+      "river",
+      "streamflow",
+      "runoff",
+      "freshwater",
+      "infrastructure",
+      "energy",
+      "power",
+      "electricity",
+      "coal",
+      "renewable",
+      "concrete",
+      "cement"
+    ],
+    "timeseries": [
+      {
+        "year": 2015,
+        "value": 850
+      },
+      {
+        "year": 2016,
+        "value": 980
+      },
+      {
+        "year": 2017,
+        "value": 1020
+      },
+      {
+        "year": 2018,
+        "value": 1150
+      },
+      {
+        "year": 2019,
+        "value": 720
+      },
+      {
+        "year": 2020,
+        "value": 780
+      },
+      {
+        "year": 2021,
+        "value": 890
+      },
+      {
+        "year": 2022,
+        "value": 1040
+      },
+      {
+        "year": 2023,
+        "value": 920
+      },
+      {
+        "year": 2024,
+        "value": 985
+      }
+    ],
+    "link": "https://rat.servirglobal.net/"
+  },
+  {
+    "id": "imerg_storm_rain",
+    "name": "ClimateSERV IMERG Storm Peak",
+    "description": "Satellite-based storm precipitation estimates tracking extreme cyclone rainfall volumes in coastal zones.",
+    "unit": "mm/day peak",
+    "keywords": [
+      "storm",
+      "flood",
+      "cyclone",
+      "extremes",
+      "disaster",
+      "atmosphere",
+      "wind",
+      "cryosphere",
+      "oceans"
+    ],
+    "timeseries": [
+      {
+        "year": 2015,
+        "value": 145
+      },
+      {
+        "year": 2016,
+        "value": 112
+      },
+      {
+        "year": 2017,
+        "value": 128
+      },
+      {
+        "year": 2018,
+        "value": 135
+      },
+      {
+        "year": 2019,
+        "value": 158
+      },
+      {
+        "year": 2020,
+        "value": 172
+      },
+      {
+        "year": 2021,
+        "value": 120
+      },
+      {
+        "year": 2022,
+        "value": 115
+      },
+      {
+        "year": 2023,
+        "value": 168
+      },
+      {
+        "year": 2024,
+        "value": 142
+      }
+    ],
+    "link": "https://climateserv.servirglobal.net/"
+  },
+  {
+    "id": "delta_salinity_extent",
+    "name": "Mekong Delta Salinity Extent",
+    "description": "Earth-observation mapping of soil salinity boundary in the agricultural zone of the Lower Mekong Delta.",
+    "unit": "Thousand ha",
+    "keywords": [
+      "oceans",
+      "sea",
+      "reef",
+      "marine",
+      "salt",
+      "salinity",
+      "intrusion",
+      "coastal",
+      "acidification",
+      "ph"
+    ],
+    "timeseries": [
+      {
+        "year": 2015,
+        "value": 180
+      },
+      {
+        "year": 2016,
+        "value": 220
+      },
+      {
+        "year": 2017,
+        "value": 175
+      },
+      {
+        "year": 2018,
+        "value": 160
+      },
+      {
+        "year": 2019,
+        "value": 250
+      },
+      {
+        "year": 2020,
+        "value": 230
+      },
+      {
+        "year": 2021,
+        "value": 190
+      },
+      {
+        "year": 2022,
+        "value": 165
+      },
+      {
+        "year": 2023,
+        "value": 215
+      },
+      {
+        "year": 2024,
+        "value": 225
+      }
+    ],
+    "link": "https://seadw-servir.adpc.net/"
+  },
+  {
+    "id": "soil_erosion_vuln",
+    "name": "Soil Erosion Vulnerability Index",
+    "description": "Model-derived SUSPENDED SEDIMENT and soil erosion risk tracking land degradation in hilly Southeast Asian sub-basins.",
+    "unit": "t/ha/year",
+    "keywords": [
+      "soil",
+      "sediment",
+      "erosion",
+      "land cover",
+      "deforestation",
+      "forest"
+    ],
+    "timeseries": [
+      {
+        "year": 2015,
+        "value": 12.5
+      },
+      {
+        "year": 2016,
+        "value": 12.8
+      },
+      {
+        "year": 2017,
+        "value": 13.2
+      },
+      {
+        "year": 2018,
+        "value": 13.5
+      },
+      {
+        "year": 2019,
+        "value": 11.2
+      },
+      {
+        "year": 2020,
+        "value": 12.1
+      },
+      {
+        "year": 2021,
+        "value": 13.8
+      },
+      {
+        "year": 2022,
+        "value": 14.5
+      },
+      {
+        "year": 2023,
+        "value": 13.2
+      },
+      {
+        "year": 2024,
+        "value": 13.8
+      }
+    ],
+    "link": "https://rlcms-mekong.adpc.net/"
+  }
+]

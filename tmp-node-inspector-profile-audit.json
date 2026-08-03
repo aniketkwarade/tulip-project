@@ -1,0 +1,34 @@
+{
+  "generated_at": "2026-07-31T12:34:11.930Z",
+  "nodes": 381,
+  "profile_coverage": {
+    "reader_meaning": {
+      "curated_reader_meaning_v1": 26,
+      "authored_description_meaning_v1": 89,
+      "curated_response_meaning_v1": 27,
+      "standalone_relationship_meaning_v2": 239
+    },
+    "economic_context": {
+      "curated_anchor_v1": 60,
+      "evidence_derived_node_v1": 294,
+      "curated_response_pathway_v1": 27
+    },
+    "human_impact": {
+      "curated_anchor_v1": 44,
+      "evidence_derived_node_v1": 310,
+      "curated_response_pathway_v1": 27
+    },
+    "planet_impact": {
+      "curated_planet_v1": 22,
+      "evidence_derived_node_v1": 332,
+      "curated_response_pathway_v1": 27
+    }
+  },
+  "explicit_research_boundaries": {
+    "reader_meaning_missing": [],
+    "economic_context_missing": [],
+    "human_impact_missing": [],
+    "planet_impact_missing": []
+  },
+  "failures": []
+}

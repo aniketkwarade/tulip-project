@@ -1,0 +1,185 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_17_noaa_oni_phase_intensity",
+  "generated_at": "2026-07-31T22:57:32.610Z",
+  "promoted_node_count": 2,
+  "receipts": [
+    {
+      "node_id": "el_nino",
+      "value": 7.8,
+      "band": "Critical",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "AMJ 2026",
+      "components": {
+        "magnitude": 0.590627,
+        "threshold": 0.590627,
+        "momentum": 1,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_oni_anomaly_degC": 0.98,
+          "latest_phase_intensity_degC": 0.98,
+          "phase": "warm",
+          "complete_overlapping_season_observations": 917,
+          "anchors": [
+            0,
+            0.54,
+            1.114,
+            1.92
+          ],
+          "source_locator": "https://www.cpc.ncep.noaa.gov/data/indices/oni.ascii.txt"
+        },
+        "threshold": {
+          "latest_phase_intensity_degC": 0.98,
+          "noaa_threshold_met_this_season": true,
+          "noaa_episode_criterion_met": false,
+          "consecutive_qualifying_overlapping_seasons": 2,
+          "noaa_episode_criterion": "At least five consecutive overlapping three-month seasons at or above +0.5 degrees Celsius.",
+          "normalization_basis": "historical_distribution_fallback over phase-specific intensity; NOAA episode status retained separately and never inferred from one crossing",
+          "anchors": [
+            0,
+            0.54,
+            1.114,
+            1.92
+          ],
+          "source_locator": "https://www.cpc.ncep.noaa.gov/data/indices/oni.ascii.txt"
+        },
+        "momentum": {
+          "latest_overlapping_season_change_degC": 0.47,
+          "complete_change_observations": 916,
+          "anchors": [
+            0,
+            0.02,
+            0.18,
+            0.3
+          ],
+          "source_locator": "https://www.cpc.ncep.noaa.gov/data/indices/oni.ascii.txt"
+        },
+        "extent": {
+          "normalized_value": 1,
+          "definition": "ONI is the complete NOAA-defined Niño 3.4 rolling three-month domain measure for this phase; complete node-domain coverage does not mean uniform global impact.",
+          "source_locator": "https://www.cpc.ncep.noaa.gov/data/indices/oni.ascii.txt"
+        },
+        "source_snapshot": {
+          "path": "public/enso-monitoring-snapshot.json",
+          "version": "noaa_cpc_oni_measurement_snapshot_v1",
+          "captured_at": "2026-07-25T13:53:30.678Z",
+          "measurement_boundary": "ONI is a rolling three-month Niño 3.4 SST anomaly. A single threshold crossing is not an El Niño or La Niña episode; the snapshot separately reports the five-overlapping-season criterion.",
+          "source_history_start": "DJF 1950",
+          "source_history_end": "AMJ 2026"
+        }
+      },
+      "transformations": [
+        {
+          "type": "phase_specific_oni_intensity",
+          "formula": "max(ONI anomaly, 0)"
+        },
+        {
+          "type": "historical_distribution_normalization",
+          "formula": "Map phase-specific ONI intensity and its overlapping-season change through median / p75 / p90 / p97.5 anchors across the complete source history."
+        }
+      ],
+      "source_ids": [
+        "noaa_physical_sciences_laboratory_enso"
+      ],
+      "uncertainty": "ERSST input, climatology updates and revisions affect ONI. NOAA does not publish an observation-level statistical interval in this table. ONI measures the coupled Pacific state; downstream harm varies by season and geography, and one threshold crossing is not labeled an episode.",
+      "freshness": "Official NOAA CPC ONI table through AMJ 2026; snapshot captured 2026-07-25T13:53:30.678Z.",
+      "selection_reason": {
+        "selected_method_passed": "NOAA supplies 917 complete source-native rolling three-month observations for the exact warm-phase contract, including phase-specific magnitude, historical position, momentum, official episode metadata and complete node-domain coverage.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:77b65b3a"
+    },
+    {
+      "node_id": "la_nina",
+      "value": 2.3,
+      "band": "Low",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "AMJ 2026",
+      "components": {
+        "magnitude": 0,
+        "threshold": 0,
+        "momentum": 0,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_oni_anomaly_degC": 0.98,
+          "latest_phase_intensity_degC": 0,
+          "phase": "cool",
+          "complete_overlapping_season_observations": 917,
+          "anchors": [
+            0.04,
+            0.55,
+            0.954,
+            1.521
+          ],
+          "source_locator": "https://www.cpc.ncep.noaa.gov/data/indices/oni.ascii.txt"
+        },
+        "threshold": {
+          "latest_phase_intensity_degC": 0,
+          "noaa_threshold_met_this_season": false,
+          "noaa_episode_criterion_met": false,
+          "consecutive_qualifying_overlapping_seasons": 0,
+          "noaa_episode_criterion": "At least five consecutive overlapping three-month seasons at or below -0.5 degrees Celsius.",
+          "normalization_basis": "historical_distribution_fallback over phase-specific intensity; NOAA episode status retained separately and never inferred from one crossing",
+          "anchors": [
+            0.04,
+            0.55,
+            0.954,
+            1.521
+          ],
+          "source_locator": "https://www.cpc.ncep.noaa.gov/data/indices/oni.ascii.txt"
+        },
+        "momentum": {
+          "latest_overlapping_season_change_degC": 0,
+          "complete_change_observations": 916,
+          "anchors": [
+            0,
+            0.0125,
+            0.13,
+            0.3
+          ],
+          "source_locator": "https://www.cpc.ncep.noaa.gov/data/indices/oni.ascii.txt"
+        },
+        "extent": {
+          "normalized_value": 1,
+          "definition": "ONI is the complete NOAA-defined Niño 3.4 rolling three-month domain measure for this phase; complete node-domain coverage does not mean uniform global impact.",
+          "source_locator": "https://www.cpc.ncep.noaa.gov/data/indices/oni.ascii.txt"
+        },
+        "source_snapshot": {
+          "path": "public/enso-monitoring-snapshot.json",
+          "version": "noaa_cpc_oni_measurement_snapshot_v1",
+          "captured_at": "2026-07-25T13:53:30.678Z",
+          "measurement_boundary": "ONI is a rolling three-month Niño 3.4 SST anomaly. A single threshold crossing is not an El Niño or La Niña episode; the snapshot separately reports the five-overlapping-season criterion.",
+          "source_history_start": "DJF 1950",
+          "source_history_end": "AMJ 2026"
+        }
+      },
+      "transformations": [
+        {
+          "type": "phase_specific_oni_intensity",
+          "formula": "max(-ONI anomaly, 0)"
+        },
+        {
+          "type": "historical_distribution_normalization",
+          "formula": "Map phase-specific ONI intensity and its overlapping-season change through median / p75 / p90 / p97.5 anchors across the complete source history."
+        }
+      ],
+      "source_ids": [
+        "noaa_physical_sciences_laboratory_enso"
+      ],
+      "uncertainty": "ERSST input, climatology updates and revisions affect ONI. NOAA does not publish an observation-level statistical interval in this table. ONI measures the coupled Pacific state; downstream harm varies by season and geography, and one threshold crossing is not labeled an episode.",
+      "freshness": "Official NOAA CPC ONI table through AMJ 2026; snapshot captured 2026-07-25T13:53:30.678Z.",
+      "selection_reason": {
+        "selected_method_passed": "NOAA supplies 917 complete source-native rolling three-month observations for the exact cool-phase contract, including phase-specific magnitude, historical position, momentum, official episode metadata and complete node-domain coverage.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:a7cbe69d"
+    }
+  ]
+}

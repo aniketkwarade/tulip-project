@@ -1,0 +1,77 @@
+{
+  "version": "2026-07-15",
+  "updated_at": "2026-07-15",
+  "refresh_policy": {
+    "default_days": 42,
+    "notes": "Atmospheric greenhouse concentrations and forcing summaries should refresh on a 6-8 week cadence unless a specific scientific release justifies an earlier update."
+  },
+  "signals": [
+    {
+      "id": "atmospheric_co2",
+      "label": "Atmospheric CO2 concentration",
+      "current_value": 431.44,
+      "unit": "ppm",
+      "observed_at": "2026-06 monthly average",
+      "scope": "Mauna Loa",
+      "role": "forcing_proxy",
+      "source_id": "noaa_gml_co2",
+      "notes": "Useful as the primary long-lived carbon forcing proxy for the carbon-emission anchor."
+    },
+    {
+      "id": "atmospheric_ch4",
+      "label": "Atmospheric CH4 concentration",
+      "current_value": 1937.86,
+      "unit": "ppb",
+      "observed_at": "2026-03 monthly mean",
+      "scope": "Global marine surface mean",
+      "role": "forcing_proxy",
+      "source_id": "noaa_gml_ch4",
+      "notes": "Useful as the primary methane forcing proxy for the methane anchor."
+    }
+  ],
+  "forcing_context": {
+    "observed_year": 2024,
+    "total_long_lived_ghg_forcing": 3.54,
+    "total_long_lived_ghg_forcing_unit": "W m^-2",
+    "co2_forcing": 2.33,
+    "co2_share_percent": 66,
+    "ch4_forcing": 0.57,
+    "ch4_share_percent": 16,
+    "forcing_growth_since_1990_percent": 54,
+    "co2_share_of_forcing_growth_since_1990_percent": 81,
+    "source_id": "noaa_aggi"
+  },
+  "temperature_inference": {
+    "can_directly_derive_global_temperature": false,
+    "recommended_use": "Use CO2 and CH4 as long-lived forcing inputs, not as a standalone temperature model.",
+    "why_not": [
+      "Observed global temperature also depends on nitrous oxide and other long-lived greenhouse gases.",
+      "Short-lived aerosols, clouds, and albedo changes materially affect realized warming.",
+      "Ocean heat uptake and internal variability change how forcing translates into observed annual temperature.",
+      "Surface-temperature feedbacks are not captured by concentration-only proxies."
+    ],
+    "platform_guidance": "Keep the global temperature anchor calibrated to observed temperature anomaly products and use CO2 and CH4 to explain forcing pressure behind that outcome."
+  },
+  "sources": [
+    {
+      "id": "noaa_gml_co2",
+      "name": "NOAA GML Trends in CO2",
+      "url": "https://gml.noaa.gov/ccgg/trends/",
+      "type": "official_monitoring",
+      "last_benchmark_update": "Jul 05, 2026"
+    },
+    {
+      "id": "noaa_gml_ch4",
+      "name": "NOAA GML Trends in CH4",
+      "url": "https://gml.noaa.gov/ccgg/trends_ch4/",
+      "type": "official_monitoring",
+      "last_benchmark_update": "Jul 05, 2026"
+    },
+    {
+      "id": "noaa_aggi",
+      "name": "NOAA Annual Greenhouse Gas Index",
+      "url": "https://gml.noaa.gov/aggi/aggi.html",
+      "type": "official_forcing_summary"
+    }
+  ]
+}

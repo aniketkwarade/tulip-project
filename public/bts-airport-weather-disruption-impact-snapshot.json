@@ -1,0 +1,92 @@
+{
+  "version": "bts_airline_weather_delay_2025_v1",
+  "captured_at": "2026-08-01T00:00:00.000Z",
+  "sources": [
+    {
+      "id": "bts_airline_delay_cause_2025",
+      "name": "BTS Airline Delay Cause Raw Data — 2025",
+      "publisher": "U.S. Department of Transportation, Bureau of Transportation Statistics",
+      "url": "https://www.transtats.bts.gov/OT_Delay/ot_delaycause1.asp",
+      "download_url": "https://www.transtats.bts.gov/OT_Delay/ot_delaycause1_DL.aspx?8n4=9ur4r+Brn4z106u+or69rr0+FHGDE+NaQ+FHGEF",
+      "archive_sha256": "43b4c3a1fbce4dd2c7b5e776e616765fc45178c5169318bec2324aa9c04a98c1",
+      "extracted_csv_sha256": "8b9379ac15e5b381991bae8330882f6615aba2a3c3e4ca39b0dd9df697b4aa77",
+      "downloaded_at": "2026-08-01"
+    },
+    {
+      "id": "bts_airline_delay_cause_definitions",
+      "name": "BTS Airline On-Time Statistics and Delay Cause Definitions",
+      "publisher": "U.S. Department of Transportation, Bureau of Transportation Statistics",
+      "url": "https://transtats.bts.gov/OT_Delay/ot_delaycause1.asp?pn=1&type=21",
+      "validation": "BTS defines delayed flights as arrivals at least 15 minutes late and prorates multiple assigned causes using the delayed minutes attributable to each cause."
+    }
+  ],
+  "metric_contract": {
+    "node_id": "airport_operational_disruption",
+    "metric_id": "weather_attributed_airport_delay_and_cancellation",
+    "unit": "prorated weather-attributed delayed-flight equivalents and weather-delay minutes",
+    "geography": "United States scheduled airline reporting network represented in BTS Airline Service Quality Performance data",
+    "cadence": "monthly carrier-airport rows aggregated over one complete calendar year",
+    "failure_boundary": "The table supplies cancellations but not a weather-cause allocation for each cancellation, so cancellations are excluded from scored weather burden. Weather counts are prorated equivalents rather than unique whole flights, and the U.S. network is not a global airport aggregation."
+  },
+  "extraction": {
+    "csv_rows": 22687,
+    "months_present": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "distinct_airports": 364,
+    "distinct_reporting_carriers": 21,
+    "aggregation": "Sum weather_ct and weather_delay over all 2025 carrier-airport-month rows; retain arrival and cancellation totals only as unscored context."
+  },
+  "accumulated_impact_2025": {
+    "year": 2025,
+    "complete_calendar_years": 1,
+    "arrival_flights": 7736770,
+    "arrivals_delayed_at_least_15_minutes": 1685334,
+    "weather_attributed_delayed_flight_equivalents": 68092.05,
+    "weather_delay_minutes": 8044943,
+    "distinct_airports": 364,
+    "distinct_reporting_carriers": 21,
+    "directly_assessed_countries": [
+      "United States"
+    ],
+    "directly_assessed_country_count": 1
+  },
+  "source_backed_normalization_anchors": {
+    "weather_attributed_delayed_flight_equivalents": [
+      0,
+      1000,
+      50000,
+      250000
+    ],
+    "weather_delay_minutes": [
+      0,
+      100000,
+      5000000,
+      25000000
+    ],
+    "complete_calendar_years": [
+      0,
+      1,
+      6,
+      30
+    ],
+    "directly_assessed_country_count": [
+      0,
+      1,
+      5,
+      25
+    ]
+  },
+  "uncertainty": "The assessment covers reporting U.S. scheduled carriers and airports for 2025, not global aviation. Weather-attributed counts are prorated flight equivalents, and delay minutes apply only to delayed flights. This source does not allocate cancellations to weather, so cancellations are not scored. One complete year quantifies burden but provides limited persistence evidence and cannot establish a long-run weather-disruption trend."
+}

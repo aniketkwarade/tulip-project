@@ -1,0 +1,107 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_11_fao_sofi_food_insecurity",
+  "generated_at": "2026-07-31T22:57:24.408Z",
+  "source_snapshot": "public/fao-sofi-food-insecurity-impact-snapshot.json",
+  "source_id": "fao_state_of_food_security_and_nutrition_2025",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "food_insecurity",
+      "value": 7.3,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "biophysical_burden": 0.7096,
+        "human_economic_burden": 0.758176,
+        "persistence": 0.89,
+        "extent": 0.28
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "global_moderate_or_severe_food_insecurity_prevalence_pct": 28,
+          "global_moderate_or_severe_food_insecurity_people_billion_rounded": 2.3,
+          "anchors_pct": [
+            0,
+            10,
+            25,
+            50
+          ],
+          "boundary": "Physiological and experiential food-access burden; not crop production, calorie deficiency alone or an acute IPC phase count."
+        },
+        "human_economic_burden": {
+          "global_unable_to_afford_healthy_diet_people_billion_rounded": 2.6,
+          "population_denominator_billion_implied_from_hunger_estimate": 8.207317,
+          "unable_to_afford_healthy_diet_share_pct_implied": 31.68,
+          "anchors_pct": [
+            0,
+            10,
+            25,
+            50
+          ],
+          "derivation_boundary": "The implied population denominator is 0.673 billion / 0.082. The affordability share is 2.6 billion divided by that denominator. Both are labeled derived because source people counts are rounded."
+        },
+        "persistence": {
+          "comparison_interval_start_year": 2015,
+          "observation_year": 2024,
+          "comparison_interval_years": 9,
+          "additional_people_facing_hunger_since_2015_million": 100,
+          "additional_people_facing_hunger_since_2020_million": 90,
+          "anchors_years": [
+            0,
+            3,
+            7,
+            10
+          ]
+        },
+        "extent": {
+          "global_moderate_or_severe_food_insecurity_prevalence_pct": 28,
+          "normalized_value": 0.28,
+          "africa_hunger_people_million_context_only": 307,
+          "africa_hunger_prevalence_pct_context_only": 20.2,
+          "geography_boundary": "World population prevalence; regional values remain context and are not re-summed."
+        },
+        "source_snapshot": {
+          "path": "public/fao-sofi-food-insecurity-impact-snapshot.json",
+          "version": "fao_sofi_2025_food_insecurity_2024_v1",
+          "captured_at": "2026-07-31T17:03:57.463Z",
+          "source_locators": [
+            "FAO joint-agency SOFI 2025 release: 673 million people or 8.2 percent faced hunger in 2024, with 638-720 million uncertainty range.",
+            "FAO SOFI 2025 launch: around 2.3 billion people faced moderate or severe food insecurity and 2.6 billion could not afford a healthy diet in 2024.",
+            "FAO SOFI 2025 launch: 90 million more people faced hunger than in 2020 and 100 million more than in 2015."
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "fixed_global_burden_ranges",
+          "formula": "Normalize source-reported food-insecurity prevalence and the explicitly derived healthy-diet unaffordability share through named percentage ranges."
+        },
+        {
+          "type": "bounded_rounded_count_derivation",
+          "formula": "Derive an approximate population denominator from the source-reported hunger count and prevalence, then derive the affordability share; retain rounded-input uncertainty."
+        },
+        {
+          "type": "source_reported_persistence_interval",
+          "formula": "Use the 2015-2024 comparison interval only because the source explicitly reports that the number facing hunger remains 100 million above 2015."
+        }
+      ],
+      "source_ids": [
+        "fao_state_of_food_security_and_nutrition_2025"
+      ],
+      "uncertainty": "SOFI combines surveys, statistical models, population estimates and affordability calculations. Rounded people counts, uncertainty ranges, revisions and differing indicator definitions affect comparison. Hunger, moderate or severe food insecurity and diet unaffordability are related but not interchangeable.",
+      "freshness": "SOFI 2025 assessment of 2024 conditions; snapshot captured 2026-07-31T17:03:57.463Z.",
+      "selection_reason": {
+        "selected_method_passed": "SOFI 2025 quantifies global prevalence, people affected, healthy-diet affordability, decade-scale persistence and worldwide extent with source-reported uncertainty.",
+        "higher_priority_failures": [
+          "The harmonized FIES series available in the operational SDG snapshot does not provide at least 20 complete annual or 60 monthly global observations.",
+          "The assessment provides benchmark and comparison-year evidence rather than a source-consistent current series that passes the current-data historical-distribution gate."
+        ]
+      },
+      "input_hash": "fnv1a32:04c3f9ae"
+    }
+  ]
+}

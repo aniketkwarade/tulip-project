@@ -1,0 +1,93 @@
+{
+  "updated_at": "2026-07-18",
+  "version": "2026-07-18T12:51:00.460Z",
+  "catalog_family": "ocean_acidification_anchor_support",
+  "source": {
+    "id": "noaa_ocads",
+    "name": "NOAA Ocean Carbon and Acidification Data System",
+    "url": "https://www.ncei.noaa.gov/products/ocean-carbon-acidification-data-system",
+    "publisher": "NOAA National Centers for Environmental Information",
+    "access": "open_portal_plus_metadata"
+  },
+  "refresh_policy": {
+    "default_days": 56,
+    "notes": "OCADS should be treated as a portal and metadata catalog for anchor support, not as a single real-time feed."
+  },
+  "use_guidance": {
+    "primary_role": "Support ocean acidification anchors with official portal discovery, metadata records, and NOAA stewardship context.",
+    "caution": "Use representative metadata records and collection portals for evidence. Do not present this as a unified live numerical API."
+  },
+  "overview": {
+    "title": "Ocean Carbon and Acidification Data System (OCADS)",
+    "description": "The Ocean Carbon and Acidification Data System (OCADS) is a data management system specializing in the management of ocean carbon and ocean acidification (OA) data within NCEI. See the OCADS Paper in Nature for more information.",
+    "modified_time": "2026-07-16T09:22:10-0400",
+    "contact_email": "noaa.ocads@noaa.gov"
+  },
+  "portals": [
+    {
+      "id": "ocads_data_portal",
+      "label": "Ocean Carbon and Acidification Data Portal",
+      "url": "https://www.ncei.noaa.gov/access/oads/",
+      "type": "portal",
+      "access": "open",
+      "notes": "Search, explore, and download collection-level data records archived at OCADS."
+    },
+    {
+      "id": "ocads_home",
+      "label": "OCADS product page",
+      "url": "https://www.ncei.noaa.gov/products/ocean-carbon-acidification-data-system",
+      "type": "product_page",
+      "access": "open",
+      "notes": "Canonical NOAA overview for OCADS mission, resources, and access routes."
+    }
+  ],
+  "sample_metadata_records": [
+    {
+      "url": "https://www.ncei.noaa.gov/data/oceans/ncei/ocads/metadata/0219960.html",
+      "type": "metadata_record",
+      "access": "open"
+    },
+    {
+      "url": "https://www.ncei.noaa.gov/data/oceans/ncei/ocads/metadata/0270962.html",
+      "type": "metadata_record",
+      "access": "open"
+    },
+    {
+      "url": "https://www.ncei.noaa.gov/data/oceans/ncei/ocads/metadata/0315110.html",
+      "type": "metadata_record",
+      "access": "open"
+    },
+    {
+      "url": "https://www.ncei.noaa.gov/data/oceans/ncei/ocads/metadata/0283442.html",
+      "type": "metadata_record",
+      "access": "open"
+    },
+    {
+      "url": "https://www.ncei.noaa.gov/data/oceans/ncei/ocads/metadata/0278913.html",
+      "type": "metadata_record",
+      "access": "open"
+    },
+    {
+      "url": "https://www.ncei.noaa.gov/data/oceans/ncei/ocads/metadata/0259391.html",
+      "type": "metadata_record",
+      "access": "open"
+    },
+    {
+      "url": "https://www.ncei.noaa.gov/data/oceans/ncei/ocads/metadata/0253659.html",
+      "type": "metadata_record",
+      "access": "open"
+    },
+    {
+      "url": "https://www.ncei.noaa.gov/data/oceans/ncei/ocads/metadata/0237935.html",
+      "type": "metadata_record",
+      "access": "open"
+    }
+  ],
+  "stewardship_scope": [
+    "ocean carbon",
+    "ocean acidification",
+    "GOOS biogeochemistry EOVs",
+    "oxygen and nutrients",
+    "marine carbon dioxide removal research"
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_43_submarine_cable_concentration",
+  "generated_at": "2026-08-01T15:38:05.536Z",
+  "source_snapshots": [
+    "public/global-infrastructure-pressure-snapshot.json"
+  ],
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "subsea_cable_landing_chokepoint",
+      "value": 9.2,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "biophysical_burden": 0.89,
+        "human_economic_burden": 0.9868,
+        "persistence": 0.79375,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "assessment_year": 2025,
+        "international_data_traffic_share_pct": 99,
+        "active_and_planned_cable_systems_approx": 500,
+        "global_cable_length_million_km": 1.7,
+        "annual_faults_low": 150,
+        "annual_faults_high": 200,
+        "population_services_boundary": "Disruptions affect economies, information access, public services and the daily lives of billions; no precise affected-person count is asserted.",
+        "global_extent": 1,
+        "persistence_years": 10,
+        "evidence_boundary": "Global cable faults quantify network burden but are not silently relabeled as landing-point failures or full service outages.",
+        "source_snapshot": {
+          "path": "public/global-infrastructure-pressure-snapshot.json",
+          "version": "global_infrastructure_pressure_2026_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "annual_fault_burden",
+          "formula": "Normalize the upper bound of the ITU global annual cable-fault range against declared anchors."
+        },
+        {
+          "type": "traffic_dependency",
+          "formula": "Normalize the source-reported share of international data traffic carried by submarine cables."
+        },
+        {
+          "type": "persistence_window",
+          "formula": "Use the assessment decade as a conservative persistence interval; do not convert faults into outage-hours."
+        },
+        {
+          "type": "global_extent",
+          "formula": "Assign full extent because the reported network, traffic and fault totals are worldwide."
+        }
+      ],
+      "source_ids": [
+        "itu_submarine_cable_resilience_summit_2025"
+      ],
+      "uncertainty": "Cable-system and fault totals are rounded global infrastructure statistics, and a cable fault is not necessarily a service outage at a landing point. Arctic ship counts cover the IMO Polar Code area; unique ships, aggregate distance and ship-type growth are retained as separate measures.",
+      "freshness": "ITU global infrastructure assessment for 2025; snapshot captured 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "ITU quantifies global annual fault burden, international traffic dependence, persistent infrastructure exposure and worldwide extent.",
+        "higher_priority_failures": [
+          "No globally harmonized current landing-point outage series supplies magnitude plus threshold or momentum at the required coverage."
+        ]
+      },
+      "input_hash": "fnv1a32:512bfa4c"
+    }
+  ]
+}

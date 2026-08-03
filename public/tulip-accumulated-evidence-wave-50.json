@@ -1,0 +1,121 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_50_global_urban_tree_cover_loss",
+  "generated_at": "2026-08-01T15:38:08.024Z",
+  "source_snapshots": [
+    "public/global-urban-tree-cover-impact-snapshot.json"
+  ],
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "urban_tree_canopy_loss",
+      "value": 7.8,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2017",
+      "components": {
+        "biophysical_burden": 0.78,
+        "human_economic_burden": 0.654889,
+        "persistence": 0.7624,
+        "extent": 0.89
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "urban_tree_cover_start_pct": 26.7,
+          "urban_tree_cover_end_pct": 26.5,
+          "annual_tree_cover_loss_hectares": 40000,
+          "approximate_study_period_loss_hectares": 200000,
+          "statistically_significant_global_decline": true,
+          "normalization_anchors_hectares": [
+            0,
+            50000,
+            150000,
+            300000
+          ]
+        },
+        "human_economic_burden": {
+          "bounded_geography": "United States urban areas",
+          "annual_tree_loss_count": 36000000,
+          "annual_estimated_benefit_loss_usd_2018": 96000000,
+          "normalization_anchors_usd_2018": [
+            0,
+            10000000,
+            100000000,
+            1000000000
+          ],
+          "scoring_boundary": "Use the independently quantified United States benefit loss as a bounded economic burden; do not scale it to the world."
+        },
+        "persistence": {
+          "tree_cover_loss_converted_to_impervious_pct": 32,
+          "global_annual_impervious_cover_gain_hectares": 326000,
+          "normalization_anchors_pct": [
+            0,
+            10,
+            25,
+            50
+          ],
+          "scoring_boundary": "Use the observed share of lost tree cover converted to impervious cover as a persistence indicator; do not assume that all other tree-cover loss is irreversible."
+        },
+        "extent": {
+          "inhabited_continents_assessed": 6,
+          "continents_with_net_tree_cover_loss": 5,
+          "continents_with_net_tree_cover_loss_names": [
+            "Africa",
+            "Asia",
+            "North America",
+            "Oceania",
+            "South America"
+          ],
+          "normalization_anchors_continents": [
+            0,
+            1,
+            3,
+            6
+          ]
+        },
+        "source_snapshot": {
+          "path": "public/global-urban-tree-cover-impact-snapshot.json",
+          "version": "global_urban_tree_cover_impact_2012_2017_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "observed_global_tree_cover_loss_normalization",
+          "formula": "Multiply the source-reported annual urban tree-cover loss by the approximately five-year observation period, then normalize the resulting bounded accumulated area."
+        },
+        {
+          "type": "bounded_economic_burden_normalization",
+          "formula": "Normalize the independently estimated annual value of lost urban-tree benefits in the United States; retain its national boundary and do not extrapolate it globally."
+        },
+        {
+          "type": "impervious_conversion_persistence_normalization",
+          "formula": "Normalize the observed share of global urban tree-cover loss converted to impervious cover; do not classify the remaining loss as irreversible."
+        },
+        {
+          "type": "inhabited_continent_extent_normalization",
+          "formula": "Normalize the five inhabited continents with net urban tree-cover loss out of the six assessed."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1–10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "nowak_greenfield_global_urban_tree_cover_change_2020",
+        "nowak_greenfield_us_urban_tree_cover_benefit_loss_2018"
+      ],
+      "uncertainty": "The global study uses paired high-resolution photo interpretation within a fixed circa-2010 urban boundary. Image dates vary around 2012 and 2017, and the global result is area-weighted from continental estimates. The measured decline is small but statistically significant. The economic burden is independently estimated for United States urban areas only and is retained as a bounded corroborating impact rather than extrapolated globally.",
+      "freshness": "Global paired-image observations end in 2017; peer-reviewed global synthesis published in 2020, with bounded United States economic-burden evidence published in 2018 and reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "Peer-reviewed studies quantify a statistically significant global accumulated urban tree-cover loss, a bounded annual economic-service loss, observed conversion to impervious cover and loss across five inhabited continents.",
+        "higher_priority_failures": [
+          "Only two global cover endpoints are available, ending in 2017; the record cannot satisfy the historical-distribution or current momentum requirements for current_data."
+        ]
+      },
+      "input_hash": "fnv1a32:19409b15"
+    }
+  ]
+}

@@ -1,0 +1,117 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_71_eu_agricultural_soil_compaction",
+  "generated_at": "2026-08-01T16:44:37.030Z",
+  "source_snapshots": [
+    "public/eu-agricultural-soil-compaction-impact-snapshot.json"
+  ],
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "agricultural_soil_compaction",
+      "value": 7.2,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2018",
+      "components": {
+        "biophysical_burden": 0.517,
+        "human_economic_burden": 0.835,
+        "persistence": 0.72775,
+        "extent": 0.736
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "compacted_arable_land_pct": 3.2,
+          "lucas_bulk_density_samples_0_10_cm": 6140,
+          "lucas_bulk_density_samples_10_20_cm": 5684,
+          "normalization_anchors_pct": [
+            0,
+            1,
+            5,
+            20
+          ]
+        },
+        "human_economic_burden": {
+          "measured_crop_yield_reduction_pct_lower_bound": 35,
+          "normalization_anchors_pct": [
+            0,
+            5,
+            20,
+            50
+          ],
+          "boundary": "A source-reported measured lower bound; it is not multiplied across the mapped compacted share and is not assigned a monetary value."
+        },
+        "persistence": {
+          "measured_effect_persistence_years": 17,
+          "normalization_anchors_years": [
+            0,
+            1,
+            10,
+            50
+          ]
+        },
+        "extent": {
+          "represented_geography": "EU-27 and United Kingdom",
+          "represented_country_count": 28,
+          "normalization_anchors_countries": [
+            0,
+            1,
+            10,
+            100
+          ]
+        },
+        "source_snapshot": {
+          "path": "public/eu-agricultural-soil-compaction-impact-snapshot.json",
+          "version": "eu_agricultural_soil_compaction_lucas_2018_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z",
+          "source_locators": [
+            "Scale and Bulk Density sections: more than 6,000 measured LUCAS 2018 samples underlie the continental packing-density assessment.",
+            "Impact summary: crop-yield reductions greater than 35 percent have been measured and effects remained detectable 17 years after one compaction event.",
+            "Soil compaction slide: 3.2 percent of arable land is classified as compacted using packing density as the proxy.",
+            "Dataset description: 6,140 samples at 0-10 cm and 5,684 samples at 10-20 cm from LUCAS 2018, spatialized to 100 m across the EU and UK.",
+            "Key findings: croplands have almost 1.5 times higher bulk density than woodlands; model R-squared is 0.66."
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "measured_and_modeled_compaction_share",
+          "formula": "Use the EUSO-reported 3.2 percent arable-land compacted class derived from the LUCAS bulk-density measurements and packing-density model; do not infer compaction from agricultural activity alone."
+        },
+        {
+          "type": "yield_loss_lower_bound",
+          "formula": "Use 35 percent as the conservative numeric value for the source statement that measured crop-yield reductions exceeded 35 percent; do not multiply it by area."
+        },
+        {
+          "type": "observed_persistence",
+          "formula": "Use the source-reported 17 years for detected yield and nitrogen effects after a single compaction event."
+        },
+        {
+          "type": "bounded_extent",
+          "formula": "Normalize the 28 directly represented EU and UK countries; do not generalize the regional assessment globally."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "ec_jrc_esdac_soil_compaction_assessment",
+        "ec_jrc_euso_state_of_soils_2026_compaction",
+        "ec_jrc_esdac_bulk_density_europe_2024"
+      ],
+      "uncertainty": "Packing density is a modeled proxy derived from bulk density and clay content, and the published model reports R-squared of 0.66. The 3.2 percent compacted share applies to arable land in the European assessment domain, not all agricultural land globally. The greater-than-35-percent yield reduction and 17-year persistence are measured evidence summarized by ESDAC, but they are not asserted to occur at every compacted LUCAS pixel. EU-27 plus the United Kingdom is used only as the represented assessment coverage.",
+      "freshness": "LUCAS samples collected 2018; EUSO assessment reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "The European Soil Data Centre assessment combines thousands of measured bulk-density cores with a documented packing-density model and quantifies compacted arable-land share, measured yield loss, persistence and bounded continental coverage.",
+        "higher_priority_failures": [
+          "The 2018 regional survey does not supply a current global field-level aggregation.",
+          "No method-comparable 20-year annual or 60-month global series supplies current magnitude plus threshold or momentum coverage."
+        ]
+      },
+      "input_hash": "fnv1a32:e9d2a2f8"
+    }
+  ]
+}

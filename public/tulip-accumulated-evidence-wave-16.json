@@ -1,0 +1,117 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_16_unctad_maritime_bottlenecks",
+  "generated_at": "2026-07-31T22:57:25.750Z",
+  "source_snapshot": "public/unctad-maritime-bottleneck-impact-snapshot.json",
+  "source_id": "unctad_review_of_maritime_transport_2024",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "supply_chain_port_bottlenecks",
+      "value": 7.9,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "biophysical_burden": 0.7294,
+        "human_economic_burden": 0.846,
+        "persistence": 0.67,
+        "extent": 0.8
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "vessel_ton_mile_growth_2023_pct": 4.2,
+          "vessel_ton_mile_growth_2024_pct": 5.9,
+          "maritime_trade_volume_growth_2024_pct": 2,
+          "ton_mile_growth_multiple_vs_trade_volume_growth_2024": 2.95,
+          "anchors_pct": [
+            0,
+            2,
+            5,
+            10
+          ],
+          "boundary": "Network transport work caused by longer routes; not cargo loss or port dwell time."
+        },
+        "human_economic_burden": {
+          "scfi_october_2024_above_pre_pandemic_average_pct": 115,
+          "scfi_october_2024_vs_2023_average_multiple_lower_bound": 2,
+          "anchors_pct": [
+            0,
+            25,
+            75,
+            150
+          ],
+          "boundary": "Shanghai Containerized Freight Index comparison; not every global shipping contract."
+        },
+        "persistence": {
+          "disruption_start_year": 2023,
+          "latest_report_year": 2025,
+          "persistence_years": 2,
+          "port_congestion_status": "persistent in 2024 and into 2025",
+          "anchors_years": [
+            0,
+            1,
+            2,
+            5
+          ]
+        },
+        "extent": {
+          "seaborne_share_of_world_trade_volume_pct": 80,
+          "normalized_value": 0.8,
+          "boundary": "World merchandise-trade volume exposure, not the share delayed."
+        },
+        "source_snapshot": {
+          "path": "public/unctad-maritime-bottleneck-impact-snapshot.json",
+          "version": "unctad_review_maritime_transport_2024_2025_bottleneck_v1",
+          "captured_at": "2026-07-31T21:51:19.574Z",
+          "source_locators": [
+            "UNCTAD Review of Maritime Transport 2025 overview: 2024 ton-miles rose 5.9 percent, nearly three times trade-volume growth.",
+            "UNCTAD Review of Maritime Transport 2025 chapter 2: shipping carbon emissions increased an estimated 5 percent in 2024 over 2023.",
+            "UNCTAD Review of Maritime Transport 2025 overview: over 90 percent of the active fleet still runs on conventional fuels; January 2025 fleet counted 112,500 vessels and 2.44 billion deadweight tons.",
+            "UNCTAD Review of Maritime Transport 2024: over 80 percent of world trade volume moves by sea and 2023 route disruptions raised ton-miles 4.2 percent.",
+            "UNCTAD freight update, 18 October 2024: SCFI remained 115 percent above the pre-pandemic average and more than double the 2023 average.",
+            "UNCTAD Review of Maritime Transport 2025 chapter 3: port congestion persisted through 2024 and into 2025."
+          ],
+          "excluded_from_scoring": [
+            "projected 2025 consumer-price changes",
+            "route-specific spot rates",
+            "projected future trade growth",
+            "port-call count treated as dwell time"
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "network_transport_work_burden",
+          "formula": "Normalize source-reported 2024 ton-mile growth through a fixed transport-work range; retain trade-volume growth separately."
+        },
+        {
+          "type": "observed_freight_cost_burden",
+          "formula": "Normalize the observed October 2024 SCFI premium over its pre-pandemic average; do not score projected consumer prices."
+        },
+        {
+          "type": "report_confirmed_persistence",
+          "formula": "Use the 2023-to-2025 interval documented across consecutive UNCTAD reviews."
+        },
+        {
+          "type": "seaborne_trade_extent",
+          "formula": "Use the source-reported minimum 80-percent share of world trade volume carried by sea as exposure, not realized delay."
+        }
+      ],
+      "source_ids": [
+        "unctad_review_of_maritime_transport_2024"
+      ],
+      "uncertainty": "Freight indices cover selected routes and prices; port calls are activity rather than congestion duration; rerouting attribution, vessel capacity, cargo mix, blank sailings, contracts, fuel, insurance and reporting timing affect comparisons.",
+      "freshness": "UNCTAD Review of Maritime Transport 2025; snapshot captured 2026-07-31T21:51:19.574Z.",
+      "selection_reason": {
+        "selected_method_passed": "UNCTAD quantifies disruption-related global transport-work growth, observed freight-rate burden, multi-year persistence and the seaborne share of world-trade exposure.",
+        "higher_priority_failures": [
+          "No recognized global port-bottleneck threshold or complete 20-year harmonized congestion series supports current-data normalization. Port calls cannot be converted to dwell time without port-level observations."
+        ]
+      },
+      "input_hash": "fnv1a32:24f82dd3"
+    }
+  ]
+}

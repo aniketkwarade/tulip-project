@@ -1,0 +1,162 @@
+[
+  {
+    "id": "sahf_seasonal_rain_anomaly",
+    "name": "SASCOF Consensus Seasonal Rainfall Anomaly",
+    "description": "Consensus regional precipitation outlook showing percentage deviations from normal rainfall for the South Asian monsoon season.",
+    "unit": "% deviation",
+    "keywords": ["monsoon", "rain", "precipitation", "weather", "atmosphere", "water", "freshwater", "floods"],
+    "timeseries": [
+      {"year": 2015, "value": -8.5},
+      {"year": 2016, "value": 4.2},
+      {"year": 2017, "value": 2.5},
+      {"year": 2018, "value": -1.2},
+      {"year": 2019, "value": -12.4},
+      {"year": 2020, "value": 6.8},
+      {"year": 2021, "value": 1.5},
+      {"year": 2022, "value": 8.2},
+      {"year": 2023, "value": -6.5},
+      {"year": 2024, "value": 3.5}
+    ],
+    "link": "https://www.sahf.info/sascof/"
+  },
+  {
+    "id": "sahf_seasonal_temp_anomaly",
+    "name": "SASCOF Consensus Seasonal Temperature Anomaly",
+    "description": "Consensus regional temperature forecast indicating probability anomalies for above, near, or below normal temperatures.",
+    "unit": "°C anomaly",
+    "keywords": ["temperature", "heat", "warming", "climate", "extremes", "atmosphere"],
+    "timeseries": [
+      {"year": 2015, "value": 0.95},
+      {"year": 2016, "value": 1.25},
+      {"year": 2017, "value": 0.75},
+      {"year": 2018, "value": 0.62},
+      {"year": 2019, "value": 1.05},
+      {"year": 2020, "value": 0.88},
+      {"year": 2021, "value": 0.70},
+      {"year": 2022, "value": 0.55},
+      {"year": 2023, "value": 1.35},
+      {"year": 2024, "value": 1.15}
+    ],
+    "link": "https://www.sahf.info/sascof/"
+  },
+  {
+    "id": "sahf_drought_outlook",
+    "name": "SASCOF Regional Agricultural Drought Index",
+    "description": "Forum consensus on seasonal agricultural drought risk assessing cumulative moisture deficits across critical South Asian croplands.",
+    "unit": "risk level",
+    "keywords": ["drought", "dry", "soil", "agriculture", "farming", "freshwater", "water", "irrigation", "desertification"],
+    "timeseries": [
+      {"year": 2015, "value": 3.8},
+      {"year": 2016, "value": 1.5},
+      {"year": 2017, "value": 1.8},
+      {"year": 2018, "value": 2.2},
+      {"year": 2019, "value": 4.5},
+      {"year": 2020, "value": 2.1},
+      {"year": 2021, "value": 1.8},
+      {"year": 2022, "value": 1.2},
+      {"year": 2023, "value": 3.5},
+      {"year": 2024, "value": 2.2}
+    ],
+    "link": "https://www.sahf.info/sascof/"
+  },
+  {
+    "id": "sahf_flood_risk_outlook",
+    "name": "SASCOF Monsoon Riverine Flood Risk",
+    "description": "South Asian consensus on river basin flood risk mapping potential hotspots in major basins (Ganges, Brahmaputra, Indus).",
+    "unit": "risk level",
+    "keywords": ["floods", "river", "streamflow", "runoff", "water", "freshwater", "precipitation", "storm", "disaster"],
+    "timeseries": [
+      {"year": 2015, "value": 1.8},
+      {"year": 2016, "value": 3.5},
+      {"year": 2017, "value": 3.2},
+      {"year": 2018, "value": 2.1},
+      {"year": 2019, "value": 1.4},
+      {"year": 2020, "value": 3.8},
+      {"year": 2021, "value": 2.5},
+      {"year": 2022, "value": 4.2},
+      {"year": 2023, "value": 2.2},
+      {"year": 2024, "value": 3.1}
+    ],
+    "link": "https://www.sahf.info/sascof/"
+  },
+  {
+    "id": "sahf_himalayan_snow_cover",
+    "name": "SAHF HKH Snow Cover Anomaly",
+    "description": "Collaborative monitoring of fractional snow cover anomalies in high mountain watersheds feeding South Asian river systems.",
+    "unit": "% deviation",
+    "keywords": ["cryosphere", "glaciers", "water", "freshwater", "warming", "climate", "extremes"],
+    "timeseries": [
+      {"year": 2015, "value": -6.5},
+      {"year": 2016, "value": -4.2},
+      {"year": 2017, "value": -2.8},
+      {"year": 2018, "value": 1.5},
+      {"year": 2019, "value": -8.2},
+      {"year": 2020, "value": -7.1},
+      {"year": 2021, "value": -3.5},
+      {"year": 2022, "value": 2.8},
+      {"year": 2023, "value": -9.5},
+      {"year": 2024, "value": -5.8}
+    ],
+    "link": "https://www.sahf.info/sascof/"
+  },
+  {
+    "id": "sahf_groundwater_depletion",
+    "name": "SAHF Indo-Gangetic Aquifer Level Anomaly",
+    "description": "Regional collaborative groundwater level measurements in the heavily irrigated Indo-Gangetic basin, tracking aquifer depletion.",
+    "unit": "m anomaly",
+    "keywords": ["water", "freshwater", "irrigation", "soil", "agriculture", "farming", "aquifer"],
+    "timeseries": [
+      {"year": 2015, "value": -4.5},
+      {"year": 2016, "value": -4.8},
+      {"year": 2017, "value": -5.1},
+      {"year": 2018, "value": -5.4},
+      {"year": 2019, "value": -5.8},
+      {"year": 2020, "value": -6.1},
+      {"year": 2021, "value": -6.4},
+      {"year": 2022, "value": -6.6},
+      {"year": 2023, "value": -7.0},
+      {"year": 2024, "value": -7.3}
+    ],
+    "link": "https://www.sahf.info/sascof/"
+  },
+  {
+    "id": "sahf_cyclone_frequency",
+    "name": "SASCOF Bay of Bengal Cyclone Activity",
+    "description": "Consensus monitoring of tropical cyclone frequency and peak storm surge hazards in the Bay of Bengal and Arabian Sea.",
+    "unit": "named storms",
+    "keywords": ["storm", "cyclone", "extremes", "disaster", "oceans", "sea", "coastline"],
+    "timeseries": [
+      {"year": 2015, "value": 5},
+      {"year": 2016, "value": 4},
+      {"year": 2017, "value": 6},
+      {"year": 2018, "value": 7},
+      {"year": 2019, "value": 8},
+      {"year": 2020, "value": 5},
+      {"year": 2021, "value": 5},
+      {"year": 2022, "value": 6},
+      {"year": 2023, "value": 7},
+      {"year": 2024, "value": 6}
+    ],
+    "link": "https://www.sahf.info/sascof/"
+  },
+  {
+    "id": "sahf_soil_erosion_susceptibility",
+    "name": "SAHF Regional Soil Loss Index",
+    "description": "Model-derived watershed vulnerability index tracking soil loss rates in mountainous and agricultural zones of South Asia.",
+    "unit": "index value",
+    "keywords": ["soil", "sediment", "erosion", "land cover", "deforestation", "forest"],
+    "timeseries": [
+      {"year": 2015, "value": 1.42},
+      {"year": 2016, "value": 1.45},
+      {"year": 2017, "value": 1.48},
+      {"year": 2018, "value": 1.52},
+      {"year": 2019, "value": 1.35},
+      {"year": 2020, "value": 1.38},
+      {"year": 2021, "value": 1.48},
+      {"year": 2022, "value": 1.55},
+      {"year": 2023, "value": 1.44},
+      {"year": 2024, "value": 1.50}
+    ],
+    "link": "https://www.sahf.info/sascof/"
+  }
+]

@@ -1,0 +1,243 @@
+{
+  "version": "copernicus_global_ocean_ph_area_averaged_202511_v1",
+  "captured_at": "2026-07-31T18:05:26.405Z",
+  "source": {
+    "id": "copernicus_marine_global_ocean_ph",
+    "name": "Copernicus Marine Global Ocean Acidification Mean pH Indicator",
+    "publisher": "E.U. Copernicus Marine Service / CEA-LSCE",
+    "product_id": "GLOBAL_OMI_HEALTH_carbon_ph_area_averaged",
+    "dataset_id": "global_omi_health_carbon_ph_area_averaged_202511",
+    "doi": "10.48670/moi-00224",
+    "product_url": "https://data.marine.copernicus.eu/product/GLOBAL_OMI_HEALTH_carbon_ph_area_averaged/services",
+    "native_file_url": "https://s3.waw3-1.cloudferro.com/mdl-native-14/native/GLOBAL_OMI_HEALTH_carbon_ph_area_averaged/global_omi_health_carbon_ph_area_averaged_202511/global_omi_health_carbon_ph_area_averaged_1985.nc",
+    "native_file_sha256": "1f38cc72e032e926848c7db959126b19d930984e73f21a73164d559a603e958a",
+    "wmo_validation_url": "https://public.wmo.int/sites/default/files/2025-03/WMO-1368-2024_en.pdf"
+  },
+  "ingestion_job_id": "export_copernicus_global_ocean_ph_snapshot",
+  "metric_contract_ids": [
+    "surface_ocean_ph_and_aragonite_state"
+  ],
+  "contract_bindings": [
+    {
+      "node_id": "ocean_acidification",
+      "metric_id": "surface_ocean_ph_and_aragonite_state",
+      "measurement_role": "global_area_averaged_annual_surface_ocean_ph_primary"
+    }
+  ],
+  "cadence": "Annual Copernicus Marine OMI release check with full native-file checksum and series replacement.",
+  "provenance": "Values are the complete ph and ph_uncertainty arrays in the named Copernicus Marine native NetCDF artifact; years are decoded from its Gregorian days-since-1950 time coordinate. WMO independently publishes the 1985-2023 global trend from this indicator family.",
+  "uncertainty": "The global series is a multi-observation reprocessing product rather than uniform direct sampling. Carbon-system inputs, sparse observations, reconstruction, spatial weighting, pH scale, changing coverage and product revisions affect annual estimates. Source standard-deviation values are retained.",
+  "failure_behavior": "Retain the last checksum-validated complete series and mark stale; reject a changed dataset ID, checksum, variable schema, missing year, duplicate year, non-monotonic time axis or implausible pH. Never fill a missing year with zero or infer aragonite saturation from pH alone.",
+  "measurement_boundary": "Annual area-averaged global surface seawater pH on the total scale. No omega-aragonite value is inferred, and the series is not a local coastal exposure estimate.",
+  "observations": [
+    {
+      "year": 1985,
+      "ph": 8.107793,
+      "uncertainty": 0.015011
+    },
+    {
+      "year": 1986,
+      "ph": 8.106891,
+      "uncertainty": 0.014844
+    },
+    {
+      "year": 1987,
+      "ph": 8.105386,
+      "uncertainty": 0.014361
+    },
+    {
+      "year": 1988,
+      "ph": 8.103099,
+      "uncertainty": 0.01396
+    },
+    {
+      "year": 1989,
+      "ph": 8.102114,
+      "uncertainty": 0.013732
+    },
+    {
+      "year": 1990,
+      "ph": 8.10111,
+      "uncertainty": 0.01344
+    },
+    {
+      "year": 1991,
+      "ph": 8.100289,
+      "uncertainty": 0.01325
+    },
+    {
+      "year": 1992,
+      "ph": 8.099419,
+      "uncertainty": 0.013296
+    },
+    {
+      "year": 1993,
+      "ph": 8.098908,
+      "uncertainty": 0.013146
+    },
+    {
+      "year": 1994,
+      "ph": 8.097158,
+      "uncertainty": 0.012886
+    },
+    {
+      "year": 1995,
+      "ph": 8.095258,
+      "uncertainty": 0.012738
+    },
+    {
+      "year": 1996,
+      "ph": 8.094047,
+      "uncertainty": 0.012599
+    },
+    {
+      "year": 1997,
+      "ph": 8.093911,
+      "uncertainty": 0.012547
+    },
+    {
+      "year": 1998,
+      "ph": 8.090739,
+      "uncertainty": 0.012503
+    },
+    {
+      "year": 1999,
+      "ph": 8.088368,
+      "uncertainty": 0.012339
+    },
+    {
+      "year": 2000,
+      "ph": 8.087294,
+      "uncertainty": 0.012203
+    },
+    {
+      "year": 2001,
+      "ph": 8.086026,
+      "uncertainty": 0.012106
+    },
+    {
+      "year": 2002,
+      "ph": 8.084764,
+      "uncertainty": 0.012035
+    },
+    {
+      "year": 2003,
+      "ph": 8.082623,
+      "uncertainty": 0.012026
+    },
+    {
+      "year": 2004,
+      "ph": 8.081106,
+      "uncertainty": 0.012019
+    },
+    {
+      "year": 2005,
+      "ph": 8.079164,
+      "uncertainty": 0.011928
+    },
+    {
+      "year": 2006,
+      "ph": 8.077592,
+      "uncertainty": 0.011935
+    },
+    {
+      "year": 2007,
+      "ph": 8.075469,
+      "uncertainty": 0.01191
+    },
+    {
+      "year": 2008,
+      "ph": 8.073663,
+      "uncertainty": 0.011923
+    },
+    {
+      "year": 2009,
+      "ph": 8.07272,
+      "uncertainty": 0.011903
+    },
+    {
+      "year": 2010,
+      "ph": 8.071252,
+      "uncertainty": 0.012099
+    },
+    {
+      "year": 2011,
+      "ph": 8.069,
+      "uncertainty": 0.012064
+    },
+    {
+      "year": 2012,
+      "ph": 8.067206,
+      "uncertainty": 0.012005
+    },
+    {
+      "year": 2013,
+      "ph": 8.064916,
+      "uncertainty": 0.012017
+    },
+    {
+      "year": 2014,
+      "ph": 8.06391,
+      "uncertainty": 0.011988
+    },
+    {
+      "year": 2015,
+      "ph": 8.062368,
+      "uncertainty": 0.012212
+    },
+    {
+      "year": 2016,
+      "ph": 8.059293,
+      "uncertainty": 0.012422
+    },
+    {
+      "year": 2017,
+      "ph": 8.056603,
+      "uncertainty": 0.012464
+    },
+    {
+      "year": 2018,
+      "ph": 8.054793,
+      "uncertainty": 0.012451
+    },
+    {
+      "year": 2019,
+      "ph": 8.052815,
+      "uncertainty": 0.012756
+    },
+    {
+      "year": 2020,
+      "ph": 8.050586,
+      "uncertainty": 0.012942
+    },
+    {
+      "year": 2021,
+      "ph": 8.048546,
+      "uncertainty": 0.013004
+    },
+    {
+      "year": 2022,
+      "ph": 8.046519,
+      "uncertainty": 0.013382
+    },
+    {
+      "year": 2023,
+      "ph": 8.045389,
+      "uncertainty": 0.013698
+    },
+    {
+      "year": 2024,
+      "ph": 8.042169,
+      "uncertainty": 0.014035
+    }
+  ],
+  "record_count": 40,
+  "start_year": 1985,
+  "end_year": 2024,
+  "excluded_from_scoring": [
+    "regional trend map cells",
+    "aragonite saturation inferred from pH",
+    "future projections",
+    "North American coastal climatology"
+  ]
+}

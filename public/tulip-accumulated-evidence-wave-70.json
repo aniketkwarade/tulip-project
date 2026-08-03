@@ -1,0 +1,121 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_70_kalamazoo_inland_waterway_spill",
+  "generated_at": "2026-08-01T16:41:26.671Z",
+  "source_snapshots": [
+    "public/kalamazoo-inland-waterway-spill-impact-snapshot.json"
+  ],
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "inland_waterway_fuel_spills",
+      "value": 8.1,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2014",
+      "components": {
+        "biophysical_burden": 0.942596,
+        "human_economic_burden": 0.914567,
+        "persistence": 0.67,
+        "extent": 0.33
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "reported_release_gallons": 843444,
+          "normalization_anchors_gallons": [
+            0,
+            10000,
+            100000,
+            1000000
+          ]
+        },
+        "human_economic_burden": {
+          "continuing_cleanup_cost_usd_lower_bound": 767000000,
+          "people_reporting_crude_oil_exposure_consistent_symptoms": 320,
+          "normalization_anchors_usd": [
+            0,
+            1000000,
+            100000000,
+            1000000000
+          ],
+          "boundary": "The cost value is a source-reported continuing cleanup-cost lower bound; reported symptoms are retained as context and do not add separate score points."
+        },
+        "persistence": {
+          "cleanup_start_year": 2010,
+          "cleanup_through_year": 2014,
+          "cleanup_duration_years": 4,
+          "normalization_anchors_years": [
+            0,
+            1,
+            4,
+            10
+          ]
+        },
+        "extent": {
+          "affected_river_miles_at_least": 35,
+          "represented_countries": [
+            "United States"
+          ],
+          "represented_country_count": 1,
+          "normalization_anchors_countries": [
+            0,
+            1,
+            10,
+            100
+          ],
+          "boundary": "Affected river miles document the case footprint; the normalized extent component uses represented countries so a regional case is not treated as global coverage."
+        },
+        "source_snapshot": {
+          "path": "public/kalamazoo-inland-waterway-spill-impact-snapshot.json",
+          "version": "kalamazoo_inland_waterway_oil_spill_2010_2014_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z",
+          "source_locators": [
+            "What Happened: 843,444 gallons released, cleanup costs exceeding USD 767 million, and about 320 people reporting symptoms consistent with crude-oil exposure.",
+            "Incident summary: Enbridge revised the discharge estimate to 20,082 barrels or 843,444 gallons; EPA-directed cleanup covered over 30 miles of the Kalamazoo River.",
+            "Incident and response summary: EPA-ordered recovery and dredging continued from 2010 to 2014.",
+            "Response timeline: the release traveled at least 35 miles downstream on the Kalamazoo River."
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "actual_discharge_only",
+          "formula": "Use the official revised 843,444-gallon release estimate; do not infer discharged volume from pipeline throughput, vessel capacity, traffic or risk."
+        },
+        {
+          "type": "cleanup_cost_lower_bound",
+          "formula": "Use the NTSB continuing cleanup-cost value of more than USD 767 million as a conservative numeric lower bound; do not inflate it to a final total cost."
+        },
+        {
+          "type": "documented_cleanup_duration",
+          "formula": "Calculate four years from the EPA-documented 2010 through 2014 recovery-and-dredging period; do not claim ecological recovery ended in 2014."
+        },
+        {
+          "type": "bounded_extent",
+          "formula": "Normalize the one represented country while retaining the at-least-35-mile river footprint as unscored context."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "ntsb_enbridge_marshall_pipeline_release_2012",
+        "phmsa_enbridge_marshall_spill_record",
+        "epa_enbridge_kalamazoo_response_2010_2014"
+      ],
+      "uncertainty": "The released-volume estimate was revised after the incident and is retained at the official 843,444-gallon value. The USD 767 million figure was already a continuing-cost lower bound when the NTSB adopted its report, not a final total-damage valuation. The four-year duration is the documented EPA recovery-and-dredging period and does not imply that all ecological effects ended in 2014. One-country coverage prevents this severe case from being represented as a global incident census.",
+      "freshness": "Historical spill assessed through 2014; federal response page reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "NTSB, PHMSA and EPA records quantify an actual inland-waterway oil discharge, continuing cleanup cost, a multi-year cleanup period, affected river length and bounded geography for the same named incident.",
+        "higher_priority_failures": [
+          "The evidence is a severe regional accumulated-impact case, not a current global inland-waterway spill aggregation.",
+          "No method-comparable 20-year annual or 60-month global series supplies current magnitude plus threshold or momentum coverage."
+        ]
+      },
+      "input_hash": "fnv1a32:1ee2b159"
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+
+const snapshot = {
+  version: 'global_atmospheric_hazard_impact_2026_v1',
+  captured_at: '2026-08-01T00:00:00.000Z',
+  sources: [
+    {
+      id: 'wmo_airborne_dust_bulletin_2025',
+      name: 'WMO Airborne Dust Bulletin No. 9',
+      publisher: 'World Meteorological Organization',
+      url: 'https://wmo.int/sites/default/files/2025-07/WMO-Airborne-Dust-Bulletin_9_en.pdf'
+    },
+    {
+      id: 'noaa_global_tropospheric_ozone_trends_1990_2017',
+      name: 'Multidecadal increases in global tropospheric ozone derived from ozonesonde and surface observations',
+      publisher: 'NOAA Institutional Repository / Atmospheric Chemistry and Physics',
+      url: 'https://repository.library.noaa.gov/view/noaa/58045',
+      doi: '10.5194/acp-22-14751-2022'
+    },
+    {
+      id: 'iarc_gbd_ambient_air_pollution_2015',
+      name: 'Global burden of disease attributable to ambient air pollution, 2015',
+      publisher: 'International Agency for Research on Cancer',
+      url: 'https://www.iarc.who.int/reference/estimates-and-25-year-trends-of-the-global-burden-of-disease-attributable-to-ambient-air-pollution-an-analysis-of-data-from-the-global-burden-of-diseases-study-2015/'
+    }
+  ],
+  assessments: {
+    sand_and_dust_storm_burden: {
+      assessment_year: 2024,
+      airborne_sand_and_dust_million_tonnes_per_year: 2000,
+      people_exposed_above_who_threshold_billion_2018_2022: 3.8,
+      people_exposed_above_who_threshold_billion_2003_2007: 2.9,
+      exposed_population_change_pct: 31,
+      current_assessment_start_year: 2018,
+      current_assessment_end_year: 2022,
+      comparison_start_year: 2003,
+      comparison_end_year: 2007,
+      countries_affected_count_minimum: 150,
+      global_extent: 0.95
+    },
+    tropospheric_ozone_burden: {
+      observation_start_year: 1990,
+      observation_end_year: 2017,
+      ozonesonde_sites: 25,
+      average_free_troposphere_trend_ppb_per_decade: 1.8,
+      average_free_troposphere_trend_uncertainty_ppb_per_decade: 1.3,
+      outside_us_europe_surface_sites: 33,
+      outside_us_europe_surface_sites_increasing_pct: 73,
+      outside_us_europe_average_increase_ppb_per_decade: 1.4,
+      attributable_deaths_2015: 254000,
+      attributable_deaths_lower_95_ui: 97000,
+      attributable_deaths_upper_95_ui: 422000,
+      attributable_dalys_2015_million: 4.1,
+      global_extent: 0.9
+    }
+  },
+  uncertainty: 'The dust figures describe annual atmospheric mass and population exposure, not a global event-frequency count. Tropospheric ozone trends are averages across monitored sites with substantial regional heterogeneity; ozone-attributable health burden is comparative-risk model output rather than a direct census.'
+};
+
+await fs.writeFile(
+  path.join(ROOT, 'public/global-atmospheric-hazard-impact-snapshot.json'),
+  `${JSON.stringify(snapshot, null, 2)}\n`
+);
+
+console.log(JSON.stringify({
+  output: 'public/global-atmospheric-hazard-impact-snapshot.json',
+  version: snapshot.version,
+  sources: snapshot.sources.length,
+  assessments: Object.keys(snapshot.assessments).length
+}, null, 2));

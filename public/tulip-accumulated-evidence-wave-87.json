@@ -1,0 +1,127 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_87_premium_standard_farms_lagoons",
+  "generated_at": "2026-08-01T17:35:16.932Z",
+  "source_snapshots": [
+    "public/premium-standard-farms-lagoon-impact-snapshot.json"
+  ],
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "anaerobic_manure_lagoon_operation",
+      "value": 9.7,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2001",
+      "components": {
+        "biophysical_burden": 1,
+        "human_economic_burden": 1,
+        "persistence": 0.846,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "confined_pig_head_approx": 1250000,
+          "hog_barns_more_than": 1000,
+          "anaerobic_animal_waste_lagoon_count": 163,
+          "normalization_anchors_swine_head": [
+            0,
+            10000,
+            100000,
+            1000000
+          ],
+          "boundary": "Portfolio animal loading proxy with species preserved; no animal-unit, volume, nutrient-mass or retention-time conversion."
+        },
+        "human_economic_burden": {
+          "federal_civil_penalty_usd": 350000,
+          "prior_missouri_penalties_usd": 650000,
+          "total_paid_civil_penalties_usd_derived": 1000000,
+          "normalization_anchors_usd": [
+            0,
+            10000,
+            100000,
+            1000000
+          ]
+        },
+        "persistence": {
+          "operation_start_year": 1988,
+          "settlement_year": 2001,
+          "operating_system_span_years": 13,
+          "normalization_anchors_years": [
+            0,
+            1,
+            5,
+            20
+          ],
+          "boundary": "Operating-system duration, not alleged-violation duration."
+        },
+        "extent": {
+          "large_farm_count": 21,
+          "county_count": 5,
+          "normalization_anchors_farms": [
+            0,
+            1,
+            5,
+            20
+          ]
+        },
+        "unscored_context": {
+          "required_nitrogen_content_reduction_percent_at_least": 50,
+          "future_wastewater_technology_spending_usd_up_to": 50000000,
+          "supplemental_environmental_project_usd": 300000
+        },
+        "source_snapshot": {
+          "path": "public/premium-standard-farms-lagoon-impact-snapshot.json",
+          "version": "premium_standard_farms_missouri_lagoon_settlement_2001_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z",
+          "source_locators": [
+            "EPA reports 1.25 million pigs, more than 1,000 hog barns, 163 animal-waste lagoons and 21 large farms primarily located in five northwest Missouri counties.",
+            "The companies agreed to a USD 350,000 federal civil penalty in addition to USD 650,000 previously paid to Missouri.",
+            "The decree required at least a 50-percent nitrogen-content reduction before land application at larger Class 1A farms, lagoon leakage testing, emissions reporting and new management practices.",
+            "The decree describes breeding, gestation, farrowing and grow-finish facilities, with each farm consisting of multiple sites and each site having its own lagoon system.",
+            "Most lagoons treated and stored effluent in a single-stage anaerobic system before land application.",
+            "Premium Standard Farms began operations in 1988; the receipt uses this to bound system persistence, not to assert that every alleged violation persisted for 13 years."
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "species_preserved_portfolio_loading",
+          "formula": "Normalize the source-reported approximate 1.25 million confined pigs while retaining 163 mostly single-stage anaerobic lagoons as system context; do not derive nutrient or hydraulic loads."
+        },
+        {
+          "type": "paid_penalty_burden",
+          "formula": "Add the USD 350,000 federal penalty and USD 650,000 prior Missouri penalties to obtain USD 1 million in actual paid civil penalties."
+        },
+        {
+          "type": "operating_system_span",
+          "formula": "Subtract the 1988 operation start from the 2001 settlement year to obtain a 13-year system span, not a violation duration."
+        },
+        {
+          "type": "portfolio_extent",
+          "formula": "Normalize 21 large farms and retain five counties as bounded geographic context."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "epa_premium_standard_farms_multimedia_settlement_2001",
+        "epa_premium_standard_farms_consent_decree_2001"
+      ],
+      "uncertainty": "The 1.25 million-pig count is an approximate portfolio total and is not converted to standardized animal units because age and weight classes are mixed. Lagoon liquid volume, volatile-solids load, hydraulic retention, temperature and actual nutrient mass are unavailable and are not imputed. Thirteen years describes the operating-system span, not the duration of each alleged violation. Civil penalties are actual paid economic burden; up-to-USD-50-million future technology spending, the supplemental project and expected pollutant reductions remain unscored. Settlement allegations are not treated as adjudicated findings for every site.",
+      "freshness": "Historical Missouri CAFO portfolio assessed at the 2001 consent decree; EPA records reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "EPA and the consent decree quantify species-specific portfolio loading, anaerobic lagoon systems, paid penalties, operating-system span and farm extent.",
+        "higher_priority_failures": [
+          "The evidence is a historical Missouri portfolio rather than a current global manure-lagoon aggregation.",
+          "Current globally comparable lagoon loading, retention, temperature and treatment-condition data do not meet the coverage gate."
+        ]
+      },
+      "input_hash": "fnv1a32:7d62263d"
+    }
+  ]
+}

@@ -1,0 +1,189 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_8_global_carbon_sink_efficiency",
+  "generated_at": "2026-07-31T22:57:30.037Z",
+  "promoted_node_count": 2,
+  "receipts": [
+    {
+      "node_id": "land_carbon_sink_weakening",
+      "value": 4.2,
+      "band": "Elevated",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "magnitude": 0.324832,
+        "threshold": 0.324832,
+        "momentum": 0.02789,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_sink_efficiency_pct": 16.478422,
+          "historical_median_efficiency_pct": 22.897202,
+          "deficit_from_historical_median_percentage_points": 6.41878,
+          "complete_annual_observations": 66,
+          "anchors": [
+            0,
+            6.520907,
+            10.564617,
+            17.029831
+          ],
+          "source_locator": "https://globalcarbonbudget.org/download/2341/?tmstv=1762815901"
+        },
+        "threshold": {
+          "latest_sink_gtc_yr": 1.942155,
+          "latest_anthropogenic_emissions_gtc_yr": 11.78605,
+          "latest_sink_efficiency_pct": 16.478422,
+          "threshold_basis": "historical_distribution_fallback_lower_is_worse",
+          "anchors": [
+            22.897202,
+            16.376294,
+            12.332585,
+            5.867371
+          ],
+          "source_locator": "https://globalcarbonbudget.org/download/2341/?tmstv=1762815901"
+        },
+        "momentum": {
+          "latest_year_over_year_efficiency_change_percentage_points": -0.770121,
+          "annual_change_observations": 65,
+          "anchors": [
+            0.049536,
+            -9.648664,
+            -13.397634,
+            -17.398262
+          ],
+          "direction": "lower_is_worse",
+          "source_locator": "https://globalcarbonbudget.org/download/2341/?tmstv=1762815901"
+        },
+        "extent": {
+          "geography": "global carbon budget",
+          "normalized_value": 1,
+          "definition": "The source reports the land carbon sink as a global annual budget component.",
+          "source_locator": "https://globalcarbonbudget.org/download/2341/?tmstv=1762815901"
+        },
+        "source_snapshot": {
+          "path": "public/gcb-snapshot.json",
+          "version": "2026-07-31T14:55:33.922Z",
+          "release_year": "2025",
+          "annual_panel_start": 1959,
+          "annual_panel_end": 2024,
+          "source_sheet": "Global Carbon Budget",
+          "source_uncertainty": "The workbook states average ±1σ uncertainty of ±0.4 GtC/yr for the ocean sink and ±0.5 GtC/yr for the land sink; year-specific model and product spread is retained in the source workbook."
+        }
+      },
+      "transformations": [
+        {
+          "type": "global_sink_efficiency",
+          "formula": "land_sink_gtc_yr / (fossil emissions excluding carbonation + land-use-change emissions) × 100 for each source year",
+          "rationale": "A sink-efficiency fraction distinguishes weakening relative to the growing anthropogenic carbon input from a simple increase in absolute sink flux."
+        },
+        {
+          "type": "historical_distribution_normalization_lower_is_worse",
+          "formula": "Map annual efficiency, deficit from its historical median and year-over-year efficiency change through median / p25 / p10 / p2.5 lower-tail anchors."
+        }
+      ],
+      "source_ids": [
+        "global_carbon_budget_2025"
+      ],
+      "uncertainty": "The workbook states average ±1σ uncertainty of ±0.4 GtC/yr for the ocean sink and ±0.5 GtC/yr for the land sink; year-specific model and product spread is retained in the source workbook. Sink efficiency additionally inherits uncertainty and covariance from fossil and land-use-change emissions. Annual variability is not by itself attributed to long-term climate-driven weakening.",
+      "freshness": "Global Carbon Budget 2025 consolidated annual history through 2024; snapshot refreshed 2026-07-31.",
+      "selection_reason": {
+        "selected_method_passed": "The official Global Carbon Budget supplies 66 complete annual global land carbon sink observations and matching anthropogenic-emission totals, enabling current magnitude, historical lower-tail position, momentum and global extent without treating missing data as zero.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:98c66dd0"
+    },
+    {
+      "node_id": "ocean_carbon_uptake_weakening",
+      "value": 2.3,
+      "band": "Low",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "magnitude": 0,
+        "threshold": 0,
+        "momentum": 0,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_sink_efficiency_pct": 28.753886,
+          "historical_median_efficiency_pct": 27.059092,
+          "deficit_from_historical_median_percentage_points": -1.694794,
+          "complete_annual_observations": 66,
+          "anchors": [
+            0,
+            1.451862,
+            2.924315,
+            3.982523
+          ],
+          "source_locator": "https://globalcarbonbudget.org/download/2341/?tmstv=1762815901"
+        },
+        "threshold": {
+          "latest_sink_gtc_yr": 3.388947,
+          "latest_anthropogenic_emissions_gtc_yr": 11.78605,
+          "latest_sink_efficiency_pct": 28.753886,
+          "threshold_basis": "historical_distribution_fallback_lower_is_worse",
+          "anchors": [
+            27.059092,
+            25.60723,
+            24.134777,
+            23.076568
+          ],
+          "source_locator": "https://globalcarbonbudget.org/download/2341/?tmstv=1762815901"
+        },
+        "momentum": {
+          "latest_year_over_year_efficiency_change_percentage_points": 0.739662,
+          "annual_change_observations": 65,
+          "anchors": [
+            -0.000906,
+            -0.72677,
+            -1.869662,
+            -3.206522
+          ],
+          "direction": "lower_is_worse",
+          "source_locator": "https://globalcarbonbudget.org/download/2341/?tmstv=1762815901"
+        },
+        "extent": {
+          "geography": "global carbon budget",
+          "normalized_value": 1,
+          "definition": "The source reports the ocean carbon sink as a global annual budget component.",
+          "source_locator": "https://globalcarbonbudget.org/download/2341/?tmstv=1762815901"
+        },
+        "source_snapshot": {
+          "path": "public/gcb-snapshot.json",
+          "version": "2026-07-31T14:55:33.922Z",
+          "release_year": "2025",
+          "annual_panel_start": 1959,
+          "annual_panel_end": 2024,
+          "source_sheet": "Global Carbon Budget",
+          "source_uncertainty": "The workbook states average ±1σ uncertainty of ±0.4 GtC/yr for the ocean sink and ±0.5 GtC/yr for the land sink; year-specific model and product spread is retained in the source workbook."
+        }
+      },
+      "transformations": [
+        {
+          "type": "global_sink_efficiency",
+          "formula": "ocean_sink_gtc_yr / (fossil emissions excluding carbonation + land-use-change emissions) × 100 for each source year",
+          "rationale": "A sink-efficiency fraction distinguishes weakening relative to the growing anthropogenic carbon input from a simple increase in absolute sink flux."
+        },
+        {
+          "type": "historical_distribution_normalization_lower_is_worse",
+          "formula": "Map annual efficiency, deficit from its historical median and year-over-year efficiency change through median / p25 / p10 / p2.5 lower-tail anchors."
+        }
+      ],
+      "source_ids": [
+        "global_carbon_budget"
+      ],
+      "uncertainty": "The workbook states average ±1σ uncertainty of ±0.4 GtC/yr for the ocean sink and ±0.5 GtC/yr for the land sink; year-specific model and product spread is retained in the source workbook. Sink efficiency additionally inherits uncertainty and covariance from fossil and land-use-change emissions. Annual variability is not by itself attributed to long-term climate-driven weakening.",
+      "freshness": "Global Carbon Budget 2025 consolidated annual history through 2024; snapshot refreshed 2026-07-31.",
+      "selection_reason": {
+        "selected_method_passed": "The official Global Carbon Budget supplies 66 complete annual global ocean carbon sink observations and matching anthropogenic-emission totals, enabling current magnitude, historical lower-tail position, momentum and global extent without treating missing data as zero.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:e709682d"
+    }
+  ]
+}

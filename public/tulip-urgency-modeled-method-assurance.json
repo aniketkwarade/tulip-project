@@ -1,0 +1,2235 @@
+{
+  "version": "1.0.0",
+  "model_version": "tulip_modeled_global_v1",
+  "reviewed_at": "2026-08-02T16:00:00.000Z",
+  "reviewer": "OpenAI Codex — reproducible AI-assisted scientific review",
+  "reviewer_type": "ai_assisted",
+  "status": "approved_for_declared_fallback_use",
+  "intended_use": "Fallback urgency estimate only when current-data and impact-fallback gates fail.",
+  "prohibited_claims": [
+    "The modeled estimate is an observed measurement.",
+    "The external contextual source directly validates the TULIP score.",
+    "Scientific approval proves the estimate or source claim true."
+  ],
+  "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+  "weights": {
+    "legacy": 0.6,
+    "peer": 0.22,
+    "contract": 0.18
+  },
+  "contract_weights": {
+    "persistence": 0.4,
+    "geographic_reach": 0.35,
+    "causal_role": 0.25
+  },
+  "pilot_calibration_shift": {
+    "stored": 0.05463,
+    "recomputed": 0.05463,
+    "anchor_receipts": 12,
+    "reproduces": true
+  },
+  "model_input_lineage": {
+    "legacy_vector": "src/data.js node.score.baseline and node.vector",
+    "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+    "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+    "contract_factors": "src/data.js node.context and node.graph_contract",
+    "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+    "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+  },
+  "validation_summary": {
+    "receipts": 50,
+    "passed": 50,
+    "failed": 0,
+    "empty_external_operational_lineage": 50,
+    "model_input_lineage_complete": 50,
+    "peer_count_minimum": 1,
+    "peer_count_maximum": 12,
+    "maximum_weight_perturbation_score_delta": 0.20000000000000018,
+    "maximum_leave_one_peer_out_score_delta": 0.10000000000000142
+  },
+  "limitations": [
+    "The model is deterministic but is not an independently trained or externally validated predictive model.",
+    "Legacy judgments retain 60% weight and therefore materially influence the result.",
+    "Peer sets are constrained to reviewed pilot anchors and may contain only one eligible peer.",
+    "The common pilot calibration shift is a portfolio-level correction and not node-specific evidence.",
+    "External sources provide phenomenon context only; they do not validate the modeled score.",
+    "Approval is AI-assisted and is not human expert sign-off."
+  ],
+  "receipt_validations": [
+    {
+      "node_id": "oceanic_upwelling_disruptions",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.48888888888888893,
+        "peer": 0.7555555555555555,
+        "contract": 0.8235,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.6624155555555555,
+        "score": 7
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 6.8,
+          "maximum_score": 7.1,
+          "maximum_absolute_delta": 0.20000000000000018
+        },
+        "leave_one_peer_out": {
+          "minimum_score": 6.9,
+          "maximum_score": 7,
+          "maximum_absolute_delta": 0.09999999999999964
+        }
+      },
+      "peer_count": 12,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "pyrocumulonimbus_smoke_injection",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.41111111111111115,
+        "peer": 0.6861111111111111,
+        "contract": 0.6955,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.5774311111111111,
+        "score": 6.2
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 6.1,
+          "maximum_score": 6.3,
+          "maximum_absolute_delta": 0.10000000000000053
+        },
+        "leave_one_peer_out": {
+          "minimum_score": 6.2,
+          "maximum_score": 6.3,
+          "maximum_absolute_delta": 0.09999999999999964
+        }
+      },
+      "peer_count": 4,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "semiconductor_fabs",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.6777777777777777,
+        "peer": 0.7333333333333333,
+        "contract": 0.5455000000000001,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.7208199999999999,
+        "score": 7.5
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 7.4,
+          "maximum_score": 7.5,
+          "maximum_absolute_delta": 0.09999999999999964
+        },
+        "leave_one_peer_out": {
+          "available": false,
+          "reason": "Only one eligible reviewed peer is declared."
+        }
+      },
+      "peer_count": 1,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "internet_exchange_points",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.5222222222222223,
+        "peer": 0.7555555555555555,
+        "contract": 0.5455000000000001,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.6323755555555556,
+        "score": 6.7
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 6.6,
+          "maximum_score": 6.8,
+          "maximum_absolute_delta": 0.10000000000000053
+        },
+        "leave_one_peer_out": {
+          "minimum_score": 6.7,
+          "maximum_score": 6.7,
+          "maximum_absolute_delta": 0
+        }
+      },
+      "peer_count": 12,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "soil_moisture_collapse",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.7777777777777778,
+        "peer": 0.7191666666666665,
+        "contract": 0.7190000000000001,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.8089333333333333,
+        "score": 8.3
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 8.3,
+          "maximum_score": 8.3,
+          "maximum_absolute_delta": 0
+        },
+        "leave_one_peer_out": {
+          "minimum_score": 8.2,
+          "maximum_score": 8.3,
+          "maximum_absolute_delta": 0.10000000000000142
+        }
+      },
+      "peer_count": 2,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "firn_layer_depletion",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.7,
+        "peer": 0.7,
+        "contract": 0.8235,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.7768599999999999,
+        "score": 8
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 8,
+          "maximum_score": 8,
+          "maximum_absolute_delta": 0
+        },
+        "leave_one_peer_out": {
+          "available": false,
+          "reason": "Only one eligible reviewed peer is declared."
+        }
+      },
+      "peer_count": 1,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "atlantic_ni_o_ni_a",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.7111111111111111,
+        "peer": 0.5777777777777778,
+        "contract": 0.8235,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.7566377777777777,
+        "score": 7.8
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 7.8,
+          "maximum_score": 7.9,
+          "maximum_absolute_delta": 0.10000000000000053
+        },
+        "leave_one_peer_out": {
+          "available": false,
+          "reason": "Only one eligible reviewed peer is declared."
+        }
+      },
+      "peer_count": 1,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "ocean_current_regime_shift",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.7,
+        "peer": 0.7333333333333333,
+        "contract": 0.8634999999999999,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.7913933333333332,
+        "score": 8.1
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 8.1,
+          "maximum_score": 8.2,
+          "maximum_absolute_delta": 0.09999999999999964
+        },
+        "leave_one_peer_out": {
+          "available": false,
+          "reason": "Only one eligible reviewed peer is declared."
+        }
+      },
+      "peer_count": 1,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "ocean_salinity_stratification",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.7,
+        "peer": 0.7144654088050314,
+        "contract": 0.8634999999999999,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.7872423899371068,
+        "score": 8.1
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 8,
+          "maximum_score": 8.1,
+          "maximum_absolute_delta": 0.09999999999999964
+        },
+        "leave_one_peer_out": {
+          "minimum_score": 8.1,
+          "maximum_score": 8.1,
+          "maximum_absolute_delta": 0
+        }
+      },
+      "peer_count": 2,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "blocking_pattern_persistence",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.6555555555555556,
+        "peer": 0.6861111111111111,
+        "contract": 0.7355,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.7312977777777777,
+        "score": 7.6
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 7.6,
+          "maximum_score": 7.6,
+          "maximum_absolute_delta": 0
+        },
+        "leave_one_peer_out": {
+          "minimum_score": 7.6,
+          "maximum_score": 7.7,
+          "maximum_absolute_delta": 0.10000000000000053
+        }
+      },
+      "peer_count": 4,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "rossby_wave_stalling",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.6555555555555556,
+        "peer": 0.6861111111111111,
+        "contract": 0.6955,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.7240977777777777,
+        "score": 7.5
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 7.5,
+          "maximum_score": 7.5,
+          "maximum_absolute_delta": 0
+        },
+        "leave_one_peer_out": {
+          "minimum_score": 7.5,
+          "maximum_score": 7.6,
+          "maximum_absolute_delta": 0.09999999999999964
+        }
+      },
+      "peer_count": 4,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "low_cloud_deck_retreat",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.6666666666666666,
+        "peer": 0.7000000000000001,
+        "contract": 0.6955,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.73382,
+        "score": 7.6
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 7.6,
+          "maximum_score": 7.6,
+          "maximum_absolute_delta": 0
+        },
+        "leave_one_peer_out": {
+          "minimum_score": 7.6,
+          "maximum_score": 7.6,
+          "maximum_absolute_delta": 0
+        }
+      },
+      "peer_count": 2,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "peaker_plant_lock_in",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.7666666666666667,
+        "peer": 0.7333333333333333,
+        "contract": 0.615,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.7866633333333333,
+        "score": 8.1
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 8,
+          "maximum_score": 8.1,
+          "maximum_absolute_delta": 0.09999999999999964
+        },
+        "leave_one_peer_out": {
+          "available": false,
+          "reason": "Only one eligible reviewed peer is declared."
+        }
+      },
+      "peer_count": 1,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "backup_generator_dependence",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.7666666666666667,
+        "peer": 0.7333333333333333,
+        "contract": 0.615,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.7866633333333333,
+        "score": 8.1
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 8,
+          "maximum_score": 8.1,
+          "maximum_absolute_delta": 0.09999999999999964
+        },
+        "leave_one_peer_out": {
+          "available": false,
+          "reason": "Only one eligible reviewed peer is declared."
+        }
+      },
+      "peer_count": 1,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "port_heat_vulnerability",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.7,
+        "peer": 0.7,
+        "contract": 0.5205000000000001,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.72232,
+        "score": 7.5
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 7.5,
+          "maximum_score": 7.6,
+          "maximum_absolute_delta": 0.09999999999999964
+        },
+        "leave_one_peer_out": {
+          "available": false,
+          "reason": "Only one eligible reviewed peer is declared."
+        }
+      },
+      "peer_count": 1,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "talik_expansion",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.6777777777777777,
+        "peer": 0.7166666666666667,
+        "contract": 0.8235,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.7671933333333333,
+        "score": 7.9
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 7.9,
+          "maximum_score": 7.9,
+          "maximum_absolute_delta": 0
+        },
+        "leave_one_peer_out": {
+          "minimum_score": 7.9,
+          "maximum_score": 7.9,
+          "maximum_absolute_delta": 0
+        }
+      },
+      "peer_count": 2,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "antarctic_shelf_instability",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.6777777777777777,
+        "peer": 0.6999999999999998,
+        "contract": 0.8634999999999999,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.7707266666666666,
+        "score": 7.9
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 7.9,
+          "maximum_score": 8,
+          "maximum_absolute_delta": 0.09999999999999964
+        },
+        "leave_one_peer_out": {
+          "available": false,
+          "reason": "Only one eligible reviewed peer is declared."
+        }
+      },
+      "peer_count": 1,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "tundra_methane_outgassing",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.7333333333333333,
+        "peer": 0.7166666666666666,
+        "contract": 0.8634999999999999,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.8077266666666665,
+        "score": 8.3
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 8.2,
+          "maximum_score": 8.3,
+          "maximum_absolute_delta": 0.10000000000000142
+        },
+        "leave_one_peer_out": {
+          "minimum_score": 8.2,
+          "maximum_score": 8.3,
+          "maximum_absolute_delta": 0.10000000000000142
+        }
+      },
+      "peer_count": 2,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "jet_stream_volatility",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.6333333333333333,
+        "peer": 0.6861111111111111,
+        "contract": 0.7355,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.7179644444444444,
+        "score": 7.5
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 7.4,
+          "maximum_score": 7.5,
+          "maximum_absolute_delta": 0.09999999999999964
+        },
+        "leave_one_peer_out": {
+          "minimum_score": 7.4,
+          "maximum_score": 7.5,
+          "maximum_absolute_delta": 0.09999999999999964
+        }
+      },
+      "peer_count": 4,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "coastal_property_insurance_redlines",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.5888888888888889,
+        "peer": 0.7333333333333333,
+        "contract": 0.5845,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.6745066666666666,
+        "score": 7.1
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 7,
+          "maximum_score": 7.1,
+          "maximum_absolute_delta": 0.09999999999999964
+        },
+        "leave_one_peer_out": {
+          "minimum_score": 7.1,
+          "maximum_score": 7.1,
+          "maximum_absolute_delta": 0
+        }
+      },
+      "peer_count": 2,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "deep_sea_mining_dust",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.7111111111111111,
+        "peer": 0.7555555555555555,
+        "contract": 0.8235,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.7957488888888888,
+        "score": 8.2
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 8.1,
+          "maximum_score": 8.2,
+          "maximum_absolute_delta": 0.09999999999999964
+        },
+        "leave_one_peer_out": {
+          "minimum_score": 8.1,
+          "maximum_score": 8.2,
+          "maximum_absolute_delta": 0.09999999999999964
+        }
+      },
+      "peer_count": 12,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "rainforest_savannization",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.8222222222222223,
+        "peer": 0.7247723132969034,
+        "contract": 0.7830000000000001,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.8483532422586522,
+        "score": 8.6
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 8.6,
+          "maximum_score": 8.7,
+          "maximum_absolute_delta": 0.09999999999999964
+        },
+        "leave_one_peer_out": {
+          "minimum_score": 8.6,
+          "maximum_score": 8.7,
+          "maximum_absolute_delta": 0.09999999999999964
+        }
+      },
+      "peer_count": 2,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "asphalt_pavement_heat_absorbers",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.6444444444444444,
+        "peer": 0.7666666666666667,
+        "contract": 0.5205000000000001,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.7036533333333332,
+        "score": 7.3
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 7.3,
+          "maximum_score": 7.4,
+          "maximum_absolute_delta": 0.10000000000000053
+        },
+        "leave_one_peer_out": {
+          "available": false,
+          "reason": "Only one eligible reviewed peer is declared."
+        }
+      },
+      "peer_count": 1,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "ice_shelf_grounding_line_retreat",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.6777777777777777,
+        "peer": 0.7,
+        "contract": 0.8634999999999999,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.7707266666666666,
+        "score": 7.9
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 7.9,
+          "maximum_score": 8,
+          "maximum_absolute_delta": 0.09999999999999964
+        },
+        "leave_one_peer_out": {
+          "available": false,
+          "reason": "Only one eligible reviewed peer is declared."
+        }
+      },
+      "peer_count": 1,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "avian_migration_disruptions",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.7555555555555555,
+        "peer": 0.7,
+        "contract": 0.7430000000000001,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.7957033333333332,
+        "score": 8.2
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 8.1,
+          "maximum_score": 8.2,
+          "maximum_absolute_delta": 0.09999999999999964
+        },
+        "leave_one_peer_out": {
+          "available": false,
+          "reason": "Only one eligible reviewed peer is declared."
+        }
+      },
+      "peer_count": 1,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "arctic_pack_ice_drift",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.7333333333333333,
+        "peer": 0.7,
+        "contract": 0.8634999999999999,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.8040599999999999,
+        "score": 8.2
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 8.2,
+          "maximum_score": 8.3,
+          "maximum_absolute_delta": 0.10000000000000142
+        },
+        "leave_one_peer_out": {
+          "available": false,
+          "reason": "Only one eligible reviewed peer is declared."
+        }
+      },
+      "peer_count": 1,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "black_carbon_deposition",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.6666666666666666,
+        "peer": 0.6861111111111111,
+        "contract": 0.7355,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.7379644444444444,
+        "score": 7.6
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 7.6,
+          "maximum_score": 7.7,
+          "maximum_absolute_delta": 0.10000000000000053
+        },
+        "leave_one_peer_out": {
+          "minimum_score": 7.6,
+          "maximum_score": 7.7,
+          "maximum_absolute_delta": 0.10000000000000053
+        }
+      },
+      "peer_count": 4,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "glacial_siltation_streams",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.6666666666666666,
+        "peer": 0.7555555555555555,
+        "contract": 0.8634999999999999,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.7762822222222221,
+        "score": 8
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 7.9,
+          "maximum_score": 8.1,
+          "maximum_absolute_delta": 0.09999999999999964
+        },
+        "leave_one_peer_out": {
+          "minimum_score": 8,
+          "maximum_score": 8,
+          "maximum_absolute_delta": 0
+        }
+      },
+      "peer_count": 12,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "cryoconite_hole_expansion",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.7333333333333333,
+        "peer": 0.7,
+        "contract": 0.8634999999999999,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.8040599999999999,
+        "score": 8.2
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 8.2,
+          "maximum_score": 8.3,
+          "maximum_absolute_delta": 0.10000000000000142
+        },
+        "leave_one_peer_out": {
+          "available": false,
+          "reason": "Only one eligible reviewed peer is declared."
+        }
+      },
+      "peer_count": 1,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "savannah_tree_cover_decline",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.7444444444444445,
+        "peer": 0.7999999999999999,
+        "contract": 0.7830000000000001,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.8182366666666667,
+        "score": 8.4
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 8.3,
+          "maximum_score": 8.4,
+          "maximum_absolute_delta": 0.09999999999999964
+        },
+        "leave_one_peer_out": {
+          "available": false,
+          "reason": "Only one eligible reviewed peer is declared."
+        }
+      },
+      "peer_count": 1,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "ice_algae_pigmentation",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.7555555555555555,
+        "peer": 0.7,
+        "contract": 0.8235,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.8101933333333332,
+        "score": 8.3
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 8.3,
+          "maximum_score": 8.3,
+          "maximum_absolute_delta": 0
+        },
+        "leave_one_peer_out": {
+          "available": false,
+          "reason": "Only one eligible reviewed peer is declared."
+        }
+      },
+      "peer_count": 1,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "convective_instability_shift",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.7,
+        "peer": 0.7,
+        "contract": 0.6955,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.7538199999999999,
+        "score": 7.8
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 7.8,
+          "maximum_score": 7.8,
+          "maximum_absolute_delta": 0
+        },
+        "leave_one_peer_out": {
+          "available": false,
+          "reason": "Only one eligible reviewed peer is declared."
+        }
+      },
+      "peer_count": 1,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "ice_cap_decapitation",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.7333333333333333,
+        "peer": 0.7,
+        "contract": 0.8634999999999999,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.8040599999999999,
+        "score": 8.2
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 8.2,
+          "maximum_score": 8.3,
+          "maximum_absolute_delta": 0.10000000000000142
+        },
+        "leave_one_peer_out": {
+          "available": false,
+          "reason": "Only one eligible reviewed peer is declared."
+        }
+      },
+      "peer_count": 1,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "nunatak_habitat_shrinkage",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.7444444444444445,
+        "peer": 0.7,
+        "contract": 0.8634999999999999,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.8107266666666666,
+        "score": 8.3
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 8.3,
+          "maximum_score": 8.3,
+          "maximum_absolute_delta": 0
+        },
+        "leave_one_peer_out": {
+          "available": false,
+          "reason": "Only one eligible reviewed peer is declared."
+        }
+      },
+      "peer_count": 1,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "walker_circulation_shift",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.6777777777777777,
+        "peer": 0.6861111111111111,
+        "contract": 0.6955,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.737431111111111,
+        "score": 7.6
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 7.6,
+          "maximum_score": 7.6,
+          "maximum_absolute_delta": 0
+        },
+        "leave_one_peer_out": {
+          "minimum_score": 7.6,
+          "maximum_score": 7.7,
+          "maximum_absolute_delta": 0.10000000000000053
+        }
+      },
+      "peer_count": 4,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "fjord_sedimentation_pulses",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.7444444444444445,
+        "peer": 0.7555555555555555,
+        "contract": 0.8634999999999999,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.8229488888888887,
+        "score": 8.4
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 8.4,
+          "maximum_score": 8.4,
+          "maximum_absolute_delta": 0
+        },
+        "leave_one_peer_out": {
+          "minimum_score": 8.4,
+          "maximum_score": 8.4,
+          "maximum_absolute_delta": 0
+        }
+      },
+      "peer_count": 12,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "transformer_heat_failure_risk",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.8111111111111112,
+        "peer": 0.7,
+        "contract": 0.615,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.8059966666666667,
+        "score": 8.3
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 8.2,
+          "maximum_score": 8.3,
+          "maximum_absolute_delta": 0.10000000000000142
+        },
+        "leave_one_peer_out": {
+          "available": false,
+          "reason": "Only one eligible reviewed peer is declared."
+        }
+      },
+      "peer_count": 1,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "freeze_thaw_rock_fracturing",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.7444444444444445,
+        "peer": 0.7,
+        "contract": 0.8634999999999999,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.8107266666666666,
+        "score": 8.3
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 8.3,
+          "maximum_score": 8.3,
+          "maximum_absolute_delta": 0
+        },
+        "leave_one_peer_out": {
+          "available": false,
+          "reason": "Only one eligible reviewed peer is declared."
+        }
+      },
+      "peer_count": 1,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "overstory_tree_mortality",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.6444444444444444,
+        "peer": 0.6349462365591398,
+        "contract": 0.7830000000000001,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.7219248387096773,
+        "score": 7.5
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 7.5,
+          "maximum_score": 7.5,
+          "maximum_absolute_delta": 0
+        },
+        "leave_one_peer_out": {
+          "minimum_score": 7.4,
+          "maximum_score": 7.6,
+          "maximum_absolute_delta": 0.09999999999999964
+        }
+      },
+      "peer_count": 2,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "aerosolized_microplastics",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.6555555555555556,
+        "peer": 0.7333333333333334,
+        "contract": 0.6955,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.7344866666666666,
+        "score": 7.6
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 7.6,
+          "maximum_score": 7.6,
+          "maximum_absolute_delta": 0
+        },
+        "leave_one_peer_out": {
+          "available": false,
+          "reason": "Only one eligible reviewed peer is declared."
+        }
+      },
+      "peer_count": 1,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "tundra_shrubification_speeds",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.7444444444444445,
+        "peer": 0.7,
+        "contract": 0.8634999999999999,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.8107266666666666,
+        "score": 8.3
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 8.3,
+          "maximum_score": 8.3,
+          "maximum_absolute_delta": 0
+        },
+        "leave_one_peer_out": {
+          "available": false,
+          "reason": "Only one eligible reviewed peer is declared."
+        }
+      },
+      "peer_count": 1,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "subpolar_gyre_weakening",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.6222222222222222,
+        "peer": 0.6999999999999998,
+        "contract": 0.8235,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.7301933333333332,
+        "score": 7.6
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 7.5,
+          "maximum_score": 7.6,
+          "maximum_absolute_delta": 0.09999999999999964
+        },
+        "leave_one_peer_out": {
+          "available": false,
+          "reason": "Only one eligible reviewed peer is declared."
+        }
+      },
+      "peer_count": 1,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "coral_larval_mortality",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.7,
+        "peer": 0.7555555555555555,
+        "contract": 0.8634999999999999,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.7962822222222221,
+        "score": 8.2
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 8.1,
+          "maximum_score": 8.2,
+          "maximum_absolute_delta": 0.09999999999999964
+        },
+        "leave_one_peer_out": {
+          "minimum_score": 8.1,
+          "maximum_score": 8.2,
+          "maximum_absolute_delta": 0.09999999999999964
+        }
+      },
+      "peer_count": 12,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "high_altitude_forest_shrinkage",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.8333333333333334,
+        "peer": 0.7,
+        "contract": 0.7430000000000001,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.8423700000000001,
+        "score": 8.6
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 8.5,
+          "maximum_score": 8.6,
+          "maximum_absolute_delta": 0.09999999999999964
+        },
+        "leave_one_peer_out": {
+          "available": false,
+          "reason": "Only one eligible reviewed peer is declared."
+        }
+      },
+      "peer_count": 1,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "trade_wind_weakening",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.6777777777777777,
+        "peer": 0.6861111111111111,
+        "contract": 0.6955,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.737431111111111,
+        "score": 7.6
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 7.6,
+          "maximum_score": 7.6,
+          "maximum_absolute_delta": 0
+        },
+        "leave_one_peer_out": {
+          "minimum_score": 7.6,
+          "maximum_score": 7.7,
+          "maximum_absolute_delta": 0.10000000000000053
+        }
+      },
+      "peer_count": 4,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "methane_hydroxyl_sink_loss",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.7111111111111111,
+        "peer": 0.7333333333333333,
+        "contract": 0.6955,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.7678200000000001,
+        "score": 7.9
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 7.9,
+          "maximum_score": 7.9,
+          "maximum_absolute_delta": 0
+        },
+        "leave_one_peer_out": {
+          "available": false,
+          "reason": "Only one eligible reviewed peer is declared."
+        }
+      },
+      "peer_count": 1,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "aviation_condensation_trails",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.7,
+        "peer": 0.6861111111111111,
+        "contract": 0.6955,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.7507644444444445,
+        "score": 7.8
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 7.8,
+          "maximum_score": 7.8,
+          "maximum_absolute_delta": 0
+        },
+        "leave_one_peer_out": {
+          "minimum_score": 7.7,
+          "maximum_score": 7.8,
+          "maximum_absolute_delta": 0.09999999999999964
+        }
+      },
+      "peer_count": 4,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "industrial_groundwater_withdrawal",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.5666666666666667,
+        "peer": 0.7555555555555555,
+        "contract": 0.704,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.687572222222222,
+        "score": 7.2
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 7.1,
+          "maximum_score": 7.3,
+          "maximum_absolute_delta": 0.10000000000000053
+        },
+        "leave_one_peer_out": {
+          "minimum_score": 7.2,
+          "maximum_score": 7.2,
+          "maximum_absolute_delta": 0
+        }
+      },
+      "peer_count": 12,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "surface_water_groundwater_exchange_shift",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.5111111111111111,
+        "peer": 0.7555555555555555,
+        "contract": 0.704,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.6542388888888888,
+        "score": 6.9
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 6.8,
+          "maximum_score": 7,
+          "maximum_absolute_delta": 0.10000000000000053
+        },
+        "leave_one_peer_out": {
+          "minimum_score": 6.9,
+          "maximum_score": 6.9,
+          "maximum_absolute_delta": 0
+        }
+      },
+      "peer_count": 12,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    },
+    {
+      "node_id": "fossil_power_backup_co2",
+      "checks": {
+        "model_version_matches": true,
+        "legacy_vector_reproduces": true,
+        "peer_estimate_reproduces": true,
+        "contract_estimate_reproduces": true,
+        "pilot_shift_reproduces": true,
+        "modeled_component_reproduces": true,
+        "displayed_score_reproduces": true,
+        "higher_priority_failures_declared": true,
+        "contextual_sources_registered": true
+      },
+      "passed": true,
+      "expected": {
+        "legacy": 0.6777777777777777,
+        "peer": 0.7198717948717948,
+        "contract": 0.704,
+        "pilot_calibration_shift": 0.05463,
+        "modeled_estimate": 0.7463884615384615,
+        "score": 7.7
+      },
+      "sensitivity": {
+        "weight_perturbation": {
+          "minimum_score": 7.7,
+          "maximum_score": 7.7,
+          "maximum_absolute_delta": 0
+        },
+        "leave_one_peer_out": {
+          "minimum_score": 7.7,
+          "maximum_score": 7.7,
+          "maximum_absolute_delta": 0
+        }
+      },
+      "peer_count": 2,
+      "model_input_lineage": {
+        "legacy_vector": "src/data.js node.score.baseline and node.vector",
+        "peer_anchor_registry": "public/tulip-urgency-pilot-scores.json non-modeled anchor receipts",
+        "relationship_graph": "src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists",
+        "contract_factors": "src/data.js node.context and node.graph_contract",
+        "calibration_shift": "Mean pilot-anchor difference between evidence-based composite and legacy baseline",
+        "executable_formula": "scripts/export-tulip-urgency-registry.mjs modeledReceipt()"
+      }
+    }
+  ]
+}

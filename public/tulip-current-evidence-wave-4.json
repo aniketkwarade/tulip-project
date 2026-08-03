@@ -1,0 +1,98 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_4_noaa_global_marine_heatwave_status",
+  "generated_at": "2026-07-31T22:57:28.629Z",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "marine_heatwaves",
+      "value": 3.5,
+      "band": "Elevated",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "June 2026",
+      "components": {
+        "magnitude": 0.245143,
+        "threshold": 0.245143,
+        "momentum": 0.333333,
+        "extent": 0.33
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "current_global_ocean_area_coverage_pct": 33,
+          "historical_rank": 12,
+          "ranking_start_year": 1991,
+          "ranking_end_year": 2026,
+          "complete_same_month_ranking_years": 36,
+          "empirical_percentile": 0.685714,
+          "percentile_anchors": [
+            0.5,
+            0.75,
+            0.9,
+            0.975
+          ],
+          "source_locator": "https://psl.noaa.gov/marine-heatwaves/#status"
+        },
+        "threshold": {
+          "basis": "historical_distribution_fallback_from_source_reported_rank",
+          "empirical_percentile": 0.685714,
+          "percentile_anchors": [
+            0.5,
+            0.75,
+            0.9,
+            0.975
+          ],
+          "source_locator": "https://psl.noaa.gov/marine-heatwaves/#status"
+        },
+        "momentum": {
+          "role": "quantitative_accumulated_warming_fill_not_recent_acceleration",
+          "trend_retained_global_ocean_area_pct": 33,
+          "detrended_global_ocean_area_pct": 22,
+          "trend_contribution_percentage_points": 11,
+          "trend_contribution_share_of_current_coverage": 0.333333,
+          "source_locator": "https://psl.noaa.gov/marine-heatwaves/#status"
+        },
+        "extent": {
+          "global_ocean_area_coverage_pct": 33,
+          "normalized_global_ocean_area_share": 0.33,
+          "source_locator": "https://psl.noaa.gov/marine-heatwaves/#status"
+        },
+        "source_snapshot": {
+          "path": "public/noaa-marine-heatwave-snapshot.json",
+          "version": "noaa_psl_marine_heatwave_measurement_snapshot_v1",
+          "captured_at": "2026-07-25T13:55:52.484Z",
+          "record_count": 2
+        }
+      },
+      "transformations": [
+        {
+          "type": "rank_to_empirical_percentile",
+          "formula": "1 - (historical rank - 1) / (complete same-month ranking years - 1), where rank 1 is highest coverage"
+        },
+        {
+          "type": "historical_percentile_normalization",
+          "formula": "Map empirical percentile through median / p75 / p90 / p97.5 probability anchors"
+        },
+        {
+          "type": "quantitative_impact_fill_for_momentum_weight",
+          "formula": "(trend-retained coverage - detrended coverage) / trend-retained coverage; not relabelled as recent acceleration"
+        },
+        {
+          "type": "global_ocean_extent",
+          "formula": "source-reported percent of global ocean area divided by 100"
+        }
+      ],
+      "source_ids": [
+        "noaa_marine_heatwaves"
+      ],
+      "uncertainty": "The source does not report a statistical interval. OISST retrieval, interpolation, 1991-2020 baseline, percentile threshold, trend treatment, ocean mask and monthly aggregation affect coverage.",
+      "freshness": "Monthly NOAA status for June 2026; snapshot captured 2026-07-25T13:55:52.484Z.",
+      "selection_reason": {
+        "selected_method_passed": "Current global-ocean coverage and its source-reported historical rank directly supply 60% of component weight; the paired detrended estimate and global-ocean area fill the remaining weights quantitatively.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:8766a8b8"
+    }
+  ]
+}

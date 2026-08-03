@@ -1,0 +1,409 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_60_epa_sewer_overflow",
+  "generated_at": "2026-08-01T15:56:02.478Z",
+  "source_snapshots": [
+    "public/epa-sewer-overflow-impact-snapshot.json"
+  ],
+  "promoted_node_count": 3,
+  "receipts": [
+    {
+      "node_id": "combined_sewer_overflow",
+      "value": 6.4,
+      "band": "Rising",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "biophysical_burden": 0.749321,
+        "human_economic_burden": 0.564222,
+        "persistence": 0.585,
+        "extent": 0.33
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "included_type_codes": [
+            "CSO"
+          ],
+          "events": 215,
+          "volume_reported_events": 210,
+          "reported_discharge_volume_gallons": 2479625133,
+          "duration_reported_events": 211,
+          "reported_duration_hours": 4603.8,
+          "normalization_anchors_gallons": [
+            0,
+            1000000,
+            100000000,
+            10000000000
+          ]
+        },
+        "human_economic_burden": {
+          "observable_impact_records": 72,
+          "human_exposure_records": 2,
+          "building_backup_records": 15,
+          "drinking_water_contamination_records": 0,
+          "beach_contamination_records": 0,
+          "shellfish_contamination_records": 1,
+          "aquatic_life_or_habitat_impairment_records": 45,
+          "fish_kill_records": 0,
+          "normalization_anchors_impact_records": [
+            0,
+            10,
+            100,
+            1000
+          ]
+        },
+        "persistence": {
+          "first_record_year": 2022,
+          "last_record_year": 2025,
+          "years_with_records": 4,
+          "normalization_anchors_years": [
+            0,
+            1,
+            5,
+            20
+          ]
+        },
+        "extent": {
+          "permit_count": 25,
+          "directly_assessed_countries": [
+            "United States"
+          ],
+          "directly_assessed_country_count": 1,
+          "normalization_anchors_countries": [
+            0,
+            1,
+            5,
+            25
+          ]
+        },
+        "current_cso_inventory_context": {
+          "total_rows": 9643,
+          "active_nonclosed_untreated_or_treated_outfalls": 7412,
+          "active_permits": 736,
+          "active_facilities": 728,
+          "states_and_jurisdictions_with_active_outfalls": 33
+        },
+        "source_snapshot": {
+          "path": "public/epa-sewer-overflow-impact-snapshot.json",
+          "version": "epa_echo_sewer_overflow_bypass_through_2025_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z",
+          "cso_inventory_archive_sha256": "ec42f85d95b769d93a145dbff2819efe464f2dfb28bf7e7b8eb6a3d30458e1f2",
+          "sewer_event_archive_sha256": "8444df9ca6575c58d2ecacbd26c9abe6e010b27c833a6f1bcf61813bace1e601",
+          "event_rows_through_2025": 2626
+        }
+      },
+      "transformations": [
+        {
+          "type": "current_version_event_join",
+          "formula": "Join the EPA current-version event, type and impact tables on sewer_overflow_bypass_event_key."
+        },
+        {
+          "type": "complete_year_boundary",
+          "formula": "Retain events starting on or before 2025-12-31 and exclude 2,156 partial-2026 rows."
+        },
+        {
+          "type": "exact_type_filter",
+          "formula": "Select only EPA event type codes CSO for this node."
+        },
+        {
+          "type": "reported_volume_accounting",
+          "formula": "Sum only nonblank discharge-volume gallons; missing volume and duration never become zero."
+        },
+        {
+          "type": "observable_impact_accounting",
+          "formula": "Count joined impact classifications other than No observable impacts; retain specific health and ecosystem categories separately."
+        },
+        {
+          "type": "bounded_country_extent",
+          "formula": "Normalize the one directly assessed country; permits, facilities, outfalls and jurisdictions do not become independent countries."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "epa_echo_national_cso_inventory_2026",
+        "epa_echo_sewer_overflow_bypass_events_2026",
+        "epa_cso_annual_volume_and_population_assessment"
+      ],
+      "uncertainty": "The standardized EPA event dataset is incomplete nationally and heavily reflects jurisdictions that have implemented electronic reporting. Partial 2026 is excluded, but 2019-2025 historical coverage is not uniform. Missing volume or duration is never converted to zero. Observable-impact rows are administrative classifications and can contain multiple impacts per event. The U.S.-only assessment is not extrapolated globally, and the separate national annual-volume estimate is contextual rather than added to event-reported gallons.",
+      "freshness": "EPA current-version event dataset dated 2026-07-30; scored through complete calendar year 2025; snapshot reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "EPA event records quantify CSO discharge volume, duration, documented impacts, persistence and one-country extent under the exact node contract.",
+        "higher_priority_failures": [
+          "EPA states that the standardized event dataset is still developing and does not provide defensible current global coverage.",
+          "Uneven jurisdictional electronic-reporting history prevents a global current magnitude, threshold and momentum series."
+        ]
+      },
+      "input_hash": "fnv1a32:cb39f984"
+    },
+    {
+      "node_id": "wastewater_bypass_discharge",
+      "value": 6.1,
+      "band": "Rising",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "biophysical_burden": 0.675505,
+        "human_economic_burden": 0.466,
+        "persistence": 0.714,
+        "extent": 0.33
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "included_type_codes": [
+            "BYP"
+          ],
+          "events": 229,
+          "volume_reported_events": 169,
+          "reported_discharge_volume_gallons": 265145608.9,
+          "duration_reported_events": 180,
+          "reported_duration_hours": 47641.18,
+          "normalization_anchors_gallons": [
+            0,
+            1000000,
+            100000000,
+            10000000000
+          ]
+        },
+        "human_economic_burden": {
+          "observable_impact_records": 46,
+          "human_exposure_records": 1,
+          "building_backup_records": 2,
+          "drinking_water_contamination_records": 0,
+          "beach_contamination_records": 1,
+          "shellfish_contamination_records": 0,
+          "aquatic_life_or_habitat_impairment_records": 8,
+          "fish_kill_records": 0,
+          "normalization_anchors_impact_records": [
+            0,
+            10,
+            100,
+            1000
+          ]
+        },
+        "persistence": {
+          "first_record_year": 2019,
+          "last_record_year": 2025,
+          "years_with_records": 7,
+          "normalization_anchors_years": [
+            0,
+            1,
+            5,
+            20
+          ]
+        },
+        "extent": {
+          "permit_count": 107,
+          "directly_assessed_countries": [
+            "United States"
+          ],
+          "directly_assessed_country_count": 1,
+          "normalization_anchors_countries": [
+            0,
+            1,
+            5,
+            25
+          ]
+        },
+        "current_cso_inventory_context": {
+          "total_rows": 9643,
+          "active_nonclosed_untreated_or_treated_outfalls": 7412,
+          "active_permits": 736,
+          "active_facilities": 728,
+          "states_and_jurisdictions_with_active_outfalls": 33
+        },
+        "source_snapshot": {
+          "path": "public/epa-sewer-overflow-impact-snapshot.json",
+          "version": "epa_echo_sewer_overflow_bypass_through_2025_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z",
+          "cso_inventory_archive_sha256": "ec42f85d95b769d93a145dbff2819efe464f2dfb28bf7e7b8eb6a3d30458e1f2",
+          "sewer_event_archive_sha256": "8444df9ca6575c58d2ecacbd26c9abe6e010b27c833a6f1bcf61813bace1e601",
+          "event_rows_through_2025": 2626
+        }
+      },
+      "transformations": [
+        {
+          "type": "current_version_event_join",
+          "formula": "Join the EPA current-version event, type and impact tables on sewer_overflow_bypass_event_key."
+        },
+        {
+          "type": "complete_year_boundary",
+          "formula": "Retain events starting on or before 2025-12-31 and exclude 2,156 partial-2026 rows."
+        },
+        {
+          "type": "exact_type_filter",
+          "formula": "Select only EPA event type codes BYP for this node."
+        },
+        {
+          "type": "reported_volume_accounting",
+          "formula": "Sum only nonblank discharge-volume gallons; missing volume and duration never become zero."
+        },
+        {
+          "type": "observable_impact_accounting",
+          "formula": "Count joined impact classifications other than No observable impacts; retain specific health and ecosystem categories separately."
+        },
+        {
+          "type": "bounded_country_extent",
+          "formula": "Normalize the one directly assessed country; permits, facilities, outfalls and jurisdictions do not become independent countries."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "epa_echo_national_cso_inventory_2026",
+        "epa_echo_sewer_overflow_bypass_events_2026",
+        "epa_cso_annual_volume_and_population_assessment"
+      ],
+      "uncertainty": "The standardized EPA event dataset is incomplete nationally and heavily reflects jurisdictions that have implemented electronic reporting. Partial 2026 is excluded, but 2019-2025 historical coverage is not uniform. Missing volume or duration is never converted to zero. Observable-impact rows are administrative classifications and can contain multiple impacts per event. The U.S.-only assessment is not extrapolated globally, and the separate national annual-volume estimate is contextual rather than added to event-reported gallons.",
+      "freshness": "EPA current-version event dataset dated 2026-07-30; scored through complete calendar year 2025; snapshot reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "EPA event records quantify BYP discharge volume, duration, documented impacts, persistence and one-country extent under the exact node contract.",
+        "higher_priority_failures": [
+          "EPA states that the standardized event dataset is still developing and does not provide defensible current global coverage.",
+          "Uneven jurisdictional electronic-reporting history prevents a global current magnitude, threshold and momentum series."
+        ]
+      },
+      "input_hash": "fnv1a32:e1ddad9b"
+    },
+    {
+      "node_id": "wastewater_infrastructure_overflow",
+      "value": 7.8,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "biophysical_burden": 0.758471,
+        "human_economic_burden": 1,
+        "persistence": 0.714,
+        "extent": 0.33
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "included_type_codes": [
+            "CSO",
+            "SSO"
+          ],
+          "events": 2397,
+          "volume_reported_events": 1795,
+          "reported_discharge_volume_gallons": 2754124497.2,
+          "duration_reported_events": 2348,
+          "reported_duration_hours": 44178.64,
+          "normalization_anchors_gallons": [
+            0,
+            1000000,
+            100000000,
+            10000000000
+          ]
+        },
+        "human_economic_burden": {
+          "observable_impact_records": 1175,
+          "human_exposure_records": 258,
+          "building_backup_records": 150,
+          "drinking_water_contamination_records": 4,
+          "beach_contamination_records": 9,
+          "shellfish_contamination_records": 4,
+          "aquatic_life_or_habitat_impairment_records": 87,
+          "fish_kill_records": 1,
+          "normalization_anchors_impact_records": [
+            0,
+            10,
+            100,
+            1000
+          ]
+        },
+        "persistence": {
+          "first_record_year": 2019,
+          "last_record_year": 2025,
+          "years_with_records": 7,
+          "normalization_anchors_years": [
+            0,
+            1,
+            5,
+            20
+          ]
+        },
+        "extent": {
+          "permit_count": 440,
+          "directly_assessed_countries": [
+            "United States"
+          ],
+          "directly_assessed_country_count": 1,
+          "normalization_anchors_countries": [
+            0,
+            1,
+            5,
+            25
+          ]
+        },
+        "current_cso_inventory_context": {
+          "total_rows": 9643,
+          "active_nonclosed_untreated_or_treated_outfalls": 7412,
+          "active_permits": 736,
+          "active_facilities": 728,
+          "states_and_jurisdictions_with_active_outfalls": 33
+        },
+        "source_snapshot": {
+          "path": "public/epa-sewer-overflow-impact-snapshot.json",
+          "version": "epa_echo_sewer_overflow_bypass_through_2025_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z",
+          "cso_inventory_archive_sha256": "ec42f85d95b769d93a145dbff2819efe464f2dfb28bf7e7b8eb6a3d30458e1f2",
+          "sewer_event_archive_sha256": "8444df9ca6575c58d2ecacbd26c9abe6e010b27c833a6f1bcf61813bace1e601",
+          "event_rows_through_2025": 2626
+        }
+      },
+      "transformations": [
+        {
+          "type": "current_version_event_join",
+          "formula": "Join the EPA current-version event, type and impact tables on sewer_overflow_bypass_event_key."
+        },
+        {
+          "type": "complete_year_boundary",
+          "formula": "Retain events starting on or before 2025-12-31 and exclude 2,156 partial-2026 rows."
+        },
+        {
+          "type": "exact_type_filter",
+          "formula": "Select only EPA event type codes CSO + SSO for this node."
+        },
+        {
+          "type": "reported_volume_accounting",
+          "formula": "Sum only nonblank discharge-volume gallons; missing volume and duration never become zero."
+        },
+        {
+          "type": "observable_impact_accounting",
+          "formula": "Count joined impact classifications other than No observable impacts; retain specific health and ecosystem categories separately."
+        },
+        {
+          "type": "bounded_country_extent",
+          "formula": "Normalize the one directly assessed country; permits, facilities, outfalls and jurisdictions do not become independent countries."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "epa_echo_national_cso_inventory_2026",
+        "epa_echo_sewer_overflow_bypass_events_2026",
+        "epa_cso_annual_volume_and_population_assessment"
+      ],
+      "uncertainty": "The standardized EPA event dataset is incomplete nationally and heavily reflects jurisdictions that have implemented electronic reporting. Partial 2026 is excluded, but 2019-2025 historical coverage is not uniform. Missing volume or duration is never converted to zero. Observable-impact rows are administrative classifications and can contain multiple impacts per event. The U.S.-only assessment is not extrapolated globally, and the separate national annual-volume estimate is contextual rather than added to event-reported gallons.",
+      "freshness": "EPA current-version event dataset dated 2026-07-30; scored through complete calendar year 2025; snapshot reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "EPA event records quantify CSO/SSO discharge volume, duration, documented impacts, persistence and one-country extent under the exact node contract.",
+        "higher_priority_failures": [
+          "EPA states that the standardized event dataset is still developing and does not provide defensible current global coverage.",
+          "Uneven jurisdictional electronic-reporting history prevents a global current magnitude, threshold and momentum series."
+        ]
+      },
+      "input_hash": "fnv1a32:01eb4495"
+    }
+  ]
+}

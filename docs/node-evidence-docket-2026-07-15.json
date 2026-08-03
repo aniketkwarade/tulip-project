@@ -1,0 +1,1684 @@
+{
+  "generated_at": "2026-07-15T23:03:33.632Z",
+  "generated_from": [
+    "docs/source-intake-pack-2026-07-15.json",
+    "public/node-source-attachments.json"
+  ],
+  "summary": {
+    "total_nodes": 44,
+    "high_priority_nodes": 38,
+    "medium_priority_nodes": 6,
+    "nodes_with_no_current_bundles": 16
+  },
+  "entries": [
+    {
+      "node_id": "aerosol_cooling_loss",
+      "priority": "high",
+      "target_outcome": "upgrade anchor grounding and replace family-only aerosol logic with explicit forcing evidence",
+      "next_action": "attach_reasoning_bundle",
+      "current_bundle_ids": [],
+      "recommended_sources": [
+        {
+          "id": 1,
+          "source": "IPCC AR6 WG1 Chapter 6",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "IPCC WG1 physical climate chapters and annex",
+              "best_tulip_use": "Aerosol cooling, monsoon volatility, water cycle, ENSO, extremes, forcing"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "source": "IPCC AR6 WG1 Chapter 7",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "IPCC WG1 physical climate chapters and annex",
+              "best_tulip_use": "Aerosol cooling, monsoon volatility, water cycle, ENSO, extremes, forcing"
+            }
+          ]
+        },
+        {
+          "id": 42,
+          "source": "IPCC AR6 WG1 Chapter 11",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "IPCC WG1 physical climate chapters and annex",
+              "best_tulip_use": "Aerosol cooling, monsoon volatility, water cycle, ENSO, extremes, forcing"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "node_id": "grid_peak_load_stress",
+      "priority": "high",
+      "target_outcome": "strengthen grid reliability and heat-load mechanism support",
+      "next_action": "attach_reasoning_bundle",
+      "current_bundle_ids": [],
+      "recommended_sources": [
+        {
+          "id": 3,
+          "source": "NERC 2025 LTRA",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "best_immediate_ingestion_target",
+          "usable_surface": "PDF tables and regional reliability findings",
+          "access_notes": "Open PDF",
+          "best_tulip_use": "Grid reliability, peak load, infrastructure fragility support",
+          "reasoning_families": []
+        },
+        {
+          "id": 4,
+          "source": "LBNL 2024 data center energy report",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "best_immediate_ingestion_target",
+          "usable_surface": "PDF/report tables",
+          "access_notes": "Open report page",
+          "best_tulip_use": "Data centers, AI load, grid stress, cooling-water competition",
+          "reasoning_families": []
+        },
+        {
+          "id": 84,
+          "source": "LBNL Queued Up 2025",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "best_immediate_ingestion_target",
+          "usable_surface": "PDF/report",
+          "access_notes": "Open PDF",
+          "best_tulip_use": "Transmission buildout lag",
+          "reasoning_families": []
+        },
+        {
+          "id": 85,
+          "source": "DOE National Transmission Needs Study",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "best_immediate_ingestion_target",
+          "usable_surface": "PDF/report",
+          "access_notes": "Open PDF",
+          "best_tulip_use": "Transmission buildout lag",
+          "reasoning_families": []
+        }
+      ]
+    },
+    {
+      "node_id": "cooling_water_competition",
+      "priority": "high",
+      "target_outcome": "add direct industrial cooling and thermoelectric water-use support",
+      "next_action": "snapshot_or_reasoning_mix",
+      "current_bundle_ids": [
+        "aqueduct_snapshot",
+        "grace_freshwater_snapshot",
+        "water_footprint_snapshot"
+      ],
+      "recommended_sources": [
+        {
+          "id": 4,
+          "source": "LBNL 2024 data center energy report",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "best_immediate_ingestion_target",
+          "usable_surface": "PDF/report tables",
+          "access_notes": "Open report page",
+          "best_tulip_use": "Data centers, AI load, grid stress, cooling-water competition",
+          "reasoning_families": []
+        },
+        {
+          "id": 5,
+          "source": "DOE Water-Energy Nexus",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "DOE / World Bank / UNEP / OECD system reports",
+              "best_tulip_use": "Water-energy nexus, infrastructure resilience, adaptation finance shortfall"
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "source": "USGS Thermoelectric Power Water Use",
+          "intake_disposition": "operational_open",
+          "priority_group": "best_immediate_ingestion_target",
+          "usable_surface": "Official water-use science page and downloadable/public data ecosystem",
+          "access_notes": "Open web surface",
+          "best_tulip_use": "Cooling-water competition, power-water coupling",
+          "reasoning_families": []
+        }
+      ]
+    },
+    {
+      "node_id": "critical_infrastructure_fragility",
+      "priority": "high",
+      "target_outcome": "ground infrastructure-failure pathways in climate resilience assessments",
+      "next_action": "attach_reasoning_bundle",
+      "current_bundle_ids": [
+        "disaster_displacement_snapshot",
+        "heat_health_snapshot"
+      ],
+      "recommended_sources": [
+        {
+          "id": 3,
+          "source": "NERC 2025 LTRA",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "best_immediate_ingestion_target",
+          "usable_surface": "PDF tables and regional reliability findings",
+          "access_notes": "Open PDF",
+          "best_tulip_use": "Grid reliability, peak load, infrastructure fragility support",
+          "reasoning_families": []
+        },
+        {
+          "id": 7,
+          "source": "World Bank Lifelines",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "DOE / World Bank / UNEP / OECD system reports",
+              "best_tulip_use": "Water-energy nexus, infrastructure resilience, adaptation finance shortfall"
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "source": "IPCC AR6 WG2 Chapter 6",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "IPCC WG2 chapters",
+              "best_tulip_use": "Infrastructure, food systems, poverty/livelihoods, terrestrial/freshwater ecosystems"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "node_id": "adaptation_capital_shortfall",
+      "priority": "high",
+      "target_outcome": "ground adaptation-finance gap with dated official assessments",
+      "next_action": "attach_reasoning_bundle",
+      "current_bundle_ids": [
+        "disaster_displacement_snapshot",
+        "finance_governance_snapshot"
+      ],
+      "recommended_sources": [
+        {
+          "id": 9,
+          "source": "UNEP Adaptation Gap Report 2025",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "DOE / World Bank / UNEP / OECD system reports",
+              "best_tulip_use": "Water-energy nexus, infrastructure resilience, adaptation finance shortfall"
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "source": "OECD climate finance report",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "DOE / World Bank / UNEP / OECD system reports",
+              "best_tulip_use": "Water-energy nexus, infrastructure resilience, adaptation finance shortfall"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "node_id": "insurance_retreat",
+      "priority": "high",
+      "target_outcome": "replace generic retreat framing with regulator and market evidence",
+      "next_action": "attach_reasoning_bundle",
+      "current_bundle_ids": [
+        "disaster_displacement_snapshot",
+        "finance_governance_snapshot"
+      ],
+      "recommended_sources": [
+        {
+          "id": 11,
+          "source": "U.S. Treasury insurance market analysis",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "best_immediate_ingestion_target",
+          "usable_surface": "Treasury analysis/report surface",
+          "access_notes": "Open",
+          "best_tulip_use": "Insurance retreat",
+          "reasoning_families": []
+        },
+        {
+          "id": 12,
+          "source": "FIO 2025 annual report",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "best_immediate_ingestion_target",
+          "usable_surface": "PDF/report",
+          "access_notes": "Open PDF",
+          "best_tulip_use": "Insurance retreat, financial exposure",
+          "reasoning_families": []
+        }
+      ]
+    },
+    {
+      "node_id": "mortgage_market_exposure",
+      "priority": "high",
+      "target_outcome": "strengthen housing-finance climate-risk mechanisms",
+      "next_action": "attach_reasoning_bundle",
+      "current_bundle_ids": [
+        "disaster_displacement_snapshot",
+        "finance_governance_snapshot"
+      ],
+      "recommended_sources": [
+        {
+          "id": 13,
+          "source": "FHFA climate risk page",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "FHFA climate-risk pages",
+              "best_tulip_use": "Mortgage and housing-finance exposure framing"
+            }
+          ]
+        },
+        {
+          "id": 14,
+          "source": "FHFA climate financial risk initiatives",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "FHFA climate-risk pages",
+              "best_tulip_use": "Mortgage and housing-finance exposure framing"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "node_id": "shipping_lane_disruption",
+      "priority": "high",
+      "target_outcome": "ground maritime chokepoint and climate-disruption claims",
+      "next_action": "attach_reasoning_bundle",
+      "current_bundle_ids": [],
+      "recommended_sources": [
+        {
+          "id": 15,
+          "source": "UNCTAD Review of Maritime Transport 2024",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "best_immediate_ingestion_target",
+          "usable_surface": "PDF/report tables",
+          "access_notes": "Open PDF",
+          "best_tulip_use": "Shipping lane disruption, trade stress",
+          "reasoning_families": []
+        },
+        {
+          "id": 16,
+          "source": "UNCTAD Navigating Troubled Waters",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "unclassified",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": []
+        }
+      ]
+    },
+    {
+      "node_id": "road_freight_diesel_lock_in",
+      "priority": "high",
+      "target_outcome": "ground heavy-duty diesel dependence and electrification barriers",
+      "next_action": "operational_plus_reasoning",
+      "current_bundle_ids": [],
+      "recommended_sources": [
+        {
+          "id": 17,
+          "source": "IEA Global EV Outlook 2025",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "unclassified",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": []
+        },
+        {
+          "id": 18,
+          "source": "ICCT heavy-duty vehicles",
+          "intake_disposition": "operational_open",
+          "priority_group": "best_immediate_ingestion_target",
+          "usable_surface": "Sector tracker / market development page",
+          "access_notes": "Open",
+          "best_tulip_use": "Road freight diesel lock-in, electrification gap",
+          "reasoning_families": []
+        }
+      ]
+    },
+    {
+      "node_id": "food_import_exposure",
+      "priority": "high",
+      "target_outcome": "ground trade-linked food vulnerability in FAO evidence",
+      "next_action": "attach_reasoning_bundle",
+      "current_bundle_ids": [
+        "food_security_snapshot",
+        "disaster_displacement_snapshot"
+      ],
+      "recommended_sources": [
+        {
+          "id": 19,
+          "source": "FAO Agricultural Commodity Markets 2018",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "FAO trade and commodity reports",
+              "best_tulip_use": "Food import exposure and trade vulnerability"
+            }
+          ]
+        },
+        {
+          "id": 20,
+          "source": "FAO Trade, Food Security and Climate Change",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "FAO trade and commodity reports",
+              "best_tulip_use": "Food import exposure and trade vulnerability"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "node_id": "crop_yield_volatility",
+      "priority": "high",
+      "target_outcome": "ground crop-yield instability in IPCC and observational crop studies",
+      "next_action": "attach_reasoning_bundle",
+      "current_bundle_ids": [],
+      "recommended_sources": [
+        {
+          "id": 21,
+          "source": "IPCC AR6 WG2 Chapter 5",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "IPCC WG2 chapters",
+              "best_tulip_use": "Infrastructure, food systems, poverty/livelihoods, terrestrial/freshwater ecosystems"
+            }
+          ]
+        },
+        {
+          "id": 22,
+          "source": "Ray et al. crop yield variability",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "Ray et al. crop variability paper",
+              "best_tulip_use": "Crop yield volatility"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "node_id": "farm_heat_stress",
+      "priority": "high",
+      "target_outcome": "upgrade farm labor and agricultural heat-stress support",
+      "next_action": "operational_plus_reasoning",
+      "current_bundle_ids": [
+        "heat_health_snapshot",
+        "labor_heat_support"
+      ],
+      "recommended_sources": [
+        {
+          "id": 23,
+          "source": "ILO Working on a Warmer Planet",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "ILO / WHO / Lancet heat-health sources",
+              "best_tulip_use": "Public health heat burden and labor stress"
+            }
+          ]
+        },
+        {
+          "id": 24,
+          "source": "Lancet Countdown Heat and Health",
+          "intake_disposition": "operational_open",
+          "priority_group": "best_immediate_ingestion_target",
+          "usable_surface": "Indicator program / data-facing web surface",
+          "access_notes": "Open",
+          "best_tulip_use": "Heat-health burden",
+          "reasoning_families": []
+        }
+      ]
+    },
+    {
+      "node_id": "vector_borne_disease_expansion",
+      "priority": "high",
+      "target_outcome": "ground disease range and transmission risk in health evidence",
+      "next_action": "attach_reasoning_bundle",
+      "current_bundle_ids": [
+        "heat_health_snapshot",
+        "labor_heat_support"
+      ],
+      "recommended_sources": [
+        {
+          "id": 25,
+          "source": "WHO vector-borne diseases",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "WHO vector-borne disease / ENSO-health sources",
+              "best_tulip_use": "Vector-borne disease expansion and ENSO-health links"
+            }
+          ]
+        },
+        {
+          "id": 33,
+          "source": "IPCC AR6 WG2 Chapter 8",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "IPCC WG2 chapters",
+              "best_tulip_use": "Infrastructure, food systems, poverty/livelihoods, terrestrial/freshwater ecosystems"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "node_id": "public_health_heat_burden",
+      "priority": "high",
+      "target_outcome": "strengthen heat-health burden with health indicators and public-health assessments",
+      "next_action": "operational_plus_reasoning",
+      "current_bundle_ids": [
+        "heat_health_snapshot",
+        "labor_heat_support"
+      ],
+      "recommended_sources": [
+        {
+          "id": 24,
+          "source": "Lancet Countdown Heat and Health",
+          "intake_disposition": "operational_open",
+          "priority_group": "best_immediate_ingestion_target",
+          "usable_surface": "Indicator program / data-facing web surface",
+          "access_notes": "Open",
+          "best_tulip_use": "Heat-health burden",
+          "reasoning_families": []
+        },
+        {
+          "id": 27,
+          "source": "WHO Heat and Health",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "ILO / WHO / Lancet heat-health sources",
+              "best_tulip_use": "Public health heat burden and labor stress"
+            }
+          ]
+        },
+        {
+          "id": 28,
+          "source": "Lancet Countdown 2025 visual summary",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "ILO / WHO / Lancet heat-health sources",
+              "best_tulip_use": "Public health heat burden and labor stress"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "node_id": "disaster_recovery_inequality",
+      "priority": "high",
+      "target_outcome": "ground unequal disaster recovery outcomes in public accountability sources",
+      "next_action": "attach_reasoning_bundle",
+      "current_bundle_ids": [
+        "disaster_displacement_snapshot",
+        "displacement_anchor_support"
+      ],
+      "recommended_sources": [
+        {
+          "id": 29,
+          "source": "GAO disaster recovery barriers",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "U.S. GAO disaster recovery studies",
+              "best_tulip_use": "Disaster recovery inequality"
+            }
+          ]
+        },
+        {
+          "id": 30,
+          "source": "GAO HUD block grant vulnerability report",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "U.S. GAO disaster recovery studies",
+              "best_tulip_use": "Disaster recovery inequality"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "node_id": "relocation_governance_capacity",
+      "priority": "high",
+      "target_outcome": "ground planned relocation and internal migration governance claims",
+      "next_action": "attach_reasoning_bundle",
+      "current_bundle_ids": [
+        "disaster_displacement_snapshot",
+        "displacement_anchor_support"
+      ],
+      "recommended_sources": [
+        {
+          "id": 31,
+          "source": "Groundswell Part II",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "World Bank Groundswell / IOM Planned Relocation",
+              "best_tulip_use": "Relocation governance capacity"
+            }
+          ]
+        },
+        {
+          "id": 32,
+          "source": "IOM Planned Relocation",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "World Bank Groundswell / IOM Planned Relocation",
+              "best_tulip_use": "Relocation governance capacity"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "node_id": "conflict_risk_escalation",
+      "priority": "high",
+      "target_outcome": "replace generic conflict framing with careful risk-multiplier evidence",
+      "next_action": "attach_reasoning_bundle",
+      "current_bundle_ids": [
+        "disaster_displacement_snapshot",
+        "conflict_governance_support"
+      ],
+      "recommended_sources": [
+        {
+          "id": 34,
+          "source": "Ide et al. conflict-risk paper",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "Ide et al. conflict-risk paper",
+              "best_tulip_use": "Conflict risk escalation"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "node_id": "basin_treaty_breakdown",
+      "priority": "high",
+      "target_outcome": "ground transboundary water treaty strain and allocation conflict",
+      "next_action": "attach_reasoning_bundle",
+      "current_bundle_ids": [
+        "aqueduct_snapshot",
+        "grace_freshwater_snapshot"
+      ],
+      "recommended_sources": [
+        {
+          "id": 35,
+          "source": "UNECE water allocation handbook",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "UNECE transboundary water sources",
+              "best_tulip_use": "Basin treaty breakdown"
+            }
+          ]
+        },
+        {
+          "id": 36,
+          "source": "UNECE SDG 6.5.2 transboundary water cooperation",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "UNECE transboundary water sources",
+              "best_tulip_use": "Basin treaty breakdown"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "node_id": "freshwater_ecosystem_collapse",
+      "priority": "high",
+      "target_outcome": "strengthen freshwater ecosystem decline with IPCC and UNEP ecosystem evidence",
+      "next_action": "attach_reasoning_bundle",
+      "current_bundle_ids": [
+        "aqueduct_snapshot",
+        "grace_freshwater_snapshot"
+      ],
+      "recommended_sources": [
+        {
+          "id": 37,
+          "source": "IPCC AR6 WG2 Chapter 2",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "IPCC WG2 chapters",
+              "best_tulip_use": "Infrastructure, food systems, poverty/livelihoods, terrestrial/freshwater ecosystems"
+            }
+          ]
+        },
+        {
+          "id": 38,
+          "source": "UNEP freshwater ecosystems update",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "best_immediate_ingestion_target",
+          "usable_surface": "PDF/report",
+          "access_notes": "Open PDF",
+          "best_tulip_use": "Freshwater ecosystem collapse",
+          "reasoning_families": []
+        }
+      ]
+    },
+    {
+      "node_id": "soil_moisture_collapse",
+      "priority": "high",
+      "target_outcome": "promote true soil-moisture observational support",
+      "next_action": "snapshot_candidate_requires_auth_review",
+      "current_bundle_ids": [
+        "aqueduct_snapshot",
+        "grace_freshwater_snapshot",
+        "soilgrids_snapshot"
+      ],
+      "recommended_sources": [
+        {
+          "id": 39,
+          "source": "Copernicus satellite soil moisture",
+          "intake_disposition": "operational_gated",
+          "priority_group": "best_immediate_ingestion_target",
+          "usable_surface": "Dataset portal with downloadable gridded data, STAC/CSW metadata",
+          "access_notes": "Login/Register shown on dataset page",
+          "best_tulip_use": "Soil moisture collapse, drought persistence",
+          "reasoning_families": []
+        },
+        {
+          "id": 40,
+          "source": "NASA SMAP Data",
+          "intake_disposition": "operational_gated_or_manual",
+          "priority_group": "best_immediate_ingestion_target",
+          "usable_surface": "Mission data catalog surface via ASF/NSIDC",
+          "access_notes": "Public discovery page; downstream Earthdata validation may be needed",
+          "best_tulip_use": "Soil moisture collapse, drought persistence",
+          "reasoning_families": []
+        },
+        {
+          "id": 41,
+          "source": "Copernicus drought observatories",
+          "intake_disposition": "operational_open",
+          "priority_group": "best_immediate_ingestion_target",
+          "usable_surface": "Monitoring portal",
+          "access_notes": "Open portal; API not obvious from cited page",
+          "best_tulip_use": "Drought persistence, soil moisture, basin stress context",
+          "reasoning_families": []
+        }
+      ]
+    },
+    {
+      "node_id": "drought_persistence",
+      "priority": "high",
+      "target_outcome": "strengthen drought persistence with observatory and soil-moisture evidence",
+      "next_action": "snapshot_candidate_requires_auth_review",
+      "current_bundle_ids": [
+        "aqueduct_snapshot",
+        "grace_freshwater_snapshot"
+      ],
+      "recommended_sources": [
+        {
+          "id": 39,
+          "source": "Copernicus satellite soil moisture",
+          "intake_disposition": "operational_gated",
+          "priority_group": "best_immediate_ingestion_target",
+          "usable_surface": "Dataset portal with downloadable gridded data, STAC/CSW metadata",
+          "access_notes": "Login/Register shown on dataset page",
+          "best_tulip_use": "Soil moisture collapse, drought persistence",
+          "reasoning_families": []
+        },
+        {
+          "id": 40,
+          "source": "NASA SMAP Data",
+          "intake_disposition": "operational_gated_or_manual",
+          "priority_group": "best_immediate_ingestion_target",
+          "usable_surface": "Mission data catalog surface via ASF/NSIDC",
+          "access_notes": "Public discovery page; downstream Earthdata validation may be needed",
+          "best_tulip_use": "Soil moisture collapse, drought persistence",
+          "reasoning_families": []
+        },
+        {
+          "id": 41,
+          "source": "Copernicus drought observatories",
+          "intake_disposition": "operational_open",
+          "priority_group": "best_immediate_ingestion_target",
+          "usable_surface": "Monitoring portal",
+          "access_notes": "Open portal; API not obvious from cited page",
+          "best_tulip_use": "Drought persistence, soil moisture, basin stress context",
+          "reasoning_families": []
+        },
+        {
+          "id": 42,
+          "source": "IPCC AR6 WG1 Chapter 11",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "IPCC WG1 physical climate chapters and annex",
+              "best_tulip_use": "Aerosol cooling, monsoon volatility, water cycle, ENSO, extremes, forcing"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "node_id": "drinking_water_treatment_stress",
+      "priority": "high",
+      "target_outcome": "ground water-treatment burden in utility resilience and HAB evidence",
+      "next_action": "operational_plus_reasoning",
+      "current_bundle_ids": [
+        "aqueduct_snapshot",
+        "grace_freshwater_snapshot"
+      ],
+      "recommended_sources": [
+        {
+          "id": 43,
+          "source": "EPA CRWU",
+          "intake_disposition": "operational_open",
+          "priority_group": "best_immediate_ingestion_target",
+          "usable_surface": "Tool/program surface",
+          "access_notes": "Open",
+          "best_tulip_use": "Drinking-water treatment stress",
+          "reasoning_families": []
+        },
+        {
+          "id": 44,
+          "source": "EPA cyanobacterial HABs",
+          "intake_disposition": "operational_open",
+          "priority_group": "best_immediate_ingestion_target",
+          "usable_surface": "Official program/reference surface",
+          "access_notes": "Open",
+          "best_tulip_use": "Drinking-water treatment stress, HAB support",
+          "reasoning_families": []
+        }
+      ]
+    },
+    {
+      "node_id": "desalination_dependence",
+      "priority": "medium",
+      "target_outcome": "ground desalination dependence in water-scarcity infrastructure evidence",
+      "next_action": "attach_reasoning_bundle",
+      "current_bundle_ids": [
+        "aqueduct_snapshot",
+        "grace_freshwater_snapshot"
+      ],
+      "recommended_sources": [
+        {
+          "id": 45,
+          "source": "World Bank desalination report",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "Desalination report + paper",
+              "best_tulip_use": "Desalination dependence"
+            }
+          ]
+        },
+        {
+          "id": 46,
+          "source": "Jones et al. desalination/brine paper",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "Desalination report + paper",
+              "best_tulip_use": "Desalination dependence"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "node_id": "coastal_hypoxia",
+      "priority": "high",
+      "target_outcome": "strengthen low-oxygen coastal-state reasoning",
+      "next_action": "attach_reasoning_bundle",
+      "current_bundle_ids": [
+        "argo_snapshot",
+        "wod_snapshot"
+      ],
+      "recommended_sources": [
+        {
+          "id": 47,
+          "source": "NOAA coastal hypoxia report",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "best_immediate_ingestion_target",
+          "usable_surface": "NOAA science report",
+          "access_notes": "Open",
+          "best_tulip_use": "Coastal hypoxia",
+          "reasoning_families": []
+        },
+        {
+          "id": 48,
+          "source": "Breitburg et al. oxygen decline",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "Breitburg et al. oxygen decline paper",
+              "best_tulip_use": "Coastal hypoxia"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "node_id": "marine_fisheries_collapse",
+      "priority": "high",
+      "target_outcome": "ground fishery decline and protein dependency in fisheries assessments",
+      "next_action": "attach_reasoning_bundle",
+      "current_bundle_ids": [
+        "argo_snapshot",
+        "wod_snapshot",
+        "coral_reef_watch_snapshot"
+      ],
+      "recommended_sources": [
+        {
+          "id": 49,
+          "source": "FAO SOFIA 2024",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "best_immediate_ingestion_target",
+          "usable_surface": "FAO flagship report",
+          "access_notes": "Open",
+          "best_tulip_use": "Marine fisheries collapse",
+          "reasoning_families": []
+        },
+        {
+          "id": 50,
+          "source": "IPCC SROCC Chapter 5",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "IPCC SROCC Chapter 5",
+              "best_tulip_use": "Marine ecosystems and dependent communities"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "node_id": "reef_structural_collapse",
+      "priority": "high",
+      "target_outcome": "add structural reef-growth and bleaching intelligence",
+      "next_action": "operational_plus_reasoning",
+      "current_bundle_ids": [
+        "coral_reef_watch_snapshot",
+        "marine_heatwave_snapshot",
+        "coral_reef_watch_snapshot",
+        "ocads_catalog"
+      ],
+      "recommended_sources": [
+        {
+          "id": 51,
+          "source": "NOAA Coral Reef Watch",
+          "intake_disposition": "operational_open",
+          "priority_group": "best_immediate_ingestion_target",
+          "usable_surface": "Near-real-time products, data files, product catalog",
+          "access_notes": "Open product portal",
+          "best_tulip_use": "Reef structural collapse, marine heat stress",
+          "reasoning_families": []
+        },
+        {
+          "id": 52,
+          "source": "Perry et al. reef growth capacity",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "Perry et al. reef growth capacity paper",
+              "best_tulip_use": "Reef structural collapse"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "node_id": "mangrove_buffer_loss",
+      "priority": "high",
+      "target_outcome": "promote mangrove protection from generic coastal support to direct evidence",
+      "next_action": "operational_plus_reasoning",
+      "current_bundle_ids": [],
+      "recommended_sources": [
+        {
+          "id": 53,
+          "source": "Global Mangrove Watch",
+          "intake_disposition": "operational_open",
+          "priority_group": "best_immediate_ingestion_target",
+          "usable_surface": "Monitoring portal / dataset program",
+          "access_notes": "Open",
+          "best_tulip_use": "Mangrove buffer loss",
+          "reasoning_families": []
+        },
+        {
+          "id": 54,
+          "source": "Menéndez et al. mangrove protection paper",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "Menéndez et al. mangrove flood protection paper",
+              "best_tulip_use": "Mangrove buffer loss"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "node_id": "oceanic_carbon_sink_saturation",
+      "priority": "high",
+      "target_outcome": "add direct ocean carbon sink support instead of indirect ocean-state spillover",
+      "next_action": "operational_plus_reasoning",
+      "current_bundle_ids": [],
+      "recommended_sources": [
+        {
+          "id": 55,
+          "source": "Global Carbon Budget 2025",
+          "intake_disposition": "operational_open",
+          "priority_group": "best_immediate_ingestion_target",
+          "usable_surface": "Official release/FAQ and budget release surface",
+          "access_notes": "Open",
+          "best_tulip_use": "Ocean carbon sink saturation, carbon budget support",
+          "reasoning_families": []
+        },
+        {
+          "id": 56,
+          "source": "SOCAT",
+          "intake_disposition": "operational_open",
+          "priority_group": "best_immediate_ingestion_target",
+          "usable_surface": "Public data access and downloadable observations",
+          "access_notes": "Open",
+          "best_tulip_use": "Ocean carbon sink saturation, ocean acidification support",
+          "reasoning_families": []
+        }
+      ]
+    },
+    {
+      "node_id": "ice_sheet_mass_loss",
+      "priority": "high",
+      "target_outcome": "replace generic cryosphere support with direct mass-balance evidence",
+      "next_action": "operational_plus_reasoning",
+      "current_bundle_ids": [
+        "nsidc_sea_ice_snapshot",
+        "gcb_snapshot"
+      ],
+      "recommended_sources": [
+        {
+          "id": 57,
+          "source": "IMBIE publications and assessments",
+          "intake_disposition": "operational_open",
+          "priority_group": "best_immediate_ingestion_target",
+          "usable_surface": "Official assessment/publications hub",
+          "access_notes": "Open",
+          "best_tulip_use": "Ice sheet mass loss",
+          "reasoning_families": []
+        },
+        {
+          "id": 58,
+          "source": "IMBIE 1992–2020 mass balance paper",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "IMBIE ice-sheet mass balance paper",
+              "best_tulip_use": "Ice sheet mass loss"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "node_id": "sea_ice_season_loss",
+      "priority": "high",
+      "target_outcome": "strengthen seasonal sea-ice decline with direct Arctic monitoring",
+      "next_action": "operational_plus_reasoning",
+      "current_bundle_ids": [
+        "nsidc_sea_ice_snapshot",
+        "gcb_snapshot"
+      ],
+      "recommended_sources": [
+        {
+          "id": 59,
+          "source": "NSIDC Sea Ice Today",
+          "intake_disposition": "operational_open",
+          "priority_group": "best_immediate_ingestion_target",
+          "usable_surface": "Monitoring portal",
+          "access_notes": "Open",
+          "best_tulip_use": "Sea ice season loss",
+          "reasoning_families": []
+        },
+        {
+          "id": 60,
+          "source": "NOAA Arctic Report Card",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "best_immediate_ingestion_target",
+          "usable_surface": "Annual assessment/report portal",
+          "access_notes": "Open",
+          "best_tulip_use": "Sea ice, permafrost, Arctic systems support",
+          "reasoning_families": []
+        }
+      ]
+    },
+    {
+      "node_id": "permafrost_thaw",
+      "priority": "high",
+      "target_outcome": "strengthen permafrost thaw with direct network support and polar assessment reasoning",
+      "next_action": "operational_plus_reasoning",
+      "current_bundle_ids": [
+        "gtnp_snapshot",
+        "gcb_snapshot"
+      ],
+      "recommended_sources": [
+        {
+          "id": 61,
+          "source": "GTN-P",
+          "intake_disposition": "operational_open",
+          "priority_group": "best_immediate_ingestion_target",
+          "usable_surface": "Data download, data mining, central database",
+          "access_notes": "Public data area exists; intranet is separate",
+          "best_tulip_use": "Permafrost thaw",
+          "reasoning_families": []
+        },
+        {
+          "id": 62,
+          "source": "IPCC SROCC Chapter 3",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "IPCC SROCC Chapter 3",
+              "best_tulip_use": "Polar-region reasoning"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "node_id": "monsoon_volatility",
+      "priority": "high",
+      "target_outcome": "replace broad climate forcing spillover with monsoon-specific evidence",
+      "next_action": "attach_reasoning_bundle",
+      "current_bundle_ids": [
+        "noaa_gml_benchmarks",
+        "gcb_snapshot"
+      ],
+      "recommended_sources": [
+        {
+          "id": 63,
+          "source": "IPCC AR6 WG1 Chapter 8",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "IPCC WG1 physical climate chapters and annex",
+              "best_tulip_use": "Aerosol cooling, monsoon volatility, water cycle, ENSO, extremes, forcing"
+            }
+          ]
+        },
+        {
+          "id": 64,
+          "source": "IPCC AR6 WG1 Annex V Monsoons",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "IPCC WG1 physical climate chapters and annex",
+              "best_tulip_use": "Aerosol cooling, monsoon volatility, water cycle, ENSO, extremes, forcing"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "node_id": "el_nino",
+      "priority": "medium",
+      "target_outcome": "add direct ENSO monitoring support",
+      "next_action": "operational_plus_context",
+      "current_bundle_ids": [],
+      "recommended_sources": [
+        {
+          "id": 66,
+          "source": "NOAA PSL ENSO",
+          "intake_disposition": "operational_open",
+          "priority_group": "best_immediate_ingestion_target",
+          "usable_surface": "ENSO monitoring/diagnostics page",
+          "access_notes": "Open",
+          "best_tulip_use": "El Niño / La Niña mechanism support",
+          "reasoning_families": []
+        },
+        {
+          "id": 67,
+          "source": "NOAA What Are El Niño and La Niña?",
+          "intake_disposition": "context_only",
+          "priority_group": "context_only",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": []
+        }
+      ]
+    },
+    {
+      "node_id": "la_nina",
+      "priority": "medium",
+      "target_outcome": "add direct La Niña monitoring and teleconnection support",
+      "next_action": "operational_plus_reasoning",
+      "current_bundle_ids": [],
+      "recommended_sources": [
+        {
+          "id": 66,
+          "source": "NOAA PSL ENSO",
+          "intake_disposition": "operational_open",
+          "priority_group": "best_immediate_ingestion_target",
+          "usable_surface": "ENSO monitoring/diagnostics page",
+          "access_notes": "Open",
+          "best_tulip_use": "El Niño / La Niña mechanism support",
+          "reasoning_families": []
+        },
+        {
+          "id": 68,
+          "source": "Jong et al. ENSO teleconnections",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "ENSO teleconnection paper",
+              "best_tulip_use": "La Niña mechanism support"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "node_id": "forest_fragmentation",
+      "priority": "high",
+      "target_outcome": "upgrade fragmentation from generic forest loss to biodiversity-aware evidence",
+      "next_action": "operational_plus_reasoning",
+      "current_bundle_ids": [
+        "gfw_forest_snapshot",
+        "fra_forest_snapshot"
+      ],
+      "recommended_sources": [
+        {
+          "id": 69,
+          "source": "Haddad et al. habitat fragmentation",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "Haddad et al. fragmentation paper",
+              "best_tulip_use": "Forest fragmentation"
+            }
+          ]
+        },
+        {
+          "id": 70,
+          "source": "GFW Biodiversity",
+          "intake_disposition": "operational_open",
+          "priority_group": "best_immediate_ingestion_target",
+          "usable_surface": "Topic portal on top of GFW",
+          "access_notes": "Open",
+          "best_tulip_use": "Forest fragmentation",
+          "reasoning_families": []
+        }
+      ]
+    },
+    {
+      "node_id": "pollinator_service_decline",
+      "priority": "high",
+      "target_outcome": "ground pollinator decline and crop-service risk",
+      "next_action": "attach_reasoning_bundle",
+      "current_bundle_ids": [],
+      "recommended_sources": [
+        {
+          "id": 71,
+          "source": "IPBES Pollinators assessment",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "best_immediate_ingestion_target",
+          "usable_surface": "Assessment report",
+          "access_notes": "Open",
+          "best_tulip_use": "Pollinator service decline",
+          "reasoning_families": []
+        },
+        {
+          "id": 72,
+          "source": "FAO pollination services",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "FAO pollination program",
+              "best_tulip_use": "Pollinator service decline support"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "node_id": "peatland_degradation",
+      "priority": "high",
+      "target_outcome": "ground peat degradation in global peatland and wetlands accounting evidence",
+      "next_action": "attach_reasoning_bundle",
+      "current_bundle_ids": [],
+      "recommended_sources": [
+        {
+          "id": 73,
+          "source": "UNEP Global Peatlands Assessment",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "best_immediate_ingestion_target",
+          "usable_surface": "Assessment/report",
+          "access_notes": "Open",
+          "best_tulip_use": "Peatland degradation",
+          "reasoning_families": []
+        },
+        {
+          "id": 74,
+          "source": "IPCC Wetlands Supplement",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "IPCC Wetlands Supplement",
+              "best_tulip_use": "Peatland degradation accounting / emissions context"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "node_id": "wildfire_regime_shift",
+      "priority": "high",
+      "target_outcome": "add direct fire-detection and fire-regime support",
+      "next_action": "auth_gated_snapshot_candidate",
+      "current_bundle_ids": [
+        "gfw_forest_snapshot",
+        "firms_snapshot"
+      ],
+      "recommended_sources": [
+        {
+          "id": 75,
+          "source": "NASA FIRMS",
+          "intake_disposition": "operational_gated",
+          "priority_group": "best_immediate_ingestion_target",
+          "usable_surface": "API and map services",
+          "access_notes": "Free MAP_KEY required by official API page",
+          "best_tulip_use": "Wildfire regime shift",
+          "reasoning_families": []
+        }
+      ]
+    },
+    {
+      "node_id": "fast_fashion",
+      "priority": "medium",
+      "target_outcome": "strengthen apparel-system burden with direct textile evidence",
+      "next_action": "attach_reasoning_bundle",
+      "current_bundle_ids": [
+        "exiobase_snapshot"
+      ],
+      "recommended_sources": [
+        {
+          "id": 76,
+          "source": "Niinimäki et al. fast fashion paper",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "Fast fashion / textile circularity sources",
+              "best_tulip_use": "Fast fashion node support"
+            }
+          ]
+        },
+        {
+          "id": 77,
+          "source": "UNEP textile roadmap",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "Fast fashion / textile circularity sources",
+              "best_tulip_use": "Fast fashion node support"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "node_id": "thermal_inversion_events",
+      "priority": "medium",
+      "target_outcome": "ground inversion dynamics and pollution trapping",
+      "next_action": "attach_reasoning_bundle",
+      "current_bundle_ids": [],
+      "recommended_sources": [
+        {
+          "id": 78,
+          "source": "EPA air quality modeling support",
+          "intake_disposition": "context_only",
+          "priority_group": "context_only",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": []
+        },
+        {
+          "id": 79,
+          "source": "Whiteman et al. inversions paper",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "Temperature inversion paper",
+              "best_tulip_use": "Thermal inversion events"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "node_id": "nitrous_oxide",
+      "priority": "high",
+      "target_outcome": "promote N2O from generic chemistry node to benchmarked atmospheric support",
+      "next_action": "operational_plus_reasoning",
+      "current_bundle_ids": [],
+      "recommended_sources": [
+        {
+          "id": 80,
+          "source": "NOAA N2O trends",
+          "intake_disposition": "operational_open",
+          "priority_group": "best_immediate_ingestion_target",
+          "usable_surface": "Benchmark trend page",
+          "access_notes": "Open",
+          "best_tulip_use": "Nitrous oxide anchor support",
+          "reasoning_families": []
+        },
+        {
+          "id": 81,
+          "source": "Global Nitrous Oxide Budget",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "best_immediate_ingestion_target",
+          "usable_surface": "Peer-reviewed budget paper",
+          "access_notes": "Open DOI",
+          "best_tulip_use": "Nitrous oxide system support",
+          "reasoning_families": []
+        }
+      ]
+    },
+    {
+      "node_id": "cold_chain_failure_risk",
+      "priority": "medium",
+      "target_outcome": "ground cold-chain vulnerability in food and medical logistics sources",
+      "next_action": "attach_reasoning_bundle",
+      "current_bundle_ids": [],
+      "recommended_sources": [
+        {
+          "id": 82,
+          "source": "UNEP/FAO sustainable food cold chains",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "best_immediate_ingestion_target",
+          "usable_surface": "Report",
+          "access_notes": "Open",
+          "best_tulip_use": "Cold-chain failure risk",
+          "reasoning_families": []
+        },
+        {
+          "id": 83,
+          "source": "WHO temperature-controlled transport operations",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "WHO temperature-controlled transport guidance",
+              "best_tulip_use": "Cold-chain operations support"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "node_id": "transmission_buildout_lag",
+      "priority": "high",
+      "target_outcome": "ground transmission delay and queue stress in official grid studies",
+      "next_action": "attach_reasoning_bundle",
+      "current_bundle_ids": [],
+      "recommended_sources": [
+        {
+          "id": 84,
+          "source": "LBNL Queued Up 2025",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "best_immediate_ingestion_target",
+          "usable_surface": "PDF/report",
+          "access_notes": "Open PDF",
+          "best_tulip_use": "Transmission buildout lag",
+          "reasoning_families": []
+        },
+        {
+          "id": 85,
+          "source": "DOE National Transmission Needs Study",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "best_immediate_ingestion_target",
+          "usable_surface": "PDF/report",
+          "access_notes": "Open PDF",
+          "best_tulip_use": "Transmission buildout lag",
+          "reasoning_families": []
+        }
+      ]
+    },
+    {
+      "node_id": "semiconductor_fabrication_footprint",
+      "priority": "high",
+      "target_outcome": "ground fab water, power, and materials burden in direct sector evidence",
+      "next_action": "attach_reasoning_bundle",
+      "current_bundle_ids": [],
+      "recommended_sources": [
+        {
+          "id": 86,
+          "source": "Environmental impacts of digital technologies",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "anchor_or_edge_reasoning",
+          "usable_surface": null,
+          "access_notes": null,
+          "best_tulip_use": null,
+          "reasoning_families": [
+            {
+              "source_family": "Digital technology environmental impacts paper",
+              "best_tulip_use": "Semiconductor/digital footprint support"
+            }
+          ]
+        },
+        {
+          "id": 87,
+          "source": "TSMC 2024 sustainability report",
+          "intake_disposition": "anchor_reasoning",
+          "priority_group": "best_immediate_ingestion_target",
+          "usable_surface": "Company sustainability PDF",
+          "access_notes": "Open PDF",
+          "best_tulip_use": "Semiconductor fabrication footprint",
+          "reasoning_families": []
+        }
+      ]
+    }
+  ]
+}

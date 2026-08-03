@@ -1,0 +1,1309 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_3_edgar_global_histories",
+  "generated_at": "2026-07-31T22:57:28.328Z",
+  "promoted_node_count": 13,
+  "receipts": [
+    {
+      "node_id": "aviation_jet_fuel_co2",
+      "value": 9.4,
+      "band": "Critical",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "magnitude": 1,
+        "threshold": 1,
+        "momentum": 0.745247,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_value_gg_substance_per_year": 1032632.156165,
+          "reference_year": 1970,
+          "reference_value_gg_substance_per_year": 376922.745771,
+          "value_against_reference_gg_substance_per_year": 655709.410394,
+          "observation_count": 55,
+          "anchors": [
+            221141.275528,
+            379755.626232,
+            523428.601418,
+            644984.09292
+          ],
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025; workbook IEA_EDGAR_CO2_1970_2024.xlsx; sheet IPCC 2006; category 1.A.3.a, derived global sum across country or territory rows; Y_2024"
+        },
+        "threshold": {
+          "latest_value_gg_substance_per_year": 1032632.156165,
+          "threshold_basis": "historical_distribution_fallback",
+          "observation_count": 55,
+          "anchors": [
+            598064.021299,
+            756678.372003,
+            900351.347189,
+            1021906.838691
+          ],
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025; workbook IEA_EDGAR_CO2_1970_2024.xlsx; sheet IPCC 2006; category 1.A.3.a, derived global sum across country or territory rows; Y_2024"
+        },
+        "momentum": {
+          "latest_year_over_year_change_gg_substance": 63777.75873,
+          "annual_change_observations": 54,
+          "anchors": [
+            16358.897632,
+            26000.19761,
+            45541.169036,
+            125518.524802
+          ],
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025; workbook IEA_EDGAR_CO2_1970_2024.xlsx; sheet IPCC 2006; category 1.A.3.a, derived global sum across country or territory rows; Y_2024"
+        },
+        "extent": {
+          "latest_countries_or_territories_reporting": 192,
+          "maximum_countries_or_territories_reporting": 192,
+          "normalized_value": 1,
+          "definition": "Share of the maximum country-or-territory coverage present in the retained EDGAR global history.",
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025; workbook IEA_EDGAR_CO2_1970_2024.xlsx; sheet IPCC 2006; category 1.A.3.a, derived global sum across country or territory rows; Y_2024"
+        },
+        "source_snapshot": {
+          "path": "public/edgar-snapshot.json",
+          "version": "edgar_2025_ghg_contract_bound_v1",
+          "captured_at": "2026-07-31T14:58:58.195Z",
+          "release": "EDGAR_2025_GHG",
+          "source_record_count": 14089,
+          "retained_global_history_record_count": 55
+        }
+      },
+      "transformations": [
+        {
+          "type": "global_country_sector_sum",
+          "formula": "Sum source-reported EDGAR country and territory rows for the exact node-bound IPCC category and year."
+        },
+        {
+          "type": "magnitude_against_1970_reference",
+          "formula": "Latest global emission minus the 1970 global emission, normalized through the retained annual distribution."
+        },
+        {
+          "type": "historical_distribution_threshold_fallback",
+          "formula": "Latest global emission mapped through median / p75 / p90 / p97.5 anchors from 1970–2024."
+        },
+        {
+          "type": "year_over_year_momentum",
+          "formula": "Latest annual change mapped through the distribution of complete annual changes."
+        },
+        {
+          "type": "global_reporting_extent",
+          "formula": "Latest reporting-country count divided by maximum count in the retained history."
+        }
+      ],
+      "source_ids": [
+        "edgar_global_emissions_database"
+      ],
+      "uncertainty": "The workbooks do not report observation-level numeric uncertainty. Activity data, emission factors, country allocation, sector classification, international bunker treatment, revisions and category coverage affect values. Air-pollutant emissions are inventories, not ambient concentrations or attributable health burdens.",
+      "freshness": "Annual EDGAR 2025 GHG release through 2024; snapshot captured 2026-07-31T14:58:58.195Z.",
+      "selection_reason": {
+        "selected_method_passed": "The exact node-bound EDGAR category supplies 55 complete annual global observations, magnitude, historical position, momentum, and quantified global reporting extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:2a8685de"
+    },
+    {
+      "node_id": "carbon_monoxide",
+      "value": 3.4,
+      "band": "Elevated",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2022",
+      "components": {
+        "magnitude": 0.191216,
+        "threshold": 0.191216,
+        "momentum": 0.001335,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_value_gg_substance_per_year": 450154.005233,
+          "reference_year": 1970,
+          "reference_value_gg_substance_per_year": 333758.726466,
+          "value_against_reference_gg_substance_per_year": 116395.278767,
+          "observation_count": 53,
+          "anchors": [
+            108144.2936,
+            122383.845485,
+            128836.763366,
+            135321.558799
+          ],
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ap81; workbook EDGAR_CO_1970_2022.xlsx; sheet IPCC 2006; derived global sum across source categories and country or territory rows; Y_2022"
+        },
+        "threshold": {
+          "latest_value_gg_substance_per_year": 450154.005233,
+          "threshold_basis": "historical_distribution_fallback",
+          "observation_count": 53,
+          "anchors": [
+            441903.020066,
+            456142.571951,
+            462595.489832,
+            469080.285265
+          ],
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ap81; workbook EDGAR_CO_1970_2022.xlsx; sheet IPCC 2006; derived global sum across source categories and country or territory rows; Y_2022"
+        },
+        "momentum": {
+          "latest_year_over_year_change_gg_substance": 2272.071478,
+          "annual_change_observations": 52,
+          "anchors": [
+            2252.82716,
+            7009.87997,
+            11353.456814,
+            12947.841001
+          ],
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ap81; workbook EDGAR_CO_1970_2022.xlsx; sheet IPCC 2006; derived global sum across source categories and country or territory rows; Y_2022"
+        },
+        "extent": {
+          "latest_countries_or_territories_reporting": 219,
+          "maximum_countries_or_territories_reporting": 219,
+          "normalized_value": 1,
+          "definition": "Share of the maximum country-or-territory coverage present in the retained EDGAR global history.",
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ap81; workbook EDGAR_CO_1970_2022.xlsx; sheet IPCC 2006; derived global sum across source categories and country or territory rows; Y_2022"
+        },
+        "source_snapshot": {
+          "path": "public/edgar-snapshot.json",
+          "version": "edgar_2025_ghg_contract_bound_v1",
+          "captured_at": "2026-07-31T14:58:58.195Z",
+          "release": "EDGAR_2025_GHG",
+          "source_record_count": 14089,
+          "retained_global_history_record_count": 53
+        }
+      },
+      "transformations": [
+        {
+          "type": "global_country_sector_sum",
+          "formula": "Sum source-reported EDGAR country and territory rows for the exact node-bound IPCC category and year."
+        },
+        {
+          "type": "magnitude_against_1970_reference",
+          "formula": "Latest global emission minus the 1970 global emission, normalized through the retained annual distribution."
+        },
+        {
+          "type": "historical_distribution_threshold_fallback",
+          "formula": "Latest global emission mapped through median / p75 / p90 / p97.5 anchors from 1970–2024."
+        },
+        {
+          "type": "year_over_year_momentum",
+          "formula": "Latest annual change mapped through the distribution of complete annual changes."
+        },
+        {
+          "type": "global_reporting_extent",
+          "formula": "Latest reporting-country count divided by maximum count in the retained history."
+        }
+      ],
+      "source_ids": [
+        "edgar_global_emissions_database"
+      ],
+      "uncertainty": "The workbooks do not report observation-level numeric uncertainty. Activity data, emission factors, country allocation, sector classification, international bunker treatment, revisions and category coverage affect values. Air-pollutant emissions are inventories, not ambient concentrations or attributable health burdens.",
+      "freshness": "Annual EDGAR 2025 GHG release through 2024; snapshot captured 2026-07-31T14:58:58.195Z.",
+      "selection_reason": {
+        "selected_method_passed": "The exact node-bound EDGAR category supplies 53 complete annual global observations, magnitude, historical position, momentum, and quantified global reporting extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:34ff194a"
+    },
+    {
+      "node_id": "cement_process_emissions",
+      "value": 5.8,
+      "band": "Rising",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "magnitude": 0.644282,
+        "threshold": 0.644282,
+        "momentum": 0,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_value_gg_substance_per_year": 1465139.617187,
+          "reference_year": 1970,
+          "reference_value_gg_substance_per_year": 296275.6543,
+          "value_against_reference_gg_substance_per_year": 1168863.962887,
+          "observation_count": 55,
+          "anchors": [
+            345063.453307,
+            961223.076806,
+            1185855.206054,
+            1255886.328835
+          ],
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025; workbook IEA_EDGAR_CO2_1970_2024.xlsx; sheet IPCC 2006; category 2.A.1, derived global sum across country or territory rows; Y_2024"
+        },
+        "threshold": {
+          "latest_value_gg_substance_per_year": 1465139.617187,
+          "threshold_basis": "historical_distribution_fallback",
+          "observation_count": 55,
+          "anchors": [
+            641339.107607,
+            1257498.731106,
+            1482130.860354,
+            1552161.983135
+          ],
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025; workbook IEA_EDGAR_CO2_1970_2024.xlsx; sheet IPCC 2006; category 2.A.1, derived global sum across country or territory rows; Y_2024"
+        },
+        "momentum": {
+          "latest_year_over_year_change_gg_substance": -52074.87836,
+          "annual_change_observations": 54,
+          "anchors": [
+            19973.660357,
+            34939.943922,
+            54989.421349,
+            78853.366221
+          ],
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025; workbook IEA_EDGAR_CO2_1970_2024.xlsx; sheet IPCC 2006; category 2.A.1, derived global sum across country or territory rows; Y_2024"
+        },
+        "extent": {
+          "latest_countries_or_territories_reporting": 164,
+          "maximum_countries_or_territories_reporting": 164,
+          "normalized_value": 1,
+          "definition": "Share of the maximum country-or-territory coverage present in the retained EDGAR global history.",
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025; workbook IEA_EDGAR_CO2_1970_2024.xlsx; sheet IPCC 2006; category 2.A.1, derived global sum across country or territory rows; Y_2024"
+        },
+        "source_snapshot": {
+          "path": "public/edgar-snapshot.json",
+          "version": "edgar_2025_ghg_contract_bound_v1",
+          "captured_at": "2026-07-31T14:58:58.195Z",
+          "release": "EDGAR_2025_GHG",
+          "source_record_count": 14089,
+          "retained_global_history_record_count": 55
+        }
+      },
+      "transformations": [
+        {
+          "type": "global_country_sector_sum",
+          "formula": "Sum source-reported EDGAR country and territory rows for the exact node-bound IPCC category and year."
+        },
+        {
+          "type": "magnitude_against_1970_reference",
+          "formula": "Latest global emission minus the 1970 global emission, normalized through the retained annual distribution."
+        },
+        {
+          "type": "historical_distribution_threshold_fallback",
+          "formula": "Latest global emission mapped through median / p75 / p90 / p97.5 anchors from 1970–2024."
+        },
+        {
+          "type": "year_over_year_momentum",
+          "formula": "Latest annual change mapped through the distribution of complete annual changes."
+        },
+        {
+          "type": "global_reporting_extent",
+          "formula": "Latest reporting-country count divided by maximum count in the retained history."
+        }
+      ],
+      "source_ids": [
+        "edgar_global_emissions_database"
+      ],
+      "uncertainty": "The workbooks do not report observation-level numeric uncertainty. Activity data, emission factors, country allocation, sector classification, international bunker treatment, revisions and category coverage affect values. Air-pollutant emissions are inventories, not ambient concentrations or attributable health burdens.",
+      "freshness": "Annual EDGAR 2025 GHG release through 2024; snapshot captured 2026-07-31T14:58:58.195Z.",
+      "selection_reason": {
+        "selected_method_passed": "The exact node-bound EDGAR category supplies 55 complete annual global observations, magnitude, historical position, momentum, and quantified global reporting extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:97300574"
+    },
+    {
+      "node_id": "chemical_process_co2",
+      "value": 7.9,
+      "band": "Critical",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "magnitude": 1,
+        "threshold": 1,
+        "momentum": 0.072023,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_value_gg_substance_per_year": 785989.963685,
+          "reference_year": 1970,
+          "reference_value_gg_substance_per_year": 166857.698885,
+          "value_against_reference_gg_substance_per_year": 619132.2648,
+          "observation_count": 55,
+          "anchors": [
+            222646.114946,
+            450942.535325,
+            554544.108651,
+            604543.216189
+          ],
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025; workbook IEA_EDGAR_CO2_1970_2024.xlsx; sheet IPCC 2006; category 2.B, derived global sum across country or territory rows; Y_2024"
+        },
+        "threshold": {
+          "latest_value_gg_substance_per_year": 785989.963685,
+          "threshold_basis": "historical_distribution_fallback",
+          "observation_count": 55,
+          "anchors": [
+            389503.813831,
+            617800.23421,
+            721401.807536,
+            771400.915074
+          ],
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025; workbook IEA_EDGAR_CO2_1970_2024.xlsx; sheet IPCC 2006; category 2.B, derived global sum across country or territory rows; Y_2024"
+        },
+        "momentum": {
+          "latest_year_over_year_change_gg_substance": 12863.815102,
+          "annual_change_observations": 54,
+          "anchors": [
+            11140.506574,
+            19036.4865,
+            26565.018681,
+            41117.25246
+          ],
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025; workbook IEA_EDGAR_CO2_1970_2024.xlsx; sheet IPCC 2006; category 2.B, derived global sum across country or territory rows; Y_2024"
+        },
+        "extent": {
+          "latest_countries_or_territories_reporting": 100,
+          "maximum_countries_or_territories_reporting": 100,
+          "normalized_value": 1,
+          "definition": "Share of the maximum country-or-territory coverage present in the retained EDGAR global history.",
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025; workbook IEA_EDGAR_CO2_1970_2024.xlsx; sheet IPCC 2006; category 2.B, derived global sum across country or territory rows; Y_2024"
+        },
+        "source_snapshot": {
+          "path": "public/edgar-snapshot.json",
+          "version": "edgar_2025_ghg_contract_bound_v1",
+          "captured_at": "2026-07-31T14:58:58.195Z",
+          "release": "EDGAR_2025_GHG",
+          "source_record_count": 14089,
+          "retained_global_history_record_count": 55
+        }
+      },
+      "transformations": [
+        {
+          "type": "global_country_sector_sum",
+          "formula": "Sum source-reported EDGAR country and territory rows for the exact node-bound IPCC category and year."
+        },
+        {
+          "type": "magnitude_against_1970_reference",
+          "formula": "Latest global emission minus the 1970 global emission, normalized through the retained annual distribution."
+        },
+        {
+          "type": "historical_distribution_threshold_fallback",
+          "formula": "Latest global emission mapped through median / p75 / p90 / p97.5 anchors from 1970–2024."
+        },
+        {
+          "type": "year_over_year_momentum",
+          "formula": "Latest annual change mapped through the distribution of complete annual changes."
+        },
+        {
+          "type": "global_reporting_extent",
+          "formula": "Latest reporting-country count divided by maximum count in the retained history."
+        }
+      ],
+      "source_ids": [
+        "edgar_global_emissions_database"
+      ],
+      "uncertainty": "The workbooks do not report observation-level numeric uncertainty. Activity data, emission factors, country allocation, sector classification, international bunker treatment, revisions and category coverage affect values. Air-pollutant emissions are inventories, not ambient concentrations or attributable health burdens.",
+      "freshness": "Annual EDGAR 2025 GHG release through 2024; snapshot captured 2026-07-31T14:58:58.195Z.",
+      "selection_reason": {
+        "selected_method_passed": "The exact node-bound EDGAR category supplies 55 complete annual global observations, magnitude, historical position, momentum, and quantified global reporting extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:436622df"
+    },
+    {
+      "node_id": "iron_steel_process_co2",
+      "value": 8,
+      "band": "Critical",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "magnitude": 1,
+        "threshold": 1,
+        "momentum": 0.125461,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_value_gg_substance_per_year": 422126.775271,
+          "reference_year": 1970,
+          "reference_value_gg_substance_per_year": 249215.313816,
+          "value_against_reference_gg_substance_per_year": 172911.461455,
+          "observation_count": 55,
+          "anchors": [
+            -20249.878547,
+            58516.203433,
+            148606.352399,
+            166207.518685
+          ],
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025; workbook IEA_EDGAR_CO2_1970_2024.xlsx; sheet IPCC 2006; category 2.C, derived global sum across country or territory rows; Y_2024"
+        },
+        "threshold": {
+          "latest_value_gg_substance_per_year": 422126.775271,
+          "threshold_basis": "historical_distribution_fallback",
+          "observation_count": 55,
+          "anchors": [
+            228965.435269,
+            307731.517249,
+            397821.666215,
+            415422.832501
+          ],
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025; workbook IEA_EDGAR_CO2_1970_2024.xlsx; sheet IPCC 2006; category 2.C, derived global sum across country or territory rows; Y_2024"
+        },
+        "momentum": {
+          "latest_year_over_year_change_gg_substance": 7280.720848,
+          "annual_change_observations": 54,
+          "anchors": [
+            2258.750841,
+            15468.059954,
+            20234.416434,
+            27615.623949
+          ],
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025; workbook IEA_EDGAR_CO2_1970_2024.xlsx; sheet IPCC 2006; category 2.C, derived global sum across country or territory rows; Y_2024"
+        },
+        "extent": {
+          "latest_countries_or_territories_reporting": 119,
+          "maximum_countries_or_territories_reporting": 119,
+          "normalized_value": 1,
+          "definition": "Share of the maximum country-or-territory coverage present in the retained EDGAR global history.",
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025; workbook IEA_EDGAR_CO2_1970_2024.xlsx; sheet IPCC 2006; category 2.C, derived global sum across country or territory rows; Y_2024"
+        },
+        "source_snapshot": {
+          "path": "public/edgar-snapshot.json",
+          "version": "edgar_2025_ghg_contract_bound_v1",
+          "captured_at": "2026-07-31T14:58:58.195Z",
+          "release": "EDGAR_2025_GHG",
+          "source_record_count": 14089,
+          "retained_global_history_record_count": 55
+        }
+      },
+      "transformations": [
+        {
+          "type": "global_country_sector_sum",
+          "formula": "Sum source-reported EDGAR country and territory rows for the exact node-bound IPCC category and year."
+        },
+        {
+          "type": "magnitude_against_1970_reference",
+          "formula": "Latest global emission minus the 1970 global emission, normalized through the retained annual distribution."
+        },
+        {
+          "type": "historical_distribution_threshold_fallback",
+          "formula": "Latest global emission mapped through median / p75 / p90 / p97.5 anchors from 1970–2024."
+        },
+        {
+          "type": "year_over_year_momentum",
+          "formula": "Latest annual change mapped through the distribution of complete annual changes."
+        },
+        {
+          "type": "global_reporting_extent",
+          "formula": "Latest reporting-country count divided by maximum count in the retained history."
+        }
+      ],
+      "source_ids": [
+        "edgar_global_emissions_database"
+      ],
+      "uncertainty": "The workbooks do not report observation-level numeric uncertainty. Activity data, emission factors, country allocation, sector classification, international bunker treatment, revisions and category coverage affect values. Air-pollutant emissions are inventories, not ambient concentrations or attributable health burdens.",
+      "freshness": "Annual EDGAR 2025 GHG release through 2024; snapshot captured 2026-07-31T14:58:58.195Z.",
+      "selection_reason": {
+        "selected_method_passed": "The exact node-bound EDGAR category supplies 55 complete annual global observations, magnitude, historical position, momentum, and quantified global reporting extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:04c2ee1e"
+    },
+    {
+      "node_id": "nitrous_oxide",
+      "value": 7.8,
+      "band": "Critical",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "magnitude": 1,
+        "threshold": 1,
+        "momentum": 0,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_value_gg_substance_per_year": 9537.570711,
+          "reference_year": 1970,
+          "reference_value_gg_substance_per_year": 5461.285469,
+          "value_against_reference_gg_substance_per_year": 4076.285242,
+          "observation_count": 55,
+          "anchors": [
+            2105.657752,
+            3027.153786,
+            3617.874296,
+            3949.385702
+          ],
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025; workbook EDGAR_N2O_1970_2024.xlsx; sheet IPCC 2006; derived global sum across source categories and country or territory rows; Y_2024"
+        },
+        "threshold": {
+          "latest_value_gg_substance_per_year": 9537.570711,
+          "threshold_basis": "historical_distribution_fallback",
+          "observation_count": 55,
+          "anchors": [
+            7566.943221,
+            8488.439255,
+            9079.159765,
+            9410.671171
+          ],
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025; workbook EDGAR_N2O_1970_2024.xlsx; sheet IPCC 2006; derived global sum across source categories and country or territory rows; Y_2024"
+        },
+        "momentum": {
+          "latest_year_over_year_change_gg_substance": 82.355934,
+          "annual_change_observations": 54,
+          "anchors": [
+            83.280566,
+            125.193631,
+            177.008832,
+            211.90315
+          ],
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025; workbook EDGAR_N2O_1970_2024.xlsx; sheet IPCC 2006; derived global sum across source categories and country or territory rows; Y_2024"
+        },
+        "extent": {
+          "latest_countries_or_territories_reporting": 223,
+          "maximum_countries_or_territories_reporting": 223,
+          "normalized_value": 1,
+          "definition": "Share of the maximum country-or-territory coverage present in the retained EDGAR global history.",
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025; workbook EDGAR_N2O_1970_2024.xlsx; sheet IPCC 2006; derived global sum across source categories and country or territory rows; Y_2024"
+        },
+        "source_snapshot": {
+          "path": "public/edgar-snapshot.json",
+          "version": "edgar_2025_ghg_contract_bound_v1",
+          "captured_at": "2026-07-31T14:58:58.195Z",
+          "release": "EDGAR_2025_GHG",
+          "source_record_count": 14089,
+          "retained_global_history_record_count": 55
+        }
+      },
+      "transformations": [
+        {
+          "type": "global_country_sector_sum",
+          "formula": "Sum source-reported EDGAR country and territory rows for the exact node-bound IPCC category and year."
+        },
+        {
+          "type": "magnitude_against_1970_reference",
+          "formula": "Latest global emission minus the 1970 global emission, normalized through the retained annual distribution."
+        },
+        {
+          "type": "historical_distribution_threshold_fallback",
+          "formula": "Latest global emission mapped through median / p75 / p90 / p97.5 anchors from 1970–2024."
+        },
+        {
+          "type": "year_over_year_momentum",
+          "formula": "Latest annual change mapped through the distribution of complete annual changes."
+        },
+        {
+          "type": "global_reporting_extent",
+          "formula": "Latest reporting-country count divided by maximum count in the retained history."
+        }
+      ],
+      "source_ids": [
+        "edgar_global_emissions_database"
+      ],
+      "uncertainty": "The workbooks do not report observation-level numeric uncertainty. Activity data, emission factors, country allocation, sector classification, international bunker treatment, revisions and category coverage affect values. Air-pollutant emissions are inventories, not ambient concentrations or attributable health burdens.",
+      "freshness": "Annual EDGAR 2025 GHG release through 2024; snapshot captured 2026-07-31T14:58:58.195Z.",
+      "selection_reason": {
+        "selected_method_passed": "The exact node-bound EDGAR category supplies 55 complete annual global observations, magnitude, historical position, momentum, and quantified global reporting extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:d08f8ecd"
+    },
+    {
+      "node_id": "oil_gas_flaring_co2",
+      "value": 4.7,
+      "band": "Elevated",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "magnitude": 0.364941,
+        "threshold": 0.364941,
+        "momentum": 0.175906,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_value_gg_substance_per_year": 460658.68065,
+          "reference_year": 1970,
+          "reference_value_gg_substance_per_year": 375588.144439,
+          "value_against_reference_gg_substance_per_year": 85070.536211,
+          "observation_count": 55,
+          "anchors": [
+            51535.937698,
+            79037.051529,
+            137746.701495,
+            174701.177108
+          ],
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025; workbook IEA_EDGAR_CO2_1970_2024.xlsx; sheet IPCC 2006; category 1.B.2, derived global sum across country or territory rows; Y_2024"
+        },
+        "threshold": {
+          "latest_value_gg_substance_per_year": 460658.68065,
+          "threshold_basis": "historical_distribution_fallback",
+          "observation_count": 55,
+          "anchors": [
+            427124.082137,
+            454625.195968,
+            513334.845934,
+            550289.321547
+          ],
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025; workbook IEA_EDGAR_CO2_1970_2024.xlsx; sheet IPCC 2006; category 1.B.2, derived global sum across country or territory rows; Y_2024"
+        },
+        "momentum": {
+          "latest_year_over_year_change_gg_substance": 8383.177332,
+          "annual_change_observations": 54,
+          "anchors": [
+            -143.195888,
+            15852.341992,
+            39265.281127,
+            64757.419017
+          ],
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025; workbook IEA_EDGAR_CO2_1970_2024.xlsx; sheet IPCC 2006; category 1.B.2, derived global sum across country or territory rows; Y_2024"
+        },
+        "extent": {
+          "latest_countries_or_territories_reporting": 200,
+          "maximum_countries_or_territories_reporting": 200,
+          "normalized_value": 1,
+          "definition": "Share of the maximum country-or-territory coverage present in the retained EDGAR global history.",
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025; workbook IEA_EDGAR_CO2_1970_2024.xlsx; sheet IPCC 2006; category 1.B.2, derived global sum across country or territory rows; Y_2024"
+        },
+        "source_snapshot": {
+          "path": "public/edgar-snapshot.json",
+          "version": "edgar_2025_ghg_contract_bound_v1",
+          "captured_at": "2026-07-31T14:58:58.195Z",
+          "release": "EDGAR_2025_GHG",
+          "source_record_count": 14089,
+          "retained_global_history_record_count": 55
+        }
+      },
+      "transformations": [
+        {
+          "type": "global_country_sector_sum",
+          "formula": "Sum source-reported EDGAR country and territory rows for the exact node-bound IPCC category and year."
+        },
+        {
+          "type": "magnitude_against_1970_reference",
+          "formula": "Latest global emission minus the 1970 global emission, normalized through the retained annual distribution."
+        },
+        {
+          "type": "historical_distribution_threshold_fallback",
+          "formula": "Latest global emission mapped through median / p75 / p90 / p97.5 anchors from 1970–2024."
+        },
+        {
+          "type": "year_over_year_momentum",
+          "formula": "Latest annual change mapped through the distribution of complete annual changes."
+        },
+        {
+          "type": "global_reporting_extent",
+          "formula": "Latest reporting-country count divided by maximum count in the retained history."
+        }
+      ],
+      "source_ids": [
+        "edgar_global_emissions_database"
+      ],
+      "uncertainty": "The workbooks do not report observation-level numeric uncertainty. Activity data, emission factors, country allocation, sector classification, international bunker treatment, revisions and category coverage affect values. Air-pollutant emissions are inventories, not ambient concentrations or attributable health burdens.",
+      "freshness": "Annual EDGAR 2025 GHG release through 2024; snapshot captured 2026-07-31T14:58:58.195Z.",
+      "selection_reason": {
+        "selected_method_passed": "The exact node-bound EDGAR category supplies 55 complete annual global observations, magnitude, historical position, momentum, and quantified global reporting extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:311f98af"
+    },
+    {
+      "node_id": "rail_diesel_co2",
+      "value": 3,
+      "band": "Elevated",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "magnitude": 0,
+        "threshold": 0,
+        "momentum": 0.288007,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_value_gg_substance_per_year": 91607.134245,
+          "reference_year": 1970,
+          "reference_value_gg_substance_per_year": 226884.443949,
+          "value_against_reference_gg_substance_per_year": -135277.309704,
+          "observation_count": 55,
+          "anchors": [
+            -125470.329743,
+            -53380.59716,
+            -17399.0791,
+            -11899.692945
+          ],
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025; workbook IEA_EDGAR_CO2_1970_2024.xlsx; sheet IPCC 2006; category 1.A.3.c, derived global sum across country or territory rows; Y_2024"
+        },
+        "threshold": {
+          "latest_value_gg_substance_per_year": 91607.134245,
+          "threshold_basis": "historical_distribution_fallback",
+          "observation_count": 55,
+          "anchors": [
+            101414.114206,
+            173503.846789,
+            209485.364849,
+            214984.751004
+          ],
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025; workbook IEA_EDGAR_CO2_1970_2024.xlsx; sheet IPCC 2006; category 1.A.3.c, derived global sum across country or territory rows; Y_2024"
+        },
+        "momentum": {
+          "latest_year_over_year_change_gg_substance": 1085.744461,
+          "annual_change_observations": 54,
+          "anchors": [
+            -1990.828465,
+            1534.327335,
+            5847.175004,
+            9980.632115
+          ],
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025; workbook IEA_EDGAR_CO2_1970_2024.xlsx; sheet IPCC 2006; category 1.A.3.c, derived global sum across country or territory rows; Y_2024"
+        },
+        "extent": {
+          "latest_countries_or_territories_reporting": 134,
+          "maximum_countries_or_territories_reporting": 134,
+          "normalized_value": 1,
+          "definition": "Share of the maximum country-or-territory coverage present in the retained EDGAR global history.",
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025; workbook IEA_EDGAR_CO2_1970_2024.xlsx; sheet IPCC 2006; category 1.A.3.c, derived global sum across country or territory rows; Y_2024"
+        },
+        "source_snapshot": {
+          "path": "public/edgar-snapshot.json",
+          "version": "edgar_2025_ghg_contract_bound_v1",
+          "captured_at": "2026-07-31T14:58:58.195Z",
+          "release": "EDGAR_2025_GHG",
+          "source_record_count": 14089,
+          "retained_global_history_record_count": 55
+        }
+      },
+      "transformations": [
+        {
+          "type": "global_country_sector_sum",
+          "formula": "Sum source-reported EDGAR country and territory rows for the exact node-bound IPCC category and year."
+        },
+        {
+          "type": "magnitude_against_1970_reference",
+          "formula": "Latest global emission minus the 1970 global emission, normalized through the retained annual distribution."
+        },
+        {
+          "type": "historical_distribution_threshold_fallback",
+          "formula": "Latest global emission mapped through median / p75 / p90 / p97.5 anchors from 1970–2024."
+        },
+        {
+          "type": "year_over_year_momentum",
+          "formula": "Latest annual change mapped through the distribution of complete annual changes."
+        },
+        {
+          "type": "global_reporting_extent",
+          "formula": "Latest reporting-country count divided by maximum count in the retained history."
+        }
+      ],
+      "source_ids": [
+        "edgar_global_emissions_database"
+      ],
+      "uncertainty": "The workbooks do not report observation-level numeric uncertainty. Activity data, emission factors, country allocation, sector classification, international bunker treatment, revisions and category coverage affect values. Air-pollutant emissions are inventories, not ambient concentrations or attributable health burdens.",
+      "freshness": "Annual EDGAR 2025 GHG release through 2024; snapshot captured 2026-07-31T14:58:58.195Z.",
+      "selection_reason": {
+        "selected_method_passed": "The exact node-bound EDGAR category supplies 55 complete annual global observations, magnitude, historical position, momentum, and quantified global reporting extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:7db7adf5"
+    },
+    {
+      "node_id": "refinery_combustion_co2",
+      "value": 7.8,
+      "band": "Critical",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "magnitude": 1,
+        "threshold": 1,
+        "momentum": 0,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_value_gg_substance_per_year": 1674486.081563,
+          "reference_year": 1970,
+          "reference_value_gg_substance_per_year": 686276.282884,
+          "value_against_reference_gg_substance_per_year": 988209.798679,
+          "observation_count": 55,
+          "anchors": [
+            467538.580206,
+            874493.772312,
+            958068.053796,
+            982673.781276
+          ],
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025; workbook IEA_EDGAR_CO2_1970_2024.xlsx; sheet IPCC 2006; category 1.A.1.bc, derived global sum across country or territory rows; Y_2024"
+        },
+        "threshold": {
+          "latest_value_gg_substance_per_year": 1674486.081563,
+          "threshold_basis": "historical_distribution_fallback",
+          "observation_count": 55,
+          "anchors": [
+            1153814.86309,
+            1560770.055196,
+            1644344.33668,
+            1668950.06416
+          ],
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025; workbook IEA_EDGAR_CO2_1970_2024.xlsx; sheet IPCC 2006; category 1.A.1.bc, derived global sum across country or territory rows; Y_2024"
+        },
+        "momentum": {
+          "latest_year_over_year_change_gg_substance": 15817.192579,
+          "annual_change_observations": 54,
+          "anchors": [
+            25075.515184,
+            37386.375192,
+            58753.716401,
+            73267.08921
+          ],
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025; workbook IEA_EDGAR_CO2_1970_2024.xlsx; sheet IPCC 2006; category 1.A.1.bc, derived global sum across country or territory rows; Y_2024"
+        },
+        "extent": {
+          "latest_countries_or_territories_reporting": 158,
+          "maximum_countries_or_territories_reporting": 158,
+          "normalized_value": 1,
+          "definition": "Share of the maximum country-or-territory coverage present in the retained EDGAR global history.",
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025; workbook IEA_EDGAR_CO2_1970_2024.xlsx; sheet IPCC 2006; category 1.A.1.bc, derived global sum across country or territory rows; Y_2024"
+        },
+        "source_snapshot": {
+          "path": "public/edgar-snapshot.json",
+          "version": "edgar_2025_ghg_contract_bound_v1",
+          "captured_at": "2026-07-31T14:58:58.195Z",
+          "release": "EDGAR_2025_GHG",
+          "source_record_count": 14089,
+          "retained_global_history_record_count": 55
+        }
+      },
+      "transformations": [
+        {
+          "type": "global_country_sector_sum",
+          "formula": "Sum source-reported EDGAR country and territory rows for the exact node-bound IPCC category and year."
+        },
+        {
+          "type": "magnitude_against_1970_reference",
+          "formula": "Latest global emission minus the 1970 global emission, normalized through the retained annual distribution."
+        },
+        {
+          "type": "historical_distribution_threshold_fallback",
+          "formula": "Latest global emission mapped through median / p75 / p90 / p97.5 anchors from 1970–2024."
+        },
+        {
+          "type": "year_over_year_momentum",
+          "formula": "Latest annual change mapped through the distribution of complete annual changes."
+        },
+        {
+          "type": "global_reporting_extent",
+          "formula": "Latest reporting-country count divided by maximum count in the retained history."
+        }
+      ],
+      "source_ids": [
+        "edgar_global_emissions_database"
+      ],
+      "uncertainty": "The workbooks do not report observation-level numeric uncertainty. Activity data, emission factors, country allocation, sector classification, international bunker treatment, revisions and category coverage affect values. Air-pollutant emissions are inventories, not ambient concentrations or attributable health burdens.",
+      "freshness": "Annual EDGAR 2025 GHG release through 2024; snapshot captured 2026-07-31T14:58:58.195Z.",
+      "selection_reason": {
+        "selected_method_passed": "The exact node-bound EDGAR category supplies 55 complete annual global observations, magnitude, historical position, momentum, and quantified global reporting extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:ac0f5d65"
+    },
+    {
+      "node_id": "rice_paddy_methane_bubbles",
+      "value": 8.4,
+      "band": "Critical",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "magnitude": 1,
+        "threshold": 1,
+        "momentum": 0.28234,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_value_gg_substance_per_year": 25527.917232,
+          "reference_year": 1970,
+          "reference_value_gg_substance_per_year": 21081.345376,
+          "value_against_reference_gg_substance_per_year": 4446.571856,
+          "observation_count": 55,
+          "anchors": [
+            2936.06455,
+            3894.88334,
+            4171.747409,
+            4342.527117
+          ],
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025; workbook EDGAR_CH4_1970_2024.xlsx; sheet IPCC 2006; category 3.C.7, derived global sum across country or territory rows; Y_2024"
+        },
+        "threshold": {
+          "latest_value_gg_substance_per_year": 25527.917232,
+          "threshold_basis": "historical_distribution_fallback",
+          "observation_count": 55,
+          "anchors": [
+            24017.409926,
+            24976.228716,
+            25253.092785,
+            25423.872493
+          ],
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025; workbook EDGAR_CH4_1970_2024.xlsx; sheet IPCC 2006; category 3.C.7, derived global sum across country or territory rows; Y_2024"
+        },
+        "momentum": {
+          "latest_year_over_year_change_gg_substance": 226.319961,
+          "annual_change_observations": 54,
+          "anchors": [
+            55.580437,
+            255.141751,
+            677.856248,
+            850.244387
+          ],
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025; workbook EDGAR_CH4_1970_2024.xlsx; sheet IPCC 2006; category 3.C.7, derived global sum across country or territory rows; Y_2024"
+        },
+        "extent": {
+          "latest_countries_or_territories_reporting": 123,
+          "maximum_countries_or_territories_reporting": 123,
+          "normalized_value": 1,
+          "definition": "Share of the maximum country-or-territory coverage present in the retained EDGAR global history.",
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025; workbook EDGAR_CH4_1970_2024.xlsx; sheet IPCC 2006; category 3.C.7, derived global sum across country or territory rows; Y_2024"
+        },
+        "source_snapshot": {
+          "path": "public/edgar-snapshot.json",
+          "version": "edgar_2025_ghg_contract_bound_v1",
+          "captured_at": "2026-07-31T14:58:58.195Z",
+          "release": "EDGAR_2025_GHG",
+          "source_record_count": 14089,
+          "retained_global_history_record_count": 55
+        }
+      },
+      "transformations": [
+        {
+          "type": "global_country_sector_sum",
+          "formula": "Sum source-reported EDGAR country and territory rows for the exact node-bound IPCC category and year."
+        },
+        {
+          "type": "magnitude_against_1970_reference",
+          "formula": "Latest global emission minus the 1970 global emission, normalized through the retained annual distribution."
+        },
+        {
+          "type": "historical_distribution_threshold_fallback",
+          "formula": "Latest global emission mapped through median / p75 / p90 / p97.5 anchors from 1970–2024."
+        },
+        {
+          "type": "year_over_year_momentum",
+          "formula": "Latest annual change mapped through the distribution of complete annual changes."
+        },
+        {
+          "type": "global_reporting_extent",
+          "formula": "Latest reporting-country count divided by maximum count in the retained history."
+        }
+      ],
+      "source_ids": [
+        "edgar_global_emissions_database"
+      ],
+      "uncertainty": "The workbooks do not report observation-level numeric uncertainty. Activity data, emission factors, country allocation, sector classification, international bunker treatment, revisions and category coverage affect values. Air-pollutant emissions are inventories, not ambient concentrations or attributable health burdens.",
+      "freshness": "Annual EDGAR 2025 GHG release through 2024; snapshot captured 2026-07-31T14:58:58.195Z.",
+      "selection_reason": {
+        "selected_method_passed": "The exact node-bound EDGAR category supplies 55 complete annual global observations, magnitude, historical position, momentum, and quantified global reporting extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:30690fc9"
+    },
+    {
+      "node_id": "shipping_bunker_fuel_co2",
+      "value": 6.8,
+      "band": "Rising",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "magnitude": 0.816722,
+        "threshold": 0.816722,
+        "momentum": 0,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_value_gg_substance_per_year": 860275.609897,
+          "reference_year": 1970,
+          "reference_value_gg_substance_per_year": 452883.071369,
+          "value_against_reference_gg_substance_per_year": 407392.538528,
+          "observation_count": 55,
+          "anchors": [
+            108991.686927,
+            333267.416419,
+            387762.310278,
+            431913.652481
+          ],
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025; workbook IEA_EDGAR_CO2_1970_2024.xlsx; sheet IPCC 2006; category 1.A.3.d, derived global sum across country or territory rows; Y_2024"
+        },
+        "threshold": {
+          "latest_value_gg_substance_per_year": 860275.609897,
+          "threshold_basis": "historical_distribution_fallback",
+          "observation_count": 55,
+          "anchors": [
+            561874.758296,
+            786150.487789,
+            840645.381647,
+            884796.72385
+          ],
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025; workbook IEA_EDGAR_CO2_1970_2024.xlsx; sheet IPCC 2006; category 1.A.3.d, derived global sum across country or territory rows; Y_2024"
+        },
+        "momentum": {
+          "latest_year_over_year_change_gg_substance": -29847.516483,
+          "annual_change_observations": 54,
+          "anchors": [
+            13693.483036,
+            21664.550473,
+            39631.757512,
+            48538.284098
+          ],
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025; workbook IEA_EDGAR_CO2_1970_2024.xlsx; sheet IPCC 2006; category 1.A.3.d, derived global sum across country or territory rows; Y_2024"
+        },
+        "extent": {
+          "latest_countries_or_territories_reporting": 162,
+          "maximum_countries_or_territories_reporting": 162,
+          "normalized_value": 1,
+          "definition": "Share of the maximum country-or-territory coverage present in the retained EDGAR global history.",
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025; workbook IEA_EDGAR_CO2_1970_2024.xlsx; sheet IPCC 2006; category 1.A.3.d, derived global sum across country or territory rows; Y_2024"
+        },
+        "source_snapshot": {
+          "path": "public/edgar-snapshot.json",
+          "version": "edgar_2025_ghg_contract_bound_v1",
+          "captured_at": "2026-07-31T14:58:58.195Z",
+          "release": "EDGAR_2025_GHG",
+          "source_record_count": 14089,
+          "retained_global_history_record_count": 55
+        }
+      },
+      "transformations": [
+        {
+          "type": "global_country_sector_sum",
+          "formula": "Sum source-reported EDGAR country and territory rows for the exact node-bound IPCC category and year."
+        },
+        {
+          "type": "magnitude_against_1970_reference",
+          "formula": "Latest global emission minus the 1970 global emission, normalized through the retained annual distribution."
+        },
+        {
+          "type": "historical_distribution_threshold_fallback",
+          "formula": "Latest global emission mapped through median / p75 / p90 / p97.5 anchors from 1970–2024."
+        },
+        {
+          "type": "year_over_year_momentum",
+          "formula": "Latest annual change mapped through the distribution of complete annual changes."
+        },
+        {
+          "type": "global_reporting_extent",
+          "formula": "Latest reporting-country count divided by maximum count in the retained history."
+        }
+      ],
+      "source_ids": [
+        "edgar_global_emissions_database"
+      ],
+      "uncertainty": "The workbooks do not report observation-level numeric uncertainty. Activity data, emission factors, country allocation, sector classification, international bunker treatment, revisions and category coverage affect values. Air-pollutant emissions are inventories, not ambient concentrations or attributable health burdens.",
+      "freshness": "Annual EDGAR 2025 GHG release through 2024; snapshot captured 2026-07-31T14:58:58.195Z.",
+      "selection_reason": {
+        "selected_method_passed": "The exact node-bound EDGAR category supplies 55 complete annual global observations, magnitude, historical position, momentum, and quantified global reporting extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:eb6f5ee8"
+    },
+    {
+      "node_id": "sulfur_dioxide",
+      "value": 3.2,
+      "band": "Elevated",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2022",
+      "components": {
+        "magnitude": 0,
+        "threshold": 0,
+        "momentum": 0.360742,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_value_gg_substance_per_year": 83902.54834,
+          "reference_year": 1970,
+          "reference_value_gg_substance_per_year": 96575.476674,
+          "value_against_reference_gg_substance_per_year": -12672.928334,
+          "observation_count": 53,
+          "anchors": [
+            1390.976666,
+            11875.00906,
+            14569.048613,
+            19456.218108
+          ],
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ap81; workbook EDGAR_SO2_1970_2022.xlsx; sheet IPCC 2006; derived global sum across source categories and country or territory rows; Y_2022"
+        },
+        "threshold": {
+          "latest_value_gg_substance_per_year": 83902.54834,
+          "threshold_basis": "historical_distribution_fallback",
+          "observation_count": 53,
+          "anchors": [
+            97966.45334,
+            108450.485734,
+            111144.525287,
+            116031.694782
+          ],
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ap81; workbook EDGAR_SO2_1970_2022.xlsx; sheet IPCC 2006; derived global sum across source categories and country or territory rows; Y_2022"
+        },
+        "momentum": {
+          "latest_year_over_year_change_gg_substance": 1697.997784,
+          "annual_change_observations": 52,
+          "anchors": [
+            -739.230298,
+            1503.676737,
+            3652.815904,
+            5202.601329
+          ],
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ap81; workbook EDGAR_SO2_1970_2022.xlsx; sheet IPCC 2006; derived global sum across source categories and country or territory rows; Y_2022"
+        },
+        "extent": {
+          "latest_countries_or_territories_reporting": 219,
+          "maximum_countries_or_territories_reporting": 219,
+          "normalized_value": 1,
+          "definition": "Share of the maximum country-or-territory coverage present in the retained EDGAR global history.",
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ap81; workbook EDGAR_SO2_1970_2022.xlsx; sheet IPCC 2006; derived global sum across source categories and country or territory rows; Y_2022"
+        },
+        "source_snapshot": {
+          "path": "public/edgar-snapshot.json",
+          "version": "edgar_2025_ghg_contract_bound_v1",
+          "captured_at": "2026-07-31T14:58:58.195Z",
+          "release": "EDGAR_2025_GHG",
+          "source_record_count": 14089,
+          "retained_global_history_record_count": 53
+        }
+      },
+      "transformations": [
+        {
+          "type": "global_country_sector_sum",
+          "formula": "Sum source-reported EDGAR country and territory rows for the exact node-bound IPCC category and year."
+        },
+        {
+          "type": "magnitude_against_1970_reference",
+          "formula": "Latest global emission minus the 1970 global emission, normalized through the retained annual distribution."
+        },
+        {
+          "type": "historical_distribution_threshold_fallback",
+          "formula": "Latest global emission mapped through median / p75 / p90 / p97.5 anchors from 1970–2024."
+        },
+        {
+          "type": "year_over_year_momentum",
+          "formula": "Latest annual change mapped through the distribution of complete annual changes."
+        },
+        {
+          "type": "global_reporting_extent",
+          "formula": "Latest reporting-country count divided by maximum count in the retained history."
+        }
+      ],
+      "source_ids": [
+        "edgar_global_emissions_database"
+      ],
+      "uncertainty": "The workbooks do not report observation-level numeric uncertainty. Activity data, emission factors, country allocation, sector classification, international bunker treatment, revisions and category coverage affect values. Air-pollutant emissions are inventories, not ambient concentrations or attributable health burdens.",
+      "freshness": "Annual EDGAR 2025 GHG release through 2024; snapshot captured 2026-07-31T14:58:58.195Z.",
+      "selection_reason": {
+        "selected_method_passed": "The exact node-bound EDGAR category supplies 53 complete annual global observations, magnitude, historical position, momentum, and quantified global reporting extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:6702bcab"
+    },
+    {
+      "node_id": "waste_incineration_co2",
+      "value": 6.8,
+      "band": "Rising",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "magnitude": 0.831832,
+        "threshold": 0.831832,
+        "momentum": 0,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_value_gg_substance_per_year": 13368.387775,
+          "reference_year": 1970,
+          "reference_value_gg_substance_per_year": 5520.59249,
+          "value_against_reference_gg_substance_per_year": 7847.795285,
+          "observation_count": 55,
+          "anchors": [
+            4846.96336,
+            6323.350439,
+            7742.148305,
+            7957.578608
+          ],
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025; workbook IEA_EDGAR_CO2_1970_2024.xlsx; sheet IPCC 2006; category 4.C, derived global sum across country or territory rows; Y_2024"
+        },
+        "threshold": {
+          "latest_value_gg_substance_per_year": 13368.387775,
+          "threshold_basis": "historical_distribution_fallback",
+          "observation_count": 55,
+          "anchors": [
+            10367.55585,
+            11843.94293,
+            13262.740795,
+            13478.171098
+          ],
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025; workbook IEA_EDGAR_CO2_1970_2024.xlsx; sheet IPCC 2006; category 4.C, derived global sum across country or territory rows; Y_2024"
+        },
+        "momentum": {
+          "latest_year_over_year_change_gg_substance": 36.306084,
+          "annual_change_observations": 54,
+          "anchors": [
+            104.184878,
+            169.325191,
+            559.05495,
+            770.172159
+          ],
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025; workbook IEA_EDGAR_CO2_1970_2024.xlsx; sheet IPCC 2006; category 4.C, derived global sum across country or territory rows; Y_2024"
+        },
+        "extent": {
+          "latest_countries_or_territories_reporting": 101,
+          "maximum_countries_or_territories_reporting": 101,
+          "normalized_value": 1,
+          "definition": "Share of the maximum country-or-territory coverage present in the retained EDGAR global history.",
+          "source_locator": "https://edgar.jrc.ec.europa.eu/dataset_ghg2025; workbook IEA_EDGAR_CO2_1970_2024.xlsx; sheet IPCC 2006; category 4.C, derived global sum across country or territory rows; Y_2024"
+        },
+        "source_snapshot": {
+          "path": "public/edgar-snapshot.json",
+          "version": "edgar_2025_ghg_contract_bound_v1",
+          "captured_at": "2026-07-31T14:58:58.195Z",
+          "release": "EDGAR_2025_GHG",
+          "source_record_count": 14089,
+          "retained_global_history_record_count": 55
+        }
+      },
+      "transformations": [
+        {
+          "type": "global_country_sector_sum",
+          "formula": "Sum source-reported EDGAR country and territory rows for the exact node-bound IPCC category and year."
+        },
+        {
+          "type": "magnitude_against_1970_reference",
+          "formula": "Latest global emission minus the 1970 global emission, normalized through the retained annual distribution."
+        },
+        {
+          "type": "historical_distribution_threshold_fallback",
+          "formula": "Latest global emission mapped through median / p75 / p90 / p97.5 anchors from 1970–2024."
+        },
+        {
+          "type": "year_over_year_momentum",
+          "formula": "Latest annual change mapped through the distribution of complete annual changes."
+        },
+        {
+          "type": "global_reporting_extent",
+          "formula": "Latest reporting-country count divided by maximum count in the retained history."
+        }
+      ],
+      "source_ids": [
+        "edgar_global_emissions_database"
+      ],
+      "uncertainty": "The workbooks do not report observation-level numeric uncertainty. Activity data, emission factors, country allocation, sector classification, international bunker treatment, revisions and category coverage affect values. Air-pollutant emissions are inventories, not ambient concentrations or attributable health burdens.",
+      "freshness": "Annual EDGAR 2025 GHG release through 2024; snapshot captured 2026-07-31T14:58:58.195Z.",
+      "selection_reason": {
+        "selected_method_passed": "The exact node-bound EDGAR category supplies 55 complete annual global observations, magnitude, historical position, momentum, and quantified global reporting extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:1e029c4a"
+    }
+  ]
+}

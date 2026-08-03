@@ -1,0 +1,111 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_20_wmo_unep_coastal_inundation",
+  "generated_at": "2026-07-31T22:57:26.823Z",
+  "source_snapshot": "public/wmo-unep-coastal-inundation-impact-snapshot.json",
+  "source_id": "wmo_unep_global_coastal_inundation_assessments",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "coastal_inundation_risk",
+      "value": 8.8,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "biophysical_burden": 0.86381,
+        "human_economic_burden": 0.858571,
+        "persistence": 0.7624,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "early_sea_level_rise_rate_mm_per_year": 2.1,
+          "early_period": "1993-2002",
+          "recent_sea_level_rise_rate_mm_per_year": 4.1,
+          "recent_period": "2016-2025",
+          "observed_rate_increase_pct": 95.238095,
+          "anchors_pct": [
+            0,
+            25,
+            60,
+            120
+          ]
+        },
+        "human_economic_burden": {
+          "low_lying_coastal_population_exposed_million": 900,
+          "population_share_pct_context": 11,
+          "additional_people_with_one_in_twenty_annual_flood_chance_million_context": 14,
+          "anchors_million_people": [
+            0,
+            100,
+            500,
+            1200
+          ],
+          "boundary": "Present exposure, not realized annual victims or future exposure."
+        },
+        "persistence": {
+          "satellite_record_start_year": 1993,
+          "assessment_year": 2025,
+          "assessment_period_years": 32,
+          "coastal_flood_extent_comparison_period_years_context": 20,
+          "anchors_years": [
+            0,
+            10,
+            25,
+            50
+          ]
+        },
+        "extent": {
+          "geographic_scope": "global low-lying coasts and coastal communities",
+          "normalized_value": 1,
+          "boundary": "Global coastal scope; no inference of uniform hazard or protection."
+        },
+        "source_snapshot": {
+          "path": "public/wmo-unep-coastal-inundation-impact-snapshot.json",
+          "version": "wmo_unep_global_coastal_inundation_impact_v1",
+          "captured_at": "2026-07-31T18:27:29.012Z",
+          "source_locators": [
+            "WMO State of the Climate 2025 Update: nearly 11 percent of the global population, around 900 million people, live on low-lying coasts directly exposed to coastal hazards.",
+            "WMO State of the Climate 2025 Update: sea-level rise rate increased from 2.1 mm/year in 1993-2002 to 4.1 mm/year in 2016-2025.",
+            "UNEP: coastal-flood extent increased over 20 years, leaving 14 million more people with a 1-in-20 annual flooding chance."
+          ],
+          "excluded_from_scoring": [
+            "2050 city projections",
+            "2100 sea-level scenarios",
+            "future asset exposure",
+            "exposure relabeled as realized loss"
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "observed_sea_level_rate_acceleration",
+          "formula": "Calculate the percentage increase from the WMO 1993-2002 global mean sea-level rate to the 2016-2025 rate."
+        },
+        {
+          "type": "current_exposure_not_realized_loss",
+          "formula": "Normalize WMO current low-lying-coast exposure; retain the UNEP additional 1-in-20 exposure as context and never add overlapping populations."
+        },
+        {
+          "type": "persistent_global_record",
+          "formula": "Normalize the 32-year satellite assessment period and retain global coastal scope without uniform-hazard inference."
+        }
+      ],
+      "source_ids": [
+        "wmo_unep_global_coastal_inundation_assessments"
+      ],
+      "uncertainty": "Low-lying-coast and coastal-flood exposure depend on elevation, population, protection and hazard models. Preliminary 2025 sea-level data are affected by natural variability. Exposure is not realized annual displacement or loss.",
+      "freshness": "WMO 2025 update and UNEP 2026 coastal-exposure statement; snapshot captured 2026-07-31T18:27:29.012Z.",
+      "selection_reason": {
+        "selected_method_passed": "WMO and UNEP quantify observed global hazard acceleration, present exposed population, multi-decadal persistence and worldwide coastal extent.",
+        "higher_priority_failures": [
+          "The operational NOAA CO-OPS snapshot is a selected-station panel and cannot defensibly aggregate current global coastal inundation exposure."
+        ]
+      },
+      "input_hash": "fnv1a32:130bae61"
+    }
+  ]
+}

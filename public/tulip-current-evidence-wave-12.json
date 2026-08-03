@@ -1,0 +1,255 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_12_lancet_vector_climate_suitability",
+  "generated_at": "2026-07-31T22:57:31.149Z",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "vector_borne_disease_expansion",
+      "value": 5.8,
+      "band": "Rising",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "magnitude": 0.492275,
+        "threshold": 0.492275,
+        "momentum": 0.359964,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "aggregation": "equal mean of four disease/vector-specific normalized departures from a fixed 1951–1960 baseline",
+          "series": [
+            {
+              "key": "dengue:A.aegypti",
+              "unit": "dimensionless_basic_reproduction_number",
+              "baseline_1951_1960_mean": 0.526276,
+              "latest_value": 0.611937,
+              "latest_departure": 0.085661,
+              "anchors": [
+                0.030679,
+                0.042962,
+                0.053462,
+                0.06523
+              ],
+              "normalized_value": 1
+            },
+            {
+              "key": "dengue:A.albopictus",
+              "unit": "dimensionless_basic_reproduction_number",
+              "baseline_1951_1960_mean": 0.216323,
+              "latest_value": 0.334565,
+              "latest_departure": 0.118242,
+              "anchors": [
+                0.032548,
+                0.068119,
+                0.093083,
+                0.120841
+              ],
+              "normalized_value": 0.969101
+            },
+            {
+              "key": "malaria:Plasmodium falciparum",
+              "unit": "months_climatically_suitable_per_year",
+              "baseline_1951_1960_mean": 2.052678,
+              "latest_value": 2.039969,
+              "latest_departure": -0.012709,
+              "anchors": [
+                0.077113,
+                0.119335,
+                0.137323,
+                0.205754
+              ],
+              "normalized_value": 0
+            },
+            {
+              "key": "malaria:Plasmodium vivax",
+              "unit": "months_climatically_suitable_per_year",
+              "baseline_1951_1960_mean": 2.1585,
+              "latest_value": 2.150848,
+              "latest_departure": -0.007652,
+              "anchors": [
+                0.068185,
+                0.125414,
+                0.152609,
+                0.196424
+              ],
+              "normalized_value": 0
+            }
+          ]
+        },
+        "threshold": {
+          "threshold_basis": "historical_distribution_fallback_per_disease_vector_series",
+          "aggregation": "equal mean after unit-specific normalization",
+          "series": [
+            {
+              "key": "dengue:A.aegypti",
+              "latest_value": 0.611937,
+              "unit": "dimensionless_basic_reproduction_number",
+              "anchors": [
+                0.556955,
+                0.569238,
+                0.579738,
+                0.591506
+              ],
+              "normalized_value": 1
+            },
+            {
+              "key": "dengue:A.albopictus",
+              "latest_value": 0.334565,
+              "unit": "dimensionless_basic_reproduction_number",
+              "anchors": [
+                0.248872,
+                0.284442,
+                0.309406,
+                0.337164
+              ],
+              "normalized_value": 0.969101
+            },
+            {
+              "key": "malaria:Plasmodium falciparum",
+              "latest_value": 2.039969,
+              "unit": "months_climatically_suitable_per_year",
+              "anchors": [
+                2.129791,
+                2.172013,
+                2.190001,
+                2.258432
+              ],
+              "normalized_value": 0
+            },
+            {
+              "key": "malaria:Plasmodium vivax",
+              "latest_value": 2.150848,
+              "unit": "months_climatically_suitable_per_year",
+              "anchors": [
+                2.226685,
+                2.283913,
+                2.311108,
+                2.354924
+              ],
+              "normalized_value": 0
+            }
+          ]
+        },
+        "momentum": {
+          "aggregation": "equal mean of disease/vector-specific normalized annual changes",
+          "series": [
+            {
+              "key": "dengue:A.aegypti",
+              "latest_annual_change": 0.01856,
+              "unit": "dimensionless_basic_reproduction_number per year",
+              "annual_change_observations": 73,
+              "anchors": [
+                0.000664,
+                0.009627,
+                0.013471,
+                0.017662
+              ],
+              "normalized_value": 1
+            },
+            {
+              "key": "dengue:A.albopictus",
+              "latest_annual_change": 0.019752,
+              "unit": "dimensionless_basic_reproduction_number per year",
+              "annual_change_observations": 73,
+              "anchors": [
+                0.001948,
+                0.015673,
+                0.028297,
+                0.046704
+              ],
+              "normalized_value": 0.439857
+            },
+            {
+              "key": "malaria:Plasmodium falciparum",
+              "latest_annual_change": -0.095605,
+              "unit": "months_climatically_suitable_per_year per year",
+              "annual_change_observations": 73,
+              "anchors": [
+                0.000009,
+                0.061683,
+                0.104444,
+                0.153472
+              ],
+              "normalized_value": 0
+            },
+            {
+              "key": "malaria:Plasmodium vivax",
+              "latest_annual_change": -0.06414,
+              "unit": "months_climatically_suitable_per_year per year",
+              "annual_change_observations": 73,
+              "anchors": [
+                -0.002719,
+                0.058086,
+                0.123004,
+                0.159466
+              ],
+              "normalized_value": 0
+            }
+          ]
+        },
+        "extent": {
+          "geography": "World",
+          "normalized_value": 1,
+          "definition": "The retained source-native time series are the Lancet Countdown global aggregates for both dengue vector species and both malaria parasites."
+        },
+        "source_snapshot": {
+          "path": "public/heat-health-snapshot.json",
+          "version": "2026-07-31T16:48:36.436Z",
+          "updated_at": "2026-07-31",
+          "source_release": "2025 report downloads, published October 2025",
+          "series_count": 4,
+          "annual_observations_per_series": [
+            {
+              "key": "dengue:A.aegypti",
+              "count": 74
+            },
+            {
+              "key": "dengue:A.albopictus",
+              "count": 74
+            },
+            {
+              "key": "malaria:Plasmodium falciparum",
+              "count": 74
+            },
+            {
+              "key": "malaria:Plasmodium vivax",
+              "count": 74
+            }
+          ],
+          "source_locators": [
+            "https://lancetcountdown.org/wp-content/uploads/2025/10/Indicator-1.3.1_Data-Download_2025-Lancet-Countdown-Report_Oct-1.xlsx",
+            "https://lancetcountdown.org/wp-content/uploads/2025/10/Indicator-1.3.2_Data-Download_2025-Lancet-Countdown-Report-1.xlsx"
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "disease_specific_unit_preserving_normalization",
+          "formula": "Normalize each dengue basic-reproduction-number series and each malaria suitable-season series separately before equal aggregation; never combine raw values with different units."
+        },
+        {
+          "type": "fixed_baseline_departure",
+          "formula": "Subtract each series 1951–1960 mean from every annual value for the magnitude component."
+        },
+        {
+          "type": "historical_distribution_normalization",
+          "formula": "Within each complete 1951–2024 series, map baseline departure, current level and annual change through median / p75 / p90 / p97.5 anchors; higher climate suitability is worse."
+        }
+      ],
+      "source_ids": [
+        "lancet_countdown_data_explorer"
+      ],
+      "uncertainty": "The downloads provide modelled point estimates but no observation-level uncertainty intervals. Mortality meta-prediction, WBGT and employment assumptions, country-average sector allocation, disease-model omissions, reanalysis input, population data, and revisions affect estimates. These indicators measure climate suitability, not observed infections or attributable cases, and omit immunity, intervention coverage, mobility and health-system access; they are therefore interpreted only within the node's climate-driven expansion boundary.",
+      "freshness": "Lancet Countdown 2025 release with complete global series through 2024; snapshot refreshed 2026-07-31.",
+      "selection_reason": {
+        "selected_method_passed": "The source supplies four unit-preserved global annual climate-suitability series with 74 observations each, current magnitude, a fixed baseline, historical threshold position, momentum and global aggregation. Higher dengue R0 or longer malaria-suitable seasons are source-consistently worse for this node.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:2ef2147f"
+    }
+  ]
+}

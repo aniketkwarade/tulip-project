@@ -1,0 +1,39 @@
+{
+  "version": "1.0.0",
+  "snapshot_family": "reviewed_report_snapshot",
+  "contract_id": "personal_conveyance_accumulated_impact_v1",
+  "node_id": "personal_conveyance",
+  "as_of": "2024-12-31",
+  "captured_at": "2026-07-31T00:00:00.000Z",
+  "method_boundary": "Global road-transport emissions and passenger-vehicle attribution provide accumulated-impact evidence; this is not a direct observation of all personal conveyance harms.",
+  "indicators": [
+    {
+      "id": "road_transport_co2_2024",
+      "value": 6,
+      "qualifier": "just over",
+      "unit": "gigatonnes CO2",
+      "source_id": "iea_breakthrough_agenda_road_transport_2025"
+    },
+    {
+      "id": "road_transport_emissions_change_since_2015",
+      "value": 8,
+      "unit": "percent",
+      "source_id": "iea_breakthrough_agenda_road_transport_2025"
+    },
+    {
+      "id": "passenger_car_and_van_share",
+      "value": 60,
+      "qualifier": "greater than",
+      "unit": "percent of road-transport CO2 emissions",
+      "source_id": "iea_breakthrough_agenda_road_transport_2025"
+    }
+  ],
+  "sources": [
+    {
+      "id": "iea_breakthrough_agenda_road_transport_2025",
+      "publisher": "International Energy Agency",
+      "url": "https://www.iea.org/reports/breakthrough-agenda-report-2025/road-transport"
+    }
+  ],
+  "uncertainty": "The passenger car and van share is source-reported as greater than 60 percent. The score uses 60 percent as a conservative lower-bound input."
+}

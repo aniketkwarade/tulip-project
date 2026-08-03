@@ -1,0 +1,1030 @@
+{
+  "version": "2026-06-27",
+  "captured_at": "2026-06-27T15:25:03.235Z",
+  "cadence_days": 42,
+  "caveats": [
+    "Electricity Maps trial access was used to freeze current snapshots only; no short-cycle live feed is wired into the UI.",
+    "Electricity Maps historical access appears limited to short-range history on the current trial, so the frozen operational layer is treated as a snapshot, not an annual baseline.",
+    "Corporate disclosures are normalized into a separate context layer and are explicitly excluded from core operational scoring."
+  ],
+  "iea_energy_and_ai": {
+    "source": "https://www.iea.org/reports/energy-and-ai",
+    "source_section": "Executive summary; Energy demand from AI; AI and climate change",
+    "publication_date": "2025-04-10",
+    "observed_2024": {
+      "data_center_electricity_twh": 415,
+      "share_of_global_electricity_pct": 1.5,
+      "indirect_electricity_co2_mt": 180,
+      "emissions_share_of_global_fuel_combustion_co2_pct": 0.5
+    },
+    "base_case": {
+      "data_center_electricity_2030_twh": 945,
+      "indirect_electricity_co2_2030_peak_mt": 320,
+      "indirect_electricity_co2_2035_mt": 300
+    },
+    "sensitivity": {
+      "data_center_electricity_2035_low_twh": 700,
+      "data_center_electricity_2035_high_twh": 1700,
+      "high_efficiency_electricity_reduction_2035_pct": 20
+    },
+    "ai_boundary": "The observed electricity and emissions totals cover all data-centre workloads; AI is a subset. IEA identifies accelerated servers, mainly driven by AI adoption, as almost half of projected net data-centre electricity growth from 2024 to 2030.",
+    "emissions_boundary": "Indirect carbon dioxide from consumed electricity only; backup generation, construction, hardware manufacturing and other lifecycle emissions are excluded.",
+    "uncertainty": "Future electricity demand depends on AI adoption, hardware and software efficiency, data-centre utilisation, deployment bottlenecks and energy-system supply. Scenario values are not confidence intervals."
+  },
+  "eia": {
+    "source": "https://api.eia.gov/v2/electricity/electric-power-operational-data/",
+    "latest_year": "2025",
+    "state_profiles": [
+      {
+        "state_code": "VA",
+        "state_name": "Virginia",
+        "data_center_hub": "Northern Virginia",
+        "latest_year": "2025",
+        "annual_generation_thousand_mwh": 105953.639,
+        "annual_generation_mix_pct": {
+          "fossil_pct": 61.2,
+          "nuclear_pct": 26.6,
+          "renewables_pct": 12,
+          "gas_pct": 57.3,
+          "coal_pct": 3.4,
+          "solar_pct": 8.6,
+          "wind_pct": 0,
+          "hydro_pct": 1.2,
+          "biomass_pct": 3.4,
+          "petroleum_pct": 0.5
+        },
+        "source": "EIA Electric Power Operations (Form EIA-923)"
+      },
+      {
+        "state_code": "TX",
+        "state_name": "Texas",
+        "data_center_hub": "Texas Triangle",
+        "latest_year": "2025",
+        "annual_generation_thousand_mwh": 590922.121,
+        "annual_generation_mix_pct": {
+          "fossil_pct": 60.9,
+          "nuclear_pct": 7,
+          "renewables_pct": 32,
+          "gas_pct": 48.8,
+          "coal_pct": 11.7,
+          "solar_pct": 9.9,
+          "wind_pct": 21.9,
+          "hydro_pct": 0.2,
+          "biomass_pct": 0.2,
+          "petroleum_pct": 0
+        },
+        "source": "EIA Electric Power Operations (Form EIA-923)"
+      },
+      {
+        "state_code": "CA",
+        "state_name": "California",
+        "data_center_hub": "Northern California",
+        "latest_year": "2025",
+        "annual_generation_thousand_mwh": 205884.38,
+        "annual_generation_mix_pct": {
+          "fossil_pct": 36.3,
+          "nuclear_pct": 8.5,
+          "renewables_pct": 42.3,
+          "gas_pct": 35.6,
+          "coal_pct": 0.1,
+          "solar_pct": 27,
+          "wind_pct": 7.9,
+          "hydro_pct": 13.5,
+          "biomass_pct": 2.2,
+          "petroleum_pct": 0
+        },
+        "source": "EIA Electric Power Operations (Form EIA-923)"
+      },
+      {
+        "state_code": "OR",
+        "state_name": "Oregon",
+        "data_center_hub": "Hillsboro / Portland",
+        "latest_year": "2025",
+        "annual_generation_thousand_mwh": 64636.569,
+        "annual_generation_mix_pct": {
+          "fossil_pct": 34.3,
+          "nuclear_pct": 0,
+          "renewables_pct": 20.7,
+          "gas_pct": 34.3,
+          "coal_pct": 0,
+          "solar_pct": 4.2,
+          "wind_pct": 14.6,
+          "hydro_pct": 45.1,
+          "biomass_pct": 1.6,
+          "petroleum_pct": 0
+        },
+        "source": "EIA Electric Power Operations (Form EIA-923)"
+      },
+      {
+        "state_code": "WA",
+        "state_name": "Washington",
+        "data_center_hub": "Quincy / Central Washington",
+        "latest_year": "2025",
+        "annual_generation_thousand_mwh": 103067.4,
+        "annual_generation_mix_pct": {
+          "fossil_pct": 19.2,
+          "nuclear_pct": 7.5,
+          "renewables_pct": 10,
+          "gas_pct": 15.8,
+          "coal_pct": 3.1,
+          "solar_pct": 0.6,
+          "wind_pct": 8.3,
+          "hydro_pct": 63.2,
+          "biomass_pct": 1.1,
+          "petroleum_pct": 0
+        },
+        "source": "EIA Electric Power Operations (Form EIA-923)"
+      },
+      {
+        "state_code": "AZ",
+        "state_name": "Arizona",
+        "data_center_hub": "Phoenix Metro",
+        "latest_year": "2025",
+        "annual_generation_thousand_mwh": 116812.451,
+        "annual_generation_mix_pct": {
+          "fossil_pct": 53.1,
+          "nuclear_pct": 26.8,
+          "renewables_pct": 16.2,
+          "gas_pct": 45.1,
+          "coal_pct": 7.9,
+          "solar_pct": 13.4,
+          "wind_pct": 2.7,
+          "hydro_pct": 4.2,
+          "biomass_pct": 0.2,
+          "petroleum_pct": 0
+        },
+        "source": "EIA Electric Power Operations (Form EIA-923)"
+      },
+      {
+        "state_code": "GA",
+        "state_name": "Georgia",
+        "data_center_hub": "Atlanta Metro",
+        "latest_year": "2025",
+        "annual_generation_thousand_mwh": 146639.194,
+        "annual_generation_mix_pct": {
+          "fossil_pct": 52.7,
+          "nuclear_pct": 34.9,
+          "renewables_pct": 10.9,
+          "gas_pct": 38.8,
+          "coal_pct": 13.7,
+          "solar_pct": 7.7,
+          "wind_pct": 0,
+          "hydro_pct": 2,
+          "biomass_pct": 3.2,
+          "petroleum_pct": 0.2
+        },
+        "source": "EIA Electric Power Operations (Form EIA-923)"
+      },
+      {
+        "state_code": "NC",
+        "state_name": "North Carolina",
+        "data_center_hub": "Research Triangle / Charlotte",
+        "latest_year": "2025",
+        "annual_generation_thousand_mwh": 135436.915,
+        "annual_generation_mix_pct": {
+          "fossil_pct": 53.4,
+          "nuclear_pct": 31.8,
+          "renewables_pct": 11.2,
+          "gas_pct": 40,
+          "coal_pct": 13.2,
+          "solar_pct": 9.4,
+          "wind_pct": 0.7,
+          "hydro_pct": 3.4,
+          "biomass_pct": 1.1,
+          "petroleum_pct": 0.1
+        },
+        "source": "EIA Electric Power Operations (Form EIA-923)"
+      },
+      {
+        "state_code": "OH",
+        "state_name": "Ohio",
+        "data_center_hub": "Columbus / New Albany",
+        "latest_year": "2025",
+        "annual_generation_thousand_mwh": 147423.148,
+        "annual_generation_mix_pct": {
+          "fossil_pct": 80.5,
+          "nuclear_pct": 11.6,
+          "renewables_pct": 7.6,
+          "gas_pct": 54.7,
+          "coal_pct": 24.3,
+          "solar_pct": 5.4,
+          "wind_pct": 2,
+          "hydro_pct": 0.3,
+          "biomass_pct": 0.2,
+          "petroleum_pct": 0.9
+        },
+        "source": "EIA Electric Power Operations (Form EIA-923)"
+      },
+      {
+        "state_code": "IA",
+        "state_name": "Iowa",
+        "data_center_hub": "Des Moines Corridor",
+        "latest_year": "2025",
+        "annual_generation_thousand_mwh": 74232.325,
+        "annual_generation_mix_pct": {
+          "fossil_pct": 37.5,
+          "nuclear_pct": 0,
+          "renewables_pct": 60.9,
+          "gas_pct": 11.7,
+          "coal_pct": 25.7,
+          "solar_pct": 1.8,
+          "wind_pct": 58.9,
+          "hydro_pct": 1.5,
+          "biomass_pct": 0.3,
+          "petroleum_pct": 0.1
+        },
+        "source": "EIA Electric Power Operations (Form EIA-923)"
+      },
+      {
+        "state_code": "IL",
+        "state_name": "Illinois",
+        "data_center_hub": "Chicago Metro",
+        "latest_year": "2025",
+        "annual_generation_thousand_mwh": 193408.613,
+        "annual_generation_mix_pct": {
+          "fossil_pct": 32.9,
+          "nuclear_pct": 50.5,
+          "renewables_pct": 16.4,
+          "gas_pct": 16.8,
+          "coal_pct": 16,
+          "solar_pct": 3.4,
+          "wind_pct": 12.9,
+          "hydro_pct": 0,
+          "biomass_pct": 0.1,
+          "petroleum_pct": 0
+        },
+        "source": "EIA Electric Power Operations (Form EIA-923)"
+      },
+      {
+        "state_code": "NV",
+        "state_name": "Nevada",
+        "data_center_hub": "Reno / Tahoe",
+        "latest_year": "2025",
+        "annual_generation_thousand_mwh": 45040.233,
+        "annual_generation_mix_pct": {
+          "fossil_pct": 56.5,
+          "nuclear_pct": 0,
+          "renewables_pct": 39.8,
+          "gas_pct": 50.8,
+          "coal_pct": 5.7,
+          "solar_pct": 30.3,
+          "wind_pct": 0.8,
+          "hydro_pct": 4.2,
+          "biomass_pct": 0.1,
+          "petroleum_pct": 0
+        },
+        "source": "EIA Electric Power Operations (Form EIA-923)"
+      }
+    ]
+  },
+  "electricity_maps": {
+    "source": "https://api.electricitymaps.com/v3/",
+    "latest_snapshot_at": "2026-06-27T15:25:03.235Z",
+    "priority_zone_snapshots": [
+      {
+        "zone": "US-MIDA-PJM",
+        "label": "PJM Interconnection",
+        "hubs": [
+          "Northern Virginia",
+          "Columbus"
+        ],
+        "mapped_states": [
+          "VA",
+          "OH"
+        ],
+        "snapshot": {
+          "captured_at": "2026-06-27T15:04:58.915Z",
+          "carbon_intensity_gco2eq_kwh": 414,
+          "carbon_intensity_24h_avg_gco2eq_kwh": 423.8,
+          "carbon_intensity_24h_min_gco2eq_kwh": 405,
+          "carbon_intensity_24h_max_gco2eq_kwh": 459,
+          "renewable_percentage": 6,
+          "carbon_free_percentage": 39,
+          "emission_factor_type": "lifecycle",
+          "temporal_granularity": "hourly",
+          "top_power_sources_mw": [
+            {
+              "fuel": "gas",
+              "value": 42598
+            },
+            {
+              "fuel": "nuclear",
+              "value": 31787
+            },
+            {
+              "fuel": "coal",
+              "value": 14966
+            },
+            {
+              "fuel": "solar",
+              "value": 4380
+            }
+          ],
+          "power_consumption_total_mw": 98184,
+          "power_production_total_mw": 102472
+        }
+      },
+      {
+        "zone": "US-TEX-ERCO",
+        "label": "ERCOT",
+        "hubs": [
+          "Dallas-Fort Worth",
+          "Austin-San Antonio"
+        ],
+        "mapped_states": [
+          "TX"
+        ],
+        "snapshot": {
+          "captured_at": "2026-06-27T15:04:56.779Z",
+          "carbon_intensity_gco2eq_kwh": 193,
+          "carbon_intensity_24h_avg_gco2eq_kwh": 317.9,
+          "carbon_intensity_24h_min_gco2eq_kwh": 192,
+          "carbon_intensity_24h_max_gco2eq_kwh": 450,
+          "renewable_percentage": 69,
+          "carbon_free_percentage": 74,
+          "emission_factor_type": "lifecycle",
+          "temporal_granularity": "hourly",
+          "top_power_sources_mw": [
+            {
+              "fuel": "solar",
+              "value": 24380
+            },
+            {
+              "fuel": "wind",
+              "value": 21707
+            },
+            {
+              "fuel": "gas",
+              "value": 12262
+            },
+            {
+              "fuel": "coal",
+              "value": 5024
+            }
+          ],
+          "power_consumption_total_mw": 66783,
+          "power_production_total_mw": 74205
+        }
+      },
+      {
+        "zone": "US-CAL-CISO",
+        "label": "CAISO",
+        "hubs": [
+          "Northern California"
+        ],
+        "mapped_states": [
+          "CA"
+        ],
+        "snapshot": {
+          "captured_at": "2026-06-27T15:05:01.996Z",
+          "carbon_intensity_gco2eq_kwh": 57,
+          "carbon_intensity_24h_avg_gco2eq_kwh": 76.5,
+          "carbon_intensity_24h_min_gco2eq_kwh": 49,
+          "carbon_intensity_24h_max_gco2eq_kwh": 111,
+          "renewable_percentage": 86,
+          "carbon_free_percentage": 94,
+          "emission_factor_type": "lifecycle",
+          "temporal_granularity": "hourly",
+          "top_power_sources_mw": [
+            {
+              "fuel": "solar",
+              "value": 15005
+            },
+            {
+              "fuel": "wind",
+              "value": 4090
+            },
+            {
+              "fuel": "nuclear",
+              "value": 1929
+            },
+            {
+              "fuel": "gas",
+              "value": 1410
+            }
+          ],
+          "power_consumption_total_mw": 25001,
+          "power_production_total_mw": 27982
+        }
+      },
+      {
+        "zone": "US-NW-BPAT",
+        "label": "Bonneville Power Administration",
+        "hubs": [
+          "Central Washington"
+        ],
+        "mapped_states": [
+          "WA"
+        ],
+        "snapshot": {
+          "captured_at": "2026-06-27T15:19:34.923Z",
+          "carbon_intensity_gco2eq_kwh": 26,
+          "carbon_intensity_24h_avg_gco2eq_kwh": 35,
+          "carbon_intensity_24h_min_gco2eq_kwh": 26,
+          "carbon_intensity_24h_max_gco2eq_kwh": 42,
+          "renewable_percentage": 92,
+          "carbon_free_percentage": 99,
+          "emission_factor_type": "lifecycle",
+          "temporal_granularity": "hourly",
+          "top_power_sources_mw": [
+            {
+              "fuel": "hydro",
+              "value": 4863
+            },
+            {
+              "fuel": "wind",
+              "value": 1761
+            },
+            {
+              "fuel": "nuclear",
+              "value": 551
+            },
+            {
+              "fuel": "solar",
+              "value": 109
+            }
+          ],
+          "power_consumption_total_mw": 7377,
+          "power_production_total_mw": 13340
+        }
+      },
+      {
+        "zone": "US-NW-PGE",
+        "label": "Portland General Electric",
+        "hubs": [
+          "Hillsboro / Portland"
+        ],
+        "mapped_states": [
+          "OR"
+        ],
+        "snapshot": {
+          "captured_at": "2026-06-27T15:19:34.923Z",
+          "carbon_intensity_gco2eq_kwh": 26,
+          "carbon_intensity_24h_avg_gco2eq_kwh": 145,
+          "carbon_intensity_24h_min_gco2eq_kwh": 26,
+          "carbon_intensity_24h_max_gco2eq_kwh": 221,
+          "renewable_percentage": 93,
+          "carbon_free_percentage": 99,
+          "emission_factor_type": "lifecycle",
+          "temporal_granularity": "hourly",
+          "top_power_sources_mw": [
+            {
+              "fuel": "hydro",
+              "value": 615
+            },
+            {
+              "fuel": "wind",
+              "value": 183
+            },
+            {
+              "fuel": "nuclear",
+              "value": 57
+            },
+            {
+              "fuel": "solar",
+              "value": 11
+            }
+          ],
+          "power_consumption_total_mw": 877,
+          "power_production_total_mw": 156
+        }
+      },
+      {
+        "zone": "US-NW-PSEI",
+        "label": "Puget Sound Energy",
+        "hubs": [
+          "Puget Sound"
+        ],
+        "mapped_states": [
+          "WA"
+        ],
+        "snapshot": {
+          "captured_at": "2026-06-27T15:19:22.257Z",
+          "carbon_intensity_gco2eq_kwh": 50,
+          "carbon_intensity_24h_avg_gco2eq_kwh": 55.7,
+          "carbon_intensity_24h_min_gco2eq_kwh": 50,
+          "carbon_intensity_24h_max_gco2eq_kwh": 61,
+          "renewable_percentage": 89,
+          "carbon_free_percentage": 95,
+          "emission_factor_type": "lifecycle",
+          "temporal_granularity": "hourly",
+          "top_power_sources_mw": [
+            {
+              "fuel": "hydro",
+              "value": 1507
+            },
+            {
+              "fuel": "wind",
+              "value": 756
+            },
+            {
+              "fuel": "nuclear",
+              "value": 149
+            },
+            {
+              "fuel": "gas",
+              "value": 110
+            }
+          ],
+          "power_consumption_total_mw": 2607,
+          "power_production_total_mw": 532
+        }
+      },
+      {
+        "zone": "US-SW-AZPS",
+        "label": "Arizona Public Service",
+        "hubs": [
+          "Phoenix Metro"
+        ],
+        "mapped_states": [
+          "AZ"
+        ],
+        "snapshot": {
+          "captured_at": "2026-06-27T15:19:28.323Z",
+          "carbon_intensity_gco2eq_kwh": 246,
+          "carbon_intensity_24h_avg_gco2eq_kwh": 326.2,
+          "carbon_intensity_24h_min_gco2eq_kwh": 246,
+          "carbon_intensity_24h_max_gco2eq_kwh": 397,
+          "renewable_percentage": 46,
+          "carbon_free_percentage": 66,
+          "emission_factor_type": "lifecycle",
+          "temporal_granularity": "hourly",
+          "top_power_sources_mw": [
+            {
+              "fuel": "solar",
+              "value": 3134
+            },
+            {
+              "fuel": "gas",
+              "value": 1821
+            },
+            {
+              "fuel": "nuclear",
+              "value": 1591
+            },
+            {
+              "fuel": "coal",
+              "value": 867
+            }
+          ],
+          "power_consumption_total_mw": 8663,
+          "power_production_total_mw": 5089
+        }
+      },
+      {
+        "zone": "US-SW-SRP",
+        "label": "Salt River Project",
+        "hubs": [
+          "Phoenix Metro"
+        ],
+        "mapped_states": [
+          "AZ"
+        ],
+        "snapshot": {
+          "captured_at": "2026-06-27T15:19:22.973Z",
+          "carbon_intensity_gco2eq_kwh": 176,
+          "carbon_intensity_24h_avg_gco2eq_kwh": 255.9,
+          "carbon_intensity_24h_min_gco2eq_kwh": 176,
+          "carbon_intensity_24h_max_gco2eq_kwh": 307,
+          "renewable_percentage": 28,
+          "carbon_free_percentage": 73,
+          "emission_factor_type": "lifecycle",
+          "temporal_granularity": "hourly",
+          "top_power_sources_mw": [
+            {
+              "fuel": "nuclear",
+              "value": 2177
+            },
+            {
+              "fuel": "gas",
+              "value": 1127
+            },
+            {
+              "fuel": "solar",
+              "value": 1069
+            },
+            {
+              "fuel": "wind",
+              "value": 174
+            }
+          ],
+          "power_consumption_total_mw": 4778,
+          "power_production_total_mw": 7758
+        }
+      },
+      {
+        "zone": "US-SE-SOCO",
+        "label": "Southern Company",
+        "hubs": [
+          "Atlanta Metro"
+        ],
+        "mapped_states": [
+          "GA"
+        ],
+        "snapshot": {
+          "captured_at": "2026-06-27T15:19:33.793Z",
+          "carbon_intensity_gco2eq_kwh": 478,
+          "carbon_intensity_24h_avg_gco2eq_kwh": 495.6,
+          "carbon_intensity_24h_min_gco2eq_kwh": 457,
+          "carbon_intensity_24h_max_gco2eq_kwh": 525,
+          "renewable_percentage": 8,
+          "carbon_free_percentage": 32,
+          "emission_factor_type": "lifecycle",
+          "temporal_granularity": "hourly",
+          "top_power_sources_mw": [
+            {
+              "fuel": "gas",
+              "value": 15845
+            },
+            {
+              "fuel": "nuclear",
+              "value": 7863
+            },
+            {
+              "fuel": "coal",
+              "value": 6197
+            },
+            {
+              "fuel": "solar",
+              "value": 2635
+            }
+          ],
+          "power_consumption_total_mw": 32856,
+          "power_production_total_mw": 34403
+        }
+      },
+      {
+        "zone": "US-CAR-DUK",
+        "label": "Duke Energy Carolinas",
+        "hubs": [
+          "Charlotte / Triad"
+        ],
+        "mapped_states": [
+          "NC"
+        ],
+        "snapshot": {
+          "captured_at": "2026-06-27T15:04:52.182Z",
+          "carbon_intensity_gco2eq_kwh": 382,
+          "carbon_intensity_24h_avg_gco2eq_kwh": 380.6,
+          "carbon_intensity_24h_min_gco2eq_kwh": 355,
+          "carbon_intensity_24h_max_gco2eq_kwh": 408,
+          "renewable_percentage": 6,
+          "carbon_free_percentage": 49,
+          "emission_factor_type": "lifecycle",
+          "temporal_granularity": "hourly",
+          "top_power_sources_mw": [
+            {
+              "fuel": "nuclear",
+              "value": 6752
+            },
+            {
+              "fuel": "coal",
+              "value": 4542
+            },
+            {
+              "fuel": "gas",
+              "value": 3388
+            },
+            {
+              "fuel": "solar",
+              "value": 949
+            }
+          ],
+          "power_consumption_total_mw": 15684,
+          "power_production_total_mw": 16245
+        }
+      },
+      {
+        "zone": "US-CAR-CPLE",
+        "label": "Duke Energy Progress East",
+        "hubs": [
+          "Research Triangle"
+        ],
+        "mapped_states": [
+          "NC"
+        ],
+        "snapshot": {
+          "captured_at": "2026-06-27T13:05:06.190Z",
+          "carbon_intensity_gco2eq_kwh": 390,
+          "carbon_intensity_24h_avg_gco2eq_kwh": 440,
+          "carbon_intensity_24h_min_gco2eq_kwh": 373,
+          "carbon_intensity_24h_max_gco2eq_kwh": 500,
+          "renewable_percentage": 23,
+          "carbon_free_percentage": 55,
+          "emission_factor_type": "lifecycle",
+          "temporal_granularity": "hourly",
+          "top_power_sources_mw": [
+            {
+              "fuel": "nuclear",
+              "value": 3260
+            },
+            {
+              "fuel": "coal",
+              "value": 2289
+            },
+            {
+              "fuel": "solar",
+              "value": 2237
+            },
+            {
+              "fuel": "gas",
+              "value": 1347
+            }
+          ],
+          "power_consumption_total_mw": 9955,
+          "power_production_total_mw": 10702
+        }
+      },
+      {
+        "zone": "US-MIDW-MISO",
+        "label": "MISO",
+        "hubs": [
+          "Chicago Fringe / Iowa"
+        ],
+        "mapped_states": [
+          "IL",
+          "IA"
+        ],
+        "snapshot": {
+          "captured_at": "2026-06-27T15:05:00.942Z",
+          "carbon_intensity_gco2eq_kwh": 438,
+          "carbon_intensity_24h_avg_gco2eq_kwh": 498.4,
+          "carbon_intensity_24h_min_gco2eq_kwh": 438,
+          "carbon_intensity_24h_max_gco2eq_kwh": 542,
+          "renewable_percentage": 29,
+          "carbon_free_percentage": 43,
+          "emission_factor_type": "lifecycle",
+          "temporal_granularity": "hourly",
+          "top_power_sources_mw": [
+            {
+              "fuel": "gas",
+              "value": 26388
+            },
+            {
+              "fuel": "coal",
+              "value": 20077
+            },
+            {
+              "fuel": "solar",
+              "value": 13264
+            },
+            {
+              "fuel": "nuclear",
+              "value": 12038
+            }
+          ],
+          "power_consumption_total_mw": 83508,
+          "power_production_total_mw": 82048
+        }
+      },
+      {
+        "zone": "US-NE-ISNE",
+        "label": "ISO New England",
+        "hubs": [
+          "New England"
+        ],
+        "mapped_states": [
+          "MA"
+        ],
+        "snapshot": {
+          "captured_at": "2026-06-27T15:19:24.243Z",
+          "carbon_intensity_gco2eq_kwh": 251,
+          "carbon_intensity_24h_avg_gco2eq_kwh": 280.7,
+          "carbon_intensity_24h_min_gco2eq_kwh": 251,
+          "carbon_intensity_24h_max_gco2eq_kwh": 312,
+          "renewable_percentage": 24,
+          "carbon_free_percentage": 55,
+          "emission_factor_type": "lifecycle",
+          "temporal_granularity": "hourly",
+          "top_power_sources_mw": [
+            {
+              "fuel": "gas",
+              "value": 4948
+            },
+            {
+              "fuel": "nuclear",
+              "value": 3422
+            },
+            {
+              "fuel": "hydro",
+              "value": 1459
+            },
+            {
+              "fuel": "solar",
+              "value": 646
+            }
+          ],
+          "power_consumption_total_mw": 11111,
+          "power_production_total_mw": 10358
+        }
+      },
+      {
+        "zone": "US-NY-NYIS",
+        "label": "New York ISO",
+        "hubs": [
+          "New York"
+        ],
+        "mapped_states": [
+          "NY"
+        ],
+        "snapshot": {
+          "captured_at": "2026-06-27T15:04:55.224Z",
+          "carbon_intensity_gco2eq_kwh": 326,
+          "carbon_intensity_24h_avg_gco2eq_kwh": 324.3,
+          "carbon_intensity_24h_min_gco2eq_kwh": 311,
+          "carbon_intensity_24h_max_gco2eq_kwh": 341,
+          "renewable_percentage": 18,
+          "carbon_free_percentage": 45,
+          "emission_factor_type": "lifecycle",
+          "temporal_granularity": "hourly",
+          "top_power_sources_mw": [
+            {
+              "fuel": "gas",
+              "value": 8098
+            },
+            {
+              "fuel": "nuclear",
+              "value": 4443
+            },
+            {
+              "fuel": "hydro",
+              "value": 2746
+            },
+            {
+              "fuel": "unknown",
+              "value": 788
+            }
+          ],
+          "power_consumption_total_mw": 16758,
+          "power_production_total_mw": 14012
+        }
+      },
+      {
+        "zone": "US-TEN-TVA",
+        "label": "Tennessee Valley Authority",
+        "hubs": [
+          "Memphis / Nashville orbit"
+        ],
+        "mapped_states": [
+          "TN"
+        ],
+        "snapshot": {
+          "captured_at": "2026-06-27T15:04:55.972Z",
+          "carbon_intensity_gco2eq_kwh": 437,
+          "carbon_intensity_24h_avg_gco2eq_kwh": 437.7,
+          "carbon_intensity_24h_min_gco2eq_kwh": 419,
+          "carbon_intensity_24h_max_gco2eq_kwh": 459,
+          "renewable_percentage": 9,
+          "carbon_free_percentage": 43,
+          "emission_factor_type": "lifecycle",
+          "temporal_granularity": "hourly",
+          "top_power_sources_mw": [
+            {
+              "fuel": "gas",
+              "value": 8958
+            },
+            {
+              "fuel": "nuclear",
+              "value": 8174
+            },
+            {
+              "fuel": "coal",
+              "value": 4952
+            },
+            {
+              "fuel": "solar",
+              "value": 1172
+            }
+          ],
+          "power_consumption_total_mw": 24746,
+          "power_production_total_mw": 23145
+        }
+      },
+      {
+        "zone": "US-NW-NEVP",
+        "label": "Nevada Power",
+        "hubs": [
+          "Reno / Tahoe"
+        ],
+        "mapped_states": [
+          "NV"
+        ],
+        "snapshot": {
+          "captured_at": "2026-06-27T15:19:36.443Z",
+          "carbon_intensity_gco2eq_kwh": 236,
+          "carbon_intensity_24h_avg_gco2eq_kwh": 362.9,
+          "carbon_intensity_24h_min_gco2eq_kwh": 236,
+          "carbon_intensity_24h_max_gco2eq_kwh": 488,
+          "renewable_percentage": 64,
+          "carbon_free_percentage": 64,
+          "emission_factor_type": "lifecycle",
+          "temporal_granularity": "hourly",
+          "top_power_sources_mw": [
+            {
+              "fuel": "solar",
+              "value": 3437
+            },
+            {
+              "fuel": "gas",
+              "value": 1588
+            },
+            {
+              "fuel": "unknown",
+              "value": 401
+            },
+            {
+              "fuel": "hydro",
+              "value": 288
+            }
+          ],
+          "power_consumption_total_mw": 6129,
+          "power_production_total_mw": 5628
+        }
+      }
+    ],
+    "current_us_zone_count": 59
+  },
+  "disclosures": {
+    "excluded_from_operational_scoring": true,
+    "cadence_days": 56,
+    "operators": [
+      {
+        "operator": "Google",
+        "operator_key": "google",
+        "cadence": "annual_or_periodic",
+        "excluded_from_operational_scoring": true,
+        "source_urls": [
+          "https://datacenters.google/",
+          "https://datacenters.google/water/"
+        ],
+        "fields": {
+          "sustainability_report": "linked_from_operator_portal",
+          "dedicated_water_page": "present",
+          "portfolio_data_center_directory": "present",
+          "data_center_specific_water_context": "present",
+          "ai_specific_operational_disclosure": "limited",
+          "third_party_assurance": "unknown",
+          "comparability": "limited"
+        },
+        "notes": "Use for operator context and stewardship claims only, not for core operational scoring."
+      },
+      {
+        "operator": "Microsoft",
+        "operator_key": "microsoft",
+        "cadence": "annual",
+        "excluded_from_operational_scoring": true,
+        "source_urls": [
+          "https://www.microsoft.com/en-us/corporate-responsibility/sustainability/report"
+        ],
+        "fields": {
+          "sustainability_report": "present",
+          "dedicated_water_page": "unknown",
+          "portfolio_data_center_directory": "not_in_primary_source",
+          "data_center_specific_water_context": "mixed",
+          "ai_specific_operational_disclosure": "limited",
+          "third_party_assurance": "unknown",
+          "comparability": "limited"
+        },
+        "notes": "Normalize as corporate disclosure metadata; keep separate from grid and water-risk layers."
+      },
+      {
+        "operator": "Meta",
+        "operator_key": "meta",
+        "cadence": "annual_or_periodic",
+        "excluded_from_operational_scoring": true,
+        "source_urls": [
+          "https://sustainability.atmeta.com/"
+        ],
+        "fields": {
+          "sustainability_report": "present",
+          "dedicated_water_page": "unknown",
+          "portfolio_data_center_directory": "mixed",
+          "data_center_specific_water_context": "mixed",
+          "ai_specific_operational_disclosure": "limited",
+          "third_party_assurance": "unknown",
+          "comparability": "limited"
+        },
+        "notes": "Useful for contextual disclosure and operator claims; not used for core operational scoring."
+      },
+      {
+        "operator": "Amazon",
+        "operator_key": "amazon",
+        "cadence": "annual_or_periodic",
+        "excluded_from_operational_scoring": true,
+        "source_urls": [
+          "https://sustainability.aboutamazon.com/"
+        ],
+        "fields": {
+          "sustainability_report": "present",
+          "dedicated_water_page": "unknown",
+          "portfolio_data_center_directory": "not_in_primary_source",
+          "data_center_specific_water_context": "mixed",
+          "ai_specific_operational_disclosure": "limited",
+          "third_party_assurance": "unknown",
+          "comparability": "limited"
+        },
+        "notes": "Normalize as disclosure metadata only; avoid treating CSR narrative as operational telemetry."
+      }
+    ]
+  }
+}

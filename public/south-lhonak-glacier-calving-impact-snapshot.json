@@ -1,0 +1,92 @@
+{
+  "version": "south_lhonak_glacier_calving_2017_2023_v1",
+  "captured_at": "2026-08-01T00:00:00.000Z",
+  "sources": [
+    {
+      "id": "south_lhonak_calving_retreat_study_2026",
+      "name": "South Lhonak rapid-retreat and calving study",
+      "publisher": "IOP Environmental Research Communications",
+      "publication_date": "2026",
+      "url": "https://doi.org/10.1088/2515-7620/ae1936",
+      "source_locators": [
+        "Results and conclusions report 49.6 +/- 7.1 metres of glacier-front retreat immediately before the October 2023 event.",
+        "The reviewed full text identifies seven large calving events since 2017.",
+        "The authors interpret calving, moraine change, intermittent rainfall and breach as a combined event sequence rather than calving as a universal sole trigger."
+      ]
+    },
+    {
+      "id": "south_lhonak_event_sequence_reconstruction_2026",
+      "name": "South Lhonak event-sequence reconstruction",
+      "publisher": "PubMed Central indexed primary observational study",
+      "publication_date": "2026",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13013771/",
+      "source_locators": [
+        "Discussion and Figure 5 report more than 100 metres of retreat and approximately 7 million cubic metres of calved ice.",
+        "The reconstruction separately reports approximately 38.31 million cubic metres of landslide debris and combined displacement waves.",
+        "Landslide volume is retained as competing-event context and is not counted as calved-ice volume."
+      ]
+    },
+    {
+      "id": "india_mha_sikkim_flood_situation_report_2023_10_29",
+      "name": "Sikkim Flash Flood Situation Report, 29 October 2023",
+      "publisher": "India Ministry of Home Affairs, Disaster Management Division",
+      "publication_date": "2023-10-29",
+      "url": "https://ndmindia.mha.gov.in/ndmi/viewUploadedDocument?uid=NEW1665",
+      "source_locators": [
+        "The official annex identifies the South Lhonak glacial-lake outburst as the primary reason for the sudden Teesta River surge while noting that the exact cause was still under investigation.",
+        "The report records 88,400 people affected across four districts and 100 villages or wards.",
+        "The report records 42 confirmed deaths in Sikkim, 77 missing people, 2,002 damaged houses and 33 damaged bridges as of 29 October 2023."
+      ]
+    }
+  ],
+  "metric_contract": {
+    "node_id": "glacier_calving_events",
+    "metric_id": "satellite_calving_front_change_and_iceberg_flux",
+    "unit": "metres of front retreat, cubic metres of calved ice, repeated-event count and event-bounded downstream burden",
+    "geography": "South Lhonak Glacier and glacial lake with the downstream Teesta River impact area in Sikkim, India",
+    "assessment_period": "seven documented large calving events from 2017 through the October 2023 lake-outburst sequence and official 29 October 2023 impact tally",
+    "boundary": "The receipt is event-bounded. It does not generalize one glacier to global calving frequency, count landslide debris as calved ice, or assert that calving alone caused the flood."
+  },
+  "accumulated_impact": {
+    "immediate_front_retreat_metres": 49.6,
+    "immediate_front_retreat_uncertainty_metres": 7.1,
+    "event_sequence_retreat_metres_minimum": 100,
+    "calved_ice_volume_cubic_metres_approximate": 7000000,
+    "calved_ice_volume_million_cubic_metres_derived": 7,
+    "large_calving_events_since_2017": 7,
+    "affected_population": 88400,
+    "affected_districts": 4,
+    "affected_villages_or_wards": 100,
+    "confirmed_deaths_in_sikkim": 42,
+    "missing_people": 77,
+    "damaged_houses": 2002,
+    "damaged_bridges": 33
+  },
+  "reviewed_normalization_anchors": {
+    "calved_ice_volume_million_cubic_metres": [
+      0,
+      0.1,
+      1,
+      10
+    ],
+    "affected_population": [
+      0,
+      100,
+      10000,
+      100000
+    ],
+    "repeated_large_calving_events": [
+      0,
+      1,
+      3,
+      10
+    ],
+    "affected_districts": [
+      0,
+      1,
+      3,
+      10
+    ]
+  },
+  "uncertainty": "Front retreat and calved volume are study estimates with stated or study-specific remote-sensing uncertainty. The event reconstruction also identifies a much larger lateral-moraine landslide and displacement waves, and an independent trigger analysis emphasizes landslide processes; calving is therefore retained as one measured part of a compound event, not the sole cause. Official impacts are provisional as of 29 October 2023 and include the downstream GLOF disaster boundary, not impacts attributable exclusively to the calved-ice volume. No global frequency or global affected-area inference is made."
+}

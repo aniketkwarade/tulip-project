@@ -1,0 +1,321 @@
+{
+  "version": "global_ocean_stratification_observation_v1",
+  "captured_at": "2026-07-31T19:16:36.378Z",
+  "source": {
+    "id": "global_ocean_stratification_observation_assessment",
+    "name": "Increasing ocean stratification over the past half-century; Ocean stratification in a warming climate",
+    "publishers": [
+      "Nature Climate Change",
+      "Nature Reviews Earth & Environment"
+    ],
+    "urls": [
+      "https://www.nature.com/articles/s41558-020-00918-2",
+      "https://www.nature.com/articles/s43017-025-00715-5"
+    ],
+    "dois": [
+      "10.1038/s41558-020-00918-2",
+      "10.1038/s43017-025-00715-5"
+    ]
+  },
+  "ingestion_job_id": "export_global_ocean_stratification_snapshot",
+  "metric_contract_ids": [
+    "upper_ocean_density_stratification"
+  ],
+  "contract_bindings": [
+    {
+      "node_id": "thermal_stratification_intensification",
+      "metric_id": "upper_ocean_density_stratification",
+      "measurement_role": "global_annual_observed_0_2000m_density_stratification_and_upper_ocean_update"
+    }
+  ],
+  "cadence": "Annual primary-study and assessment-update review.",
+  "provenance": "The IAP global annual 0-2,000 m N-squared anomaly series is transcribed from the official Figure 3 source-data workbook. The original XLS checksum, units, uncertainty endpoints and sheet are retained. A 2025 peer-reviewed review supplies a separate three-dataset 0-200 m update through 2024.",
+  "uncertainty": "Historical profile density, vertical resolution, interpolation, horizontal sampling, XBT and MBT biases, salinity coverage, gridding, dataset construction and depth-layer selection affect estimates. The source annual panel ends in 2018; the 2024 update is a trend summary, not an annual replacement series.",
+  "failure_behavior": "Retain the last checksum-validated annual panel and mark stale. Reject changed checksums, columns, units, years or depth definitions. Never fill missing profiles with zero, splice projections into observations, compare incompatible depth layers as one series or infer local conditions from the global mean.",
+  "assessment": {
+    "annual_series": {
+      "workbook_url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41558-020-00918-2/MediaObjects/41558_2020_918_MOESM3_ESM.xls",
+      "workbook_sha256": "63e40c563255a6304ba57d30f57261a2a35568766408f2c5a09a567aefdaa43b",
+      "workbook_sheet": "Fig.3a",
+      "source_column": "Yearly N2 Timeseries(*1e-7) from 1960 to 2018",
+      "depth_layer_m": [
+        0,
+        2000
+      ],
+      "unit": "1e-7 s^-2 anomaly",
+      "baseline": "Source anomaly convention; do not rebase without the full gridded inputs.",
+      "start_year": 1960,
+      "end_year": 2018,
+      "complete_annual_observations": 59,
+      "latest_p5_uncertainty": 3.45,
+      "latest_p95_uncertainty": 3.78,
+      "values": [
+        {
+          "year": 1960,
+          "n2_anomaly_1e_minus_7_s_minus_2": -3.5
+        },
+        {
+          "year": 1961,
+          "n2_anomaly_1e_minus_7_s_minus_2": -4.72
+        },
+        {
+          "year": 1962,
+          "n2_anomaly_1e_minus_7_s_minus_2": -4.22
+        },
+        {
+          "year": 1963,
+          "n2_anomaly_1e_minus_7_s_minus_2": -1.96
+        },
+        {
+          "year": 1964,
+          "n2_anomaly_1e_minus_7_s_minus_2": -4.06
+        },
+        {
+          "year": 1965,
+          "n2_anomaly_1e_minus_7_s_minus_2": -4.37
+        },
+        {
+          "year": 1966,
+          "n2_anomaly_1e_minus_7_s_minus_2": -4.17
+        },
+        {
+          "year": 1967,
+          "n2_anomaly_1e_minus_7_s_minus_2": -4.05
+        },
+        {
+          "year": 1968,
+          "n2_anomaly_1e_minus_7_s_minus_2": -3.98
+        },
+        {
+          "year": 1969,
+          "n2_anomaly_1e_minus_7_s_minus_2": -2.19
+        },
+        {
+          "year": 1970,
+          "n2_anomaly_1e_minus_7_s_minus_2": -3.86
+        },
+        {
+          "year": 1971,
+          "n2_anomaly_1e_minus_7_s_minus_2": -5.53
+        },
+        {
+          "year": 1972,
+          "n2_anomaly_1e_minus_7_s_minus_2": -3.45
+        },
+        {
+          "year": 1973,
+          "n2_anomaly_1e_minus_7_s_minus_2": -3.81
+        },
+        {
+          "year": 1974,
+          "n2_anomaly_1e_minus_7_s_minus_2": -5.48
+        },
+        {
+          "year": 1975,
+          "n2_anomaly_1e_minus_7_s_minus_2": -6.15
+        },
+        {
+          "year": 1976,
+          "n2_anomaly_1e_minus_7_s_minus_2": -5.55
+        },
+        {
+          "year": 1977,
+          "n2_anomaly_1e_minus_7_s_minus_2": -3.11
+        },
+        {
+          "year": 1978,
+          "n2_anomaly_1e_minus_7_s_minus_2": -2.67
+        },
+        {
+          "year": 1979,
+          "n2_anomaly_1e_minus_7_s_minus_2": -1.89
+        },
+        {
+          "year": 1980,
+          "n2_anomaly_1e_minus_7_s_minus_2": -2.26
+        },
+        {
+          "year": 1981,
+          "n2_anomaly_1e_minus_7_s_minus_2": -3.22
+        },
+        {
+          "year": 1982,
+          "n2_anomaly_1e_minus_7_s_minus_2": -3.36
+        },
+        {
+          "year": 1983,
+          "n2_anomaly_1e_minus_7_s_minus_2": -1.18
+        },
+        {
+          "year": 1984,
+          "n2_anomaly_1e_minus_7_s_minus_2": -2.86
+        },
+        {
+          "year": 1985,
+          "n2_anomaly_1e_minus_7_s_minus_2": -3.37
+        },
+        {
+          "year": 1986,
+          "n2_anomaly_1e_minus_7_s_minus_2": -2.28
+        },
+        {
+          "year": 1987,
+          "n2_anomaly_1e_minus_7_s_minus_2": -0.06
+        },
+        {
+          "year": 1988,
+          "n2_anomaly_1e_minus_7_s_minus_2": -1.35
+        },
+        {
+          "year": 1989,
+          "n2_anomaly_1e_minus_7_s_minus_2": -1.33
+        },
+        {
+          "year": 1990,
+          "n2_anomaly_1e_minus_7_s_minus_2": 0.1
+        },
+        {
+          "year": 1991,
+          "n2_anomaly_1e_minus_7_s_minus_2": 0.51
+        },
+        {
+          "year": 1992,
+          "n2_anomaly_1e_minus_7_s_minus_2": -1.01
+        },
+        {
+          "year": 1993,
+          "n2_anomaly_1e_minus_7_s_minus_2": -0.78
+        },
+        {
+          "year": 1994,
+          "n2_anomaly_1e_minus_7_s_minus_2": -0.96
+        },
+        {
+          "year": 1995,
+          "n2_anomaly_1e_minus_7_s_minus_2": 1.04
+        },
+        {
+          "year": 1996,
+          "n2_anomaly_1e_minus_7_s_minus_2": 0.65
+        },
+        {
+          "year": 1997,
+          "n2_anomaly_1e_minus_7_s_minus_2": 2.22
+        },
+        {
+          "year": 1998,
+          "n2_anomaly_1e_minus_7_s_minus_2": 3.04
+        },
+        {
+          "year": 1999,
+          "n2_anomaly_1e_minus_7_s_minus_2": 0.34
+        },
+        {
+          "year": 2000,
+          "n2_anomaly_1e_minus_7_s_minus_2": 0.47
+        },
+        {
+          "year": 2001,
+          "n2_anomaly_1e_minus_7_s_minus_2": 1.37
+        },
+        {
+          "year": 2002,
+          "n2_anomaly_1e_minus_7_s_minus_2": 2.37
+        },
+        {
+          "year": 2003,
+          "n2_anomaly_1e_minus_7_s_minus_2": 2.55
+        },
+        {
+          "year": 2004,
+          "n2_anomaly_1e_minus_7_s_minus_2": 1.73
+        },
+        {
+          "year": 2005,
+          "n2_anomaly_1e_minus_7_s_minus_2": 1.53
+        },
+        {
+          "year": 2006,
+          "n2_anomaly_1e_minus_7_s_minus_2": 2.31
+        },
+        {
+          "year": 2007,
+          "n2_anomaly_1e_minus_7_s_minus_2": 0.9
+        },
+        {
+          "year": 2008,
+          "n2_anomaly_1e_minus_7_s_minus_2": 0.72
+        },
+        {
+          "year": 2009,
+          "n2_anomaly_1e_minus_7_s_minus_2": 2.36
+        },
+        {
+          "year": 2010,
+          "n2_anomaly_1e_minus_7_s_minus_2": 1.62
+        },
+        {
+          "year": 2011,
+          "n2_anomaly_1e_minus_7_s_minus_2": 0.58
+        },
+        {
+          "year": 2012,
+          "n2_anomaly_1e_minus_7_s_minus_2": 1.25
+        },
+        {
+          "year": 2013,
+          "n2_anomaly_1e_minus_7_s_minus_2": 1.98
+        },
+        {
+          "year": 2014,
+          "n2_anomaly_1e_minus_7_s_minus_2": 3.27
+        },
+        {
+          "year": 2015,
+          "n2_anomaly_1e_minus_7_s_minus_2": 5.14
+        },
+        {
+          "year": 2016,
+          "n2_anomaly_1e_minus_7_s_minus_2": 4.77
+        },
+        {
+          "year": 2017,
+          "n2_anomaly_1e_minus_7_s_minus_2": 4.03
+        },
+        {
+          "year": 2018,
+          "n2_anomaly_1e_minus_7_s_minus_2": 3.61
+        }
+      ]
+    },
+    "updated_review": {
+      "publication_year": 2025,
+      "observation_start_year": 1960,
+      "observation_end_year": 2024,
+      "upper_ocean_depth_layer_m": [
+        0,
+        200
+      ],
+      "absolute_increase_1e_minus_6_s_minus_2": 6.9,
+      "absolute_increase_uncertainty_1e_minus_6_s_minus_2": 1.5,
+      "increase_pct_per_decade": 1.1,
+      "increase_pct_per_decade_uncertainty": 0.2,
+      "full_depth_layer_m": [
+        0,
+        2000
+      ],
+      "full_depth_increase_pct_per_decade": 0.8,
+      "full_depth_increase_pct_per_decade_uncertainty": 0.1,
+      "dataset_count": 3,
+      "source_locator": "Nature Reviews Earth & Environment 2025, Table 1 and observed-changes text."
+    },
+    "geographic_scope": "Global ocean",
+    "global_extent_normalized": 1
+  },
+  "excluded_from_scoring": [
+    "future SSP projections",
+    "local or basin inference",
+    "0-200 m absolute increase mixed into the 0-2,000 m annual anomaly series",
+    "missing observations as zero"
+  ]
+}

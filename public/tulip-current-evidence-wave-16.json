@@ -1,0 +1,837 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_16_noaa_phase_neutral_climate_indices",
+  "generated_at": "2026-07-31T22:57:32.321Z",
+  "promoted_node_count": 9,
+  "receipts": [
+    {
+      "node_id": "pacific_decadal_oscillation",
+      "value": 7.8,
+      "band": "Critical",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025-08",
+      "components": {
+        "magnitude": 1,
+        "threshold": 1,
+        "momentum": 0,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_complete_month": "2025-08",
+          "latest_signed_monthly_index": -2.71,
+          "latest_absolute_monthly_intensity": 2.71,
+          "full_history_median_absolute_intensity": 0.82,
+          "complete_monthly_observations": 932,
+          "anchors": [
+            0,
+            0.51,
+            1.069,
+            1.6545
+          ],
+          "source_locator": "https://psl.noaa.gov/data/correlation/pdo.data"
+        },
+        "threshold": {
+          "latest_absolute_monthly_intensity": 2.71,
+          "threshold_basis": "historical_distribution_fallback",
+          "direction_review": "Absolute phase intensity is higher-is-worse; neither positive nor negative phase is assigned urgency solely from its sign.",
+          "anchors": [
+            0.82,
+            1.33,
+            1.889,
+            2.4745
+          ],
+          "source_locator": "https://psl.noaa.gov/data/correlation/pdo.data"
+        },
+        "momentum": {
+          "latest_month_over_month_absolute_intensity_change": -0.8,
+          "complete_monthly_change_observations": 931,
+          "anchors": [
+            -0.01,
+            0.365,
+            0.72,
+            1.1075
+          ],
+          "source_locator": "https://psl.noaa.gov/data/correlation/pdo.data"
+        },
+        "extent": {
+          "normalized_value": 1,
+          "definition": "The source-native index covers its full NOAA-defined spatial pattern or ocean-gradient domain; this is complete node-domain coverage and does not imply uniform worldwide impacts.",
+          "source_locator": "https://psl.noaa.gov/data/correlation/pdo.data"
+        },
+        "source_snapshot": {
+          "path": "public/noaa-climate-indices-snapshot.json",
+          "version": "2026-07-31T20:12:46.785Z",
+          "captured_at": "2026-07-31T20:12:46.785Z",
+          "index_name": "Pacific Decadal Oscillation index",
+          "source_frequency": "monthly",
+          "latest_source_records_in_month": 1,
+          "complete_month_history_start": "1948-01",
+          "complete_month_history_end": "2025-08"
+        }
+      },
+      "transformations": [
+        {
+          "type": "phase_neutral_intensity",
+          "formula": "Use the absolute source-native index value (published amplitude for ROMI/MJO) so both strong positive and strong negative phases represent intensity; retain the signed value as metadata."
+        },
+        {
+          "type": "complete_calendar_month_aggregation",
+          "formula": "For daily indices, average absolute daily values only for months containing every calendar day; exclude partial months. Source-monthly indices remain source-native."
+        },
+        {
+          "type": "historical_distribution_normalization",
+          "formula": "Map deviation from full-history median intensity, absolute intensity, and month-over-month intensity change through median / p75 / p90 / p97.5 anchors from complete monthly observations."
+        }
+      ],
+      "source_ids": [
+        "noaa_cpc_psl_climate_indices"
+      ],
+      "uncertainty": "Index construction, base period, spatial loading, input datasets, source revisions and provisional recent months affect comparison. The indices are dimensionless state descriptors rather than direct hazard magnitudes. Phase intensity does not by itself establish harmful downstream weather, exposure or loss; impacts depend on season, geography, persistence and interacting circulation states.",
+      "freshness": "NOAA source-native index through latest complete retained month 2025-08; snapshot captured 2026-07-31T20:12:46.785Z.",
+      "selection_reason": {
+        "selected_method_passed": "NOAA supplies 932 complete monthly observations of the exact node index. A reviewed phase-neutral direction resolves sign ambiguity, while magnitude, historical position, momentum and full node-domain coverage are all quantitative.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:8114e4ff"
+    },
+    {
+      "node_id": "pacific_north_american_pattern",
+      "value": 3.9,
+      "band": "Elevated",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2026-06",
+      "components": {
+        "magnitude": 0.281395,
+        "threshold": 0.281395,
+        "momentum": 0,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_complete_month": "2026-06",
+          "latest_signed_monthly_index": -0.150728,
+          "latest_absolute_monthly_intensity": 0.788498,
+          "full_history_median_absolute_intensity": 0.648934,
+          "complete_monthly_observations": 126,
+          "anchors": [
+            0,
+            0.163671,
+            0.324705,
+            0.485106
+          ],
+          "source_locator": "https://ftp.cpc.ncep.noaa.gov/cwlinks/norm.daily.pna.cdas.z500.19500101_current.csv"
+        },
+        "threshold": {
+          "latest_absolute_monthly_intensity": 0.788498,
+          "threshold_basis": "historical_distribution_fallback",
+          "direction_review": "Absolute phase intensity is higher-is-worse; neither positive nor negative phase is assigned urgency solely from its sign.",
+          "anchors": [
+            0.648934,
+            0.812605,
+            0.973639,
+            1.13404
+          ],
+          "source_locator": "https://ftp.cpc.ncep.noaa.gov/cwlinks/norm.daily.pna.cdas.z500.19500101_current.csv"
+        },
+        "momentum": {
+          "latest_month_over_month_absolute_intensity_change": 0.008667,
+          "complete_monthly_change_observations": 125,
+          "anchors": [
+            0.027049,
+            0.178153,
+            0.409723,
+            0.54813
+          ],
+          "source_locator": "https://ftp.cpc.ncep.noaa.gov/cwlinks/norm.daily.pna.cdas.z500.19500101_current.csv"
+        },
+        "extent": {
+          "normalized_value": 1,
+          "definition": "The source-native index covers its full NOAA-defined spatial pattern or ocean-gradient domain; this is complete node-domain coverage and does not imply uniform worldwide impacts.",
+          "source_locator": "https://ftp.cpc.ncep.noaa.gov/cwlinks/norm.daily.pna.cdas.z500.19500101_current.csv"
+        },
+        "source_snapshot": {
+          "path": "public/noaa-climate-indices-snapshot.json",
+          "version": "2026-07-31T20:12:46.785Z",
+          "captured_at": "2026-07-31T20:12:46.785Z",
+          "index_name": "Pacific-North American teleconnection index",
+          "source_frequency": "daily",
+          "latest_source_records_in_month": 30,
+          "complete_month_history_start": "2016-01",
+          "complete_month_history_end": "2026-06"
+        }
+      },
+      "transformations": [
+        {
+          "type": "phase_neutral_intensity",
+          "formula": "Use the absolute source-native index value (published amplitude for ROMI/MJO) so both strong positive and strong negative phases represent intensity; retain the signed value as metadata."
+        },
+        {
+          "type": "complete_calendar_month_aggregation",
+          "formula": "For daily indices, average absolute daily values only for months containing every calendar day; exclude partial months. Source-monthly indices remain source-native."
+        },
+        {
+          "type": "historical_distribution_normalization",
+          "formula": "Map deviation from full-history median intensity, absolute intensity, and month-over-month intensity change through median / p75 / p90 / p97.5 anchors from complete monthly observations."
+        }
+      ],
+      "source_ids": [
+        "noaa_cpc_psl_climate_indices"
+      ],
+      "uncertainty": "Index construction, base period, spatial loading, input datasets, source revisions and provisional recent months affect comparison. The indices are dimensionless state descriptors rather than direct hazard magnitudes. Phase intensity does not by itself establish harmful downstream weather, exposure or loss; impacts depend on season, geography, persistence and interacting circulation states.",
+      "freshness": "NOAA source-native index through latest complete retained month 2026-06; snapshot captured 2026-07-31T20:12:46.785Z.",
+      "selection_reason": {
+        "selected_method_passed": "NOAA supplies 126 complete monthly observations of the exact node index. A reviewed phase-neutral direction resolves sign ambiguity, while magnitude, historical position, momentum and full node-domain coverage are all quantitative.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:8dfd6241"
+    },
+    {
+      "node_id": "north_atlantic_oscillation",
+      "value": 5.4,
+      "band": "Rising",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2026-06",
+      "components": {
+        "magnitude": 0.281961,
+        "threshold": 0.281961,
+        "momentum": 0.662216,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_complete_month": "2026-06",
+          "latest_signed_monthly_index": 0.091036,
+          "latest_absolute_monthly_intensity": 0.768775,
+          "full_history_median_absolute_intensity": 0.681813,
+          "complete_monthly_observations": 126,
+          "anchors": [
+            0,
+            0.101778,
+            0.349149,
+            0.545084
+          ],
+          "source_locator": "https://ftp.cpc.ncep.noaa.gov/cwlinks/norm.daily.nao.cdas.z500.19500101_current.csv"
+        },
+        "threshold": {
+          "latest_absolute_monthly_intensity": 0.768775,
+          "threshold_basis": "historical_distribution_fallback",
+          "direction_review": "Absolute phase intensity is higher-is-worse; neither positive nor negative phase is assigned urgency solely from its sign.",
+          "anchors": [
+            0.681813,
+            0.783591,
+            1.030962,
+            1.226897
+          ],
+          "source_locator": "https://ftp.cpc.ncep.noaa.gov/cwlinks/norm.daily.nao.cdas.z500.19500101_current.csv"
+        },
+        "momentum": {
+          "latest_month_over_month_absolute_intensity_change": 0.447918,
+          "complete_monthly_change_observations": 125,
+          "anchors": [
+            0.015264,
+            0.200334,
+            0.453719,
+            0.60364
+          ],
+          "source_locator": "https://ftp.cpc.ncep.noaa.gov/cwlinks/norm.daily.nao.cdas.z500.19500101_current.csv"
+        },
+        "extent": {
+          "normalized_value": 1,
+          "definition": "The source-native index covers its full NOAA-defined spatial pattern or ocean-gradient domain; this is complete node-domain coverage and does not imply uniform worldwide impacts.",
+          "source_locator": "https://ftp.cpc.ncep.noaa.gov/cwlinks/norm.daily.nao.cdas.z500.19500101_current.csv"
+        },
+        "source_snapshot": {
+          "path": "public/noaa-climate-indices-snapshot.json",
+          "version": "2026-07-31T20:12:46.785Z",
+          "captured_at": "2026-07-31T20:12:46.785Z",
+          "index_name": "North Atlantic Oscillation index",
+          "source_frequency": "daily",
+          "latest_source_records_in_month": 30,
+          "complete_month_history_start": "2016-01",
+          "complete_month_history_end": "2026-06"
+        }
+      },
+      "transformations": [
+        {
+          "type": "phase_neutral_intensity",
+          "formula": "Use the absolute source-native index value (published amplitude for ROMI/MJO) so both strong positive and strong negative phases represent intensity; retain the signed value as metadata."
+        },
+        {
+          "type": "complete_calendar_month_aggregation",
+          "formula": "For daily indices, average absolute daily values only for months containing every calendar day; exclude partial months. Source-monthly indices remain source-native."
+        },
+        {
+          "type": "historical_distribution_normalization",
+          "formula": "Map deviation from full-history median intensity, absolute intensity, and month-over-month intensity change through median / p75 / p90 / p97.5 anchors from complete monthly observations."
+        }
+      ],
+      "source_ids": [
+        "noaa_cpc_psl_climate_indices"
+      ],
+      "uncertainty": "Index construction, base period, spatial loading, input datasets, source revisions and provisional recent months affect comparison. The indices are dimensionless state descriptors rather than direct hazard magnitudes. Phase intensity does not by itself establish harmful downstream weather, exposure or loss; impacts depend on season, geography, persistence and interacting circulation states.",
+      "freshness": "NOAA source-native index through latest complete retained month 2026-06; snapshot captured 2026-07-31T20:12:46.785Z.",
+      "selection_reason": {
+        "selected_method_passed": "NOAA supplies 126 complete monthly observations of the exact node index. A reviewed phase-neutral direction resolves sign ambiguity, while magnitude, historical position, momentum and full node-domain coverage are all quantitative.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:2e536b97"
+    },
+    {
+      "node_id": "arctic_oscillation",
+      "value": 2.3,
+      "band": "Low",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2026-06",
+      "components": {
+        "magnitude": 0,
+        "threshold": 0,
+        "momentum": 0,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_complete_month": "2026-06",
+          "latest_signed_monthly_index": 0.636529,
+          "latest_absolute_monthly_intensity": 0.718755,
+          "full_history_median_absolute_intensity": 0.939134,
+          "complete_monthly_observations": 126,
+          "anchors": [
+            0,
+            0.435496,
+            1.026289,
+            1.529322
+          ],
+          "source_locator": "https://ftp.cpc.ncep.noaa.gov/cwlinks/norm.daily.ao.cdas.z1000.19500101_current.csv"
+        },
+        "threshold": {
+          "latest_absolute_monthly_intensity": 0.718755,
+          "threshold_basis": "historical_distribution_fallback",
+          "direction_review": "Absolute phase intensity is higher-is-worse; neither positive nor negative phase is assigned urgency solely from its sign.",
+          "anchors": [
+            0.939134,
+            1.374629,
+            1.965423,
+            2.468456
+          ],
+          "source_locator": "https://ftp.cpc.ncep.noaa.gov/cwlinks/norm.daily.ao.cdas.z1000.19500101_current.csv"
+        },
+        "momentum": {
+          "latest_month_over_month_absolute_intensity_change": 0.048753,
+          "complete_monthly_change_observations": 125,
+          "anchors": [
+            0.069141,
+            0.305141,
+            0.713677,
+            1.016065
+          ],
+          "source_locator": "https://ftp.cpc.ncep.noaa.gov/cwlinks/norm.daily.ao.cdas.z1000.19500101_current.csv"
+        },
+        "extent": {
+          "normalized_value": 1,
+          "definition": "The source-native index covers its full NOAA-defined spatial pattern or ocean-gradient domain; this is complete node-domain coverage and does not imply uniform worldwide impacts.",
+          "source_locator": "https://ftp.cpc.ncep.noaa.gov/cwlinks/norm.daily.ao.cdas.z1000.19500101_current.csv"
+        },
+        "source_snapshot": {
+          "path": "public/noaa-climate-indices-snapshot.json",
+          "version": "2026-07-31T20:12:46.785Z",
+          "captured_at": "2026-07-31T20:12:46.785Z",
+          "index_name": "Arctic Oscillation index",
+          "source_frequency": "daily",
+          "latest_source_records_in_month": 30,
+          "complete_month_history_start": "2016-01",
+          "complete_month_history_end": "2026-06"
+        }
+      },
+      "transformations": [
+        {
+          "type": "phase_neutral_intensity",
+          "formula": "Use the absolute source-native index value (published amplitude for ROMI/MJO) so both strong positive and strong negative phases represent intensity; retain the signed value as metadata."
+        },
+        {
+          "type": "complete_calendar_month_aggregation",
+          "formula": "For daily indices, average absolute daily values only for months containing every calendar day; exclude partial months. Source-monthly indices remain source-native."
+        },
+        {
+          "type": "historical_distribution_normalization",
+          "formula": "Map deviation from full-history median intensity, absolute intensity, and month-over-month intensity change through median / p75 / p90 / p97.5 anchors from complete monthly observations."
+        }
+      ],
+      "source_ids": [
+        "noaa_cpc_psl_climate_indices"
+      ],
+      "uncertainty": "Index construction, base period, spatial loading, input datasets, source revisions and provisional recent months affect comparison. The indices are dimensionless state descriptors rather than direct hazard magnitudes. Phase intensity does not by itself establish harmful downstream weather, exposure or loss; impacts depend on season, geography, persistence and interacting circulation states.",
+      "freshness": "NOAA source-native index through latest complete retained month 2026-06; snapshot captured 2026-07-31T20:12:46.785Z.",
+      "selection_reason": {
+        "selected_method_passed": "NOAA supplies 126 complete monthly observations of the exact node index. A reviewed phase-neutral direction resolves sign ambiguity, while magnitude, historical position, momentum and full node-domain coverage are all quantitative.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:fcc185f9"
+    },
+    {
+      "node_id": "indian_ocean_dipole",
+      "value": 2.3,
+      "band": "Low",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2026-05",
+      "components": {
+        "magnitude": 0,
+        "threshold": 0,
+        "momentum": 0,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_complete_month": "2026-05",
+          "latest_signed_monthly_index": 0.146,
+          "latest_absolute_monthly_intensity": 0.146,
+          "full_history_median_absolute_intensity": 0.293,
+          "complete_monthly_observations": 1877,
+          "anchors": [
+            0,
+            0.184,
+            0.3798,
+            0.6241
+          ],
+          "source_locator": "https://psl.noaa.gov/data/timeseries/month/data/dmi.had.long.data"
+        },
+        "threshold": {
+          "latest_absolute_monthly_intensity": 0.146,
+          "threshold_basis": "historical_distribution_fallback",
+          "direction_review": "Absolute phase intensity is higher-is-worse; neither positive nor negative phase is assigned urgency solely from its sign.",
+          "anchors": [
+            0.293,
+            0.477,
+            0.6728,
+            0.9171
+          ],
+          "source_locator": "https://psl.noaa.gov/data/timeseries/month/data/dmi.had.long.data"
+        },
+        "momentum": {
+          "latest_month_over_month_absolute_intensity_change": -0.133,
+          "complete_monthly_change_observations": 1876,
+          "anchors": [
+            -0.006,
+            0.129,
+            0.2545,
+            0.432
+          ],
+          "source_locator": "https://psl.noaa.gov/data/timeseries/month/data/dmi.had.long.data"
+        },
+        "extent": {
+          "normalized_value": 1,
+          "definition": "The source-native index covers its full NOAA-defined spatial pattern or ocean-gradient domain; this is complete node-domain coverage and does not imply uniform worldwide impacts.",
+          "source_locator": "https://psl.noaa.gov/data/timeseries/month/data/dmi.had.long.data"
+        },
+        "source_snapshot": {
+          "path": "public/noaa-climate-indices-snapshot.json",
+          "version": "2026-07-31T20:12:46.785Z",
+          "captured_at": "2026-07-31T20:12:46.785Z",
+          "index_name": "Indian Ocean Dipole Mode Index",
+          "source_frequency": "monthly",
+          "latest_source_records_in_month": 1,
+          "complete_month_history_start": "1870-01",
+          "complete_month_history_end": "2026-05"
+        }
+      },
+      "transformations": [
+        {
+          "type": "phase_neutral_intensity",
+          "formula": "Use the absolute source-native index value (published amplitude for ROMI/MJO) so both strong positive and strong negative phases represent intensity; retain the signed value as metadata."
+        },
+        {
+          "type": "complete_calendar_month_aggregation",
+          "formula": "For daily indices, average absolute daily values only for months containing every calendar day; exclude partial months. Source-monthly indices remain source-native."
+        },
+        {
+          "type": "historical_distribution_normalization",
+          "formula": "Map deviation from full-history median intensity, absolute intensity, and month-over-month intensity change through median / p75 / p90 / p97.5 anchors from complete monthly observations."
+        }
+      ],
+      "source_ids": [
+        "noaa_cpc_psl_climate_indices"
+      ],
+      "uncertainty": "Index construction, base period, spatial loading, input datasets, source revisions and provisional recent months affect comparison. The indices are dimensionless state descriptors rather than direct hazard magnitudes. Phase intensity does not by itself establish harmful downstream weather, exposure or loss; impacts depend on season, geography, persistence and interacting circulation states.",
+      "freshness": "NOAA source-native index through latest complete retained month 2026-05; snapshot captured 2026-07-31T20:12:46.785Z.",
+      "selection_reason": {
+        "selected_method_passed": "NOAA supplies 1877 complete monthly observations of the exact node index. A reviewed phase-neutral direction resolves sign ambiguity, while magnitude, historical position, momentum and full node-domain coverage are all quantitative.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:9c189ffe"
+    },
+    {
+      "node_id": "madden_julian_oscillation",
+      "value": 2.3,
+      "band": "Low",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2026-06",
+      "components": {
+        "magnitude": 0,
+        "threshold": 0,
+        "momentum": 0,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_complete_month": "2026-06",
+          "latest_signed_monthly_index": 0.928386,
+          "latest_absolute_monthly_intensity": 0.928386,
+          "full_history_median_absolute_intensity": 1.01043,
+          "complete_monthly_observations": 126,
+          "anchors": [
+            0,
+            0.318238,
+            0.639205,
+            1.132341
+          ],
+          "source_locator": "https://psl.noaa.gov/mjo/mjoindex/romi.cpcolr.1x.txt"
+        },
+        "threshold": {
+          "latest_absolute_monthly_intensity": 0.928386,
+          "threshold_basis": "historical_distribution_fallback",
+          "direction_review": "Absolute phase intensity is higher-is-worse; neither positive nor negative phase is assigned urgency solely from its sign.",
+          "anchors": [
+            1.01043,
+            1.328668,
+            1.649635,
+            2.142771
+          ],
+          "source_locator": "https://psl.noaa.gov/mjo/mjoindex/romi.cpcolr.1x.txt"
+        },
+        "momentum": {
+          "latest_month_over_month_absolute_intensity_change": -0.614827,
+          "complete_monthly_change_observations": 125,
+          "anchors": [
+            -0.034024,
+            0.301151,
+            0.562744,
+            0.948379
+          ],
+          "source_locator": "https://psl.noaa.gov/mjo/mjoindex/romi.cpcolr.1x.txt"
+        },
+        "extent": {
+          "normalized_value": 1,
+          "definition": "The source-native index covers its full NOAA-defined spatial pattern or ocean-gradient domain; this is complete node-domain coverage and does not imply uniform worldwide impacts.",
+          "source_locator": "https://psl.noaa.gov/mjo/mjoindex/romi.cpcolr.1x.txt"
+        },
+        "source_snapshot": {
+          "path": "public/noaa-climate-indices-snapshot.json",
+          "version": "2026-07-31T20:12:46.785Z",
+          "captured_at": "2026-07-31T20:12:46.785Z",
+          "index_name": "NOAA PSL Real-time OLR Madden-Julian Oscillation Index",
+          "source_frequency": "daily",
+          "latest_source_records_in_month": 30,
+          "complete_month_history_start": "2016-01",
+          "complete_month_history_end": "2026-06"
+        }
+      },
+      "transformations": [
+        {
+          "type": "phase_neutral_intensity",
+          "formula": "Use the absolute source-native index value (published amplitude for ROMI/MJO) so both strong positive and strong negative phases represent intensity; retain the signed value as metadata."
+        },
+        {
+          "type": "complete_calendar_month_aggregation",
+          "formula": "For daily indices, average absolute daily values only for months containing every calendar day; exclude partial months. Source-monthly indices remain source-native."
+        },
+        {
+          "type": "historical_distribution_normalization",
+          "formula": "Map deviation from full-history median intensity, absolute intensity, and month-over-month intensity change through median / p75 / p90 / p97.5 anchors from complete monthly observations."
+        }
+      ],
+      "source_ids": [
+        "noaa_cpc_psl_climate_indices"
+      ],
+      "uncertainty": "Index construction, base period, spatial loading, input datasets, source revisions and provisional recent months affect comparison. The indices are dimensionless state descriptors rather than direct hazard magnitudes. Phase intensity does not by itself establish harmful downstream weather, exposure or loss; impacts depend on season, geography, persistence and interacting circulation states.",
+      "freshness": "NOAA source-native index through latest complete retained month 2026-06; snapshot captured 2026-07-31T20:12:46.785Z.",
+      "selection_reason": {
+        "selected_method_passed": "NOAA supplies 126 complete monthly observations of the exact node index. A reviewed phase-neutral direction resolves sign ambiguity, while magnitude, historical position, momentum and full node-domain coverage are all quantitative.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:3910c597"
+    },
+    {
+      "node_id": "southern_annular_mode",
+      "value": 10,
+      "band": "Critical",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2026-06",
+      "components": {
+        "magnitude": 1,
+        "threshold": 1,
+        "momentum": 1,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_complete_month": "2026-06",
+          "latest_signed_monthly_index": 2.506,
+          "latest_absolute_monthly_intensity": 2.506,
+          "full_history_median_absolute_intensity": 0.6805,
+          "complete_monthly_observations": 570,
+          "anchors": [
+            0,
+            0.4695,
+            0.909,
+            1.473375
+          ],
+          "source_locator": "https://psl.noaa.gov/data/correlation/aao.csv"
+        },
+        "threshold": {
+          "latest_absolute_monthly_intensity": 2.506,
+          "threshold_basis": "historical_distribution_fallback",
+          "direction_review": "Absolute phase intensity is higher-is-worse; neither positive nor negative phase is assigned urgency solely from its sign.",
+          "anchors": [
+            0.6805,
+            1.15,
+            1.5895,
+            2.153875
+          ],
+          "source_locator": "https://psl.noaa.gov/data/correlation/aao.csv"
+        },
+        "momentum": {
+          "latest_month_over_month_absolute_intensity_change": 1.962,
+          "complete_monthly_change_observations": 569,
+          "anchors": [
+            -0.017,
+            0.527,
+            1.0266,
+            1.591
+          ],
+          "source_locator": "https://psl.noaa.gov/data/correlation/aao.csv"
+        },
+        "extent": {
+          "normalized_value": 1,
+          "definition": "The source-native index covers its full NOAA-defined spatial pattern or ocean-gradient domain; this is complete node-domain coverage and does not imply uniform worldwide impacts.",
+          "source_locator": "https://psl.noaa.gov/data/correlation/aao.csv"
+        },
+        "source_snapshot": {
+          "path": "public/noaa-climate-indices-snapshot.json",
+          "version": "2026-07-31T20:12:46.785Z",
+          "captured_at": "2026-07-31T20:12:46.785Z",
+          "index_name": "Southern Annular Mode / Antarctic Oscillation index",
+          "source_frequency": "monthly",
+          "latest_source_records_in_month": 1,
+          "complete_month_history_start": "1979-01",
+          "complete_month_history_end": "2026-06"
+        }
+      },
+      "transformations": [
+        {
+          "type": "phase_neutral_intensity",
+          "formula": "Use the absolute source-native index value (published amplitude for ROMI/MJO) so both strong positive and strong negative phases represent intensity; retain the signed value as metadata."
+        },
+        {
+          "type": "complete_calendar_month_aggregation",
+          "formula": "For daily indices, average absolute daily values only for months containing every calendar day; exclude partial months. Source-monthly indices remain source-native."
+        },
+        {
+          "type": "historical_distribution_normalization",
+          "formula": "Map deviation from full-history median intensity, absolute intensity, and month-over-month intensity change through median / p75 / p90 / p97.5 anchors from complete monthly observations."
+        }
+      ],
+      "source_ids": [
+        "noaa_cpc_psl_climate_indices"
+      ],
+      "uncertainty": "Index construction, base period, spatial loading, input datasets, source revisions and provisional recent months affect comparison. The indices are dimensionless state descriptors rather than direct hazard magnitudes. Phase intensity does not by itself establish harmful downstream weather, exposure or loss; impacts depend on season, geography, persistence and interacting circulation states.",
+      "freshness": "NOAA source-native index through latest complete retained month 2026-06; snapshot captured 2026-07-31T20:12:46.785Z.",
+      "selection_reason": {
+        "selected_method_passed": "NOAA supplies 570 complete monthly observations of the exact node index. A reviewed phase-neutral direction resolves sign ambiguity, while magnitude, historical position, momentum and full node-domain coverage are all quantitative.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:504d0bca"
+    },
+    {
+      "node_id": "quasi_biennial_oscillation",
+      "value": 6.7,
+      "band": "Rising",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2026-02",
+      "components": {
+        "magnitude": 0.809622,
+        "threshold": 0.809622,
+        "momentum": 0,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_complete_month": "2026-02",
+          "latest_signed_monthly_index": -23.13,
+          "latest_absolute_monthly_intensity": 23.13,
+          "full_history_median_absolute_intensity": 9.745,
+          "complete_monthly_observations": 938,
+          "anchors": [
+            0,
+            4.575,
+            11.306,
+            16.21975
+          ],
+          "source_locator": "https://psl.noaa.gov/data/correlation/qbo.csv"
+        },
+        "threshold": {
+          "latest_absolute_monthly_intensity": 23.13,
+          "threshold_basis": "historical_distribution_fallback",
+          "direction_review": "Absolute phase intensity is higher-is-worse; neither positive nor negative phase is assigned urgency solely from its sign.",
+          "anchors": [
+            9.745,
+            14.32,
+            21.051,
+            25.96475
+          ],
+          "source_locator": "https://psl.noaa.gov/data/correlation/qbo.csv"
+        },
+        "momentum": {
+          "latest_month_over_month_absolute_intensity_change": -2.38,
+          "complete_monthly_change_observations": 937,
+          "anchors": [
+            0.41,
+            1.92,
+            3.824,
+            5.83
+          ],
+          "source_locator": "https://psl.noaa.gov/data/correlation/qbo.csv"
+        },
+        "extent": {
+          "normalized_value": 1,
+          "definition": "The source-native index covers its full NOAA-defined spatial pattern or ocean-gradient domain; this is complete node-domain coverage and does not imply uniform worldwide impacts.",
+          "source_locator": "https://psl.noaa.gov/data/correlation/qbo.csv"
+        },
+        "source_snapshot": {
+          "path": "public/noaa-climate-indices-snapshot.json",
+          "version": "2026-07-31T20:12:46.785Z",
+          "captured_at": "2026-07-31T20:12:46.785Z",
+          "index_name": "Quasi-Biennial Oscillation 30 hPa equatorial zonal wind",
+          "source_frequency": "monthly",
+          "latest_source_records_in_month": 1,
+          "complete_month_history_start": "1948-01",
+          "complete_month_history_end": "2026-02"
+        }
+      },
+      "transformations": [
+        {
+          "type": "phase_neutral_intensity",
+          "formula": "Use the absolute source-native index value (published amplitude for ROMI/MJO) so both strong positive and strong negative phases represent intensity; retain the signed value as metadata."
+        },
+        {
+          "type": "complete_calendar_month_aggregation",
+          "formula": "For daily indices, average absolute daily values only for months containing every calendar day; exclude partial months. Source-monthly indices remain source-native."
+        },
+        {
+          "type": "historical_distribution_normalization",
+          "formula": "Map deviation from full-history median intensity, absolute intensity, and month-over-month intensity change through median / p75 / p90 / p97.5 anchors from complete monthly observations."
+        }
+      ],
+      "source_ids": [
+        "noaa_cpc_psl_climate_indices"
+      ],
+      "uncertainty": "Index construction, base period, spatial loading, input datasets, source revisions and provisional recent months affect comparison. The indices are dimensionless state descriptors rather than direct hazard magnitudes. Phase intensity does not by itself establish harmful downstream weather, exposure or loss; impacts depend on season, geography, persistence and interacting circulation states.",
+      "freshness": "NOAA source-native index through latest complete retained month 2026-02; snapshot captured 2026-07-31T20:12:46.785Z.",
+      "selection_reason": {
+        "selected_method_passed": "NOAA supplies 938 complete monthly observations of the exact node index. A reviewed phase-neutral direction resolves sign ambiguity, while magnitude, historical position, momentum and full node-domain coverage are all quantitative.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:4e88846a"
+    },
+    {
+      "node_id": "atlantic_multidecadal_oscillation",
+      "value": 6.3,
+      "band": "Rising",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2026-06",
+      "components": {
+        "magnitude": 0.729259,
+        "threshold": 0.729259,
+        "momentum": 0,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_complete_month": "2026-06",
+          "latest_signed_monthly_index": 0.67,
+          "latest_absolute_monthly_intensity": 0.67,
+          "full_history_median_absolute_intensity": 0.23,
+          "complete_monthly_observations": 2070,
+          "anchors": [
+            0,
+            0.19,
+            0.4,
+            0.62275
+          ],
+          "source_locator": "https://www.ncei.noaa.gov/pub/data/cmb/ersst/v5/index/ersst.v5.amo.dat"
+        },
+        "threshold": {
+          "latest_absolute_monthly_intensity": 0.67,
+          "threshold_basis": "historical_distribution_fallback",
+          "direction_review": "Absolute phase intensity is higher-is-worse; neither positive nor negative phase is assigned urgency solely from its sign.",
+          "anchors": [
+            0.23,
+            0.42,
+            0.63,
+            0.85275
+          ],
+          "source_locator": "https://www.ncei.noaa.gov/pub/data/cmb/ersst/v5/index/ersst.v5.amo.dat"
+        },
+        "momentum": {
+          "latest_month_over_month_absolute_intensity_change": -0.03,
+          "complete_monthly_change_observations": 2069,
+          "anchors": [
+            0,
+            0.07,
+            0.13,
+            0.22
+          ],
+          "source_locator": "https://www.ncei.noaa.gov/pub/data/cmb/ersst/v5/index/ersst.v5.amo.dat"
+        },
+        "extent": {
+          "normalized_value": 1,
+          "definition": "The source-native index covers its full NOAA-defined spatial pattern or ocean-gradient domain; this is complete node-domain coverage and does not imply uniform worldwide impacts.",
+          "source_locator": "https://www.ncei.noaa.gov/pub/data/cmb/ersst/v5/index/ersst.v5.amo.dat"
+        },
+        "source_snapshot": {
+          "path": "public/noaa-climate-indices-snapshot.json",
+          "version": "2026-07-31T20:12:46.785Z",
+          "captured_at": "2026-07-31T20:12:46.785Z",
+          "index_name": "Atlantic Multidecadal Oscillation / Variability index",
+          "source_frequency": "monthly",
+          "latest_source_records_in_month": 1,
+          "complete_month_history_start": "1854-01",
+          "complete_month_history_end": "2026-06"
+        }
+      },
+      "transformations": [
+        {
+          "type": "phase_neutral_intensity",
+          "formula": "Use the absolute source-native index value (published amplitude for ROMI/MJO) so both strong positive and strong negative phases represent intensity; retain the signed value as metadata."
+        },
+        {
+          "type": "complete_calendar_month_aggregation",
+          "formula": "For daily indices, average absolute daily values only for months containing every calendar day; exclude partial months. Source-monthly indices remain source-native."
+        },
+        {
+          "type": "historical_distribution_normalization",
+          "formula": "Map deviation from full-history median intensity, absolute intensity, and month-over-month intensity change through median / p75 / p90 / p97.5 anchors from complete monthly observations."
+        }
+      ],
+      "source_ids": [
+        "noaa_cpc_psl_climate_indices"
+      ],
+      "uncertainty": "Index construction, base period, spatial loading, input datasets, source revisions and provisional recent months affect comparison. The indices are dimensionless state descriptors rather than direct hazard magnitudes. Phase intensity does not by itself establish harmful downstream weather, exposure or loss; impacts depend on season, geography, persistence and interacting circulation states.",
+      "freshness": "NOAA source-native index through latest complete retained month 2026-06; snapshot captured 2026-07-31T20:12:46.785Z.",
+      "selection_reason": {
+        "selected_method_passed": "NOAA supplies 2070 complete monthly observations of the exact node index. A reviewed phase-neutral direction resolves sign ambiguity, while magnitude, historical position, momentum and full node-domain coverage are all quantitative.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:1a4be7e8"
+    }
+  ]
+}

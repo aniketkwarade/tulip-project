@@ -1,0 +1,272 @@
+{
+  "version": "ceds_v2024_04_01_global_coal_power_so2_v1",
+  "captured_at": "2026-08-01T00:00:00.000Z",
+  "metric_contract_ids": [
+    "coal_egu_so2_emission"
+  ],
+  "record_count": 53,
+  "source": {
+    "id": "ceds_v2024_04_01_release_emission_data",
+    "name": "CEDS v_2024_04_01 Release Emission Data",
+    "publisher": "Community Emissions Data System",
+    "url": "https://zenodo.org/records/10904361",
+    "doi": "10.5281/zenodo.10904361",
+    "release_date": "2024-04-01",
+    "archive_file": "CEDS_v_2024_04_01_aggregate.zip",
+    "archive_size_bytes": 44395566,
+    "archive_md5": "636752881e915244bb96b4793d9fb121",
+    "archive_sha256": "913237080a65c9166a0270b9765bb1489701c125aebe0f512f0da2634098d04e",
+    "member_file": "SO2_CEDS_global_emissions_by_sector_fuel_v2024_04_01.csv",
+    "member_sha256": "0ac20318c62d7136dcd6b197247412fc8534524fd9f289a2ae2e98aa392a062a"
+  },
+  "metric_contract": {
+    "metric_id": "coal_egu_so2_emission",
+    "metric_name": "Coal EGU sulfur-dioxide emission",
+    "unit": "kilotonnes SO2 per year",
+    "geography": "CEDS source-native global aggregate",
+    "cadence": "annual",
+    "direction": "higher_is_worse",
+    "aggregation": "Sum CEDS global SO2 rows for public and autoproducer electricity and brown coal, hard coal, and coal coke.",
+    "included_sectors": [
+      "1A1a_Electricity-autoproducer",
+      "1A1a_Electricity-public"
+    ],
+    "included_fuels": [
+      "brown_coal",
+      "coal_coke",
+      "hard_coal"
+    ],
+    "exclusions": [
+      "1A1a_Heat-production",
+      "biomass",
+      "diesel_oil",
+      "heavy_oil",
+      "light_oil",
+      "natural_gas",
+      "all non-electricity sectors"
+    ]
+  },
+  "observations": [
+    {
+      "year": 1970,
+      "coal_power_so2_kt": 24395.183348
+    },
+    {
+      "year": 1971,
+      "coal_power_so2_kt": 23655.760139
+    },
+    {
+      "year": 1972,
+      "coal_power_so2_kt": 24048.428448
+    },
+    {
+      "year": 1973,
+      "coal_power_so2_kt": 25899.471198
+    },
+    {
+      "year": 1974,
+      "coal_power_so2_kt": 25661.677877
+    },
+    {
+      "year": 1975,
+      "coal_power_so2_kt": 26327.551658
+    },
+    {
+      "year": 1976,
+      "coal_power_so2_kt": 27882.10856
+    },
+    {
+      "year": 1977,
+      "coal_power_so2_kt": 28296.991228
+    },
+    {
+      "year": 1978,
+      "coal_power_so2_kt": 27610.705165
+    },
+    {
+      "year": 1979,
+      "coal_power_so2_kt": 29066.971483
+    },
+    {
+      "year": 1980,
+      "coal_power_so2_kt": 30102.323021
+    },
+    {
+      "year": 1981,
+      "coal_power_so2_kt": 29488.259475
+    },
+    {
+      "year": 1982,
+      "coal_power_so2_kt": 29670.570869
+    },
+    {
+      "year": 1983,
+      "coal_power_so2_kt": 29984.000395
+    },
+    {
+      "year": 1984,
+      "coal_power_so2_kt": 30471.53008
+    },
+    {
+      "year": 1985,
+      "coal_power_so2_kt": 32136.448659
+    },
+    {
+      "year": 1986,
+      "coal_power_so2_kt": 32069.175304
+    },
+    {
+      "year": 1987,
+      "coal_power_so2_kt": 33004.142414
+    },
+    {
+      "year": 1988,
+      "coal_power_so2_kt": 32851.568102
+    },
+    {
+      "year": 1989,
+      "coal_power_so2_kt": 33859.178342
+    },
+    {
+      "year": 1990,
+      "coal_power_so2_kt": 36408.31645
+    },
+    {
+      "year": 1991,
+      "coal_power_so2_kt": 36190.406979
+    },
+    {
+      "year": 1992,
+      "coal_power_so2_kt": 36039.923332
+    },
+    {
+      "year": 1993,
+      "coal_power_so2_kt": 35955.805611
+    },
+    {
+      "year": 1994,
+      "coal_power_so2_kt": 36009.513065
+    },
+    {
+      "year": 1995,
+      "coal_power_so2_kt": 34013.643641
+    },
+    {
+      "year": 1996,
+      "coal_power_so2_kt": 35088.544645
+    },
+    {
+      "year": 1997,
+      "coal_power_so2_kt": 34883.59556
+    },
+    {
+      "year": 1998,
+      "coal_power_so2_kt": 33900.100141
+    },
+    {
+      "year": 1999,
+      "coal_power_so2_kt": 31870.589815
+    },
+    {
+      "year": 2000,
+      "coal_power_so2_kt": 31828.879109
+    },
+    {
+      "year": 2001,
+      "coal_power_so2_kt": 31690.374555
+    },
+    {
+      "year": 2002,
+      "coal_power_so2_kt": 32781.693021
+    },
+    {
+      "year": 2003,
+      "coal_power_so2_kt": 35199.681507
+    },
+    {
+      "year": 2004,
+      "coal_power_so2_kt": 36009.791101
+    },
+    {
+      "year": 2005,
+      "coal_power_so2_kt": 30301.715059
+    },
+    {
+      "year": 2006,
+      "coal_power_so2_kt": 30678.121861
+    },
+    {
+      "year": 2007,
+      "coal_power_so2_kt": 30766.695763
+    },
+    {
+      "year": 2008,
+      "coal_power_so2_kt": 28190.107333
+    },
+    {
+      "year": 2009,
+      "coal_power_so2_kt": 25117.819312
+    },
+    {
+      "year": 2010,
+      "coal_power_so2_kt": 23051.525207
+    },
+    {
+      "year": 2011,
+      "coal_power_so2_kt": 23859.446268
+    },
+    {
+      "year": 2012,
+      "coal_power_so2_kt": 22747.537295
+    },
+    {
+      "year": 2013,
+      "coal_power_so2_kt": 22251.930632
+    },
+    {
+      "year": 2014,
+      "coal_power_so2_kt": 22876.462698
+    },
+    {
+      "year": 2015,
+      "coal_power_so2_kt": 21448.858936
+    },
+    {
+      "year": 2016,
+      "coal_power_so2_kt": 20433.588004
+    },
+    {
+      "year": 2017,
+      "coal_power_so2_kt": 20229.416978
+    },
+    {
+      "year": 2018,
+      "coal_power_so2_kt": 21186.797789
+    },
+    {
+      "year": 2019,
+      "coal_power_so2_kt": 21410.239583
+    },
+    {
+      "year": 2020,
+      "coal_power_so2_kt": 19684.848255
+    },
+    {
+      "year": 2021,
+      "coal_power_so2_kt": 20757.260729
+    },
+    {
+      "year": 2022,
+      "coal_power_so2_kt": 20966.150656
+    }
+  ],
+  "validation": {
+    "expected_complete_annual_observations": 53,
+    "first_year": 1970,
+    "last_year": 2022,
+    "missing_years": [],
+    "source_units": "ktSO2",
+    "latest_value_reconciles_to_selected_rows": true
+  },
+  "uncertainty": "CEDS is an inventory estimate assembled from activity data, emission factors and scaling inventories rather than a direct global monitor. Fuel and sector assignments, historical revisions and national input quality affect values. The latest release observation is 2022; it is the newest complete year in this source, not a 2026 nowcast. Electricity heat production and non-coal fuels are deliberately excluded, and missing values are never converted to zero."
+}

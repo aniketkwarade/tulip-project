@@ -1,0 +1,107 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_6_unep_cooling_equity",
+  "generated_at": "2026-07-31T22:57:23.067Z",
+  "source_snapshot": "public/unep-cooling-equity-impact-snapshot.json",
+  "source_id": "unep_global_cooling_watch_2025",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "cooling_equity_gaps",
+      "value": 6.7,
+      "band": "Rising",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "biophysical_burden": 0.67825,
+        "human_economic_burden": 0.67,
+        "persistence": 0.198,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "current_cooling_emissions_gt_co2e": 4.1,
+          "current_cooling_capacity_tw": 22,
+          "anchors_gt_co2e": [
+            0,
+            2,
+            4,
+            8
+          ]
+        },
+        "human_economic_burden": {
+          "people_lacking_adequate_cooling_lower_bound_billion": 1,
+          "anchors_billion_people": [
+            0,
+            0.5,
+            1,
+            2
+          ],
+          "boundary": "Lower-bound current access gap; projected 2050 access needs and heat deaths are excluded from scoring."
+        },
+        "persistence": {
+          "assessment_baseline_year": 2022,
+          "report_year": 2025,
+          "assessed_persistence_years": 3,
+          "anchors_years": [
+            0,
+            5,
+            10,
+            20
+          ],
+          "boundary": "Duration between the source baseline and report assessment, not a reconstructed annual history."
+        },
+        "extent": {
+          "normalized_value": 1,
+          "geography_boundary": "Global assessment of cooling access, capacity and sector emissions",
+          "countries_referencing_cooling_in_climate_or_energy_plans_context_only": 134,
+          "signatory_share_global_cooling_emissions_pct_context_only": 80
+        },
+        "excluded_projections": {
+          "business_as_usual_2050_capacity_tw": 68,
+          "business_as_usual_2050_emissions_gt_co2e": 7.2,
+          "people_needing_access_by_2050_billion": 3
+        },
+        "source_snapshot": {
+          "path": "public/unep-cooling-equity-impact-snapshot.json",
+          "version": "unep_global_cooling_watch_2025_equity_snapshot_v1",
+          "captured_at": "2026-07-31T22:05:44.851Z",
+          "source_locators": [
+            "UNEP Global Cooling Watch 2025 report page",
+            "UNEP official report findings story",
+            "UNEP official COP30 press release"
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "conservative_fixed_assessment_ranges",
+          "formula": "Normalize current source-reported cooling emissions and the lower-bound access gap through named fixed ranges; future projections remain unscored metadata."
+        },
+        {
+          "type": "assessment_period_persistence",
+          "formula": "2025 report year minus 2022 source baseline year; do not fabricate intervening annual observations."
+        },
+        {
+          "type": "global_assessment_extent",
+          "formula": "The retained current access-gap and cooling-sector estimates are explicitly global."
+        }
+      ],
+      "source_ids": [
+        "unep_global_cooling_watch_2025"
+      ],
+      "uncertainty": "Cooling-access definitions combine mechanical, passive and service-quality dimensions and vary by assessment. Current emissions are modeled sector estimates. The report does not attribute all heat deaths to absent cooling, provide a country-level access denominator, or supply an annual observation series.",
+      "freshness": "UNEP Global Cooling Watch 2025 assessment against its 2022 baseline; snapshot captured 2026-07-31T22:05:44.851Z.",
+      "selection_reason": {
+        "selected_method_passed": "UNEP quantifies the current global cooling access gap, current sector capacity and emissions, a named baseline period, and global assessment extent.",
+        "higher_priority_failures": [
+          "The report does not provide at least 20 complete annual or 60 monthly global observations.",
+          "Projected 2050 outcomes cannot supply current magnitude, threshold position or recent momentum."
+        ]
+      },
+      "input_hash": "fnv1a32:9654a6f3"
+    }
+  ]
+}

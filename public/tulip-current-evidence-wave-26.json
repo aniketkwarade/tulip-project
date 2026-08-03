@@ -1,0 +1,112 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_26_unep_adaptation_finance_gap",
+  "generated_at": "2026-07-31T22:57:35.080Z",
+  "source_snapshot": "public/unep-adaptation-finance-gap-snapshot.json",
+  "source_id": "unep_adaptation_gap_report_2025",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "adaptation_capital_shortfall",
+      "value": 9.6,
+      "band": "Critical",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2023",
+      "components": {
+        "magnitude": 1,
+        "threshold": 0.996374,
+        "momentum": 0.811429,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "observed_international_public_flow_billion_2023_usd": 26,
+          "modelled_2035_need_billion_2023_usd": 310,
+          "lower_finance_gap_billion_2023_usd": 284,
+          "lower_gap_share": 0.916129,
+          "anchors_share": [
+            0,
+            0.33,
+            0.67,
+            0.9
+          ],
+          "boundary": "Observed 2023 international public flow compared with UNEP modelled 2035 annual need; domestic and private finance excluded."
+        },
+        "threshold": {
+          "lower_need_to_current_flow_multiple": 11.923077,
+          "source_reported_range_times_current_flow": [
+            12,
+            14
+          ],
+          "anchors_multiple": [
+            1,
+            2,
+            5,
+            12
+          ],
+          "target_status": "UNEP states the Glasgow Climate Pact doubling goal will not be achieved if current trends continue"
+        },
+        "momentum": {
+          "current_flow_billion_2023_usd": 26,
+          "previous_flow_billion_2023_usd": 28,
+          "current_year": 2023,
+          "previous_year": 2022,
+          "observed_flow_change_pct": -7.142857,
+          "decline_magnitude_pct": 7.142857,
+          "anchors_decline_pct": [
+            0,
+            2.5,
+            5,
+            10
+          ]
+        },
+        "extent": {
+          "geography": "developing countries, aggregate assessment boundary",
+          "normalized_value": 1,
+          "boundary": "Aggregate developing-country assessment, not uniform country-level availability or total global adaptation spending."
+        },
+        "source_snapshot": {
+          "path": "public/unep-adaptation-finance-gap-snapshot.json",
+          "version": "unep_adaptation_gap_report_2025_finance_v1",
+          "captured_at": "2026-07-31T18:21:35.195Z",
+          "source_locator": {
+            "report_page_url": "https://www.unep.org/resources/adaptation-gap-report-2025",
+            "press_release_url": "https://www.unep.org/news-and-stories/press-release/slow-climate-adaptation-threatening-lives-and-economies",
+            "locator": "What is new in this report and press-release section A worrying gap",
+            "source_reported_gap_range": "US$284-339 billion per year",
+            "source_reported_flow_comparison": "US$26 billion in 2023, down from US$28 billion in 2022",
+            "source_reported_need_multiple": "adaptation finance needs are 12-14 times current international public flows",
+            "target_status": "UNEP states the Glasgow Climate Pact doubling goal will not be achieved if current trends continue",
+            "derivation_check": "310 - 26 = 284; 365 - 26 = 339, all in billion 2023 USD per year"
+          }
+        }
+      },
+      "transformations": [
+        {
+          "type": "observed_flow_to_assessed_need_gap",
+          "formula": "Divide the lower source-reported finance gap by the lower modelled annual need, retaining observation year, need horizon and price year."
+        },
+        {
+          "type": "need_multiple_threshold_position",
+          "formula": "Divide the lower assessed need by observed international public flow and normalize against fixed versioned multiples; this is an assessed financing threshold, not a statistical percentile."
+        },
+        {
+          "type": "observed_flow_momentum",
+          "formula": "Calculate the absolute percentage decline from source-reported 2022 to 2023 international public adaptation-finance flow."
+        }
+      ],
+      "source_ids": [
+        "unep_adaptation_gap_report_2025"
+      ],
+      "uncertainty": "Methodological range between modelled adaptation costs and extrapolated NDC/NAP needs; not a statistical confidence interval. Current international public flows exclude domestic public and private adaptation spending; the need horizon is 2035 while the flow observation is 2023.",
+      "freshness": "UNEP Adaptation Gap Report 2025 using 2023 finance flow; snapshot captured 2026-07-31T18:21:35.195Z.",
+      "selection_reason": {
+        "selected_method_passed": "UNEP supplies an observed current international public flow, a directly matched assessed need range, observed year-over-year momentum, target status and an aggregate developing-country scope; all current-data component weight is populated.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:7d4dd9f1"
+    }
+  ]
+}

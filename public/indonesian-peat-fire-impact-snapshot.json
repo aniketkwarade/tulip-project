@@ -1,0 +1,46 @@
+{
+  "version": "indonesian_peat_fire_impact_2019_v1",
+  "captured_at": "2026-08-01T00:00:00.000Z",
+  "sources": [
+    {
+      "id": "wooster_indonesian_peat_fire_air_quality_health_2024",
+      "name": "Catastrophic impact of extreme 2019 Indonesian peatland fires on urban air quality and health",
+      "publisher": "Communications Earth & Environment",
+      "url": "https://www.nature.com/articles/s43247-024-01813-w",
+      "doi": "10.1038/s43247-024-01813-w"
+    }
+  ],
+  "assessment": {
+    "observed_air_quality": {
+      "event_year": 2019,
+      "sensor_deployment_start": "2019-08-20",
+      "sensor_deployment_end": "2019-10-24",
+      "sensor_count": 10,
+      "city": "Palangka Raya",
+      "mean_pm25_ug_m3": 137,
+      "contemporaneous_who_24h_guideline_ug_m3": 25,
+      "guideline_exceedance_ratio": 5.48,
+      "current_who_24h_guideline_ug_m3_context_only": 15
+    },
+    "assessed_health_burden": {
+      "landscape_fire_attributable_deaths_palangka_raya_region": 1200,
+      "landscape_fire_attributable_deaths_central_kalimantan": 3276,
+      "landscape_fire_attributable_deaths_sumatra_and_kalimantan": 51377,
+      "population_sumatra_and_kalimantan": 74700000,
+      "nationwide_estimate_lower_bound": 87000,
+      "scoring_boundary": "Use the directly reported Sumatra-and-Kalimantan estimate; retain the broader nationwide estimate only as context."
+    },
+    "recurrence_and_extent": {
+      "cams_record_start_year": 2003,
+      "cams_record_end_year": 2019,
+      "years_with_recurrent_fire_pm25_exposure_share_pct": 70,
+      "directly_assessed_country": "Indonesia",
+      "documented_downwind_countries": [
+        "Malaysia",
+        "Singapore"
+      ],
+      "documented_affected_country_count": 3
+    }
+  },
+  "uncertainty": "The ground sensor network directly measures one severe urban peat-fire episode. Broader mortality is estimated from CAMS reanalysis, population, mortality and concentration-response functions rather than counted deaths. The authors describe landscape-fire PM2.5, while also documenting that the vast majority of the relevant burning is tropical peatland burning. Results are bounded to Indonesia, with documented downwind effects in Malaysia and Singapore, and are not extrapolated globally."
+}

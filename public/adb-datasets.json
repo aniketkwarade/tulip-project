@@ -1,0 +1,116 @@
+[
+  {
+    "id": "clean_energy_program",
+    "name": "Clean Energy Program",
+    "description": "ADB's umbrella initiative to accelerate low-carbon energy transition across Asia and the Pacific. Focuses on scaling renewable energy capacity, enhancing energy grid efficiency, and phasing out fossil fuels.",
+    "target": "Deploy 15 GW of new renewable energy capacity by 2030, reducing carbon emissions across partner countries.",
+    "keywords": [
+      "energy",
+      "coal",
+      "power",
+      "electricity",
+      "heating",
+      "renewable",
+      "solar",
+      "wind",
+      "geothermal"
+    ],
+    "funding_allocated": "$2.5 Billion / year",
+    "link": "https://www.adb.org/sectors/energy/main"
+  },
+  {
+    "id": "climate_change_program",
+    "name": "Climate Change Operational Framework 2030",
+    "description": "The guiding policy framework directing all ADB projects to align with international climate actions under the Paris Agreement. Facilitates sovereign and private investments in mitigation and adaptation.",
+    "target": "Provide $100 Billion in cumulative climate finance from ADB's own resources by 2030.",
+    "keywords": [
+      "carbon",
+      "emission",
+      "methane",
+      "greenhouse",
+      "climate",
+      "co2",
+      "deforestation"
+    ],
+    "funding_allocated": "$12.3 Billion committed in 2024",
+    "link": "https://www.adb.org/what-we-do/topics/climate-change"
+  },
+  {
+    "id": "water_financing_program",
+    "name": "Water Financing Program",
+    "description": "ADB's strategic initiative to address the regional water crisis. Promotes sustainable freshwater management, wastewater treatment, river basin protection, and irrigation efficiency.",
+    "target": "Provide safe water access and sanitation to 340 million people, and modern irrigation to 10 million hectares of farmland.",
+    "keywords": [
+      "aquifer",
+      "irrigation",
+      "freshwater",
+      "water",
+      "river",
+      "streamflow",
+      "ocean",
+      "ph",
+      "acidification"
+    ],
+    "funding_allocated": "$2.0 Billion / year",
+    "link": "https://www.adb.org/sectors/water/main"
+  },
+  {
+    "id": "sustainable_agriculture_food",
+    "name": "Sustainable Agriculture and Food Security Program",
+    "description": "Focuses on climate-resilient farming, food supply chain decarbonization, reduction of methane emissions from rice cultivation, and soil nutrient management.",
+    "target": "Allocate $14 Billion between 2022-2025 to ease food insecurity and transition regional agriculture to sustainable practices.",
+    "keywords": [
+      "farming",
+      "pesticide",
+      "agricultural",
+      "nitrous",
+      "nitrogen",
+      "phosphorus",
+      "fao",
+      "fertilizer"
+    ],
+    "funding_allocated": "$3.5 Billion / year",
+    "link": "https://www.adb.org/sectors/agriculture/main"
+  },
+  {
+    "id": "sustainable_urban_infra",
+    "name": "Sustainable Infrastructure and Urban Development",
+    "description": "Integrates green building standards, waste-to-energy technologies, public transit modernization, and smart urban systems to build resilient cities in developing member countries.",
+    "target": "Deliver climate-resilient urban solutions to 50 target cities, reducing local aerosol emissions and heat island effects.",
+    "keywords": [
+      "cement",
+      "urbanization",
+      "concrete",
+      "infrastructure",
+      "materials",
+      "urban",
+      "conveyance",
+      "vehicle",
+      "transport",
+      "aviation",
+      "shipping"
+    ],
+    "funding_allocated": "$4.5 Billion / year",
+    "link": "https://www.adb.org/what-we-do/topics/urban-development"
+  },
+  {
+    "id": "biodiversity_ecosystems",
+    "name": "Biodiversity and Ecosystem Services Program",
+    "description": "Invests in nature-based solutions (NbS), coastal mangrove restoration, protection of critical habitats, and combatting illegal wildlife trade to prevent biodiversity loss.",
+    "target": "Protect and restore 5.5 million hectares of natural terrestrial and marine ecosystems by 2030.",
+    "keywords": [
+      "extinction",
+      "species",
+      "biodiversity",
+      "integrity",
+      "habitat",
+      "fauna",
+      "flora",
+      "forest",
+      "land cover",
+      "deforestation"
+    ],
+    "funding_allocated": "$1.2 Billion / year",
+    "link": "https://www.adb.org/what-we-do/topics/environment"
+  }
+]

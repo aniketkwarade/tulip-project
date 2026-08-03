@@ -1,0 +1,191 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_37_iea_global_grid_pressure",
+  "generated_at": "2026-08-01T15:38:03.322Z",
+  "promoted_node_count": 2,
+  "receipts": [
+    {
+      "node_id": "grid_peak_load_stress",
+      "value": 9.3,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "biophysical_burden": 0.8746,
+        "human_economic_burden": 0.9175,
+        "persistence": 1,
+        "extent": 0.9175
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "global_electricity_consumption_twh": 28200,
+          "demand_growth_pct": 3,
+          "anchors_twh": [
+            0,
+            10000,
+            22000,
+            32000
+          ],
+          "boundary": "Demand is a system-load burden, not proof of inadequate reserve margin."
+        },
+        "human_economic_burden": {
+          "stalled_grid_queue_capacity_gw": 2500,
+          "anchors_gw": [
+            0,
+            250,
+            1000,
+            3000
+          ]
+        },
+        "persistence": {
+          "grid_project_lead_time_years": [
+            5,
+            15
+          ],
+          "normalized_value_uses_years": 15,
+          "anchors_years": [
+            0,
+            2,
+            7,
+            15
+          ]
+        },
+        "extent": {
+          "emerging_market_share_of_global_demand_growth_pct": 80,
+          "anchors_pct": [
+            0,
+            20,
+            50,
+            90
+          ]
+        },
+        "source_snapshot": {
+          "path": "public/iea-global-grid-pressure-impact-snapshot.json",
+          "version": "iea_electricity_2026_global_grid_pressure_v1",
+          "captured_at": "2026-08-01T15:38:03.273Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "global_load_burden",
+          "formula": "Normalize current global electricity consumption and retain the current annual growth rate separately."
+        },
+        {
+          "type": "grid_capacity_pressure",
+          "formula": "Normalize stalled global connection-queue capacity without adding supply, demand and storage projects."
+        },
+        {
+          "type": "delivery_persistence",
+          "formula": "Use the upper bound of the source-reported grid planning, permitting and completion interval."
+        },
+        {
+          "type": "growth_extent",
+          "formula": "Normalize the share of current global demand growth occurring in emerging markets and developing economies."
+        }
+      ],
+      "source_ids": [
+        "iea_electricity_2026_global_grid_pressure"
+      ],
+      "uncertainty": "Queue membership changes with project progress and cancellation; investment, component-price and demand estimates are revised; a global demand total does not establish local reserve margin, forecast error or reliability violation.",
+      "freshness": "IEA Electricity 2026 assessment of calendar year 2025; snapshot captured 2026-08-01T15:38:03.273Z.",
+      "selection_reason": {
+        "selected_method_passed": "IEA quantifies current global load, growth, stalled connection capacity, long delivery times and broad geographic demand growth.",
+        "higher_priority_failures": [
+          "No globally harmonized hourly peak-and-capacity history passes the current-data gate.",
+          "Demand and queue pressure are accumulated system burden rather than a reliability violation."
+        ]
+      },
+      "input_hash": "fnv1a32:1c536638"
+    },
+    {
+      "node_id": "transmission_buildout_lag",
+      "value": 9.4,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "biophysical_burden": 0.9175,
+        "human_economic_burden": 0.89,
+        "persistence": 1,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "stalled_grid_queue_capacity_gw": 2500,
+          "anchors_gw": [
+            0,
+            250,
+            1000,
+            3000
+          ]
+        },
+        "human_economic_burden": {
+          "current_annual_grid_investment_usd_billion": 400,
+          "implied_required_2030_usd_billion": 600,
+          "implied_gap_usd_billion": 200,
+          "anchors_usd_billion": [
+            0,
+            25,
+            100,
+            250
+          ]
+        },
+        "persistence": {
+          "grid_project_lead_time_years": [
+            5,
+            15
+          ],
+          "anchors_years": [
+            0,
+            2,
+            7,
+            15
+          ]
+        },
+        "extent": {
+          "geography": "worldwide project queues and global grid investment",
+          "normalized_value": 1
+        },
+        "source_snapshot": {
+          "path": "public/iea-global-grid-pressure-impact-snapshot.json",
+          "version": "iea_electricity_2026_global_grid_pressure_v1",
+          "captured_at": "2026-08-01T15:38:03.273Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "stalled_connection_capacity",
+          "formula": "Normalize the source-reported worldwide connection-queue capacity as a buildout burden."
+        },
+        {
+          "type": "investment_delivery_gap",
+          "formula": "Subtract current annual grid investment from the IEA 2030 annual requirement; retain the requirement as a target, not a current spend."
+        },
+        {
+          "type": "project_delivery_time",
+          "formula": "Normalize the upper bound of the source-reported global grid project lead-time range."
+        },
+        {
+          "type": "global_extent",
+          "formula": "Assign full extent because both queue and investment assessments are explicitly worldwide."
+        }
+      ],
+      "source_ids": [
+        "iea_electricity_2026_global_grid_pressure"
+      ],
+      "uncertainty": "Queue membership changes with project progress and cancellation; investment, component-price and demand estimates are revised; a global demand total does not establish local reserve margin, forecast error or reliability violation.",
+      "freshness": "IEA Electricity 2026 assessment of calendar year 2025; snapshot captured 2026-08-01T15:38:03.273Z.",
+      "selection_reason": {
+        "selected_method_passed": "IEA quantifies the worldwide stalled grid queue, annual investment gap, 5-15 year delivery interval and global extent.",
+        "higher_priority_failures": [
+          "The report does not provide a complete 20-year annual global delayed-circuit-kilometre series.",
+          "The investment requirement is therefore used only within an accumulated buildout burden."
+        ]
+      },
+      "input_hash": "fnv1a32:a9142dd1"
+    }
+  ]
+}

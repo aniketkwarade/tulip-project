@@ -1,0 +1,143 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_35_global_ocean_stratification",
+  "generated_at": "2026-07-31T19:16:36.424Z",
+  "source_snapshot": "public/global-ocean-stratification-snapshot.json",
+  "source_id": "global_ocean_stratification_observation_assessment",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "thermal_stratification_intensification",
+      "value": 8.7,
+      "band": "Critical",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2018",
+      "components": {
+        "magnitude": 0.862656,
+        "threshold": 0.836665,
+        "momentum": 0.767493,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_year": 2018,
+          "latest_global_n2_anomaly_1e_minus_7_s_minus_2": 3.61,
+          "historical_period": [
+            1960,
+            2017
+          ],
+          "complete_historical_annual_observations": 58,
+          "historical_distribution_anchors": [
+            -1.095,
+            1.34,
+            2.424,
+            4.4555
+          ],
+          "percentiles": [
+            "median",
+            "75th",
+            "90th",
+            "97.5th"
+          ]
+        },
+        "threshold": {
+          "latest_p5_uncertainty_1e_minus_7_s_minus_2": 3.45,
+          "latest_point_estimate": 3.61,
+          "latest_p95_uncertainty_1e_minus_7_s_minus_2": 3.78,
+          "historical_distribution_anchors": [
+            -1.095,
+            1.34,
+            2.424,
+            4.4555
+          ],
+          "boundary": "The conservative 5th-percentile source uncertainty endpoint is compared with the same historical annual distribution."
+        },
+        "momentum": {
+          "window_years": 10,
+          "current_window": [
+            2009,
+            2018
+          ],
+          "current_decadal_linear_change_1e_minus_7_s_minus_2": 3.759394,
+          "complete_prior_rolling_windows": 49,
+          "historical_distribution_anchors": [
+            1.409091,
+            2.668485,
+            3.484121,
+            4.415879
+          ],
+          "updated_review_context": {
+            "publication_year": 2025,
+            "observation_start_year": 1960,
+            "observation_end_year": 2024,
+            "upper_ocean_depth_layer_m": [
+              0,
+              200
+            ],
+            "absolute_increase_1e_minus_6_s_minus_2": 6.9,
+            "absolute_increase_uncertainty_1e_minus_6_s_minus_2": 1.5,
+            "increase_pct_per_decade": 1.1,
+            "increase_pct_per_decade_uncertainty": 0.2,
+            "full_depth_layer_m": [
+              0,
+              2000
+            ],
+            "full_depth_increase_pct_per_decade": 0.8,
+            "full_depth_increase_pct_per_decade_uncertainty": 0.1,
+            "dataset_count": 3,
+            "source_locator": "Nature Reviews Earth & Environment 2025, Table 1 and observed-changes text."
+          }
+        },
+        "extent": {
+          "geographic_scope": "Global ocean",
+          "normalized_value": 1,
+          "boundary": "Global mean 0-2,000 m series; no local or basin inference."
+        },
+        "source_snapshot": {
+          "path": "public/global-ocean-stratification-snapshot.json",
+          "version": "global_ocean_stratification_observation_v1",
+          "captured_at": "2026-07-31T19:16:36.378Z",
+          "workbook_url": "https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41558-020-00918-2/MediaObjects/41558_2020_918_MOESM3_ESM.xls",
+          "workbook_sha256": "63e40c563255a6304ba57d30f57261a2a35568766408f2c5a09a567aefdaa43b",
+          "workbook_sheet": "Fig.3a",
+          "excluded_from_scoring": [
+            "future SSP projections",
+            "local or basin inference",
+            "0-200 m absolute increase mixed into the 0-2,000 m annual anomaly series",
+            "missing observations as zero"
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "historical_distribution_current_magnitude",
+          "formula": "Normalize the 2018 global annual N-squared anomaly through the median, 75th, 90th and 97.5th percentiles of 58 complete prior annual source values."
+        },
+        {
+          "type": "uncertainty_conservative_threshold_position",
+          "formula": "Normalize the source 5th-percentile 2018 uncertainty endpoint through the same historical distribution."
+        },
+        {
+          "type": "rolling_decadal_momentum_distribution",
+          "formula": "Calculate ordinary-least-squares change for every complete 10-year source window, express each as change per decade, and normalize the latest window through the prior-window distribution."
+        },
+        {
+          "type": "global_mean_extent",
+          "formula": "Use the source-declared global ocean aggregation; preserve the depth and spatial-mean boundary."
+        }
+      ],
+      "source_ids": [
+        "global_ocean_stratification_observation_assessment"
+      ],
+      "uncertainty": "Historical profile density, vertical resolution, interpolation, horizontal sampling, XBT and MBT biases, salinity coverage, gridding, dataset construction and depth-layer selection affect estimates. The source annual panel ends in 2018; the 2024 update is a trend summary, not an annual replacement series.",
+      "freshness": "Checksum-bound annual series through 2018; peer-reviewed three-dataset review confirms observed increases through 2024; snapshot captured 2026-07-31T19:16:36.378Z.",
+      "selection_reason": {
+        "selected_method_passed": "The official source-data workbook supplies 59 complete global annual observations, source uncertainty bounds and 50 rolling decadal windows. A 2025 peer-reviewed review independently confirms positive global 0-200 m and 0-2,000 m trends through 2024.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:49893b45"
+    }
+  ]
+}

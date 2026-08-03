@@ -1,0 +1,126 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_83_california_2020_lightning_siege",
+  "generated_at": "2026-08-01T17:22:46.721Z",
+  "source_snapshots": [
+    "public/california-2020-lightning-fire-weather-impact-snapshot.json"
+  ],
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "lightning_fire_weather",
+      "value": 8.4,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2020-08-30",
+      "components": {
+        "biophysical_burden": 0.831499,
+        "human_economic_burden": 0.886333,
+        "persistence": 0.79913,
+        "extent": 0.714
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "lightning_strikes_approx": 14000,
+          "california_land_area_square_miles": 155858.33,
+          "california_land_area_square_kilometres_derived": 403671.222,
+          "lightning_strikes_per_square_kilometre_derived": 0.03468169,
+          "wildfires_more_than": 900,
+          "acres_burned_approx": 2800000,
+          "normalization_anchors_density": [
+            0,
+            0.005,
+            0.02,
+            0.05
+          ]
+        },
+        "human_economic_burden": {
+          "structures_destroyed_more_than": 6900,
+          "fatalities_unscored": 26,
+          "normalization_anchors_structures": [
+            0,
+            100,
+            1000,
+            10000
+          ],
+          "boundary": "Structures use the CAL FIRE response boundary; fatalities are retained but not independently scored."
+        },
+        "persistence": {
+          "event_start_date": "2020-08-15",
+          "event_end_date": "2020-08-30",
+          "inclusive_event_day_count": 16,
+          "normalization_anchors_days": [
+            0,
+            1,
+            7,
+            30
+          ]
+        },
+        "extent": {
+          "presidential_major_disaster_declared_counties": 7,
+          "normalization_anchors_counties": [
+            0,
+            1,
+            5,
+            20
+          ]
+        },
+        "source_snapshot": {
+          "path": "public/california-2020-lightning-fire-weather-impact-snapshot.json",
+          "version": "california_lightning_siege_august_2020_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z",
+          "source_locators": [
+            "Figure 17 compares the August 15-30, 2020 lightning siege with prior sieges and reports nearly 14,000 lightning strikes, more than 900 wildfires and nearly 2.8 million acres burned.",
+            "The same CAL FIRE response boundary reports more than 6,900 structures destroyed and 26 fatalities.",
+            "The report cautions that, unless otherwise noted, the values cover wildfires responded to by CAL FIRE in state-responsibility and contracted local-responsibility areas.",
+            "Cal OES identifies lightning strikes, extreme wildfire conditions and heat as the event boundary for the mid-August complexes.",
+            "The August 22 major-disaster declaration covered Lake, Napa, San Mateo, Santa Cruz, Solano, Sonoma and Yolo counties.",
+            "The page distinguishes later September fires and declarations from the August lightning-siege extent used by this receipt.",
+            "QuickFacts reports California land area of 155,858.33 square miles in 2020.",
+            "The receipt converts the state land area to square kilometres solely to express the reported statewide strike count in the contract unit.",
+            "Statewide density is an event-total spatial average and not a claim that strikes were uniformly distributed."
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "statewide_event_strike_density",
+          "formula": "Convert 155,858.33 square miles to square kilometres and divide the approximately 14,000 agency-reported siege strikes by that declared state land area; retain the result as a spatial average."
+        },
+        {
+          "type": "bounded_realized_burden",
+          "formula": "Normalize the more-than-6,900 structures destroyed within the CAL FIRE response boundary; retain 26 fatalities as unscored corroborating burden."
+        },
+        {
+          "type": "agency_defined_siege_duration",
+          "formula": "Count the Board of Forestry-defined August 15-30 siege period inclusively as 16 days."
+        },
+        {
+          "type": "conservative_declared_extent",
+          "formula": "Normalize the seven counties in the August 22 presidential major-disaster declaration, excluding later September declarations."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "california_board_forestry_2020_annual_report_lightning_siege",
+        "caloes_august_september_2020_wildfire_incidents",
+        "us_census_quickfacts_california_land_area_2020"
+      ],
+      "uncertainty": "The strike and burned-area figures are reported as approximate and the wildfire and structure totals as lower bounds. Statewide strike density divides an event-total count by Census land area and masks strong spatial clustering. The 6,900 structures and 26 fatalities use CAL FIRE’s stated response boundary and are not a complete statewide economic-loss inventory. Seven counties conservatively represent the August 22 major-disaster declaration; affected areas outside those counties are not added. The receipt does not attribute every 2020 wildfire impact to lightning.",
+      "freshness": "Historical lightning siege assessed through 2020-08-30; agency records reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "State fire records quantify an agency-defined dry-lightning siege, strike density, ignitions, realized structure loss, duration and a conservative declared-county extent.",
+        "higher_priority_failures": [
+          "The evidence is a historical California event rather than a current global dry-lightning aggregation.",
+          "No globally comparable current series pairs declared fire-weather conditions with observed lightning density, impacts and exposure at the required coverage."
+        ]
+      },
+      "input_hash": "fnv1a32:e3eb7a6e"
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const snapshot = {
+  version: 'mumbai_panjrapur_watershed_forest_loss_1994_2011_v1',
+  captured_at: '2026-08-01T00:00:00.000Z',
+  sources: [
+    {
+      id: 'singh_mishra_mumbai_watershed_deforestation_costs_2014',
+      name: 'Deforestation-induced costs on the drinking water supplies of the Mumbai metropolitan, India',
+      publisher: 'Global Environmental Change',
+      publication_date: '2014-07-01',
+      url: 'https://doi.org/10.1016/j.gloenvcha.2014.04.020',
+      source_locators: [
+        'The study defines forest cover as canopy density of at least 10 percent over at least one hectare and uses forest-cover observations from 1994 through 2007.',
+        'Spatiotemporal forest-cover and turbidity analysis covers six sites in selected Mumbai water-supply watersheds from January 1998 through December 2010.',
+        'Panjrapur treatment-plant operating data span April 1995 through March 2011; the estimated forest-cover change rate is -0.0088 percent per year and its modeled observed-system burden is INR 3.73 million per year in 2010-2011 prices.'
+      ]
+    },
+    {
+      id: 'teri_mumbai_watershed_deforestation_costs_summary_2014',
+      name: 'TERI research summary: Deforestation-induced costs on Mumbai drinking-water supplies',
+      publisher: 'The Energy and Resources Institute',
+      publication_date: '2014-01-01',
+      url: 'https://www.teriin.org/research-paper/deforestation-induced-costs-drinking-water-supplies-mumbai-metropolitan-india',
+      source_locators: [
+        'TERI reports an annual forest-cover change rate of -0.0088 percent averaged over 1994-2007.',
+        'TERI reports INR 64.96 per cubic metre of treated water per hectare per year and INR 3.73 million per year in deforestation-induced Panjrapur treatment costs.',
+        'The summary identifies the burden channels as treatment cost, backwash and desludging water losses, and water-yield change.'
+      ]
+    }
+  ],
+  metric_contract: {
+    node_id: 'watershed_forest_loss',
+    metric_id: 'tree_cover_loss_in_water_supply_watershed',
+    unit: 'percent forest-cover change per year within declared water-supply watersheds',
+    geography: 'six monitoring sites in selected Mumbai metropolitan water-supply watersheds and the Panjrapur treatment plant',
+    assessment_period: '1994-01-01 to 2011-03-31',
+    habitat_definition: 'Forest cover has at least 10 percent canopy density over a minimum mapped area of one hectare.',
+    boundary: 'The receipt preserves the study definition, six-site watershed boundary, observation periods and Panjrapur operating-cost boundary. It does not treat the study as current or global, transfer the effect to other watersheds, or convert the small annual rate into hectares without a compatible watershed denominator.'
+  },
+  accumulated_impact: {
+    forest_cover_change_percent_per_year: -0.0088,
+    forest_cover_loss_percent_per_year_absolute: 0.0088,
+    forest_cover_observation_start_year: 1994,
+    forest_cover_observation_end_year: 2007,
+    forest_cover_observation_span_years: 13,
+    cumulative_forest_cover_loss_percent_linearized: 0.1144,
+    watershed_monitoring_site_count: 6,
+    watershed_turbidity_observation_start_year: 1998,
+    watershed_turbidity_observation_end_year: 2010,
+    treatment_plant_observation_start_year: 1995,
+    treatment_plant_observation_end_year: 2011,
+    treatment_plant_observation_span_years: 16,
+    deforestation_induced_cost_inr_per_year_2010_2011_prices: 3730000,
+    deforestation_induced_cost_inr_per_cubic_metre_per_hectare_per_year: 64.96,
+    turbidity_increase_percent_per_one_percent_forest_cover_decrease_unscored: 8.41,
+    treatment_cost_increase_percent_per_one_percent_forest_cover_decrease_unscored: 1.58
+  },
+  reviewed_normalization_anchors: {
+    cumulative_forest_cover_loss_percent: [0, 0.01, 0.1, 1],
+    annual_treatment_cost_inr: [0, 100000, 1000000, 10000000],
+    observed_system_span_years: [0, 1, 5, 20],
+    watershed_monitoring_site_count: [0, 1, 3, 6]
+  },
+  uncertainty: 'The annual forest-cover rate is small and the cumulative value is a transparent linearized 13-year summary, not a claim of compounded or gross tree-cover loss. The INR 3.73 million burden is an econometric estimate for Panjrapur in 2010-2011 prices rather than a directly invoiced loss or a present global total. Six sites describe the study extent, not six distinct globally representative watersheds. The reported turbidity and treatment-cost elasticities remain unscored to avoid counting the same modeled relationship twice.'
+};
+
+await fs.writeFile(path.join(ROOT, 'public/mumbai-watershed-forest-loss-impact-snapshot.json'), `${JSON.stringify(snapshot, null, 2)}\n`);
+console.log(JSON.stringify({ output: 'public/mumbai-watershed-forest-loss-impact-snapshot.json', version: snapshot.version, accumulated: snapshot.accumulated_impact }, null, 2));

@@ -1,0 +1,63 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+
+const OUTPUT_PATH = path.resolve('public/global-flood-exposure-impact-snapshot.json');
+const snapshot = {
+  version: 'global_flood_exposure_impact_v1',
+  captured_at: new Date().toISOString(),
+  source: {
+    id: 'global_flood_exposure_observation_and_poverty_studies',
+    name: 'Satellite imaging reveals increased proportion of population exposed to floods; Flood exposure and poverty in 188 countries',
+    publishers: ['Nature', 'Nature Communications'],
+    urls: ['https://www.nature.com/articles/s41586-021-03695-w', 'https://www.nature.com/articles/s41467-022-30727-4'],
+    dois: ['10.1038/s41586-021-03695-w', '10.1038/s41467-022-30727-4']
+  },
+  ingestion_job_id: 'export_global_flood_exposure_impact_snapshot',
+  metric_contract_ids: ['population_and_assets_in_floodplain'],
+  contract_bindings: [{ node_id: 'floodplain_exposure', metric_id: 'population_and_assets_in_floodplain', measurement_role: 'global_observed_inundation_and_declared_probability_zone_population_exposure' }],
+  cadence: 'Annual review for a comparable global flood-observation or exposure assessment.',
+  provenance: 'Peer-reviewed primary global satellite observation of large flood events paired with a World Bank-led high-resolution current flood-zone exposure assessment. Observed realized impacts and modeled probability-zone exposure are retained as different evidence classes.',
+  uncertainty: 'The satellite catalogue excludes smaller events, events without suitable MODIS imagery and events failing quality control; clouds, vegetation, permanent water, event timing and population grids affect estimates. The probability-zone assessment depends on the Fathom hazard model, 2020 population, poverty surveys, protection assumptions and a >0.15 m inundation threshold. Neither study supplies a global asset-value total.',
+  failure_behavior: 'Retain the last reviewed assessment and mark stale. Reject changed event, country, period, return-period or depth boundaries. Never add observed affected population to modeled exposed population, treat a 1-in-100-year zone as annual realized impact, fill unobserved events with zero, or infer asset value.',
+  assessment: {
+    observational_study: {
+      publication_year: 2021,
+      observation_start_year: 2000,
+      observation_end_year: 2018,
+      observation_period_years: 18,
+      satellite_resolution_m: 250,
+      quality_controlled_large_flood_events: 913,
+      total_observed_inundation_area_million_km2: 2.23,
+      directly_affected_population_lower_million: 255,
+      directly_affected_population_upper_million: 290,
+      directly_affected_population_midpoint_million: 272.5,
+      exposed_location_population_growth_lower_million_2000_2015: 58,
+      exposed_location_population_growth_upper_million_2000_2015: 86,
+      exposed_global_population_proportion_increase_lower_pct_2000_2015: 20,
+      exposed_global_population_proportion_increase_upper_pct_2000_2015: 24,
+      source_locator: 'Nature abstract, lines reporting 913 events, 2.23 million km2, 255-290 million directly affected, and 2000-2015 exposure growth.'
+    },
+    probability_zone_study: {
+      publication_year: 2022,
+      population_reference_year: 2020,
+      countries: 188,
+      covered_population_billion: 7.9,
+      return_period_years: 100,
+      minimum_inundation_depth_m: 0.15,
+      exposed_population_billion: 1.81,
+      exposed_world_population_pct: 23,
+      exposed_population_low_middle_income_share_pct: 89,
+      exposed_extreme_poverty_population_million: 170,
+      exposed_below_5_50_usd_population_million: 780,
+      evidence_class: 'modeled_current_exposure_context_not_realized_impact',
+      source_locator: 'Nature Communications abstract and results; 188-country high-resolution flood hazard, population and poverty overlay.'
+    },
+    geographic_scope: 'Global large-event observation and 188-country current flood-probability-zone exposure',
+    global_extent_normalized: 1,
+    source_separation_rule: 'Only the satellite-observed inundation area, affected-population range and 18-year observation period enter the impact composite. Probability-zone population and poverty estimates corroborate present exposure and contract fit but do not add points.'
+  },
+  excluded_from_scoring: ['future 2030 projections', 'modeled 1.81 billion current exposure', 'modeled poverty-exposure totals', 'unreported global asset value', 'events absent from the quality-controlled catalogue', 'annual victim inference']
+};
+
+await fs.writeFile(OUTPUT_PATH, `${JSON.stringify(snapshot, null, 2)}\n`);
+console.log(JSON.stringify({ output: OUTPUT_PATH, observed_events: snapshot.assessment.observational_study.quality_controlled_large_flood_events }, null, 2));

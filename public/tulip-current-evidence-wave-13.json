@@ -1,0 +1,106 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_13_gwis_global_burned_area",
+  "generated_at": "2026-07-31T22:57:31.433Z",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "wildfire_regime_shift",
+      "value": 4.7,
+      "band": "Elevated",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2023",
+      "components": {
+        "magnitude": 0.012698,
+        "threshold": 0.012698,
+        "momentum": 1,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_global_non_cropland_burned_area_ha": 358250407.45,
+          "baseline_2003_2022_mean_ha": 367412287.63,
+          "latest_anomaly_ha": -9161880.18,
+          "complete_annual_observations": 22,
+          "anchors": [
+            -11331413.87,
+            45050420.07,
+            58702972.42,
+            59745218.15
+          ],
+          "source_locator": "https://effis-gwis-cms.s3.eu-west-1.amazonaws.com/apps/country.profile/MCD64A1_burned_area_full_dataset_2002_2024.zip; MCD64A1_burned_area_full_dataset_2002_2024.csv; all GADM level 1 rows summed for 2023"
+        },
+        "threshold": {
+          "latest_global_non_cropland_burned_area_ha": 358250407.45,
+          "threshold_basis": "historical_distribution_fallback",
+          "anchors": [
+            356080873.75,
+            412462707.7,
+            426115260.05,
+            427157505.78
+          ],
+          "source_locator": "https://effis-gwis-cms.s3.eu-west-1.amazonaws.com/apps/country.profile/MCD64A1_burned_area_full_dataset_2002_2024.zip; MCD64A1_burned_area_full_dataset_2002_2024.csv; all GADM level 1 rows summed for 2023"
+        },
+        "momentum": {
+          "latest_year_over_year_change_ha": 51706337.26,
+          "annual_change_observations": 21,
+          "anchors": [
+            -4087036.73,
+            19269265.11,
+            38085965.39,
+            47122172.46
+          ],
+          "source_locator": "https://effis-gwis-cms.s3.eu-west-1.amazonaws.com/apps/country.profile/MCD64A1_burned_area_full_dataset_2002_2024.zip; MCD64A1_burned_area_full_dataset_2002_2024.csv; all GADM level 1 rows summed for 2023"
+        },
+        "extent": {
+          "latest_countries_or_territories_reporting": 228,
+          "maximum_countries_or_territories_reporting": 228,
+          "normalized_value": 1,
+          "definition": "Latest source geography coverage divided by the maximum geography coverage in the complete retained global history.",
+          "source_locator": "https://effis-gwis-cms.s3.eu-west-1.amazonaws.com/apps/country.profile/MCD64A1_burned_area_full_dataset_2002_2024.zip; MCD64A1_burned_area_full_dataset_2002_2024.csv; all GADM level 1 rows summed for 2023"
+        },
+        "source_snapshot": {
+          "path": "public/gwis-wildfire-regime-snapshot.json",
+          "version": "gwis_mcd64a1_country_and_global_wildfire_regime_v2",
+          "captured_at": "2026-07-31T15:22:22.787Z",
+          "source_rows_parsed": 996360,
+          "source_history_start": 2002,
+          "source_history_end": 2023,
+          "excluded_source_partitions": [
+            {
+              "year": 2024,
+              "source_rows": 43320,
+              "reason": "all source land-cover burned-area fields are zero; withheld as an incomplete or placeholder partition rather than interpreted as no fire"
+            }
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "global_non_cropland_burned_area_sum",
+          "formula": "Sum source MCD64A1 forest, savanna, shrubland/grassland and other burned-area hectares across all GWIS GADM level 1 rows; retain cropland separately and exclude it from the urgency series."
+        },
+        {
+          "type": "fixed_baseline_anomaly",
+          "formula": "Subtract the complete 2003–2022 global mean from each annual global non-cropland burned-area total."
+        },
+        {
+          "type": "historical_distribution_normalization",
+          "formula": "Map annual anomaly, current area and annual change through median / p75 / p90 / p97.5 anchors from the complete 2002–2023 source history."
+        }
+      ],
+      "source_ids": [
+        "ec_jrc_global_wildfire_information_system_mcd64a1_burned_area"
+      ],
+      "uncertainty": "MCD64A1 cloud and observation gaps, 500 m resolution, small-fire omission, land-cover classification, GADM boundaries, fire-type attribution, managed burning, dataset revisions, and monthly temporal grain affect the metric. This is satellite-mapped non-cropland burned area, not a complete wildfire inventory. Excluding cropland reduces agricultural-burning contamination but does not remove prescribed fire, pasture burning, land clearing, peat fire, or classification error. The 90-percent season span is a transparent monthly concentration proxy, not observed active-fire days or ecological severity. A global season-span statistic is intentionally excluded because overlapping Northern and Southern Hemisphere fire seasons would make it physically ambiguous.",
+      "freshness": "Official GWIS MCD64A1 complete-year archive through 2023; snapshot captured 2026-07-31T15:22:22.787Z.",
+      "selection_reason": {
+        "selected_method_passed": "GWIS supplies 22 complete annual globally aggregated non-cropland burned-area observations, a fixed 20-year baseline, current magnitude, historical position, momentum and explicit country/territory coverage.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:bbeeb3d1"
+    }
+  ]
+}

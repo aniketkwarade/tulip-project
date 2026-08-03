@@ -1,0 +1,74 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+
+const snapshot = {
+  version: 'noaa_ncei_transport_avalanche_2020_2025_v1',
+  captured_at: '2026-08-01T00:00:00.000Z',
+  sources: [
+    {
+      id: 'noaa_ncei_storm_events_bulk_csv',
+      name: 'NOAA NCEI Storm Events Bulk CSV',
+      publisher: 'NOAA National Centers for Environmental Information',
+      url: 'https://www.ncei.noaa.gov/pub/data/swdi/stormevents/csvfiles/',
+      file_hashes: {
+        2020: '895c56fd46991c4d9a135d67558dc4b447a02a2314efac0ace645135b98f9c9d',
+        2021: '60c1daf96dbe8eafd48c80df5b70df51a0125ab95d467ee7009a646761d57715',
+        2022: '7d6b79d0049a6edec96b061738289daddba90be26fc9afe7b0a6fd617f21452e',
+        2023: '713784bed40d9e5a95b1d6240a654f865f3ef97703713105c7b35437270da134',
+        2024: '2070b83eccab041b36360ab73645b9a249c3eefc5b92b5b3fc0cbba4d9fcc09c',
+        2025: '447b536ce7796585b923b946f0b85be538bde142858674f5d0b45a3b4c134bf5'
+      }
+    },
+    {
+      id: 'noaa_ncei_storm_events_database_documentation',
+      name: 'NOAA NCEI Storm Events Database and Bulk Format Documentation',
+      publisher: 'NOAA National Centers for Environmental Information',
+      url: 'https://www.ncei.noaa.gov/stormevents/',
+      format_url: 'https://www.ncei.noaa.gov/pub/data/swdi/stormevents/csvfiles/Storm-Data-Bulk-csv-Format.pdf'
+    }
+  ],
+  metric_contract: {
+    node_id: 'mountain_pass_avalanches',
+    metric_id: 'avalanche_events_affecting_transport_corridors',
+    unit: 'transport-corridor-intersecting avalanche event records, injuries, deaths and nominal reported damage',
+    geography: 'United States roads and highways explicitly named in NOAA Avalanche event location or narrative fields',
+    cadence: 'event records aggregated over complete calendar years',
+    filter: 'EVENT_TYPE exactly Avalanche; combined location and event narrative must contain avalanche, an explicit road/highway/interstate/route/lane identifier, and an impact term such as closed, blocked, covered, crossed, buried, debris, traffic, hit, pushed, swept or spilled.',
+    failure_boundary: 'The text filter captures explicit corridor intersections but does not estimate closure-hours when the narrative omits duration. It excludes pass-named recreation incidents without an explicit transport-corridor impact and does not represent a global avalanche climatology.'
+  },
+  accumulated_impact_through_2025: {
+    start_year: 2020,
+    end_year: 2025,
+    observation_window_years: 6,
+    years_with_qualifying_records: 5,
+    qualifying_event_records: 37,
+    injuries: 2,
+    deaths: 0,
+    total_reported_damage_usd: 340500,
+    states_with_qualifying_records: 10,
+    directly_assessed_countries: ['United States'],
+    directly_assessed_country_count: 1,
+    event_ids: [949399, 941630, 937231, 1009831, 1004330, 1004341, 1004370, 1071498, 1091078, 1091266, 1083697, 1073032, 1091416, 1089518, 1099341, 1090935, 1090697, 1090853, 1090929, 1090932, 1091398, 1091445, 1090833, 1091124, 1081432, 1076150, 1095882, 1150839, 1160995, 1160996, 1239143, 1238246, 1237689, 1237095, 1237039, 1228423, 1309525]
+  },
+  annual: [
+    { year: 2020, events: 0, injuries: 0, deaths: 0, reported_damage_usd: 0 },
+    { year: 2021, events: 3, injuries: 1, deaths: 0, reported_damage_usd: 250000 },
+    { year: 2022, events: 5, injuries: 0, deaths: 0, reported_damage_usd: 0 },
+    { year: 2023, events: 19, injuries: 1, deaths: 0, reported_damage_usd: 75500 },
+    { year: 2024, events: 3, injuries: 0, deaths: 0, reported_damage_usd: 5000 },
+    { year: 2025, events: 7, injuries: 0, deaths: 0, reported_damage_usd: 10000 }
+  ],
+  shared_storm_inventory_anchors: {
+    accumulated_event_count: [0, 250, 5000, 50000],
+    total_reported_damage_usd: [0, 100000000, 1000000000, 10000000000],
+    years_with_qualifying_records: [0, 1, 6, 30],
+    directly_assessed_country_count: [0, 1, 5, 25]
+  },
+  uncertainty: 'The text classifier is deterministic and requires explicit avalanche, transport-corridor and impact language, but narratives are not standardized and may omit qualifying closures. Reported damage is nominal and often blank or zero; closure duration is not consistently available. The U.S.-only result is not extrapolated globally. Event counts are operational reports rather than a sensor-derived avalanche-frequency trend.'
+};
+
+await fs.writeFile(path.join(ROOT, 'public/noaa-transport-avalanche-impact-snapshot.json'), `${JSON.stringify(snapshot, null, 2)}\n`);
+console.log(JSON.stringify({ output: 'public/noaa-transport-avalanche-impact-snapshot.json', version: snapshot.version, accumulated: snapshot.accumulated_impact_through_2025 }, null, 2));

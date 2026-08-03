@@ -1,0 +1,133 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_42_global_atmospheric_hazards",
+  "generated_at": "2026-08-01T15:38:05.179Z",
+  "source_snapshots": [
+    "public/global-atmospheric-hazard-impact-snapshot.json"
+  ],
+  "promoted_node_count": 2,
+  "receipts": [
+    {
+      "node_id": "dust_storm_frequency",
+      "value": 8.9,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "biophysical_burden": 0.89,
+        "human_economic_burden": 0.9076,
+        "persistence": 0.78,
+        "extent": 0.95
+      },
+      "raw_inputs": {
+        "assessment_year": 2024,
+        "airborne_sand_and_dust_million_tonnes_per_year": 2000,
+        "people_exposed_above_who_threshold_billion_2018_2022": 3.8,
+        "people_exposed_above_who_threshold_billion_2003_2007": 2.9,
+        "exposed_population_change_pct": 31,
+        "current_assessment_start_year": 2018,
+        "current_assessment_end_year": 2022,
+        "comparison_start_year": 2003,
+        "comparison_end_year": 2007,
+        "countries_affected_count_minimum": 150,
+        "global_extent": 0.95,
+        "evidence_boundary": "This accumulated-impact score quantifies the global sand-and-dust burden and exposed population. It does not infer a global storm-event frequency from atmospheric mass or exposure.",
+        "source_snapshot": {
+          "path": "public/global-atmospheric-hazard-impact-snapshot.json",
+          "version": "global_atmospheric_hazard_impact_2026_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Normalize each retained quantitative burden against declared four-point anchors and clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        },
+        {
+          "type": "boundary_preservation",
+          "formula": "Keep atmospheric mass, exposure, observed concentration trend and comparative-risk burden distinct; missing values never become zero."
+        }
+      ],
+      "source_ids": [
+        "wmo_airborne_dust_bulletin_2025"
+      ],
+      "uncertainty": "The dust figures describe annual atmospheric mass and population exposure, not a global event-frequency count. Tropospheric ozone trends are averages across monitored sites with substantial regional heterogeneity; ozone-attributable health burden is comparative-risk model output rather than a direct census. This accumulated-impact score quantifies the global sand-and-dust burden and exposed population. It does not infer a global storm-event frequency from atmospheric mass or exposure.",
+      "freshness": "Latest retained assessment evidence through 2024.",
+      "selection_reason": {
+        "selected_method_passed": "WMO supplies quantitative global atmospheric burden, WHO-threshold exposure, a repeated comparison period and broad geographic reach, satisfying all impact-fallback components.",
+        "higher_priority_failures": [
+          "No complete global event-frequency observation supplies current magnitude plus threshold or momentum with at least 60% current-component coverage."
+        ]
+      },
+      "input_hash": "fnv1a32:bb1a40e0"
+    },
+    {
+      "node_id": "ozone_formation_pressure",
+      "value": 8.7,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2017",
+      "components": {
+        "biophysical_burden": 0.736,
+        "human_economic_burden": 0.901,
+        "persistence": 0.956,
+        "extent": 0.9
+      },
+      "raw_inputs": {
+        "observation_start_year": 1990,
+        "observation_end_year": 2017,
+        "ozonesonde_sites": 25,
+        "average_free_troposphere_trend_ppb_per_decade": 1.8,
+        "average_free_troposphere_trend_uncertainty_ppb_per_decade": 1.3,
+        "outside_us_europe_surface_sites": 33,
+        "outside_us_europe_surface_sites_increasing_pct": 73,
+        "outside_us_europe_average_increase_ppb_per_decade": 1.4,
+        "attributable_deaths_2015": 254000,
+        "attributable_deaths_lower_95_ui": 97000,
+        "attributable_deaths_upper_95_ui": 422000,
+        "attributable_dalys_2015_million": 4.1,
+        "global_extent": 0.9,
+        "evidence_boundary": "The observation component is a monitored-site average with regional heterogeneity, while the health component is modeled ozone-attributable COPD burden. Neither is relabeled as a direct global precursor-emission measurement.",
+        "source_snapshot": {
+          "path": "public/global-atmospheric-hazard-impact-snapshot.json",
+          "version": "global_atmospheric_hazard_impact_2026_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Normalize each retained quantitative burden against declared four-point anchors and clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        },
+        {
+          "type": "boundary_preservation",
+          "formula": "Keep atmospheric mass, exposure, observed concentration trend and comparative-risk burden distinct; missing values never become zero."
+        }
+      ],
+      "source_ids": [
+        "noaa_global_tropospheric_ozone_trends_1990_2017",
+        "iarc_gbd_ambient_air_pollution_2015"
+      ],
+      "uncertainty": "The dust figures describe annual atmospheric mass and population exposure, not a global event-frequency count. Tropospheric ozone trends are averages across monitored sites with substantial regional heterogeneity; ozone-attributable health burden is comparative-risk model output rather than a direct census. The observation component is a monitored-site average with regional heterogeneity, while the health component is modeled ozone-attributable COPD burden. Neither is relabeled as a direct global precursor-emission measurement.",
+      "freshness": "Latest retained assessment evidence through 2017.",
+      "selection_reason": {
+        "selected_method_passed": "Global monitoring quantifies a multi-decadal tropospheric ozone trend and comparative-risk assessment quantifies accumulated health burden, persistence and extent.",
+        "higher_priority_failures": [
+          "The retained observation ends in 2017 and does not meet the project freshness gate for a current-data score."
+        ]
+      },
+      "input_hash": "fnv1a32:2227b04d"
+    }
+  ]
+}

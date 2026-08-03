@@ -1,0 +1,139 @@
+{
+  "captured_at": "2026-07-25T14:28:13.890Z",
+  "updated_at": "2026-07-25",
+  "version": "fao_fra_global_forest_conversion_measurement_v1",
+  "snapshot_family": "contract_bound_global_forest_conversion_snapshot",
+  "ingestion_job_id": "fetch_fao_fra_global_deforestation_rate",
+  "metric_contract_ids": [
+    "fao_fra_forest_conversion_rate"
+  ],
+  "cadence": "five-year FRA assessment release with annual source-page monitoring",
+  "provenance": "FAO Global Forest Resources Assessment 2025 source-reported global gross deforestation and net forest-area loss rates. The historical percentage change is derived only from the two reported gross-deforestation rates.",
+  "uncertainty": "FRA is compiled from official national data for 236 countries and areas. Definitions, national inventories, reporting capacity, revisions, forest thresholds, plantation treatment and gross-versus-net accounting affect comparison; the source summary provides no statistical interval.",
+  "failure_behavior": "Retain the last validated FRA assessment and mark stale; reject missing periods, changed units, non-positive rates or a source statement that no longer reconciles gross deforestation with net forest loss. Never treat net loss as gross deforestation or interpolate annual values within an assessment period.",
+  "record_count": 3,
+  "records": [
+    {
+      "record_id": "fao-fra-global-deforestation-rate-1990-2000",
+      "metric_id": "fao_fra_forest_conversion_rate",
+      "measurement_role": "source_reported_gross_deforestation_rate_historical_comparator",
+      "geography": "World",
+      "period_start_year": 1990,
+      "period_end_year": 2000,
+      "forest_change_measure": "deforestation",
+      "value_million_hectares_per_year": 17.6,
+      "unit": "million hectares per year",
+      "uncertainty_status": "No statistical uncertainty interval is reported in the source summary; FRA is based on official national reporting.",
+      "source_locator": "https://www.fao.org/newsroom/detail/global-deforestation-slows--but-forests-remain-under-pressure--fao-report-shows/en#key-findings"
+    },
+    {
+      "record_id": "fao-fra-global-deforestation-rate-2015-2025",
+      "metric_id": "fao_fra_forest_conversion_rate",
+      "measurement_role": "source_reported_gross_deforestation_rate_current_period",
+      "geography": "World",
+      "period_start_year": 2015,
+      "period_end_year": 2025,
+      "forest_change_measure": "deforestation",
+      "value_million_hectares_per_year": 10.9,
+      "unit": "million hectares per year",
+      "uncertainty_status": "No statistical uncertainty interval is reported in the source summary; FRA is based on official national reporting.",
+      "source_locator": "https://www.fao.org/newsroom/detail/global-deforestation-slows--but-forests-remain-under-pressure--fao-report-shows/en#key-findings"
+    },
+    {
+      "record_id": "fao-fra-global-net-forest-loss-rate-2015-2025",
+      "metric_id": "fao_fra_forest_conversion_rate",
+      "measurement_role": "source_reported_net_forest_area_loss_context",
+      "geography": "World",
+      "period_start_year": 2015,
+      "period_end_year": 2025,
+      "forest_change_measure": "net forest area loss",
+      "value_million_hectares_per_year": 4.12,
+      "unit": "million hectares per year",
+      "uncertainty_status": "No statistical uncertainty interval is reported in the source summary; gains and losses are combined in this net measure.",
+      "source_locator": "https://www.fao.org/newsroom/detail/global-deforestation-slows--but-forests-remain-under-pressure--fao-report-shows/en#key-findings"
+    }
+  ],
+  "derived_metrics": {
+    "fao_fra_forest_conversion_rate": {
+      "latest_period": "2015-2025",
+      "latest_gross_deforestation_million_hectares_per_year": 10.9,
+      "historical_period": "1990-2000",
+      "historical_gross_deforestation_million_hectares_per_year": 17.6,
+      "derived_change_pct": -38.06818181818182,
+      "current_net_forest_loss_million_hectares_per_year": 4.12,
+      "source_reported_forest_area_billion_hectares": 4.14,
+      "derivation": "(current gross deforestation rate - historical gross deforestation rate) / historical gross deforestation rate * 100",
+      "uncertainty_status": "Derived percentage from source-reported period averages; not a confidence interval or annual trend."
+    }
+  },
+  "measurement_boundary": "Gross deforestation is permanent conversion of forest to another land use. Net forest-area loss subtracts forest expansion and is therefore not interchangeable. These global period averages do not identify countries, commodities, causes, annual variability, degradation within remaining forest, or tree-cover loss that does not meet the FRA deforestation definition.",
+  "source": {
+    "id": "fao_global_forest_resources_assessment",
+    "name": "FAO Global Forest Resources Assessment",
+    "publisher": "Food and Agriculture Organization of the United Nations",
+    "url": "https://www.fao.org/forest-resources-assessment/",
+    "statement_url": "https://www.fao.org/newsroom/detail/global-deforestation-slows--but-forests-remain-under-pressure--fao-report-shows/en",
+    "access": "open official assessment and data platform"
+  },
+  "refresh_policy": {
+    "default_days": 90,
+    "notes": "Treat FRA as an official periodic forest-baseline snapshot rather than as a high-frequency alert surface."
+  },
+  "use_guidance": {
+    "primary_role": "Use the source-reported global period rate as the primary operational measurement for the Deforestation node and as bounded endpoint context for edge estimands.",
+    "caution": "FRA is a periodic official assessment, not near-real-time alerting. Keep gross deforestation, net forest-area loss, degradation and remote-sensing tree-cover loss separate."
+  },
+  "overview": {
+    "title": "Global Forest Resources Assessment 2025",
+    "description": "FAO Global Forest Resources Assessment (FRA) provides essential information for understanding the extent of forest resources, their condition, management and...",
+    "modified_time": "2025-11-06T15:17:49Z",
+    "authority_note": "official national data baseline"
+  },
+  "tools": [
+    {
+      "id": "fra_home",
+      "label": "FRA home",
+      "url": "https://www.fao.org/forest-resources-assessment/",
+      "type": "project_page",
+      "access": "open"
+    },
+    {
+      "id": "fra_2025_report",
+      "label": "Global Forest Resources Assessment 2025",
+      "url": "https://openknowledge.fao.org/handle/20.500.14283/cd6709en",
+      "type": "report",
+      "access": "open"
+    },
+    {
+      "id": "fra_digital_report",
+      "label": "Digital report",
+      "url": "https://openknowledge.fao.org/server/api/core/bitstreams/2dee6e93-1988-4659-aa89-30dd20b43b15/content/cd6709en.html",
+      "type": "report",
+      "access": "open"
+    },
+    {
+      "id": "fra_data_portal",
+      "label": "Explore FRA data",
+      "url": "https://fra-data.fao.org/",
+      "type": "data_portal",
+      "access": "open"
+    },
+    {
+      "id": "fra_reports",
+      "label": "FRA 2025 reports",
+      "url": "https://www.fao.org/forest-resources-assessment/fra-2025-country-reports/en",
+      "type": "report_collection",
+      "access": "open"
+    }
+  ],
+  "service_caveats": [
+    "The current value is a 2015-2025 period average rather than an annual observation.",
+    "Gross deforestation and net forest-area loss have different accounting boundaries.",
+    "Use country or commodity attribution only when a separate compatible dataset is joined explicitly."
+  ],
+  "supported_questions": [
+    "Which forest and land-system nodes need an official global baseline alongside GFW alerts?",
+    "Where should forest claims be grounded in authoritative national reporting rather than only operational monitoring?",
+    "Which land-system bundles need stronger institutional baseline support?"
+  ]
+}

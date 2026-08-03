@@ -1,0 +1,383 @@
+{
+  "version": 1,
+  "updated_at": "2026-06-29",
+  "source_report": "/Users/aniketwarade/Downloads/deep-research-report.md",
+  "notes": [
+    "This file normalizes the deep research report into an import-ready staging format.",
+    "production_ready means the report judged the framing and numbers strong enough for first-pass UI replacement.",
+    "needs_extraction means the framing is acceptable but exact values still need a direct table pull from the cited source.",
+    "needs_reframing means the phenomenon is real but does not yet fit a ranked-bar UI cleanly without a narrower product decision."
+  ],
+  "phenomena": {
+    "food": {
+      "status": "production_ready",
+      "recommended_lens_type": "emissions intensity",
+      "recommended_unit": "kgCO2e/kg food",
+      "axis_max": 10,
+      "axis_ticks": [0, 2, 4, 6, 8, 10],
+      "group_labels": {
+        "primary": "On-farm and livestock",
+        "secondary": "Land use and downstream system effects"
+      },
+      "items": [
+        { "label": "Livestock (On-farm)", "value": 5.6, "unit": "GtCO2e/year", "group": "primary", "note": "Data year 2019.", "source": "Tubiello et al. / FAOSTAT synthesis" },
+        { "label": "Crops & Fertilizers (On-farm)", "value": 1.6, "unit": "GtCO2e/year", "group": "primary", "note": "Data year 2019.", "source": "Tubiello et al. / FAOSTAT synthesis" },
+        { "label": "Deforestation & Land Clearing", "value": 3.1, "unit": "GtCO2e/year", "group": "secondary", "note": "Data year 2019.", "source": "Tubiello et al. / FAOSTAT synthesis" },
+        { "label": "Supply Chain Energy & Transport", "value": 2.9, "unit": "GtCO2e/year", "group": "secondary", "note": "Data year 2019.", "source": "Tubiello et al. / FAOSTAT synthesis" },
+        { "label": "Food Waste & Post-farm Disposal", "value": 2.1, "unit": "GtCO2e/year", "group": "secondary", "note": "Data year 2019.", "source": "Tubiello et al. / FAOSTAT synthesis" },
+        { "label": "Household Fuel & Food Prep", "value": 1.2, "unit": "GtCO2e/year", "group": "secondary", "note": "Data year 2019.", "source": "Tubiello et al. / FAOSTAT synthesis" }
+      ],
+      "source_basis": "Current UI uses a consumer diet-comparison framing rather than the agrifood attribution framing captured in this staging extract.",
+      "confidence": "medium-high",
+      "report_note": "Production currently uses a direct food-comparison lens for user legibility. Keep this staging entry aligned to that product choice unless the UI is intentionally moved back to agrifood source attribution."
+    },
+    "industry_farming": {
+      "status": "needs_extraction",
+      "recommended_lens_type": "source attribution",
+      "recommended_unit": "GtCO2e/year",
+      "axis_max": 10,
+      "axis_ticks": [0, 2, 4, 6, 8, 10],
+      "group_labels": {
+        "primary": "Production core",
+        "secondary": "Farming-adjacent impacts"
+      },
+      "items": [
+        { "label": "Cattle-related emissions", "value": 9.4, "unit": "GtCO2e/year", "group": "primary", "note": "Proxy for industrial livestock-heavy farming burden.", "source": "Tubiello et al. / FAOSTAT synthesis" },
+        { "label": "Cattle-associated land-use change", "value": 3.3, "unit": "GtCO2e/year", "group": "secondary", "note": "Data year 2019.", "source": "Tubiello et al. / FAOSTAT synthesis" },
+        { "label": "Agrifood energy use", "value": 2.9, "unit": "GtCO2e/year", "group": "secondary", "note": "Data year 2019.", "source": "Tubiello et al. / FAOSTAT synthesis" },
+        { "label": "Fires and other land-use change", "value": 1.3, "unit": "GtCO2e/year", "group": "secondary", "note": "Data year 2019.", "source": "Tubiello et al. / FAOSTAT synthesis" }
+      ],
+      "source_basis": "FAO / Nature Food agrifood synthesis",
+      "confidence": "medium",
+      "report_note": "Needs a deliberate normalization choice between a farm-gate-only story and a broader agrifood attribution view."
+    },
+    "methane": {
+      "status": "needs_extraction",
+      "recommended_lens_type": "source attribution",
+      "recommended_unit": "% share of anthropogenic methane",
+      "source_basis": "UNEP Global Methane Assessment",
+      "confidence": "low",
+      "report_note": "Do not replace current values from this report alone; exact source shares still need direct UNEP or IEA extraction."
+    },
+    "carbon_emission": {
+      "status": "production_ready",
+      "recommended_lens_type": "sector decomposition",
+      "recommended_unit": "overlapping contribution markers",
+      "axis_max": 50,
+      "axis_ticks": [0, 10, 20, 30, 40, 50],
+      "group_labels": {
+        "primary": "Fossil fuel sources",
+        "secondary": "Industrial process sources"
+      },
+      "items": [
+        { "label": "Coal", "value": "40-42", "unit": "% share of fossil CO2", "group": "primary", "note": "Candidate range from 2023 basis.", "source": "Global Carbon Budget 2024" },
+        { "label": "Oil", "value": "30-33", "unit": "% share of fossil CO2", "group": "primary", "note": "Candidate range from 2023 basis.", "source": "Global Carbon Budget 2024" },
+        { "label": "Natural gas", "value": "20-22", "unit": "% share of fossil CO2", "group": "primary", "note": "Candidate range from 2023 basis.", "source": "Global Carbon Budget 2024" },
+        { "label": "Cement", "value": "3-5", "unit": "% share of fossil CO2", "group": "secondary", "note": "Candidate range from 2023 basis.", "source": "Global Carbon Budget 2024" },
+        { "label": "Flaring", "value": "1-2", "unit": "% share of fossil CO2", "group": "secondary", "note": "Candidate range from 2023 basis.", "source": "Global Carbon Budget 2024" }
+      ],
+      "source_basis": "Current UI uses an overlapping sector-composition framing rather than a fossil-source decomposition.",
+      "confidence": "medium",
+      "report_note": "Production intentionally explains carbon through overlapping sectors such as power, transport, industry, buildings, and land use. Treat this as a product-facing composition lens rather than a closed fossil-source budget."
+    },
+    "food_waste": {
+      "status": "production_ready",
+      "recommended_lens_type": "source attribution",
+      "recommended_unit": "million tonnes/year",
+      "axis_max": 700,
+      "axis_ticks": [0, 100, 200, 300, 400, 500, 600, 700],
+      "group_labels": {
+        "primary": "Consumer-side waste",
+        "secondary": "Commercial waste"
+      },
+      "items": [
+        { "label": "Households", "value": 631, "unit": "million tonnes/year", "group": "primary", "note": "Data year 2022.", "source": "UNEP Food Waste Index Report 2024" },
+        { "label": "Food service", "value": 290, "unit": "million tonnes/year", "group": "secondary", "note": "Data year 2022.", "source": "UNEP Food Waste Index Report 2024" },
+        { "label": "Retail", "value": 131, "unit": "million tonnes/year", "group": "secondary", "note": "Data year 2022.", "source": "UNEP Food Waste Index Report 2024" }
+      ],
+      "source_basis": "UNEP Food Waste Index",
+      "confidence": "high"
+    },
+    "personal_conveyance": {
+      "status": "production_ready",
+      "recommended_lens_type": "annual burden comparison",
+      "recommended_unit": "MtCO2e/year",
+      "axis_max": 260,
+      "axis_ticks": [0, 50, 100, 150, 200, 250],
+      "group_labels": {
+        "primary": "High-emissions modes",
+        "secondary": "Lower-emissions modes"
+      },
+      "items": [
+        { "label": "Domestic flight", "value": 246, "unit": "gCO2e/passenger-km", "group": "primary", "source": "Our World in Data / UK factors" },
+        { "label": "Diesel car", "value": 171, "unit": "gCO2e/passenger-km", "group": "primary", "source": "Our World in Data / UK factors" },
+        { "label": "Petrol car", "value": 170, "unit": "gCO2e/passenger-km", "group": "primary", "source": "Our World in Data / UK factors" },
+        { "label": "Short-haul flight", "value": 151, "unit": "gCO2e/passenger-km", "group": "primary", "source": "Our World in Data / UK factors" },
+        { "label": "Long-haul flight", "value": 147, "unit": "gCO2e/passenger-km", "group": "primary", "source": "Our World in Data / UK factors" },
+        { "label": "Motorcycle", "value": 113, "unit": "gCO2e/passenger-km", "group": "primary", "source": "Our World in Data / UK factors" },
+        { "label": "Electric car", "value": 47, "unit": "gCO2e/passenger-km", "group": "secondary", "source": "Our World in Data / UK factors" },
+        { "label": "National rail", "value": 35, "unit": "gCO2e/passenger-km", "group": "secondary", "source": "Our World in Data / UK factors" },
+        { "label": "Eurostar or comparable electric intercity rail", "value": 4, "unit": "gCO2e/passenger-km", "group": "secondary", "source": "Our World in Data / UK factors" }
+      ],
+      "source_basis": "Our World in Data + UK government factors",
+      "confidence": "high",
+      "report_note": "Production currently uses a simpler annual travel-burden framing rather than a passenger-km intensity ladder. Keep staging aligned to the active UI unless the product deliberately returns to a mode-intensity comparison."
+    },
+    "aviation": {
+      "status": "production_ready",
+      "recommended_lens_type": "annual sector burden",
+      "recommended_unit": "MtCO2e/year",
+      "axis_max": 0.6,
+      "axis_ticks": [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6],
+      "group_labels": {
+        "primary": "Economy travel",
+        "secondary": "Premium cabin travel"
+      },
+      "items": [
+        { "label": "Long-haul first class", "value": 0.557, "unit": "kgCO2e/passenger-km", "group": "secondary", "source": "DEFRA-based summary" },
+        { "label": "Long-haul business class", "value": 0.411, "unit": "kgCO2e/passenger-km", "group": "secondary", "source": "DEFRA-based summary" },
+        { "label": "Domestic short-haul economy", "value": 0.273, "unit": "kgCO2e/passenger-km", "group": "primary", "source": "DEFRA-linked factor snippet" },
+        { "label": "Medium-haul business class", "value": 0.229, "unit": "kgCO2e/passenger-km", "group": "secondary", "source": "DEFRA-based summary" },
+        { "label": "Medium-haul economy", "value": 0.153, "unit": "kgCO2e/passenger-km", "group": "primary", "source": "DEFRA-based summary" },
+        { "label": "Long-haul economy", "value": 0.148, "unit": "kgCO2e/passenger-km", "group": "primary", "source": "BEIS/DEFRA factor" }
+      ],
+      "source_basis": "IEA sector context with a simplified annual burden framing in the current UI.",
+      "confidence": "high",
+      "report_note": "Production currently uses a single annual aviation-sector burden for unit consistency across the app instead of a cabin-class intensity comparison."
+    },
+    "shipping": {
+      "status": "needs_extraction",
+      "recommended_lens_type": "source attribution",
+      "recommended_unit": "% share of shipping emissions",
+      "axis_max": 60,
+      "axis_ticks": [0, 10, 20, 30, 40, 50, 60],
+      "group_labels": {
+        "primary": "Dominant cargo segments",
+        "secondary": "Other vessel classes"
+      },
+      "items": [
+        { "label": "Combined share of container shipping, bulk carriers, and oil tankers", "value": 55, "unit": "% of 2018 shipping CO2", "group": "primary", "source": "ICCT summary using Fourth IMO GHG Study" }
+      ],
+      "source_basis": "IMO Fourth GHG Study",
+      "confidence": "medium",
+      "report_note": "Good direction, but still short of a clean 6-10 ranked extraction from the primary source."
+    },
+    "cement_concrete": {
+      "status": "production_ready",
+      "recommended_lens_type": "process-stage breakdown",
+      "recommended_unit": "% share of cement CO2",
+      "axis_max": 70,
+      "axis_ticks": [0, 10, 20, 30, 40, 50, 60, 70],
+      "group_labels": {
+        "primary": "Process chemistry",
+        "secondary": "Energy and electricity"
+      },
+      "items": [
+        { "label": "Process emissions from calcination", "value": 65, "unit": "% share", "group": "primary", "source": "European Commission JRC fact sheet" },
+        { "label": "Fuel combustion for kiln heat", "value": 35, "unit": "% share", "group": "secondary", "source": "European Commission JRC fact sheet" },
+        { "label": "Total cement-sector share of global CO2", "value": "7-8", "unit": "% share", "group": "secondary", "source": "IEA cement page and Reuters sector summary" }
+      ],
+      "source_basis": "JRC + IEA",
+      "confidence": "high"
+    },
+    "steel": {
+      "status": "production_ready",
+      "recommended_lens_type": "annual route burden",
+      "recommended_unit": "MtCO2e/year",
+      "axis_max": 2.5,
+      "axis_ticks": [0, 0.5, 1.0, 1.5, 2.0, 2.5],
+      "group_labels": {
+        "primary": "Conventional routes",
+        "secondary": "Lower-carbon routes"
+      },
+      "items": [
+        { "label": "BF-BOF", "value": 2.32, "unit": "tCO2/t crude steel", "group": "primary", "source": "worldsteel World Steel in Figures 2025" },
+        { "label": "DRI-EAF", "value": 1.43, "unit": "tCO2/t crude steel", "group": "secondary", "source": "worldsteel World Steel in Figures 2025" },
+        { "label": "Scrap-EAF", "value": 0.7, "unit": "tCO2/t crude steel", "group": "secondary", "source": "worldsteel World Steel in Figures 2025" },
+        { "label": "BF-BOF share of global production", "value": 70.4, "unit": "% share", "group": "primary", "source": "worldsteel World Steel in Figures 2025" },
+        { "label": "EAF share of global production", "value": 29.1, "unit": "% share", "group": "secondary", "source": "worldsteel World Steel in Figures 2025" }
+      ],
+      "source_basis": "worldsteel + IEA, translated into a production-facing annual route-burden view.",
+      "confidence": "high",
+      "report_note": "Production currently prioritizes annual route burden over route intensity so steel sits on the same unit system as the rest of the app."
+    },
+    "plastics_petrochemicals": {
+      "status": "needs_extraction",
+      "recommended_lens_type": "application share",
+      "recommended_unit": "% share of plastics use",
+      "axis_max": 35,
+      "axis_ticks": [0, 5, 10, 15, 20, 25, 30, 35],
+      "group_labels": {
+        "primary": "Dominant applications",
+        "secondary": "Other major applications"
+      },
+      "items": [
+        { "label": "Packaging", "value": 31, "unit": "% share of global plastics use", "group": "primary", "source": "OECD Global Plastics Outlook" },
+        { "label": "Construction", "value": 17, "unit": "% share", "group": "primary", "source": "OECD Global Plastics Outlook" },
+        { "label": "Transportation", "value": 12, "unit": "% share", "group": "primary", "source": "OECD Global Plastics Outlook" }
+      ],
+      "source_basis": "OECD",
+      "confidence": "medium",
+      "report_note": "Usable now for a short top-3 view, but needs a direct OECD table pull for a fuller ranked lens."
+    },
+    "air_conditioning_refrigerants": {
+      "status": "production_ready",
+      "recommended_lens_type": "annual leakage burden",
+      "recommended_unit": "MtCO2e/year",
+      "axis_max": 4000,
+      "axis_ticks": [0, 500, 1000, 1500, 2000, 2500, 3000, 3500, 4000],
+      "group_labels": {
+        "primary": "Legacy high-GWP refrigerants",
+        "secondary": "Lower-GWP replacements and naturals"
+      },
+      "items": [
+        { "label": "R-404A", "value": 3922, "unit": "GWP100", "group": "primary", "source": "US EPA reference table" },
+        { "label": "R-452A", "value": 2140, "unit": "GWP100", "group": "primary", "source": "US EPA reference table" },
+        { "label": "R-410A", "value": 2088, "unit": "GWP100", "group": "primary", "source": "US EPA reference table" },
+        { "label": "R-407C", "value": 1774, "unit": "GWP100", "group": "primary", "source": "US EPA reference table" },
+        { "label": "R-32", "value": 675, "unit": "GWP100", "group": "secondary", "source": "Australian government HFC GWP table" },
+        { "label": "R-454B", "value": 465, "unit": "GWP100", "group": "secondary", "source": "EPA and manufacturer-aligned reporting range" },
+        { "label": "R-290", "value": 3.3, "unit": "GWP100", "group": "secondary", "source": "US EPA reference table" },
+        { "label": "R-744", "value": 1, "unit": "GWP100", "group": "secondary", "source": "Low-GWP refrigerant tables" }
+      ],
+      "source_basis": "EPA refrigerant hierarchy translated into a simplified annual leakage-burden framing for the current UI.",
+      "confidence": "medium-high",
+      "report_note": "Production currently uses an annual legacy-versus-new refrigerant burden lens for unit consistency, but this remains one of the weaker annualizations and should be revisited if a better direct global leakage table is added."
+    },
+    "fertilizer_production": {
+      "status": "production_ready",
+      "recommended_lens_type": "emissions intensity",
+      "recommended_unit": "tCO2/t ammonia",
+      "axis_max": 3.5,
+      "axis_ticks": [0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5],
+      "group_labels": {
+        "primary": "Conventional routes",
+        "secondary": "Lower-carbon routes"
+      },
+      "items": [
+        { "label": "Coal gasification ammonia", "value": 3.2, "unit": "tCO2/t ammonia", "group": "primary", "source": "IEA Ammonia Technology Roadmap" },
+        { "label": "Global average ammonia production", "value": 2.4, "unit": "tCO2/t ammonia", "group": "primary", "source": "IEA executive summary" },
+        { "label": "Natural gas route baseline", "value": 1.8, "unit": "tCO2/t ammonia", "group": "primary", "source": "UNFCCC methodology note" }
+      ],
+      "source_basis": "IEA ammonia roadmap",
+      "confidence": "high"
+    },
+    "mining_critical_minerals": {
+      "status": "needs_extraction",
+      "recommended_lens_type": "supply-chain concentration",
+      "recommended_unit": "% share of refining or processing",
+      "axis_max": 100,
+      "axis_ticks": [0, 20, 40, 60, 80, 100],
+      "group_labels": {
+        "primary": "System concentration",
+        "secondary": "Mineral-specific concentration"
+      },
+      "items": [
+        { "label": "China average share across 19 of 20 strategic mineral refining chains", "value": 70, "unit": "% share", "group": "primary", "source": "IEA commentary on Global Critical Minerals Outlook 2025" },
+        { "label": "Top 3 refining nations average share for copper, lithium, nickel, cobalt, graphite and rare earths", "value": 86, "unit": "% share", "group": "primary", "source": "IEA Critical Minerals topic page" },
+        { "label": "China projected refined lithium share in 2035", "value": 60, "unit": "% share", "group": "secondary", "source": "IEA overview of key minerals" },
+        { "label": "China projected refined cobalt share in 2035", "value": 60, "unit": "% share", "group": "secondary", "source": "IEA overview of key minerals" },
+        { "label": "China projected battery-grade graphite share in 2035", "value": 80, "unit": "% share", "group": "secondary", "source": "IEA overview of key minerals" },
+        { "label": "China projected rare-earth refining share in 2035", "value": 80, "unit": "% share", "group": "secondary", "source": "IEA overview of key minerals" }
+      ],
+      "source_basis": "IEA Global Critical Minerals Outlook 2025",
+      "confidence": "high"
+    },
+    "urban_sprawl_housing": {
+      "status": "needs_extraction",
+      "recommended_lens_type": "infrastructure burden",
+      "recommended_unit": "bn m2 or %",
+      "source_basis": "World Bank + DOE",
+      "confidence": "medium",
+      "report_note": "Production currently uses a provisional overlapping buildout-pressure framing. Keep this entry marked as provisional until a cleaner additive decomposition is available."
+    },
+    "data_centers": {
+      "status": "production_ready",
+      "recommended_lens_type": "regional distribution",
+      "recommended_unit": "TWh/year",
+      "axis_max": 200,
+      "axis_ticks": [0, 50, 100, 150, 200],
+      "group_labels": {
+        "primary": "Leading regions",
+        "secondary": "Rest of world"
+      },
+      "items": [
+        { "label": "United States", "value": 187, "unit": "TWh/year", "group": "primary", "source": "IEA Energy and AI executive summary" },
+        { "label": "China", "value": 104, "unit": "TWh/year", "group": "primary", "source": "IEA Energy and AI executive summary" },
+        { "label": "Europe", "value": 62, "unit": "TWh/year", "group": "primary", "source": "IEA Energy and AI executive summary" },
+        { "label": "Rest of world", "value": 62, "unit": "TWh/year", "group": "secondary", "source": "IEA Energy and AI executive summary" },
+        { "label": "Global total 2030", "value": 945, "unit": "TWh/year", "group": "secondary", "note": "Projection, not observed 2024 activity.", "source": "IEA Energy and AI executive summary" }
+      ],
+      "source_basis": "IEA Energy and AI",
+      "confidence": "high"
+    },
+    "ai_data_centers": {
+      "status": "production_ready",
+      "recommended_lens_type": "overlapping infrastructure burden markers",
+      "recommended_unit": "overlapping contribution markers",
+      "axis_max": 5,
+      "axis_ticks": [0, 1, 2, 3, 4, 5],
+      "group_labels": {
+        "primary": "Growth burden",
+        "secondary": "Campus-scale examples"
+      },
+      "items": [
+        { "label": "AI-optimized data center electricity demand growth to 2030", "value": 4, "unit": "x current level", "group": "primary", "note": "Reported as more than fourfold growth.", "source": "IEA Energy and AI launch materials" },
+        { "label": "Typical AI-focused data center", "value": 100000, "unit": "households-equivalent electricity use", "group": "secondary", "source": "IEA executive summary" },
+        { "label": "Largest AI-focused sites under construction", "value": 20, "unit": "x typical AI-focused center", "group": "secondary", "source": "IEA executive summary" },
+        { "label": "AI-focused center capital intensity versus aluminum smelter", "value": 10, "unit": "x more capital-intensive", "group": "secondary", "source": "IEA executive summary" }
+      ],
+      "source_basis": "IEA Energy and AI",
+      "confidence": "high",
+      "report_note": "Production currently uses overlapping burden channels such as electricity draw, cooling, hardware, congestion, and water. Treat this as an indicative composition lens rather than a strict quantitative ranking."
+    },
+    "global_temperature": {
+      "status": "needs_extraction",
+      "recommended_lens_type": "annual anomaly ranking",
+      "recommended_unit": "deg C above pre-industrial",
+      "source_basis": "WMO + NASA",
+      "confidence": "high",
+      "report_note": "Strong candidate, but the top-10 anomaly table still needs direct extraction."
+    },
+    "resource_depletion": {
+      "status": "needs_reframing",
+      "recommended_lens_type": "overlapping resource-pressure markers",
+      "recommended_unit": "overlapping contribution markers",
+      "source_basis": "Needs scope split",
+      "confidence": "low",
+      "report_note": "Production currently treats this as an overlapping cross-resource pressure map rather than a closed total. It remains broad, but the staging metadata should reflect that active UI framing."
+    },
+    "environ_anomalies": {
+      "status": "needs_reframing",
+      "recommended_lens_type": "overlapping hazard-burden markers",
+      "recommended_unit": "overlapping contribution markers",
+      "source_basis": "Needs WMO or EM-DAT extraction",
+      "confidence": "low",
+      "report_note": "Production currently uses an overlapping hazard-cluster framing. A stronger source-driven hazard dataset would still improve this later."
+    },
+    "wet_bulb_heat": {
+      "status": "needs_reframing",
+      "recommended_lens_type": "overlapping survivability-pressure markers",
+      "recommended_unit": "overlapping contribution markers",
+      "source_basis": "Peer-reviewed studies needed",
+      "confidence": "low",
+      "report_note": "Production currently uses an overlapping exposure and survivability framing rather than a threshold-only ladder."
+    },
+    "monsoon_volatility": {
+      "status": "needs_reframing",
+      "recommended_lens_type": "overlapping monsoon-instability markers",
+      "recommended_unit": "overlapping contribution markers",
+      "source_basis": "Basin-specific datasets needed",
+      "confidence": "low",
+      "report_note": "Production currently uses overlapping seasonal-instability markers rather than a basin-specific anomaly distribution. A narrower regional source pass would still improve it."
+    },
+    "amoc": {
+      "status": "needs_extraction",
+      "recommended_lens_type": "trend attribution",
+      "recommended_unit": "% decline or Sv",
+      "source_basis": "IPCC + RAPID/MOCHA needed",
+      "confidence": "low-medium",
+      "report_note": "Should not be converted from this report alone; direct figure extraction is still needed."
+    }
+  }
+}

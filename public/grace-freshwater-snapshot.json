@@ -1,0 +1,142 @@
+{
+  "updated_at": "2026-07-18",
+  "version": "2026-07-18T12:50:57.641Z",
+  "snapshot_family": "freshwater_storage_support",
+  "source": {
+    "id": "nasa_grace_fo",
+    "name": "NASA GRACE-FO Freshwater Support Snapshot",
+    "url": "https://gracefo.jpl.nasa.gov/",
+    "publisher": "NASA JPL",
+    "access": "open_site_plus_open_catalog"
+  },
+  "refresh_policy": {
+    "default_days": 42,
+    "notes": "Treat GRACE-FO as a scheduled freshwater and basin-storage support snapshot. Pair the official mission surface with the existing Earthdata catalog instead of implying a direct browser-live basin API."
+  },
+  "use_guidance": {
+    "primary_role": "Use for freshwater storage, groundwater, drought, and basin-stress support on hydrology-heavy nodes.",
+    "caution": "Several deeper mission subpages were unstable during QA, so this snapshot intentionally leans on the working mission homepage and the already-curated Earthdata collection catalog."
+  },
+  "overview": {
+    "title": "GRACE-FO freshwater and water-storage support",
+    "summary": "GRACE-FO) is continuing GRACE’s legacy of tracking Earth’s water movement across the planet. Monitoring changes in ice sheets and glaciers, underground water storage, the amount of water in large lakes and rivers, and c…",
+    "highlight_article_count": 1,
+    "curated_collection_count": 4,
+    "focus_families": [
+      "groundwater and soil moisture",
+      "land water storage",
+      "freshwater drought context"
+    ]
+  },
+  "tools": [
+    {
+      "id": "grace_home",
+      "label": "GRACE-FO mission home",
+      "url": "https://gracefo.jpl.nasa.gov/",
+      "type": "mission",
+      "access": "open"
+    },
+    {
+      "id": "grace_tellus",
+      "label": "GRACE Tellus mission portal",
+      "url": "https://grace.jpl.nasa.gov/",
+      "type": "portal",
+      "access": "open"
+    },
+    {
+      "id": "earthdata_search",
+      "label": "Earthdata Search",
+      "url": "https://search.earthdata.nasa.gov/search",
+      "type": "catalog_search",
+      "access": "open"
+    }
+  ],
+  "observed_systems": [
+    "groundwater storage",
+    "soil moisture",
+    "land water storage",
+    "large lakes and rivers",
+    "ice sheets and glaciers"
+  ],
+  "curated_collections": [
+    {
+      "short_name": "TELLUS_GRAC_L3_CSR_RL06_LND_v04",
+      "title": "CSR TELLUS GRACE Level-3 Monthly Land Water-Equivalent-Thickness Surface Mass Anomaly Release 6.0 version 04",
+      "access_url": "https://search.earthdata.nasa.gov/search/granules?p=C2077042515-POCLOUD",
+      "search_url": "https://search.earthdata.nasa.gov/search?q=TELLUS_GRAC_L3_CSR_RL06_LND_v04",
+      "time_start": "2002-04-05T00:00:00.000Z",
+      "time_end": "2017-10-18T20:00:00.000Z",
+      "node_hints": [
+        "resource_depletion",
+        "industry_farming",
+        "food",
+        "crop_yield_volatility",
+        "cooling_water_competition",
+        "deforestation"
+      ],
+      "signal_family": "groundwater_and_soil_moisture"
+    },
+    {
+      "short_name": "TELLUS_GRFO_L3_CSR_RL06.3_LND_v04",
+      "title": "CSR TELLUS GRACE-FO Level-3 Monthly Land Water-Equivalent-Thickness Surface Mass Anomaly Release 6.3 version 04",
+      "access_url": "https://search.earthdata.nasa.gov/search/granules?p=C3193285193-POCLOUD",
+      "search_url": "https://search.earthdata.nasa.gov/search?q=TELLUS_GRFO_L3_CSR_RL06.3_LND_v04",
+      "time_start": "2018-05-22T00:00:00.000Z",
+      "time_end": null,
+      "node_hints": [
+        "resource_depletion",
+        "industry_farming",
+        "food",
+        "crop_yield_volatility",
+        "cooling_water_competition",
+        "deforestation"
+      ],
+      "signal_family": "groundwater_and_soil_moisture"
+    },
+    {
+      "short_name": "TELLUS_GRFO_L3_GFZ_RL06.3_LND_v04",
+      "title": "GFZ TELLUS GRACE-FO Level-3 Monthly Land Water-Equivalent-Thickness Surface Mass Anomaly Release 6.3 version 04",
+      "access_url": "https://search.earthdata.nasa.gov/search/granules?p=C3193293825-POCLOUD",
+      "search_url": "https://search.earthdata.nasa.gov/search?q=TELLUS_GRFO_L3_GFZ_RL06.3_LND_v04",
+      "time_start": "2018-05-22T00:00:00.000Z",
+      "time_end": null,
+      "node_hints": [
+        "resource_depletion",
+        "industry_farming",
+        "food",
+        "crop_yield_volatility",
+        "cooling_water_competition",
+        "deforestation"
+      ],
+      "signal_family": "groundwater_and_soil_moisture"
+    },
+    {
+      "short_name": "TELLUS_GRFO_L3_JPL_RL06.3_LND_v04",
+      "title": "JPL TELLUS GRACE-FO Level-3 Monthly Land Water-Equivalent-Thickness Surface Mass Anomaly Release 6.3 version 04",
+      "access_url": "https://search.earthdata.nasa.gov/search/granules?p=C3193302127-POCLOUD",
+      "search_url": "https://search.earthdata.nasa.gov/search?q=TELLUS_GRFO_L3_JPL_RL06.3_LND_v04",
+      "time_start": "2018-05-22T00:00:00.000Z",
+      "time_end": null,
+      "node_hints": [
+        "resource_depletion",
+        "industry_farming",
+        "food",
+        "crop_yield_volatility",
+        "cooling_water_competition",
+        "deforestation"
+      ],
+      "signal_family": "groundwater_and_soil_moisture"
+    }
+  ],
+  "highlight_articles": [
+    {
+      "title": "NASA Satellites Reveal Major Shifts in Global Freshwater",
+      "url": "https://gracefo.jpl.nasa.gov/news/131/nasa-satellites-reveal-major-shifts-in-global-freshwater/"
+    }
+  ],
+  "supported_questions": [
+    "Which basin-stress and hydrology nodes should inherit freshwater storage support beyond Aqueduct?",
+    "Where should groundwater and land-water anomaly datasets appear without pretending the mission site exposes a simple live feed?",
+    "Which node bundles should point users toward official GRACE-FO mission context plus Earthdata discovery routes?"
+  ]
+}

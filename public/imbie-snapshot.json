@@ -1,0 +1,107 @@
+{
+  "version": "2026-07-18T21:35:00.588Z",
+  "updated_at": "2026-07-18",
+  "captured_at": "2026-07-18T21:35:00.588Z",
+  "snapshot_family": "northstar_contract_bound_ingestion",
+  "ingestion_job_id": "fetch_imbie_mass_balance_assessment",
+  "source": {
+    "id": "ice_sheet_mass_balance_inter_comparison_exercise",
+    "name": "Ice Sheet Mass Balance Inter-comparison Exercise",
+    "publisher": "IMBIE Team via Earth System Science Data and UK Polar Data Centre",
+    "article_url": "https://essd.copernicus.org/articles/15/1597/2023/",
+    "article_doi": "https://doi.org/10.5194/essd-15-1597-2023",
+    "dataset_doi": "https://doi.org/10.5285/77B64C55-7166-4A06-9DEF-2E400398E452"
+  },
+  "request": {
+    "assessment_period": "1992-2020",
+    "source_section": "Abstract and Results paragraphs following Figure 4",
+    "required_claims": [
+      "Greenland cumulative and average mass loss",
+      "Antarctic cumulative mass loss and sea-level contribution",
+      "combined cumulative mass loss and sea-level contribution"
+    ]
+  },
+  "metric_contract_ids": [
+    "ice_sheet_mass_balance"
+  ],
+  "contract_bindings": [
+    {
+      "node_id": "ice_sheet_mass_loss",
+      "metric_id": "ice_sheet_mass_balance"
+    }
+  ],
+  "cadence": "annual source check and refresh when IMBIE publishes a new reconciled assessment",
+  "provenance": "Peer-reviewed IMBIE reconciliation combining 50 independent satellite-derived estimates from gravimetry, altimetry, and input-output methods over 1992-2020.",
+  "uncertainty": "Source-reported uncertainties are retained. Annualized Antarctic and combined rates divide cumulative uncertainty by the same 29-year span and are labeled derived rather than source-reported annual rates.",
+  "source_summary": {
+    "assessment_span": "1992-2020",
+    "independent_estimates_reconciled": 50,
+    "regions": 3,
+    "combined_cumulative_mass_change_gt": -7563,
+    "combined_cumulative_uncertainty_gt": 699,
+    "combined_sea_level_equivalent_mm": 21,
+    "combined_sea_level_uncertainty_mm": 2,
+    "measurement_boundary": "This assessment measures ice-sheet mass balance. It does not directly measure firn air content, grounding-line position, or surface-elevation change as separate operational contracts."
+  },
+  "record_count": 3,
+  "records": [
+    {
+      "record_id": "imbie_greenland_1992_2020",
+      "region": "Greenland Ice Sheet",
+      "period_start": 1992,
+      "period_end": 2020,
+      "period_years": 29,
+      "cumulative_mass_change_gt": -4892,
+      "cumulative_mass_change_uncertainty_gt": 457,
+      "mass_balance_rate_gtyr": -169,
+      "mass_balance_rate_lower_gtyr": -185,
+      "mass_balance_rate_upper_gtyr": -153,
+      "rate_basis": "source-reported 1992-2020 average rate",
+      "sea_level_equivalent_mm": null,
+      "sea_level_equivalent_uncertainty_mm": null,
+      "source_locator": "Results, paragraph following Figure 4: Greenland cumulative and average mass loss",
+      "source_reported_or_derived": "source_reported_rate_and_uncertainty"
+    },
+    {
+      "record_id": "imbie_antarctica_1992_2020",
+      "region": "Antarctic Ice Sheet",
+      "period_start": 1992,
+      "period_end": 2020,
+      "period_years": 29,
+      "cumulative_mass_change_gt": -2671,
+      "cumulative_mass_change_uncertainty_gt": 530,
+      "mass_balance_rate_gtyr": -92.103,
+      "mass_balance_rate_lower_gtyr": -110.379,
+      "mass_balance_rate_upper_gtyr": -73.828,
+      "rate_basis": "derived annualized rate from source-reported cumulative mass change divided by the declared 29-year assessment span",
+      "sea_level_equivalent_mm": 7.4,
+      "sea_level_equivalent_uncertainty_mm": 1.5,
+      "source_locator": "Results, paragraph following Figure 4: Antarctic cumulative mass loss and sea-level contribution",
+      "source_reported_or_derived": "annual_rate_derived_from_source_reported_cumulative_total"
+    },
+    {
+      "record_id": "imbie_combined_1992_2020",
+      "region": "Greenland and Antarctic ice sheets combined",
+      "period_start": 1992,
+      "period_end": 2020,
+      "period_years": 29,
+      "cumulative_mass_change_gt": -7563,
+      "cumulative_mass_change_uncertainty_gt": 699,
+      "mass_balance_rate_gtyr": -260.793,
+      "mass_balance_rate_lower_gtyr": -284.897,
+      "mass_balance_rate_upper_gtyr": -236.69,
+      "rate_basis": "derived annualized rate from source-reported cumulative mass change divided by the declared 29-year assessment span",
+      "sea_level_equivalent_mm": 21,
+      "sea_level_equivalent_uncertainty_mm": 2,
+      "source_locator": "Results, paragraph following Figure 4: combined cumulative mass loss and sea-level contribution",
+      "source_reported_or_derived": "annual_rate_derived_from_source_reported_cumulative_total"
+    }
+  ],
+  "caveats": [
+    "The snapshot is assessment-grade rather than daily telemetry.",
+    "Peripheral glacier inclusion differs across satellite methods and is an explicit limitation in the source.",
+    "Negative values denote net ice-sheet mass loss; uncertainty intervals retain the same sign convention.",
+    "Do not apply combined or ice-sheet-wide rates to individual drainage basins."
+  ],
+  "failure_behavior": "Retain the last validated IMBIE assessment, mark it stale, expose source-text or schema failure, and never replace a missing uncertainty with zero or reuse values across a changed assessment period."
+}

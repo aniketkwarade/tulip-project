@@ -1,0 +1,103 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_9_nasa_giss_arctic_amplification",
+  "generated_at": "2026-07-31T22:57:30.303Z",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "arctic_amplification_rates",
+      "value": 2.2,
+      "band": "Low",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "magnitude": 0.204233,
+        "threshold": 0.204233,
+        "momentum": 0,
+        "extent": 0.050603
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_30_year_arctic_to_global_warming_ratio": 3.079036,
+          "no_amplification_reference_ratio": 1,
+          "excess_ratio_above_reference": 2.079036,
+          "complete_rolling_annual_observations": 46,
+          "anchors": [
+            1.297035,
+            2.560594,
+            2.986919,
+            3.160607
+          ],
+          "source_locator": "https://data.giss.nasa.gov/gistemp/tabledata_v4/ZonAnn.Ts+dSST.csv"
+        },
+        "threshold": {
+          "latest_30_year_arctic_to_global_warming_ratio": 3.079036,
+          "latest_arctic_trend_c_per_decade": 0.775684,
+          "latest_global_trend_c_per_decade": 0.251924,
+          "threshold_basis": "historical_distribution_fallback",
+          "anchors": [
+            2.297035,
+            3.560594,
+            3.986919,
+            4.160607
+          ],
+          "source_locator": "https://data.giss.nasa.gov/gistemp/tabledata_v4/ZonAnn.Ts+dSST.csv"
+        },
+        "momentum": {
+          "latest_year_over_year_change_in_rolling_ratio": 0.022351,
+          "annual_change_observations": 45,
+          "anchors": [
+            0.101888,
+            0.229109,
+            0.405102,
+            1.137722
+          ],
+          "source_locator": "https://data.giss.nasa.gov/gistemp/tabledata_v4/ZonAnn.Ts+dSST.csv"
+        },
+        "extent": {
+          "arctic_band": "64N-90N",
+          "earth_surface_area_share": 0.050603,
+          "normalized_value": 0.050603,
+          "formula": "(1 - sin(64 degrees)) / 2 for the spherical cap north of 64N",
+          "source_locator": "https://data.giss.nasa.gov/gistemp/tabledata_v4/ZonAnn.Ts+dSST.csv"
+        },
+        "source_snapshot": {
+          "path": "public/temperature-benchmarks.json",
+          "version": "2026-07-31T15:05:15.489Z",
+          "updated_at": "2026-07-31",
+          "baseline_period": "1951-1980",
+          "source_history_start": 1880,
+          "source_history_end": 2025,
+          "trend_window_start": 1996,
+          "trend_window_end": 2025
+        }
+      },
+      "transformations": [
+        {
+          "type": "rolling_arctic_amplification_ratio",
+          "formula": "30-year OLS trend of NASA GISS 64N-90N annual anomaly divided by the matching 30-year OLS trend of the NASA GISS global annual anomaly."
+        },
+        {
+          "type": "stable_positive_global_trend_gate",
+          "formula": "Retain windows ending in 1979 or later with a global trend above 0.005 C/year; do not divide by zero or unstable near-zero trends."
+        },
+        {
+          "type": "historical_distribution_normalization",
+          "formula": "Map the amplification ratio, excess above the no-amplification ratio of 1 and its annual change through median / p75 / p90 / p97.5 anchors."
+        }
+      ],
+      "source_ids": [
+        "nasa_giss_surface_temperature_analysis"
+      ],
+      "uncertainty": "NASA GISS anomaly uncertainty, sparse early Arctic coverage, interpolation, baseline choice and the 30-year window affect the ratio. The ratio describes differential warming and does not attribute every Arctic impact to amplification.",
+      "freshness": "NASA GISS zonal annual series through 2025; snapshot refreshed 2026-07-31.",
+      "selection_reason": {
+        "selected_method_passed": "NASA GISS supplies a complete, common-method global and 64N-90N annual history; 46 stable 30-year ratios quantify current amplification magnitude, historical position, momentum and the exact observed surface-area extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:c58c4ece"
+    }
+  ]
+}

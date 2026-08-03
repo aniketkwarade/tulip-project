@@ -1,0 +1,174 @@
+{
+  "updated_at": "2026-07-18",
+  "version": "2026-07-18T12:53:22.533Z",
+  "snapshot_family": "active_fire_operational",
+  "source": {
+    "id": "nasa_firms",
+    "name": "NASA FIRMS",
+    "url": "https://firms.modaps.eosdis.nasa.gov/api/",
+    "publisher": "NASA LANCE / FIRMS",
+    "access": "mixed"
+  },
+  "refresh_policy": {
+    "default_days": 14,
+    "notes": "FIRMS is high-frequency, but TULIP should use it as a discovery and support layer or via frozen snapshots rather than direct client polling."
+  },
+  "use_guidance": {
+    "primary_role": "Use for wildfire, deforestation, and land-hazard context where near-real-time fire detections materially strengthen the node.",
+    "caution": "Some endpoints require MAP_KEY setup, so treat FIRMS as key-required operational support rather than browser-safe open JSON."
+  },
+  "overview": {
+    "title": "NASA FIRMS",
+    "subtitle": "Near-real-time active fire monitoring and download support from NASA LANCE.",
+    "api_version": "4.0.94",
+    "api_surface_count": 8,
+    "sensor_count": 8
+  },
+  "access_model": {
+    "map_key_required": true,
+    "browser_safe": false
+  },
+  "tools": [
+    {
+      "id": "firms_map",
+      "label": "NASA FIRMS Map",
+      "url": "https://firms.modaps.eosdis.nasa.gov/map/",
+      "type": "map",
+      "access": "open"
+    },
+    {
+      "id": "api_directory",
+      "label": "API directory",
+      "url": "https://firms.modaps.eosdis.nasa.gov/api/",
+      "type": "portal",
+      "access": "open"
+    },
+    {
+      "id": "area",
+      "label": "Area hotspots CSV",
+      "url": "https://firms.modaps.eosdis.nasa.gov/api/area/",
+      "type": "api",
+      "access": "key_required",
+      "notes": "Bounding-box or world fire hotspot query in CSV format."
+    },
+    {
+      "id": "data_availability",
+      "label": "Data availability",
+      "url": "https://firms.modaps.eosdis.nasa.gov/api/data_availability/",
+      "type": "api",
+      "access": "key_required",
+      "notes": "Sensor-by-sensor date availability for near-real-time and standard-processing products."
+    },
+    {
+      "id": "kml_fire_footprints",
+      "label": "KML fire footprints",
+      "url": "https://firms.modaps.eosdis.nasa.gov/api/kml_fire_footprints/",
+      "type": "api",
+      "access": "key_required",
+      "notes": "KML fire-detection footprint service."
+    },
+    {
+      "id": "map_key",
+      "label": "MAP_KEY setup",
+      "url": "https://firms.modaps.eosdis.nasa.gov/api/map_key/",
+      "type": "account",
+      "access": "open",
+      "notes": "MAP_KEY registration/setup is required for API and mapservice access."
+    },
+    {
+      "id": "missing_data",
+      "label": "Missing satellite data",
+      "url": "https://firms.modaps.eosdis.nasa.gov/api/missing_data/",
+      "type": "status",
+      "access": "open",
+      "notes": "Calendar of dates with missing satellite data."
+    },
+    {
+      "id": "code_examples",
+      "label": "API code examples",
+      "url": "https://firms.modaps.eosdis.nasa.gov/academy/",
+      "type": "documentation",
+      "access": "open",
+      "notes": "Official FIRMS examples and training pages."
+    }
+  ],
+  "curated_products": [
+    {
+      "id": "active_fire_area_csv",
+      "label": "Active fire area query",
+      "role": "bbox hotspot query",
+      "endpoint_template": "/api/area/csv/[MAP_KEY]/[SOURCE]/[AREA_COORDINATES]/[DAY_RANGE]/[DATE]",
+      "notes": "Returns fire hotspots for a bounding box or the full world extent, with up to five days per query window."
+    },
+    {
+      "id": "sensor_availability",
+      "label": "Sensor data availability",
+      "role": "operational availability check",
+      "endpoint_template": "/api/data_availability/csv/[MAP_KEY]/[SENSOR]",
+      "notes": "Confirms which dates are currently available for standard-processing and near-real-time products."
+    },
+    {
+      "id": "missing_satellite_data",
+      "label": "Missing satellite data calendar",
+      "role": "service caveat",
+      "endpoint_template": "/api/missing_data/",
+      "notes": "Carries missing-data status forward so nodes do not overstate coverage."
+    },
+    {
+      "id": "kml_fire_footprints",
+      "label": "KML fire footprints",
+      "role": "mapping support",
+      "endpoint_template": "/api/kml_fire_footprints/",
+      "notes": "Provides a fire footprint surface for mapping and visual context."
+    }
+  ],
+  "sensors": [
+    {
+      "id": "LANDSAT_NRT",
+      "label": "LANDSAT (NRT) [US/Canada only]"
+    },
+    {
+      "id": "MODIS_NRT",
+      "label": "MODIS (URT+NRT)"
+    },
+    {
+      "id": "MODIS_SP",
+      "label": "MODIS (SP)"
+    },
+    {
+      "id": "VIIRS_NOAA20_NRT",
+      "label": "VIIRS NOAA-20 (URT+NRT)"
+    },
+    {
+      "id": "VIIRS_NOAA20_SP",
+      "label": "VIIRS NOAA-20 (SP)"
+    },
+    {
+      "id": "VIIRS_NOAA21_NRT",
+      "label": "VIIRS NOAA-21 (URT+NRT)"
+    },
+    {
+      "id": "VIIRS_SNPP_NRT",
+      "label": "VIIRS S-NPP (URT+NRT)"
+    },
+    {
+      "id": "VIIRS_SNPP_SP",
+      "label": "VIIRS S-NPP (SP)"
+    }
+  ],
+  "operational_characteristics": {
+    "area_query_max_day_range": 5,
+    "supports_world_extent": true,
+    "ultra_real_time_note": "FIRMS states that Ultra Real-Time data is available in less than 60 seconds after satellite flyover for much of the US and Canada.",
+    "replacement_policy": "RT and URT detections are replaced when matching NRT detections arrive or when older than 6 hours."
+  },
+  "service_caveats": [
+    "Country and countries API routes are currently flagged as unavailable on the official API directory.",
+    "Operational CSV downloads require a free MAP_KEY."
+  ],
+  "supported_questions": [
+    "Which land-system nodes should inherit active-fire operational support by default?",
+    "Where should fire-monitoring evidence stay clearly operational rather than sounding like a global truth feed?",
+    "Which wildfire and deforestation nodes need explicit MAP_KEY caveats in their attached evidence?"
+  ]
+}

@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <radialGradient id="glow" cx="78%" cy="38%" r="56%">
+      <stop offset="0" stop-color="#144a5e" stop-opacity=".94"/>
+      <stop offset=".48" stop-color="#102534" stop-opacity=".72"/>
+      <stop offset="1" stop-color="#090b10" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="edge" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#58d9e9"/>
+      <stop offset="1" stop-color="#6f83ff"/>
+    </linearGradient>
+    <filter id="blur"><feGaussianBlur stdDeviation="24"/></filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="#090b10"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <circle cx="974" cy="112" r="170" fill="#173650" opacity=".55" filter="url(#blur)"/>
+  <circle cx="900" cy="430" r="250" fill="none" stroke="#56cfe1" stroke-opacity=".12"/>
+  <circle cx="900" cy="430" r="184" fill="none" stroke="#7b8cff" stroke-opacity=".13"/>
+  <circle cx="900" cy="430" r="112" fill="none" stroke="#ffffff" stroke-opacity=".11"/>
+
+  <g fill="none" stroke="url(#edge)" stroke-width="2" stroke-opacity=".62">
+    <path d="M713 375 C775 292 831 268 904 328 S1032 390 1100 312"/>
+    <path d="M744 476 C804 430 849 450 893 405 S1018 338 1104 416"/>
+    <path d="M805 222 C849 275 895 277 936 235 S1028 190 1082 244"/>
+  </g>
+  <g fill="#fff">
+    <circle cx="713" cy="375" r="5"/>
+    <circle cx="904" cy="328" r="7"/>
+    <circle cx="1100" cy="312" r="5"/>
+    <circle cx="744" cy="476" r="5"/>
+    <circle cx="893" cy="405" r="7"/>
+    <circle cx="1104" cy="416" r="5"/>
+    <circle cx="805" cy="222" r="5"/>
+    <circle cx="936" cy="235" r="6"/>
+    <circle cx="1082" cy="244" r="5"/>
+  </g>
+
+  <g font-family="Inter, Arial, sans-serif">
+    <text x="72" y="80" fill="#a9b8c8" font-size="18" font-weight="700" letter-spacing="4">THE TULIP PROJECT</text>
+    <text x="72" y="210" fill="#ffffff" font-size="68" font-weight="500" letter-spacing="-2.5">
+      <tspan x="72" dy="0">See how climate</tspan>
+      <tspan x="72" dy="76">change connects.</tspan>
+    </text>
+    <text x="74" y="354" fill="#bac4d0" font-size="22" font-weight="400">
+      Evidence-linked relationships across climate,
+    </text>
+    <text x="74" y="386" fill="#bac4d0" font-size="22" font-weight="400">
+      ecosystems, economies, and everyday life.
+    </text>
+
+    <rect x="72" y="396" width="236" height="48" rx="24" fill="#ffffff"/>
+    <text x="190" y="426" text-anchor="middle" fill="#0b0d12" font-size="15" font-weight="800" letter-spacing="1.8">EXPLORE TULIP</text>
+  </g>
+</svg>

@@ -1,0 +1,592 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_41_remaining_global_observed_impacts",
+  "generated_at": "2026-08-01T15:38:04.818Z",
+  "source_snapshots": [
+    "public/global-remaining-cohort-impact-snapshot.json",
+    "public/fao-fishery-protein-impact-snapshot.json"
+  ],
+  "promoted_node_count": 10,
+  "receipts": [
+    {
+      "node_id": "pelagic_species_redistribution",
+      "value": 8.8,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2022",
+      "components": {
+        "biophysical_burden": 0.846,
+        "human_economic_burden": 0.868,
+        "persistence": 0.89,
+        "extent": 0.9
+      },
+      "raw_inputs": {
+        "assessment_year": 2022,
+        "observed_distribution_shift_km_per_decade": 72,
+        "fisheries_catch_temperature_change_c_per_decade": 0.19,
+        "large_marine_ecosystems_assessed": 52,
+        "people_receiving_at_least_20pct_animal_protein_billion": 3.2,
+        "observed_change_window_years": 50,
+        "global_extent": 0.9,
+        "fao_consumption_year": 2021,
+        "aquatic_food_dependence_billion": 3.2,
+        "fishery_source_snapshot": {
+          "path": "public/fao-fishery-protein-impact-snapshot.json",
+          "version": "fao_sofia_2024_fishery_protein_dependence_snapshot_v1",
+          "captured_at": "2026-07-31T16:41:56.344Z"
+        },
+        "evidence_boundary": "The 72 km per decade assessment is a cross-taxa observed distribution response, not a census of every pelagic stock; FAO protein dependence quantifies the exposed food system without attributing all dependence losses to redistribution.",
+        "source_snapshot": {
+          "path": "public/global-remaining-cohort-impact-snapshot.json",
+          "version": "global_remaining_cohort_impact_2026_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Normalize each retained quantitative burden against declared four-point anchors and clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        },
+        {
+          "type": "boundary_preservation",
+          "formula": "Keep exposure, effect size, observed change, ecosystem-service value and geographic coverage distinct; missing values never become zero."
+        }
+      ],
+      "source_ids": [
+        "ipcc_ar6_wgii_ocean_coastal_ecosystems",
+        "fao_the_state_of_world_fisheries_and_aquaculture_2024"
+      ],
+      "uncertainty": "Values preserve the assessment period, confidence interval, geographic boundary and reported statistic. Global or multicountry studies are not converted into local incidence, and system exposure is not relabeled as a realized outcome. The 72 km per decade assessment is a cross-taxa observed distribution response, not a census of every pelagic stock; FAO protein dependence quantifies the exposed food system without attributing all dependence losses to redistribution.",
+      "freshness": "Latest reviewed global or multicountry assessment through 2022.",
+      "selection_reason": {
+        "selected_method_passed": "Quantitative accumulated biophysical and human/economic burdens, persistence and broad extent pass the impact-fallback gate.",
+        "higher_priority_failures": [
+          "No complete current global observation supplies magnitude plus threshold or momentum with at least 60% current-component coverage for this exact node."
+        ]
+      },
+      "input_hash": "fnv1a32:0d65635d"
+    },
+    {
+      "node_id": "fisheries_range_redistribution",
+      "value": 8.8,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2022",
+      "components": {
+        "biophysical_burden": 0.846,
+        "human_economic_burden": 0.868,
+        "persistence": 0.89,
+        "extent": 0.9
+      },
+      "raw_inputs": {
+        "assessment_year": 2022,
+        "observed_distribution_shift_km_per_decade": 72,
+        "fisheries_catch_temperature_change_c_per_decade": 0.19,
+        "large_marine_ecosystems_assessed": 52,
+        "people_receiving_at_least_20pct_animal_protein_billion": 3.2,
+        "observed_change_window_years": 50,
+        "global_extent": 0.9,
+        "fao_consumption_year": 2021,
+        "aquatic_food_dependence_billion": 3.2,
+        "fishery_source_snapshot": {
+          "path": "public/fao-fishery-protein-impact-snapshot.json",
+          "version": "fao_sofia_2024_fishery_protein_dependence_snapshot_v1",
+          "captured_at": "2026-07-31T16:41:56.344Z"
+        },
+        "evidence_boundary": "The global catch-temperature and range-shift signals quantify redistribution across major marine ecosystems; they do not attribute every landing change to warming.",
+        "source_snapshot": {
+          "path": "public/global-remaining-cohort-impact-snapshot.json",
+          "version": "global_remaining_cohort_impact_2026_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Normalize each retained quantitative burden against declared four-point anchors and clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        },
+        {
+          "type": "boundary_preservation",
+          "formula": "Keep exposure, effect size, observed change, ecosystem-service value and geographic coverage distinct; missing values never become zero."
+        }
+      ],
+      "source_ids": [
+        "cheung_global_fisheries_catch_warming_2013",
+        "ipcc_ar6_wgii_ocean_coastal_ecosystems",
+        "fao_the_state_of_world_fisheries_and_aquaculture_2024"
+      ],
+      "uncertainty": "Values preserve the assessment period, confidence interval, geographic boundary and reported statistic. Global or multicountry studies are not converted into local incidence, and system exposure is not relabeled as a realized outcome. The global catch-temperature and range-shift signals quantify redistribution across major marine ecosystems; they do not attribute every landing change to warming.",
+      "freshness": "Latest reviewed global or multicountry assessment through 2022.",
+      "selection_reason": {
+        "selected_method_passed": "Quantitative accumulated biophysical and human/economic burdens, persistence and broad extent pass the impact-fallback gate.",
+        "higher_priority_failures": [
+          "No complete current global observation supplies magnitude plus threshold or momentum with at least 60% current-component coverage for this exact node."
+        ]
+      },
+      "input_hash": "fnv1a32:2d4ec629"
+    },
+    {
+      "node_id": "kelp_forest_collapse",
+      "value": 8.8,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2023",
+      "components": {
+        "biophysical_burden": 0.8416,
+        "human_economic_burden": 0.905714,
+        "persistence": 0.89,
+        "extent": 0.8
+      },
+      "raw_inputs": {
+        "assessment_year": 2023,
+        "ecoregions_with_declines_pct": 38,
+        "ecoregions_with_increases_pct": 27,
+        "ecoregions_with_no_detectable_change_pct": 35,
+        "mean_decline_rate_per_year": 0.018,
+        "assessed_change_window_years": 50,
+        "annual_ecosystem_service_value_usd_billion": 500,
+        "twenty_year_net_present_value_usd_trillion": 7.44,
+        "global_extent": 0.8,
+        "evidence_boundary": "Declines occur in 38% of assessed ecoregions while other regions are stable or increasing; the score does not relabel all global kelp as collapsed or count the full service value as realized loss.",
+        "source_snapshot": {
+          "path": "public/global-remaining-cohort-impact-snapshot.json",
+          "version": "global_remaining_cohort_impact_2026_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Normalize each retained quantitative burden against declared four-point anchors and clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        },
+        {
+          "type": "boundary_preservation",
+          "formula": "Keep exposure, effect size, observed change, ecosystem-service value and geographic coverage distinct; missing values never become zero."
+        }
+      ],
+      "source_ids": [
+        "krumhansl_global_kelp_change_2016",
+        "eger_global_kelp_services_2023"
+      ],
+      "uncertainty": "Values preserve the assessment period, confidence interval, geographic boundary and reported statistic. Global or multicountry studies are not converted into local incidence, and system exposure is not relabeled as a realized outcome. Declines occur in 38% of assessed ecoregions while other regions are stable or increasing; the score does not relabel all global kelp as collapsed or count the full service value as realized loss.",
+      "freshness": "Latest reviewed global or multicountry assessment through 2023.",
+      "selection_reason": {
+        "selected_method_passed": "Quantitative accumulated biophysical and human/economic burdens, persistence and broad extent pass the impact-fallback gate.",
+        "higher_priority_failures": [
+          "No complete current global observation supplies magnitude plus threshold or momentum with at least 60% current-component coverage for this exact node."
+        ]
+      },
+      "input_hash": "fnv1a32:2b3e34e2"
+    },
+    {
+      "node_id": "smoke_exposure_burden",
+      "value": 9,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2019",
+      "components": {
+        "biophysical_burden": 0.9296,
+        "human_economic_burden": 0.87592,
+        "persistence": 0.78,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "assessment_year": 2019,
+        "observation_start_year": 2000,
+        "observation_end_year": 2019,
+        "annual_all_cause_deaths_million": 1.53,
+        "annual_cardiovascular_deaths_million": 0.45,
+        "annual_respiratory_deaths_million": 0.22,
+        "people_exposed_annually_billion": 2.18,
+        "pm25_share_of_attributable_deaths_pct": 77.6,
+        "global_extent": 1,
+        "evidence_boundary": "Global landscape-fire PM2.5 and ozone exposure supports smoke_exposure_burden; attributable mortality is model-estimated and PM2.5 and ozone shares remain separate.",
+        "source_snapshot": {
+          "path": "public/global-remaining-cohort-impact-snapshot.json",
+          "version": "global_remaining_cohort_impact_2026_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Normalize each retained quantitative burden against declared four-point anchors and clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        },
+        {
+          "type": "boundary_preservation",
+          "formula": "Keep exposure, effect size, observed change, ecosystem-service value and geographic coverage distinct; missing values never become zero."
+        }
+      ],
+      "source_ids": [
+        "lancet_landscape_fire_mortality_2000_2019"
+      ],
+      "uncertainty": "Values preserve the assessment period, confidence interval, geographic boundary and reported statistic. Global or multicountry studies are not converted into local incidence, and system exposure is not relabeled as a realized outcome. Global landscape-fire PM2.5 and ozone exposure supports smoke_exposure_burden; attributable mortality is model-estimated and PM2.5 and ozone shares remain separate.",
+      "freshness": "Latest reviewed global or multicountry assessment through 2019.",
+      "selection_reason": {
+        "selected_method_passed": "Quantitative accumulated biophysical and human/economic burdens, persistence and broad extent pass the impact-fallback gate.",
+        "higher_priority_failures": [
+          "No complete current global observation supplies magnitude plus threshold or momentum with at least 60% current-component coverage for this exact node."
+        ]
+      },
+      "input_hash": "fnv1a32:0e8da039"
+    },
+    {
+      "node_id": "wildfire_smoke_pm25_exposure",
+      "value": 9,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2019",
+      "components": {
+        "biophysical_burden": 0.9296,
+        "human_economic_burden": 0.87592,
+        "persistence": 0.78,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "assessment_year": 2019,
+        "observation_start_year": 2000,
+        "observation_end_year": 2019,
+        "annual_all_cause_deaths_million": 1.53,
+        "annual_cardiovascular_deaths_million": 0.45,
+        "annual_respiratory_deaths_million": 0.22,
+        "people_exposed_annually_billion": 2.18,
+        "pm25_share_of_attributable_deaths_pct": 77.6,
+        "global_extent": 1,
+        "evidence_boundary": "Global landscape-fire PM2.5 and ozone exposure supports wildfire_smoke_pm25_exposure; attributable mortality is model-estimated and PM2.5 and ozone shares remain separate.",
+        "source_snapshot": {
+          "path": "public/global-remaining-cohort-impact-snapshot.json",
+          "version": "global_remaining_cohort_impact_2026_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Normalize each retained quantitative burden against declared four-point anchors and clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        },
+        {
+          "type": "boundary_preservation",
+          "formula": "Keep exposure, effect size, observed change, ecosystem-service value and geographic coverage distinct; missing values never become zero."
+        }
+      ],
+      "source_ids": [
+        "lancet_landscape_fire_mortality_2000_2019"
+      ],
+      "uncertainty": "Values preserve the assessment period, confidence interval, geographic boundary and reported statistic. Global or multicountry studies are not converted into local incidence, and system exposure is not relabeled as a realized outcome. Global landscape-fire PM2.5 and ozone exposure supports wildfire_smoke_pm25_exposure; attributable mortality is model-estimated and PM2.5 and ozone shares remain separate.",
+      "freshness": "Latest reviewed global or multicountry assessment through 2019.",
+      "selection_reason": {
+        "selected_method_passed": "Quantitative accumulated biophysical and human/economic burdens, persistence and broad extent pass the impact-fallback gate.",
+        "higher_priority_failures": [
+          "No complete current global observation supplies magnitude plus threshold or momentum with at least 60% current-component coverage for this exact node."
+        ]
+      },
+      "input_hash": "fnv1a32:e97d0081"
+    },
+    {
+      "node_id": "wildfire_smoke_exposure_duration",
+      "value": 8.5,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2023",
+      "components": {
+        "biophysical_burden": 0.697225,
+        "human_economic_burden": 0.9296,
+        "persistence": 0.802,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "assessment_year": 2023,
+        "comparison_current_period": "2014-2023",
+        "comparison_baseline_period": "2003-2012",
+        "current_average_days_above_who_15ug_m3": 1.33,
+        "decrease_from_baseline_days": 0.07,
+        "decrease_from_baseline_pct": 5,
+        "who_daily_pm25_threshold_ug_m3": 15,
+        "global_extent": 1,
+        "people_exposed_annually_billion": 2.18,
+        "evidence_boundary": "The retained duration is the global average number of days above the WHO daily PM2.5 threshold, not the duration experienced by every person or locality.",
+        "source_snapshot": {
+          "path": "public/global-remaining-cohort-impact-snapshot.json",
+          "version": "global_remaining_cohort_impact_2026_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Normalize each retained quantitative burden against declared four-point anchors and clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        },
+        {
+          "type": "boundary_preservation",
+          "formula": "Keep exposure, effect size, observed change, ecosystem-service value and geographic coverage distinct; missing values never become zero."
+        }
+      ],
+      "source_ids": [
+        "lancet_countdown_wildfire_smoke_2024",
+        "lancet_landscape_fire_mortality_2000_2019"
+      ],
+      "uncertainty": "Values preserve the assessment period, confidence interval, geographic boundary and reported statistic. Global or multicountry studies are not converted into local incidence, and system exposure is not relabeled as a realized outcome. The retained duration is the global average number of days above the WHO daily PM2.5 threshold, not the duration experienced by every person or locality.",
+      "freshness": "Latest reviewed global or multicountry assessment through 2023.",
+      "selection_reason": {
+        "selected_method_passed": "Quantitative accumulated biophysical and human/economic burdens, persistence and broad extent pass the impact-fallback gate.",
+        "higher_priority_failures": [
+          "No complete current global observation supplies magnitude plus threshold or momentum with at least 60% current-component coverage for this exact node."
+        ]
+      },
+      "input_hash": "fnv1a32:38475354"
+    },
+    {
+      "node_id": "wildfire_smoke_hospitalization_burden",
+      "value": 8.5,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "biophysical_burden": 0.736,
+        "human_economic_burden": 0.9142,
+        "persistence": 0.89,
+        "extent": 0.8
+      },
+      "raw_inputs": {
+        "assessment_year": 2024,
+        "literature_start_year": 2000,
+        "literature_end_year": 2024,
+        "patients_in_meta_analysis_million": 124,
+        "respiratory_hospital_admission_relative_risk_per_10ug_m3_pm25": 1.04,
+        "respiratory_hospital_admission_lower_95_ci": 1.02,
+        "respiratory_hospital_admission_upper_95_ci": 1.05,
+        "all_cause_mortality_relative_risk_per_10ug_m3_pm25": 1.02,
+        "global_extent": 0.8,
+        "evidence_boundary": "The pooled relative risk is an effect per 10 µg/m³ wildfire PM2.5 increment across the included studies, not a global count of admissions or a uniform local effect.",
+        "source_snapshot": {
+          "path": "public/global-remaining-cohort-impact-snapshot.json",
+          "version": "global_remaining_cohort_impact_2026_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Normalize each retained quantitative burden against declared four-point anchors and clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        },
+        {
+          "type": "boundary_preservation",
+          "formula": "Keep exposure, effect size, observed change, ecosystem-service value and geographic coverage distinct; missing values never become zero."
+        }
+      ],
+      "source_ids": [
+        "wildfire_hospitalization_meta_analysis_2025"
+      ],
+      "uncertainty": "Values preserve the assessment period, confidence interval, geographic boundary and reported statistic. Global or multicountry studies are not converted into local incidence, and system exposure is not relabeled as a realized outcome. The pooled relative risk is an effect per 10 µg/m³ wildfire PM2.5 increment across the included studies, not a global count of admissions or a uniform local effect.",
+      "freshness": "Latest reviewed global or multicountry assessment through 2024.",
+      "selection_reason": {
+        "selected_method_passed": "Quantitative accumulated biophysical and human/economic burdens, persistence and broad extent pass the impact-fallback gate.",
+        "higher_priority_failures": [
+          "No complete current global observation supplies magnitude plus threshold or momentum with at least 60% current-component coverage for this exact node."
+        ]
+      },
+      "input_hash": "fnv1a32:82c71574"
+    },
+    {
+      "node_id": "thermokarst_expansion",
+      "value": 8.5,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2019",
+      "components": {
+        "biophysical_burden": 0.78,
+        "human_economic_burden": 0.89,
+        "persistence": 0.8746,
+        "extent": 0.8
+      },
+      "raw_inputs": {
+        "assessment_year": 2019,
+        "arctic_land_permafrost_vulnerable_to_abrupt_thaw_pct": 20,
+        "projected_small_lake_area_increase_pct": 50,
+        "projection_horizon_year": 2100,
+        "arctic_infrastructure_in_thaw_risk_regions_by_2050_pct": 70,
+        "adaptation_cost_reduction_potential_pct": 50,
+        "global_extent": 0.8,
+        "evidence_boundary": "Abrupt-thaw vulnerability and projected lake-area growth quantify the circumpolar thermokarst burden; projections are not relabeled as already realized area.",
+        "source_snapshot": {
+          "path": "public/global-remaining-cohort-impact-snapshot.json",
+          "version": "global_remaining_cohort_impact_2026_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Normalize each retained quantitative burden against declared four-point anchors and clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        },
+        {
+          "type": "boundary_preservation",
+          "formula": "Keep exposure, effect size, observed change, ecosystem-service value and geographic coverage distinct; missing values never become zero."
+        }
+      ],
+      "source_ids": [
+        "ipcc_srocc_ar6_global_cryosphere_assessment"
+      ],
+      "uncertainty": "Values preserve the assessment period, confidence interval, geographic boundary and reported statistic. Global or multicountry studies are not converted into local incidence, and system exposure is not relabeled as a realized outcome. Abrupt-thaw vulnerability and projected lake-area growth quantify the circumpolar thermokarst burden; projections are not relabeled as already realized area.",
+      "freshness": "Latest reviewed global or multicountry assessment through 2019.",
+      "selection_reason": {
+        "selected_method_passed": "Quantitative accumulated biophysical and human/economic burdens, persistence and broad extent pass the impact-fallback gate.",
+        "higher_priority_failures": [
+          "No complete current global observation supplies magnitude plus threshold or momentum with at least 60% current-component coverage for this exact node."
+        ]
+      },
+      "input_hash": "fnv1a32:1527919c"
+    },
+    {
+      "node_id": "polar_infrastructure_failure",
+      "value": 8.5,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2019",
+      "components": {
+        "biophysical_burden": 0.78,
+        "human_economic_burden": 0.89,
+        "persistence": 0.8515,
+        "extent": 0.8
+      },
+      "raw_inputs": {
+        "assessment_year": 2019,
+        "arctic_land_permafrost_vulnerable_to_abrupt_thaw_pct": 20,
+        "projected_small_lake_area_increase_pct": 50,
+        "projection_horizon_year": 2100,
+        "arctic_infrastructure_in_thaw_risk_regions_by_2050_pct": 70,
+        "adaptation_cost_reduction_potential_pct": 50,
+        "global_extent": 0.8,
+        "evidence_boundary": "The 70% figure is infrastructure located in regions at risk by 2050, not a prediction that 70% of assets will fail.",
+        "source_snapshot": {
+          "path": "public/global-remaining-cohort-impact-snapshot.json",
+          "version": "global_remaining_cohort_impact_2026_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Normalize each retained quantitative burden against declared four-point anchors and clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        },
+        {
+          "type": "boundary_preservation",
+          "formula": "Keep exposure, effect size, observed change, ecosystem-service value and geographic coverage distinct; missing values never become zero."
+        }
+      ],
+      "source_ids": [
+        "ipcc_srocc_ar6_global_cryosphere_assessment"
+      ],
+      "uncertainty": "Values preserve the assessment period, confidence interval, geographic boundary and reported statistic. Global or multicountry studies are not converted into local incidence, and system exposure is not relabeled as a realized outcome. The 70% figure is infrastructure located in regions at risk by 2050, not a prediction that 70% of assets will fail.",
+      "freshness": "Latest reviewed global or multicountry assessment through 2019.",
+      "selection_reason": {
+        "selected_method_passed": "Quantitative accumulated biophysical and human/economic burdens, persistence and broad extent pass the impact-fallback gate.",
+        "higher_priority_failures": [
+          "No complete current global observation supplies magnitude plus threshold or momentum with at least 60% current-component coverage for this exact node."
+        ]
+      },
+      "input_hash": "fnv1a32:70344b62"
+    },
+    {
+      "node_id": "urban_heat_island",
+      "value": 8.1,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2015",
+      "components": {
+        "biophysical_burden": 0.838564,
+        "human_economic_burden": 0.703,
+        "persistence": 0.771538,
+        "extent": 0.9
+      },
+      "raw_inputs": {
+        "assessment_year": 2015,
+        "observation_start_year": 2000,
+        "observation_end_year": 2015,
+        "urban_patches_assessed": 7554,
+        "global_population_facing_over_10pct_heat_risk_increase_pct": 2.3,
+        "heat_risk_increase_threshold_pct": 10,
+        "global_extent": 0.9,
+        "evidence_boundary": "The study isolates additional heat-related risk associated with urban expansion across 7,554 patches; it is not a global city-level mortality inventory.",
+        "source_snapshot": {
+          "path": "public/global-remaining-cohort-impact-snapshot.json",
+          "version": "global_remaining_cohort_impact_2026_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Normalize each retained quantitative burden against declared four-point anchors and clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        },
+        {
+          "type": "boundary_preservation",
+          "formula": "Keep exposure, effect size, observed change, ecosystem-service value and geographic coverage distinct; missing values never become zero."
+        }
+      ],
+      "source_ids": [
+        "global_urban_expansion_uhi_risk_2000_2015"
+      ],
+      "uncertainty": "Values preserve the assessment period, confidence interval, geographic boundary and reported statistic. Global or multicountry studies are not converted into local incidence, and system exposure is not relabeled as a realized outcome. The study isolates additional heat-related risk associated with urban expansion across 7,554 patches; it is not a global city-level mortality inventory.",
+      "freshness": "Latest reviewed global or multicountry assessment through 2015.",
+      "selection_reason": {
+        "selected_method_passed": "Quantitative accumulated biophysical and human/economic burdens, persistence and broad extent pass the impact-fallback gate.",
+        "higher_priority_failures": [
+          "No complete current global observation supplies magnitude plus threshold or momentum with at least 60% current-component coverage for this exact node."
+        ]
+      },
+      "input_hash": "fnv1a32:852166e3"
+    }
+  ]
+}

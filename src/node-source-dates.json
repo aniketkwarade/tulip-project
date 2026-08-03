@@ -1,0 +1,2295 @@
+{
+  "version": "node_source_date_registry_v1",
+  "semantics": {
+    "source_date": "The upstream source publication, release, explicit modification, or source-provided HTTP Last-Modified date. It is never a TULIP integration, capture, review, or registry-generation timestamp.",
+    "unavailable": "Null means the upstream source did not expose a defensible native date during the source audit."
+  },
+  "entries": {
+    "temp": {
+      "source_id": "nasa_giss_surface_temperature_analysis",
+      "source_date": "2026-07-09",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://data.giss.nasa.gov/gistemp/"
+    },
+    "methane": {
+      "source_id": "edgar_global_emissions_database",
+      "source_date": "2025-09",
+      "date_kind": "dataset_release",
+      "source_url": "https://edgar.jrc.ec.europa.eu/report_2025?vis=ghgtot"
+    },
+    "deforestation": {
+      "source_id": "fao_global_forest_resources_assessment",
+      "source_date": "2025-11-06",
+      "date_kind": "source_modified",
+      "source_url": "https://www.fao.org/forest-resources-assessment/"
+    },
+    "industry_farming": {
+      "source_id": "faostat",
+      "source_date": "2026-07-21",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.fao.org/faostat/en/"
+    },
+    "food": {
+      "source_id": "faostat",
+      "source_date": "2026-07-21",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.fao.org/faostat/en/"
+    },
+    "urbanization": {
+      "source_id": "global_human_settlement_layer",
+      "source_date": "2016-07-06",
+      "date_kind": "source_published",
+      "source_url": "https://human-settlement.emergency.copernicus.eu/ghs_buS2023.php"
+    },
+    "fast_fashion": {
+      "source_id": "eea_destruction_of_returned_and_unsold_textiles",
+      "source_date": "2020-04-23",
+      "date_kind": "source_modified",
+      "source_url": "https://www.nature.com/articles/s43017-020-0039-9?error=cookies_not_supported&code=dfaa8ca0-7832-4d4a-b867-c0ee67e18937"
+    },
+    "migration": {
+      "source_id": "idmc",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.iom.int/"
+    },
+    "resource_depletion": {
+      "source_id": "unsd_sdg_api_unep_material_flows",
+      "source_date": "2026-07-31",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://unstats.un.org/sdgapi/swagger/"
+    },
+    "carbon_emission": {
+      "source_id": "edgar_global_emissions_database",
+      "source_date": "2025-09",
+      "date_kind": "dataset_release",
+      "source_url": "https://edgar.jrc.ec.europa.eu/report_2025?vis=ghgtot"
+    },
+    "personal_conveyance": {
+      "source_id": "itf_transport_outlook",
+      "source_date": "2023-05-24",
+      "date_kind": "report_published",
+      "source_url": "https://www.itf-oecd.org/itf-transport-outlook-2023"
+    },
+    "environ_anomalies": {
+      "source_id": "nasa_power_open_api",
+      "source_date": "2026-07-09",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://power.larc.nasa.gov/docs/services/api/"
+    },
+    "el_nino": {
+      "source_id": "noaa_physical_sciences_laboratory_enso",
+      "source_date": "2026-06",
+      "date_kind": "latest_observation",
+      "source_url": "https://psl.noaa.gov/enso/dashboard.html"
+    },
+    "la_nina": {
+      "source_id": "noaa_physical_sciences_laboratory_enso",
+      "source_date": "2026-06",
+      "date_kind": "latest_observation",
+      "source_url": "https://psl.noaa.gov/enso/dashboard.html"
+    },
+    "amoc": {
+      "source_id": "copernicus_marine_service",
+      "source_date": "2023-01-10",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.metoffice.gov.uk/research/climate/climate-physics/long-term-ocean-change"
+    },
+    "wet_bulb_heat": {
+      "source_id": "nasa_power_open_api",
+      "source_date": "2026-07-09",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://power.larc.nasa.gov/docs/services/api/"
+    },
+    "monsoon_volatility": {
+      "source_id": "nasa_power_monsoon_rainfall_pilot",
+      "source_date": "2026-07-09",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://power.larc.nasa.gov/docs/services/api/temporal/daily/"
+    },
+    "permafrost_thaw": {
+      "source_id": "global_terrestrial_network_for_permafrost",
+      "source_date": "2019-09-25",
+      "date_kind": "report_published",
+      "source_url": "https://www.ipcc.ch/srocc/chapter/chapter-3-2/"
+    },
+    "rain_on_snow_flood_risk": {
+      "source_id": "usgs_water_data_ogc_api",
+      "source_date": "2026-07-24",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://api.waterdata.usgs.gov/docs/ogcapi/"
+    },
+    "peak_glacier_runoff_passage": {
+      "source_id": "ipcc_ar6_wg2_chapter_4_water",
+      "source_date": "2024-10-04",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.ipcc.ch/report/ar6/wg2/chapter/chapter-4/"
+    },
+    "marine_pathogen_range_expansion": {
+      "source_id": "noaa_aoml_environmental_suitability_of_vibrio_infections_in_a_warming_climate",
+      "source_date": "2024-06-07",
+      "date_kind": "source_modified",
+      "source_url": "https://www.aoml.noaa.gov/early-warning-waterborne-disease/"
+    },
+    "thermal_stratification_intensification": {
+      "source_id": "noaa_world_ocean_database",
+      "source_date": "2026-04-09",
+      "date_kind": "source_modified",
+      "source_url": "https://www.ncei.noaa.gov/products/world-ocean-database"
+    },
+    "delta_salt_intrusion_fronts": {
+      "source_id": "wri_aqueduct",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.wri.org/aqueduct"
+    },
+    "oceanic_upwelling_disruptions": {
+      "source_id": "copernicus_marine_service",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.fisheries.noaa.gov/"
+    },
+    "extreme_precipitation_intensity": {
+      "source_id": "nasa_power_open_api",
+      "source_date": "2026-07-09",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://power.larc.nasa.gov/docs/services/api/"
+    },
+    "tropical_cyclone_rapid_intensification": {
+      "source_id": "noaa_ibtracs",
+      "source_date": "2025-11-14",
+      "date_kind": "source_modified",
+      "source_url": "https://www.ncei.noaa.gov/products/international-best-track-archive"
+    },
+    "pyrocumulonimbus_smoke_injection": {
+      "source_id": "nasa_omps_aerosol_index",
+      "source_date": "2026-05-14",
+      "date_kind": "dataset_modified",
+      "source_url": "https://data.nasa.gov/dataset/omps-npp-l2-nm-aerosol-index-swath-orbital-2c319"
+    },
+    "coastal_permafrost_erosion": {
+      "source_id": "usgs_water_data_ogc_api",
+      "source_date": "2026-07-24",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://api.waterdata.usgs.gov/docs/ogcapi/"
+    },
+    "water_stress": {
+      "source_id": "wri_aqueduct",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.wri.org/aqueduct"
+    },
+    "groundwater_depletion": {
+      "source_id": "usgs_water_data_ogc_api",
+      "source_date": "2026-07-24",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://api.waterdata.usgs.gov/docs/ogcapi/"
+    },
+    "heat_related_mortality_burden": {
+      "source_id": "lancet_countdown_data_explorer",
+      "source_date": "2025-11-26",
+      "date_kind": "source_modified",
+      "source_url": "https://lancetcountdown.org/explore-our-data/"
+    },
+    "air_pollution_health_burden": {
+      "source_id": "who_gho_odata_api",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.who.int/data/gho/info/gho-odata-api"
+    },
+    "occupational_heat_exposure": {
+      "source_id": "lancet_countdown_data_explorer",
+      "source_date": "2025-11-26",
+      "date_kind": "source_modified",
+      "source_url": "https://lancetcountdown.org/explore-our-data/"
+    },
+    "data_centers": {
+      "source_id": "lbnl_2024_united_states_data_center_energy_usage_report",
+      "source_date": "2024-12-19",
+      "date_kind": "report_published",
+      "source_url": "https://eta.lbl.gov/publications/2024-lbnl-data-center-energy-usage-report"
+    },
+    "ai_data_centers": {
+      "source_id": "iea_energy_and_ai",
+      "source_date": "2025-04-10",
+      "date_kind": "report_published",
+      "source_url": "https://www.iea.org/reports/energy-and-ai"
+    },
+    "semiconductor_fabs": {
+      "source_id": "epa_semiconductor_water_use",
+      "source_date": "2025-09-04",
+      "date_kind": "source_modified",
+      "source_url": "https://www.epa.gov/sustainability/lean-water-toolkit-chapter-2"
+    },
+    "telecom_backbone": {
+      "source_id": "itu_ip_capacity",
+      "source_date": "2026-07-20",
+      "date_kind": "source_modified",
+      "source_url": "https://www.worldbank.org/ext/en/development-topics"
+    },
+    "mobile_wireless_networks": {
+      "source_id": "itu_smart_energy_for_telecom_sites",
+      "source_date": "2019-11-13",
+      "date_kind": "recommendation_approved",
+      "source_url": "https://www.itu.int/rec/T-REC-L.1380"
+    },
+    "internet_exchange_points": {
+      "source_id": "itu_internet_traffic_indicators_handbook",
+      "source_date": "2011-12-07",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.itu.int/dms_pub/itu-d/opb/ind/D-IND-ITC_IND_HBK-2011-PDF-E.pdf"
+    },
+    "subsea_cables": {
+      "source_id": "fcc_submarine_cable_landing_licensing_records",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.fcc.gov/page-not-found"
+    },
+    "food_waste": {
+      "source_id": "food_systems_dashboard",
+      "source_date": "2026-02-03",
+      "date_kind": "source_modified",
+      "source_url": "https://www.fao.org/platform-food-loss-waste/en/"
+    },
+    "aviation": {
+      "source_id": "icao_environmental_reports",
+      "source_date": "2026-07-31",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.icao.int/environmental-protection/pages/envrep.aspx"
+    },
+    "shipping": {
+      "source_id": "unctad_review_of_maritime_transport_2024",
+      "source_date": "2024-10-22",
+      "date_kind": "report_published",
+      "source_url": "https://unctad.org/publication/review-maritime-transport-2024"
+    },
+    "cement_concrete": {
+      "source_id": "materialflows_net",
+      "source_date": "2026-06-11",
+      "date_kind": "source_modified",
+      "source_url": "https://gccassociation.org/"
+    },
+    "steel": {
+      "source_id": "materialflows_net",
+      "source_date": "2026-06-08",
+      "date_kind": "source_modified",
+      "source_url": "https://worldsteel.org/"
+    },
+    "plastics_petrochemicals": {
+      "source_id": "materialflows_net",
+      "source_date": "2018-10-04",
+      "date_kind": "report_published",
+      "source_url": "https://www.iea.org/reports/the-future-of-petrochemicals"
+    },
+    "air_conditioning_refrigerants": {
+      "source_id": "epa_fluorinated_gas_emissions",
+      "source_date": "2026-03-10",
+      "date_kind": "source_modified",
+      "source_url": "https://www.epa.gov/ghgemissions/fluorinated-gas-emissions"
+    },
+    "fertilizer_production": {
+      "source_id": "faostat",
+      "source_date": "2026-07-21",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.fao.org/faostat/en/"
+    },
+    "mining_critical_minerals": {
+      "source_id": "materialflows_net",
+      "source_date": "2026-02-08",
+      "date_kind": "source_published",
+      "source_url": "https://www.worldbank.org/ext/en/topic/metals-and-minerals"
+    },
+    "urban_sprawl_housing": {
+      "source_id": "global_human_settlement_layer",
+      "source_date": "2016-07-06",
+      "date_kind": "source_published",
+      "source_url": "https://human-settlement.emergency.copernicus.eu/ghs_buS2023.php"
+    },
+    "clean_electricity": {
+      "source_id": "our_world_in_data_energy_data",
+      "source_date": "2024-10-04",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-6/"
+    },
+    "coal_retirement": {
+      "source_id": "global_energy_monitor",
+      "source_date": "2026-07-29",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://globalenergymonitor.org/"
+    },
+    "renewable_energy_deployment": {
+      "source_id": "irena_data",
+      "source_date": "2024-10-04",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-6/"
+    },
+    "grid_scale_storage": {
+      "source_id": "irena_data",
+      "source_date": "2024-10-04",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-6/"
+    },
+    "demand_response": {
+      "source_id": "eia_hourly_electric_grid_monitor",
+      "source_date": "2024-10-04",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-6/"
+    },
+    "methane_leak_detection": {
+      "source_id": "iea_global_methane_tracker_2026",
+      "source_date": "2024-10-04",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-6/"
+    },
+    "refrigerant_phase_down": {
+      "source_id": "epa_fluorinated_gas_emissions",
+      "source_date": "2026-03-10",
+      "date_kind": "source_modified",
+      "source_url": "https://www.epa.gov/ghgemissions/fluorinated-gas-emissions"
+    },
+    "carbon_dioxide_removal": {
+      "source_id": "global_carbon_budget",
+      "source_date": "2025-11-13",
+      "date_kind": "dataset_release",
+      "source_url": "https://globalcarbonbudget.org/"
+    },
+    "building_energy_efficiency": {
+      "source_id": "iea_data_and_statistics",
+      "source_date": "2024-10-04",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-9/"
+    },
+    "heat_pump_electrification": {
+      "source_id": "iea_data_and_statistics",
+      "source_date": "2024-10-04",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-9/"
+    },
+    "weatherization_retrofits": {
+      "source_id": "iea_data_and_statistics",
+      "source_date": "2024-10-04",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-9/"
+    },
+    "passive_cooling_design": {
+      "source_id": "iea_data_and_statistics",
+      "source_date": "2024-10-04",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-9/"
+    },
+    "building_performance_standards": {
+      "source_id": "iea_data_and_statistics",
+      "source_date": "2024-10-04",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-9/"
+    },
+    "public_transit_expansion": {
+      "source_id": "itf_transport_outlook",
+      "source_date": "2023-05-24",
+      "date_kind": "report_published",
+      "source_url": "https://www.itf-oecd.org/itf-transport-outlook-2023"
+    },
+    "active_mobility": {
+      "source_id": "census_commuting",
+      "source_date": "2026-06-15",
+      "date_kind": "source_modified",
+      "source_url": "https://www.census.gov/topics/employment/commuting.html"
+    },
+    "electric_vehicle_transition": {
+      "source_id": "iea_global_ev_outlook_2025",
+      "source_date": "2025-05-14",
+      "date_kind": "report_published",
+      "source_url": "https://www.iea.org/reports/global-ev-outlook-2025"
+    },
+    "low_carbon_cement": {
+      "source_id": "materialflows_net",
+      "source_date": "2024-10-04",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-11/"
+    },
+    "green_steel": {
+      "source_id": "materialflows_net",
+      "source_date": "2024-10-04",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-11/"
+    },
+    "ecosystem_restoration": {
+      "source_id": "conservation_evidence",
+      "source_date": "2024-10-04",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-7/"
+    },
+    "multi_hazard_early_warning": {
+      "source_id": "undrr_global_status_multi_hazard_early_warning_systems_2024",
+      "source_date": "2026-07-27",
+      "date_kind": "source_modified",
+      "source_url": "https://wmo.int/all-activities/build-resilience/early-warnings-all"
+    },
+    "urban_heat_action_plans": {
+      "source_id": "c40_knowledge_hub",
+      "source_date": "2025-07-31",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.c40knowledgehub.org/s/?language=en_US"
+    },
+    "equitable_cooling_access": {
+      "source_id": "who_heat_and_health",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.who.int/news-room/fact-sheets/detail/climate-change-heat-and-health"
+    },
+    "flood_resilient_infrastructure": {
+      "source_id": "world_bank_lifelines_resilient_infrastructure",
+      "source_date": "2019-06-19",
+      "date_kind": "source_published",
+      "source_url": "https://openknowledge.worldbank.org/entities/publication/c3a753a6-2310-501b-a37e-5dcab3e96a0b"
+    },
+    "water_reuse": {
+      "source_id": "fao_aquastat",
+      "source_date": "2021-01-04",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.fao.org/aquastat/"
+    },
+    "climate_resilient_agriculture": {
+      "source_id": "faostat",
+      "source_date": "2026-07-21",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.fao.org/faostat/en/"
+    },
+    "planned_relocation": {
+      "source_id": "iom_planned_relocation",
+      "source_date": "2026-07-31",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://environmentalmigration.iom.int/planned-relocation"
+    },
+    "nature_based_adaptation": {
+      "source_id": "conservation_evidence",
+      "source_date": "2024-10-04",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-7/"
+    },
+    "aquifer_overdraft": {
+      "source_id": "wri_aqueduct",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.wri.org/aqueduct"
+    },
+    "river_flow_regime_shift": {
+      "source_id": "usgs_water_data_ogc_api",
+      "source_date": "2026-07-24",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://api.waterdata.usgs.gov/docs/ogcapi/"
+    },
+    "reservoir_storage_instability": {
+      "source_id": "usgs_water_data_ogc_api",
+      "source_date": "2026-07-24",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://api.waterdata.usgs.gov/docs/ogcapi/"
+    },
+    "reservoir_operating_shortfall": {
+      "source_id": "wri_aqueduct",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.wri.org/aqueduct"
+    },
+    "snowmelt_timing_shift": {
+      "source_id": "copernicus_climate_change_service",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://climate.copernicus.eu/"
+    },
+    "soil_moisture_collapse": {
+      "source_id": "nasa_smap_data",
+      "source_date": "2026-07-20",
+      "date_kind": "source_modified",
+      "source_url": "https://cds.climate.copernicus.eu/datasets/satellite-soil-moisture?tab=overview"
+    },
+    "flash_flood_regime": {
+      "source_id": "nasa_gpm_imerg",
+      "source_date": "2024-10-04",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-11/"
+    },
+    "drought_persistence": {
+      "source_id": "copernicus_european_and_global_drought_observatories",
+      "source_date": "2024-10-04",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-11/"
+    },
+    "freshwater_lens_compression": {
+      "source_id": "wri_aqueduct",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.wri.org/aqueduct"
+    },
+    "drinking_water_treatment_stress": {
+      "source_id": "u_s_epa_climate_resilience_evaluation_and_awareness_tool_for_water_utilities",
+      "source_date": "2026-06-01",
+      "date_kind": "source_modified",
+      "source_url": "https://www.epa.gov/habs"
+    },
+    "watershed_forest_loss": {
+      "source_id": "global_forest_watch",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.wri.org/aqueduct"
+    },
+    "wastewater_infrastructure_overflow": {
+      "source_id": "wri_aqueduct",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.wri.org/aqueduct"
+    },
+    "wastewater_bypass_discharge": {
+      "source_id": "wri_aqueduct",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.wri.org/aqueduct"
+    },
+    "irrigation_water_inefficiency": {
+      "source_id": "fao_aquastat",
+      "source_date": "2021-01-04",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.fao.org/aquastat/"
+    },
+    "hydropower_reliability_decline": {
+      "source_id": "iea_hydropower_special_market_report",
+      "source_date": "2021-06-30",
+      "date_kind": "report_published",
+      "source_url": "https://www.iea.org/reports/hydropower-special-market-report"
+    },
+    "basin_treaty_breakdown": {
+      "source_id": "unece_progress_on_transboundary_water_cooperation_sdg_6_5_2",
+      "source_date": "2021-09-14",
+      "date_kind": "report_published",
+      "source_url": "https://unece.org/environmental-policy/events/launch-second-progress-report-transboundary-water-cooperation-global"
+    },
+    "desalination_dependence": {
+      "source_id": "world_bank_the_role_of_desalination_in_an_increasingly_water_scarce_world",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://documents1.worldbank.org/curated/en/476041552622967264/pdf/135312-WP-PUBLIC-14-3-2019-12-3-35-W.pdf"
+    },
+    "ice_sheet_mass_loss": {
+      "source_id": "ice_sheet_mass_balance_inter_comparison_exercise",
+      "source_date": "2023-04-20",
+      "date_kind": "source_published",
+      "source_url": "https://essd.copernicus.org/articles/15/1597/2023/"
+    },
+    "glacial_lake_failure_risk": {
+      "source_id": "nasa_sea_level_change_portal",
+      "source_date": "2024-10-04",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-9/"
+    },
+    "sea_ice_season_loss": {
+      "source_id": "national_snow_and_ice_data_center",
+      "source_date": "2026-04-21",
+      "date_kind": "source_modified",
+      "source_url": "https://arctic.noaa.gov/report-card/"
+    },
+    "coastal_inundation_risk": {
+      "source_id": "noaa_co_ops_derived_product_api",
+      "source_date": null,
+      "date_kind": null,
+      "source_url": "https://api.tidesandcurrents.noaa.gov/dpapi/prod/"
+    },
+    "thermokarst_expansion": {
+      "source_id": "global_terrestrial_network_for_permafrost",
+      "source_date": "2026-07-31",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.usgs.gov/mission-areas/climate-research-and-development/science/permafrost"
+    },
+    "arctic_shipping_expansion": {
+      "source_id": "pame_arctic_ship_traffic_data",
+      "source_date": "2026-07-31",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://pame.is/ourwork/arctic-shipping/current-shipping-projects/astd/"
+    },
+    "polar_infrastructure_failure": {
+      "source_id": "global_terrestrial_network_for_permafrost",
+      "source_date": "2026-07-31",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.usgs.gov/mission-areas/climate-research-and-development/science/permafrost"
+    },
+    "snow_drought": {
+      "source_id": "copernicus_climate_change_service",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://climate.copernicus.eu/"
+    },
+    "firn_layer_depletion": {
+      "source_id": "ice_sheet_mass_balance_inter_comparison_exercise",
+      "source_date": "2024-10-04",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-9/"
+    },
+    "glacier_meltwater_dependency": {
+      "source_id": "nasa_sea_level_change_portal",
+      "source_date": "2026-01-23",
+      "date_kind": "source_modified",
+      "source_url": "https://www.earthdata.nasa.gov/data/tools/glims-glacier-database"
+    },
+    "oceanic_deoxygenation": {
+      "source_id": "noaa_world_ocean_database",
+      "source_date": "2026-04-09",
+      "date_kind": "source_modified",
+      "source_url": "https://www.ncei.noaa.gov/products/world-ocean-database"
+    },
+    "antarctic_bottom_water_decline": {
+      "source_id": "copernicus_marine_service",
+      "source_date": "2023-05-25",
+      "date_kind": "source_modified",
+      "source_url": "https://www.nature.com/articles/s41558-023-01667-8?error=cookies_not_supported&code=b6de93ea-1a82-40d9-8cba-b7b371b78cd2"
+    },
+    "ocean_acidification": {
+      "source_id": "noaa_ocean_carbon_and_acidification_data_system",
+      "source_date": "2026-07-16",
+      "date_kind": "source_modified",
+      "source_url": "https://www.ncei.noaa.gov/products/ocean-carbon-acidification-data-system"
+    },
+    "pacific_decadal_oscillation": {
+      "source_id": "noaa_cpc_psl_climate_indices",
+      "source_date": "2026-06",
+      "date_kind": "latest_observation",
+      "source_url": "https://psl.noaa.gov/data/timeseries/month/"
+    },
+    "atlantic_multidecadal_oscillation": {
+      "source_id": "noaa_climate_data_online",
+      "source_date": "2024-10-08",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://psl.noaa.gov/data/correlation/amon.us.data"
+    },
+    "atlantic_ni_o_ni_a": {
+      "source_id": "copernicus_climate_change_service",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://climate.copernicus.eu/"
+    },
+    "indian_ocean_dipole": {
+      "source_id": "noaa_cpc_psl_climate_indices",
+      "source_date": "2026-06",
+      "date_kind": "latest_observation",
+      "source_url": "https://psl.noaa.gov/data/timeseries/month/"
+    },
+    "marine_fisheries_collapse": {
+      "source_id": "unsd_sdg_api_fao_fish_stock_status",
+      "source_date": "2026-06-22",
+      "date_kind": "source_modified",
+      "source_url": "https://www.fao.org/publications/fao-flagship-publications/the-state-of-world-fisheries-and-aquaculture/2024/en"
+    },
+    "fish_landing_supply_disruption": {
+      "source_id": "eurostat_fisheries_landings",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.fisheries.noaa.gov/"
+    },
+    "ocean_current_regime_shift": {
+      "source_id": "copernicus_marine_service",
+      "source_date": "2026-04-09",
+      "date_kind": "source_modified",
+      "source_url": "https://www.ncei.noaa.gov/products/world-ocean-database"
+    },
+    "coastal_hypoxia": {
+      "source_id": "noaa_dynamics_and_distribution_of_natural_and_human_caused_coastal_hypoxia",
+      "source_date": "2026-05-27",
+      "date_kind": "source_modified",
+      "source_url": "https://coastalscience.noaa.gov/data_reports/dynamics-and-distribution-of-natural-and-human-caused-coastal-hypoxia/"
+    },
+    "marine_food_web_simplification": {
+      "source_id": "obis_api_v3",
+      "source_date": "2020-05-18",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://api.obis.org/"
+    },
+    "ocean_salinity_stratification": {
+      "source_id": "argo_ocean_observing_network",
+      "source_date": "2026-04-09",
+      "date_kind": "source_modified",
+      "source_url": "https://www.ncei.noaa.gov/products/world-ocean-database"
+    },
+    "harmful_algal_blooms": {
+      "source_id": "u_s_epa_cyanobacterial_harmful_algal_blooms_in_water",
+      "source_date": "2026-06-01",
+      "date_kind": "source_modified",
+      "source_url": "https://www.epa.gov/habs"
+    },
+    "pelagic_species_redistribution": {
+      "source_id": "obis_api_v3",
+      "source_date": "2020-05-18",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://api.obis.org/"
+    },
+    "littoral_surge_vulnerability": {
+      "source_id": "nasa_sea_level_change_portal",
+      "source_date": "2026-01-22",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://coast.noaa.gov/floodexposure/"
+    },
+    "land_carbon_sink_weakening": {
+      "source_id": "global_carbon_budget_2025",
+      "source_date": "2025-11-13",
+      "date_kind": "dataset_release",
+      "source_url": "https://globalcarbonbudget.org/"
+    },
+    "peat_oxidation_pulse": {
+      "source_id": "faostat",
+      "source_date": "2026-07-21",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.fao.org/faostat/en/"
+    },
+    "tidal_wetland_carbon_reversal": {
+      "source_id": "ipcc_2013_wetlands_supplement",
+      "source_date": "2026-03-17",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.ipcc-nggip.iges.or.jp/public/wetlands/"
+    },
+    "ocean_carbon_uptake_weakening": {
+      "source_id": "global_carbon_budget",
+      "source_date": "2025-11-13",
+      "date_kind": "dataset_release",
+      "source_url": "https://globalcarbonbudget.org/"
+    },
+    "nocturnal_heat_stress": {
+      "source_id": "copernicus_climate_change_service",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://climate.copernicus.eu/"
+    },
+    "compound_day_night_heat_extremes": {
+      "source_id": "copernicus_climate_change_service",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://climate.copernicus.eu/"
+    },
+    "hail_hazard_shift": {
+      "source_id": "noaa_climate_data_online",
+      "source_date": "2026-06-03",
+      "date_kind": "source_modified",
+      "source_url": "https://www.nature.com/articles/s41558-026-02660-7?error=cookies_not_supported&code=c8cf72ba-39fb-4ab9-afba-a7d1cd2ac0ff"
+    },
+    "madden_julian_oscillation": {
+      "source_id": "noaa_cpc_psl_climate_indices",
+      "source_date": "2026-06",
+      "date_kind": "latest_observation",
+      "source_url": "https://psl.noaa.gov/data/timeseries/month/"
+    },
+    "north_atlantic_oscillation": {
+      "source_id": "noaa_cpc_psl_climate_indices",
+      "source_date": "2026-06",
+      "date_kind": "latest_observation",
+      "source_url": "https://psl.noaa.gov/data/timeseries/month/"
+    },
+    "arctic_oscillation": {
+      "source_id": "noaa_cpc_psl_climate_indices",
+      "source_date": "2026-06",
+      "date_kind": "latest_observation",
+      "source_url": "https://psl.noaa.gov/data/timeseries/month/"
+    },
+    "pacific_north_american_pattern": {
+      "source_id": "noaa_cpc_psl_climate_indices",
+      "source_date": "2026-06",
+      "date_kind": "latest_observation",
+      "source_url": "https://psl.noaa.gov/data/timeseries/month/"
+    },
+    "southern_annular_mode": {
+      "source_id": "copernicus_climate_change_service",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://climate.copernicus.eu/"
+    },
+    "quasi_biennial_oscillation": {
+      "source_id": "copernicus_climate_change_service",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://climate.copernicus.eu/"
+    },
+    "blocking_pattern_persistence": {
+      "source_id": "copernicus_climate_change_service",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://climate.copernicus.eu/"
+    },
+    "humidity_amplification": {
+      "source_id": "nasa_power_open_api",
+      "source_date": "2026-07-09",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://power.larc.nasa.gov/docs/services/api/"
+    },
+    "lightning_fire_weather": {
+      "source_id": "noaa_climate_data_online",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://firms.modaps.eosdis.nasa.gov/"
+    },
+    "atmospheric_dryness": {
+      "source_id": "nasa_power_open_api",
+      "source_date": "2026-07-09",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://power.larc.nasa.gov/docs/services/api/"
+    },
+    "soot_deposition_on_snow": {
+      "source_id": "copernicus_atmosphere_monitoring_service",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://atmosphere.copernicus.eu/"
+    },
+    "ozone_formation_pressure": {
+      "source_id": "epa_ground_level_ozone",
+      "source_date": "2026-02-18",
+      "date_kind": "source_modified",
+      "source_url": "https://www.epa.gov/ground-level-ozone-pollution/ground-level-ozone-basics"
+    },
+    "rossby_wave_stalling": {
+      "source_id": "copernicus_climate_change_service",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://climate.copernicus.eu/"
+    },
+    "smoke_exposure_burden": {
+      "source_id": "copernicus_atmosphere_monitoring_service",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://atmosphere.copernicus.eu/"
+    },
+    "low_cloud_deck_retreat": {
+      "source_id": "nasa_ceres_science",
+      "source_date": "2024-10-04",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-7/"
+    },
+    "aerosol_cooling_loss": {
+      "source_id": "ipcc_ar6_wg1_chapter_7",
+      "source_date": "2024-10-04",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-7/"
+    },
+    "grid_peak_load_stress": {
+      "source_id": "eia_hourly_electric_grid_monitor",
+      "source_date": "2026-02-24",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.nerc.com/globalassets/our-work/assessments/nerc_ltra_2025.pdf"
+    },
+    "peaker_plant_lock_in": {
+      "source_id": "eia_hourly_electric_grid_monitor",
+      "source_date": "2026-02-24",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.nerc.com/globalassets/our-work/assessments/nerc_ltra_2025.pdf"
+    },
+    "transmission_buildout_lag": {
+      "source_id": "doe_national_transmission_needs_study_2023",
+      "source_date": "2023-10-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.energy.gov/sites/default/files/2023-10/National_Transmission_Needs_Study_2023.pdf"
+    },
+    "transformer_supply_bottleneck": {
+      "source_id": "doe_distribution_transformer_demand",
+      "source_date": "2025-01-06",
+      "date_kind": "source_modified",
+      "source_url": "https://www.energy.gov/oe/articles/distribution-transformers-preparing-growth-demand"
+    },
+    "gas_power_dependence": {
+      "source_id": "eia_hourly_electric_grid_monitor",
+      "source_date": "2026-07-28",
+      "date_kind": "source_modified",
+      "source_url": "https://www.epa.gov/egrid"
+    },
+    "industrial_heat_decarbonization_gap": {
+      "source_id": "iea_data_and_statistics",
+      "source_date": "2025-12-12",
+      "date_kind": "source_modified",
+      "source_url": "https://www.energy.gov/cmei/ito/process-heat-basics"
+    },
+    "cement_process_emissions": {
+      "source_id": "edgar_global_emissions_database",
+      "source_date": "2025-09",
+      "date_kind": "dataset_release",
+      "source_url": "https://edgar.jrc.ec.europa.eu/report_2025?vis=ghgtot"
+    },
+    "steel_decarbonization_gap": {
+      "source_id": "materialflows_net",
+      "source_date": "2020-10-08",
+      "date_kind": "report_published",
+      "source_url": "https://www.iea.org/reports/iron-and-steel-technology-roadmap"
+    },
+    "critical_mineral_extraction_pressure": {
+      "source_id": "materialflows_net",
+      "source_date": "2026-02-08",
+      "date_kind": "source_published",
+      "source_url": "https://www.worldbank.org/ext/en/topic/metals-and-minerals"
+    },
+    "battery_supply_chain_pressure": {
+      "source_id": "iea_global_ev_outlook_2025",
+      "source_date": "2025-05-14",
+      "date_kind": "report_published",
+      "source_url": "https://www.iea.org/reports/global-ev-outlook-2025"
+    },
+    "semiconductor_fabrication_footprint": {
+      "source_id": "epa_semiconductor_water_use",
+      "source_date": "2025-09-04",
+      "date_kind": "source_modified",
+      "source_url": "https://www.epa.gov/sustainability/lean-water-toolkit-chapter-2"
+    },
+    "cooling_water_competition": {
+      "source_id": "doe_the_water_energy_nexus",
+      "source_date": "2014-07-07",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.energy.gov/sites/prod/files/2014/07/f17/Water%20Energy%20Nexus%20Full%20Report%20July%202014.pdf"
+    },
+    "backup_generator_dependence": {
+      "source_id": "lbnl_2024_united_states_data_center_energy_usage_report",
+      "source_date": "2024-12-19",
+      "date_kind": "report_published",
+      "source_url": "https://eta.lbl.gov/publications/2024-lbnl-data-center-energy-usage-report"
+    },
+    "energy_affordability_crisis": {
+      "source_id": "imf_climate_change_dashboard",
+      "source_date": "2025-06-02",
+      "date_kind": "source_modified",
+      "source_url": "https://www.energy.gov/cmei/scep/low-income-energy-affordability-data-lead-tool"
+    },
+    "utility_disconnection_risk": {
+      "source_id": "imf_climate_change_dashboard",
+      "source_date": "2025-06-02",
+      "date_kind": "source_modified",
+      "source_url": "https://www.energy.gov/cmei/scep/low-income-energy-affordability-data-lead-tool"
+    },
+    "renewable_curtailment_losses": {
+      "source_id": "eia_hourly_electric_grid_monitor",
+      "source_date": "2025-12-16",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://eta-publications.lbl.gov/sites/default/files/2025-12/queued_up_2025_edition_12.15.2025.pdf"
+    },
+    "aviation_demand_growth": {
+      "source_id": "icao_environmental_reports",
+      "source_date": "2026-07-31",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.icao.int/environmental-protection/pages/envrep.aspx"
+    },
+    "shipping_lane_disruption": {
+      "source_id": "unctad_navigating_troubled_waters",
+      "source_date": "2024-10-22",
+      "date_kind": "report_published",
+      "source_url": "https://unctad.org/publication/review-maritime-transport-2024"
+    },
+    "freight_electrification_gap": {
+      "source_id": "icct_global_heavy_duty_vehicle_market_development",
+      "source_date": "2021-11-24",
+      "date_kind": "source_modified",
+      "source_url": "https://theicct.org/publication/heavy-duty-vehicles-in-china-cost-effectiveness-of-fuel-efficiency-and-co2-reduction-technologies-for-long%e2%80%91haul-tractor%e2%80%91trailers-in-the-2025-2030-timeframe/"
+    },
+    "port_heat_vulnerability": {
+      "source_id": "unctad_review_of_maritime_transport_2024",
+      "source_date": "2024-10-22",
+      "date_kind": "report_published",
+      "source_url": "https://unctad.org/publication/review-maritime-transport-2024"
+    },
+    "road_freight_diesel_lock_in": {
+      "source_id": "icct_global_heavy_duty_vehicle_market_development",
+      "source_date": "2021-11-24",
+      "date_kind": "source_modified",
+      "source_url": "https://theicct.org/publication/heavy-duty-vehicles-in-china-cost-effectiveness-of-fuel-efficiency-and-co2-reduction-technologies-for-long%e2%80%91haul-tractor%e2%80%91trailers-in-the-2025-2030-timeframe/"
+    },
+    "airport_climate_exposure": {
+      "source_id": "faa_advisory_circular_150_5300_13_airport_design",
+      "source_date": "2026-05-14",
+      "date_kind": "source_modified",
+      "source_url": "https://www.faa.gov/airports/resources/advisory_circulars/index.cfm/go/document.current/documentnumber/150_5300-13"
+    },
+    "airport_operational_disruption": {
+      "source_id": "faa_advisory_circular_150_5300_13_airport_design",
+      "source_date": "2026-05-14",
+      "date_kind": "source_modified",
+      "source_url": "https://www.faa.gov/airports/resources/advisory_circulars/index.cfm/go/document.current/documentnumber/150_5300-13"
+    },
+    "bridge_scour_exposure": {
+      "source_id": "fhwa_hpms",
+      "source_date": "2026-02-04",
+      "date_kind": "source_modified",
+      "source_url": "https://www.fhwa.dot.gov/policyinformation/hpms.cfm"
+    },
+    "rail_heat_buckling": {
+      "source_id": "fra_buckling_prone_conditions_in_continuous_welded_rail_track",
+      "source_date": "2026-07-31",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://railroads.fra.dot.gov/regulations/federal-register-documents/2012-17343"
+    },
+    "biodiversity_intactness_loss": {
+      "source_id": "gbif_occurrence_api",
+      "source_date": "2026-06-25",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://techdocs.gbif.org/en/openapi/v1/occurrence"
+    },
+    "wildfire_regime_shift": {
+      "source_id": "ec_jrc_global_wildfire_information_system_mcd64a1_burned_area",
+      "source_date": "2026-04-07",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://gwis.jrc.ec.europa.eu/apps/country.profile/downloads"
+    },
+    "forest_fragmentation": {
+      "source_id": "global_forest_watch_biodiversity",
+      "source_date": "2015-03-20",
+      "date_kind": "article_published",
+      "source_url": "https://doi.org/10.1126/sciadv.1500052"
+    },
+    "mangrove_buffer_loss": {
+      "source_id": "global_mangrove_watch",
+      "source_date": "2020-03-10",
+      "date_kind": "article_published",
+      "source_url": "https://doi.org/10.1038/s41598-020-61136-6"
+    },
+    "reef_structural_collapse": {
+      "source_id": "noaa_coral_reef_watch",
+      "source_date": "2018-06-14",
+      "date_kind": "source_modified",
+      "source_url": "https://www.nature.com/articles/s41586-018-0194-z?error=cookies_not_supported&code=eb4ff509-04a2-4cb6-b635-2c87e5830d5c"
+    },
+    "pollinator_service_decline": {
+      "source_id": "ipbes_assessment_report_on_pollinators_pollination_and_food_production",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.ipbes.net/assessment-reports/pollinators"
+    },
+    "freshwater_ecosystem_collapse": {
+      "source_id": "u_s_epa_national_rivers_and_streams_assessment_2018_2019",
+      "source_date": "2025-01-17",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://riverstreamassessment.epa.gov/webreport/"
+    },
+    "species_range_compression": {
+      "source_id": "iucn_red_list",
+      "source_date": "2026-07-09",
+      "date_kind": "dataset_release",
+      "source_url": "https://iucn.org/press-release/202607/desert-frog-deep-sea-molluscs-remarkable-species-risk-iucn-red-list"
+    },
+    "insect_biomass_decline": {
+      "source_id": "gbif_occurrence_api",
+      "source_date": "2026-06-25",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://techdocs.gbif.org/en/openapi/v1/occurrence"
+    },
+    "soil_humus_decline": {
+      "source_id": "soilgrids",
+      "source_date": "2026-07-20",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://soilgrids.org/"
+    },
+    "urban_tree_canopy_loss": {
+      "source_id": "global_human_settlement_layer",
+      "source_date": "2016-07-06",
+      "date_kind": "source_published",
+      "source_url": "https://human-settlement.emergency.copernicus.eu/ghs_buS2023.php"
+    },
+    "crop_yield_volatility": {
+      "source_id": "faostat",
+      "source_date": "2026-07-21",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.fao.org/faostat/en/"
+    },
+    "farm_heat_stress": {
+      "source_id": "lancet_countdown_data_explorer",
+      "source_date": "2025-11-26",
+      "date_kind": "source_modified",
+      "source_url": "https://lancetcountdown.org/explore-our-data/"
+    },
+    "livestock_disease_pressure": {
+      "source_id": "faostat",
+      "source_date": "2026-07-21",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.fao.org/faostat/en/"
+    },
+    "fertilizer_price_shock": {
+      "source_id": "world_bank_commodity_price_data_the_pink_sheet",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://thedocs.worldbank.org/en/doc/18675f1d1639c7a34d463f59263ba0a2-0050012025/worldbank-commodities-price-data-the-pink-sheet"
+    },
+    "feed_crop_dependency": {
+      "source_id": "faostat",
+      "source_date": "2026-07-21",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.fao.org/faostat/en/"
+    },
+    "food_import_exposure": {
+      "source_id": "faostat",
+      "source_date": "2026-07-21",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.fao.org/faostat/en/"
+    },
+    "cold_chain_failure_risk": {
+      "source_id": "unep_and_fao_sustainable_food_cold_chains",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.who.int/publications/m/item/Annex-9-k-trs-961"
+    },
+    "fishery_protein_dependence": {
+      "source_id": "fao_the_state_of_world_fisheries_and_aquaculture_2024",
+      "source_date": "2026-06-22",
+      "date_kind": "source_modified",
+      "source_url": "https://www.fao.org/publications/fao-flagship-publications/the-state-of-world-fisheries-and-aquaculture/2024/en"
+    },
+    "agricultural_labor_exposure": {
+      "source_id": "ilo_working_on_a_warmer_planet",
+      "source_date": "2022-11-28",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.ilo.org/sites/default/files/wcmsp5/groups/public/%40dgreports/%40dcomm/%40publ/documents/publication/wcms_711919.pdf"
+    },
+    "topsoil_erosion_acceleration": {
+      "source_id": "soilgrids",
+      "source_date": "2026-07-20",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://soilgrids.org/"
+    },
+    "insurance_retreat": {
+      "source_id": "federal_insurance_office_2025_annual_report",
+      "source_date": "2025-09-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://home.treasury.gov/system/files/311/Final%20FIO%202025%20Annual%20Report.pdf"
+    },
+    "mortgage_market_exposure": {
+      "source_id": "fhfa_the_need_to_address_climate_risk",
+      "source_date": "2025-05-23",
+      "date_kind": "source_modified",
+      "source_url": "https://www.fhfa.gov/blog/statistics/the-need-to-address-climate-risk"
+    },
+    "public_health_heat_burden": {
+      "source_id": "lancet_countdown_data_explorer",
+      "source_date": "2025-11-26",
+      "date_kind": "source_modified",
+      "source_url": "https://lancetcountdown.org/explore-our-data/"
+    },
+    "vector_borne_disease_expansion": {
+      "source_id": "lancet_countdown_data_explorer",
+      "source_date": "2025-11-26",
+      "date_kind": "source_modified",
+      "source_url": "https://lancetcountdown.org/explore-our-data/"
+    },
+    "adaptation_capital_shortfall": {
+      "source_id": "unep_adaptation_gap_report_2025",
+      "source_date": "2025-10-29",
+      "date_kind": "report_published",
+      "source_url": "https://www.unep.org/resources/adaptation-gap-report-2025"
+    },
+    "critical_infrastructure_fragility": {
+      "source_id": "eia_major_disturbances_and_unusual_occurrences_doe_417",
+      "source_date": "2019-06-19",
+      "date_kind": "source_published",
+      "source_url": "https://openknowledge.worldbank.org/entities/publication/c3a753a6-2310-501b-a37e-5dcab3e96a0b"
+    },
+    "disaster_recovery_inequality": {
+      "source_id": "openfema_registration_intake_individuals_household_program_v2",
+      "source_date": "2026-07-31",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.fema.gov/openfema-data-page/registration-intake-and-individuals-household-program-ri-ihp-v2"
+    },
+    "relocation_governance_capacity": {
+      "source_id": "iom_planned_relocation",
+      "source_date": "2026-07-31",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://environmentalmigration.iom.int/planned-relocation"
+    },
+    "climate_litigation_pressure": {
+      "source_id": "sabin_center_unep_global_climate_litigation_report_2025",
+      "source_date": "2026-07-31",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://climate.law.columbia.edu/news/sabin-center-climate-change-law-unep-release-new-climate-litigation-report"
+    },
+    "conflict_risk_escalation": {
+      "source_id": "acled_codebook",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://acleddata.com/methodology/acled-codebook"
+    },
+    "talik_expansion": {
+      "source_id": "usgs_water_data_ogc_api",
+      "source_date": "2026-07-24",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://api.waterdata.usgs.gov/docs/ogcapi/"
+    },
+    "pollinator_colony_collapse": {
+      "source_id": "ipbes_assessment_report_on_pollinators_pollination_and_food_production",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.ipbes.net/assessment-reports/pollinators"
+    },
+    "nitrogen_fertilizer_runoff": {
+      "source_id": "epa_nutrient_pollution",
+      "source_date": "2026-04-02",
+      "date_kind": "source_modified",
+      "source_url": "https://www.epa.gov/nutrientpollution/basic-information-nutrient-pollution"
+    },
+    "tropospheric_ozone": {
+      "source_id": "epa_ground_level_ozone",
+      "source_date": "2026-02-18",
+      "date_kind": "source_modified",
+      "source_url": "https://www.epa.gov/ground-level-ozone-pollution/ground-level-ozone-basics"
+    },
+    "marine_heatwaves": {
+      "source_id": "noaa_marine_heatwaves",
+      "source_date": "2023-01-10",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.metoffice.gov.uk/research/climate/climate-physics/long-term-ocean-change"
+    },
+    "fracking_wastewater_lakes": {
+      "source_id": "usgs_water_data_ogc_api",
+      "source_date": "2026-07-24",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://api.waterdata.usgs.gov/docs/ogcapi/"
+    },
+    "cattle_grazing_overcompaction": {
+      "source_id": "edgar_global_emissions_database",
+      "source_date": "2025-09",
+      "date_kind": "dataset_release",
+      "source_url": "https://edgar.jrc.ec.europa.eu/report_2025?vis=ghgtot"
+    },
+    "nitrous_oxide": {
+      "source_id": "edgar_global_emissions_database",
+      "source_date": "2025-09",
+      "date_kind": "dataset_release",
+      "source_url": "https://edgar.jrc.ec.europa.eu/report_2025?vis=ghgtot"
+    },
+    "phytoplankton_decline": {
+      "source_id": "copernicus_marine_service",
+      "source_date": "2026-06-22",
+      "date_kind": "source_modified",
+      "source_url": "https://www.fao.org/publications/fao-flagship-publications/the-state-of-world-fisheries-and-aquaculture/2024/en"
+    },
+    "antarctic_shelf_instability": {
+      "source_id": "imbie_publications_and_assessments",
+      "source_date": "2024-10-04",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-9/"
+    },
+    "wildlife_habitat_patches": {
+      "source_id": "global_forest_watch_biodiversity",
+      "source_date": "2015-03-20",
+      "date_kind": "article_published",
+      "source_url": "https://doi.org/10.1126/sciadv.1500052"
+    },
+    "topsoil_salinization_fields": {
+      "source_id": "fao_global_soil_partnership_soil_salinity",
+      "source_date": "2023-12-16",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.fao.org/4/t0234e/T0234E02.htm"
+    },
+    "staple_food_price_volatility": {
+      "source_id": "faostat",
+      "source_date": "2026-07-21",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.fao.org/faostat/en/"
+    },
+    "sulfur_dioxide": {
+      "source_id": "edgar_global_emissions_database",
+      "source_date": "2025-09",
+      "date_kind": "dataset_release",
+      "source_url": "https://edgar.jrc.ec.europa.eu/report_2025?vis=ghgtot"
+    },
+    "coral_bleaching": {
+      "source_id": "noaa_coral_reef_watch",
+      "source_date": "2018-06-14",
+      "date_kind": "source_modified",
+      "source_url": "https://www.nature.com/articles/s41586-018-0194-z?error=cookies_not_supported&code=eb4ff509-04a2-4cb6-b635-2c87e5830d5c"
+    },
+    "invasive_species_encroachment": {
+      "source_id": "gbif_occurrence_api",
+      "source_date": "2026-06-25",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://techdocs.gbif.org/en/openapi/v1/occurrence"
+    },
+    "deepwater_petroleum_spill_risk": {
+      "source_id": "edgar_global_emissions_database",
+      "source_date": "2025-09",
+      "date_kind": "dataset_release",
+      "source_url": "https://edgar.jrc.ec.europa.eu/report_2025?vis=ghgtot"
+    },
+    "volatile_organic_compounds": {
+      "source_id": "epa_ambient_air_methods",
+      "source_date": "2026-04-20",
+      "date_kind": "source_modified",
+      "source_url": "https://www.epa.gov/air-research/ambient-air-methods-and-measurement-development-research"
+    },
+    "sea_level_rise": {
+      "source_id": "noaa_laboratory_for_satellite_altimetry",
+      "source_date": null,
+      "date_kind": null,
+      "source_url": "https://www.star.nesdis.noaa.gov/socd/lsa/SeaLevelRise/LSA_SLR_timeseries_global.php"
+    },
+    "tundra_methane_outgassing": {
+      "source_id": "global_terrestrial_network_for_permafrost",
+      "source_date": "2025-01-14",
+      "date_kind": "source_modified",
+      "source_url": "https://arctic.noaa.gov/report-card/report-card-2024/arctic-terrestrial-carbon-cycling/"
+    },
+    "soil_microbial_depletion": {
+      "source_id": "edgar_global_emissions_database",
+      "source_date": "2025-09",
+      "date_kind": "dataset_release",
+      "source_url": "https://edgar.jrc.ec.europa.eu/report_2025?vis=ghgtot"
+    },
+    "surface_water_storage_instability": {
+      "source_id": "usgs_water_data_ogc_api",
+      "source_date": "2026-07-24",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://api.waterdata.usgs.gov/docs/ogcapi/"
+    },
+    "pesticide_bioaccumulation_chains": {
+      "source_id": "usgs_pesticides_in_stream_sediment_and_aquatic_biota",
+      "source_date": "2025-10-09",
+      "date_kind": "source_modified",
+      "source_url": "https://www.epa.gov/pesticide-science-and-assessing-pesticide-risks/ecological-risk-assessment-pesticides-technical"
+    },
+    "pm2_5_particulates": {
+      "source_id": "copernicus_atmosphere_monitoring_service",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://atmosphere.copernicus.eu/"
+    },
+    "anoxic_dead_zones": {
+      "source_id": "usgs_water_data_ogc_api",
+      "source_date": "2026-07-24",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://api.waterdata.usgs.gov/docs/ogcapi/"
+    },
+    "ice_albedo_feedback_loops": {
+      "source_id": "nsidc_sea_ice_today",
+      "source_date": "2026-07",
+      "date_kind": "latest_observation",
+      "source_url": "https://nsidc.org/sea-ice-today"
+    },
+    "forest_dieback_areas": {
+      "source_id": "ipbes_global_biodiversity_assessment",
+      "source_date": "2026-07-31",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.usgs.gov/special-topics/drought/science/forests"
+    },
+    "combined_sewer_overflow": {
+      "source_id": "edgar_global_emissions_database",
+      "source_date": "2025-09",
+      "date_kind": "dataset_release",
+      "source_url": "https://edgar.jrc.ec.europa.eu/report_2025?vis=ghgtot"
+    },
+    "humanitarian_resource_gaps": {
+      "source_id": "ocha_humanitarian_programme_cycle_public_api",
+      "source_date": "2025-12-18",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://api.hpc.tools/docs/v1/"
+    },
+    "carbon_monoxide": {
+      "source_id": "edgar_global_emissions_database",
+      "source_date": "2025-09",
+      "date_kind": "dataset_release",
+      "source_url": "https://edgar.jrc.ec.europa.eu/report_2025?vis=ghgtot"
+    },
+    "gulf_stream_slowdown": {
+      "source_id": "noaa_florida_current_transport_time_series_data_products",
+      "source_date": "2025-05-01",
+      "date_kind": "source_modified",
+      "source_url": "https://www.aoml.noaa.gov/moc/"
+    },
+    "hydrological_runoff_surges": {
+      "source_id": "wri_aqueduct",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.wri.org/aqueduct"
+    },
+    "floodplain_exposure": {
+      "source_id": "wri_aqueduct",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.wri.org/aqueduct"
+    },
+    "groundwater_depletion_wells": {
+      "source_id": "wri_aqueduct",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.wri.org/aqueduct"
+    },
+    "solar_radiation_trapping": {
+      "source_id": "noaa_global_monitoring_laboratory",
+      "source_date": "2024-10-04",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-7/"
+    },
+    "ocean_heat_content": {
+      "source_id": "noaa_global_ocean_heat_content_cdr",
+      "source_date": "2025-09-22",
+      "date_kind": "source_modified",
+      "source_url": "https://www.ncei.noaa.gov/products/climate-data-records/global-ocean-heat-content"
+    },
+    "peatland_degradations": {
+      "source_id": "unep_global_peatlands_assessment_2022",
+      "source_date": "2022-11-17",
+      "date_kind": "report_published",
+      "source_url": "https://www.unep.org/resources/global-peatlands-assessment-2022"
+    },
+    "waterborne_pathogen_outbreaks": {
+      "source_id": "usgs_samples_data_api",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.who.int/news-room/questions-and-answers/item/how-do-i-protect-my-health-in-a-flood"
+    },
+    "emergency_response_overload": {
+      "source_id": "austin_travis_county_ems_incidents_by_month",
+      "source_date": "2026-07-02",
+      "date_kind": "source_modified",
+      "source_url": "https://data.austintexas.gov/Public-Safety/EMS-Incidents-by-Month/gjtj-jt2d"
+    },
+    "zoonotic_disease_outbreaks": {
+      "source_id": "who_gho_odata_api",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.who.int/data/gho/info/gho-odata-api"
+    },
+    "coastal_erosion": {
+      "source_id": "nasa_sea_level_change_portal",
+      "source_date": null,
+      "date_kind": null,
+      "source_url": "https://sealevel.nasa.gov/"
+    },
+    "alpine_snowpack_declines": {
+      "source_id": "national_snow_and_ice_data_center",
+      "source_date": "2021-03-22",
+      "date_kind": "source_published",
+      "source_url": "https://www.climate.gov/news-features/featured-images/which-mountain-snowpacks-are-most-vulnerable-global-warming"
+    },
+    "wetlands_drainage_scales": {
+      "source_id": "faostat",
+      "source_date": "2026-07-21",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.fao.org/faostat/en/"
+    },
+    "subsea_cable_landing_chokepoint": {
+      "source_id": "oecd_communication_resilience",
+      "source_date": "2026-02-02",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.itu.int/digital-resilience/submarine-cables/wp-content/uploads/sites/2/2026/02/IAB-WG2-Recommendations-1.pdf"
+    },
+    "rice_paddy_methane_bubbles": {
+      "source_id": "global_nitrous_oxide_budget_1980_2020",
+      "source_date": "2024-06-11",
+      "date_kind": "source_published",
+      "source_url": "https://essd.copernicus.org/articles/16/2543/2024/"
+    },
+    "managed_retreat_pressure": {
+      "source_id": "iom_planned_relocation",
+      "source_date": "2026-07-31",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://environmentalmigration.iom.int/planned-relocation"
+    },
+    "jet_stream_volatility": {
+      "source_id": "noaa_physical_sciences_laboratory_enso",
+      "source_date": "2026-06",
+      "date_kind": "latest_observation",
+      "source_url": "https://psl.noaa.gov/enso/dashboard.html"
+    },
+    "glacier_calving_events": {
+      "source_id": "national_snow_and_ice_data_center",
+      "source_date": "2023-04-20",
+      "date_kind": "source_published",
+      "source_url": "https://essd.copernicus.org/articles/15/1597/2023/"
+    },
+    "wildfire_smoke_hospitalization_burden": {
+      "source_id": "who_air_quality_database",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.who.int/data/gho/data/themes/air-pollution/who-air-quality-database"
+    },
+    "cooling_equity_gaps": {
+      "source_id": "unep_global_cooling_watch_2025",
+      "source_date": "2025-11-11",
+      "date_kind": "report_published",
+      "source_url": "https://www.unep.org/resources/global-cooling-watch-2025"
+    },
+    "kelp_forest_collapse": {
+      "source_id": "noaa_kelp_monitoring",
+      "source_date": "2026-07-31",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.fisheries.noaa.gov/west-coast/habitat-conservation/kelp-forest-habitat-west-coast"
+    },
+    "trophic_cascade_collapses": {
+      "source_id": "noaa_aquatic_food_webs",
+      "source_date": "2026-07-31",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.usgs.gov/publications/species-invasion-progressively-disrupts-trophic-structure-native-food-webs"
+    },
+    "aquifer_recharge_failure": {
+      "source_id": "usgs_groundwater_monitoring",
+      "source_date": "2026-07-31",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.usgs.gov/programs/groundwater-and-streamflow-information-program/groundwater-monitoring"
+    },
+    "supply_chain_port_bottlenecks": {
+      "source_id": "unctad_review_of_maritime_transport_2024",
+      "source_date": "2024-10-22",
+      "date_kind": "report_published",
+      "source_url": "https://unctad.org/publication/review-maritime-transport-2024"
+    },
+    "coastal_property_insurance_redlines": {
+      "source_id": "federal_insurance_office_2025_annual_report",
+      "source_date": "2025-09-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://home.treasury.gov/system/files/311/Final%20FIO%202025%20Annual%20Report.pdf"
+    },
+    "cloud_albedo_shift": {
+      "source_id": "nasa_ceres_science",
+      "source_date": "2025-05-21",
+      "date_kind": "source_modified",
+      "source_url": "https://ceres.larc.nasa.gov/data/documentation/"
+    },
+    "deep_sea_mining_dust": {
+      "source_id": "usgs_deep_sea_nodule_mining_midwater_plumes",
+      "source_date": "2026-07-31",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.usgs.gov/publications/extent-impact-deep-sea-nodule-mining-midwater-plumes-influenced-sediment-loading"
+    },
+    "agrochemical_water_sinks": {
+      "source_id": "pesticides_and_water_quality",
+      "source_date": "2026-07-31",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.usgs.gov/mission-areas/water-resources/science/pesticides-and-water-quality"
+    },
+    "acid_rain_deposition": {
+      "source_id": "edgar_global_emissions_database",
+      "source_date": "2025-09",
+      "date_kind": "dataset_release",
+      "source_url": "https://edgar.jrc.ec.europa.eu/report_2025?vis=ghgtot"
+    },
+    "desertification_frontiers": {
+      "source_id": "unccd_data",
+      "source_date": "2025-10-21",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://data.unccd.int/"
+    },
+    "cfc_saturated_layers": {
+      "source_id": "scientific_assessment_of_ozone_depletion_2022_twenty_questions_and_answers_about_the_ozone_layer",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://ozone.unep.org/treaties/montreal-protocol/montreal-protocol-substances-deplete-ozone-layer"
+    },
+    "arctic_amplification_rates": {
+      "source_id": "nasa_giss_surface_temperature_analysis",
+      "source_date": "2026-07-09",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://data.giss.nasa.gov/gistemp/"
+    },
+    "rainforest_savannization": {
+      "source_id": "global_forest_watch",
+      "source_date": "2024-10-04",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.ipcc.ch/report/ar6/wg2/chapter/ccp7/"
+    },
+    "urban_water_rationing_zones": {
+      "source_id": "usgs_water_data_ogc_api",
+      "source_date": "2026-07-24",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://api.waterdata.usgs.gov/docs/ogcapi/"
+    },
+    "asphalt_pavement_heat_absorbers": {
+      "source_id": "epa_heat_island_measurement_guidance",
+      "source_date": "2026-03-10",
+      "date_kind": "source_modified",
+      "source_url": "https://www.epa.gov/heatislands/measuring-heat-islands"
+    },
+    "heatwave_excess_mortality_rates": {
+      "source_id": "who_heat_and_health",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.who.int/news-room/fact-sheets/detail/climate-change-heat-and-health"
+    },
+    "ambient_air_quality_deficit": {
+      "source_id": "epa_ambient_air_methods",
+      "source_date": "2026-04-20",
+      "date_kind": "source_modified",
+      "source_url": "https://www.epa.gov/air-research/ambient-air-methods-and-measurement-development-research"
+    },
+    "genetic_diversity_bottlenecks": {
+      "source_id": "usgs_red_cockaded_woodpecker_genetic_bottleneck",
+      "source_date": "2026-07-31",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.usgs.gov/news/effects-red-cockaded-woodpecker-bottleneck-and-current-management-genetic-diversity"
+    },
+    "palm_oil_canopy_clearance": {
+      "source_id": "global_forest_watch",
+      "source_date": "2024-03-22",
+      "date_kind": "source_modified",
+      "source_url": "https://www.globalforestwatch.org/blog/data-and-tools/companies-can-now-spot-deforestation-in-their-palm-oil-supply-chains-before-it-happens/"
+    },
+    "fishery_border_dispute_zones": {
+      "source_id": "identifying_predictors_of_international_fisheries_conflict",
+      "source_date": "2021-01-01",
+      "date_kind": "source_published",
+      "source_url": "https://researchonline.jcu.edu.au/69248/"
+    },
+    "stratospheric_cooling": {
+      "source_id": "copernicus_climate_change_service",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://climate.copernicus.eu/"
+    },
+    "inland_waterway_fuel_spills": {
+      "source_id": "usgs_water_data_ogc_api",
+      "source_date": "2026-07-24",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://api.waterdata.usgs.gov/docs/ogcapi/"
+    },
+    "coral_reef_fragmentation": {
+      "source_id": "noaa_shallow_coral_reef_habitat",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.fisheries.noaa.gov/national/habitat-conservation/shallow-coral-reef-habitat"
+    },
+    "mountain_pass_avalanches": {
+      "source_id": "copernicus_climate_change_service",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://climate.copernicus.eu/"
+    },
+    "dust_storm_frequency": {
+      "source_id": "world_meteorological_organization_sand_and_dust_storms",
+      "source_date": "2026-07-16",
+      "date_kind": "source_modified",
+      "source_url": "https://wmo.int/themes/sand-and-dust-storms"
+    },
+    "ice_shelf_grounding_line_retreat": {
+      "source_id": "ice_sheet_mass_balance_inter_comparison_exercise",
+      "source_date": "2026-07-23",
+      "date_kind": "source_modified",
+      "source_url": "https://science.nasa.gov/earth/earth-observatory/"
+    },
+    "pollen_allergen_spikes": {
+      "source_id": "epa_ragweed_pollen_indicator",
+      "source_date": "2025-01-14",
+      "date_kind": "source_published",
+      "source_url": "https://www.cdc.gov/climate-health/php/effects/pollen-health.html"
+    },
+    "estuary_eutrophication": {
+      "source_id": "epa_nutrient_pollution",
+      "source_date": "2026-04-02",
+      "date_kind": "source_modified",
+      "source_url": "https://www.epa.gov/nutrientpollution/basic-information-nutrient-pollution"
+    },
+    "avian_migration_disruptions": {
+      "source_id": "when_timing_is_everything_migratory_bird_phenology_in_a_changing_climate",
+      "source_date": "2026-07-31",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.usgs.gov/news/when-timing-everything-migratory-bird-phenology-changing-climate"
+    },
+    "shell_calcification_failures": {
+      "source_id": "noaa_ocean_carbon_and_acidification_data_system",
+      "source_date": "2026-07-16",
+      "date_kind": "source_modified",
+      "source_url": "https://www.ncei.noaa.gov/products/ocean-carbon-acidification-data-system"
+    },
+    "arctic_pack_ice_drift": {
+      "source_id": "copernicus_marine_service",
+      "source_date": "2019-09-25",
+      "date_kind": "report_published",
+      "source_url": "https://www.ipcc.ch/srocc/chapter/chapter-3-2/"
+    },
+    "amphibian_chytrid_fungus_spreads": {
+      "source_id": "pan_amphibia_distribution_of_the_fungal_parasite_batrachochytrium_dendrobatidis_varies_with_species_and_temperature",
+      "source_date": "2026-07-31",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.usgs.gov/publications/pan-amphibia-distribution-fungal-parasite-batrachochytrium-dendrobatidis-varies"
+    },
+    "early_warning_coverage_gaps": {
+      "source_id": "undrr_global_status_multi_hazard_early_warning_systems_2024",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.iom.int/"
+    },
+    "black_carbon_deposition": {
+      "source_id": "national_snow_and_ice_data_center",
+      "source_date": "2012-03",
+      "date_kind": "report_published",
+      "source_url": "https://nepis.epa.gov/Exe/ZyPURL.cgi?Dockey=P100EIUR.TXT"
+    },
+    "glacial_siltation_streams": {
+      "source_id": "usgs_glacier_runoff_and_sediment",
+      "source_date": "2026-07-31",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.usgs.gov/publications/glacier-runoff-and-sediment-transport-and-deposition-eklutna-lake-basin-alaska"
+    },
+    "jellyfish_swarm_surges": {
+      "source_id": "noaa_nccos_jellyfish_bloom_research",
+      "source_date": "2024-12-23",
+      "date_kind": "source_modified",
+      "source_url": "https://coastalscience.noaa.gov/news/why-do-some-jellyfish-bloom-a-new-theory-emerges/"
+    },
+    "cryoconite_hole_expansion": {
+      "source_id": "nasa_sea_level_change_portal",
+      "source_date": "2026-07-23",
+      "date_kind": "source_modified",
+      "source_url": "https://science.nasa.gov/earth/earth-observatory/"
+    },
+    "bark_beetle_epidemics": {
+      "source_id": "forest_inventory_and_disturbance_mapping",
+      "source_date": "2023-01-01",
+      "date_kind": "source_published",
+      "source_url": "https://research.fs.usda.gov/treesearch/67038"
+    },
+    "old_growth_forest_logging": {
+      "source_id": "forest_inventory_and_disturbance_mapping",
+      "source_date": "2023-01-01",
+      "date_kind": "source_published",
+      "source_url": "https://research.fs.usda.gov/treesearch/67038"
+    },
+    "savannah_tree_cover_decline": {
+      "source_id": "us_forest_service_savanna_fire_and_woody_cover",
+      "source_date": "2026-01-09",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://research.fs.usda.gov/download/treesearch/26193.pdf"
+    },
+    "particulate_soot_levels": {
+      "source_id": "epa_chemical_speciation_network_carbon",
+      "source_date": "2025-09-18",
+      "date_kind": "source_modified",
+      "source_url": "https://www.epa.gov/amtic/chemical-speciation-network-csn-special-studies"
+    },
+    "pesticide_spray_drift_zones": {
+      "source_id": "epa_pesticide_drift",
+      "source_date": "2025-09-16",
+      "date_kind": "source_modified",
+      "source_url": "https://www.epa.gov/reducing-pesticide-drift/introduction-pesticide-drift"
+    },
+    "estuarine_nursery_loss": {
+      "source_id": "fao_the_state_of_world_fisheries_and_aquaculture_2024",
+      "source_date": "2026-06-22",
+      "date_kind": "source_modified",
+      "source_url": "https://www.fao.org/publications/fao-flagship-publications/the-state-of-world-fisheries-and-aquaculture/2024/en"
+    },
+    "ice_algae_pigmentation": {
+      "source_id": "nasa_sea_level_change_portal",
+      "source_date": "2023-10-31",
+      "date_kind": "source_modified",
+      "source_url": "https://arctic.noaa.gov/report-card/report-card-2017/arctic-ocean-primary-productivity/"
+    },
+    "snowpack_dust_soot_coverage": {
+      "source_id": "physical_and_chemical_data_for_dust_deposited_on_colorado_rocky_mountain_snow_cover_during_water_year_2013_through_water_year_2016",
+      "source_date": "2026-07-31",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.usgs.gov/data/physical-and-chemical-data-dust-deposited-colorado-rocky-mountain-snow-cover-during-water-year"
+    },
+    "heavy_metal_bioaccumulation": {
+      "source_id": "epa_toxics_in_the_food_web",
+      "source_date": "2026-06-11",
+      "date_kind": "source_modified",
+      "source_url": "https://www.epa.gov/salish-sea/toxics-food-web"
+    },
+    "glacier_hydrologic_system_floods": {
+      "source_id": "nasa_sea_level_change_portal",
+      "source_date": "2026-07-31",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.usgs.gov/water-science-school/science/glaciers-and-icecaps"
+    },
+    "wetland_peat_fires": {
+      "source_id": "unep_global_peatlands_assessment_2022",
+      "source_date": "2022-11-17",
+      "date_kind": "report_published",
+      "source_url": "https://www.unep.org/resources/global-peatlands-assessment-2022"
+    },
+    "convective_instability_shift": {
+      "source_id": "noaa_goes_r_series_advanced_baseline_imager_abi_level_2_derived_stability_indices_dsi",
+      "source_date": "2025-08-18",
+      "date_kind": "source_modified",
+      "source_url": "https://www.ncei.noaa.gov/access/metadata/landing-page/bin/iso?id=gov.noaa.ncdc%3AC01516"
+    },
+    "ice_cap_decapitation": {
+      "source_id": "nasa_sea_level_change_portal",
+      "source_date": "2026-07-15",
+      "date_kind": "source_modified",
+      "source_url": "https://science.nasa.gov/earth/explore/earth-indicators/ice-sheets/"
+    },
+    "riparian_zone_erosion": {
+      "source_id": "usgs_riparian_ecology",
+      "source_date": "2026-07-31",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.usgs.gov/centers/fort-collins-science-center/science/riparian-ecology"
+    },
+    "nighttime_heat_retention": {
+      "source_id": "eea_urban_heat_island_arcgis",
+      "source_date": "2026-03-12",
+      "date_kind": "source_modified",
+      "source_url": "https://www.epa.gov/heatislands/learn-about-heat-island-effects"
+    },
+    "nunatak_habitat_shrinkage": {
+      "source_id": "gbif_occurrence_api",
+      "source_date": "2026-06-25",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://techdocs.gbif.org/en/openapi/v1/occurrence"
+    },
+    "biodiversity_corridors_disruption": {
+      "source_id": "estimating_functional_connectivity_of_wildlife_habitat_and_its_relevance_to_ecological_risk_assessment",
+      "source_date": "2026-07-31",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.usgs.gov/publications/estimating-functional-connectivity-wildlife-habitat-and-its-relevance-ecological-risk"
+    },
+    "walker_circulation_shift": {
+      "source_id": "ipcc_ar6_wgi_large_scale_circulation",
+      "source_date": "2024-10-04",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-3/"
+    },
+    "fjord_sedimentation_pulses": {
+      "source_id": "national_snow_and_ice_data_center",
+      "source_date": "2016-01-01",
+      "date_kind": "source_published",
+      "source_url": "https://pubs.usgs.gov/publication/70184991"
+    },
+    "transformer_heat_failure_risk": {
+      "source_id": "doe_large_power_transformer_resilience",
+      "source_date": "2019-07-18",
+      "date_kind": "source_modified",
+      "source_url": "https://www.energy.gov/oe/addressing-security-and-reliability-concerns-large-power-transformers"
+    },
+    "freeze_thaw_rock_fracturing": {
+      "source_id": "national_snow_and_ice_data_center",
+      "source_date": "2013-06-17",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://pubs.usgs.gov/ds/746/ds746_text.pdf"
+    },
+    "overstory_tree_mortality": {
+      "source_id": "us_forest_service_tree_mortality_drought_insects",
+      "source_date": "2015-06-09",
+      "date_kind": "article_published",
+      "source_url": "https://doi.org/10.1111/nph.13477"
+    },
+    "aerosolized_microplastics": {
+      "source_id": "integrated_science_for_the_study_of_microplastics_in_the_environment",
+      "source_date": "2024-01-01",
+      "date_kind": "source_published",
+      "source_url": "https://pubs.usgs.gov/publication/cir1521/full"
+    },
+    "coastal_saltwater_intrusion": {
+      "source_id": "usgs_water_data_ogc_api",
+      "source_date": "2026-07-24",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://api.waterdata.usgs.gov/docs/ogcapi/"
+    },
+    "tundra_shrubification_speeds": {
+      "source_id": "noaa_arctic_report_card",
+      "source_date": "2026-04-21",
+      "date_kind": "source_modified",
+      "source_url": "https://arctic.noaa.gov/report-card/"
+    },
+    "subpolar_gyre_weakening": {
+      "source_id": "spin_down_of_the_north_atlantic_subpolar_circulation",
+      "source_date": "2024-10-04",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-9/"
+    },
+    "shelf_sea_hypoxia": {
+      "source_id": "noaa_shelf_hypoxia_indicators",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.fisheries.noaa.gov/west-coast/science-data/local-physical-indicators"
+    },
+    "freshwater_mussel_depletion": {
+      "source_id": "usgs_native_freshwater_mussel_science_vision",
+      "source_date": "2023-01-01",
+      "date_kind": "source_published",
+      "source_url": "https://pubs.usgs.gov/publication/cir1511/full"
+    },
+    "lightning_regime_shifts": {
+      "source_id": "noaa_goes_r_series_geostationary_lightning_mapper",
+      "source_date": "2024-10-04",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-11/"
+    },
+    "coral_larval_mortality": {
+      "source_id": "noaa_coral_reproduction_and_recruitment",
+      "source_date": "2018-06-14",
+      "date_kind": "source_modified",
+      "source_url": "https://www.nature.com/articles/s41586-018-0194-z?error=cookies_not_supported&code=eb4ff509-04a2-4cb6-b635-2c87e5830d5c"
+    },
+    "riverine_habitat_fragmentation": {
+      "source_id": "usgs_water_data_ogc_api",
+      "source_date": "2026-07-24",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://api.waterdata.usgs.gov/docs/ogcapi/"
+    },
+    "high_altitude_forest_shrinkage": {
+      "source_id": "effects_of_climate_change_on_forest_vegetation_in_the_northern_rockies",
+      "source_date": "2026-07-31",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.usgs.gov/publications/effects-climate-change-forest-vegetation-northern-rockies"
+    },
+    "atmospheric_river_intensification": {
+      "source_id": "atmospheric_rivers_drive_flood_damages",
+      "source_date": "2024-10-04",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-11/"
+    },
+    "trade_wind_weakening": {
+      "source_id": "copernicus_climate_change_service",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://climate.copernicus.eu/"
+    },
+    "blue_carbon_habitat_loss": {
+      "source_id": "noaa_coastal_blue_carbon",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.fisheries.noaa.gov/national/habitat-conservation/protecting-coastal-blue-carbon-through-habitat-conservation"
+    },
+    "methane_hydroxyl_sink_loss": {
+      "source_id": "trends_in_global_tropospheric_hydroxyl_radical_and_methane_lifetime_since_1850_from_aerchemmip",
+      "source_date": "2020-11-05",
+      "date_kind": "source_published",
+      "source_url": "https://acp.copernicus.org/articles/20/12905/2020/"
+    },
+    "stratospheric_chlorine_sinks": {
+      "source_id": "scientific_assessment_of_ozone_depletion_2022_twenty_questions_and_answers_about_the_ozone_layer",
+      "source_date": "2025-11-25",
+      "date_kind": "source_modified",
+      "source_url": "https://science.nasa.gov/earth/earth-observatory/ozone/"
+    },
+    "aviation_condensation_trails": {
+      "source_id": "federal_aviation_administration_contrails",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.faa.gov/contrails"
+    },
+    "compound_coastal_flooding": {
+      "source_id": "nasa_sea_level_change_portal",
+      "source_date": null,
+      "date_kind": null,
+      "source_url": "https://sealevel.nasa.gov/"
+    },
+    "fisheries_range_redistribution": {
+      "source_id": "noaa_marine_species_distribution",
+      "source_date": "2026-07-15",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://ecowatch.noaa.gov/thematic/marine-species-distribution"
+    },
+    "coastal_aquifer_degradation": {
+      "source_id": "wri_aqueduct",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.wri.org/aqueduct"
+    },
+    "food_insecurity": {
+      "source_id": "unsd_sdg_api",
+      "source_date": "2026-07-31",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://unstats.un.org/sdgapi/swagger/"
+    },
+    "nutrient_pollution": {
+      "source_id": "usgs_samples_data_api",
+      "source_date": "2026-03-12",
+      "date_kind": "source_modified",
+      "source_url": "https://www.epa.gov/nutrientpollution/sources-and-solutions"
+    },
+    "seagrass_meadow_decline": {
+      "source_id": "obis_api_v3",
+      "source_date": "2020-05-18",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://api.obis.org/"
+    },
+    "urban_heat_island": {
+      "source_id": "eea_urban_heat_island_arcgis",
+      "source_date": "2025-09-02",
+      "date_kind": "source_modified",
+      "source_url": "https://www.epa.gov/heatislands/what-are-heat-islands"
+    },
+    "dam_and_diversion_infrastructure": {
+      "source_id": "usgs_water_data_ogc_api",
+      "source_date": "2026-07-24",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://api.waterdata.usgs.gov/docs/ogcapi/"
+    },
+    "road_stream_crossing_barriers": {
+      "source_id": "usgs_water_data_ogc_api",
+      "source_date": "2026-07-24",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://api.waterdata.usgs.gov/docs/ogcapi/"
+    },
+    "levee_and_channelization_works": {
+      "source_id": "usgs_water_data_ogc_api",
+      "source_date": "2026-07-24",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://api.waterdata.usgs.gov/docs/ogcapi/"
+    },
+    "humanitarian_response_funding_shortfall": {
+      "source_id": "ocha_humanitarian_programme_cycle_public_api",
+      "source_date": "2025-12-18",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://api.hpc.tools/docs/v1/"
+    },
+    "humanitarian_access_constraints": {
+      "source_id": "acaps_humanitarian_access",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.un.org/en/global-issues/crisis-and-emergency-response"
+    },
+    "humanitarian_surge_demand": {
+      "source_id": "ocha_humanitarian_programme_cycle_public_api",
+      "source_date": "2025-12-18",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://api.hpc.tools/docs/v1/"
+    },
+    "agricultural_groundwater_withdrawal": {
+      "source_id": "usgs_water_data_ogc_api",
+      "source_date": "2026-07-24",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://api.waterdata.usgs.gov/docs/ogcapi/"
+    },
+    "municipal_groundwater_withdrawal": {
+      "source_id": "usgs_water_data_ogc_api",
+      "source_date": "2026-07-24",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://api.waterdata.usgs.gov/docs/ogcapi/"
+    },
+    "industrial_groundwater_withdrawal": {
+      "source_id": "usgs_water_data_ogc_api",
+      "source_date": "2026-07-24",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://api.waterdata.usgs.gov/docs/ogcapi/"
+    },
+    "agricultural_nitrogen_application": {
+      "source_id": "global_nitrous_oxide_budget_1980_2020",
+      "source_date": "2024-06-11",
+      "date_kind": "source_published",
+      "source_url": "https://essd.copernicus.org/articles/16/2543/2024/"
+    },
+    "anaerobic_manure_lagoon_operation": {
+      "source_id": "edgar_global_emissions_database",
+      "source_date": "2025-09",
+      "date_kind": "dataset_release",
+      "source_url": "https://edgar.jrc.ec.europa.eu/report_2025?vis=ghgtot"
+    },
+    "cattle_stocking_density": {
+      "source_id": "edgar_global_emissions_database",
+      "source_date": "2025-09",
+      "date_kind": "dataset_release",
+      "source_url": "https://edgar.jrc.ec.europa.eu/report_2025?vis=ghgtot"
+    },
+    "coal_power_sulfur_emissions": {
+      "source_id": "edgar_global_emissions_database",
+      "source_date": "2025-09",
+      "date_kind": "dataset_release",
+      "source_url": "https://edgar.jrc.ec.europa.eu/report_2025?vis=ghgtot"
+    },
+    "agricultural_soil_compaction": {
+      "source_id": "edgar_global_emissions_database",
+      "source_date": "2025-09",
+      "date_kind": "dataset_release",
+      "source_url": "https://edgar.jrc.ec.europa.eu/report_2025?vis=ghgtot"
+    },
+    "urban_hydrologic_supply_shortfall": {
+      "source_id": "usgs_water_data_ogc_api",
+      "source_date": "2026-07-24",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://api.waterdata.usgs.gov/docs/ogcapi/"
+    },
+    "urban_water_demand_peak": {
+      "source_id": "usgs_water_data_ogc_api",
+      "source_date": "2026-07-24",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://api.waterdata.usgs.gov/docs/ogcapi/"
+    },
+    "urban_distribution_water_loss": {
+      "source_id": "usgs_water_data_ogc_api",
+      "source_date": "2026-07-24",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://api.waterdata.usgs.gov/docs/ogcapi/"
+    },
+    "urban_source_water_treatment_constraint": {
+      "source_id": "usgs_water_data_ogc_api",
+      "source_date": "2026-07-24",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://api.waterdata.usgs.gov/docs/ogcapi/"
+    },
+    "wildfire_smoke_pm25_exposure": {
+      "source_id": "who_air_quality_database",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.who.int/data/gho/data/themes/air-pollution/who-air-quality-database"
+    },
+    "wildfire_smoke_exposure_duration": {
+      "source_id": "who_air_quality_database",
+      "source_date": "2026-07-30",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://www.who.int/data/gho/data/themes/air-pollution/who-air-quality-database"
+    },
+    "surface_water_inflow_deficit": {
+      "source_id": "usgs_water_data_ogc_api",
+      "source_date": "2026-07-24",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://api.waterdata.usgs.gov/docs/ogcapi/"
+    },
+    "surface_water_evaporative_loss": {
+      "source_id": "usgs_water_data_ogc_api",
+      "source_date": "2026-07-24",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://api.waterdata.usgs.gov/docs/ogcapi/"
+    },
+    "surface_water_groundwater_exchange_shift": {
+      "source_id": "usgs_water_data_ogc_api",
+      "source_date": "2026-07-24",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://api.waterdata.usgs.gov/docs/ogcapi/"
+    },
+    "surface_water_withdrawal_pressure": {
+      "source_id": "usgs_water_data_ogc_api",
+      "source_date": "2026-07-24",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://api.waterdata.usgs.gov/docs/ogcapi/"
+    },
+    "coastal_groundwater_withdrawal": {
+      "source_id": "usgs_water_data_ogc_api",
+      "source_date": "2026-07-24",
+      "date_kind": "source_http_last_modified",
+      "source_url": "https://api.waterdata.usgs.gov/docs/ogcapi/"
+    },
+    "coal_power_co2_output": {
+      "source_id": "edgar_global_emissions_database",
+      "source_date": "2025-09",
+      "date_kind": "dataset_release",
+      "source_url": "https://edgar.jrc.ec.europa.eu/report_2025?vis=ghgtot"
+    },
+    "gas_power_co2_output": {
+      "source_id": "edgar_global_emissions_database",
+      "source_date": "2025-09",
+      "date_kind": "dataset_release",
+      "source_url": "https://edgar.jrc.ec.europa.eu/report_2025?vis=ghgtot"
+    },
+    "oil_power_co2_output": {
+      "source_id": "edgar_global_emissions_database",
+      "source_date": "2025-09",
+      "date_kind": "dataset_release",
+      "source_url": "https://edgar.jrc.ec.europa.eu/report_2025?vis=ghgtot"
+    },
+    "coal_industrial_heat_co2": {
+      "source_id": "edgar_global_emissions_database",
+      "source_date": "2025-09",
+      "date_kind": "dataset_release",
+      "source_url": "https://edgar.jrc.ec.europa.eu/report_2025?vis=ghgtot"
+    },
+    "gas_industrial_heat_co2": {
+      "source_id": "edgar_global_emissions_database",
+      "source_date": "2025-09",
+      "date_kind": "dataset_release",
+      "source_url": "https://edgar.jrc.ec.europa.eu/report_2025?vis=ghgtot"
+    },
+    "cement_kiln_fuel_co2": {
+      "source_id": "edgar_global_emissions_database",
+      "source_date": "2025-09",
+      "date_kind": "dataset_release",
+      "source_url": "https://edgar.jrc.ec.europa.eu/report_2025?vis=ghgtot"
+    },
+    "iron_steel_process_co2": {
+      "source_id": "edgar_global_emissions_database",
+      "source_date": "2025-09",
+      "date_kind": "dataset_release",
+      "source_url": "https://edgar.jrc.ec.europa.eu/report_2025?vis=ghgtot"
+    },
+    "chemical_process_co2": {
+      "source_id": "edgar_global_emissions_database",
+      "source_date": "2025-09",
+      "date_kind": "dataset_release",
+      "source_url": "https://edgar.jrc.ec.europa.eu/report_2025?vis=ghgtot"
+    },
+    "refinery_combustion_co2": {
+      "source_id": "edgar_global_emissions_database",
+      "source_date": "2025-09",
+      "date_kind": "dataset_release",
+      "source_url": "https://edgar.jrc.ec.europa.eu/report_2025?vis=ghgtot"
+    },
+    "aviation_jet_fuel_co2": {
+      "source_id": "edgar_global_emissions_database",
+      "source_date": "2025-09",
+      "date_kind": "dataset_release",
+      "source_url": "https://edgar.jrc.ec.europa.eu/report_2025?vis=ghgtot"
+    },
+    "shipping_bunker_fuel_co2": {
+      "source_id": "edgar_global_emissions_database",
+      "source_date": "2025-09",
+      "date_kind": "dataset_release",
+      "source_url": "https://edgar.jrc.ec.europa.eu/report_2025?vis=ghgtot"
+    },
+    "passenger_road_fuel_co2": {
+      "source_id": "edgar_global_emissions_database",
+      "source_date": "2025-09",
+      "date_kind": "dataset_release",
+      "source_url": "https://edgar.jrc.ec.europa.eu/report_2025?vis=ghgtot"
+    },
+    "diesel_freight_co2": {
+      "source_id": "edgar_global_emissions_database",
+      "source_date": "2025-09",
+      "date_kind": "dataset_release",
+      "source_url": "https://edgar.jrc.ec.europa.eu/report_2025?vis=ghgtot"
+    },
+    "rail_diesel_co2": {
+      "source_id": "edgar_global_emissions_database",
+      "source_date": "2025-09",
+      "date_kind": "dataset_release",
+      "source_url": "https://edgar.jrc.ec.europa.eu/report_2025?vis=ghgtot"
+    },
+    "residential_gas_heat_co2": {
+      "source_id": "edgar_global_emissions_database",
+      "source_date": "2025-09",
+      "date_kind": "dataset_release",
+      "source_url": "https://edgar.jrc.ec.europa.eu/report_2025?vis=ghgtot"
+    },
+    "commercial_gas_heat_co2": {
+      "source_id": "edgar_global_emissions_database",
+      "source_date": "2025-09",
+      "date_kind": "dataset_release",
+      "source_url": "https://edgar.jrc.ec.europa.eu/report_2025?vis=ghgtot"
+    },
+    "oil_building_heat_co2": {
+      "source_id": "edgar_global_emissions_database",
+      "source_date": "2025-09",
+      "date_kind": "dataset_release",
+      "source_url": "https://edgar.jrc.ec.europa.eu/report_2025?vis=ghgtot"
+    },
+    "fossil_power_backup_co2": {
+      "source_id": "edgar_global_emissions_database",
+      "source_date": "2025-09",
+      "date_kind": "dataset_release",
+      "source_url": "https://edgar.jrc.ec.europa.eu/report_2025?vis=ghgtot"
+    },
+    "waste_incineration_co2": {
+      "source_id": "edgar_global_emissions_database",
+      "source_date": "2025-09",
+      "date_kind": "dataset_release",
+      "source_url": "https://edgar.jrc.ec.europa.eu/report_2025?vis=ghgtot"
+    },
+    "oil_gas_flaring_co2": {
+      "source_id": "edgar_global_emissions_database",
+      "source_date": "2025-09",
+      "date_kind": "dataset_release",
+      "source_url": "https://edgar.jrc.ec.europa.eu/report_2025?vis=ghgtot"
+    },
+    "deforestation_co2_release": {
+      "source_id": "edgar_global_emissions_database",
+      "source_date": "2025-09",
+      "date_kind": "dataset_release",
+      "source_url": "https://edgar.jrc.ec.europa.eu/report_2025?vis=ghgtot"
+    },
+    "peatland_drainage_co2": {
+      "source_id": "edgar_global_emissions_database",
+      "source_date": "2025-09",
+      "date_kind": "dataset_release",
+      "source_url": "https://edgar.jrc.ec.europa.eu/report_2025?vis=ghgtot"
+    },
+    "land_use_fire_co2": {
+      "source_id": "edgar_global_emissions_database",
+      "source_date": "2025-09",
+      "date_kind": "dataset_release",
+      "source_url": "https://edgar.jrc.ec.europa.eu/report_2025?vis=ghgtot"
+    },
+    "construction_material_co2": {
+      "source_id": "edgar_global_emissions_database",
+      "source_date": "2025-09",
+      "date_kind": "dataset_release",
+      "source_url": "https://edgar.jrc.ec.europa.eu/report_2025?vis=ghgtot"
+    },
+    "fossil_hydrogen_co2": {
+      "source_id": "edgar_global_emissions_database",
+      "source_date": "2025-09",
+      "date_kind": "dataset_release",
+      "source_url": "https://edgar.jrc.ec.europa.eu/report_2025?vis=ghgtot"
+    }
+  }
+}

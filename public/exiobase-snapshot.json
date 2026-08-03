@@ -1,0 +1,52 @@
+{
+  "updated_at": "2026-07-18",
+  "version": "2026-07-18T12:53:21.620Z",
+  "snapshot_family": "exiobase_support",
+  "source": {
+    "id": "exiobase",
+    "name": "EXIOBASE",
+    "publisher": "EXIOBASE Consortium",
+    "url": "https://exiobase.eu/",
+    "access": "open_download"
+  },
+  "refresh_policy": {
+    "default_days": 120,
+    "notes": "Treat EXIOBASE as a supply-chain and footprint accounting snapshot rather than as an operational live dataset."
+  },
+  "use_guidance": {
+    "primary_role": "Use for supply-chain, embodied-resource, and traded-footprint support on industry and materials nodes.",
+    "caution": "EXIOBASE is a powerful MRIO baseline for embodied impacts, but it is not a high-frequency monitoring feed."
+  },
+  "overview": {
+    "title": "Exiobase",
+    "description": "EXIOBASE is a global, detailed Multi-Regional Environmentally Extended Supply-Use Table (MR-SUT) and Input-Output Table (MR-IOT). It was developed by harmonizing and detailing supply-use tables for a large number of countries, estimating emissions and resource extractions by industry. Subsequently the country supply-use tables were linked via trade creating an MR-SUT and producing a MR-IOTs from this. The MR-IOT that can be used for the analysis of the environmental impacts associated with the final consumption of product groups.",
+    "zenodo_updated_at": "2025-07-02T02:09:52.233457+00:00",
+    "zenodo_title": "EXIOBASE 3"
+  },
+  "tools": [
+    {
+      "id": "exiobase_home",
+      "label": "EXIOBASE home",
+      "url": "https://exiobase.eu/",
+      "type": "project_page",
+      "access": "open"
+    },
+    {
+      "id": "exiobase_zenodo_record",
+      "label": "EXIOBASE Zenodo record",
+      "url": "https://zenodo.org/records/15689391",
+      "type": "download_record",
+      "access": "open"
+    }
+  ],
+  "service_caveats": [
+    "EXIOBASE is a supply-chain accounting system, not a direct operational monitor.",
+    "Best fit is embodied carbon, materials, water, and trade-footprint context across industry and consumption nodes.",
+    "Use for structural footprint grounding rather than current-event monitoring."
+  ],
+  "supported_questions": [
+    "Which materials and industry nodes need embodied-impact and traded-footprint support?",
+    "Where should TULIP use MRIO-style supply-chain evidence rather than only direct emissions framing?",
+    "Which digital and industrial nodes benefit from a structural footprint support layer?"
+  ]
+}

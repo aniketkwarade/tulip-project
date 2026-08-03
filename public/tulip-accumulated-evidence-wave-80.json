@@ -1,0 +1,128 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_80_cape_may_coastal_groundwater_withdrawal",
+  "generated_at": "2026-08-01T17:11:46.010Z",
+  "source_snapshots": [
+    "public/cape-may-coastal-groundwater-impact-snapshot.json"
+  ],
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "coastal_groundwater_withdrawal",
+      "value": 9.6,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2002-12-31",
+      "components": {
+        "biophysical_burden": 1,
+        "human_economic_burden": 1,
+        "persistence": 1,
+        "extent": 0.67
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "maximum_groundwater_level_decline_feet": 100,
+          "affected_freshwater_aquifer_count": 5,
+          "normalization_anchors_feet": [
+            0,
+            5,
+            25,
+            100
+          ],
+          "boundary": "Maximum USGS pumping-linked head decline; not a uniform county or aquifer value."
+        },
+        "human_economic_burden": {
+          "public_and_industrial_supply_wells_closed_at_least": 20,
+          "domestic_supply_wells_closed_more_than": 100,
+          "total_supply_wells_closed_conservative_lower_bound": 120,
+          "normalization_anchors_wells": [
+            0,
+            1,
+            10,
+            100
+          ]
+        },
+        "persistence": {
+          "intrusion_start_year_about": 1890,
+          "assessment_end_year": 2002,
+          "elapsed_intrusion_years": 112,
+          "normalization_anchors_years": [
+            0,
+            5,
+            25,
+            100
+          ]
+        },
+        "extent": {
+          "named_affected_communities": [
+            "Cape May Point",
+            "Cape May City",
+            "Wildwood Island communities",
+            "Lower Township",
+            "Middle Township"
+          ],
+          "named_affected_community_count": 5,
+          "represented_county": "Cape May County",
+          "represented_state": "New Jersey",
+          "normalization_anchors_communities": [
+            0,
+            1,
+            5,
+            20
+          ]
+        },
+        "source_snapshot": {
+          "path": "public/cape-may-coastal-groundwater-impact-snapshot.json",
+          "version": "cape_may_coastal_groundwater_withdrawal_intrusion_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z",
+          "source_locators": [
+            "Cape May County withdrawals lowered groundwater levels as much as 100 feet and caused saltwater to intrude each of the five freshwater aquifers used by the peninsula.",
+            "Saltwater intrusion began about 1890 after deep-well pumping first lowered fresh-groundwater levels below sea level.",
+            "Intrusion forced closure of at least 20 public- and industrial-supply wells and more than 100 domestic wells since the 1940s; affected communities include Cape May Point, Cape May City, Wildwood Island communities, Lower Township and Middle Township.",
+            "During 1960-1990, intrusion forced abandonment of at least 10 public-supply wells, 3 industrial-supply wells and more than 100 domestic-supply wells.",
+            "In southern Cape May County about 20 percent of recharge is diverted to withdrawal wells.",
+            "Chloride concentrations increased in many confined-aquifer wells along both the Atlantic and Delaware Bay coastlines."
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "withdrawal_linked_head_decline",
+          "formula": "Normalize the USGS maximum 100-foot groundwater-level decline within the named coastal aquifer system; retain five affected aquifers as unscored context."
+        },
+        {
+          "type": "conservative_abandoned_well_lower_bound",
+          "formula": "Add at least 20 public and industrial wells to a conservative numeric value of 100 for more than 100 domestic wells, yielding a lower bound of 120 rather than an exact total."
+        },
+        {
+          "type": "historical_intrusion_duration",
+          "formula": "Calculate 112 elapsed years from the approximate 1890 onset to the 2002 detailed assessment endpoint; do not imply intrusion ended in 2002."
+        },
+        {
+          "type": "bounded_community_extent",
+          "formula": "Normalize five communities explicitly named by USGS and do not extrapolate the county record to other coasts."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "usgs_circular_1262_cape_may_saltwater_intrusion",
+        "usgs_wrir_01_4246_cape_may_water_supply_intrusion"
+      ],
+      "uncertainty": "The 100-foot head decline is a maximum across the county, not a uniform aquifer departure. At least 20 public and industrial wells plus more than 100 domestic wells yields a conservative lower bound of 120 and not an exact total. The approximately 1890 start is historical, and the assessment endpoint follows the detailed 2002 report rather than implying intrusion stopped then. Storm flooding, road salt, septic systems and agriculture can also elevate chloride locally; the receipt uses only the USGS pumping-linked coastal intrusion boundary. Extent is one county and five named communities.",
+      "freshness": "Historical Cape May intrusion assessed through 2002-12-31; USGS records reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "USGS directly quantifies withdrawal-linked hydraulic decline, abandoned public/industrial/domestic supply wells, century-scale intrusion and the named affected coastal communities.",
+        "higher_priority_failures": [
+          "The detailed record is one historical county aquifer system, not a current global coastal-groundwater withdrawal aggregation.",
+          "No globally method-comparable current series supplies paired pumping, hydraulic head and salinity response plus threshold or momentum coverage under the contract."
+        ]
+      },
+      "input_hash": "fnv1a32:bbe102af"
+    }
+  ]
+}

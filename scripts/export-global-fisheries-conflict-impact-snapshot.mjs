@@ -1,0 +1,91 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const eventCount = 542;
+const highIntensityEventCount = 49;
+
+const snapshot = {
+  version: 'international_fishery_conflict_database_1974_2016_v1',
+  captured_at: '2026-08-01T00:00:00.000Z',
+  sources: [
+    {
+      id: 'jcu_international_fishery_conflict_database_2020',
+      name: 'International Fishery Conflict Database',
+      publisher: 'James Cook University',
+      url: 'https://researchdata.jcu.edu.au/published/36a5a14a492290c5c65d8f5ee3ea8860',
+      doi: '10.25903/5f22492a64642',
+      reviewed_workbook_sha256: '977cf530a7f5395dd57539007b9398dd0a005b128cf49271de9a37da6b6d523d'
+    },
+    {
+      id: 'spijkers_international_fisheries_conflict_predictors_2021',
+      name: 'Identifying predictors of international fisheries conflict',
+      publisher: 'Fish and Fisheries',
+      url: 'https://onlinelibrary.wiley.com/doi/full/10.1111/faf.12554',
+      doi: '10.1111/faf.12554'
+    }
+  ],
+  assessment: {
+    coverage: {
+      first_year: 1974,
+      last_year: 2016,
+      inclusive_observation_years: 43,
+      years_with_recorded_events: 42,
+      actor_event_row_count: 1200,
+      unique_event_count: eventCount,
+      event_id_blank_row_count: 0,
+      inconsistent_event_year_count: 0,
+      inconsistent_event_intensity_count: 0
+    },
+    accumulated_conflict_burden: {
+      unique_event_count: eventCount,
+      intensity_scale_min: 1,
+      intensity_scale_max: 5,
+      event_counts_by_intensity: { '1': 227, '2': 105, '3': 161, '4': 36, '5': 13 }
+    },
+    human_security_burden: {
+      high_intensity_levels: [4, 5],
+      high_intensity_event_count: highIntensityEventCount,
+      high_intensity_event_share_pct: Number((100 * highIntensityEventCount / eventCount).toFixed(6)),
+      death_associated_action_event_count: 13,
+      scoring_boundary: 'The intensity category records observed action severity. It does not supply a casualty count or economic-loss estimate.'
+    },
+    persistence: {
+      inclusive_observation_years: 43,
+      source_reported_frequency_increased_over_period: true,
+      scoring_boundary: 'Duration describes persistence of recorded international fisheries conflict as a global phenomenon, not the duration of each individual event.'
+    },
+    geographic_extent: {
+      unique_actor_code_count: 94,
+      represented_continents: ['Africa', 'Asia', 'Europe', 'North America', 'Oceania', 'South America'],
+      represented_continent_count: 6,
+      intercontinental_event_count: 195,
+      intercontinental_event_share_pct: 35.97786,
+      scoring_boundary: 'Actor codes include countries, territories and the European Union; the score therefore uses inhabited-continent coverage rather than relabeling all actor codes as sovereign countries.'
+    }
+  },
+  reproduction: {
+    workbook_sheet: 'IFCD',
+    workbook_range: 'A1:R1201',
+    event_key: 'Event ID',
+    event_year_field: 'Event date (year)',
+    intensity_field: 'Intensity lvl of action type (Spijkers et al. 2018)',
+    actor_code_field: 'Country code',
+    continent_field: 'Continent',
+    deduplication: 'Group the 1,200 actor-event rows by Event ID; require exactly one event year and one intensity level per event before aggregating.'
+  },
+  uncertainty: 'The database is constructed from LexisNexis media reports and selected search terms, so reporting intensity, language, geographic visibility and source availability affect event capture. It is not a complete census of every fisheries dispute. The categorical action scale does not quantify casualties or economic losses, actor codes include territories and the European Union, and the record ends in 2016. No missing year is converted to zero for scoring.'
+};
+
+await fs.writeFile(
+  path.join(ROOT, 'public/global-fisheries-conflict-impact-snapshot.json'),
+  `${JSON.stringify(snapshot, null, 2)}\n`
+);
+
+console.log(JSON.stringify({
+  output: 'public/global-fisheries-conflict-impact-snapshot.json',
+  version: snapshot.version,
+  source_count: snapshot.sources.length,
+  unique_event_count: eventCount
+}, null, 2));

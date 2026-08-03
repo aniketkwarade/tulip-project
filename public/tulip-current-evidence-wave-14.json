@@ -1,0 +1,303 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_14_ember_world_power",
+  "generated_at": "2026-07-31T22:57:31.706Z",
+  "promoted_node_count": 3,
+  "receipts": [
+    {
+      "node_id": "coal_power_co2_output",
+      "value": 7.5,
+      "band": "Critical",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "magnitude": 0.948073,
+        "threshold": 0.948073,
+        "momentum": 0,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_value": 9477.61,
+          "unit": "mtCO2",
+          "reference_year": 2000,
+          "reference_value": 5473.88,
+          "latest_change_against_reference": 4003.73,
+          "complete_annual_observations": 26,
+          "anchors": [
+            2969.95,
+            3475.29,
+            3886.815,
+            4025.5625
+          ],
+          "source_locator": "https://storage.googleapis.com/emb-prod-bkt-publicdata/public-downloads/yearly_full_release_long_format.csv; Area=World; Category=Power sector emissions; Subcategory=Fuel; Variable=Coal; Unit=mtCO2; Year=2025"
+        },
+        "threshold": {
+          "latest_value": 9477.61,
+          "unit": "mtCO2",
+          "threshold_basis": "historical_distribution_fallback",
+          "anchors": [
+            8443.83,
+            8949.17,
+            9360.695,
+            9499.4425
+          ],
+          "source_locator": "https://storage.googleapis.com/emb-prod-bkt-publicdata/public-downloads/yearly_full_release_long_format.csv; Area=World; Category=Power sector emissions; Subcategory=Fuel; Variable=Coal; Unit=mtCO2; Year=2025"
+        },
+        "momentum": {
+          "latest_year_over_year_change": -58.22,
+          "unit": "mtCO2/year",
+          "annual_change_observations": 25,
+          "anchors": [
+            150.7,
+            373.16,
+            430.608,
+            537.38
+          ],
+          "source_locator": "https://storage.googleapis.com/emb-prod-bkt-publicdata/public-downloads/yearly_full_release_long_format.csv; Area=World; Category=Power sector emissions; Subcategory=Fuel; Variable=Coal; Unit=mtCO2; Year=2025"
+        },
+        "extent": {
+          "geography": "World",
+          "normalized_value": 1,
+          "definition": "The retained observation is Ember’s source-reported World aggregate, rather than a partial country panel.",
+          "source_locator": "https://storage.googleapis.com/emb-prod-bkt-publicdata/public-downloads/yearly_full_release_long_format.csv; Area=World; Category=Power sector emissions; Subcategory=Fuel; Variable=Coal; Unit=mtCO2; Year=2025"
+        },
+        "source_snapshot": {
+          "path": "public/ember-global-power-snapshot.json",
+          "version": "ember_yearly_global_power_2026-06-23_v1",
+          "captured_at": "2026-07-31T18:09:17.174Z",
+          "source_last_modified": "Tue, 23 Jun 2026 10:58:24 GMT",
+          "retained_history_start": 2000,
+          "retained_history_end": 2025,
+          "retained_history_record_count": 26
+        }
+      },
+      "transformations": [
+        {
+          "type": "source_reported_world_series",
+          "formula": "Retain Ember Area=World rows for the exact Power sector emissions / Fuel / Coal / mtCO2 variable without country reaggregation."
+        },
+        {
+          "type": "fixed_reference_magnitude",
+          "formula": "Subtract the 2000 source value from every annual value, then normalize the latest difference through the complete retained distribution."
+        },
+        {
+          "type": "historical_distribution_threshold_fallback",
+          "formula": "Map the latest power-sector emissions through median / p75 / p90 / p97.5 anchors from 2000–2025."
+        },
+        {
+          "type": "year_over_year_momentum",
+          "formula": "Map the latest annual change through the distribution of complete annual changes."
+        }
+      ],
+      "source_ids": [
+        "ember_global_electricity_data"
+      ],
+      "uncertainty": "Ember reconciles national and multi-country generation sources, estimates some latest-year values from monthly data, and calculates fuel-specific lifecycle power emissions using documented IPCC and technology factors. Country coverage, thermal disaggregation, imports, captive power and revised upstream statistics affect the World series.",
+      "freshness": "Annual Ember Yearly Electricity Data release through 2025; source file last modified Tue, 23 Jun 2026 10:58:24 GMT; snapshot captured 2026-07-31T18:09:17.174Z.",
+      "selection_reason": {
+        "selected_method_passed": "The exact source-reported World variable supplies 26 complete annual observations, current magnitude, historical position, momentum and global extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:c0c034bc"
+    },
+    {
+      "node_id": "gas_power_co2_output",
+      "value": 7.8,
+      "band": "Critical",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "magnitude": 1,
+        "threshold": 1,
+        "momentum": 0,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_value": 4091.63,
+          "unit": "mtCO2",
+          "reference_year": 2000,
+          "reference_value": 1592.58,
+          "latest_change_against_reference": 2499.05,
+          "complete_annual_observations": 26,
+          "anchors": [
+            1394.445,
+            2130.1675,
+            2345.36,
+            2491
+          ],
+          "source_locator": "https://storage.googleapis.com/emb-prod-bkt-publicdata/public-downloads/yearly_full_release_long_format.csv; Area=World; Category=Power sector emissions; Subcategory=Fuel; Variable=Gas; Unit=mtCO2; Year=2025"
+        },
+        "threshold": {
+          "latest_value": 4091.63,
+          "unit": "mtCO2",
+          "threshold_basis": "historical_distribution_fallback",
+          "anchors": [
+            2987.025,
+            3722.7475,
+            3937.94,
+            4083.58
+          ],
+          "source_locator": "https://storage.googleapis.com/emb-prod-bkt-publicdata/public-downloads/yearly_full_release_long_format.csv; Area=World; Category=Power sector emissions; Subcategory=Fuel; Variable=Gas; Unit=mtCO2; Year=2025"
+        },
+        "momentum": {
+          "latest_year_over_year_change": 12.88,
+          "unit": "mtCO2/year",
+          "annual_change_observations": 25,
+          "anchors": [
+            103.88,
+            142.86,
+            182.706,
+            209.69
+          ],
+          "source_locator": "https://storage.googleapis.com/emb-prod-bkt-publicdata/public-downloads/yearly_full_release_long_format.csv; Area=World; Category=Power sector emissions; Subcategory=Fuel; Variable=Gas; Unit=mtCO2; Year=2025"
+        },
+        "extent": {
+          "geography": "World",
+          "normalized_value": 1,
+          "definition": "The retained observation is Ember’s source-reported World aggregate, rather than a partial country panel.",
+          "source_locator": "https://storage.googleapis.com/emb-prod-bkt-publicdata/public-downloads/yearly_full_release_long_format.csv; Area=World; Category=Power sector emissions; Subcategory=Fuel; Variable=Gas; Unit=mtCO2; Year=2025"
+        },
+        "source_snapshot": {
+          "path": "public/ember-global-power-snapshot.json",
+          "version": "ember_yearly_global_power_2026-06-23_v1",
+          "captured_at": "2026-07-31T18:09:17.174Z",
+          "source_last_modified": "Tue, 23 Jun 2026 10:58:24 GMT",
+          "retained_history_start": 2000,
+          "retained_history_end": 2025,
+          "retained_history_record_count": 26
+        }
+      },
+      "transformations": [
+        {
+          "type": "source_reported_world_series",
+          "formula": "Retain Ember Area=World rows for the exact Power sector emissions / Fuel / Gas / mtCO2 variable without country reaggregation."
+        },
+        {
+          "type": "fixed_reference_magnitude",
+          "formula": "Subtract the 2000 source value from every annual value, then normalize the latest difference through the complete retained distribution."
+        },
+        {
+          "type": "historical_distribution_threshold_fallback",
+          "formula": "Map the latest power-sector emissions through median / p75 / p90 / p97.5 anchors from 2000–2025."
+        },
+        {
+          "type": "year_over_year_momentum",
+          "formula": "Map the latest annual change through the distribution of complete annual changes."
+        }
+      ],
+      "source_ids": [
+        "ember_global_electricity_data"
+      ],
+      "uncertainty": "Ember reconciles national and multi-country generation sources, estimates some latest-year values from monthly data, and calculates fuel-specific lifecycle power emissions using documented IPCC and technology factors. Country coverage, thermal disaggregation, imports, captive power and revised upstream statistics affect the World series.",
+      "freshness": "Annual Ember Yearly Electricity Data release through 2025; source file last modified Tue, 23 Jun 2026 10:58:24 GMT; snapshot captured 2026-07-31T18:09:17.174Z.",
+      "selection_reason": {
+        "selected_method_passed": "The exact source-reported World variable supplies 26 complete annual observations, current magnitude, historical position, momentum and global extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:094f3e40"
+    },
+    {
+      "node_id": "gas_power_dependence",
+      "value": 2.3,
+      "band": "Low",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "magnitude": 0,
+        "threshold": 0,
+        "momentum": 0,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_value": 21.73,
+          "unit": "%",
+          "reference_year": 2000,
+          "reference_value": 17.97,
+          "latest_change_against_reference": 3.76,
+          "complete_annual_observations": 26,
+          "anchors": [
+            4.09,
+            5.0725,
+            5.635,
+            5.90125
+          ],
+          "source_locator": "https://storage.googleapis.com/emb-prod-bkt-publicdata/public-downloads/yearly_full_release_long_format.csv; Area=World; Category=Electricity generation; Subcategory=Fuel; Variable=Gas; Unit=%; Year=2025"
+        },
+        "threshold": {
+          "latest_value": 21.73,
+          "unit": "%",
+          "threshold_basis": "historical_distribution_fallback",
+          "anchors": [
+            22.06,
+            23.0425,
+            23.605,
+            23.87125
+          ],
+          "source_locator": "https://storage.googleapis.com/emb-prod-bkt-publicdata/public-downloads/yearly_full_release_long_format.csv; Area=World; Category=Electricity generation; Subcategory=Fuel; Variable=Gas; Unit=%; Year=2025"
+        },
+        "momentum": {
+          "latest_year_over_year_change": -0.52,
+          "unit": "%/year",
+          "annual_change_observations": 25,
+          "anchors": [
+            0.24,
+            0.54,
+            0.742,
+            0.946
+          ],
+          "source_locator": "https://storage.googleapis.com/emb-prod-bkt-publicdata/public-downloads/yearly_full_release_long_format.csv; Area=World; Category=Electricity generation; Subcategory=Fuel; Variable=Gas; Unit=%; Year=2025"
+        },
+        "extent": {
+          "geography": "World",
+          "normalized_value": 1,
+          "definition": "The retained observation is Ember’s source-reported World aggregate, rather than a partial country panel.",
+          "source_locator": "https://storage.googleapis.com/emb-prod-bkt-publicdata/public-downloads/yearly_full_release_long_format.csv; Area=World; Category=Electricity generation; Subcategory=Fuel; Variable=Gas; Unit=%; Year=2025"
+        },
+        "source_snapshot": {
+          "path": "public/ember-global-power-snapshot.json",
+          "version": "ember_yearly_global_power_2026-06-23_v1",
+          "captured_at": "2026-07-31T18:09:17.174Z",
+          "source_last_modified": "Tue, 23 Jun 2026 10:58:24 GMT",
+          "retained_history_start": 2000,
+          "retained_history_end": 2025,
+          "retained_history_record_count": 26
+        }
+      },
+      "transformations": [
+        {
+          "type": "source_reported_world_series",
+          "formula": "Retain Ember Area=World rows for the exact Electricity generation / Fuel / Gas / % variable without country reaggregation."
+        },
+        {
+          "type": "fixed_reference_magnitude",
+          "formula": "Subtract the 2000 source value from every annual value, then normalize the latest difference through the complete retained distribution."
+        },
+        {
+          "type": "historical_distribution_threshold_fallback",
+          "formula": "Map the latest generation share through median / p75 / p90 / p97.5 anchors from 2000–2025."
+        },
+        {
+          "type": "year_over_year_momentum",
+          "formula": "Map the latest annual change through the distribution of complete annual changes."
+        }
+      ],
+      "source_ids": [
+        "ember_global_electricity_data"
+      ],
+      "uncertainty": "Ember reconciles national and multi-country generation sources, estimates some latest-year values from monthly data, and calculates fuel-specific lifecycle power emissions using documented IPCC and technology factors. Country coverage, thermal disaggregation, imports, captive power and revised upstream statistics affect the World series.",
+      "freshness": "Annual Ember Yearly Electricity Data release through 2025; source file last modified Tue, 23 Jun 2026 10:58:24 GMT; snapshot captured 2026-07-31T18:09:17.174Z.",
+      "selection_reason": {
+        "selected_method_passed": "The exact source-reported World variable supplies 26 complete annual observations, current magnitude, historical position, momentum and global extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:3acaed89"
+    }
+  ]
+}

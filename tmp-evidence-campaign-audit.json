@@ -1,0 +1,22 @@
+{
+  "ok": true,
+  "generated_at": "2026-07-27T02:06:33.174Z",
+  "summary": {
+    "nodes": 381,
+    "relationships": 1290,
+    "normalized_confidence": 1290,
+    "quantitative_evidence_envelopes": 1290,
+    "relationship_quantifications": 1290,
+    "confidence_reassessments": 171,
+    "pending_conservative_confidence_defaults": 0,
+    "literature_matches_adjudicated": 790,
+    "source_readbacks_closed": 1290,
+    "terminology_decisions": 16,
+    "regional_hub_profiles": 25,
+    "operational_metric_contracts": 123,
+    "metric_ingestion_jobs": 57,
+    "missing_link_candidates": 219,
+    "missing_link_candidates_adjudicated_closed": 34
+  },
+  "failures": []
+}

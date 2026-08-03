@@ -1,0 +1,141 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_52_us_bridge_scour_exposure",
+  "generated_at": "2026-08-01T15:38:08.750Z",
+  "source_snapshots": [
+    "public/us-bridge-scour-impact-snapshot.json"
+  ],
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "bridge_scour_exposure",
+      "value": 7.9,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025-06-20",
+      "components": {
+        "biophysical_burden": 0.697735,
+        "human_economic_burden": 0.894733,
+        "persistence": 1,
+        "extent": 0.33
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "highway_bridge_count": 624193,
+          "recognized_scour_critical_codes": [
+            "0",
+            "1",
+            "2",
+            "3"
+          ],
+          "scour_critical_code_counts": {
+            "0": 85,
+            "1": 56,
+            "2": 685,
+            "3": 18949
+          },
+          "scour_critical_bridge_count": 19775,
+          "scour_critical_share_pct": 3.168091,
+          "unknown_foundation_bridge_count": 24250,
+          "unknown_foundations_excluded_from_scour_critical_count": true,
+          "normalization_anchors_pct": [
+            0,
+            1,
+            3,
+            5
+          ]
+        },
+        "human_economic_burden": {
+          "open_scour_critical_bridge_count": 19190,
+          "closed_scour_critical_bridge_count": 585,
+          "open_scour_critical_adt_record_count": 19190,
+          "open_scour_critical_daily_vehicle_crossings": 76075755,
+          "normalization_anchors_daily_vehicle_crossings": [
+            0,
+            1000000,
+            25000000,
+            100000000
+          ],
+          "interpretation": "Sum of bridge-level average daily traffic for scour-critical bridges whose operating-status code indicates an open, posted, restricted, shored, or temporary crossing. It is not a count of unique people or realized service failures."
+        },
+        "persistence": {
+          "scour_critical_bridges_requiring_unique_plan_of_action": 19775,
+          "scour_critical_bridges_requiring_plan_of_action_pct": 100,
+          "monitoring_alone_removes_scour_critical_status": false,
+          "normalization_anchors_pct": [
+            0,
+            25,
+            50,
+            100
+          ],
+          "interpretation": "FHWA requires a bridge-specific scour plan of action for every scour-critical bridge; monitoring alone does not remove the classification."
+        },
+        "extent": {
+          "jurisdictions_with_scour_critical_bridges": 52,
+          "reporting_jurisdiction_count": 53,
+          "directly_assessed_countries": [
+            "United States"
+          ],
+          "directly_assessed_country_count": 1,
+          "normalization_anchors_countries": [
+            0,
+            1,
+            10,
+            50
+          ],
+          "scoring_boundary": "The inventory is nationally comprehensive for the United States and participating territories but is not extrapolated to other countries."
+        },
+        "source_snapshot": {
+          "path": "public/us-bridge-scour-impact-snapshot.json",
+          "version": "us_fhwa_nbi_bridge_scour_2025_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z",
+          "aggregate_input_sha256": "08bee5f1fcaea42a9c8389c33eea7960d0987b5881df743133755558b343fee4",
+          "reproduction": {
+            "analysis_script": "scripts/analyze-fhwa-nbi-2025.mjs",
+            "command": "node scripts/analyze-fhwa-nbi-2025.mjs <directory containing the 53 official 2025 state and territory delimited files>",
+            "required_record_total": 624193
+          }
+        }
+      },
+      "transformations": [
+        {
+          "type": "recognized_scour_critical_share_normalization",
+          "formula": "Classify only FHWA Item 113 codes 0, 1, 2, and 3 as scour critical, divide their count by all 2025 highway bridge records, and normalize the resulting percentage. Unknown-foundation bridges remain separate."
+        },
+        {
+          "type": "open_bridge_traffic_exposure_normalization",
+          "formula": "Sum reported average daily traffic only for scour-critical bridges with open, posted, restricted, shored, or temporary operating-status codes, then normalize the crossing total. Do not infer unique people, economic loss, or service failure."
+        },
+        {
+          "type": "required_management_persistence_normalization",
+          "formula": "Normalize the share of scour-critical bridges subject to the federal bridge-specific plan-of-action requirement; retain that monitoring alone does not remove scour-critical status."
+        },
+        {
+          "type": "bounded_country_extent_normalization",
+          "formula": "Normalize only the one directly assessed country; broad coverage across 52 United States jurisdictions does not become global coverage."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1–10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "fhwa_nbi_highway_bridges_2025",
+        "fhwa_snbi_scour_code_mapping",
+        "fhwa_nbis_scour_plan_of_action_2023"
+      ],
+      "uncertainty": "The NBI is a United States inventory, not a global bridge census. Item 113 is an engineering appraisal category rather than a failure probability. Average daily traffic values have different underlying observation years, count bridge crossings rather than unique users, and may include estimation. Traffic exposure therefore does not imply that a service failure occurred. Guam did not submit 2025 data, and unknown-foundation bridges are reported separately rather than classified as scour critical.",
+      "freshness": "The FHWA 2025 National Bridge Inventory page was updated 2025-06-20; all 624,193 records were reconciled and hashed when reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "The complete 2025 federal bridge inventory and engineering code definitions quantify scour-critical prevalence, open-bridge traffic exposure, the bridge-specific management requirement and nationwide geographic spread under an exact node-metric match.",
+        "higher_priority_failures": [
+          "The inventory is limited to the United States and participating territories, so it is not a current global observation or defensible global aggregation.",
+          "A single annual inventory endpoint does not satisfy the 20-annual-observation historical-distribution gate or supply recent global momentum."
+        ]
+      },
+      "input_hash": "fnv1a32:f6525d14"
+    }
+  ]
+}

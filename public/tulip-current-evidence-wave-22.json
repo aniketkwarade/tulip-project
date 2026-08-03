@@ -1,0 +1,101 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_22_wri_aqueduct_global_water_stress",
+  "generated_at": "2026-07-31T22:57:33.989Z",
+  "source_snapshot": "public/aqueduct-snapshot.json",
+  "source_id": "wri_aqueduct",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "water_stress",
+      "value": 8.4,
+      "band": "Critical",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2023",
+      "components": {
+        "magnitude": 0.67,
+        "threshold": 1,
+        "momentum": 1,
+        "extent": 0.5
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "countries_with_extremely_high_annual_water_stress": 25,
+          "global_population_share_in_those_countries_pct": 25,
+          "anchors_population_share_pct": [
+            0,
+            10,
+            25,
+            50
+          ],
+          "boundary": "Population residing in countries classified at extremely high annual baseline water stress; not a count of households experiencing shortage."
+        },
+        "threshold": {
+          "extreme_water_stress_threshold_pct": 80,
+          "high_water_stress_threshold_pct": 40,
+          "anchors_withdrawal_to_supply_pct": [
+            0,
+            20,
+            40,
+            80
+          ],
+          "classification": "The 25-country group meets the source-defined extremely high category at more than 80 percent withdrawals relative to renewable supply."
+        },
+        "momentum": {
+          "global_water_demand_reference_year": 1960,
+          "global_water_demand_increase_multiple_lower_bound": 2,
+          "anchors_multiple": [
+            1,
+            1.25,
+            1.5,
+            2
+          ],
+          "boundary": "Source-reported endpoint comparison; not a complete annual series and not used for historical percentiles."
+        },
+        "extent": {
+          "global_population_with_high_water_stress_at_least_one_month_billion": 4,
+          "global_population_share_with_high_water_stress_at_least_one_month_pct": 50,
+          "normalized_value": 0.5,
+          "irrigated_agriculture_facing_extremely_high_water_stress_pct_context_only": 60
+        },
+        "source_snapshot": {
+          "path": "public/aqueduct-snapshot.json",
+          "version": "2026-07-31T17:48:16.619Z",
+          "updated_at": "2026-07-31",
+          "source_url": "https://www.wri.org/insights/highest-water-stressed-countries",
+          "measurement_boundary": "Aqueduct baseline water stress is modeled long-term demand divided by renewable supply. Population and agriculture figures are exposure estimates, not observed household shortages or basin depletion volumes."
+        }
+      },
+      "transformations": [
+        {
+          "type": "annual_extreme_exposure_magnitude",
+          "formula": "Normalize the source-reported global population share residing in countries at extremely high annual baseline water stress."
+        },
+        {
+          "type": "recognized_aqueduct_threshold",
+          "formula": "Map the WRI withdrawal-to-renewable-supply category boundaries, with 80 percent as the source-defined extreme threshold."
+        },
+        {
+          "type": "source_endpoint_demand_change",
+          "formula": "Normalize the conservative lower bound of a doubling in global demand since 1960 without inventing annual observations."
+        },
+        {
+          "type": "monthly_population_extent",
+          "formula": "Use the source-reported share of global population exposed to high water stress for at least one month per year."
+        }
+      ],
+      "source_ids": [
+        "wri_aqueduct"
+      ],
+      "uncertainty": "Aqueduct combines modeled renewable supply, sectoral withdrawals, population and spatial allocation. Country aggregation can hide basin variation; exposure is not realized shortage, and global demand more than doubled is an endpoint statement rather than a complete annual series.",
+      "freshness": "WRI Aqueduct 4.0 global assessment 2023; snapshot refreshed 2026-07-31.",
+      "selection_reason": {
+        "selected_method_passed": "WRI Aqueduct supplies a current global model, recognized 40% high and 80% extreme thresholds, annual extreme-stress exposure covering 25% of global population, a source-backed demand comparison since 1960, and monthly high-stress exposure covering 50% of global population.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:619c6398"
+    }
+  ]
+}

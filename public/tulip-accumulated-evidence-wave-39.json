@@ -1,0 +1,1917 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_39_cross_domain_global_assessments",
+  "generated_at": "2026-08-01T15:38:04.088Z",
+  "promoted_node_count": 31,
+  "receipts": [
+    {
+      "node_id": "ai_data_centers",
+      "value": 8.4,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "biophysical_burden": 0.825571,
+        "human_economic_burden": 0.846,
+        "persistence": 0.67,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "observation_year": 2024,
+        "electricity_twh": 415,
+        "electricity_share_pct": 1.5,
+        "prior_five_year_growth_pct_per_year": 12,
+        "indirect_power_emissions_mt_co2": 180,
+        "investment_usd_billion": 500,
+        "global_extent": 1,
+        "evidence_boundary": "Electricity, indirect emissions and investment quantify the global data-centre system; they do not isolate individual AI workloads or projected 2030 demand. Node binding: ai_data_centers.",
+        "source_snapshot": {
+          "path": "public/global-cross-domain-impact-snapshot.json",
+          "version": "global_cross_domain_impact_assessments_2026_v1",
+          "captured_at": "2026-07-31T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Map each source-reported burden to declared reference, concerning, critical and extreme anchors; clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35 × accumulated biophysical burden + 0.30 × accumulated human/economic burden + 0.20 × persistence + 0.15 × global extent."
+        },
+        {
+          "type": "semantic_boundary",
+          "formula": "Use the assessment only for the named pathway; do not infer unreported event counts, local impacts, attribution shares or current threshold exceedance."
+        }
+      ],
+      "source_ids": [
+        "iea_energy_and_ai"
+      ],
+      "uncertainty": "Assessment years and methods differ. Every receipt preserves its source boundary; global totals are not added across assessments, projections are excluded, missing values never become zero, and pathway-specific nodes retain explicit attribution uncertainty. Electricity, indirect emissions and investment quantify the global data-centre system; they do not isolate individual AI workloads or projected 2030 demand. Node binding: ai_data_centers.",
+      "freshness": "Latest reviewed source observation or assessment through 2024.",
+      "selection_reason": {
+        "selected_method_passed": "A global quantitative assessment supplies all four accumulated-impact components with an explicit node-pathway boundary.",
+        "higher_priority_failures": [
+          "No globally harmonized current observation supplies magnitude plus threshold or momentum at the current-data coverage gate."
+        ]
+      },
+      "input_hash": "fnv1a32:71298bf5"
+    },
+    {
+      "node_id": "transformer_supply_bottleneck",
+      "value": 9,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2026",
+      "components": {
+        "biophysical_burden": 0.835,
+        "human_economic_burden": 0.89,
+        "persistence": 0.89,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "assessment_year": 2026,
+        "power_transformer_price_increase_pct_five_years": 75,
+        "procurement_lead_time_years": 4,
+        "stalled_grid_queue_gw": 2500,
+        "current_grid_investment_usd_billion": 400,
+        "required_2030_grid_investment_usd_billion": 600,
+        "global_extent": 1,
+        "evidence_boundary": "Global price and procurement pressure quantifies transformer supply-chain burden; stalled queues also include non-transformer constraints. Node binding: transformer_supply_bottleneck.",
+        "source_snapshot": {
+          "path": "public/global-cross-domain-impact-snapshot.json",
+          "version": "global_cross_domain_impact_assessments_2026_v1",
+          "captured_at": "2026-07-31T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Map each source-reported burden to declared reference, concerning, critical and extreme anchors; clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35 × accumulated biophysical burden + 0.30 × accumulated human/economic burden + 0.20 × persistence + 0.15 × global extent."
+        },
+        {
+          "type": "semantic_boundary",
+          "formula": "Use the assessment only for the named pathway; do not infer unreported event counts, local impacts, attribution shares or current threshold exceedance."
+        }
+      ],
+      "source_ids": [
+        "iea_electricity_2026_grids"
+      ],
+      "uncertainty": "Assessment years and methods differ. Every receipt preserves its source boundary; global totals are not added across assessments, projections are excluded, missing values never become zero, and pathway-specific nodes retain explicit attribution uncertainty. Global price and procurement pressure quantifies transformer supply-chain burden; stalled queues also include non-transformer constraints. Node binding: transformer_supply_bottleneck.",
+      "freshness": "Latest reviewed source observation or assessment through 2026.",
+      "selection_reason": {
+        "selected_method_passed": "A global quantitative assessment supplies all four accumulated-impact components with an explicit node-pathway boundary.",
+        "higher_priority_failures": [
+          "No globally harmonized current observation supplies magnitude plus threshold or momentum at the current-data coverage gate."
+        ]
+      },
+      "input_hash": "fnv1a32:cf1538a9"
+    },
+    {
+      "node_id": "freight_electrification_gap",
+      "value": 9,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "biophysical_burden": 0.92575,
+        "human_economic_burden": 0.835,
+        "persistence": 0.835,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "observation_year": 2025,
+        "electric_sales_thousand_lower_bound": 400,
+        "electric_sales_share_pct": 9,
+        "non_electric_sales_share_pct": 91,
+        "purchase_price_multiple_midpoint": 2.5,
+        "assessed_regions": 5,
+        "global_extent": 1,
+        "evidence_boundary": "The non-electric sales share measures the freight transition gap; it is not relabeled as a census of diesel vehicles already in service. Node binding: freight_electrification_gap.",
+        "source_snapshot": {
+          "path": "public/global-cross-domain-impact-snapshot.json",
+          "version": "global_cross_domain_impact_assessments_2026_v1",
+          "captured_at": "2026-07-31T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Map each source-reported burden to declared reference, concerning, critical and extreme anchors; clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35 × accumulated biophysical burden + 0.30 × accumulated human/economic burden + 0.20 × persistence + 0.15 × global extent."
+        },
+        {
+          "type": "semantic_boundary",
+          "formula": "Use the assessment only for the named pathway; do not infer unreported event counts, local impacts, attribution shares or current threshold exceedance."
+        }
+      ],
+      "source_ids": [
+        "iea_global_ev_outlook_2026"
+      ],
+      "uncertainty": "Assessment years and methods differ. Every receipt preserves its source boundary; global totals are not added across assessments, projections are excluded, missing values never become zero, and pathway-specific nodes retain explicit attribution uncertainty. The non-electric sales share measures the freight transition gap; it is not relabeled as a census of diesel vehicles already in service. Node binding: freight_electrification_gap.",
+      "freshness": "Latest reviewed source observation or assessment through 2025.",
+      "selection_reason": {
+        "selected_method_passed": "A global quantitative assessment supplies all four accumulated-impact components with an explicit node-pathway boundary.",
+        "higher_priority_failures": [
+          "No globally harmonized current observation supplies magnitude plus threshold or momentum at the current-data coverage gate."
+        ]
+      },
+      "input_hash": "fnv1a32:5f2d682f"
+    },
+    {
+      "node_id": "road_freight_diesel_lock_in",
+      "value": 9,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "biophysical_burden": 0.92575,
+        "human_economic_burden": 0.835,
+        "persistence": 0.835,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "observation_year": 2025,
+        "electric_sales_thousand_lower_bound": 400,
+        "electric_sales_share_pct": 9,
+        "non_electric_sales_share_pct": 91,
+        "purchase_price_multiple_midpoint": 2.5,
+        "assessed_regions": 5,
+        "global_extent": 1,
+        "evidence_boundary": "The non-electric sales share measures the freight transition gap; it is not relabeled as a census of diesel vehicles already in service. Node binding: road_freight_diesel_lock_in.",
+        "source_snapshot": {
+          "path": "public/global-cross-domain-impact-snapshot.json",
+          "version": "global_cross_domain_impact_assessments_2026_v1",
+          "captured_at": "2026-07-31T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Map each source-reported burden to declared reference, concerning, critical and extreme anchors; clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35 × accumulated biophysical burden + 0.30 × accumulated human/economic burden + 0.20 × persistence + 0.15 × global extent."
+        },
+        {
+          "type": "semantic_boundary",
+          "formula": "Use the assessment only for the named pathway; do not infer unreported event counts, local impacts, attribution shares or current threshold exceedance."
+        }
+      ],
+      "source_ids": [
+        "iea_global_ev_outlook_2026"
+      ],
+      "uncertainty": "Assessment years and methods differ. Every receipt preserves its source boundary; global totals are not added across assessments, projections are excluded, missing values never become zero, and pathway-specific nodes retain explicit attribution uncertainty. The non-electric sales share measures the freight transition gap; it is not relabeled as a census of diesel vehicles already in service. Node binding: road_freight_diesel_lock_in.",
+      "freshness": "Latest reviewed source observation or assessment through 2025.",
+      "selection_reason": {
+        "selected_method_passed": "A global quantitative assessment supplies all four accumulated-impact components with an explicit node-pathway boundary.",
+        "higher_priority_failures": [
+          "No globally harmonized current observation supplies magnitude plus threshold or momentum at the current-data coverage gate."
+        ]
+      },
+      "input_hash": "fnv1a32:f9986ecf"
+    },
+    {
+      "node_id": "passenger_road_fuel_co2",
+      "value": 8.6,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "biophysical_burden": 0.8152,
+        "human_economic_burden": 0.868,
+        "persistence": 0.7525,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "observation_year": 2024,
+        "road_transport_co2_gt": 6,
+        "emissions_growth_since_2015_pct": 8,
+        "passenger_car_van_share_lower_bound_pct": 60,
+        "passenger_car_van_co2_lower_bound_gt": 3.6,
+        "global_extent": 1,
+        "evidence_boundary": "The passenger value is a conservative lower bound derived from the source-reported greater-than-60-percent share of road CO2; it does not split fuel types. Node binding: passenger_road_fuel_co2.",
+        "source_snapshot": {
+          "path": "public/global-cross-domain-impact-snapshot.json",
+          "version": "global_cross_domain_impact_assessments_2026_v1",
+          "captured_at": "2026-07-31T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Map each source-reported burden to declared reference, concerning, critical and extreme anchors; clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35 × accumulated biophysical burden + 0.30 × accumulated human/economic burden + 0.20 × persistence + 0.15 × global extent."
+        },
+        {
+          "type": "semantic_boundary",
+          "formula": "Use the assessment only for the named pathway; do not infer unreported event counts, local impacts, attribution shares or current threshold exceedance."
+        }
+      ],
+      "source_ids": [
+        "iea_breakthrough_agenda_road_transport_2025"
+      ],
+      "uncertainty": "Assessment years and methods differ. Every receipt preserves its source boundary; global totals are not added across assessments, projections are excluded, missing values never become zero, and pathway-specific nodes retain explicit attribution uncertainty. The passenger value is a conservative lower bound derived from the source-reported greater-than-60-percent share of road CO2; it does not split fuel types. Node binding: passenger_road_fuel_co2.",
+      "freshness": "Latest reviewed source observation or assessment through 2024.",
+      "selection_reason": {
+        "selected_method_passed": "A global quantitative assessment supplies all four accumulated-impact components with an explicit node-pathway boundary.",
+        "higher_priority_failures": [
+          "No globally harmonized current observation supplies magnitude plus threshold or momentum at the current-data coverage gate."
+        ]
+      },
+      "input_hash": "fnv1a32:1e98c247"
+    },
+    {
+      "node_id": "plastics_petrochemicals",
+      "value": 8.8,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2019",
+      "components": {
+        "biophysical_burden": 0.846,
+        "human_economic_burden": 0.846,
+        "persistence": 0.847692,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "observation_year": 2019,
+        "production_mt": 460,
+        "waste_mt": 353,
+        "ultimately_recycled_pct": 9,
+        "leakage_mt": 22,
+        "lifecycle_emissions_gt_co2e": 1.8,
+        "global_ghg_share_pct": 3.4,
+        "global_extent": 1,
+        "evidence_boundary": "Lifecycle production, waste, leakage and emissions quantify the plastics-petrochemicals burden; no 2060 projection enters the score. Node binding: plastics_petrochemicals.",
+        "source_snapshot": {
+          "path": "public/global-cross-domain-impact-snapshot.json",
+          "version": "global_cross_domain_impact_assessments_2026_v1",
+          "captured_at": "2026-07-31T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Map each source-reported burden to declared reference, concerning, critical and extreme anchors; clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35 × accumulated biophysical burden + 0.30 × accumulated human/economic burden + 0.20 × persistence + 0.15 × global extent."
+        },
+        {
+          "type": "semantic_boundary",
+          "formula": "Use the assessment only for the named pathway; do not infer unreported event counts, local impacts, attribution shares or current threshold exceedance."
+        }
+      ],
+      "source_ids": [
+        "oecd_global_plastics_outlook"
+      ],
+      "uncertainty": "Assessment years and methods differ. Every receipt preserves its source boundary; global totals are not added across assessments, projections are excluded, missing values never become zero, and pathway-specific nodes retain explicit attribution uncertainty. Lifecycle production, waste, leakage and emissions quantify the plastics-petrochemicals burden; no 2060 projection enters the score. Node binding: plastics_petrochemicals.",
+      "freshness": "Latest reviewed source observation or assessment through 2019.",
+      "selection_reason": {
+        "selected_method_passed": "A global quantitative assessment supplies all four accumulated-impact components with an explicit node-pathway boundary.",
+        "higher_priority_failures": [
+          "No globally harmonized current observation supplies magnitude plus threshold or momentum at the current-data coverage gate."
+        ]
+      },
+      "input_hash": "fnv1a32:f54f49c4"
+    },
+    {
+      "node_id": "subsea_cables",
+      "value": 9.2,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "biophysical_burden": 0.824,
+        "human_economic_burden": 0.989,
+        "persistence": 0.868,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "observation_year": 2025,
+        "international_data_exchange_share_pct": 99,
+        "active_and_planned_systems_lower_bound": 500,
+        "annual_repairs": 170,
+        "repair_frequency_per_week_approx": 4,
+        "global_extent": 1,
+        "evidence_boundary": "Fault and traffic quantities cover the global submarine backbone; they do not identify individual landing-station chokepoints or outage duration. Node binding: subsea_cables.",
+        "source_snapshot": {
+          "path": "public/global-cross-domain-impact-snapshot.json",
+          "version": "global_cross_domain_impact_assessments_2026_v1",
+          "captured_at": "2026-07-31T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Map each source-reported burden to declared reference, concerning, critical and extreme anchors; clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35 × accumulated biophysical burden + 0.30 × accumulated human/economic burden + 0.20 × persistence + 0.15 × global extent."
+        },
+        {
+          "type": "semantic_boundary",
+          "formula": "Use the assessment only for the named pathway; do not infer unreported event counts, local impacts, attribution shares or current threshold exceedance."
+        }
+      ],
+      "source_ids": [
+        "itu_submarine_cable_resilience"
+      ],
+      "uncertainty": "Assessment years and methods differ. Every receipt preserves its source boundary; global totals are not added across assessments, projections are excluded, missing values never become zero, and pathway-specific nodes retain explicit attribution uncertainty. Fault and traffic quantities cover the global submarine backbone; they do not identify individual landing-station chokepoints or outage duration. Node binding: subsea_cables.",
+      "freshness": "Latest reviewed source observation or assessment through 2025.",
+      "selection_reason": {
+        "selected_method_passed": "A global quantitative assessment supplies all four accumulated-impact components with an explicit node-pathway boundary.",
+        "higher_priority_failures": [
+          "No globally harmonized current observation supplies magnitude plus threshold or momentum at the current-data coverage gate."
+        ]
+      },
+      "input_hash": "fnv1a32:f926c788"
+    },
+    {
+      "node_id": "telecom_backbone",
+      "value": 9.2,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "biophysical_burden": 0.824,
+        "human_economic_burden": 0.989,
+        "persistence": 0.868,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "observation_year": 2025,
+        "international_data_exchange_share_pct": 99,
+        "active_and_planned_systems_lower_bound": 500,
+        "annual_repairs": 170,
+        "repair_frequency_per_week_approx": 4,
+        "global_extent": 1,
+        "evidence_boundary": "Fault and traffic quantities cover the global submarine backbone; they do not identify individual landing-station chokepoints or outage duration. Node binding: telecom_backbone.",
+        "source_snapshot": {
+          "path": "public/global-cross-domain-impact-snapshot.json",
+          "version": "global_cross_domain_impact_assessments_2026_v1",
+          "captured_at": "2026-07-31T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Map each source-reported burden to declared reference, concerning, critical and extreme anchors; clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35 × accumulated biophysical burden + 0.30 × accumulated human/economic burden + 0.20 × persistence + 0.15 × global extent."
+        },
+        {
+          "type": "semantic_boundary",
+          "formula": "Use the assessment only for the named pathway; do not infer unreported event counts, local impacts, attribution shares or current threshold exceedance."
+        }
+      ],
+      "source_ids": [
+        "itu_submarine_cable_resilience"
+      ],
+      "uncertainty": "Assessment years and methods differ. Every receipt preserves its source boundary; global totals are not added across assessments, projections are excluded, missing values never become zero, and pathway-specific nodes retain explicit attribution uncertainty. Fault and traffic quantities cover the global submarine backbone; they do not identify individual landing-station chokepoints or outage duration. Node binding: telecom_backbone.",
+      "freshness": "Latest reviewed source observation or assessment through 2025.",
+      "selection_reason": {
+        "selected_method_passed": "A global quantitative assessment supplies all four accumulated-impact components with an explicit node-pathway boundary.",
+        "higher_priority_failures": [
+          "No globally harmonized current observation supplies magnitude plus threshold or momentum at the current-data coverage gate."
+        ]
+      },
+      "input_hash": "fnv1a32:3a01f8ca"
+    },
+    {
+      "node_id": "glacial_lake_failure_risk",
+      "value": 9.2,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2020",
+      "components": {
+        "biophysical_burden": 0.947671,
+        "human_economic_burden": 0.868,
+        "persistence": 0.835,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "observation_year": 2020,
+        "exposed_population_million": 15,
+        "exposed_countries": 30,
+        "glacial_lake_basins": 1089,
+        "high_mountain_asia_exposed_population_million": 9.3,
+        "high_mountain_asia_share_pct": 62,
+        "global_extent": 1,
+        "evidence_boundary": "The global assessment measures potential GLOF runout exposure and vulnerability, not a forecast that every exposed person will be affected. Node binding: glacial_lake_failure_risk.",
+        "source_snapshot": {
+          "path": "public/global-cross-domain-impact-snapshot.json",
+          "version": "global_cross_domain_impact_assessments_2026_v1",
+          "captured_at": "2026-07-31T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Map each source-reported burden to declared reference, concerning, critical and extreme anchors; clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35 × accumulated biophysical burden + 0.30 × accumulated human/economic burden + 0.20 × persistence + 0.15 × global extent."
+        },
+        {
+          "type": "semantic_boundary",
+          "formula": "Use the assessment only for the named pathway; do not infer unreported event counts, local impacts, attribution shares or current threshold exceedance."
+        }
+      ],
+      "source_ids": [
+        "global_glof_exposure_2023"
+      ],
+      "uncertainty": "Assessment years and methods differ. Every receipt preserves its source boundary; global totals are not added across assessments, projections are excluded, missing values never become zero, and pathway-specific nodes retain explicit attribution uncertainty. The global assessment measures potential GLOF runout exposure and vulnerability, not a forecast that every exposed person will be affected. Node binding: glacial_lake_failure_risk.",
+      "freshness": "Latest reviewed source observation or assessment through 2020.",
+      "selection_reason": {
+        "selected_method_passed": "A global quantitative assessment supplies all four accumulated-impact components with an explicit node-pathway boundary.",
+        "higher_priority_failures": [
+          "No globally harmonized current observation supplies magnitude plus threshold or momentum at the current-data coverage gate."
+        ]
+      },
+      "input_hash": "fnv1a32:31234cbc"
+    },
+    {
+      "node_id": "glacier_hydrologic_system_floods",
+      "value": 9.2,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2020",
+      "components": {
+        "biophysical_burden": 0.947671,
+        "human_economic_burden": 0.868,
+        "persistence": 0.835,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "observation_year": 2020,
+        "exposed_population_million": 15,
+        "exposed_countries": 30,
+        "glacial_lake_basins": 1089,
+        "high_mountain_asia_exposed_population_million": 9.3,
+        "high_mountain_asia_share_pct": 62,
+        "global_extent": 1,
+        "evidence_boundary": "The global assessment measures potential GLOF runout exposure and vulnerability, not a forecast that every exposed person will be affected. Node binding: glacier_hydrologic_system_floods.",
+        "source_snapshot": {
+          "path": "public/global-cross-domain-impact-snapshot.json",
+          "version": "global_cross_domain_impact_assessments_2026_v1",
+          "captured_at": "2026-07-31T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Map each source-reported burden to declared reference, concerning, critical and extreme anchors; clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35 × accumulated biophysical burden + 0.30 × accumulated human/economic burden + 0.20 × persistence + 0.15 × global extent."
+        },
+        {
+          "type": "semantic_boundary",
+          "formula": "Use the assessment only for the named pathway; do not infer unreported event counts, local impacts, attribution shares or current threshold exceedance."
+        }
+      ],
+      "source_ids": [
+        "global_glof_exposure_2023"
+      ],
+      "uncertainty": "Assessment years and methods differ. Every receipt preserves its source boundary; global totals are not added across assessments, projections are excluded, missing values never become zero, and pathway-specific nodes retain explicit attribution uncertainty. The global assessment measures potential GLOF runout exposure and vulnerability, not a forecast that every exposed person will be affected. Node binding: glacier_hydrologic_system_floods.",
+      "freshness": "Latest reviewed source observation or assessment through 2020.",
+      "selection_reason": {
+        "selected_method_passed": "A global quantitative assessment supplies all four accumulated-impact components with an explicit node-pathway boundary.",
+        "higher_priority_failures": [
+          "No globally harmonized current observation supplies magnitude plus threshold or momentum at the current-data coverage gate."
+        ]
+      },
+      "input_hash": "fnv1a32:a49ed25e"
+    },
+    {
+      "node_id": "pesticide_bioaccumulation_chains",
+      "value": 9.3,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2022",
+      "components": {
+        "biophysical_burden": 0.87625,
+        "human_economic_burden": 0.9802,
+        "persistence": 0.868,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "assessment_year": 2022,
+        "pesticide_use_intensity_growth_since_1990_pct_lower_bound": 60,
+        "unintentional_poisonings_million_per_year": 385,
+        "deaths_per_year_approx": 11000,
+        "global_extent": 1,
+        "evidence_boundary": "Global pesticide use and poisoning quantify accumulated chemical pressure; they do not resolve compound-specific drift, bioaccumulation or water-residue mass. Node binding: pesticide_bioaccumulation_chains.",
+        "source_snapshot": {
+          "path": "public/global-cross-domain-impact-snapshot.json",
+          "version": "global_cross_domain_impact_assessments_2026_v1",
+          "captured_at": "2026-07-31T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Map each source-reported burden to declared reference, concerning, critical and extreme anchors; clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35 × accumulated biophysical burden + 0.30 × accumulated human/economic burden + 0.20 × persistence + 0.15 × global extent."
+        },
+        {
+          "type": "semantic_boundary",
+          "formula": "Use the assessment only for the named pathway; do not infer unreported event counts, local impacts, attribution shares or current threshold exceedance."
+        }
+      ],
+      "source_ids": [
+        "unep_pesticides_fertilizers_global_assessment"
+      ],
+      "uncertainty": "Assessment years and methods differ. Every receipt preserves its source boundary; global totals are not added across assessments, projections are excluded, missing values never become zero, and pathway-specific nodes retain explicit attribution uncertainty. Global pesticide use and poisoning quantify accumulated chemical pressure; they do not resolve compound-specific drift, bioaccumulation or water-residue mass. Node binding: pesticide_bioaccumulation_chains.",
+      "freshness": "Latest reviewed source observation or assessment through 2022.",
+      "selection_reason": {
+        "selected_method_passed": "A global quantitative assessment supplies all four accumulated-impact components with an explicit node-pathway boundary.",
+        "higher_priority_failures": [
+          "No globally harmonized current observation supplies magnitude plus threshold or momentum at the current-data coverage gate."
+        ]
+      },
+      "input_hash": "fnv1a32:27537922"
+    },
+    {
+      "node_id": "pesticide_spray_drift_zones",
+      "value": 9.3,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2022",
+      "components": {
+        "biophysical_burden": 0.87625,
+        "human_economic_burden": 0.9802,
+        "persistence": 0.868,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "assessment_year": 2022,
+        "pesticide_use_intensity_growth_since_1990_pct_lower_bound": 60,
+        "unintentional_poisonings_million_per_year": 385,
+        "deaths_per_year_approx": 11000,
+        "global_extent": 1,
+        "evidence_boundary": "Global pesticide use and poisoning quantify accumulated chemical pressure; they do not resolve compound-specific drift, bioaccumulation or water-residue mass. Node binding: pesticide_spray_drift_zones.",
+        "source_snapshot": {
+          "path": "public/global-cross-domain-impact-snapshot.json",
+          "version": "global_cross_domain_impact_assessments_2026_v1",
+          "captured_at": "2026-07-31T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Map each source-reported burden to declared reference, concerning, critical and extreme anchors; clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35 × accumulated biophysical burden + 0.30 × accumulated human/economic burden + 0.20 × persistence + 0.15 × global extent."
+        },
+        {
+          "type": "semantic_boundary",
+          "formula": "Use the assessment only for the named pathway; do not infer unreported event counts, local impacts, attribution shares or current threshold exceedance."
+        }
+      ],
+      "source_ids": [
+        "unep_pesticides_fertilizers_global_assessment"
+      ],
+      "uncertainty": "Assessment years and methods differ. Every receipt preserves its source boundary; global totals are not added across assessments, projections are excluded, missing values never become zero, and pathway-specific nodes retain explicit attribution uncertainty. Global pesticide use and poisoning quantify accumulated chemical pressure; they do not resolve compound-specific drift, bioaccumulation or water-residue mass. Node binding: pesticide_spray_drift_zones.",
+      "freshness": "Latest reviewed source observation or assessment through 2022.",
+      "selection_reason": {
+        "selected_method_passed": "A global quantitative assessment supplies all four accumulated-impact components with an explicit node-pathway boundary.",
+        "higher_priority_failures": [
+          "No globally harmonized current observation supplies magnitude plus threshold or momentum at the current-data coverage gate."
+        ]
+      },
+      "input_hash": "fnv1a32:429f96b0"
+    },
+    {
+      "node_id": "agrochemical_water_sinks",
+      "value": 9.3,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2022",
+      "components": {
+        "biophysical_burden": 0.87625,
+        "human_economic_burden": 0.9802,
+        "persistence": 0.868,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "assessment_year": 2022,
+        "pesticide_use_intensity_growth_since_1990_pct_lower_bound": 60,
+        "unintentional_poisonings_million_per_year": 385,
+        "deaths_per_year_approx": 11000,
+        "global_extent": 1,
+        "evidence_boundary": "Global pesticide use and poisoning quantify accumulated chemical pressure; they do not resolve compound-specific drift, bioaccumulation or water-residue mass. Node binding: agrochemical_water_sinks.",
+        "source_snapshot": {
+          "path": "public/global-cross-domain-impact-snapshot.json",
+          "version": "global_cross_domain_impact_assessments_2026_v1",
+          "captured_at": "2026-07-31T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Map each source-reported burden to declared reference, concerning, critical and extreme anchors; clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35 × accumulated biophysical burden + 0.30 × accumulated human/economic burden + 0.20 × persistence + 0.15 × global extent."
+        },
+        {
+          "type": "semantic_boundary",
+          "formula": "Use the assessment only for the named pathway; do not infer unreported event counts, local impacts, attribution shares or current threshold exceedance."
+        }
+      ],
+      "source_ids": [
+        "unep_pesticides_fertilizers_global_assessment"
+      ],
+      "uncertainty": "Assessment years and methods differ. Every receipt preserves its source boundary; global totals are not added across assessments, projections are excluded, missing values never become zero, and pathway-specific nodes retain explicit attribution uncertainty. Global pesticide use and poisoning quantify accumulated chemical pressure; they do not resolve compound-specific drift, bioaccumulation or water-residue mass. Node binding: agrochemical_water_sinks.",
+      "freshness": "Latest reviewed source observation or assessment through 2022.",
+      "selection_reason": {
+        "selected_method_passed": "A global quantitative assessment supplies all four accumulated-impact components with an explicit node-pathway boundary.",
+        "higher_priority_failures": [
+          "No globally harmonized current observation supplies magnitude plus threshold or momentum at the current-data coverage gate."
+        ]
+      },
+      "input_hash": "fnv1a32:584a1d2a"
+    },
+    {
+      "node_id": "littoral_surge_vulnerability",
+      "value": 9.3,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "biophysical_burden": 0.902571,
+        "human_economic_burden": 0.934,
+        "persistence": 0.868,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "assessment_year": 2025,
+        "satellite_record_start_year": 1993,
+        "assessment_period_years": 32,
+        "early_sea_level_rate_period": "1993-2002",
+        "early_sea_level_rise_rate_mm_per_year": 2.1,
+        "recent_sea_level_rate_period": "2016-2025",
+        "recent_sea_level_rise_rate_mm_per_year": 4.1,
+        "sea_level_rate_increase_pct": 95.238095,
+        "low_lying_coastal_population_exposed_million": 900,
+        "low_lying_coastal_population_share_pct": 11,
+        "additional_people_with_one_in_twenty_annual_coastal_flood_chance_million": 14,
+        "coastal_flood_extent_comparison_period_years": 20,
+        "annual_flood_probability_denominator_years": 20,
+        "geographic_scope": "global low-lying coasts and coastal communities",
+        "global_extent_normalized": 1,
+        "source_locators": [
+          "WMO State of the Climate 2025 Update: nearly 11 percent of the global population, around 900 million people, live on low-lying coasts directly exposed to coastal hazards.",
+          "WMO State of the Climate 2025 Update: sea-level rise rate increased from 2.1 mm/year in 1993-2002 to 4.1 mm/year in 2016-2025.",
+          "UNEP: coastal-flood extent increased over 20 years, leaving 14 million more people with a 1-in-20 annual flooding chance."
+        ],
+        "evidence_boundary": "Observed sea-level acceleration and global low-lying-coast exposure quantify the shared coastal burden; pathway-specific local erosion, salinity, aquifer and compound-event measurements remain heterogeneous. Node binding: littoral_surge_vulnerability.",
+        "source_snapshot": {
+          "path": "public/wmo-unep-coastal-inundation-impact-snapshot.json",
+          "version": "wmo_unep_global_coastal_inundation_impact_v1",
+          "captured_at": "2026-07-31T18:27:29.012Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Map each source-reported burden to declared reference, concerning, critical and extreme anchors; clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35 × accumulated biophysical burden + 0.30 × accumulated human/economic burden + 0.20 × persistence + 0.15 × global extent."
+        },
+        {
+          "type": "semantic_boundary",
+          "formula": "Use the assessment only for the named pathway; do not infer unreported event counts, local impacts, attribution shares or current threshold exceedance."
+        }
+      ],
+      "source_ids": [
+        "wmo_unep_global_coastal_inundation_assessments"
+      ],
+      "uncertainty": "Assessment years and methods differ. Every receipt preserves its source boundary; global totals are not added across assessments, projections are excluded, missing values never become zero, and pathway-specific nodes retain explicit attribution uncertainty. Observed sea-level acceleration and global low-lying-coast exposure quantify the shared coastal burden; pathway-specific local erosion, salinity, aquifer and compound-event measurements remain heterogeneous. Node binding: littoral_surge_vulnerability.",
+      "freshness": "Latest reviewed source observation or assessment through 2025.",
+      "selection_reason": {
+        "selected_method_passed": "A global quantitative assessment supplies all four accumulated-impact components with an explicit node-pathway boundary.",
+        "higher_priority_failures": [
+          "No globally harmonized current observation supplies magnitude plus threshold or momentum at the current-data coverage gate."
+        ]
+      },
+      "input_hash": "fnv1a32:9c127d73"
+    },
+    {
+      "node_id": "compound_coastal_flooding",
+      "value": 9.3,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "biophysical_burden": 0.902571,
+        "human_economic_burden": 0.934,
+        "persistence": 0.868,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "assessment_year": 2025,
+        "satellite_record_start_year": 1993,
+        "assessment_period_years": 32,
+        "early_sea_level_rate_period": "1993-2002",
+        "early_sea_level_rise_rate_mm_per_year": 2.1,
+        "recent_sea_level_rate_period": "2016-2025",
+        "recent_sea_level_rise_rate_mm_per_year": 4.1,
+        "sea_level_rate_increase_pct": 95.238095,
+        "low_lying_coastal_population_exposed_million": 900,
+        "low_lying_coastal_population_share_pct": 11,
+        "additional_people_with_one_in_twenty_annual_coastal_flood_chance_million": 14,
+        "coastal_flood_extent_comparison_period_years": 20,
+        "annual_flood_probability_denominator_years": 20,
+        "geographic_scope": "global low-lying coasts and coastal communities",
+        "global_extent_normalized": 1,
+        "source_locators": [
+          "WMO State of the Climate 2025 Update: nearly 11 percent of the global population, around 900 million people, live on low-lying coasts directly exposed to coastal hazards.",
+          "WMO State of the Climate 2025 Update: sea-level rise rate increased from 2.1 mm/year in 1993-2002 to 4.1 mm/year in 2016-2025.",
+          "UNEP: coastal-flood extent increased over 20 years, leaving 14 million more people with a 1-in-20 annual flooding chance."
+        ],
+        "evidence_boundary": "Observed sea-level acceleration and global low-lying-coast exposure quantify the shared coastal burden; pathway-specific local erosion, salinity, aquifer and compound-event measurements remain heterogeneous. Node binding: compound_coastal_flooding.",
+        "source_snapshot": {
+          "path": "public/wmo-unep-coastal-inundation-impact-snapshot.json",
+          "version": "wmo_unep_global_coastal_inundation_impact_v1",
+          "captured_at": "2026-07-31T18:27:29.012Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Map each source-reported burden to declared reference, concerning, critical and extreme anchors; clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35 × accumulated biophysical burden + 0.30 × accumulated human/economic burden + 0.20 × persistence + 0.15 × global extent."
+        },
+        {
+          "type": "semantic_boundary",
+          "formula": "Use the assessment only for the named pathway; do not infer unreported event counts, local impacts, attribution shares or current threshold exceedance."
+        }
+      ],
+      "source_ids": [
+        "wmo_unep_global_coastal_inundation_assessments"
+      ],
+      "uncertainty": "Assessment years and methods differ. Every receipt preserves its source boundary; global totals are not added across assessments, projections are excluded, missing values never become zero, and pathway-specific nodes retain explicit attribution uncertainty. Observed sea-level acceleration and global low-lying-coast exposure quantify the shared coastal burden; pathway-specific local erosion, salinity, aquifer and compound-event measurements remain heterogeneous. Node binding: compound_coastal_flooding.",
+      "freshness": "Latest reviewed source observation or assessment through 2025.",
+      "selection_reason": {
+        "selected_method_passed": "A global quantitative assessment supplies all four accumulated-impact components with an explicit node-pathway boundary.",
+        "higher_priority_failures": [
+          "No globally harmonized current observation supplies magnitude plus threshold or momentum at the current-data coverage gate."
+        ]
+      },
+      "input_hash": "fnv1a32:7130b027"
+    },
+    {
+      "node_id": "coastal_erosion",
+      "value": 9.3,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "biophysical_burden": 0.902571,
+        "human_economic_burden": 0.934,
+        "persistence": 0.868,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "assessment_year": 2025,
+        "satellite_record_start_year": 1993,
+        "assessment_period_years": 32,
+        "early_sea_level_rate_period": "1993-2002",
+        "early_sea_level_rise_rate_mm_per_year": 2.1,
+        "recent_sea_level_rate_period": "2016-2025",
+        "recent_sea_level_rise_rate_mm_per_year": 4.1,
+        "sea_level_rate_increase_pct": 95.238095,
+        "low_lying_coastal_population_exposed_million": 900,
+        "low_lying_coastal_population_share_pct": 11,
+        "additional_people_with_one_in_twenty_annual_coastal_flood_chance_million": 14,
+        "coastal_flood_extent_comparison_period_years": 20,
+        "annual_flood_probability_denominator_years": 20,
+        "geographic_scope": "global low-lying coasts and coastal communities",
+        "global_extent_normalized": 1,
+        "source_locators": [
+          "WMO State of the Climate 2025 Update: nearly 11 percent of the global population, around 900 million people, live on low-lying coasts directly exposed to coastal hazards.",
+          "WMO State of the Climate 2025 Update: sea-level rise rate increased from 2.1 mm/year in 1993-2002 to 4.1 mm/year in 2016-2025.",
+          "UNEP: coastal-flood extent increased over 20 years, leaving 14 million more people with a 1-in-20 annual flooding chance."
+        ],
+        "evidence_boundary": "Observed sea-level acceleration and global low-lying-coast exposure quantify the shared coastal burden; pathway-specific local erosion, salinity, aquifer and compound-event measurements remain heterogeneous. Node binding: coastal_erosion.",
+        "source_snapshot": {
+          "path": "public/wmo-unep-coastal-inundation-impact-snapshot.json",
+          "version": "wmo_unep_global_coastal_inundation_impact_v1",
+          "captured_at": "2026-07-31T18:27:29.012Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Map each source-reported burden to declared reference, concerning, critical and extreme anchors; clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35 × accumulated biophysical burden + 0.30 × accumulated human/economic burden + 0.20 × persistence + 0.15 × global extent."
+        },
+        {
+          "type": "semantic_boundary",
+          "formula": "Use the assessment only for the named pathway; do not infer unreported event counts, local impacts, attribution shares or current threshold exceedance."
+        }
+      ],
+      "source_ids": [
+        "wmo_unep_global_coastal_inundation_assessments"
+      ],
+      "uncertainty": "Assessment years and methods differ. Every receipt preserves its source boundary; global totals are not added across assessments, projections are excluded, missing values never become zero, and pathway-specific nodes retain explicit attribution uncertainty. Observed sea-level acceleration and global low-lying-coast exposure quantify the shared coastal burden; pathway-specific local erosion, salinity, aquifer and compound-event measurements remain heterogeneous. Node binding: coastal_erosion.",
+      "freshness": "Latest reviewed source observation or assessment through 2025.",
+      "selection_reason": {
+        "selected_method_passed": "A global quantitative assessment supplies all four accumulated-impact components with an explicit node-pathway boundary.",
+        "higher_priority_failures": [
+          "No globally harmonized current observation supplies magnitude plus threshold or momentum at the current-data coverage gate."
+        ]
+      },
+      "input_hash": "fnv1a32:0c3c9e2f"
+    },
+    {
+      "node_id": "coastal_saltwater_intrusion",
+      "value": 9.3,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "biophysical_burden": 0.902571,
+        "human_economic_burden": 0.934,
+        "persistence": 0.868,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "assessment_year": 2025,
+        "satellite_record_start_year": 1993,
+        "assessment_period_years": 32,
+        "early_sea_level_rate_period": "1993-2002",
+        "early_sea_level_rise_rate_mm_per_year": 2.1,
+        "recent_sea_level_rate_period": "2016-2025",
+        "recent_sea_level_rise_rate_mm_per_year": 4.1,
+        "sea_level_rate_increase_pct": 95.238095,
+        "low_lying_coastal_population_exposed_million": 900,
+        "low_lying_coastal_population_share_pct": 11,
+        "additional_people_with_one_in_twenty_annual_coastal_flood_chance_million": 14,
+        "coastal_flood_extent_comparison_period_years": 20,
+        "annual_flood_probability_denominator_years": 20,
+        "geographic_scope": "global low-lying coasts and coastal communities",
+        "global_extent_normalized": 1,
+        "source_locators": [
+          "WMO State of the Climate 2025 Update: nearly 11 percent of the global population, around 900 million people, live on low-lying coasts directly exposed to coastal hazards.",
+          "WMO State of the Climate 2025 Update: sea-level rise rate increased from 2.1 mm/year in 1993-2002 to 4.1 mm/year in 2016-2025.",
+          "UNEP: coastal-flood extent increased over 20 years, leaving 14 million more people with a 1-in-20 annual flooding chance."
+        ],
+        "evidence_boundary": "Observed sea-level acceleration and global low-lying-coast exposure quantify the shared coastal burden; pathway-specific local erosion, salinity, aquifer and compound-event measurements remain heterogeneous. Node binding: coastal_saltwater_intrusion.",
+        "source_snapshot": {
+          "path": "public/wmo-unep-coastal-inundation-impact-snapshot.json",
+          "version": "wmo_unep_global_coastal_inundation_impact_v1",
+          "captured_at": "2026-07-31T18:27:29.012Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Map each source-reported burden to declared reference, concerning, critical and extreme anchors; clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35 × accumulated biophysical burden + 0.30 × accumulated human/economic burden + 0.20 × persistence + 0.15 × global extent."
+        },
+        {
+          "type": "semantic_boundary",
+          "formula": "Use the assessment only for the named pathway; do not infer unreported event counts, local impacts, attribution shares or current threshold exceedance."
+        }
+      ],
+      "source_ids": [
+        "wmo_unep_global_coastal_inundation_assessments"
+      ],
+      "uncertainty": "Assessment years and methods differ. Every receipt preserves its source boundary; global totals are not added across assessments, projections are excluded, missing values never become zero, and pathway-specific nodes retain explicit attribution uncertainty. Observed sea-level acceleration and global low-lying-coast exposure quantify the shared coastal burden; pathway-specific local erosion, salinity, aquifer and compound-event measurements remain heterogeneous. Node binding: coastal_saltwater_intrusion.",
+      "freshness": "Latest reviewed source observation or assessment through 2025.",
+      "selection_reason": {
+        "selected_method_passed": "A global quantitative assessment supplies all four accumulated-impact components with an explicit node-pathway boundary.",
+        "higher_priority_failures": [
+          "No globally harmonized current observation supplies magnitude plus threshold or momentum at the current-data coverage gate."
+        ]
+      },
+      "input_hash": "fnv1a32:56f9f1d7"
+    },
+    {
+      "node_id": "delta_salt_intrusion_fronts",
+      "value": 9.3,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "biophysical_burden": 0.902571,
+        "human_economic_burden": 0.934,
+        "persistence": 0.868,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "assessment_year": 2025,
+        "satellite_record_start_year": 1993,
+        "assessment_period_years": 32,
+        "early_sea_level_rate_period": "1993-2002",
+        "early_sea_level_rise_rate_mm_per_year": 2.1,
+        "recent_sea_level_rate_period": "2016-2025",
+        "recent_sea_level_rise_rate_mm_per_year": 4.1,
+        "sea_level_rate_increase_pct": 95.238095,
+        "low_lying_coastal_population_exposed_million": 900,
+        "low_lying_coastal_population_share_pct": 11,
+        "additional_people_with_one_in_twenty_annual_coastal_flood_chance_million": 14,
+        "coastal_flood_extent_comparison_period_years": 20,
+        "annual_flood_probability_denominator_years": 20,
+        "geographic_scope": "global low-lying coasts and coastal communities",
+        "global_extent_normalized": 1,
+        "source_locators": [
+          "WMO State of the Climate 2025 Update: nearly 11 percent of the global population, around 900 million people, live on low-lying coasts directly exposed to coastal hazards.",
+          "WMO State of the Climate 2025 Update: sea-level rise rate increased from 2.1 mm/year in 1993-2002 to 4.1 mm/year in 2016-2025.",
+          "UNEP: coastal-flood extent increased over 20 years, leaving 14 million more people with a 1-in-20 annual flooding chance."
+        ],
+        "evidence_boundary": "Observed sea-level acceleration and global low-lying-coast exposure quantify the shared coastal burden; pathway-specific local erosion, salinity, aquifer and compound-event measurements remain heterogeneous. Node binding: delta_salt_intrusion_fronts.",
+        "source_snapshot": {
+          "path": "public/wmo-unep-coastal-inundation-impact-snapshot.json",
+          "version": "wmo_unep_global_coastal_inundation_impact_v1",
+          "captured_at": "2026-07-31T18:27:29.012Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Map each source-reported burden to declared reference, concerning, critical and extreme anchors; clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35 × accumulated biophysical burden + 0.30 × accumulated human/economic burden + 0.20 × persistence + 0.15 × global extent."
+        },
+        {
+          "type": "semantic_boundary",
+          "formula": "Use the assessment only for the named pathway; do not infer unreported event counts, local impacts, attribution shares or current threshold exceedance."
+        }
+      ],
+      "source_ids": [
+        "wmo_unep_global_coastal_inundation_assessments"
+      ],
+      "uncertainty": "Assessment years and methods differ. Every receipt preserves its source boundary; global totals are not added across assessments, projections are excluded, missing values never become zero, and pathway-specific nodes retain explicit attribution uncertainty. Observed sea-level acceleration and global low-lying-coast exposure quantify the shared coastal burden; pathway-specific local erosion, salinity, aquifer and compound-event measurements remain heterogeneous. Node binding: delta_salt_intrusion_fronts.",
+      "freshness": "Latest reviewed source observation or assessment through 2025.",
+      "selection_reason": {
+        "selected_method_passed": "A global quantitative assessment supplies all four accumulated-impact components with an explicit node-pathway boundary.",
+        "higher_priority_failures": [
+          "No globally harmonized current observation supplies magnitude plus threshold or momentum at the current-data coverage gate."
+        ]
+      },
+      "input_hash": "fnv1a32:48dc953b"
+    },
+    {
+      "node_id": "freshwater_lens_compression",
+      "value": 9.3,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "biophysical_burden": 0.902571,
+        "human_economic_burden": 0.934,
+        "persistence": 0.868,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "assessment_year": 2025,
+        "satellite_record_start_year": 1993,
+        "assessment_period_years": 32,
+        "early_sea_level_rate_period": "1993-2002",
+        "early_sea_level_rise_rate_mm_per_year": 2.1,
+        "recent_sea_level_rate_period": "2016-2025",
+        "recent_sea_level_rise_rate_mm_per_year": 4.1,
+        "sea_level_rate_increase_pct": 95.238095,
+        "low_lying_coastal_population_exposed_million": 900,
+        "low_lying_coastal_population_share_pct": 11,
+        "additional_people_with_one_in_twenty_annual_coastal_flood_chance_million": 14,
+        "coastal_flood_extent_comparison_period_years": 20,
+        "annual_flood_probability_denominator_years": 20,
+        "geographic_scope": "global low-lying coasts and coastal communities",
+        "global_extent_normalized": 1,
+        "source_locators": [
+          "WMO State of the Climate 2025 Update: nearly 11 percent of the global population, around 900 million people, live on low-lying coasts directly exposed to coastal hazards.",
+          "WMO State of the Climate 2025 Update: sea-level rise rate increased from 2.1 mm/year in 1993-2002 to 4.1 mm/year in 2016-2025.",
+          "UNEP: coastal-flood extent increased over 20 years, leaving 14 million more people with a 1-in-20 annual flooding chance."
+        ],
+        "evidence_boundary": "Observed sea-level acceleration and global low-lying-coast exposure quantify the shared coastal burden; pathway-specific local erosion, salinity, aquifer and compound-event measurements remain heterogeneous. Node binding: freshwater_lens_compression.",
+        "source_snapshot": {
+          "path": "public/wmo-unep-coastal-inundation-impact-snapshot.json",
+          "version": "wmo_unep_global_coastal_inundation_impact_v1",
+          "captured_at": "2026-07-31T18:27:29.012Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Map each source-reported burden to declared reference, concerning, critical and extreme anchors; clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35 × accumulated biophysical burden + 0.30 × accumulated human/economic burden + 0.20 × persistence + 0.15 × global extent."
+        },
+        {
+          "type": "semantic_boundary",
+          "formula": "Use the assessment only for the named pathway; do not infer unreported event counts, local impacts, attribution shares or current threshold exceedance."
+        }
+      ],
+      "source_ids": [
+        "wmo_unep_global_coastal_inundation_assessments"
+      ],
+      "uncertainty": "Assessment years and methods differ. Every receipt preserves its source boundary; global totals are not added across assessments, projections are excluded, missing values never become zero, and pathway-specific nodes retain explicit attribution uncertainty. Observed sea-level acceleration and global low-lying-coast exposure quantify the shared coastal burden; pathway-specific local erosion, salinity, aquifer and compound-event measurements remain heterogeneous. Node binding: freshwater_lens_compression.",
+      "freshness": "Latest reviewed source observation or assessment through 2025.",
+      "selection_reason": {
+        "selected_method_passed": "A global quantitative assessment supplies all four accumulated-impact components with an explicit node-pathway boundary.",
+        "higher_priority_failures": [
+          "No globally harmonized current observation supplies magnitude plus threshold or momentum at the current-data coverage gate."
+        ]
+      },
+      "input_hash": "fnv1a32:cf6bdd93"
+    },
+    {
+      "node_id": "coastal_aquifer_degradation",
+      "value": 9.3,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "biophysical_burden": 0.902571,
+        "human_economic_burden": 0.934,
+        "persistence": 0.868,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "assessment_year": 2025,
+        "satellite_record_start_year": 1993,
+        "assessment_period_years": 32,
+        "early_sea_level_rate_period": "1993-2002",
+        "early_sea_level_rise_rate_mm_per_year": 2.1,
+        "recent_sea_level_rate_period": "2016-2025",
+        "recent_sea_level_rise_rate_mm_per_year": 4.1,
+        "sea_level_rate_increase_pct": 95.238095,
+        "low_lying_coastal_population_exposed_million": 900,
+        "low_lying_coastal_population_share_pct": 11,
+        "additional_people_with_one_in_twenty_annual_coastal_flood_chance_million": 14,
+        "coastal_flood_extent_comparison_period_years": 20,
+        "annual_flood_probability_denominator_years": 20,
+        "geographic_scope": "global low-lying coasts and coastal communities",
+        "global_extent_normalized": 1,
+        "source_locators": [
+          "WMO State of the Climate 2025 Update: nearly 11 percent of the global population, around 900 million people, live on low-lying coasts directly exposed to coastal hazards.",
+          "WMO State of the Climate 2025 Update: sea-level rise rate increased from 2.1 mm/year in 1993-2002 to 4.1 mm/year in 2016-2025.",
+          "UNEP: coastal-flood extent increased over 20 years, leaving 14 million more people with a 1-in-20 annual flooding chance."
+        ],
+        "evidence_boundary": "Observed sea-level acceleration and global low-lying-coast exposure quantify the shared coastal burden; pathway-specific local erosion, salinity, aquifer and compound-event measurements remain heterogeneous. Node binding: coastal_aquifer_degradation.",
+        "source_snapshot": {
+          "path": "public/wmo-unep-coastal-inundation-impact-snapshot.json",
+          "version": "wmo_unep_global_coastal_inundation_impact_v1",
+          "captured_at": "2026-07-31T18:27:29.012Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Map each source-reported burden to declared reference, concerning, critical and extreme anchors; clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35 × accumulated biophysical burden + 0.30 × accumulated human/economic burden + 0.20 × persistence + 0.15 × global extent."
+        },
+        {
+          "type": "semantic_boundary",
+          "formula": "Use the assessment only for the named pathway; do not infer unreported event counts, local impacts, attribution shares or current threshold exceedance."
+        }
+      ],
+      "source_ids": [
+        "wmo_unep_global_coastal_inundation_assessments"
+      ],
+      "uncertainty": "Assessment years and methods differ. Every receipt preserves its source boundary; global totals are not added across assessments, projections are excluded, missing values never become zero, and pathway-specific nodes retain explicit attribution uncertainty. Observed sea-level acceleration and global low-lying-coast exposure quantify the shared coastal burden; pathway-specific local erosion, salinity, aquifer and compound-event measurements remain heterogeneous. Node binding: coastal_aquifer_degradation.",
+      "freshness": "Latest reviewed source observation or assessment through 2025.",
+      "selection_reason": {
+        "selected_method_passed": "A global quantitative assessment supplies all four accumulated-impact components with an explicit node-pathway boundary.",
+        "higher_priority_failures": [
+          "No globally harmonized current observation supplies magnitude plus threshold or momentum at the current-data coverage gate."
+        ]
+      },
+      "input_hash": "fnv1a32:5febc553"
+    },
+    {
+      "node_id": "species_range_compression",
+      "value": 9.2,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2019",
+      "components": {
+        "biophysical_burden": 0.78,
+        "human_economic_burden": 0.978314,
+        "persistence": 0.9604,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "assessment_year": 2019,
+        "decline_reference_start_year": 1900,
+        "persistence_years": 119,
+        "native_species_average_abundance_decline_pct_lower_bound": 20,
+        "land_surface_significantly_altered_pct": 75,
+        "marine_environment_cumulative_impacts_pct": 66,
+        "assessed_species_threatened_pct_approx": 25,
+        "species_threatened_with_extinction_million_approx": 1,
+        "global_land_productivity_reduced_by_degradation_pct": 23,
+        "annual_global_crop_output_at_risk_from_pollinator_loss_2015_usd_billion_low": 235,
+        "annual_global_crop_output_at_risk_from_pollinator_loss_2015_usd_billion_high": 577,
+        "source_locators": [
+          "IPBES Global Assessment Summary for Policymakers A3: average abundance of native species in most major terrestrial biomes has fallen by at least 20 percent, mostly since 1900.",
+          "IPBES Global Assessment Summary for Policymakers A4: 75 percent of land surface is significantly altered and cumulative impacts affect 66 percent of the ocean area.",
+          "IPBES Global Assessment Summary for Policymakers A5: around one million animal and plant species are threatened with extinction.",
+          "IPBES Global Assessment Summary for Policymakers A3: 235-577 billion 2015 US dollars in annual global crop output is at risk from pollinator loss."
+        ],
+        "evidence_boundary": "IPBES quantifies global abundance loss, altered land and ocean, extinction risk and service exposure; it does not isolate a taxon-specific biomass, range, gene, cascade or food-web trend. Node binding: species_range_compression.",
+        "source_snapshot": {
+          "path": "public/ipbes-biodiversity-invasive-impact-snapshot.json",
+          "version": "ipbes_global_biodiversity_invasive_assessments_v1",
+          "captured_at": "2026-07-31T17:31:10.561Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Map each source-reported burden to declared reference, concerning, critical and extreme anchors; clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35 × accumulated biophysical burden + 0.30 × accumulated human/economic burden + 0.20 × persistence + 0.15 × global extent."
+        },
+        {
+          "type": "semantic_boundary",
+          "formula": "Use the assessment only for the named pathway; do not infer unreported event counts, local impacts, attribution shares or current threshold exceedance."
+        }
+      ],
+      "source_ids": [
+        "ipbes_global_biodiversity_and_invasive_species_assessments"
+      ],
+      "uncertainty": "Assessment years and methods differ. Every receipt preserves its source boundary; global totals are not added across assessments, projections are excluded, missing values never become zero, and pathway-specific nodes retain explicit attribution uncertainty. IPBES quantifies global abundance loss, altered land and ocean, extinction risk and service exposure; it does not isolate a taxon-specific biomass, range, gene, cascade or food-web trend. Node binding: species_range_compression.",
+      "freshness": "Latest reviewed source observation or assessment through 2019.",
+      "selection_reason": {
+        "selected_method_passed": "A global quantitative assessment supplies all four accumulated-impact components with an explicit node-pathway boundary.",
+        "higher_priority_failures": [
+          "No globally harmonized current observation supplies magnitude plus threshold or momentum at the current-data coverage gate."
+        ]
+      },
+      "input_hash": "fnv1a32:01100b8a"
+    },
+    {
+      "node_id": "insect_biomass_decline",
+      "value": 9.2,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2019",
+      "components": {
+        "biophysical_burden": 0.78,
+        "human_economic_burden": 0.978314,
+        "persistence": 0.9604,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "assessment_year": 2019,
+        "decline_reference_start_year": 1900,
+        "persistence_years": 119,
+        "native_species_average_abundance_decline_pct_lower_bound": 20,
+        "land_surface_significantly_altered_pct": 75,
+        "marine_environment_cumulative_impacts_pct": 66,
+        "assessed_species_threatened_pct_approx": 25,
+        "species_threatened_with_extinction_million_approx": 1,
+        "global_land_productivity_reduced_by_degradation_pct": 23,
+        "annual_global_crop_output_at_risk_from_pollinator_loss_2015_usd_billion_low": 235,
+        "annual_global_crop_output_at_risk_from_pollinator_loss_2015_usd_billion_high": 577,
+        "source_locators": [
+          "IPBES Global Assessment Summary for Policymakers A3: average abundance of native species in most major terrestrial biomes has fallen by at least 20 percent, mostly since 1900.",
+          "IPBES Global Assessment Summary for Policymakers A4: 75 percent of land surface is significantly altered and cumulative impacts affect 66 percent of the ocean area.",
+          "IPBES Global Assessment Summary for Policymakers A5: around one million animal and plant species are threatened with extinction.",
+          "IPBES Global Assessment Summary for Policymakers A3: 235-577 billion 2015 US dollars in annual global crop output is at risk from pollinator loss."
+        ],
+        "evidence_boundary": "IPBES quantifies global abundance loss, altered land and ocean, extinction risk and service exposure; it does not isolate a taxon-specific biomass, range, gene, cascade or food-web trend. Node binding: insect_biomass_decline.",
+        "source_snapshot": {
+          "path": "public/ipbes-biodiversity-invasive-impact-snapshot.json",
+          "version": "ipbes_global_biodiversity_invasive_assessments_v1",
+          "captured_at": "2026-07-31T17:31:10.561Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Map each source-reported burden to declared reference, concerning, critical and extreme anchors; clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35 × accumulated biophysical burden + 0.30 × accumulated human/economic burden + 0.20 × persistence + 0.15 × global extent."
+        },
+        {
+          "type": "semantic_boundary",
+          "formula": "Use the assessment only for the named pathway; do not infer unreported event counts, local impacts, attribution shares or current threshold exceedance."
+        }
+      ],
+      "source_ids": [
+        "ipbes_global_biodiversity_and_invasive_species_assessments"
+      ],
+      "uncertainty": "Assessment years and methods differ. Every receipt preserves its source boundary; global totals are not added across assessments, projections are excluded, missing values never become zero, and pathway-specific nodes retain explicit attribution uncertainty. IPBES quantifies global abundance loss, altered land and ocean, extinction risk and service exposure; it does not isolate a taxon-specific biomass, range, gene, cascade or food-web trend. Node binding: insect_biomass_decline.",
+      "freshness": "Latest reviewed source observation or assessment through 2019.",
+      "selection_reason": {
+        "selected_method_passed": "A global quantitative assessment supplies all four accumulated-impact components with an explicit node-pathway boundary.",
+        "higher_priority_failures": [
+          "No globally harmonized current observation supplies magnitude plus threshold or momentum at the current-data coverage gate."
+        ]
+      },
+      "input_hash": "fnv1a32:666617a6"
+    },
+    {
+      "node_id": "genetic_diversity_bottlenecks",
+      "value": 9.2,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2019",
+      "components": {
+        "biophysical_burden": 0.78,
+        "human_economic_burden": 0.978314,
+        "persistence": 0.9604,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "assessment_year": 2019,
+        "decline_reference_start_year": 1900,
+        "persistence_years": 119,
+        "native_species_average_abundance_decline_pct_lower_bound": 20,
+        "land_surface_significantly_altered_pct": 75,
+        "marine_environment_cumulative_impacts_pct": 66,
+        "assessed_species_threatened_pct_approx": 25,
+        "species_threatened_with_extinction_million_approx": 1,
+        "global_land_productivity_reduced_by_degradation_pct": 23,
+        "annual_global_crop_output_at_risk_from_pollinator_loss_2015_usd_billion_low": 235,
+        "annual_global_crop_output_at_risk_from_pollinator_loss_2015_usd_billion_high": 577,
+        "source_locators": [
+          "IPBES Global Assessment Summary for Policymakers A3: average abundance of native species in most major terrestrial biomes has fallen by at least 20 percent, mostly since 1900.",
+          "IPBES Global Assessment Summary for Policymakers A4: 75 percent of land surface is significantly altered and cumulative impacts affect 66 percent of the ocean area.",
+          "IPBES Global Assessment Summary for Policymakers A5: around one million animal and plant species are threatened with extinction.",
+          "IPBES Global Assessment Summary for Policymakers A3: 235-577 billion 2015 US dollars in annual global crop output is at risk from pollinator loss."
+        ],
+        "evidence_boundary": "IPBES quantifies global abundance loss, altered land and ocean, extinction risk and service exposure; it does not isolate a taxon-specific biomass, range, gene, cascade or food-web trend. Node binding: genetic_diversity_bottlenecks.",
+        "source_snapshot": {
+          "path": "public/ipbes-biodiversity-invasive-impact-snapshot.json",
+          "version": "ipbes_global_biodiversity_invasive_assessments_v1",
+          "captured_at": "2026-07-31T17:31:10.561Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Map each source-reported burden to declared reference, concerning, critical and extreme anchors; clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35 × accumulated biophysical burden + 0.30 × accumulated human/economic burden + 0.20 × persistence + 0.15 × global extent."
+        },
+        {
+          "type": "semantic_boundary",
+          "formula": "Use the assessment only for the named pathway; do not infer unreported event counts, local impacts, attribution shares or current threshold exceedance."
+        }
+      ],
+      "source_ids": [
+        "ipbes_global_biodiversity_and_invasive_species_assessments"
+      ],
+      "uncertainty": "Assessment years and methods differ. Every receipt preserves its source boundary; global totals are not added across assessments, projections are excluded, missing values never become zero, and pathway-specific nodes retain explicit attribution uncertainty. IPBES quantifies global abundance loss, altered land and ocean, extinction risk and service exposure; it does not isolate a taxon-specific biomass, range, gene, cascade or food-web trend. Node binding: genetic_diversity_bottlenecks.",
+      "freshness": "Latest reviewed source observation or assessment through 2019.",
+      "selection_reason": {
+        "selected_method_passed": "A global quantitative assessment supplies all four accumulated-impact components with an explicit node-pathway boundary.",
+        "higher_priority_failures": [
+          "No globally harmonized current observation supplies magnitude plus threshold or momentum at the current-data coverage gate."
+        ]
+      },
+      "input_hash": "fnv1a32:88e2e586"
+    },
+    {
+      "node_id": "trophic_cascade_collapses",
+      "value": 9.2,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2019",
+      "components": {
+        "biophysical_burden": 0.78,
+        "human_economic_burden": 0.978314,
+        "persistence": 0.9604,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "assessment_year": 2019,
+        "decline_reference_start_year": 1900,
+        "persistence_years": 119,
+        "native_species_average_abundance_decline_pct_lower_bound": 20,
+        "land_surface_significantly_altered_pct": 75,
+        "marine_environment_cumulative_impacts_pct": 66,
+        "assessed_species_threatened_pct_approx": 25,
+        "species_threatened_with_extinction_million_approx": 1,
+        "global_land_productivity_reduced_by_degradation_pct": 23,
+        "annual_global_crop_output_at_risk_from_pollinator_loss_2015_usd_billion_low": 235,
+        "annual_global_crop_output_at_risk_from_pollinator_loss_2015_usd_billion_high": 577,
+        "source_locators": [
+          "IPBES Global Assessment Summary for Policymakers A3: average abundance of native species in most major terrestrial biomes has fallen by at least 20 percent, mostly since 1900.",
+          "IPBES Global Assessment Summary for Policymakers A4: 75 percent of land surface is significantly altered and cumulative impacts affect 66 percent of the ocean area.",
+          "IPBES Global Assessment Summary for Policymakers A5: around one million animal and plant species are threatened with extinction.",
+          "IPBES Global Assessment Summary for Policymakers A3: 235-577 billion 2015 US dollars in annual global crop output is at risk from pollinator loss."
+        ],
+        "evidence_boundary": "IPBES quantifies global abundance loss, altered land and ocean, extinction risk and service exposure; it does not isolate a taxon-specific biomass, range, gene, cascade or food-web trend. Node binding: trophic_cascade_collapses.",
+        "source_snapshot": {
+          "path": "public/ipbes-biodiversity-invasive-impact-snapshot.json",
+          "version": "ipbes_global_biodiversity_invasive_assessments_v1",
+          "captured_at": "2026-07-31T17:31:10.561Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Map each source-reported burden to declared reference, concerning, critical and extreme anchors; clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35 × accumulated biophysical burden + 0.30 × accumulated human/economic burden + 0.20 × persistence + 0.15 × global extent."
+        },
+        {
+          "type": "semantic_boundary",
+          "formula": "Use the assessment only for the named pathway; do not infer unreported event counts, local impacts, attribution shares or current threshold exceedance."
+        }
+      ],
+      "source_ids": [
+        "ipbes_global_biodiversity_and_invasive_species_assessments"
+      ],
+      "uncertainty": "Assessment years and methods differ. Every receipt preserves its source boundary; global totals are not added across assessments, projections are excluded, missing values never become zero, and pathway-specific nodes retain explicit attribution uncertainty. IPBES quantifies global abundance loss, altered land and ocean, extinction risk and service exposure; it does not isolate a taxon-specific biomass, range, gene, cascade or food-web trend. Node binding: trophic_cascade_collapses.",
+      "freshness": "Latest reviewed source observation or assessment through 2019.",
+      "selection_reason": {
+        "selected_method_passed": "A global quantitative assessment supplies all four accumulated-impact components with an explicit node-pathway boundary.",
+        "higher_priority_failures": [
+          "No globally harmonized current observation supplies magnitude plus threshold or momentum at the current-data coverage gate."
+        ]
+      },
+      "input_hash": "fnv1a32:13497d1e"
+    },
+    {
+      "node_id": "marine_food_web_simplification",
+      "value": 9.2,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2019",
+      "components": {
+        "biophysical_burden": 0.78,
+        "human_economic_burden": 0.978314,
+        "persistence": 0.9604,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "assessment_year": 2019,
+        "decline_reference_start_year": 1900,
+        "persistence_years": 119,
+        "native_species_average_abundance_decline_pct_lower_bound": 20,
+        "land_surface_significantly_altered_pct": 75,
+        "marine_environment_cumulative_impacts_pct": 66,
+        "assessed_species_threatened_pct_approx": 25,
+        "species_threatened_with_extinction_million_approx": 1,
+        "global_land_productivity_reduced_by_degradation_pct": 23,
+        "annual_global_crop_output_at_risk_from_pollinator_loss_2015_usd_billion_low": 235,
+        "annual_global_crop_output_at_risk_from_pollinator_loss_2015_usd_billion_high": 577,
+        "source_locators": [
+          "IPBES Global Assessment Summary for Policymakers A3: average abundance of native species in most major terrestrial biomes has fallen by at least 20 percent, mostly since 1900.",
+          "IPBES Global Assessment Summary for Policymakers A4: 75 percent of land surface is significantly altered and cumulative impacts affect 66 percent of the ocean area.",
+          "IPBES Global Assessment Summary for Policymakers A5: around one million animal and plant species are threatened with extinction.",
+          "IPBES Global Assessment Summary for Policymakers A3: 235-577 billion 2015 US dollars in annual global crop output is at risk from pollinator loss."
+        ],
+        "evidence_boundary": "IPBES quantifies global abundance loss, altered land and ocean, extinction risk and service exposure; it does not isolate a taxon-specific biomass, range, gene, cascade or food-web trend. Node binding: marine_food_web_simplification.",
+        "source_snapshot": {
+          "path": "public/ipbes-biodiversity-invasive-impact-snapshot.json",
+          "version": "ipbes_global_biodiversity_invasive_assessments_v1",
+          "captured_at": "2026-07-31T17:31:10.561Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Map each source-reported burden to declared reference, concerning, critical and extreme anchors; clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35 × accumulated biophysical burden + 0.30 × accumulated human/economic burden + 0.20 × persistence + 0.15 × global extent."
+        },
+        {
+          "type": "semantic_boundary",
+          "formula": "Use the assessment only for the named pathway; do not infer unreported event counts, local impacts, attribution shares or current threshold exceedance."
+        }
+      ],
+      "source_ids": [
+        "ipbes_global_biodiversity_and_invasive_species_assessments"
+      ],
+      "uncertainty": "Assessment years and methods differ. Every receipt preserves its source boundary; global totals are not added across assessments, projections are excluded, missing values never become zero, and pathway-specific nodes retain explicit attribution uncertainty. IPBES quantifies global abundance loss, altered land and ocean, extinction risk and service exposure; it does not isolate a taxon-specific biomass, range, gene, cascade or food-web trend. Node binding: marine_food_web_simplification.",
+      "freshness": "Latest reviewed source observation or assessment through 2019.",
+      "selection_reason": {
+        "selected_method_passed": "A global quantitative assessment supplies all four accumulated-impact components with an explicit node-pathway boundary.",
+        "higher_priority_failures": [
+          "No globally harmonized current observation supplies magnitude plus threshold or momentum at the current-data coverage gate."
+        ]
+      },
+      "input_hash": "fnv1a32:6c9bd166"
+    },
+    {
+      "node_id": "soil_humus_decline",
+      "value": 8.2,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2017",
+      "components": {
+        "biophysical_burden": 0.901,
+        "human_economic_burden": 0.89,
+        "persistence": 0.33,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "statement_year": 2017,
+        "global_arable_soil_lost_billion_tonnes_per_year": 75,
+        "global_agricultural_production_lost_usd_billion_per_year": 400,
+        "recurrence_days_per_year": 365,
+        "geographic_scope": "Global arable land",
+        "global_extent_normalized": 1,
+        "source_locator": "FAO newsroom statement: globally 75 billion tonnes of soil are lost from arable land each year and an estimated US$400 billion in agricultural production is lost.",
+        "measurement_boundary": "Annual global burden estimate, not current acceleration, net soil balance, remaining soil depth or a country panel.",
+        "evidence_boundary": "Annual global topsoil loss quantifies the soil-system burden; it does not directly measure organic-carbon concentration or microbial community composition. Node binding: soil_humus_decline.",
+        "source_snapshot": {
+          "path": "public/fao-global-topsoil-erosion-impact-snapshot.json",
+          "version": "fao_global_topsoil_erosion_impact_v1",
+          "captured_at": "2026-07-31T19:09:58.309Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Map each source-reported burden to declared reference, concerning, critical and extreme anchors; clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35 × accumulated biophysical burden + 0.30 × accumulated human/economic burden + 0.20 × persistence + 0.15 × global extent."
+        },
+        {
+          "type": "semantic_boundary",
+          "formula": "Use the assessment only for the named pathway; do not infer unreported event counts, local impacts, attribution shares or current threshold exceedance."
+        }
+      ],
+      "source_ids": [
+        "fao_global_topsoil_erosion_burden"
+      ],
+      "uncertainty": "Assessment years and methods differ. Every receipt preserves its source boundary; global totals are not added across assessments, projections are excluded, missing values never become zero, and pathway-specific nodes retain explicit attribution uncertainty. Annual global topsoil loss quantifies the soil-system burden; it does not directly measure organic-carbon concentration or microbial community composition. Node binding: soil_humus_decline.",
+      "freshness": "Latest reviewed source observation or assessment through 2017.",
+      "selection_reason": {
+        "selected_method_passed": "A global quantitative assessment supplies all four accumulated-impact components with an explicit node-pathway boundary.",
+        "higher_priority_failures": [
+          "No globally harmonized current observation supplies magnitude plus threshold or momentum at the current-data coverage gate."
+        ]
+      },
+      "input_hash": "fnv1a32:4dcb1620"
+    },
+    {
+      "node_id": "soil_microbial_depletion",
+      "value": 8.2,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2017",
+      "components": {
+        "biophysical_burden": 0.901,
+        "human_economic_burden": 0.89,
+        "persistence": 0.33,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "statement_year": 2017,
+        "global_arable_soil_lost_billion_tonnes_per_year": 75,
+        "global_agricultural_production_lost_usd_billion_per_year": 400,
+        "recurrence_days_per_year": 365,
+        "geographic_scope": "Global arable land",
+        "global_extent_normalized": 1,
+        "source_locator": "FAO newsroom statement: globally 75 billion tonnes of soil are lost from arable land each year and an estimated US$400 billion in agricultural production is lost.",
+        "measurement_boundary": "Annual global burden estimate, not current acceleration, net soil balance, remaining soil depth or a country panel.",
+        "evidence_boundary": "Annual global topsoil loss quantifies the soil-system burden; it does not directly measure organic-carbon concentration or microbial community composition. Node binding: soil_microbial_depletion.",
+        "source_snapshot": {
+          "path": "public/fao-global-topsoil-erosion-impact-snapshot.json",
+          "version": "fao_global_topsoil_erosion_impact_v1",
+          "captured_at": "2026-07-31T19:09:58.309Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Map each source-reported burden to declared reference, concerning, critical and extreme anchors; clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35 × accumulated biophysical burden + 0.30 × accumulated human/economic burden + 0.20 × persistence + 0.15 × global extent."
+        },
+        {
+          "type": "semantic_boundary",
+          "formula": "Use the assessment only for the named pathway; do not infer unreported event counts, local impacts, attribution shares or current threshold exceedance."
+        }
+      ],
+      "source_ids": [
+        "fao_global_topsoil_erosion_burden"
+      ],
+      "uncertainty": "Assessment years and methods differ. Every receipt preserves its source boundary; global totals are not added across assessments, projections are excluded, missing values never become zero, and pathway-specific nodes retain explicit attribution uncertainty. Annual global topsoil loss quantifies the soil-system burden; it does not directly measure organic-carbon concentration or microbial community composition. Node binding: soil_microbial_depletion.",
+      "freshness": "Latest reviewed source observation or assessment through 2017.",
+      "selection_reason": {
+        "selected_method_passed": "A global quantitative assessment supplies all four accumulated-impact components with an explicit node-pathway boundary.",
+        "higher_priority_failures": [
+          "No globally harmonized current observation supplies magnitude plus threshold or momentum at the current-data coverage gate."
+        ]
+      },
+      "input_hash": "fnv1a32:0fc7e65c"
+    },
+    {
+      "node_id": "pollinator_colony_collapse",
+      "value": 7.9,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2022",
+      "components": {
+        "biophysical_burden": 0.78,
+        "human_economic_burden": 0.9197,
+        "persistence": 0.33,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "publication_year": 2022,
+        "burden_period_years": 1,
+        "pollinator_dependent_crops_modeled": 63,
+        "fruit_production_loss_pct": {
+          "midpoint": 4.7,
+          "lower_95_ui": 0.8,
+          "upper_95_ui": 7.1
+        },
+        "vegetable_production_loss_pct": {
+          "midpoint": 3.2,
+          "lower_95_ui": 0.4,
+          "upper_95_ui": 5.3
+        },
+        "nut_production_loss_pct": {
+          "midpoint": 4.7,
+          "lower_95_ui": 0.5,
+          "upper_95_ui": 6.9
+        },
+        "headline_crop_production_loss_pct": {
+          "lower": 3,
+          "midpoint": 4,
+          "upper": 5
+        },
+        "annual_excess_deaths": {
+          "midpoint": 427000,
+          "lower_95_ui": 86000,
+          "upper_95_ui": 691000
+        },
+        "global_extent_normalized": 1,
+        "geographic_scope": "Global crop production, trade, consumption and comparative health burden by country",
+        "source_locators": [
+          "PubMed abstract results: globally, 3-5% of fruit, vegetable and nut production was calculated as lost due to inadequate pollination.",
+          "PubMed abstract results: estimated 427,000 annual excess deaths, with a 95% uncertainty interval of 86,000-691,000.",
+          "Full study methods: 63 major pollinator-dependent crops were evaluated through crop-yield-gap, pollination-attribution, trade and comparative-risk models.",
+          "IPBES summary for policymakers: more than three quarters of leading global food crop types rely to some extent on animal pollination; global wild-pollinator trend data remain incomplete."
+        ],
+        "evidence_boundary": "The global pollination-deficit burden is evidence for pollinator-service failure; it does not identify managed-colony mortality as the sole cause. Node binding: pollinator_colony_collapse.",
+        "source_snapshot": {
+          "path": "public/pollinator-service-impact-snapshot.json",
+          "version": "global_pollinator_service_impact_v1",
+          "captured_at": "2026-07-31T18:42:14.538Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Map each source-reported burden to declared reference, concerning, critical and extreme anchors; clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35 × accumulated biophysical burden + 0.30 × accumulated human/economic burden + 0.20 × persistence + 0.15 × global extent."
+        },
+        {
+          "type": "semantic_boundary",
+          "formula": "Use the assessment only for the named pathway; do not infer unreported event counts, local impacts, attribution shares or current threshold exceedance."
+        }
+      ],
+      "source_ids": [
+        "global_pollinator_deficits_and_health_burden_study"
+      ],
+      "uncertainty": "Assessment years and methods differ. Every receipt preserves its source boundary; global totals are not added across assessments, projections are excluded, missing values never become zero, and pathway-specific nodes retain explicit attribution uncertainty. The global pollination-deficit burden is evidence for pollinator-service failure; it does not identify managed-colony mortality as the sole cause. Node binding: pollinator_colony_collapse.",
+      "freshness": "Latest reviewed source observation or assessment through 2022.",
+      "selection_reason": {
+        "selected_method_passed": "A global quantitative assessment supplies all four accumulated-impact components with an explicit node-pathway boundary.",
+        "higher_priority_failures": [
+          "No globally harmonized current observation supplies magnitude plus threshold or momentum at the current-data coverage gate."
+        ]
+      },
+      "input_hash": "fnv1a32:96c677e7"
+    },
+    {
+      "node_id": "reef_structural_collapse",
+      "value": 9.3,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "biophysical_burden": 0.9384,
+        "human_economic_burden": 0.9538,
+        "persistence": 0.78,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "status": "likely_ended",
+        "source_updated_at": "June 2, 2026",
+        "observation_start": "2023-01-01",
+        "observation_end": "2025-09-30",
+        "reef_area_with_bleaching_level_heat_stress_pct": 84.4,
+        "jurisdictions_with_documented_mass_bleaching_lower_bound": 83,
+        "previous_global_event_start_year": 2014,
+        "previous_global_event_end_year": 2017,
+        "previous_record_reef_area_pct": 68.2,
+        "tropical_ocean_basins_affected": 3,
+        "tropical_ocean_basin_count": 3,
+        "measurement_boundary": "Satellite-observed bleaching-level heat stress across reef pixels, accompanied by field-documented mass bleaching; not a direct census of every coral colony bleached or killed.",
+        "evidence_boundary": "Satellite heat-stress extent and documented mass bleaching quantify accumulated reef stress; they are not a direct census of structural collapse, fragmentation or colony mortality. Node binding: reef_structural_collapse.",
+        "source_snapshot": {
+          "path": "public/coral-reef-watch-snapshot.json",
+          "version": "2026-07-31T17:39:13.247Z",
+          "captured_at": "2026-07-31"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Map each source-reported burden to declared reference, concerning, critical and extreme anchors; clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35 × accumulated biophysical burden + 0.30 × accumulated human/economic burden + 0.20 × persistence + 0.15 × global extent."
+        },
+        {
+          "type": "semantic_boundary",
+          "formula": "Use the assessment only for the named pathway; do not infer unreported event counts, local impacts, attribution shares or current threshold exceedance."
+        }
+      ],
+      "source_ids": [
+        "noaa_coral_reef_watch"
+      ],
+      "uncertainty": "Assessment years and methods differ. Every receipt preserves its source boundary; global totals are not added across assessments, projections are excluded, missing values never become zero, and pathway-specific nodes retain explicit attribution uncertainty. Satellite heat-stress extent and documented mass bleaching quantify accumulated reef stress; they are not a direct census of structural collapse, fragmentation or colony mortality. Node binding: reef_structural_collapse.",
+      "freshness": "Latest reviewed source observation or assessment through 2025.",
+      "selection_reason": {
+        "selected_method_passed": "A global quantitative assessment supplies all four accumulated-impact components with an explicit node-pathway boundary.",
+        "higher_priority_failures": [
+          "No globally harmonized current observation supplies magnitude plus threshold or momentum at the current-data coverage gate."
+        ]
+      },
+      "input_hash": "fnv1a32:8068191b"
+    },
+    {
+      "node_id": "coral_reef_fragmentation",
+      "value": 9.3,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "biophysical_burden": 0.9384,
+        "human_economic_burden": 0.9538,
+        "persistence": 0.78,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "status": "likely_ended",
+        "source_updated_at": "June 2, 2026",
+        "observation_start": "2023-01-01",
+        "observation_end": "2025-09-30",
+        "reef_area_with_bleaching_level_heat_stress_pct": 84.4,
+        "jurisdictions_with_documented_mass_bleaching_lower_bound": 83,
+        "previous_global_event_start_year": 2014,
+        "previous_global_event_end_year": 2017,
+        "previous_record_reef_area_pct": 68.2,
+        "tropical_ocean_basins_affected": 3,
+        "tropical_ocean_basin_count": 3,
+        "measurement_boundary": "Satellite-observed bleaching-level heat stress across reef pixels, accompanied by field-documented mass bleaching; not a direct census of every coral colony bleached or killed.",
+        "evidence_boundary": "Satellite heat-stress extent and documented mass bleaching quantify accumulated reef stress; they are not a direct census of structural collapse, fragmentation or colony mortality. Node binding: coral_reef_fragmentation.",
+        "source_snapshot": {
+          "path": "public/coral-reef-watch-snapshot.json",
+          "version": "2026-07-31T17:39:13.247Z",
+          "captured_at": "2026-07-31"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Map each source-reported burden to declared reference, concerning, critical and extreme anchors; clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35 × accumulated biophysical burden + 0.30 × accumulated human/economic burden + 0.20 × persistence + 0.15 × global extent."
+        },
+        {
+          "type": "semantic_boundary",
+          "formula": "Use the assessment only for the named pathway; do not infer unreported event counts, local impacts, attribution shares or current threshold exceedance."
+        }
+      ],
+      "source_ids": [
+        "noaa_coral_reef_watch"
+      ],
+      "uncertainty": "Assessment years and methods differ. Every receipt preserves its source boundary; global totals are not added across assessments, projections are excluded, missing values never become zero, and pathway-specific nodes retain explicit attribution uncertainty. Satellite heat-stress extent and documented mass bleaching quantify accumulated reef stress; they are not a direct census of structural collapse, fragmentation or colony mortality. Node binding: coral_reef_fragmentation.",
+      "freshness": "Latest reviewed source observation or assessment through 2025.",
+      "selection_reason": {
+        "selected_method_passed": "A global quantitative assessment supplies all four accumulated-impact components with an explicit node-pathway boundary.",
+        "higher_priority_failures": [
+          "No globally harmonized current observation supplies magnitude plus threshold or momentum at the current-data coverage gate."
+        ]
+      },
+      "input_hash": "fnv1a32:7fe11b53"
+    },
+    {
+      "node_id": "climate_litigation_pressure",
+      "value": 9.1,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "biophysical_burden": 0.922159,
+        "human_economic_burden": 0.9274,
+        "persistence": 0.868,
+        "extent": 0.858571
+      },
+      "raw_inputs": {
+        "latest": {
+          "record_id": "sabin_climate_litigation_cumulative_2025",
+          "metric_id": "climate_litigation_cases",
+          "measurement_role": "global_database_cumulative_case_count_primary",
+          "observation_year": 2025,
+          "source_time_label": "as of 30 June 2025",
+          "cumulative_climate_related_cases": 3099,
+          "national_jurisdictions_latest_point_only": 55,
+          "international_or_regional_bodies_latest_point_only": 24,
+          "database_scope": "Cases where climate change law, policy or science is a material issue, within the Sabin Center Climate Litigation Database methodology.",
+          "uncertainty_status": "No numeric uncertainty interval. Discovery, jurisdiction coverage, retrospective additions or removals, classification and methodology revisions affect counts.",
+          "source_locator": {
+            "report_release_url": "https://climate.law.columbia.edu/news/sabin-center-climate-change-law-unep-release-new-climate-litigation-report",
+            "database_url": "https://www.climatecasechart.com/",
+            "methodology_url": "https://www.climatecasechart.com/methodology",
+            "locator": "Report-release paragraph beginning As of 30 June 2025 and its comparison series",
+            "source_time_label": "as of 30 June 2025"
+          }
+        },
+        "history": [
+          {
+            "observation_year": 2017,
+            "cumulative_climate_related_cases": 884
+          },
+          {
+            "observation_year": 2020,
+            "cumulative_climate_related_cases": 1550
+          },
+          {
+            "observation_year": 2022,
+            "cumulative_climate_related_cases": 2180
+          },
+          {
+            "observation_year": 2025,
+            "cumulative_climate_related_cases": 3099
+          }
+        ],
+        "evidence_boundary": "Cumulative cases measure documented legal-system pressure within the Sabin database methodology, not merits, outcomes, damages or all disputes. Node binding: climate_litigation_pressure.",
+        "source_snapshot": {
+          "path": "public/sabin-climate-litigation-counts-snapshot.json",
+          "version": "sabin_unep_climate_litigation_report_2025_v1"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Map each source-reported burden to declared reference, concerning, critical and extreme anchors; clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35 × accumulated biophysical burden + 0.30 × accumulated human/economic burden + 0.20 × persistence + 0.15 × global extent."
+        },
+        {
+          "type": "semantic_boundary",
+          "formula": "Use the assessment only for the named pathway; do not infer unreported event counts, local impacts, attribution shares or current threshold exceedance."
+        }
+      ],
+      "source_ids": [
+        "sabin_center_unep_global_climate_litigation_report_2025"
+      ],
+      "uncertainty": "Assessment years and methods differ. Every receipt preserves its source boundary; global totals are not added across assessments, projections are excluded, missing values never become zero, and pathway-specific nodes retain explicit attribution uncertainty. Cumulative cases measure documented legal-system pressure within the Sabin database methodology, not merits, outcomes, damages or all disputes. Node binding: climate_litigation_pressure.",
+      "freshness": "Latest reviewed source observation or assessment through 2025.",
+      "selection_reason": {
+        "selected_method_passed": "A global quantitative assessment supplies all four accumulated-impact components with an explicit node-pathway boundary.",
+        "higher_priority_failures": [
+          "No globally harmonized current observation supplies magnitude plus threshold or momentum at the current-data coverage gate."
+        ]
+      },
+      "input_hash": "fnv1a32:db53ecd9"
+    }
+  ]
+}

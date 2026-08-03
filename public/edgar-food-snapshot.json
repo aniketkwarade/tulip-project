@@ -1,0 +1,59 @@
+{
+  "updated_at": "2026-07-18",
+  "version": "2026-07-18T12:53:19.934Z",
+  "snapshot_family": "edgar_food_support",
+  "source": {
+    "id": "edgar_food",
+    "name": "EDGAR-FOOD",
+    "publisher": "European Commission Joint Research Centre",
+    "url": "https://edgar.jrc.ec.europa.eu/edgar_food",
+    "access": "open_download"
+  },
+  "refresh_policy": {
+    "default_days": 60,
+    "notes": "Treat EDGAR-FOOD as a periodic food-system emissions snapshot rather than as a live agri-emissions feed."
+  },
+  "use_guidance": {
+    "primary_role": "Use for food-system emissions context on agriculture, fertilizer, food, and food-waste nodes.",
+    "caution": "EDGAR-FOOD is a strong global food-system emissions baseline, but it follows release cycles rather than continuous monitoring."
+  },
+  "overview": {
+    "title": "EDGAR-FOOD",
+    "latest_ghg_dataset": "EDGAR-FOOD_2025 GHG data (1990-2023)",
+    "air_pollutant_dataset": "EDGAR-FOOD air pollutant data (1990-2018)",
+    "framing": "food system involves all economic sectors and makes a significant contribution to total anthropogenic greenhouse gas (GHGs) and air pollutant emissions. Understanding the various components is a necessary precursor to the design and implementation of actionable and efficient mitigation measures for the system."
+  },
+  "tools": [
+    {
+      "id": "edgar_food_home",
+      "label": "EDGAR-FOOD page",
+      "url": "https://edgar.jrc.ec.europa.eu/edgar_food",
+      "type": "project_page",
+      "access": "open"
+    },
+    {
+      "id": "edgar_food_2025_ghg_download",
+      "label": "EDGAR-FOOD 2025 GHG data",
+      "url": "https://edgar.jrc.ec.europa.eu/datasets/EDGAR-FOOD_2025.xlsx",
+      "type": "download",
+      "access": "open"
+    },
+    {
+      "id": "edgar_food_air_pollutants_download",
+      "label": "EDGAR-FOOD air pollutant data",
+      "url": "https://edgar.jrc.ec.europa.eu/datasets/EDGAR-FOOD_v61_AP.xlsx",
+      "type": "download",
+      "access": "open"
+    }
+  ],
+  "service_caveats": [
+    "EDGAR-FOOD is a food-system emissions baseline, not a live agricultural monitor.",
+    "Best fit is emissions attribution across food-system stages rather than local crop telemetry.",
+    "Use it to strengthen agriculture and food-system emissions defensibility."
+  ],
+  "supported_questions": [
+    "Which agriculture and food nodes need a dedicated food-system emissions layer?",
+    "Where should food-system emissions be grounded in EDGAR-FOOD rather than generic agriculture framing?",
+    "Which nodes benefit from explicit fertilizer, waste, and food-chain emissions support?"
+  ]
+}

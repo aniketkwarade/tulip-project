@@ -1,0 +1,102 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_4_unep_peatlands",
+  "generated_at": "2026-07-31T22:57:22.520Z",
+  "source_snapshot": "public/unep-peatlands-impact-snapshot.json",
+  "source_id": "unep_global_peatlands_assessment_2022",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "peatland_degradations",
+      "value": 8.9,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "biophysical_burden": 0.736,
+        "human_economic_burden": 0.9472,
+        "persistence": 1,
+        "extent": 0.917098
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "drained_or_degraded_current_peatlands_pct": 12,
+          "anchors_pct": [
+            0,
+            5,
+            10,
+            20
+          ],
+          "annual_human_induced_emissions_share_pct_context_only": 4,
+          "global_soil_carbon_share_upper_bound_context_only": 0.333333
+        },
+        "human_economic_burden": {
+          "annual_conservation_and_restoration_investment_need_usd_billion_upper_bound": 46,
+          "anchors_usd_billion": [
+            0,
+            10,
+            25,
+            50
+          ],
+          "boundary": "UNEP-assessed annual remediation financing requirement; not observed monetary damage or a financing shortfall."
+        },
+        "persistence": {
+          "intact_peatland_destroyed_annually_hectares": 500000,
+          "intact_peatland_destroyed_annually_pct": 0.1,
+          "damaged_share_to_annual_loss_rate_years_equivalent": 120,
+          "anchors_years_equivalent": [
+            0,
+            25,
+            50,
+            100
+          ]
+        },
+        "extent": {
+          "countries_with_peatlands": 177,
+          "un_member_states": 193,
+          "normalized_value": 0.917098,
+          "geography_boundary": "Global assessments spanning peatlands reported in 177 of 193 United Nations Member States"
+        },
+        "source_snapshot": {
+          "path": "public/unep-peatlands-impact-snapshot.json",
+          "version": "unep_global_peatlands_assessment_2022_2024_snapshot_v1",
+          "captured_at": "2026-07-31T16:51:27.997Z",
+          "source_locators": [
+            "UNEP Global Peatlands Assessment 2022 publication summary",
+            "UNEP Global Peatland Hotspot Atlas 2024 press release",
+            "UNEP Economics of Peatlands 2021 press release"
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "fixed_global_assessment_ranges",
+          "formula": "Normalize the UNEP-assessed degraded share and annual remediation financing requirement through named fixed impact ranges."
+        },
+        {
+          "type": "quantitative_persistence_ratio",
+          "formula": "Current drained-or-degraded share divided by the atlas-reported annual intact-peatland destruction rate; capped through the 100-year-equivalent extreme anchor."
+        },
+        {
+          "type": "country_extent_ratio",
+          "formula": "177 source-reported countries with peatlands / 193 UN Member States."
+        }
+      ],
+      "source_ids": [
+        "unep_global_peatlands_assessment_2022"
+      ],
+      "uncertainty": "Global peatland mapping and condition inventories remain incomplete. Degraded-area share, annual hotspot loss, emissions attribution, financing requirements and national peatland presence have different assessment years and methods. Required investment is a remediation requirement, not observed economic damage.",
+      "freshness": "UNEP 2022 assessment with 2024 hotspot-atlas extent and annual-loss update; snapshot captured 2026-07-31T16:51:27.997Z.",
+      "selection_reason": {
+        "selected_method_passed": "UNEP assessments quantify global damaged share, ongoing annual loss, emissions contribution, remediation financing and peatland presence across UN Member States.",
+        "higher_priority_failures": [
+          "The assessment and atlas provide benchmark totals rather than at least 20 complete annual or 60 monthly global observations.",
+          "No source-consistent series supplies current magnitude plus threshold proximity or momentum at the current-data coverage gate."
+        ]
+      },
+      "input_hash": "fnv1a32:af005ea9"
+    }
+  ]
+}

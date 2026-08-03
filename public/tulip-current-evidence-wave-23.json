@@ -1,0 +1,98 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_23_who_cholera",
+  "generated_at": "2026-07-31T22:57:34.254Z",
+  "source_snapshot": "public/who-cholera-emergency-snapshot.json",
+  "source_id": "who_global_cholera_emergency_updates",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "waterborne_pathogen_outbreaks",
+      "value": 6.7,
+      "band": "Rising",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025-12-28",
+      "components": {
+        "magnitude": 0.764026,
+        "threshold": 0.689453,
+        "momentum": 0.308872,
+        "extent": 0.833333
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_cases_reported": 614828,
+          "previous_cases_reported": 804721,
+          "latest_to_previous_case_ratio": 0.764026,
+          "boundary": "Reported cholera and acute watery diarrhoea in WHO multi-country emergency updates; not modeled total cholera burden, all waterborne pathogens, laboratory-confirmed cases only or a population incidence rate."
+        },
+        "threshold": {
+          "latest_deaths_reported": 7598,
+          "latest_cases_reported": 614828,
+          "latest_case_fatality_rate_pct": 1.235793,
+          "recognized_case_fatality_benchmark_pct": 1,
+          "anchors_pct": [
+            0,
+            0.5,
+            1,
+            5
+          ]
+        },
+        "momentum": {
+          "latest_deaths_reported": 7598,
+          "previous_deaths_reported": 5805,
+          "year_over_year_death_growth": 0.308872,
+          "formula": "(latest deaths - previous deaths) / previous deaths"
+        },
+        "extent": {
+          "countries_reporting": 33,
+          "who_regions_reporting": 5,
+          "who_region_count": 6,
+          "normalized_value": 0.833333
+        },
+        "source_snapshot": {
+          "path": "public/who-cholera-emergency-snapshot.json",
+          "version": "who_cholera_emergency_complete_year_comparison_2025_v1",
+          "captured_at": "2026-07-31T17:54:22.244Z",
+          "previous_period": [
+            "2024-01-01",
+            "2024-12-29"
+          ],
+          "latest_period": [
+            "2025-01-01",
+            "2025-12-28"
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "complete_period_case_magnitude",
+          "formula": "Divide latest reported cholera/AWD cases by the prior near-complete annual reporting period and cap at one."
+        },
+        {
+          "type": "recognized_case_fatality_threshold",
+          "formula": "Calculate deaths divided by cases and normalize against the WHO under-one-percent benchmark, retaining five percent as the source-described vulnerable-setting extreme."
+        },
+        {
+          "type": "complete_period_death_momentum",
+          "formula": "Calculate year-over-year reported death growth over compatible near-complete periods; improvements floor at zero rather than becoming negative urgency."
+        },
+        {
+          "type": "who_region_extent",
+          "formula": "Divide regions reporting cases by all six WHO regions; countries remain a contextual count."
+        }
+      ],
+      "source_ids": [
+        "who_global_cholera_emergency_updates"
+      ],
+      "uncertainty": "Reports combine cholera and acute watery diarrhoea under country-specific case definitions and surveillance systems. Underreporting, verification, reporting delays, laboratory confirmation, community deaths and differing observation cutoffs affect comparison.",
+      "freshness": "WHO update through 2025-12-28; snapshot captured 2026-07-31T17:54:22.244Z.",
+      "selection_reason": {
+        "selected_method_passed": "WHO supplies compatible near-complete 2024 and 2025 global emergency-reporting periods, reported cases and deaths, a recognized under-1% case-fatality benchmark, and quantified country and regional extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:5521955a"
+    }
+  ]
+}

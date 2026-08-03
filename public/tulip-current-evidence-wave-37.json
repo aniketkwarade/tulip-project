@@ -1,0 +1,308 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_37_faostat_fertilizer_product_output",
+  "generated_at": "2026-07-31T19:32:58.315Z",
+  "source_snapshot": "public/fao-fertilizer-product-output-snapshot.json",
+  "source_id": "faostat_fertilizer_product_output_2026",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "fertilizer_production",
+      "value": 2.8,
+      "band": "Low",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2023",
+      "components": {
+        "magnitude": 0.181287,
+        "threshold": 0,
+        "momentum": 0,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "selected_year": 2023,
+          "product_class_count": 15,
+          "aggregation": "unweighted mean of class-specific normalized production levels; tonnes are never summed across product classes",
+          "per_product_latest": [
+            {
+              "product_code": "4001",
+              "product_name": "Urea",
+              "latest_tonnes": 69421046.19,
+              "historical_distribution_anchors_tonnes": [
+                74539663.6,
+                80238696.63,
+                86983255.14,
+                87958560.675
+              ],
+              "normalized_latest": 0
+            },
+            {
+              "product_code": "4002",
+              "product_name": "Ammonium sulphate",
+              "latest_tonnes": 6531583.04,
+              "historical_distribution_anchors_tonnes": [
+                11034045.38,
+                11901704.74,
+                12454417.23,
+                12541748.925
+              ],
+              "normalized_latest": 0
+            },
+            {
+              "product_code": "4003",
+              "product_name": "Ammonium nitrate (AN)",
+              "latest_tonnes": 15888426.89,
+              "historical_distribution_anchors_tonnes": [
+                17364776.16,
+                18264586.92,
+                19423263.07,
+                19605225.07
+              ],
+              "normalized_latest": 0
+            },
+            {
+              "product_code": "4004",
+              "product_name": "Calcium ammonium nitrate (CAN) and other mixtures with calcium carbonate",
+              "latest_tonnes": 3647574.35,
+              "historical_distribution_anchors_tonnes": [
+                4711453.92,
+                5177671.6,
+                5793375.1,
+                6348049.6
+              ],
+              "normalized_latest": 0
+            },
+            {
+              "product_code": "4006",
+              "product_name": "Urea and ammonium nitrate solutions (UAN)",
+              "latest_tonnes": 3350296.71,
+              "historical_distribution_anchors_tonnes": [
+                14943693.63,
+                17168188.89,
+                18195506.33,
+                18462300.56
+              ],
+              "normalized_latest": 0
+            },
+            {
+              "product_code": "4011",
+              "product_name": "Phosphate rock",
+              "latest_tonnes": 5541898,
+              "historical_distribution_anchors_tonnes": [
+                23859193,
+                31029107.81,
+                52104195.45,
+                54181472.555
+              ],
+              "normalized_latest": 0
+            },
+            {
+              "product_code": "4012",
+              "product_name": "Superphosphates above 35%",
+              "latest_tonnes": 862829.87,
+              "historical_distribution_anchors_tonnes": [
+                3987458.31,
+                4610614.74,
+                5263124.79,
+                5376350.02
+              ],
+              "normalized_latest": 0
+            },
+            {
+              "product_code": "4016",
+              "product_name": "Potassium chloride (muriate of potash) (MOP)",
+              "latest_tonnes": 37704475.7,
+              "historical_distribution_anchors_tonnes": [
+                34763426.69,
+                41336806.89,
+                44596668.67,
+                47547922.89
+              ],
+              "normalized_latest": 0.147648
+            },
+            {
+              "product_code": "4017",
+              "product_name": "Potassium sulphate (sulphate of potash) (SOP)",
+              "latest_tonnes": 141689.08,
+              "historical_distribution_anchors_tonnes": [
+                496709.47,
+                527676.01,
+                619250.47,
+                659305
+              ],
+              "normalized_latest": 0
+            },
+            {
+              "product_code": "4021",
+              "product_name": "NPK fertilizers",
+              "latest_tonnes": 30820912.46,
+              "historical_distribution_anchors_tonnes": [
+                14638685.8,
+                25582551.75,
+                32952536.04,
+                34444382.825
+              ],
+              "normalized_latest": 0.571662
+            },
+            {
+              "product_code": "4022",
+              "product_name": "Diammonium phosphate (DAP)",
+              "latest_tonnes": 11034291.46,
+              "historical_distribution_anchors_tonnes": [
+                11940377.5,
+                14855026.51,
+                18671977,
+                19214008.45
+              ],
+              "normalized_latest": 0
+            },
+            {
+              "product_code": "4023",
+              "product_name": "Monoammonium phosphate (MAP)",
+              "latest_tonnes": 1255542.13,
+              "historical_distribution_anchors_tonnes": [
+                6777318.64,
+                7709692.36,
+                7914853,
+                8358879.5
+              ],
+              "normalized_latest": 0
+            },
+            {
+              "product_code": "4024",
+              "product_name": "Other NP compounds",
+              "latest_tonnes": 14047983.23,
+              "historical_distribution_anchors_tonnes": [
+                8153474,
+                11402349,
+                12242250.14,
+                13886262.03
+              ],
+              "normalized_latest": 1
+            },
+            {
+              "product_code": "4025",
+              "product_name": "Potassium nitrate",
+              "latest_tonnes": 6347582.25,
+              "historical_distribution_anchors_tonnes": [
+                119219.23,
+                150953.96,
+                5025285,
+                5727497.125
+              ],
+              "normalized_latest": 1
+            },
+            {
+              "product_code": "4027",
+              "product_name": "PK compounds",
+              "latest_tonnes": 114596.45,
+              "historical_distribution_anchors_tonnes": [
+                321178.41,
+                653273,
+                712653,
+                771761.5
+              ],
+              "normalized_latest": 0
+            }
+          ]
+        },
+        "threshold": {
+          "selected_year_lower_quartile_normalized_level": 0,
+          "complete_prior_annual_cross_product_summaries": 21,
+          "historical_distribution_anchors": [
+            0,
+            0.060771,
+            0.202068,
+            0.257241
+          ],
+          "boundary": "No recognized global production threshold exists; the historical fallback tests whether production is broadly high across at least three quarters of complete product classes."
+        },
+        "momentum": {
+          "selected_year": 2023,
+          "latest_cross_product_median_log_change": -0.231823,
+          "complete_prior_annual_changes": 20,
+          "historical_distribution_anchors": [
+            0.025592,
+            0.075418,
+            0.110752,
+            0.223271
+          ],
+          "boundary": "Median product-class log change limits domination by differently scaled product masses."
+        },
+        "extent": {
+          "geography": "World totals derived only from disjoint country and territory rows",
+          "selected_year_reporting_country_or_territory_count": 41,
+          "global_extent_normalized": 1
+        },
+        "source_snapshot": {
+          "path": "public/fao-fertilizer-product-output-snapshot.json",
+          "version": "faostat_fertilizer_product_output_2026_v1",
+          "captured_at": "2026-07-31T19:32:58.265Z",
+          "bulk_sha256": "f78a2c3cadaca95af74132ef66f66a1a908beb9a6b4d78c61e6dead3944725ce",
+          "selected_year_source_flag_counts": {
+            "A": 439
+          },
+          "withheld_incomplete_year": {
+            "year": 2024,
+            "reporting_country_or_territory_count": 25,
+            "source_row_count": 259,
+            "product_class_count": 18
+          },
+          "excluded_from_scoring": [
+            "2024 incomplete country panel",
+            "fertilizer nutrient-content totals",
+            "agricultural use",
+            "imports and exports",
+            "regional aggregate rows",
+            "sum across product classes",
+            "missing observations as zero"
+          ]
+        },
+        "coverage_gate": {
+          "direct_components": [
+            "magnitude",
+            "threshold",
+            "momentum",
+            "extent"
+          ],
+          "global_scope": true,
+          "current_observation": true
+        }
+      },
+      "transformations": [
+        {
+          "type": "disjoint_country_product_aggregation",
+          "formula": "Filter official FAOSTAT production rows in tonnes to country or territory area codes below 500; sum only within identical product code and year."
+        },
+        {
+          "type": "class_preserving_magnitude",
+          "formula": "For each of 15 complete product classes, normalize 2023 output through that class’s 2002-2022 historical distribution, then average normalized class levels without summing product tonnes."
+        },
+        {
+          "type": "cross_class_breadth_threshold",
+          "formula": "Take the lower quartile of class-normalized output each year and normalize the 2023 breadth value through 21 prior annual breadth values."
+        },
+        {
+          "type": "cross_class_momentum",
+          "formula": "Calculate each class’s annual log change, take the cross-class median, and normalize the 2023 median through 20 prior annual medians."
+        },
+        {
+          "type": "incomplete_release_withheld",
+          "formula": "Withhold 2024 because only 25 country or territory reporters are present versus 41 in the selected 2023 panel; missing production is never treated as zero."
+        }
+      ],
+      "source_ids": [
+        "faostat_fertilizer_product_output_2026"
+      ],
+      "uncertainty": "Official, estimated and imputed source flags, confidential production, country reporting gaps, revisions and secondary production affect totals. Product masses have different compositions and cannot be converted to nutrient content without product-specific factors. The 2024 release rows cover only 25 countries versus 41 in the selected 2023 panel and are withheld as incomplete.",
+      "freshness": "FAOSTAT bulk release timestamp 2026-07-29T10:27:00Z; latest complete scoring panel 2023; incomplete 2024 panel withheld; snapshot captured 2026-07-31T19:32:58.265Z.",
+      "selection_reason": {
+        "selected_method_passed": "The checksum-bound FAOSTAT release supplies 15 product-class series with 22 complete annual global reported totals, 21 prior annual breadth values and 20 prior cross-product momentum values. All four current-data components are directly quantified while product classes and units remain separate.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:967d9d42"
+    }
+  ]
+}

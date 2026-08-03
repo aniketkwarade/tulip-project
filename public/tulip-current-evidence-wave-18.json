@@ -1,0 +1,372 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_18_ocha_humanitarian_history",
+  "generated_at": "2026-07-31T22:57:32.880Z",
+  "promoted_node_count": 3,
+  "receipts": [
+    {
+      "node_id": "humanitarian_response_funding_shortfall",
+      "value": 9.8,
+      "band": "Critical",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "magnitude": 1,
+        "threshold": 1,
+        "momentum": 0.930724,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_value_pct": 65.79317,
+          "reference_year": 2000,
+          "reference_value_pct": 44.932849,
+          "change_against_reference_percentage_points": 20.860321,
+          "complete_annual_observations": 26,
+          "anchors_percentage_points": [
+            -2.341899,
+            2.846101,
+            8.020386,
+            15.762003
+          ],
+          "source_locator": {
+            "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+            "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+            "api_docs_url": "https://api.hpc.tools/docs/v1/",
+            "funding_boundary": "Only plan IDs present in the grouped FTS result enter funding and shortfall totals; an absent group remains missing and is never converted to zero.",
+            "revision_boundary": "Only plans with a positive original requirement enter the revision denominator; negative revisions remain zero contribution to the bounded positive-revision measure."
+          }
+        },
+        "threshold": {
+          "latest_value_pct": 65.79317,
+          "threshold_basis": "historical_distribution_fallback",
+          "anchors_pct": [
+            42.59095,
+            47.77895,
+            52.953235,
+            60.694852
+          ],
+          "source_locator": {
+            "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+            "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+            "api_docs_url": "https://api.hpc.tools/docs/v1/",
+            "funding_boundary": "Only plan IDs present in the grouped FTS result enter funding and shortfall totals; an absent group remains missing and is never converted to zero.",
+            "revision_boundary": "Only plans with a positive original requirement enter the revision denominator; negative revisions remain zero contribution to the bounded positive-revision measure."
+          }
+        },
+        "momentum": {
+          "latest_annual_change_percentage_points": 14.175999,
+          "annual_change_observations": 25,
+          "anchors_percentage_points_per_year": [
+            -0.773237,
+            3.839944,
+            12.379092,
+            14.653449
+          ],
+          "source_locator": {
+            "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+            "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+            "api_docs_url": "https://api.hpc.tools/docs/v1/",
+            "funding_boundary": "Only plan IDs present in the grouped FTS result enter funding and shortfall totals; an absent group remains missing and is never converted to zero.",
+            "revision_boundary": "Only plans with a positive original requirement enter the revision denominator; negative revisions remain zero contribution to the bounded positive-revision measure."
+          }
+        },
+        "extent": {
+          "normalized_value": 1,
+          "definition": "Plans with an explicit grouped FTS funding result divided by positive-requirement plans returned for the year.",
+          "positive_requirement_plans": 46,
+          "plans_with_grouped_reported_funding": 46,
+          "countries_or_territories_in_plans": 73,
+          "countries_or_territories_with_positive_revision": 5,
+          "source_locator": {
+            "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+            "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+            "api_docs_url": "https://api.hpc.tools/docs/v1/",
+            "funding_boundary": "Only plan IDs present in the grouped FTS result enter funding and shortfall totals; an absent group remains missing and is never converted to zero.",
+            "revision_boundary": "Only plans with a positive original requirement enter the revision denominator; negative revisions remain zero contribution to the bounded positive-revision measure."
+          }
+        },
+        "source_snapshot": {
+          "path": "public/ocha-humanitarian-history-snapshot.json",
+          "version": "ocha_hpc_fts_global_history_2000_2025_v1",
+          "captured_at": "2026-07-31T18:55:24.084Z",
+          "retained_history_start": 2000,
+          "retained_history_end": 2025,
+          "retained_history_record_count": 26
+        }
+      },
+      "transformations": [
+        {
+          "type": "source_joined_global_annual_ratio",
+          "formula": "For each plan year, calculate the reported plan-linked funding shortfall only from explicit OCHA plan requirements and explicit grouped FTS values; absent funding groups remain missing."
+        },
+        {
+          "type": "dimensionless_historical_comparison",
+          "formula": "Use source-consistent annual percentages rather than nominal dollar totals so price-level change does not drive the historical position."
+        },
+        {
+          "type": "historical_distribution_threshold_fallback",
+          "formula": "Map the latest percentage through median / p75 / p90 / p97.5 anchors from 2000-2025."
+        },
+        {
+          "type": "year_over_year_momentum",
+          "formula": "Map the latest percentage-point change through the distribution of complete annual changes."
+        }
+      ],
+      "source_ids": [
+        "ocha_humanitarian_programme_cycle_public_api"
+      ],
+      "uncertainty": "Plan scope, needs assessment, exchange rates, requirement revisions, reporting practices, unlinked or shared flows, funding outside FTS, and changes in the humanitarian planning system affect cross-year comparison. Nominal dollars are retained as context only; scoring uses dimensionless funding-gap and positive-revision ratios.",
+      "freshness": "OCHA completed plan-year history through 2025; snapshot captured 2026-07-31T18:55:24.084Z.",
+      "selection_reason": {
+        "selected_method_passed": "The official OCHA plan and FTS endpoints supply 26 complete annual global panels with current magnitude, historical position, momentum, and explicit reporting or geographic extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:4cfd79ed"
+    },
+    {
+      "node_id": "humanitarian_resource_gaps",
+      "value": 9.8,
+      "band": "Critical",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "magnitude": 1,
+        "threshold": 1,
+        "momentum": 0.930724,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_value_pct": 65.79317,
+          "reference_year": 2000,
+          "reference_value_pct": 44.932849,
+          "change_against_reference_percentage_points": 20.860321,
+          "complete_annual_observations": 26,
+          "anchors_percentage_points": [
+            -2.341899,
+            2.846101,
+            8.020386,
+            15.762003
+          ],
+          "source_locator": {
+            "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+            "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+            "api_docs_url": "https://api.hpc.tools/docs/v1/",
+            "funding_boundary": "Only plan IDs present in the grouped FTS result enter funding and shortfall totals; an absent group remains missing and is never converted to zero.",
+            "revision_boundary": "Only plans with a positive original requirement enter the revision denominator; negative revisions remain zero contribution to the bounded positive-revision measure."
+          }
+        },
+        "threshold": {
+          "latest_value_pct": 65.79317,
+          "threshold_basis": "historical_distribution_fallback",
+          "anchors_pct": [
+            42.59095,
+            47.77895,
+            52.953235,
+            60.694852
+          ],
+          "source_locator": {
+            "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+            "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+            "api_docs_url": "https://api.hpc.tools/docs/v1/",
+            "funding_boundary": "Only plan IDs present in the grouped FTS result enter funding and shortfall totals; an absent group remains missing and is never converted to zero.",
+            "revision_boundary": "Only plans with a positive original requirement enter the revision denominator; negative revisions remain zero contribution to the bounded positive-revision measure."
+          }
+        },
+        "momentum": {
+          "latest_annual_change_percentage_points": 14.175999,
+          "annual_change_observations": 25,
+          "anchors_percentage_points_per_year": [
+            -0.773237,
+            3.839944,
+            12.379092,
+            14.653449
+          ],
+          "source_locator": {
+            "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+            "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+            "api_docs_url": "https://api.hpc.tools/docs/v1/",
+            "funding_boundary": "Only plan IDs present in the grouped FTS result enter funding and shortfall totals; an absent group remains missing and is never converted to zero.",
+            "revision_boundary": "Only plans with a positive original requirement enter the revision denominator; negative revisions remain zero contribution to the bounded positive-revision measure."
+          }
+        },
+        "extent": {
+          "normalized_value": 1,
+          "definition": "Plans with an explicit grouped FTS funding result divided by positive-requirement plans returned for the year.",
+          "positive_requirement_plans": 46,
+          "plans_with_grouped_reported_funding": 46,
+          "countries_or_territories_in_plans": 73,
+          "countries_or_territories_with_positive_revision": 5,
+          "source_locator": {
+            "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+            "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+            "api_docs_url": "https://api.hpc.tools/docs/v1/",
+            "funding_boundary": "Only plan IDs present in the grouped FTS result enter funding and shortfall totals; an absent group remains missing and is never converted to zero.",
+            "revision_boundary": "Only plans with a positive original requirement enter the revision denominator; negative revisions remain zero contribution to the bounded positive-revision measure."
+          }
+        },
+        "source_snapshot": {
+          "path": "public/ocha-humanitarian-history-snapshot.json",
+          "version": "ocha_hpc_fts_global_history_2000_2025_v1",
+          "captured_at": "2026-07-31T18:55:24.084Z",
+          "retained_history_start": 2000,
+          "retained_history_end": 2025,
+          "retained_history_record_count": 26
+        }
+      },
+      "transformations": [
+        {
+          "type": "source_joined_global_annual_ratio",
+          "formula": "For each plan year, calculate the reported financial resource gap only from explicit OCHA plan requirements and explicit grouped FTS values; absent funding groups remain missing."
+        },
+        {
+          "type": "dimensionless_historical_comparison",
+          "formula": "Use source-consistent annual percentages rather than nominal dollar totals so price-level change does not drive the historical position."
+        },
+        {
+          "type": "historical_distribution_threshold_fallback",
+          "formula": "Map the latest percentage through median / p75 / p90 / p97.5 anchors from 2000-2025."
+        },
+        {
+          "type": "year_over_year_momentum",
+          "formula": "Map the latest percentage-point change through the distribution of complete annual changes."
+        }
+      ],
+      "source_ids": [
+        "ocha_humanitarian_programme_cycle_public_api"
+      ],
+      "uncertainty": "Plan scope, needs assessment, exchange rates, requirement revisions, reporting practices, unlinked or shared flows, funding outside FTS, and changes in the humanitarian planning system affect cross-year comparison. Nominal dollars are retained as context only; scoring uses dimensionless funding-gap and positive-revision ratios.",
+      "freshness": "OCHA completed plan-year history through 2025; snapshot captured 2026-07-31T18:55:24.084Z.",
+      "selection_reason": {
+        "selected_method_passed": "The official OCHA plan and FTS endpoints supply 26 complete annual global panels with current magnitude, historical position, momentum, and explicit reporting or geographic extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:f656c24f"
+    },
+    {
+      "node_id": "humanitarian_surge_demand",
+      "value": 1.1,
+      "band": "Low",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "magnitude": 0,
+        "threshold": 0,
+        "momentum": 0,
+        "extent": 0.068493
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_value_pct": 5.005188,
+          "reference_year": 2000,
+          "reference_value_pct": 0.564176,
+          "change_against_reference_percentage_points": 4.441012,
+          "complete_annual_observations": 26,
+          "anchors_percentage_points": [
+            9.331475,
+            21.9862,
+            28.929415,
+            31.287598
+          ],
+          "source_locator": {
+            "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+            "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+            "api_docs_url": "https://api.hpc.tools/docs/v1/",
+            "funding_boundary": "Only plan IDs present in the grouped FTS result enter funding and shortfall totals; an absent group remains missing and is never converted to zero.",
+            "revision_boundary": "Only plans with a positive original requirement enter the revision denominator; negative revisions remain zero contribution to the bounded positive-revision measure."
+          }
+        },
+        "threshold": {
+          "latest_value_pct": 5.005188,
+          "threshold_basis": "historical_distribution_fallback",
+          "anchors_pct": [
+            9.895651,
+            22.550376,
+            29.493592,
+            31.851774
+          ],
+          "source_locator": {
+            "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+            "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+            "api_docs_url": "https://api.hpc.tools/docs/v1/",
+            "funding_boundary": "Only plan IDs present in the grouped FTS result enter funding and shortfall totals; an absent group remains missing and is never converted to zero.",
+            "revision_boundary": "Only plans with a positive original requirement enter the revision denominator; negative revisions remain zero contribution to the bounded positive-revision measure."
+          }
+        },
+        "momentum": {
+          "latest_annual_change_percentage_points": -1.277762,
+          "annual_change_observations": 25,
+          "anchors_percentage_points_per_year": [
+            -1.277762,
+            6.969153,
+            11.467758,
+            18.175496
+          ],
+          "source_locator": {
+            "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+            "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+            "api_docs_url": "https://api.hpc.tools/docs/v1/",
+            "funding_boundary": "Only plan IDs present in the grouped FTS result enter funding and shortfall totals; an absent group remains missing and is never converted to zero.",
+            "revision_boundary": "Only plans with a positive original requirement enter the revision denominator; negative revisions remain zero contribution to the bounded positive-revision measure."
+          }
+        },
+        "extent": {
+          "normalized_value": 0.068493,
+          "definition": "Countries or territories represented in plans with a positive requirement revision divided by all countries or territories represented in the annual plan panel.",
+          "positive_requirement_plans": 46,
+          "plans_with_grouped_reported_funding": 46,
+          "countries_or_territories_in_plans": 73,
+          "countries_or_territories_with_positive_revision": 5,
+          "source_locator": {
+            "plan_api_url": "https://api.hpc.tools/v1/public/plan/year/2025",
+            "fts_api_url": "https://api.hpc.tools/v1/public/fts/flow?year=2025&groupby=plan",
+            "api_docs_url": "https://api.hpc.tools/docs/v1/",
+            "funding_boundary": "Only plan IDs present in the grouped FTS result enter funding and shortfall totals; an absent group remains missing and is never converted to zero.",
+            "revision_boundary": "Only plans with a positive original requirement enter the revision denominator; negative revisions remain zero contribution to the bounded positive-revision measure."
+          }
+        },
+        "source_snapshot": {
+          "path": "public/ocha-humanitarian-history-snapshot.json",
+          "version": "ocha_hpc_fts_global_history_2000_2025_v1",
+          "captured_at": "2026-07-31T18:55:24.084Z",
+          "retained_history_start": 2000,
+          "retained_history_end": 2025,
+          "retained_history_record_count": 26
+        }
+      },
+      "transformations": [
+        {
+          "type": "source_joined_global_annual_ratio",
+          "formula": "For each plan year, calculate the positive plan-requirement revision ratio only from explicit OCHA plan requirements and explicit grouped FTS values; absent funding groups remain missing."
+        },
+        {
+          "type": "dimensionless_historical_comparison",
+          "formula": "Use source-consistent annual percentages rather than nominal dollar totals so price-level change does not drive the historical position."
+        },
+        {
+          "type": "historical_distribution_threshold_fallback",
+          "formula": "Map the latest percentage through median / p75 / p90 / p97.5 anchors from 2000-2025."
+        },
+        {
+          "type": "year_over_year_momentum",
+          "formula": "Map the latest percentage-point change through the distribution of complete annual changes."
+        }
+      ],
+      "source_ids": [
+        "ocha_humanitarian_programme_cycle_public_api"
+      ],
+      "uncertainty": "Plan scope, needs assessment, exchange rates, requirement revisions, reporting practices, unlinked or shared flows, funding outside FTS, and changes in the humanitarian planning system affect cross-year comparison. Nominal dollars are retained as context only; scoring uses dimensionless funding-gap and positive-revision ratios.",
+      "freshness": "OCHA completed plan-year history through 2025; snapshot captured 2026-07-31T18:55:24.084Z.",
+      "selection_reason": {
+        "selected_method_passed": "The official OCHA plan and FTS endpoints supply 26 complete annual global panels with current magnitude, historical position, momentum, and explicit reporting or geographic extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:ee27a9b2"
+    }
+  ]
+}

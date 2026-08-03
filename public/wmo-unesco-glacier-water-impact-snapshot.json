@@ -1,0 +1,56 @@
+{
+  "version": "wmo_sgwr_2024_unesco_wwdr_2025_glacier_water_v1",
+  "captured_at": "2026-07-31T18:12:40.094Z",
+  "source": {
+    "id": "wmo_unesco_global_glacier_water_assessments",
+    "name": "WMO State of Global Water Resources 2024 and UN World Water Development Report 2025",
+    "publishers": [
+      "World Meteorological Organization",
+      "UNESCO on behalf of UN-Water"
+    ],
+    "wmo_publication_url": "https://wmo.int/resources/publication-series/state-of-global-water-resources/state-of-global-water-resources-2024",
+    "wmo_report_url": "https://library.wmo.int/idurl/4/69629",
+    "unesco_report_url": "https://www.unesco.org/reports/wwdr/en/2025",
+    "un_glaciers_key_messages_url": "https://www.un-glaciers.org/en/key-messages"
+  },
+  "ingestion_job_id": "export_wmo_unesco_glacier_water_impact_snapshot",
+  "metric_contract_ids": [
+    "glacier_runoff_share_of_water_supply"
+  ],
+  "contract_bindings": [
+    {
+      "node_id": "glacier_meltwater_dependency",
+      "metric_id": "glacier_runoff_share_of_water_supply",
+      "measurement_role": "global_glacier_mass_loss_and_glacier_snow_melt_dependence_assessment"
+    }
+  ],
+  "cadence": "Annual WMO water-resource report and UN World Water Development Report release review.",
+  "provenance": "Official WMO 2024 global glacier mass-balance assessment paired with the official UN glacier-preservation and UNESCO/UN-Water human-dependence assessment. Glacier mass loss and glacier-plus-snow dependence are retained as separate fields.",
+  "uncertainty": "The WMO global mass estimate combines about 500 field-monitored glaciers and geodetic measurements covering more than 200,000 glaciers. Preliminary 2024 observations, regional scaling and mass-balance methods affect the estimate. The human figure covers melt from glaciers and snow and must not be interpreted as glacier-only volume share or observed shortage.",
+  "failure_behavior": "Retain the last reviewed assessment pair and mark stale; reject changed glacier-region denominators, missing mass units or an unreconciled dependence definition. Never relabel glacier-plus-snow dependence as glacier-only supply, convert exposure to realized shortage, or add coastal sea-level exposure.",
+  "assessment": {
+    "water_report_year": 2024,
+    "publication_year": 2025,
+    "global_glacier_mass_loss_gt": 450,
+    "global_mean_sea_level_equivalent_mm": 1.2,
+    "consecutive_all_region_loss_years": 3,
+    "glaciated_regions_with_loss": 19,
+    "glaciated_regions_assessed": 19,
+    "field_monitored_glaciers_approx": 500,
+    "geodetically_measured_glaciers_lower_bound": 200000,
+    "geodetic_global_glacier_coverage_pct": 96,
+    "people_relying_on_glacier_and_snow_melt_billion_lower_bound": 2,
+    "small_glacier_region_peak_water_status": "most have likely passed peak water",
+    "source_locators": [
+      "WMO State of Global Water Resources 2024, Snow cover and glaciers chapter: 450 Gt lost, all 19 regions, third consecutive year.",
+      "WMO report methods: approximately 500 field glaciers and more than 200,000 geodetically measured glaciers, covering 96 percent of global glaciers.",
+      "UN International Year of Glaciers Preservation key message 7: more than 2 billion people rely on melt from glaciers and snow for freshwater."
+    ]
+  },
+  "excluded_from_scoring": [
+    "coastal population exposed to sea-level rise",
+    "future glacier-loss projections",
+    "regional Colombian loss rate",
+    "mountain-water users not explicitly tied to glacier or snow melt"
+  ]
+}

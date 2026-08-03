@@ -1,0 +1,50 @@
+{
+  "version": "noaa_gulf_coastal_hypoxia_2025_v1",
+  "captured_at": "2026-07-19T05:15:06.742Z",
+  "source": {
+    "id": "noaa_dynamics_and_distribution_of_natural_and_human_caused_coastal_hypoxia",
+    "name": "NOAA Gulf of America annual hypoxic-zone monitoring",
+    "url": "https://oceanservice.noaa.gov/hazards/hypoxia/",
+    "monitoring_url": "https://coastalscience.noaa.gov/project/operational-gulf-of-america-hypoxia-monitoring/",
+    "data_archive_url": "https://www.ncei.noaa.gov/waf/hypoxia-waf/documents/hypoxia/data/",
+    "access": "open_authoritative_web_and_station_archive"
+  },
+  "ingestion_job_id": "fetch_noaa_gulf_coastal_hypoxia",
+  "metric_contract_ids": [
+    "noaa_gulf_midsummer_hypoxic_zone_area"
+  ],
+  "cadence": "annual after completion of the NOAA-supported midsummer shelf-wide monitoring cruise",
+  "provenance": "NOAA Ocean Service source-reported annual Gulf hypoxic-zone area from the long-running shelf-wide ship survey. The published square-mile area is retained and independently converted to square kilometres with an explicit constant.",
+  "uncertainty": "The status page does not publish an interval for the annual mapped area. Cruise timing, station spacing, contour interpolation, storms, mixing, river discharge, nutrient load and transient oxygen conditions affect the mapped maximum midsummer extent.",
+  "failure_behavior": "Retain the last validated annual survey and mark stale; reject an unparseable year, size, threshold or mismatched survey window; never interpret a missing survey as zero hypoxia or extrapolate this Gulf metric to another coastal system.",
+  "measurement_boundary": "This metric is the mapped annual midsummer area with bottom dissolved oxygen at or below 2 milligrams per litre in the northern Gulf shelf survey. It is not event duration, oxygen-deficit volume, annual average area, global coastal hypoxia, ecological damage or a causal nutrient-response coefficient.",
+  "conversion": {
+    "square_miles_to_square_kilometres": 2.589988110336,
+    "converted_field": "converted_hypoxic_area_square_kilometres"
+  },
+  "record_count": 1,
+  "records": [
+    {
+      "record_id": "noaa_gulf_hypoxia_2025",
+      "metric_id": "noaa_gulf_midsummer_hypoxic_zone_area",
+      "measurement_role": "bounded_annual_shelf_wide_cruise_primary",
+      "geography": "northern Gulf of America continental shelf off Louisiana and Texas",
+      "observation_year": 2025,
+      "survey_start_date_label": "July 20, 2025",
+      "survey_end_date_label": "July 25, 2025",
+      "source_reported_hypoxic_area_square_miles": 4402,
+      "converted_hypoxic_area_square_kilometres": 11401.1,
+      "dissolved_oxygen_threshold_mg_l": 2,
+      "threshold_operator": "less_than_or_equal_to",
+      "source_reported_record_rank": 15,
+      "source_reported_rank_direction": "smallest",
+      "source_reported_record_length_years": 39,
+      "source_locator": {
+        "annual_status_page_url": "https://oceanservice.noaa.gov/hazards/hypoxia/",
+        "monitoring_program_url": "https://coastalscience.noaa.gov/project/operational-gulf-of-america-hypoxia-monitoring/",
+        "station_and_contour_archive_url": "https://www.ncei.noaa.gov/waf/hypoxia-waf/documents/hypoxia/data/",
+        "locator": "Annual NOAA status statement for the 2025 shelf-wide cruise; source-reported area in square miles and bottom-water hypoxia threshold of 2 milligrams per litre or lower."
+      }
+    }
+  ]
+}

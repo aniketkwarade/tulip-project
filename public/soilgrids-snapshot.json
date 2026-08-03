@@ -1,0 +1,63 @@
+{
+  "updated_at": "2026-07-18",
+  "version": "2026-07-18T12:56:26.329Z",
+  "snapshot_family": "soilgrids_support",
+  "source": {
+    "id": "soilgrids",
+    "name": "SoilGrids",
+    "publisher": "ISRIC - World Soil Information",
+    "url": "https://soilgrids.org/",
+    "access": "open_download"
+  },
+  "refresh_policy": {
+    "default_days": 90,
+    "notes": "Treat SoilGrids as a global soil-property baseline and API-doc snapshot rather than as a local live monitoring feed."
+  },
+  "use_guidance": {
+    "primary_role": "Use for soil baseline support on land, agriculture, and soil-moisture stress nodes.",
+    "caution": "SoilGrids is a modeled global soil-property surface and documentation family, not a real-time field sensor network."
+  },
+  "overview": {
+    "title": "SoilGrids250m 2.0",
+    "description": "SoilGrids250m 2.0 - A system for digital soil mapping based on global compilation of soil profile data and environmental layers",
+    "api_docs_title": "SoilGrids API docs",
+    "api_docs_status": 504,
+    "core_properties": [
+      "SOC",
+      "pH",
+      "bulk density",
+      "sand",
+      "silt",
+      "clay",
+      "nitrogen",
+      "CEC"
+    ]
+  },
+  "tools": [
+    {
+      "id": "soilgrids_portal",
+      "label": "SoilGrids portal",
+      "url": "https://soilgrids.org/",
+      "type": "portal",
+      "access": "open"
+    },
+    {
+      "id": "soilgrids_api_docs",
+      "label": "SoilGrids API docs",
+      "url": "https://rest.isric.org/soilgrids/v2.0/docs",
+      "type": "api_docs",
+      "access": "open"
+    }
+  ],
+  "service_caveats": [
+    "SoilGrids is a global modeled soil baseline, not a local ground-truth monitoring service.",
+    "The API docs endpoint returned 504 Gateway Time-out during refresh, so docs availability should be treated as intermittent.",
+    "Best fit is soil-property grounding and agricultural/land-system context.",
+    "Use alongside hydrology and food-system layers, not as a standalone drought or crop-loss feed."
+  ],
+  "supported_questions": [
+    "Which land and agriculture nodes need a defensible global soil baseline?",
+    "Where should TULIP use soil-property context rather than only hydrology framing?",
+    "Which soil-stress nodes need official ISRIC grounding?"
+  ]
+}

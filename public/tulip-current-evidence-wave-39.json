@@ -1,0 +1,161 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_39_faostat_world_cereal_feed_share",
+  "generated_at": "2026-07-31T19:41:41.709Z",
+  "source_snapshot": "public/fao-world-cereal-feed-share-snapshot.json",
+  "source_id": "faostat_world_cereal_feed_share",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "feed_crop_dependency",
+      "value": 5.6,
+      "band": "Rising",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2023",
+      "components": {
+        "magnitude": 0.060502,
+        "threshold": 1,
+        "momentum": 0.151847,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_year": 2023,
+          "latest_world_cereal_feed_share_pct": 35.384212,
+          "latest_world_cereal_domestic_supply_1000_t": 3171519,
+          "complete_prior_harmonized_annual_observations": 62,
+          "historical_distribution_anchors_pct": [
+            34.904066,
+            37.522974,
+            38.742648,
+            39.595631
+          ],
+          "basket": "Cereals - Excluding Beer"
+        },
+        "threshold": {
+          "latest_world_cereal_feed_1000_t": 1122217,
+          "complete_prior_harmonized_annual_observations": 62,
+          "historical_distribution_anchors_1000_t": [
+            676240.875234,
+            781326.545045,
+            956155.4,
+            1092247.85
+          ],
+          "boundary": "No recognized physical threshold exists; absolute feed allocation is normalized against the overlap-crosswalked annual history."
+        },
+        "momentum": {
+          "window_years": 5,
+          "current_window": [
+            2019,
+            2023
+          ],
+          "current_change_percentage_points_per_five_years": 0.795106,
+          "complete_prior_rolling_windows": 58,
+          "historical_distribution_anchors": [
+            -0.095963,
+            1.840546,
+            3.152111,
+            4.134359
+          ]
+        },
+        "extent": {
+          "geography": "World",
+          "source_aggregation": "FAOSTAT World aggregate",
+          "normalized_value": 1
+        },
+        "source_snapshot": {
+          "path": "public/fao-world-cereal-feed-share-snapshot.json",
+          "version": "faostat_world_cereal_feed_share_v1",
+          "captured_at": "2026-07-31T19:41:41.663Z",
+          "current_bulk_sha256": "26200855ed5da3d0805e34219124e241d0e0bc6959d0995ebc77a10dd84cbaf1",
+          "historic_bulk_sha256": "925bac969ea3904eca1a33f0b3d7ea4416bbac79d14db50b0db43cd2a77a3adb",
+          "overlap_calibration": {
+            "years": [
+              2010,
+              2011,
+              2012,
+              2013
+            ],
+            "mean_feed_share_offset_percentage_points": -2.956209812918095,
+            "mean_feed_mass_ratio": 1.0323720760903425,
+            "comparisons": [
+              {
+                "year": 2010,
+                "feed_share_offset_percentage_points": -2.262075287995028,
+                "feed_mass_ratio": 1.0595319233644145
+              },
+              {
+                "year": 2011,
+                "feed_share_offset_percentage_points": -3.0682774534321844,
+                "feed_mass_ratio": 1.0277415098833649
+              },
+              {
+                "year": 2012,
+                "feed_share_offset_percentage_points": -2.6431995307809757,
+                "feed_mass_ratio": 1.0456354043870917
+              },
+              {
+                "year": 2013,
+                "feed_share_offset_percentage_points": -3.8512869794641915,
+                "feed_mass_ratio": 0.9965794667264993
+              }
+            ]
+          },
+          "excluded_from_scoring": [
+            "non-cereal crops",
+            "beer",
+            "feed conversion efficiency",
+            "animal intake or waste inference",
+            "food-security outcome inference",
+            "commodity aggregation outside the source-defined basket",
+            "missing observations as zero"
+          ]
+        },
+        "coverage_gate": {
+          "direct_components": [
+            "magnitude",
+            "threshold",
+            "momentum",
+            "extent"
+          ],
+          "global_scope": true,
+          "current_observation": true
+        }
+      },
+      "transformations": [
+        {
+          "type": "source_defined_cereal_basket_share",
+          "formula": "Divide World Feed by World Domestic supply quantity for the exact FAOSTAT Cereals - Excluding Beer item; retain both source masses in 1,000 tonnes."
+        },
+        {
+          "type": "edition_overlap_crosswalk",
+          "formula": "For 1961-2009 historical normalization only, add the mean 2010-2013 current-minus-historic feed-share offset and multiply feed mass by the mean current-to-historic overlap ratio."
+        },
+        {
+          "type": "historical_distribution_level_and_mass",
+          "formula": "Normalize the current feed share and current feed mass through 62 complete prior harmonized annual values."
+        },
+        {
+          "type": "rolling_five_year_momentum",
+          "formula": "Calculate ordinary-least-squares change in feed share for every complete five-year window and normalize the latest window through 58 prior windows."
+        },
+        {
+          "type": "world_extent",
+          "formula": "Use only source-declared World aggregate rows; no country or commodity inference outside the declared basket."
+        }
+      ],
+      "source_ids": [
+        "faostat_world_cereal_feed_share"
+      ],
+      "uncertainty": "Food balance sheets synthesize production, trade, stocks and utilization estimates. Commodity moisture and composition differ, feed can include processing by-products, and revisions or methodological editions change values. The overlap crosswalk assumes a stable mean edition difference and is used only for historical normalization, not to alter current observations.",
+      "freshness": "Current FAOSTAT Food Balance Sheets through 2023; current file release 2025-10-14T12:03:00Z; historic crosswalk file release 2024-02-05T11:00:00Z; snapshot captured 2026-07-31T19:41:41.663Z.",
+      "selection_reason": {
+        "selected_method_passed": "The checksum-bound current FAOSTAT World cereal balance directly supplies annual feed mass and domestic supply through 2023. A four-year overlap crosswalk to the official historical edition yields 63 complete annual values for normalization while leaving every current observation unchanged.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:537a2fae"
+    }
+  ]
+}

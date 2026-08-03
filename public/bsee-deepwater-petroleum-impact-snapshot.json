@@ -1,0 +1,160 @@
+{
+  "version": "bsee_deepwater_petroleum_impact_1996_2025_v1",
+  "captured_at": "2026-08-01T00:00:00.000Z",
+  "sources": [
+    {
+      "id": "bsee_incident_investigations_raw_data",
+      "name": "BSEE Incident Investigations Raw Data",
+      "publisher": "Bureau of Safety and Environmental Enforcement",
+      "url": "https://www.data.bsee.gov/Other/DataTables/IncidentInvestigations.aspx",
+      "download_url": "https://www.data.bsee.gov/Other/Files/IncInvRawData.zip",
+      "data_last_updated": "2026-08-01",
+      "archive_sha256": "0db2f8863eaa72b5d579a4ee050b8a156faf7255abaf2fc95f24329e1a9871ae",
+      "extracted_file_sha256": "24820fc03cb274d143a8891622f796324d27e241c7ed7a234b74af3fd40ea61d"
+    },
+    {
+      "id": "bsee_offshore_statistics_water_depth_raw_data",
+      "name": "BSEE Offshore Statistics by Water Depth Raw Data",
+      "publisher": "Bureau of Safety and Environmental Enforcement",
+      "url": "https://www.data.bsee.gov/Leasing/OffshoreStatsbyWD/Default.aspx",
+      "download_url": "https://www.data.bsee.gov/Production/Files/OffshoreStatsRawData.zip",
+      "data_last_updated": "2026-08-01",
+      "archive_sha256": "82a6fb6cd2400f22d1d10a4f547ac3ebbdb9e52a788b7efa1624386add4d4f7f",
+      "extracted_lease_file_sha256": "ad9e3862959c83d367244fbe026a7f5f301a8d93cc3c2ec3ffa6d5ca27517677"
+    },
+    {
+      "id": "bsee_offshore_spill_occurrence_rates_2016",
+      "name": "2016 Update of Occurrence Rates for Offshore Oil Spills",
+      "publisher": "Bureau of Safety and Environmental Enforcement",
+      "url": "https://www.bsee.gov/sites/bsee.gov/files/osrr-oil-spill-response-research/1086aa.pdf",
+      "validation": "BSEE reports approximately 5.2 million barrels spilled from OCS platform operations during 1964-2015 and identifies Deepwater Horizon as the dominant release."
+    },
+    {
+      "id": "deepwater_horizon_trustee_council_2020_statement",
+      "name": "Ten Years after Deepwater Horizon — Trustee Council Statement",
+      "publisher": "Deepwater Horizon Natural Resource Damage Assessment Trustee Council",
+      "url": "https://www.gulfspillrestoration.noaa.gov/2020/04/ten-years-after-deepwater-horizon-statement-natural-resource-damage-assessment-trustee",
+      "validation": "The official Trustees record 11 deaths, 17 injuries and an $8.8 billion natural-resource restoration settlement paid over 15 years."
+    },
+    {
+      "id": "deepwater_horizon_trustee_council_2023_restoration",
+      "name": "Thirteen Years after Deepwater Horizon — Restoration Progress",
+      "publisher": "Deepwater Horizon Natural Resource Damage Assessment Trustee Council",
+      "url": "https://www.gulfspillrestoration.noaa.gov/2023/04/thirteen-years-after-deepwater-horizon-restoration-makes-progress",
+      "validation": "The official Trustees report approximately 3.2 million barrels released over nearly three months and continued restoration thirteen years later."
+    },
+    {
+      "id": "usdoj_deepwater_horizon_civil_settlement",
+      "name": "U.S. and Five Gulf States Deepwater Horizon Civil Settlement",
+      "publisher": "U.S. Department of Justice",
+      "url": "https://www.justice.gov/archives/opa/pr/us-and-five-gulf-states-reach-historic-settlement-bp-resolve-civil-lawsuit-over-deepwater",
+      "validation": "The Department of Justice values the combined civil resolution at $20.8 billion, including natural-resource and state/local economic claims."
+    }
+  ],
+  "metric_contract": {
+    "node_id": "deepwater_petroleum_spill_risk",
+    "metric_id": "deepwater_spill_risk_signal",
+    "unit": "depth-qualified formal investigations, documented incident categories, barrels released, deaths, injuries and U.S. dollars reported separately",
+    "geography": "United States Outer Continental Shelf leases with maximum water depth at or above 1,000 feet",
+    "cadence": "event records aggregated over complete calendar years, with landmark-spill assessment updates",
+    "deepwater_definition": "BSEE deepwater threshold greater than 1,000 feet; the operational join uses lease maximum depth at or above 305 metres because depth is stored as whole metres.",
+    "failure_boundary": "A lease maximum depth does not prove the incident occurred at the maximum depth, formal investigations are a selected subset of all reported incidents, and incident category tags do not provide event-level release volume or exact casualty count."
+  },
+  "extraction": {
+    "raw_investigation_rows": 2014,
+    "rows_with_lease_depth_match": 1962,
+    "unmatched_rows_excluded": 52,
+    "incomplete_1995_deepwater_rows_excluded": 1,
+    "incomplete_2026_deepwater_rows_excluded": 11,
+    "depth_join_key": "trimmed BSEE lease number",
+    "deepwater_filter": "BLK_MAX_WTR_DPTH >= 305 metres",
+    "scored_period": "1996-01-01 through 2025-12-31"
+  },
+  "accumulated_impact_through_2025": {
+    "start_year": 1996,
+    "end_year": 2025,
+    "complete_calendar_years": 30,
+    "depth_qualified_formal_investigations": 624,
+    "pollution_or_spill_tagged_investigations": 186,
+    "injury_lost_time_or_restricted_work_tagged_investigations": 173,
+    "fatality_tagged_investigations": 11,
+    "incident_or_collision_over_25000_usd_tagged_investigations": 101,
+    "distinct_depth_qualified_leases": 267,
+    "minimum_joined_lease_depth_metres": 305,
+    "maximum_joined_lease_depth_metres": 2944,
+    "deepwater_horizon_release_barrels": 3200000,
+    "deepwater_horizon_deaths": 11,
+    "deepwater_horizon_injuries": 17,
+    "natural_resource_restoration_settlement_usd": 8800000000,
+    "total_civil_resolution_usd": 20800000000,
+    "restoration_payment_period_years": 15,
+    "directly_assessed_countries": [
+      "United States"
+    ],
+    "directly_assessed_country_count": 1
+  },
+  "recent_complete_years": [
+    {
+      "year": 2021,
+      "investigations": 35,
+      "pollution_or_spill": 6,
+      "fatality": 1,
+      "injury_or_work_restriction": 10
+    },
+    {
+      "year": 2022,
+      "investigations": 18,
+      "pollution_or_spill": 5,
+      "fatality": 0,
+      "injury_or_work_restriction": 4
+    },
+    {
+      "year": 2023,
+      "investigations": 14,
+      "pollution_or_spill": 1,
+      "fatality": 0,
+      "injury_or_work_restriction": 3
+    },
+    {
+      "year": 2024,
+      "investigations": 21,
+      "pollution_or_spill": 2,
+      "fatality": 0,
+      "injury_or_work_restriction": 10
+    },
+    {
+      "year": 2025,
+      "investigations": 19,
+      "pollution_or_spill": 3,
+      "fatality": 0,
+      "injury_or_work_restriction": 5
+    }
+  ],
+  "source_backed_normalization_anchors": {
+    "documented_release_barrels": [
+      0,
+      50,
+      1000,
+      3200000
+    ],
+    "civil_resolution_usd": [
+      0,
+      25000,
+      8800000000,
+      20800000000
+    ],
+    "restoration_payment_period_years": [
+      0,
+      1,
+      6,
+      15
+    ],
+    "directly_assessed_country_count": [
+      0,
+      1,
+      5,
+      25
+    ]
+  },
+  "uncertainty": "The assessment is bounded to the U.S. Outer Continental Shelf and is not extrapolated globally. Lease maximum water depth is a screening field rather than the exact incident-site depth. Investigation records provide category tags, not release volume or exact event-level casualties; therefore physical and monetary magnitude rely on the separately assessed Deepwater Horizon event. The 1995 partial year and incomplete 2026 records are excluded. Formal investigations are selected cases and cannot be interpreted as the incidence rate for all deepwater operations."
+}

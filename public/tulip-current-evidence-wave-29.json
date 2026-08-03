@@ -1,0 +1,102 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_29_unctad_global_shipping",
+  "generated_at": "2026-07-31T22:57:35.898Z",
+  "source_snapshot": "public/unctad-maritime-bottleneck-impact-snapshot.json",
+  "source_id": "unctad_review_of_maritime_transport_2024",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "shipping",
+      "value": 8.8,
+      "band": "Critical",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "magnitude": 0.89,
+        "threshold": 0.9,
+        "momentum": 0.82675,
+        "extent": 0.8
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "shipping_carbon_emissions_growth_2024_pct": 5,
+          "comparison_year": 2023,
+          "anchors_pct": [
+            0,
+            1,
+            3,
+            6
+          ],
+          "attribution_boundary": "UNCTAD estimate driven by rerouting and increased speeds; not a fuel-ledger total."
+        },
+        "threshold": {
+          "active_fleet_conventional_fuel_share_pct_lower_bound": 90,
+          "world_fleet_vessels": 112500,
+          "world_fleet_deadweight_tonnage_billion": 2.44,
+          "anchors_pct": [
+            0,
+            33,
+            67,
+            100
+          ],
+          "transition_reference": "UNCTAD/IMO net-zero course requires transition away from conventional fuels; this component measures present fleet distance from a zero-conventional-fuel endpoint."
+        },
+        "momentum": {
+          "vessel_ton_mile_growth_2024_pct": 5.9,
+          "maritime_trade_volume_growth_2024_pct_context": 2,
+          "anchors_pct": [
+            0,
+            2,
+            4,
+            8
+          ]
+        },
+        "extent": {
+          "seaborne_share_of_world_trade_volume_pct": 80,
+          "normalized_value": 0.8,
+          "boundary": "Share of international merchandise trade volume, not share of all economic activity."
+        },
+        "source_snapshot": {
+          "path": "public/unctad-maritime-bottleneck-impact-snapshot.json",
+          "version": "unctad_review_maritime_transport_2024_2025_bottleneck_v1",
+          "captured_at": "2026-07-31T21:51:19.574Z",
+          "source_locators": [
+            "UNCTAD Review of Maritime Transport 2025 overview: 2024 ton-miles rose 5.9 percent, nearly three times trade-volume growth.",
+            "UNCTAD Review of Maritime Transport 2025 chapter 2: shipping carbon emissions increased an estimated 5 percent in 2024 over 2023.",
+            "UNCTAD Review of Maritime Transport 2025 overview: over 90 percent of the active fleet still runs on conventional fuels; January 2025 fleet counted 112,500 vessels and 2.44 billion deadweight tons.",
+            "UNCTAD Review of Maritime Transport 2024: over 80 percent of world trade volume moves by sea and 2023 route disruptions raised ton-miles 4.2 percent.",
+            "UNCTAD freight update, 18 October 2024: SCFI remained 115 percent above the pre-pandemic average and more than double the 2023 average.",
+            "UNCTAD Review of Maritime Transport 2025 chapter 3: port congestion persisted through 2024 and into 2025."
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "current_emissions_change",
+          "formula": "Normalize the UNCTAD estimated year-over-year shipping carbon-emissions increase through fixed percentage anchors."
+        },
+        {
+          "type": "fleet_transition_distance",
+          "formula": "Normalize the lower-bound conventional-fuel share of the active global fleet against a zero-conventional-fuel transition endpoint."
+        },
+        {
+          "type": "activity_momentum",
+          "formula": "Normalize current global vessel ton-mile growth; retain maritime trade-volume growth separately as context."
+        }
+      ],
+      "source_ids": [
+        "unctad_review_of_maritime_transport_2024"
+      ],
+      "uncertainty": "Freight indices cover selected routes and prices; port calls are activity rather than congestion duration; rerouting attribution, vessel capacity, cargo mix, blank sailings, contracts, fuel, insurance and reporting timing affect comparisons. Carbon-emissions growth is an UNCTAD estimate rather than a reconciled global fuel ledger; conventional-fuel share is reported as a lower bound.",
+      "freshness": "UNCTAD Review of Maritime Transport 2025, using 2024 activity and emissions; snapshot captured 2026-07-31T21:51:19.574Z.",
+      "selection_reason": {
+        "selected_method_passed": "UNCTAD supplies current global shipping emissions change, active-fleet fuel-transition position, ton-mile momentum and a global trade-volume exposure share.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:a4c58ac4"
+    }
+  ]
+}

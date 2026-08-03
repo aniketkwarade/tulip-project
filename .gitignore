@@ -1,0 +1,57 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.viz/
+dist/
+dist-ssr/
+*.local
+
+# Local secrets and deployment state
+.env
+.env.*
+!.env.example
+!.env.local.example
+.vercel/
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Chrome profile temp dirs
+chrome-debug-profile-unique
+chrome-snapshot-profile-clean
+
+# Temporary output directories
+output/
+Reference_PDF Output/
+tmp/
+
+# Generated platform build artifacts
+macOS/LostPlanetMac/.build/
+experiments/kedro-eia-lineage-pilot/build/
+
+# Reference material that is not licensed for redistribution
+assets/_OceanofPDF*

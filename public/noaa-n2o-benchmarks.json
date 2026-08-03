@@ -1,0 +1,49 @@
+{
+  "updated_at": "2026-07-15",
+  "version": "2026-07-15T23:59:00.000Z",
+  "snapshot_family": "nitrous_oxide_benchmark_support",
+  "source": {
+    "id": "noaa_global_monitoring_laboratory_nitrous_oxide_trends",
+    "name": "NOAA Global Monitoring Laboratory, Nitrous Oxide Trends",
+    "url": "https://gml.noaa.gov/ccgg/trends_n2o/",
+    "publisher": "NOAA Global Monitoring Laboratory",
+    "access": "open_download"
+  },
+  "refresh_policy": {
+    "default_days": 35,
+    "notes": "Treat this as a benchmark snapshot for atmospheric N2O trend support. Refresh on NOAA trend-page updates rather than presenting it as a live chemistry feed."
+  },
+  "use_guidance": {
+    "primary_role": "Support nitrous-oxide nodes with an official atmospheric benchmark layer and direct routing to the global budget literature.",
+    "caution": "Use this for anchor calibration and trend framing. Do not infer local emissions or real-time atmospheric conditions from this bundle."
+  },
+  "overview": {
+    "title": "NOAA nitrous oxide trend support",
+    "description": "NOAA GML maintains long-run atmospheric N2O trend surfaces built from global flask measurements and benchmark trend analysis.",
+    "dataset_scope": "global atmospheric trend support",
+    "measurement_network": "NOAA GML flask measurement network"
+  },
+  "tools": [
+    {
+      "id": "gml_n2o_trends",
+      "label": "NOAA N2O trends",
+      "url": "https://gml.noaa.gov/ccgg/trends_n2o/",
+      "type": "trend_page",
+      "access": "open"
+    },
+    {
+      "id": "gml_trends_home",
+      "label": "NOAA GML greenhouse gas trends",
+      "url": "https://gml.noaa.gov/ccgg/trends/",
+      "type": "portal",
+      "access": "open"
+    },
+    {
+      "id": "global_n2o_budget_paper",
+      "label": "Global Nitrous Oxide Budget 1980-2020",
+      "url": "https://doi.org/10.5194/essd-16-2543-2024",
+      "type": "paper",
+      "access": "open"
+    }
+  ]
+}

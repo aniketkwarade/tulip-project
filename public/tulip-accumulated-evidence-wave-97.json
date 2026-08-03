@@ -1,0 +1,120 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_97_tongass_old_growth_logging",
+  "generated_at": "2026-08-01T18:14:39.828Z",
+  "source_snapshots": [
+    "public/tongass-old-growth-logging-impact-snapshot.json"
+  ],
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "old_growth_forest_logging",
+      "value": 8.6,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2014",
+      "components": {
+        "biophysical_burden": 0.95875,
+        "human_economic_burden": 0.7008,
+        "persistence": 0.9384,
+        "extent": 0.736786
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "productive_old_growth_harvested_acres_estimated": 450000,
+          "inventory_based_1954_1995_acres": 405000,
+          "volume_derived_1909_1954_acres_estimated": 45000,
+          "normalization_anchors_acres": [
+            0,
+            1000,
+            100000,
+            500000
+          ]
+        },
+        "human_economic_burden": {
+          "average_annual_timber_program_expenditures_million_usd_fy2005_2014": 12.5,
+          "average_annual_timber_program_revenue_million_usd_fy2005_2014": 1.1,
+          "average_annual_net_public_cost_million_usd_derived": 11.4,
+          "normalization_anchors_million_usd": [
+            0,
+            1,
+            10,
+            25
+          ]
+        },
+        "persistence": {
+          "first_harvest_year": 1909,
+          "cumulative_assessment_year": 1995,
+          "documented_harvest_span_years_derived": 86,
+          "normalization_anchors_years": [
+            0,
+            1,
+            25,
+            100
+          ]
+        },
+        "extent": {
+          "productive_forest_acres": 5600000,
+          "productive_forest_share_harvested_percent_derived": 8.035714,
+          "normalization_anchors_percent": [
+            0,
+            1,
+            5,
+            20
+          ]
+        },
+        "source_snapshot": {
+          "path": "public/tongass-old-growth-logging-impact-snapshot.json",
+          "version": "tongass_old_growth_logging_1909_2014_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z",
+          "source_locators": [
+            "The assessment defines Tongass old-growth sawtimber as over 150 years old while noting that the full complement of old-growth features may not occur until about 250 years.",
+            "It reports 405,000 acres of productive old growth harvested from 1954–1995 and estimates another 45,000 acres from 1909–1954, for 450,000 acres total.",
+            "The assessment reports about 5.6 million acres of productive forest and states that clearcut even-aged management was the predominant harvest method.",
+            "GAO states that the Tongass timber program had been based on harvesting old-growth trees since the early twentieth century and that the transition to young growth was announced in 2010.",
+            "Forest Service data reviewed by GAO show average annual timber-related expenditures of $12.5 million and revenues of $1.1 million from fiscal years 2005–2014.",
+            "The expenditure figure excludes road construction and maintenance; the receipt therefore does not add an estimated road cost."
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "explicit_old_growth_harvest_area",
+          "formula": "Normalize the Forest Service estimate of 450,000 productive old-growth acres harvested, preserving the inventory-based and volume-derived portions separately."
+        },
+        {
+          "type": "realized_net_public_cost",
+          "formula": "Calculate $12.5 million average annual expenditures - $1.1 million average annual revenues = $11.4 million from FY2005–2014; do not add unreported road costs."
+        },
+        {
+          "type": "documented_harvest_span",
+          "formula": "Calculate 1995 - 1909 = 86 years for the cumulative old-growth harvest assessment."
+        },
+        {
+          "type": "productive_forest_share",
+          "formula": "Calculate 450,000 / 5,600,000 × 100 = 8.035714 percent within the Tongass productive-forest boundary."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "usfs_tongass_goshawk_conservation_assessment_1996",
+        "gao_tongass_timber_program_transition_2016"
+      ],
+      "uncertainty": "The 45,000-acre 1909–1954 quantity is estimated from reported saw-log volume and an assumed per-acre harvest volume, while the 405,000-acre 1954–1995 quantity is inventory-based. Productive forest is a timber-capability class and is not identical to the old-growth denominator in every ecological interpretation. The 2005–2014 fiscal figures cover the Tongass timber program during a period when GAO describes the program as historically old-growth-based, but the figures are not allocated sale-by-sale between old and young growth. Net public cost excludes road construction and maintenance and is an administrative fiscal burden, not an ecological valuation.",
+      "freshness": "Cumulative 1909–1995 harvest assessment and FY2005–2014 program accounts reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "Forest Service and GAO records provide an explicit old-growth definition, accumulated harvest area, duration, productive-forest extent and realized timber-program expenditure and revenue burden.",
+        "higher_priority_failures": [
+          "The evidence is a named U.S. national forest rather than a defensible global current aggregation.",
+          "No globally comparable annual old-growth-harvest series with a stable old-growth definition and at least 20 complete years is available for the current-data method."
+        ]
+      },
+      "input_hash": "fnv1a32:b4d21c57"
+    }
+  ]
+}

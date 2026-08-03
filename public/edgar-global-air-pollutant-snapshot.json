@@ -1,0 +1,241 @@
+{
+  "version": "edgar_v81_global_air_pollutant_2022_v1",
+  "captured_at": "2026-08-01T00:00:00.000Z",
+  "source": {
+    "id": "edgar_global_air_pollutant_emissions_v81",
+    "name": "EDGAR v8.1 Global Air Pollutant Emissions",
+    "publisher": "European Commission Joint Research Centre",
+    "url": "https://edgar.jrc.ec.europa.eu/index.php/dataset_ap81",
+    "archive_url": "https://jeodpp.jrc.ec.europa.eu/ftp/jrc-opendata/EDGAR/datasets/v81_FT2022_AP_new/EDGAR_NMVOC_1970_2022.zip",
+    "archive_sha256": "e25ceb744534609bc88f98d26bb1fd611cb3763e1e803a8287421a2b3ebffe5a",
+    "release": "EDGAR v8.1 August 2024",
+    "workbook": "EDGAR_NMVOC_1970_2022.xlsx",
+    "sheet": "TOTALS BY COUNTRY",
+    "source_country_rows": 223,
+    "unit": "Gg NMVOC per year"
+  },
+  "metric_contract": {
+    "metric_id": "global_anthropogenic_nmvoc_emissions",
+    "aggregation": "Sum finite annual EDGAR country-total rows once; do not add sector sheets or regional groups.",
+    "coverage": "Global anthropogenic emissions excluding large-scale biomass burning and LULUCF.",
+    "cadence": "Annual, latest complete EDGAR release year",
+    "direction": "higher_is_worse"
+  },
+  "records": [
+    {
+      "year": 1970,
+      "global_total_gg": 82284.814768
+    },
+    {
+      "year": 1971,
+      "global_total_gg": 81977.583755
+    },
+    {
+      "year": 1972,
+      "global_total_gg": 84272.007569
+    },
+    {
+      "year": 1973,
+      "global_total_gg": 86815.836881
+    },
+    {
+      "year": 1974,
+      "global_total_gg": 86477.819437
+    },
+    {
+      "year": 1975,
+      "global_total_gg": 87236.77005
+    },
+    {
+      "year": 1976,
+      "global_total_gg": 90109.506998
+    },
+    {
+      "year": 1977,
+      "global_total_gg": 92274.524066
+    },
+    {
+      "year": 1978,
+      "global_total_gg": 94083.873454
+    },
+    {
+      "year": 1979,
+      "global_total_gg": 95754.262987
+    },
+    {
+      "year": 1980,
+      "global_total_gg": 94958.557014
+    },
+    {
+      "year": 1981,
+      "global_total_gg": 94297.351348
+    },
+    {
+      "year": 1982,
+      "global_total_gg": 94228.510698
+    },
+    {
+      "year": 1983,
+      "global_total_gg": 94416.874703
+    },
+    {
+      "year": 1984,
+      "global_total_gg": 96163.149474
+    },
+    {
+      "year": 1985,
+      "global_total_gg": 95890.633155
+    },
+    {
+      "year": 1986,
+      "global_total_gg": 98244.839052
+    },
+    {
+      "year": 1987,
+      "global_total_gg": 99738.651316
+    },
+    {
+      "year": 1988,
+      "global_total_gg": 102033.703578
+    },
+    {
+      "year": 1989,
+      "global_total_gg": 103112.906168
+    },
+    {
+      "year": 1990,
+      "global_total_gg": 104745.066539
+    },
+    {
+      "year": 1991,
+      "global_total_gg": 105190.714154
+    },
+    {
+      "year": 1992,
+      "global_total_gg": 105968.53745
+    },
+    {
+      "year": 1993,
+      "global_total_gg": 105940.775435
+    },
+    {
+      "year": 1994,
+      "global_total_gg": 106055.728078
+    },
+    {
+      "year": 1995,
+      "global_total_gg": 107140.510683
+    },
+    {
+      "year": 1996,
+      "global_total_gg": 107734.719513
+    },
+    {
+      "year": 1997,
+      "global_total_gg": 108688.224993
+    },
+    {
+      "year": 1998,
+      "global_total_gg": 108645.274117
+    },
+    {
+      "year": 1999,
+      "global_total_gg": 108639.886383
+    },
+    {
+      "year": 2000,
+      "global_total_gg": 109250.557495
+    },
+    {
+      "year": 2001,
+      "global_total_gg": 109518.111604
+    },
+    {
+      "year": 2002,
+      "global_total_gg": 110279.016856
+    },
+    {
+      "year": 2003,
+      "global_total_gg": 112735.7917
+    },
+    {
+      "year": 2004,
+      "global_total_gg": 116111.772969
+    },
+    {
+      "year": 2005,
+      "global_total_gg": 118546.361052
+    },
+    {
+      "year": 2006,
+      "global_total_gg": 119846.897648
+    },
+    {
+      "year": 2007,
+      "global_total_gg": 121335.566217
+    },
+    {
+      "year": 2008,
+      "global_total_gg": 122396.952908
+    },
+    {
+      "year": 2009,
+      "global_total_gg": 121793.38086
+    },
+    {
+      "year": 2010,
+      "global_total_gg": 125195.197133
+    },
+    {
+      "year": 2011,
+      "global_total_gg": 127209.703048
+    },
+    {
+      "year": 2012,
+      "global_total_gg": 129123.49686
+    },
+    {
+      "year": 2013,
+      "global_total_gg": 129889.885088
+    },
+    {
+      "year": 2014,
+      "global_total_gg": 130594.330167
+    },
+    {
+      "year": 2015,
+      "global_total_gg": 130684.379006
+    },
+    {
+      "year": 2016,
+      "global_total_gg": 130364.927688
+    },
+    {
+      "year": 2017,
+      "global_total_gg": 131967.322359
+    },
+    {
+      "year": 2018,
+      "global_total_gg": 133374.089134
+    },
+    {
+      "year": 2019,
+      "global_total_gg": 134557.990644
+    },
+    {
+      "year": 2020,
+      "global_total_gg": 132545.86664
+    },
+    {
+      "year": 2021,
+      "global_total_gg": 135891.837778
+    },
+    {
+      "year": 2022,
+      "global_total_gg": 138115.182136
+    }
+  ],
+  "record_count": 53,
+  "uncertainty": "EDGAR emissions combine source activity data, technology penetration, abatement assumptions and emission factors. The series measures anthropogenic NMVOC emissions, not ambient VOC concentration or toxicity-weighted exposure. Large-scale biomass burning and LULUCF are excluded.",
+  "failure_behavior": "Retain the last validated source release and mark stale. Never treat missing country-year values as zero outside the source-native aggregation or substitute carbon monoxide, methane, total hydrocarbons, or ozone concentration for NMVOC."
+}

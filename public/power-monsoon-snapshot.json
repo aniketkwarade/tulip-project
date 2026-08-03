@@ -1,0 +1,477 @@
+{
+  "version": "power_indian_monsoon_rainfall_2025_v1",
+  "captured_at": "2026-07-19T01:24:06.075Z",
+  "source": {
+    "id": "nasa_power_monsoon_rainfall_pilot",
+    "name": "NASA POWER Monsoon Rainfall Pilot",
+    "url": "https://power.larc.nasa.gov/docs/services/api/temporal/daily/",
+    "access": "open_api"
+  },
+  "ingestion_job_id": "fetch_power_indian_monsoon_rainfall",
+  "metric_contract_ids": [
+    "monsoon_onset_and_seasonal_rainfall_variability"
+  ],
+  "cadence": "annual complete-season refresh after NASA POWER source replacement lag; source metadata checked monthly",
+  "provenance": "NASA POWER daily PRECTOTCORR values requested at the 14 locations named in the IMD Kerala-onset rainfall criterion. The operational rainfall gate applies the published 60 percent, 2.5 mm per day, two-consecutive-day rule after 10 May. June-September station-panel mean rainfall is compared with 1991-2020.",
+  "uncertainty": "NASA POWER is a gridded reanalysis-derived product, not the IMD station network. Grid assignment, precipitation bias, requested point coordinates, missing values, the station-mean aggregation, baseline, and retrospective replacement affect the result.",
+  "failure_behavior": "Retain the last validated complete-season snapshot and mark stale; reject fewer than 27 complete baseline years, an incomplete observation panel, or an absent rainfall-gate date; never fill missing rainfall with zero.",
+  "measurement_boundary": "This is a rainfall-gate proxy and seasonal-rainfall indicator. It is not an official IMD monsoon-onset declaration because it does not evaluate the required wind-field and outgoing-longwave-radiation criteria. It must not be compared with onset metrics using other definitions without reconciliation.",
+  "record_count": 1,
+  "records": [
+    {
+      "record_id": "power_indian_monsoon_rainfall_2025",
+      "metric_id": "monsoon_onset_and_seasonal_rainfall_variability",
+      "geography": "IMD Kerala-onset 14-location rainfall panel represented by NASA POWER grid points",
+      "observation_year": 2025,
+      "reference_location_count": 14,
+      "complete_reference_locations": 14,
+      "rainfall_gate_threshold_mm_day": 2.5,
+      "rainfall_gate_panel_fraction": 0.6,
+      "rainfall_gate_locations_required": 9,
+      "rainfall_gate_consecutive_days": 2,
+      "rainfall_gate_date": "20250513",
+      "rainfall_gate_day_of_year": 133,
+      "baseline_period": "1991-2020",
+      "baseline_valid_onset_years": 30,
+      "baseline_mean_rainfall_gate_day_of_year": 139.9,
+      "onset_anomaly_days": -6.9,
+      "onset_anomaly_direction": "earlier",
+      "seasonal_window": "June-September",
+      "seasonal_panel_mean_rainfall_mm": 1493.27,
+      "baseline_mean_seasonal_panel_rainfall_mm": 1638.09,
+      "seasonal_rainfall_anomaly_mm": -144.82,
+      "seasonal_rainfall_anomaly_pct": -8.8,
+      "seasonal_rainfall_standardized_anomaly": -0.46,
+      "baseline_onset_and_rainfall": [
+        {
+          "year": 1991,
+          "rainfall_gate_date": "19910602",
+          "rainfall_gate_day_of_year": 153,
+          "jjas_panel_mean_total_mm": 1988.17,
+          "complete_locations": 14
+        },
+        {
+          "year": 1992,
+          "rainfall_gate_date": "19920515",
+          "rainfall_gate_day_of_year": 136,
+          "jjas_panel_mean_total_mm": 1789.62,
+          "complete_locations": 14
+        },
+        {
+          "year": 1993,
+          "rainfall_gate_date": "19930515",
+          "rainfall_gate_day_of_year": 135,
+          "jjas_panel_mean_total_mm": 1428.87,
+          "complete_locations": 14
+        },
+        {
+          "year": 1994,
+          "rainfall_gate_date": "19940527",
+          "rainfall_gate_day_of_year": 147,
+          "jjas_panel_mean_total_mm": 1847.62,
+          "complete_locations": 14
+        },
+        {
+          "year": 1995,
+          "rainfall_gate_date": "19950512",
+          "rainfall_gate_day_of_year": 132,
+          "jjas_panel_mean_total_mm": 1590.25,
+          "complete_locations": 14
+        },
+        {
+          "year": 1996,
+          "rainfall_gate_date": "19960528",
+          "rainfall_gate_day_of_year": 149,
+          "jjas_panel_mean_total_mm": 1621.4,
+          "complete_locations": 14
+        },
+        {
+          "year": 1997,
+          "rainfall_gate_date": "19970606",
+          "rainfall_gate_day_of_year": 157,
+          "jjas_panel_mean_total_mm": 2171.1,
+          "complete_locations": 14
+        },
+        {
+          "year": 1998,
+          "rainfall_gate_date": "19980512",
+          "rainfall_gate_day_of_year": 132,
+          "jjas_panel_mean_total_mm": 1768,
+          "complete_locations": 14
+        },
+        {
+          "year": 1999,
+          "rainfall_gate_date": "19990513",
+          "rainfall_gate_day_of_year": 133,
+          "jjas_panel_mean_total_mm": 1208.74,
+          "complete_locations": 14
+        },
+        {
+          "year": 2000,
+          "rainfall_gate_date": "20000517",
+          "rainfall_gate_day_of_year": 138,
+          "jjas_panel_mean_total_mm": 1201.91,
+          "complete_locations": 14
+        },
+        {
+          "year": 2001,
+          "rainfall_gate_date": "20010521",
+          "rainfall_gate_day_of_year": 141,
+          "jjas_panel_mean_total_mm": 1545.38,
+          "complete_locations": 14
+        },
+        {
+          "year": 2002,
+          "rainfall_gate_date": "20020512",
+          "rainfall_gate_day_of_year": 132,
+          "jjas_panel_mean_total_mm": 1079.12,
+          "complete_locations": 14
+        },
+        {
+          "year": 2003,
+          "rainfall_gate_date": "20030608",
+          "rainfall_gate_day_of_year": 159,
+          "jjas_panel_mean_total_mm": 1339.62,
+          "complete_locations": 14
+        },
+        {
+          "year": 2004,
+          "rainfall_gate_date": "20040516",
+          "rainfall_gate_day_of_year": 137,
+          "jjas_panel_mean_total_mm": 1340.18,
+          "complete_locations": 14
+        },
+        {
+          "year": 2005,
+          "rainfall_gate_date": "20050527",
+          "rainfall_gate_day_of_year": 147,
+          "jjas_panel_mean_total_mm": 1570.38,
+          "complete_locations": 14
+        },
+        {
+          "year": 2006,
+          "rainfall_gate_date": "20060519",
+          "rainfall_gate_day_of_year": 139,
+          "jjas_panel_mean_total_mm": 1701.07,
+          "complete_locations": 14
+        },
+        {
+          "year": 2007,
+          "rainfall_gate_date": "20070527",
+          "rainfall_gate_day_of_year": 147,
+          "jjas_panel_mean_total_mm": 2237.76,
+          "complete_locations": 14
+        },
+        {
+          "year": 2008,
+          "rainfall_gate_date": "20080521",
+          "rainfall_gate_day_of_year": 142,
+          "jjas_panel_mean_total_mm": 1510.05,
+          "complete_locations": 14
+        },
+        {
+          "year": 2009,
+          "rainfall_gate_date": "20090517",
+          "rainfall_gate_day_of_year": 137,
+          "jjas_panel_mean_total_mm": 1769.65,
+          "complete_locations": 14
+        },
+        {
+          "year": 2010,
+          "rainfall_gate_date": "20100517",
+          "rainfall_gate_day_of_year": 137,
+          "jjas_panel_mean_total_mm": 1939.9,
+          "complete_locations": 14
+        },
+        {
+          "year": 2011,
+          "rainfall_gate_date": "20110526",
+          "rainfall_gate_day_of_year": 146,
+          "jjas_panel_mean_total_mm": 1718.42,
+          "complete_locations": 14
+        },
+        {
+          "year": 2012,
+          "rainfall_gate_date": "20120512",
+          "rainfall_gate_day_of_year": 133,
+          "jjas_panel_mean_total_mm": 1400.94,
+          "complete_locations": 14
+        },
+        {
+          "year": 2013,
+          "rainfall_gate_date": "20130523",
+          "rainfall_gate_day_of_year": 143,
+          "jjas_panel_mean_total_mm": 2258.8,
+          "complete_locations": 14
+        },
+        {
+          "year": 2014,
+          "rainfall_gate_date": "20140520",
+          "rainfall_gate_day_of_year": 140,
+          "jjas_panel_mean_total_mm": 1887.98,
+          "complete_locations": 14
+        },
+        {
+          "year": 2015,
+          "rainfall_gate_date": "20150512",
+          "rainfall_gate_day_of_year": 132,
+          "jjas_panel_mean_total_mm": 1300.76,
+          "complete_locations": 14
+        },
+        {
+          "year": 2016,
+          "rainfall_gate_date": "20160512",
+          "rainfall_gate_day_of_year": 133,
+          "jjas_panel_mean_total_mm": 1257.41,
+          "complete_locations": 14
+        },
+        {
+          "year": 2017,
+          "rainfall_gate_date": "20170512",
+          "rainfall_gate_day_of_year": 132,
+          "jjas_panel_mean_total_mm": 1425.49,
+          "complete_locations": 14
+        },
+        {
+          "year": 2018,
+          "rainfall_gate_date": "20180512",
+          "rainfall_gate_day_of_year": 132,
+          "jjas_panel_mean_total_mm": 1566.77,
+          "complete_locations": 14
+        },
+        {
+          "year": 2019,
+          "rainfall_gate_date": "20190524",
+          "rainfall_gate_day_of_year": 144,
+          "jjas_panel_mean_total_mm": 1731.46,
+          "complete_locations": 14
+        },
+        {
+          "year": 2020,
+          "rainfall_gate_date": "20200512",
+          "rainfall_gate_day_of_year": 133,
+          "jjas_panel_mean_total_mm": 1945.83,
+          "complete_locations": 14
+        }
+      ],
+      "observation_location_totals": [
+        {
+          "location_id": "minicoy",
+          "valid_days": 122,
+          "total_mm": 612.6800000000002
+        },
+        {
+          "location_id": "amini",
+          "valid_days": 122,
+          "total_mm": 1219.3799999999999
+        },
+        {
+          "location_id": "thiruvananthapuram",
+          "valid_days": 122,
+          "total_mm": 757.2399999999999
+        },
+        {
+          "location_id": "punalur",
+          "valid_days": 122,
+          "total_mm": 936.0999999999997
+        },
+        {
+          "location_id": "kollam",
+          "valid_days": 122,
+          "total_mm": 936.0999999999997
+        },
+        {
+          "location_id": "alappuzha",
+          "valid_days": 122,
+          "total_mm": 1502.4500000000005
+        },
+        {
+          "location_id": "kottayam",
+          "valid_days": 122,
+          "total_mm": 1502.4500000000005
+        },
+        {
+          "location_id": "kochi",
+          "valid_days": 122,
+          "total_mm": 1554.0400000000004
+        },
+        {
+          "location_id": "thrissur",
+          "valid_days": 122,
+          "total_mm": 1360.9099999999996
+        },
+        {
+          "location_id": "kozhikode",
+          "valid_days": 122,
+          "total_mm": 1452.719999999999
+        },
+        {
+          "location_id": "thalassery",
+          "valid_days": 122,
+          "total_mm": 1546.3100000000006
+        },
+        {
+          "location_id": "kannur",
+          "valid_days": 122,
+          "total_mm": 1546.3100000000006
+        },
+        {
+          "location_id": "kudulu",
+          "valid_days": 122,
+          "total_mm": 2672.9799999999996
+        },
+        {
+          "location_id": "mangaluru",
+          "valid_days": 122,
+          "total_mm": 3306.0899999999997
+        }
+      ],
+      "source_locator": {
+        "nasa_power_daily_api_docs": "https://power.larc.nasa.gov/docs/services/api/temporal/daily/",
+        "imd_onset_criteria": "https://mausamaudit.imd.gov.in/responsive/monsooninformation_onset.php",
+        "requests": [
+          {
+            "location_id": "minicoy",
+            "requested_latitude": 8.3,
+            "requested_longitude": 73.05,
+            "api_url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=PRECTOTCORR&community=AG&longitude=73.05&latitude=8.3&start=19910501&end=20250930&format=JSON&time-standard=UTC",
+            "api_version": "v2.9.4",
+            "source_products": [
+              "MERRA2"
+            ]
+          },
+          {
+            "location_id": "amini",
+            "requested_latitude": 11.12,
+            "requested_longitude": 72.73,
+            "api_url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=PRECTOTCORR&community=AG&longitude=72.73&latitude=11.12&start=19910501&end=20250930&format=JSON&time-standard=UTC",
+            "api_version": "v2.9.4",
+            "source_products": [
+              "MERRA2"
+            ]
+          },
+          {
+            "location_id": "thiruvananthapuram",
+            "requested_latitude": 8.48,
+            "requested_longitude": 76.95,
+            "api_url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=PRECTOTCORR&community=AG&longitude=76.95&latitude=8.48&start=19910501&end=20250930&format=JSON&time-standard=UTC",
+            "api_version": "v2.9.4",
+            "source_products": [
+              "MERRA2"
+            ]
+          },
+          {
+            "location_id": "punalur",
+            "requested_latitude": 9,
+            "requested_longitude": 76.93,
+            "api_url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=PRECTOTCORR&community=AG&longitude=76.93&latitude=9&start=19910501&end=20250930&format=JSON&time-standard=UTC",
+            "api_version": "v2.9.4",
+            "source_products": [
+              "MERRA2"
+            ]
+          },
+          {
+            "location_id": "kollam",
+            "requested_latitude": 8.89,
+            "requested_longitude": 76.59,
+            "api_url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=PRECTOTCORR&community=AG&longitude=76.59&latitude=8.89&start=19910501&end=20250930&format=JSON&time-standard=UTC",
+            "api_version": "v2.9.4",
+            "source_products": [
+              "MERRA2"
+            ]
+          },
+          {
+            "location_id": "alappuzha",
+            "requested_latitude": 9.49,
+            "requested_longitude": 76.33,
+            "api_url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=PRECTOTCORR&community=AG&longitude=76.33&latitude=9.49&start=19910501&end=20250930&format=JSON&time-standard=UTC",
+            "api_version": "v2.9.4",
+            "source_products": [
+              "MERRA2"
+            ]
+          },
+          {
+            "location_id": "kottayam",
+            "requested_latitude": 9.59,
+            "requested_longitude": 76.52,
+            "api_url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=PRECTOTCORR&community=AG&longitude=76.52&latitude=9.59&start=19910501&end=20250930&format=JSON&time-standard=UTC",
+            "api_version": "v2.9.4",
+            "source_products": [
+              "MERRA2"
+            ]
+          },
+          {
+            "location_id": "kochi",
+            "requested_latitude": 9.93,
+            "requested_longitude": 76.27,
+            "api_url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=PRECTOTCORR&community=AG&longitude=76.27&latitude=9.93&start=19910501&end=20250930&format=JSON&time-standard=UTC",
+            "api_version": "v2.9.4",
+            "source_products": [
+              "MERRA2"
+            ]
+          },
+          {
+            "location_id": "thrissur",
+            "requested_latitude": 10.53,
+            "requested_longitude": 76.21,
+            "api_url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=PRECTOTCORR&community=AG&longitude=76.21&latitude=10.53&start=19910501&end=20250930&format=JSON&time-standard=UTC",
+            "api_version": "v2.9.4",
+            "source_products": [
+              "MERRA2"
+            ]
+          },
+          {
+            "location_id": "kozhikode",
+            "requested_latitude": 11.25,
+            "requested_longitude": 75.78,
+            "api_url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=PRECTOTCORR&community=AG&longitude=75.78&latitude=11.25&start=19910501&end=20250930&format=JSON&time-standard=UTC",
+            "api_version": "v2.9.4",
+            "source_products": [
+              "MERRA2"
+            ]
+          },
+          {
+            "location_id": "thalassery",
+            "requested_latitude": 11.75,
+            "requested_longitude": 75.49,
+            "api_url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=PRECTOTCORR&community=AG&longitude=75.49&latitude=11.75&start=19910501&end=20250930&format=JSON&time-standard=UTC",
+            "api_version": "v2.9.4",
+            "source_products": [
+              "MERRA2"
+            ]
+          },
+          {
+            "location_id": "kannur",
+            "requested_latitude": 11.87,
+            "requested_longitude": 75.37,
+            "api_url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=PRECTOTCORR&community=AG&longitude=75.37&latitude=11.87&start=19910501&end=20250930&format=JSON&time-standard=UTC",
+            "api_version": "v2.9.4",
+            "source_products": [
+              "MERRA2"
+            ]
+          },
+          {
+            "location_id": "kudulu",
+            "requested_latitude": 12.53,
+            "requested_longitude": 74.95,
+            "api_url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=PRECTOTCORR&community=AG&longitude=74.95&latitude=12.53&start=19910501&end=20250930&format=JSON&time-standard=UTC",
+            "api_version": "v2.9.4",
+            "source_products": [
+              "MERRA2"
+            ]
+          },
+          {
+            "location_id": "mangaluru",
+            "requested_latitude": 12.91,
+            "requested_longitude": 74.86,
+            "api_url": "https://power.larc.nasa.gov/api/temporal/daily/point?parameters=PRECTOTCORR&community=AG&longitude=74.86&latitude=12.91&start=19910501&end=20250930&format=JSON&time-standard=UTC",
+            "api_version": "v2.9.4",
+            "source_products": [
+              "MERRA2"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

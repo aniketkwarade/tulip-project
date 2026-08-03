@@ -1,0 +1,85 @@
+{
+  "updated_at": "2026-07-18",
+  "version": "2026-07-18T12:51:10.458Z",
+  "snapshot_family": "ocean_observation_support",
+  "source": {
+    "id": "noaa_wod",
+    "name": "World Ocean Database",
+    "url": "https://www.ncei.noaa.gov/products/world-ocean-database",
+    "publisher": "NOAA NCEI",
+    "access": "open"
+  },
+  "refresh_policy": {
+    "default_days": 56,
+    "notes": "Treat WOD as an official ocean-observation support and query layer. Refresh on major releases and quarterly update cycles rather than as a real-time feed."
+  },
+  "use_guidance": {
+    "primary_role": "Use for oxygen-rich ocean observation support, query access, and long-run marine profile context on oxygen, fisheries, and ocean-state nodes.",
+    "caution": "WOD is a powerful observational database and query system, but custom downloads are request/query driven rather than a simple browser-side live API."
+  },
+  "overview": {
+    "title": "World Ocean Database",
+    "description": "The World Ocean Database (WOD) is world's largest collection of uniformly formatted, quality controlled, publicly available ocean profile data. It is a powerful tool for oceanographic, climatic, and environmental research, and the end result of more than 20 years of coordinated efforts to incorporate data from institutions, agencies, individual researchers, and data recovery initiatives into a single database. WOD data spans from Captain Cook's 1772 voyage to the contemporary Argo period, making it a valuable resource for long term and historical ocean climate analysis.",
+    "current_version": "WOD23",
+    "profile_scale": {
+      "casts": "18.6 million",
+      "measurements": "3.13 billion"
+    }
+  },
+  "tools": [
+    {
+      "id": "wodselect",
+      "label": "Launch WODSelect",
+      "url": "https://www.ncei.noaa.gov/access/world-ocean-database-select/dbsearch.html",
+      "type": "query",
+      "access": "open",
+      "notes": "Search by date, geography, probe type, and measured variables, then export CSV or netCDF subsets."
+    },
+    {
+      "id": "wod_updates",
+      "label": "WOD Updates",
+      "url": "https://www.ncei.noaa.gov/access/world-ocean-database/wod-updates.html",
+      "type": "updates",
+      "access": "open"
+    },
+    {
+      "id": "wod_data_by_location",
+      "label": "Data by Location",
+      "url": "https://www.ncei.noaa.gov/access/world-ocean-database/datawodgeo.html",
+      "type": "query",
+      "access": "open"
+    },
+    {
+      "id": "wod_data_by_year",
+      "label": "Data by Year",
+      "url": "https://www.ncei.noaa.gov/access/world-ocean-database/bin/getwodyearlydata.pl?Go=TimeSorted",
+      "type": "download_index",
+      "access": "open"
+    },
+    {
+      "id": "wod_introduction",
+      "label": "WOD Introduction",
+      "url": "https://www.ncei.noaa.gov/data/oceans/woa/WOD/DOC/wod_intro.pdf",
+      "type": "documentation",
+      "access": "open"
+    },
+    {
+      "id": "wod_manual",
+      "label": "WOD User Manual",
+      "url": "https://www.ncei.noaa.gov/data/oceans/woa/WOD/DOC/wodreadme.pdf",
+      "type": "documentation",
+      "access": "open"
+    }
+  ],
+  "observed_variables": [
+    "oxygen",
+    "temperature",
+    "salinity",
+    "nutrients"
+  ],
+  "supported_questions": [
+    "Which ocean nodes should inherit oxygen-capable observational support beyond coral heat stress and acidification portals?",
+    "Where should fisheries and hypoxia-adjacent nodes point for queryable, official marine profile data?",
+    "Which ocean bundles should emphasize custom query and long-run observation access rather than live-feed rhetoric?"
+  ]
+}

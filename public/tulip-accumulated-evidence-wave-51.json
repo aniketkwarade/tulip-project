@@ -1,0 +1,120 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_51_us_climate_insurance_retreat",
+  "generated_at": "2026-08-01T15:38:08.386Z",
+  "source_snapshots": [
+    "public/us-climate-insurance-retreat-impact-snapshot.json"
+  ],
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "insurance_retreat",
+      "value": 7.9,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2022",
+      "components": {
+        "biophysical_burden": 0.8713,
+        "human_economic_burden": 0.8812,
+        "persistence": 0.764286,
+        "extent": 0.33
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "highest_risk_zip_average_nonrenewal_rate_pct": 1.61,
+          "highest_vs_lowest_risk_nonrenewal_rate_increase_pct": 80,
+          "normalization_anchors_nonrenewal_rate_pct": [
+            0,
+            0.5,
+            1,
+            2
+          ]
+        },
+        "human_economic_burden": {
+          "highest_risk_zip_average_premium_usd": 2321,
+          "highest_vs_lowest_risk_premium_increase_pct": 82,
+          "highest_vs_lowest_risk_paid_loss_ratio_increase_pct": 18,
+          "highest_risk_average_claim_severity_usd": 24000,
+          "lowest_risk_average_claim_severity_usd": 19000,
+          "normalization_anchors_premium_increase_pct": [
+            0,
+            10,
+            50,
+            100
+          ]
+        },
+        "persistence": {
+          "observation_start_year": 2018,
+          "observation_end_year": 2022,
+          "observation_years": 5,
+          "highest_risk_nonrenewal_increased_more_over_period": true,
+          "normalization_anchors_years": [
+            0,
+            1,
+            3,
+            10
+          ]
+        },
+        "extent": {
+          "directly_assessed_countries": [
+            "United States"
+          ],
+          "directly_assessed_country_count": 1,
+          "us_regions": 7,
+          "regions_where_highest_risk_zip_nonrenewal_exceeded_lowest_risk_zip_nonrenewal": 6,
+          "normalization_anchors_countries": [
+            0,
+            1,
+            10,
+            50
+          ],
+          "scoring_boundary": "The evidence is nationally comprehensive for the United States but is not extrapolated to other countries."
+        },
+        "source_snapshot": {
+          "path": "public/us-climate-insurance-retreat-impact-snapshot.json",
+          "version": "us_climate_insurance_retreat_2018_2022_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z",
+          "policy_years_lower_bound": 246000000,
+          "insurer_count_lower_bound": 330
+        }
+      },
+      "transformations": [
+        {
+          "type": "observed_nonrenewal_burden_normalization",
+          "formula": "Normalize the five-year average policy nonrenewal rate in the highest climate-peril-risk ZIP Code quintile; retain the reported 80 percent high-versus-low risk contrast as corroborating evidence."
+        },
+        {
+          "type": "household_cost_burden_normalization",
+          "formula": "Normalize the reported premium difference between the highest and lowest climate-peril-risk ZIP Code quintiles; retain paid-loss and claim-severity differences without adding them as duplicate points."
+        },
+        {
+          "type": "observed_period_persistence_normalization",
+          "formula": "Normalize the five-year observed reporting interval and retain the source finding that nonrenewal rates increased more in the highest-risk areas."
+        },
+        {
+          "type": "bounded_country_extent_normalization",
+          "formula": "Normalize only the one directly assessed country; nationwide coverage across seven U.S. regions does not become global coverage."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1–10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "us_treasury_fio_homeowners_insurance_climate_risk_2025"
+      ],
+      "uncertainty": "The Federal Insurance Office analysis covers owner-occupied homeowners multi-peril policies reported by participating insurers and aggregates protected records to ZIP Code. Public data are suppressed where fewer than ten insurers or fifty policies are represented. Flood insurance is excluded, expected annual loss is modeled, and nonrenewal can reflect multiple underwriting and market factors; the report establishes association with climate-peril risk, not exclusive causal attribution.",
+      "freshness": "National policy records cover 2018–2022; Federal Insurance Office analysis released in 2025 and reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "A national administrative dataset directly quantifies policy nonrenewal, worsening availability, household premium burden and insurer loss pressure across more than 246 million policy-years.",
+        "higher_priority_failures": [
+          "The public series contains five annual observations and therefore does not satisfy the 20-annual-observation historical-distribution gate required for current_data.",
+          "The evidence is nationally comprehensive for the United States but not global; the extent component remains explicitly bounded to one country."
+        ]
+      },
+      "input_hash": "fnv1a32:84afab16"
+    }
+  ]
+}

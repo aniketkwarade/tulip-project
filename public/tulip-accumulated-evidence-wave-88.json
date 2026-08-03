@@ -1,0 +1,124 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_88_mumbai_watershed_forest_loss",
+  "generated_at": "2026-08-01T17:39:14.109Z",
+  "source_snapshots": [
+    "public/mumbai-watershed-forest-loss-impact-snapshot.json"
+  ],
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "watershed_forest_loss",
+      "value": 8.2,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2011",
+      "components": {
+        "biophysical_burden": 0.67528,
+        "human_economic_burden": 0.7701,
+        "persistence": 0.912,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "forest_cover_change_percent_per_year": -0.0088,
+          "forest_cover_observation_start_year": 1994,
+          "forest_cover_observation_end_year": 2007,
+          "cumulative_forest_cover_loss_percent_linearized": 0.1144,
+          "normalization_anchors_percent": [
+            0,
+            0.01,
+            0.1,
+            1
+          ],
+          "habitat_definition": "Forest cover has at least 10 percent canopy density over a minimum mapped area of one hectare."
+        },
+        "human_economic_burden": {
+          "deforestation_induced_cost_inr_per_year_2010_2011_prices": 3730000,
+          "cost_intensity_inr_per_cubic_metre_per_hectare_per_year": 64.96,
+          "normalization_anchors_inr": [
+            0,
+            100000,
+            1000000,
+            10000000
+          ]
+        },
+        "persistence": {
+          "treatment_plant_observation_start_year": 1995,
+          "treatment_plant_observation_end_year": 2011,
+          "treatment_plant_observation_span_years": 16,
+          "normalization_anchors_years": [
+            0,
+            1,
+            5,
+            20
+          ]
+        },
+        "extent": {
+          "watershed_monitoring_site_count": 6,
+          "normalization_anchors_sites": [
+            0,
+            1,
+            3,
+            6
+          ]
+        },
+        "unscored_context": {
+          "turbidity_increase_percent_per_one_percent_forest_cover_decrease": 8.41,
+          "treatment_cost_increase_percent_per_one_percent_forest_cover_decrease": 1.58
+        },
+        "source_snapshot": {
+          "path": "public/mumbai-watershed-forest-loss-impact-snapshot.json",
+          "version": "mumbai_panjrapur_watershed_forest_loss_1994_2011_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z",
+          "source_locators": [
+            "The study defines forest cover as canopy density of at least 10 percent over at least one hectare and uses forest-cover observations from 1994 through 2007.",
+            "Spatiotemporal forest-cover and turbidity analysis covers six sites in selected Mumbai water-supply watersheds from January 1998 through December 2010.",
+            "Panjrapur treatment-plant operating data span April 1995 through March 2011; the estimated forest-cover change rate is -0.0088 percent per year and its modeled observed-system burden is INR 3.73 million per year in 2010-2011 prices.",
+            "TERI reports an annual forest-cover change rate of -0.0088 percent averaged over 1994-2007.",
+            "TERI reports INR 64.96 per cubic metre of treated water per hectare per year and INR 3.73 million per year in deforestation-induced Panjrapur treatment costs.",
+            "The summary identifies the burden channels as treatment cost, backwash and desludging water losses, and water-yield change."
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "direction_preserving_forest_loss",
+          "formula": "Convert the source-reported -0.0088 percent annual forest-cover change to a positive 0.0088 percent annual loss magnitude; preserve the original sign in raw inputs."
+        },
+        {
+          "type": "linearized_observed_loss",
+          "formula": "Multiply the 0.0088 percent annual loss magnitude by the 13-year 1994-2007 forest-cover observation span to obtain 0.1144 percent; do not claim compounding or gross-loss hectares."
+        },
+        {
+          "type": "bounded_economic_burden",
+          "formula": "Normalize only the study-estimated INR 3.73 million annual Panjrapur burden in 2010-2011 prices; do not separately score elasticities or water-loss channels."
+        },
+        {
+          "type": "study_persistence_and_extent",
+          "formula": "Normalize the 16-year Panjrapur operating-data span and six watershed monitoring sites without interpreting them as global coverage."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "singh_mishra_mumbai_watershed_deforestation_costs_2014",
+        "teri_mumbai_watershed_deforestation_costs_summary_2014"
+      ],
+      "uncertainty": "The annual forest-cover rate is small and the cumulative value is a transparent linearized 13-year summary, not a claim of compounded or gross tree-cover loss. The INR 3.73 million burden is an econometric estimate for Panjrapur in 2010-2011 prices rather than a directly invoiced loss or a present global total. Six sites describe the study extent, not six distinct globally representative watersheds. The reported turbidity and treatment-cost elasticities remain unscored to avoid counting the same modeled relationship twice.",
+      "freshness": "Historical Mumbai watershed and Panjrapur observations ending 2011; published study and TERI summary reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "The same bounded water-supply system supplies a defined forest-cover series, six watershed monitoring sites, a 16-year treatment-operation record and a quantitative annual treatment burden.",
+        "higher_priority_failures": [
+          "The newest forest-cover observation ends in 2007 and treatment-operation record in 2011, so this is not a current observation.",
+          "The study covers selected Mumbai supply watersheds and one treatment plant rather than a defensible current global aggregation."
+        ]
+      },
+      "input_hash": "fnv1a32:4e1bf571"
+    }
+  ]
+}

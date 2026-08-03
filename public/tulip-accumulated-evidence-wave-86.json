@@ -1,0 +1,132 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_86_newtok_riparian_erosion",
+  "generated_at": "2026-08-01T17:32:53.670Z",
+  "source_snapshots": [
+    "public/newtok-riparian-erosion-impact-snapshot.json"
+  ],
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "riparian_zone_erosion",
+      "value": 8.7,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2022",
+      "components": {
+        "biophysical_burden": 1,
+        "human_economic_burden": 0.70124,
+        "persistence": 1,
+        "extent": 0.67
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "average_bank_retreat_feet_per_year_in_front_of_village": 68,
+          "average_bank_retreat_metres_per_year_derived": 20.7264,
+          "cumulative_land_loss_feet_more_than_1954_2001": 4000,
+          "cumulative_land_loss_metres_more_than_derived": 1219.2,
+          "normalization_anchors_metres_per_year": [
+            0,
+            0.5,
+            5,
+            20
+          ]
+        },
+        "human_economic_burden": {
+          "village_population_reported_2003": 321,
+          "failed_sandbag_wall_cost_usd_1987_unscored": 750000,
+          "normalization_anchors_people": [
+            0,
+            50,
+            250,
+            1000
+          ]
+        },
+        "persistence": {
+          "observation_start_year": 1954,
+          "latest_repeat_distance_observation_year": 2022,
+          "documented_observation_span_years": 68,
+          "normalization_anchors_years": [
+            0,
+            1,
+            10,
+            50
+          ]
+        },
+        "extent": {
+          "critical_infrastructure_types_already_lost_count": 3,
+          "critical_infrastructure_types_already_lost": [
+            "barge_landing",
+            "boat_docks",
+            "solid_waste_site"
+          ],
+          "normalization_anchors_asset_types": [
+            0,
+            1,
+            3,
+            10
+          ]
+        },
+        "unscored_context": {
+          "projected_relocation_cost_usd_min": 80000000,
+          "projected_relocation_cost_usd_max": 200000000
+        },
+        "source_snapshot": {
+          "path": "public/newtok-riparian-erosion-impact-snapshot.json",
+          "version": "newtok_ninglick_river_bank_erosion_1954_2022_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z",
+          "source_locators": [
+            "Historical shorelines digitized from USGS maps and aerial photographs show 36-83 ft/year average erosion along the Ninglick River and 68 ft/year directly in front of Newtok from 1954 to 2003.",
+            "The earlier 1957-1983 assessment measured 19-88 ft/year and concluded that full riverbank protection would be prohibitively expensive.",
+            "The state record identifies the repeat-geometry method and preserves the named north-bank river reach rather than inferring erosion from flooding alone.",
+            "GAO reports that Newtok lost more than 4,000 feet of land to river erosion between 1954 and 2001.",
+            "GAO reports a village population of 321 and an experimental USD 750,000 sandbag wall that failed to slow erosion.",
+            "Projected relocation costs are retained as unscored context rather than realized economic loss.",
+            "The current state record says erosion has claimed Newtok’s barge landing, boat docks and solid-waste site.",
+            "It also documents sediment-impaired barge access and threats to the community’s potable-water source.",
+            "Permafrost degradation, flooding and storm surge are retained as interacting drivers and are not converted into separate erosion points."
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "named_reach_unit_conversion",
+          "formula": "Convert the mapped 68 ft/year retreat directly in front of Newtok to 20.7264 m/year; do not use the faster upstream rate."
+        },
+        {
+          "type": "community_wide_realized_burden",
+          "formula": "Normalize the period-specific 321-person village population; retain the failed USD 750,000 wall as unscored actual expenditure and exclude projected relocation costs."
+        },
+        {
+          "type": "repeat_observation_span",
+          "formula": "Normalize the 68-year span from the 1954 shoreline baseline to the 2022 repeat distance observations without treating it as a constant-rate series."
+        },
+        {
+          "type": "realized_infrastructure_extent",
+          "formula": "Normalize three explicitly named infrastructure types already claimed by erosion; threatened water infrastructure is not counted."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "alaska_dcra_newtok_erosion_history",
+        "gao_04_142_newtok_riverbank_erosion",
+        "alaska_dcra_newtok_environmentally_threatened_community"
+      ],
+      "uncertainty": "The 68 ft/year value is a 1954-2003 shoreline-average rate directly in front of the village; episodic annual retreat varies and upstream reaches were faster. The 2022 state monitoring distances extend evidence of persistence but are not combined into a new rate. Population 321 is GAO’s period-specific count, not a current census. Infrastructure count treats three named asset types equally. Permafrost degradation, storm surge, flooding, river morphology and sediment dynamics interact. Projected USD 80-200 million relocation costs and threatened-but-not-yet-lost assets remain unscored.",
+      "freshness": "Long-running Newtok riverbank record reviewed through 2022; agency records reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "Repeat mapped shorelines quantify the named Ninglick River bank retreat alongside community-wide exposure, multi-decade persistence and realized infrastructure loss.",
+        "higher_priority_failures": [
+          "The evidence is a bounded Alaska riverbank and community record rather than a current global riparian-erosion aggregation.",
+          "No globally comparable current bank-retreat series supplies magnitude, threshold or momentum and exposed-reach coverage."
+        ]
+      },
+      "input_hash": "fnv1a32:3cefe686"
+    }
+  ]
+}

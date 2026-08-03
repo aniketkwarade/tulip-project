@@ -1,0 +1,300 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_44_global_freshwater_pressure",
+  "generated_at": "2026-08-01T15:38:05.885Z",
+  "source_snapshots": [
+    "public/global-freshwater-pressure-impact-snapshot.json"
+  ],
+  "promoted_node_count": 5,
+  "receipts": [
+    {
+      "node_id": "surface_water_evaporative_loss",
+      "value": 9.3,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2018",
+      "components": {
+        "biophysical_burden": 0.89,
+        "human_economic_burden": 0.94225,
+        "persistence": 0.901,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "observation_start_year": 1985,
+        "observation_end_year": 2018,
+        "lakes_assessed_million": 1.42,
+        "annual_lake_evaporation_km3": 1500,
+        "annual_lake_evaporation_uncertainty_km3": 150,
+        "annual_evaporation_increase_km3": 3.12,
+        "artificial_reservoirs_assessed": 7242,
+        "annual_reservoir_evaporation_km3": 339.8,
+        "reservoir_evaporation_as_2010_municipal_withdrawal_pct": 73,
+        "global_extent": 1,
+        "evidence_boundary": "The physical burden covers natural and artificial lakes; the municipal-withdrawal comparison applies only to estimated reservoir evaporation and is an equivalence, not water recoverable in every basin.",
+        "source_snapshot": {
+          "path": "public/global-freshwater-pressure-impact-snapshot.json",
+          "version": "global_freshwater_pressure_2026_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Normalize each source-native burden against declared four-point anchors and clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        },
+        {
+          "type": "water_accounting_boundary",
+          "formula": "Keep storage, evaporation, withdrawal, depletion, generation and exposed-population measures separate; missing values never become zero."
+        }
+      ],
+      "source_ids": [
+        "nature_global_lake_evaporation_1985_2018",
+        "journal_hydrology_global_reservoir_evaporation_1985_2016"
+      ],
+      "uncertainty": "Lake and reservoir estimates differ in inventory and method; the score retains each source boundary. Groundwater depletion measures a withdrawal-recharge imbalance rather than recharge alone. Global water-scarcity exposure has climatic and non-climatic causes and is not attributed solely to withdrawals. The physical burden covers natural and artificial lakes; the municipal-withdrawal comparison applies only to estimated reservoir evaporation and is an equivalence, not water recoverable in every basin.",
+      "freshness": "Latest retained global assessment for this receipt through 2018.",
+      "selection_reason": {
+        "selected_method_passed": "Quantitative global physical burden, human or economic burden, persistence and extent pass the accumulated-impact gate.",
+        "higher_priority_failures": [
+          "The global observation ends in 2018 and does not meet the current-data freshness gate."
+        ]
+      },
+      "input_hash": "fnv1a32:fd5f9465"
+    },
+    {
+      "node_id": "reservoir_operating_shortfall",
+      "value": 8.7,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2022",
+      "components": {
+        "biophysical_burden": 0.78,
+        "human_economic_burden": 0.901,
+        "persistence": 0.79375,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "assessment_year": 2022,
+        "historical_capacity_factor_start_year": 1990,
+        "historical_capacity_factor_end_year": 2016,
+        "historical_average_capacity_factor_pct": 38,
+        "recent_capacity_factor_start_year": 2020,
+        "recent_capacity_factor_end_year": 2022,
+        "recent_average_capacity_factor_pct": 36,
+        "annual_generation_shortfall_twh": 240,
+        "shortfall_fill": "mostly fossil-fired generation",
+        "global_extent": 1,
+        "evidence_boundary": "The 240 TWh is the IEA global generation difference implied by lower hydropower capacity factors; it is not attributed entirely to reservoir operations or climate.",
+        "source_snapshot": {
+          "path": "public/global-freshwater-pressure-impact-snapshot.json",
+          "version": "global_freshwater_pressure_2026_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Normalize each source-native burden against declared four-point anchors and clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        },
+        {
+          "type": "water_accounting_boundary",
+          "formula": "Keep storage, evaporation, withdrawal, depletion, generation and exposed-population measures separate; missing values never become zero."
+        }
+      ],
+      "source_ids": [
+        "iea_electricity_market_update_2023_hydropower"
+      ],
+      "uncertainty": "Lake and reservoir estimates differ in inventory and method; the score retains each source boundary. Groundwater depletion measures a withdrawal-recharge imbalance rather than recharge alone. Global water-scarcity exposure has climatic and non-climatic causes and is not attributed solely to withdrawals. The 240 TWh is the IEA global generation difference implied by lower hydropower capacity factors; it is not attributed entirely to reservoir operations or climate.",
+      "freshness": "Latest retained global assessment for this receipt through 2022.",
+      "selection_reason": {
+        "selected_method_passed": "Quantitative global physical burden, human or economic burden, persistence and extent pass the accumulated-impact gate.",
+        "higher_priority_failures": [
+          "The source reports multi-year averages rather than a complete fresh annual global operating series."
+        ]
+      },
+      "input_hash": "fnv1a32:55580ca5"
+    },
+    {
+      "node_id": "reservoir_storage_instability",
+      "value": 9.2,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2020",
+      "components": {
+        "biophysical_burden": 0.9076,
+        "human_economic_burden": 0.89,
+        "persistence": 0.868,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "observation_start_year": 1992,
+        "observation_end_year": 2020,
+        "large_lakes_and_reservoirs_assessed": 1972,
+        "share_with_storage_decline_pct": 53,
+        "people_in_basin_of_drying_lake_billion": 2,
+        "existing_reservoir_storage_decline_gt_per_year": 13.19,
+        "construction_driven_capacity_increase_km3_per_year": 27.82,
+        "global_extent": 1,
+        "evidence_boundary": "The 53% decline and two-billion-person exposure cover assessed large lakes and reservoirs; reservoir-specific decline and construction-driven capacity remain separate and are not netted together.",
+        "source_snapshot": {
+          "path": "public/global-freshwater-pressure-impact-snapshot.json",
+          "version": "global_freshwater_pressure_2026_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Normalize each source-native burden against declared four-point anchors and clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        },
+        {
+          "type": "water_accounting_boundary",
+          "formula": "Keep storage, evaporation, withdrawal, depletion, generation and exposed-population measures separate; missing values never become zero."
+        }
+      ],
+      "source_ids": [
+        "science_global_lake_storage_1992_2020",
+        "nature_diminishing_reservoir_storage_returns_2023"
+      ],
+      "uncertainty": "Lake and reservoir estimates differ in inventory and method; the score retains each source boundary. Groundwater depletion measures a withdrawal-recharge imbalance rather than recharge alone. Global water-scarcity exposure has climatic and non-climatic causes and is not attributed solely to withdrawals. The 53% decline and two-billion-person exposure cover assessed large lakes and reservoirs; reservoir-specific decline and construction-driven capacity remain separate and are not netted together.",
+      "freshness": "Latest retained global assessment for this receipt through 2020.",
+      "selection_reason": {
+        "selected_method_passed": "Quantitative global physical burden, human or economic burden, persistence and extent pass the accumulated-impact gate.",
+        "higher_priority_failures": [
+          "The retained global satellite period ends in 2020 and does not pass the current-data freshness gate."
+        ]
+      },
+      "input_hash": "fnv1a32:e9505570"
+    },
+    {
+      "node_id": "aquifer_recharge_failure",
+      "value": 9.1,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2020",
+      "components": {
+        "biophysical_burden": 0.9175,
+        "human_economic_burden": 0.89,
+        "persistence": 0.802,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "observation_start_year": 2002,
+        "observation_end_year": 2020,
+        "groundwater_depletion_km3_per_year": 550,
+        "groundwater_depletion_uncertainty_km3_per_year": 73,
+        "domestic_withdrawal_supplied_by_groundwater_pct": 50,
+        "irrigation_water_supplied_by_groundwater_pct": 25,
+        "global_groundwater_withdrawal_km3": 978,
+        "global_extent": 1,
+        "evidence_boundary": "Depletion quantifies the net withdrawal-recharge imbalance and cannot isolate recharge failure from pumping; the receipt therefore remains an accumulated-impact fallback.",
+        "source_snapshot": {
+          "path": "public/global-freshwater-pressure-impact-snapshot.json",
+          "version": "global_freshwater_pressure_2026_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Normalize each source-native burden against declared four-point anchors and clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        },
+        {
+          "type": "water_accounting_boundary",
+          "formula": "Keep storage, evaporation, withdrawal, depletion, generation and exposed-population measures separate; missing values never become zero."
+        }
+      ],
+      "source_ids": [
+        "nature_global_groundwater_depletion_2002_2020",
+        "unesco_wwdr_groundwater_2022"
+      ],
+      "uncertainty": "Lake and reservoir estimates differ in inventory and method; the score retains each source boundary. Groundwater depletion measures a withdrawal-recharge imbalance rather than recharge alone. Global water-scarcity exposure has climatic and non-climatic causes and is not attributed solely to withdrawals. Depletion quantifies the net withdrawal-recharge imbalance and cannot isolate recharge failure from pumping; the receipt therefore remains an accumulated-impact fallback.",
+      "freshness": "Latest retained global assessment for this receipt through 2020.",
+      "selection_reason": {
+        "selected_method_passed": "Quantitative global physical burden, human or economic burden, persistence and extent pass the accumulated-impact gate.",
+        "higher_priority_failures": [
+          "No fresh global recharge-only series supplies current magnitude plus threshold or momentum."
+        ]
+      },
+      "input_hash": "fnv1a32:39ed5734"
+    },
+    {
+      "node_id": "surface_water_withdrawal_pressure",
+      "value": 9,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "biophysical_burden": 0.848801,
+        "human_economic_burden": 0.89,
+        "persistence": 0.89,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "assessment_year": 2024,
+        "total_global_water_withdrawal_km3_per_year": 4200,
+        "surface_water_share_pct": 73.42,
+        "calculated_surface_water_withdrawal_km3_per_year": 3083.64,
+        "global_population_experiencing_severe_water_scarcity_part_year_pct": 50,
+        "demand_growth_since_1980s_pct_per_year": 1,
+        "persistence_years": 40,
+        "global_extent": 1,
+        "evidence_boundary": "Surface-water withdrawal is calculated from the source-reported total and surface-water share. Severe-scarcity exposure has multiple climatic and non-climatic drivers and is not attributed solely to withdrawals.",
+        "source_snapshot": {
+          "path": "public/global-freshwater-pressure-impact-snapshot.json",
+          "version": "global_freshwater_pressure_2026_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_anchor_normalization",
+          "formula": "Normalize each source-native burden against declared four-point anchors and clamp to [0,1]."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        },
+        {
+          "type": "water_accounting_boundary",
+          "formula": "Keep storage, evaporation, withdrawal, depletion, generation and exposed-population measures separate; missing values never become zero."
+        }
+      ],
+      "source_ids": [
+        "un_water_analytical_brief_2024",
+        "ipcc_ar6_synthesis_summary_for_policymakers"
+      ],
+      "uncertainty": "Lake and reservoir estimates differ in inventory and method; the score retains each source boundary. Groundwater depletion measures a withdrawal-recharge imbalance rather than recharge alone. Global water-scarcity exposure has climatic and non-climatic causes and is not attributed solely to withdrawals. Surface-water withdrawal is calculated from the source-reported total and surface-water share. Severe-scarcity exposure has multiple climatic and non-climatic drivers and is not attributed solely to withdrawals.",
+      "freshness": "Latest retained global assessment for this receipt through 2024.",
+      "selection_reason": {
+        "selected_method_passed": "Quantitative global physical burden, human or economic burden, persistence and extent pass the accumulated-impact gate.",
+        "higher_priority_failures": [
+          "The assessment does not provide a complete fresh annual surface-withdrawal history with recognized thresholds or sufficient historical-percentile observations."
+        ]
+      },
+      "input_hash": "fnv1a32:24614ebc"
+    }
+  ]
+}

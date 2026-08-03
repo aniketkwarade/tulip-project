@@ -1,0 +1,123 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_63_usgs_thermoelectric_cooling_water",
+  "generated_at": "2026-08-01T16:11:06.669Z",
+  "source_snapshots": [
+    "public/usgs-thermoelectric-cooling-water-impact-snapshot.json"
+  ],
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "cooling_water_competition",
+      "value": 7.6,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2015",
+      "components": {
+        "biophysical_burden": 0.851684,
+        "human_economic_burden": 0.824,
+        "persistence": 0.692,
+        "extent": 0.33
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "consumption_billion_gallons_per_day": 4.31,
+          "consumption_million_cubic_metres_per_year": 5955.020548,
+          "normalization_anchors_million_cubic_metres_per_year": [
+            0,
+            100,
+            1000,
+            10000
+          ]
+        },
+        "human_economic_burden": {
+          "thermoelectric_freshwater_share_of_all_national_freshwater_withdrawals_pct": 34,
+          "normalization_anchors_pct": [
+            0,
+            5,
+            20,
+            50
+          ]
+        },
+        "persistence": {
+          "comparison_year": 2010,
+          "endpoint_year": 2015,
+          "inclusive_comparison_years": 6,
+          "withdrawal_change_from_2010_pct": -18,
+          "normalization_anchors_years": [
+            0,
+            1,
+            5,
+            20
+          ]
+        },
+        "extent": {
+          "directly_assessed_countries": [
+            "United States"
+          ],
+          "directly_assessed_country_count": 1,
+          "normalization_anchors_countries": [
+            0,
+            1,
+            5,
+            25
+          ]
+        },
+        "unscored_context": {
+          "withdrawal_million_cubic_metres_per_year": 183762.815054,
+          "thermoelectric_share_of_all_national_withdrawals_pct": 41,
+          "surface_water_share_lower_bound_pct": 99,
+          "freshwater_share_of_surface_withdrawals_pct": 72,
+          "consumption_share_pct": 3
+        },
+        "source_snapshot": {
+          "path": "public/usgs-thermoelectric-cooling-water-impact-snapshot.json",
+          "version": "usgs_thermoelectric_cooling_water_2015_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z",
+          "report_sha256": "ef0e2caa3bd7769fde0de383f6668ba2559d8b716a38bfec6bed027729061f88"
+        }
+      },
+      "transformations": [
+        {
+          "type": "unit_conversion",
+          "formula": "Convert billion US gallons per day to million cubic metres per year using exactly 0.003785411784 cubic metres per US gallon and 365 days."
+        },
+        {
+          "type": "consumption_boundary",
+          "formula": "Score reported consumptive use as biophysical burden; retain gross withdrawal separately because most once-through water is returned."
+        },
+        {
+          "type": "freshwater_competition_share",
+          "formula": "Score the source-reported thermoelectric share of national freshwater withdrawals; do not add saline withdrawals or infer basin shortage."
+        },
+        {
+          "type": "bounded_comparison_period",
+          "formula": "Represent the 2010-to-2015 comparison as six inclusive calendar years without inventing intervening annual observations."
+        },
+        {
+          "type": "bounded_country_extent",
+          "formula": "Normalize the one directly assessed country; nationwide aggregation does not become global coverage."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "usgs_estimated_water_use_2015_circular_1441"
+      ],
+      "uncertainty": "The national compilation is for 2015 and cannot represent current 2026 conditions. USGS combines facility, state, EIA and modeled information; estimates carry reporting and model uncertainty. National withdrawals do not identify which basins were scarce or which competing users experienced shortage. Gross withdrawal is dominated by once-through systems and is not equivalent to consumption, while saline water is not interchangeable with freshwater. The receipt therefore scores reported consumption and freshwater-withdrawal share separately.",
+      "freshness": "USGS national water-use endpoint 2015; report published 2018-06-19; snapshot reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "USGS quantifies thermoelectric consumptive water use, the sector share of national freshwater withdrawals, a bounded comparison interval and one-country extent under the exact cooling-water contract.",
+        "higher_priority_failures": [
+          "The national compilation ends in 2015 and does not supply a current global magnitude.",
+          "The report provides a five-year comparison rather than at least 20 complete annual or 60 monthly observations for historical normalization."
+        ]
+      },
+      "input_hash": "fnv1a32:58c009c0"
+    }
+  ]
+}

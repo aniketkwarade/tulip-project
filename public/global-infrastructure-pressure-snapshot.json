@@ -1,0 +1,45 @@
+{
+  "version": "global_infrastructure_pressure_2026_v1",
+  "captured_at": "2026-08-01T00:00:00.000Z",
+  "sources": [
+    {
+      "id": "itu_submarine_cable_resilience_summit_2025",
+      "name": "International summit outlines steps to improve submarine cable resilience worldwide",
+      "publisher": "International Telecommunication Union",
+      "url": "https://www.itu.int/en/mediacentre/Pages/PR-2025-02-27-submarine-cables-summit-nigeria.aspx"
+    },
+    {
+      "id": "arctic_council_shipping_update_2026",
+      "name": "Arctic Shipping Update: 40% Increase in Ships in the Arctic",
+      "publisher": "Arctic Council — Protection of the Arctic Marine Environment",
+      "url": "https://arctic-council.org/news/increase-in-arctic-shipping/"
+    }
+  ],
+  "assessments": {
+    "submarine_cable_concentration": {
+      "assessment_year": 2025,
+      "international_data_traffic_share_pct": 99,
+      "active_and_planned_cable_systems_approx": 500,
+      "global_cable_length_million_km": 1.7,
+      "annual_faults_low": 150,
+      "annual_faults_high": 200,
+      "population_services_boundary": "Disruptions affect economies, information access, public services and the daily lives of billions; no precise affected-person count is asserted.",
+      "global_extent": 1
+    },
+    "arctic_shipping_expansion": {
+      "observation_start_year": 2013,
+      "observation_end_year": 2025,
+      "unique_ships_2025": 1812,
+      "unique_ship_increase_since_2013_pct": 40,
+      "distance_sailed_2013_million_nautical_miles": 6.1,
+      "distance_sailed_2025_million_nautical_miles": 11.9,
+      "distance_sailed_increase_pct": 95,
+      "september_2025_ship_count": 1060,
+      "september_share_of_annual_unique_ships_pct": 58,
+      "fishing_vessel_share_pct": 40,
+      "crude_oil_tanker_increase_since_2013_pct": 396,
+      "global_extent": 0.8
+    }
+  },
+  "uncertainty": "Cable-system and fault totals are rounded global infrastructure statistics, and a cable fault is not necessarily a service outage at a landing point. Arctic ship counts cover the IMO Polar Code area; unique ships, aggregate distance and ship-type growth are retained as separate measures."
+}

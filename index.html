@@ -1,0 +1,1030 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/logo-monogram.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="description" content="THE TULIP PROJECT is an ecological causal network for exploring connected climate and planetary systems." />
+    <link rel="canonical" href="https://tulip.earth/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="THE TULIP PROJECT" />
+    <meta property="og:title" content="TULIP — See how climate change connects" />
+    <meta property="og:description" content="Explore 1,290 evidence-backed relationships shaping climate, ecosystems, economies, and everyday life." />
+    <meta property="og:url" content="https://tulip.earth/" />
+    <meta property="og:image" content="https://tulip.earth/share-preview.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="THE TULIP PROJECT ecological causal network preview" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="TULIP — See how climate change connects" />
+    <meta name="twitter:description" content="Explore 1,290 evidence-backed relationships shaping climate, ecosystems, economies, and everyday life." />
+    <meta name="twitter:image" content="https://tulip.earth/share-preview.png" />
+    <script>
+      try {
+        const splashVisitCount = Number(window.localStorage.getItem('tulip_welcome_splash_visit_count_v2')) || 0;
+        if (splashVisitCount >= 2) {
+          document.documentElement.classList.add('welcome-splash-seen');
+        }
+      } catch {}
+    </script>
+    <!-- Inter Display & Variable Font CDN -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Display:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <title>TULIP — See how climate change connects</title>
+  </head>
+  <body class="splash-active">
+    <div id="quote-splash" class="quote-splash" aria-hidden="false">
+      <div class="quote-splash-inner">
+        <img src="/logo.svg" alt="The TULIP Project" class="quote-splash-logo" />
+        <h1 class="quote-splash-title">See how climate change takes shape.</h1>
+        <p class="quote-splash-body">Explore how environmental changes begin, how their effects connect, and what we can do to build a healthier planet.</p>
+        <button id="enter-tulip-btn" class="quote-splash-enter" type="button">ENTER TULIP</button>
+      </div>
+    </div>
+    <div id="touch-device-gate" class="touch-device-gate" hidden aria-hidden="true">
+      <div class="touch-device-gate-card">
+        <img src="/logo.svg" alt="TULIP Logo" class="touch-device-gate-logo" />
+        <h1 class="touch-device-gate-title">This experience is currently designed for desktop browsers.</h1>
+        <p class="touch-device-gate-body">Please reopen TULIP on a laptop or desktop browser for the intended experience.</p>
+        <p class="touch-device-gate-url" aria-label="TULIP website">tulip.earth</p>
+        <div class="touch-device-gate-share" aria-label="Share TULIP">
+          <button type="button" class="touch-device-gate-share-btn" data-share-action="native" aria-label="Share TULIP">
+            <img src="/touch-share-icon.svg" alt="" aria-hidden="true" class="touch-device-gate-share-icon" />
+          </button>
+        </div>
+        <p class="touch-device-gate-share-note" id="touch-device-gate-share-note" hidden>Link copied to clipboard.</p>
+      </div>
+    </div>
+    <div id="app-container">
+      <!-- APP LOGO -->
+      <a href="./" id="app-logo" class="app-logo" aria-label="Return to the Sphere">
+        <img src="/logo.svg" alt="TULIP Logo" />
+      </a>
+
+
+      <!-- HEADER CENTER AREA (FILTERS & SEARCH) -->
+      <div id="header-center-area">
+        <!-- FILTER GALLERY -->
+        <div id="filter-bar">
+          <button class="filter-pill active" data-filter="all"><span class="filter-pill-icon" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="2.7" stroke="currentColor" stroke-width="1.2"/><path d="M8 2.2v1.7M8 12.1v1.7M2.2 8h1.7M12.1 8h1.7M4 4l1.2 1.2M10.8 10.8 12 12M12 4l-1.2 1.2M5.2 10.8 4 12" stroke="currentColor" stroke-width="1.05" stroke-linecap="round"/></svg></span><span class="filter-pill-label">ALL</span></button>
+          <button class="filter-pill" data-filter="atmosphere"><span class="filter-pill-icon" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none"><path d="M2.7 9.4c0-1.2 1-2.2 2.2-2.2.3-1.5 1.7-2.5 3.3-2.5 2 0 3.6 1.5 3.7 3.5h.4c.9 0 1.6.7 1.6 1.6 0 .9-.8 1.7-1.7 1.7H5c-1.3 0-2.3-.9-2.3-2.1Z" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/><path d="M4.5 12.3h6.2" stroke="currentColor" stroke-width="1.05" stroke-linecap="round"/></svg></span><span class="filter-pill-label">AIR</span></button>
+          <button class="filter-pill" data-filter="oceans"><span class="filter-pill-icon" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none"><path d="M2.2 10.1c1-.7 2-.7 3 0s2 .7 3 0 2-.7 3 0 2 .7 3 0" stroke="currentColor" stroke-width="1.15" stroke-linecap="round"/><path d="M2.2 7.4c1-.7 2-.7 3 0s2 .7 3 0 2-.7 3 0 2 .7 3 0" stroke="currentColor" stroke-width="1.15" stroke-linecap="round"/><path d="M6.9 3.6c0 1 .5 1.7 1.1 2.4.7-.7 1.2-1.4 1.2-2.4a1.2 1.2 0 1 0-2.3 0Z" stroke="currentColor" stroke-width="1.05" stroke-linejoin="round"/></svg></span><span class="filter-pill-label">OCEANS</span></button>
+          <button class="filter-pill" data-filter="cryosphere"><span class="filter-pill-icon" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none"><path d="M8 2.5v11M4.5 4.5l7 7M11.5 4.5l-7 7M2.5 8h11" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><circle cx="8" cy="8" r="1" fill="currentColor"/></svg></span><span class="filter-pill-label">GLACIERS</span></button>
+          <button class="filter-pill" data-filter="biosphere"><span class="filter-pill-icon" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none"><path d="M8 12.9V8.8" stroke="currentColor" stroke-width="1.15" stroke-linecap="round"/><path d="M8 8.8c0-2.1 1.7-3.7 3.8-3.7v.8c0 2.1-1.8 3.7-3.8 3.7Zm0 0c0-2-1.6-3.6-3.6-3.6v.8c0 2 1.6 3.6 3.6 3.6Z" stroke="currentColor" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="filter-pill-label">PLANTS & WILDLIFE</span></button>
+          <button class="filter-pill" data-filter="energy"><span class="filter-pill-icon" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none"><path d="M8.8 2.3 5.1 8h2.5L7 13.7 10.9 8H8.3l.5-5.7Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M3.7 13h8.6" stroke="currentColor" stroke-width="1.05" stroke-linecap="round"/></svg></span><span class="filter-pill-label">POWER & HEAT</span></button>
+          <button class="filter-pill" data-filter="digital"><span class="filter-pill-icon" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none"><rect x="3.4" y="3.4" width="9.2" height="9.2" rx="1.6" stroke="currentColor" stroke-width="1.15"/><path d="M6 6h4v4H6z" stroke="currentColor" stroke-width="1.05"/><path d="M8 1.9v1.5M8 12.6v1.5M1.9 8h1.5M12.6 8h1.5" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg></span><span class="filter-pill-label">DIGITAL</span></button>
+          <button class="filter-pill" data-filter="agriculture"><span class="filter-pill-icon" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none"><path d="M4.9 2.8v3.9M6.2 2.8v3.9M7.5 2.8v3.9M6.2 6.7V13" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/><path d="M10.8 4.3c0-1.1-.8-1.9-1.9-1.9v1.9c0 1 .8 1.9 1.9 1.9V13" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="filter-pill-label">FARMING</span></button>
+          <button class="filter-pill" data-filter="transport"><span class="filter-pill-icon" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none"><path d="M3.1 9.5h9.8l-.8-2.3c-.2-.7-.8-1.1-1.5-1.1H5.4c-.7 0-1.3.4-1.5 1.1l-.8 2.3Z" stroke="currentColor" stroke-width="1.15" stroke-linejoin="round"/><circle cx="5.3" cy="11" r=".9" stroke="currentColor" stroke-width="1.05"/><circle cx="10.7" cy="11" r=".9" stroke="currentColor" stroke-width="1.05"/><path d="M4.5 9.5V11M11.5 9.5V11" stroke="currentColor" stroke-width="1" stroke-linecap="round"/></svg></span><span class="filter-pill-label">TRAVEL & SHIPPING</span></button>
+          <button class="filter-pill" data-filter="economy"><span class="filter-pill-icon" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none"><path d="M3.3 11.9h9.4M4.4 11.9V8.9M8 11.9V6.5M11.6 11.9V4.5" stroke="currentColor" stroke-width="1.15" stroke-linecap="round"/><path d="m4.8 6.1 2-1.4 1.6 1.2 2.8-2.2" stroke="currentColor" stroke-width="1.05" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="filter-pill-label">MARKETS</span></button>
+          <button class="filter-pill" data-filter="sociopolitical"><span class="filter-pill-icon" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none"><circle cx="5.3" cy="5.5" r="1.4" stroke="currentColor" stroke-width="1.05"/><circle cx="10.7" cy="5.3" r="1.3" stroke="currentColor" stroke-width="1.05"/><path d="M3.8 11.7c.4-1.5 1.5-2.4 2.9-2.4 1.5 0 2.6.9 3 2.4M9.4 11.7c.3-1 1.1-1.7 2.1-1.7.9 0 1.7.6 2 1.7" stroke="currentColor" stroke-width="1.05" stroke-linecap="round"/></svg></span><span class="filter-pill-label">SOCIETY</span></button>
+        </div>
+      </div>
+
+      <!-- MAIN LAYOUT GRID -->
+      <main id="main-content">
+        
+        <!-- LEFT COLUMN: FULL VIEWPORT CLUSTER CANVAS -->
+        <div id="canvas-container">
+          <canvas
+            id="graph-canvas"
+            role="img"
+            aria-label="Interactive climate relationship network. Use the labelled featured controls or the Search TULIP field for a keyboard-accessible route into the network."
+          ></canvas>
+          <div id="editorial-arcs-layer" class="editorial-arcs-layer" aria-label="Current highlighted TULIP topics"></div>
+          <!-- STUDY MODE CONTROLS -->
+          <div id="study-controls-overlay" style="display: none;">
+            <button id="study-history-reset" class="study-history-reset" type="button">Start over</button>
+            <div class="study-nav-controls">
+              <div class="study-trail-stack">
+                <div class="study-journey-bar" aria-label="History controls">
+                  <button id="focus-step-back-btn" class="focus-back-btn study-history-icon-btn" type="button" aria-label="Undo last step" data-tooltip="Back" disabled>
+                    <svg class="study-history-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path d="M9 7H4V2" />
+                      <path d="M4.5 7.2A8 8 0 1 1 6.8 18" />
+                    </svg>
+                  </button>
+                  <button id="study-journey-toggle" class="study-journey-toggle" type="button" aria-expanded="false" aria-controls="study-history-popover">
+                    <span id="study-journey-current" class="study-journey-current">Current node</span>
+                    <svg class="study-journey-chevron" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      <path d="m4 6 4 4 4-4" />
+                    </svg>
+                  </button>
+                  <div class="study-share-control">
+                    <button id="copy-view-btn" class="study-recovery-btn study-history-icon-btn" type="button" aria-label="Share current view" aria-haspopup="menu" aria-expanded="false" aria-controls="study-share-popover" data-tooltip="Share">
+                      <img src="/noun-share-5410413.svg" alt="" class="study-share-icon" aria-hidden="true" />
+                    </button>
+                    <div id="study-share-popover" class="study-share-popover" role="menu" hidden>
+                      <button type="button" role="menuitem" data-study-share-action="open">Open in a new tab</button>
+                      <button type="button" role="menuitem" data-study-share-action="copy">Copy Link</button>
+                      <button type="button" role="menuitem" data-study-share-action="pdf">Export as PDF</button>
+                    </div>
+                  </div>
+                  <span id="copy-view-status" class="copy-view-status" role="status" aria-live="polite"></span>
+                </div>
+                <div id="study-history-popover" class="study-history-popover" hidden>
+                  <div class="study-history-box">
+                    <div id="focus-history-tree" class="focus-history-tree" style="display: none;"></div>
+                  </div>
+                </div>
+                <div id="trail-prompt-panel" class="trail-prompt-panel" style="display: none;">
+                  <div class="trail-prompt-copy">
+                    <div class="trail-prompt-kicker-row">
+                      <div class="trail-prompt-kicker" id="trail-prompt-kicker">Continue this trail</div>
+                      <div class="trail-prompt-progress" id="trail-progress-label">1 of 5</div>
+                    </div>
+                    <h3 class="trail-prompt-title" id="trail-prompt-title">Follow the strongest next connection</h3>
+                    <p class="trail-prompt-body" id="trail-prompt-body">Stay with the story instead of jumping to another random point in the graph.</p>
+                  </div>
+                  <button id="trail-continue-btn" class="trail-hero-btn" type="button">
+                    <span class="trail-hero-label">Continue this trail</span>
+                    <span class="trail-hero-title" id="trail-hero-title">Choose the strongest next step</span>
+                    <span class="trail-hero-meta" id="trail-hero-meta">Choose the strongest next step</span>
+                  </button>
+                  <div class="trail-branch-row">
+                    <button id="trail-upstream-btn" class="trail-branch-btn" type="button">
+                      <span class="trail-branch-label">What influences this?</span>
+                      <span class="trail-branch-meta">No incoming influence available</span>
+                    </button>
+                    <button id="trail-downstream-btn" class="trail-branch-btn" type="button">
+                      <span class="trail-branch-label">What does this influence?</span>
+                      <span class="trail-branch-meta">No outgoing influence available</span>
+                    </button>
+                    <button id="trail-unexpected-btn" class="trail-branch-btn" type="button">
+                      <span class="trail-branch-label">Show the unexpected connection</span>
+                      <span class="trail-branch-meta">No cross-system jump available</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- LAYOUT TOGGLE -->
+          <div id="layout-toggle-container" class="layout-toggle-container">
+            <div class="layout-toggle-primary-row">
+              <button id="analyze-show-more-btn" class="layout-toggle-expand-btn" type="button" aria-label="Expand all incoming and outgoing influences" data-tooltip="Expand" style="display: none;">
+                <img src="/urgency-expand-icon.svg" alt="" class="layout-toggle-expand-icon" aria-hidden="true" />
+              </button>
+              <div class="layout-toggle-pill-group">
+                <button id="layout-toggle-network" class="layout-toggle-btn active" aria-label="Radial Network Graph" data-tooltip="Radial tree">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display: block;">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <circle cx="12" cy="4" r="2.5"></circle>
+                    <circle cx="4" cy="18" r="2.5"></circle>
+                    <circle cx="20" cy="18" r="2.5"></circle>
+                    <line x1="12" y1="6.5" x2="12" y2="9"></line>
+                    <line x1="5.7" y1="16.3" x2="10.1" y2="13.7"></line>
+                    <line x1="18.3" y1="16.3" x2="13.9" y2="13.7"></line>
+                  </svg>
+                </button>
+                <button id="layout-toggle-tree" class="layout-toggle-btn" aria-label="Node Link Tree" data-tooltip="Node link">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display: block;">
+                    <circle cx="5" cy="12" r="2.5"></circle>
+                    <circle cx="19" cy="6" r="2.5"></circle>
+                    <circle cx="19" cy="18" r="2.5"></circle>
+                    <path d="M7.5 12h5c1 0 1.5-3 2.5-4h4"></path>
+                    <path d="M7.5 12h5c1 0 1.5 3 2.5 4h4"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div id="c-legend-container" class="causal-legend-container" style="display: none;">
+              <div class="legend-key-pill">
+                <div class="legend-key-item">
+                  <span class="legend-line incoming-line"></span>
+                  <span class="legend-label">Triggers</span>
+                </div>
+                <div class="legend-key-item">
+                  <span class="legend-line outgoing-line"></span>
+                  <span class="legend-label">Effects</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+      <!-- SYSTEM SOURCES & REGISTRIES OVERLAY VIEW -->
+      <div id="sources-view" role="dialog" aria-modal="true" aria-labelledby="sources-view-title" tabindex="-1" style="display: none;">
+        <div class="sources-header">
+          <div>
+            <div class="footer-overlay-heading-row">
+              <h2 id="sources-view-title" class="sources-title">Data Sources</h2>
+            </div>
+            <p class="sources-subtitle">Integrated global and regional networks providing observations, model projections, and policy metrics.</p>
+          </div>
+        </div>
+        
+        <div class="sources-content-container">
+          <section id="sources-coverage-cockpit" class="sources-coverage-cockpit" aria-label="Source coverage cockpit">
+            <p class="registry-cockpit-loading">Calculating source-directory coverage…</p>
+          </section>
+          <div class="registry-evidence-heading sources-detail-heading">
+            <div>
+              <div class="registry-evidence-kicker">Source detail</div>
+              <h3>Source directory</h3>
+            </div>
+            <p>Open the organizations, data portals, monitoring systems, and reference pages behind the overview.</p>
+          </div>
+          <div class="sources-list-layout" style="grid-template-columns: repeat(4, 1fr); gap: 24px; width: 100%;">
+            
+            <!-- COLUMN 1: ATMOSPHERE & CLIMATE -->
+            <div class="sources-list-column">
+              <h3 class="sources-category-title" style="font-size: 14px; margin-bottom: 16px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: rgba(226, 217, 255, 0.95); margin-right: 6px;"><circle cx="12" cy="12" r="9"></circle><path d="M12 3a9 9 0 0 0 -9 9"></path></svg>
+                Atmosphere & Climate
+              </h3>
+              <ul class="sources-list" style="gap: 14px;">
+                <li>
+                  <a href="https://gml.noaa.gov/ccgg/trends/" target="_blank" style="font-weight: 600;">NOAA GML / AGGI ↗</a>
+                  <div class="sources-list-desc" style="font-size: 12.5px; margin-top: 2px;">
+                    <strong>United States / Global</strong> — Atmospheric carbon dioxide ($CO_2$) & methane ($CH_4$) concentration timeseries.
+                  </div>
+                </li>
+                <li>
+                  <a href="https://cds.climate.copernicus.eu" target="_blank" style="font-weight: 600;">Copernicus C3S / ERA5 ↗</a>
+                  <div class="sources-list-desc" style="font-size: 12.5px; margin-top: 2px;">
+                    <strong>European Union / Global</strong> — Surface air temperatures and atmospheric humidity anomaly metrics.
+                  </div>
+                </li>
+                <li>
+                  <a href="https://openaq.org" target="_blank" style="font-weight: 600;">OpenAQ Air Quality Data ↗</a>
+                  <div class="sources-list-desc" style="font-size: 12.5px; margin-top: 2px;">
+                    <strong>Global</strong> — Real-time particulate matter ($PM_{2.5}$, $PM_{10}$) air quality sensor data.
+                  </div>
+                </li>
+                <li>
+                  <a href="https://wmo.int/publication-series/state-of-global-climate-2024" target="_blank" style="font-weight: 600;">WMO State of the Global Climate ↗</a>
+                  <div class="sources-list-desc" style="font-size: 12.5px; margin-top: 2px;">
+                    <strong>Switzerland / Global</strong> — WMO climatological normals and global weather diagnostics.
+                  </div>
+                </li>
+                <li>
+                  <a href="https://ds.data.jma.go.jp/tcc/tcc/" target="_blank" style="font-weight: 600;">JMA Tokyo Climate Center ↗</a>
+                  <div class="sources-list-desc" style="font-size: 12.5px; margin-top: 2px;">
+                    <strong>Japan</strong> — Sea surface temperature (SST) anomalies & West Pacific monsoon trackers.
+                  </div>
+                </li>
+                <li>
+                  <a href="https://data.kma.go.kr/resources/html/en/ncdci.html" target="_blank" style="font-weight: 600;">KMA (Korea) ↗</a>
+                  <div class="sources-list-desc" style="font-size: 12.5px; margin-top: 2px;">
+                    <strong>South Korea</strong> — Northeast Asia regional meteorological indexes and temperature norms.
+                  </div>
+                </li>
+                <li>
+                  <a href="https://www.climate.gov/maps-data/dataset-gallery" target="_blank" style="font-weight: 600;">NOAA Climate.gov Dataset Gallery ↗</a>
+                  <div class="sources-list-desc" style="font-size: 12.5px; margin-top: 2px;">
+                    <strong>United States / Reference</strong> — Dataset and visualization discovery layer for maps, snapshots, and public-facing climate explainers. Not used as a direct scoring input.
+                  </div>
+                </li>
+                <li>
+                  <a href="https://www.climate.gov/maps-data/tools-interactives" target="_blank" style="font-weight: 600;">NOAA Climate.gov Tools & Interactives ↗</a>
+                  <div class="sources-list-desc" style="font-size: 12.5px; margin-top: 2px;">
+                    <strong>United States / Reference</strong> — Public tools and interpretable visual products used for contextual discovery, not for operational TULIP weighting.
+                  </div>
+                </li>
+                <li>
+                  <a href="https://mausam.imd.gov.in/" target="_blank" style="font-weight: 600;">IMD DSP Pune ↗</a>
+                  <div class="sources-list-desc" style="font-size: 12.5px; margin-top: 2px;">
+                    <strong>India</strong> — South Asian regional precipitation averages & monsoonal bulletins.
+                  </div>
+                </li>
+              </ul>
+            </div>
+            
+            <!-- COLUMN 2: ECOSYSTEMS & WATER -->
+            <div class="sources-list-column">
+              <h3 class="sources-category-title" style="font-size: 14px; margin-bottom: 16px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: rgba(0, 168, 255, 0.95); margin-right: 6px;"><path d="M12 10a6 6 0 0 0 -6 -6h-3v2a6 6 0 0 0 6 6h3"></path><path d="M12 14a6 6 0 0 1 6 -6h3v2a6 6 0 0 1 -6 6h-3"></path><circle cx="12" cy="12" r="9"></circle></svg>
+                Ecosystems & Water
+              </h3>
+              <ul class="sources-list" style="gap: 14px;">
+                <li>
+                  <a href="https://www.stockholmresilience.org/research/planetary-boundaries.html" target="_blank" style="font-weight: 600;">Planetary Boundaries Research ↗</a>
+                  <div class="sources-list-desc" style="font-size: 12.5px; margin-top: 2px;">
+                    <strong>Sweden / Global</strong> — Planetary Boundaries framework thresholds & safe operating boundaries.
+                  </div>
+                </li>
+                <li>
+                  <a href="https://iconicspecies.iucnredlist.org/" target="_blank" style="font-weight: 600;">IUCN Red List ↗</a>
+                  <div class="sources-list-desc" style="font-size: 12.5px; margin-top: 2px;">
+                    <strong>Switzerland / Global</strong> — Threatened iconic species count & biodiversity extinction indexes.
+                  </div>
+                </li>
+                <li>
+                  <a href="https://map.unbiodiversitylab.org/" target="_blank" style="font-weight: 600;">UN Biodiversity Lab ↗</a>
+                  <div class="sources-list-desc" style="font-size: 12.5px; margin-top: 2px;">
+                    <strong>UN / Global</strong> — Protected area spatial maps & terrestrial/marine boundary records.
+                  </div>
+                </li>
+                <li>
+                  <a href="https://wesr.unep.org/" target="_blank" style="font-weight: 600;">UNEP WESR Room ↗</a>
+                  <div class="sources-list-desc" style="font-size: 12.5px; margin-top: 2px;">
+                    <strong>UN / Global</strong> — World environment situation room ecological telemetry.
+                  </div>
+                </li>
+                <li>
+                  <a href="https://www.wri.org/aqueduct" target="_blank" style="font-weight: 600;">WRI Aqueduct ↗</a>
+                  <div class="sources-list-desc" style="font-size: 12.5px; margin-top: 2px;">
+                    <strong>United States / Global</strong> — Watershed depletion levels & baseline water stress risk indexes.
+                  </div>
+                </li>
+                <li>
+                  <a href="https://www.globalforestwatch.org" target="_blank" style="font-weight: 600;">Global Forest Watch ↗</a>
+                  <div class="sources-list-desc" style="font-size: 12.5px; margin-top: 2px;">
+                    <strong>United States / Global</strong> — Satellite tree-cover and forest canopy loss alert telemetry.
+                  </div>
+                </li>
+                <li>
+                  <a href="https://www.informea.org" target="_blank" style="font-weight: 600;">InforMEA Database ↗</a>
+                  <div class="sources-list-desc" style="font-size: 12.5px; margin-top: 2px;">
+                    <strong>UN / Global</strong> — United Nations environmental treaties & multilateral agreements database.
+                  </div>
+                </li>
+              </ul>
+            </div>
+            
+            <!-- COLUMN 3: REGIONAL HYDROLOGY & SOLUTIONS -->
+            <div class="sources-list-column">
+              <h3 class="sources-category-title" style="font-size: 14px; margin-bottom: 16px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: rgba(255, 220, 174, 0.95); margin-right: 6px;"><circle cx="12" cy="12" r="9"></circle><path d="M12 3v18"></path><path d="M3 12h18"></path></svg>
+                Regional Scope & Solutions
+              </h3>
+              <ul class="sources-list" style="gap: 14px;">
+                <li>
+                  <a href="https://portal.mrcmekong.org/" target="_blank" style="font-weight: 600;">Mekong River Commission ↗</a>
+                  <div class="sources-list-desc" style="font-size: 12.5px; margin-top: 2px;">
+                    <strong>Lower Mekong Basin</strong> — Regional river hydrology, water discharge levels, and salinity tracking.
+                  </div>
+                </li>
+                <li>
+                  <a href="http://rds.icimod.org:8080/geonetwork" target="_blank" style="font-weight: 600;">ICIMOD RDS ↗</a>
+                  <div class="sources-list-desc" style="font-size: 12.5px; margin-top: 2px;">
+                    <strong>Nepal / Hindu Kush Himalaya</strong> — Alpine species counts & HKH glacier melt database records.
+                  </div>
+                </li>
+                <li>
+                  <a href="https://climateserv.servirglobal.net/" target="_blank" style="font-weight: 600;">SERVIR Southeast Asia ↗</a>
+                  <div class="sources-list-desc" style="font-size: 12.5px; margin-top: 2px;">
+                    <strong>United States / Southeast Asia</strong> — NASA/USAID regional forest canopy cover & Evaporative Stress Index (ESI).
+                  </div>
+                </li>
+                <li>
+                  <a href="https://asmc.asean.org/" target="_blank" style="font-weight: 600;">ASMC Hotspots ↗</a>
+                  <div class="sources-list-desc" style="font-size: 12.5px; margin-top: 2px;">
+                    <strong>Singapore / ASEAN</strong> — Southeast Asia hotspots & regional peatland haze index records.
+                  </div>
+                </li>
+                <li>
+                  <a href="https://www.sahf.info/" target="_blank" style="font-weight: 600;">SAHF / SASCOF ↗</a>
+                  <div class="sources-list-desc" style="font-size: 12.5px; margin-top: 2px;">
+                    <strong>South Asia</strong> — Regional seasonal weather & monsoonal anomaly projections.
+                  </div>
+                </li>
+              </ul>
+            </div>
+            
+            <!-- COLUMN 4: COMPUTE, ENERGY & POLICY -->
+            <div class="sources-list-column">
+              <h3 class="sources-category-title" style="font-size: 14px; margin-bottom: 16px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: rgba(96, 165, 250, 0.95); margin-right: 6px;"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                Energy, Compute & Policy
+              </h3>
+              <ul class="sources-list" style="gap: 14px;">
+                <li>
+                  <a href="https://www.eia.gov/energyexplained/electricity/electricity-in-the-us.php" target="_blank" style="font-weight: 600;">U.S. Electricity Evidence ↗</a>
+                  <div class="sources-list-desc" style="font-size: 12.5px; margin-top: 2px;">
+                    <strong>United States</strong> — U.S. electricity generation fuels mix & regional power grid baselines.
+                  </div>
+                </li>
+                <li>
+                  <a href="https://www.electricitymaps.com/methodology" target="_blank" style="font-weight: 600;">Electricity Maps Methodology ↗</a>
+                  <div class="sources-list-desc" style="font-size: 12.5px; margin-top: 2px;">
+                    <strong>Denmark / Global</strong> — Electricity grid carbon intensity & power flow snapshots.
+                  </div>
+                </li>
+                <li>
+                  <a href="https://datacenters.google/efficiency/" target="_blank" style="font-weight: 600;">Google Data Center Efficiency ↗</a>
+                  <div class="sources-list-desc" style="font-size: 12.5px; margin-top: 2px;">
+                    <strong>United States</strong> — Corporate disclosures (Google, Microsoft, Meta) for PUE/WUE.
+                  </div>
+                </li>
+                <li>
+                  <a href="https://www.iea.org/reports/energy-and-ai" target="_blank" style="font-weight: 600;">IEA Energy and AI ↗</a>
+                  <div class="sources-list-desc" style="font-size: 12.5px; margin-top: 2px;">
+                    <strong>France / Global</strong> — Clean energy transition rates & clean tech deployment indicators.
+                  </div>
+                </li>
+                <li>
+                  <a href="https://drawdown.org/" target="_blank" style="font-weight: 600;">Project Drawdown ↗</a>
+                  <div class="sources-list-desc" style="font-size: 12.5px; margin-top: 2px;">
+                    <strong>United States / Global</strong> — Global carbon solutions catalog & greenhouse gas removal potentials.
+                  </div>
+                </li>
+                <li>
+                  <a href="https://www.adb.org/publications/climate-finance-landscape-asia-pacific" target="_blank" style="font-weight: 600;">ADB Climate Finance Report ↗</a>
+                  <div class="sources-list-desc" style="font-size: 12.5px; margin-top: 2px;">
+                    <strong>Philippines / Asia-Pacific</strong> — Climate mitigation project finance allocations.
+                  </div>
+                </li>
+                <li>
+                  <a href="https://www.unescap.org/kp/2025/asia-and-pacific-sdg-progress-report-2025" target="_blank" style="font-weight: 600;">Asia-Pacific SDG Progress Report ↗</a>
+                  <div class="sources-list-desc" style="font-size: 12.5px; margin-top: 2px;">
+                    <strong>Thailand / Asia-Pacific</strong> — Sustainable Development Goals (SDG) target trackers.
+                  </div>
+                </li>
+              </ul>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+
+      <!-- NEW SYSTEM DIAGNOSTIC CONSOLE (SLIDES IN DURING STUDY MODE) -->
+      <div id="study-console" class="study-console-layout" style="display: none;">
+        <div class="inspector-card inspector-overview-card">
+          <!-- CONSOLE HEADER -->
+          <div class="console-header">
+            <div class="console-meta-row" style="margin-bottom: 2px;">
+              <span id="console-sphere-badge" class="sphere-badge">---</span>
+            </div>
+            <div class="console-title-row">
+              <h2 id="console-node-name" style="margin: 0;">---</h2>
+            </div>
+            <span id="node-source-date" class="node-source-date">Most Recent Data: Unavailable</span>
+            <!-- Node explanation description -->
+            <p id="console-node-meaning" class="console-node-meaning" style="margin: 8px 0 0 0; font-size: 12px; line-height: 1.5; font-weight: 600; color: rgba(255, 255, 255, 0.6); font-family: var(--font-sans);">
+              Awaiting description...
+            </p>
+          </div>
+
+          <!-- TULIP URGENCY PROFILE -->
+          <div class="console-section urgency-section">
+            <div class="urgency-heading-wrap">
+              <div class="urgency-heading-row">
+                <div class="section-header">TULIP Urgency</div>
+                <button id="urgency-axis-info-toggle" class="urgency-axis-info-toggle" type="button" aria-expanded="false" aria-haspopup="dialog" aria-label="Show TULIP score chart axes info" title="Info">
+                  <img src="/urgency-axis-icon.png" alt="" class="urgency-axis-info-icon" aria-hidden="true" />
+                </button>
+              </div>
+              <div id="urgency-axis-popover" class="urgency-axis-popover" hidden>
+                <p class="urgency-axis-popover-description">A reproducible global urgency signal from 1 to 10. The active registry defines the score bands shown below.</p>
+                <dl id="urgency-band-range-table" class="urgency-band-range-table" aria-label="TULIP urgency score bands"></dl>
+              </div>
+            </div>
+            <div class="urgency-card">
+              <div class="urgency-score-row">
+                <div class="urgency-value-wrap">
+                  <img src="/logo-monogram.svg" alt="TULIP Monogram" class="urgency-monogram" />
+                  <div class="urgency-score-cluster">
+                    <span id="console-urgency-score">0.0</span>
+                    <span id="console-urgency-rating" class="urgency-status-tag rating-stable">STABLE</span>
+                    <span id="console-urgency-modeled" class="urgency-modeled-tag" hidden>Modeled</span>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                id="tulip-urgency-scale"
+                class="urgency-scale"
+                role="group"
+                aria-label="TULIP urgency score on a scale from 1 to 10"
+              >
+                <div id="urgency-scale-bands" class="urgency-scale-bands" aria-label="TULIP urgency bands">
+                  <span class="urgency-band-label" data-urgency-band="Low" tabindex="0">
+                    <span class="urgency-band-abbreviation" aria-hidden="true">Low</span>
+                    <span class="urgency-band-tooltip" role="tooltip">Low</span>
+                  </span>
+                  <span class="urgency-band-label" data-urgency-band="Elevated" tabindex="0">
+                    <span class="urgency-band-abbreviation" aria-hidden="true">Elevated</span>
+                    <span class="urgency-band-tooltip" role="tooltip">Elevated</span>
+                  </span>
+                  <span class="urgency-band-label" data-urgency-band="Rising" tabindex="0">
+                    <span class="urgency-band-abbreviation" aria-hidden="true">Rising</span>
+                    <span class="urgency-band-tooltip" role="tooltip">Rising</span>
+                  </span>
+                  <span class="urgency-band-label" data-urgency-band="Critical" tabindex="0">
+                    <span class="urgency-band-abbreviation" aria-hidden="true">Critical</span>
+                    <span class="urgency-band-tooltip" role="tooltip">Critical</span>
+                  </span>
+                </div>
+                <div class="urgency-scale-track" aria-hidden="true">
+                  <span id="urgency-score-marker" class="urgency-scale-marker">
+                    <span id="urgency-marker-value" class="urgency-scale-value">0.0</span>
+                  </span>
+                </div>
+                <div id="urgency-scale-axis" class="urgency-scale-axis" aria-hidden="true">
+                  <span style="left: 0%">1</span>
+                  <span style="left: 22.222%">3</span>
+                  <span style="left: 44.444%">5</span>
+                  <span style="left: 66.667%">7</span>
+                  <span style="left: 100%">10</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="inspector-card inspector-relationships-card">
+          <div id="relationship-evidence-picker-section" class="console-section relationship-evidence-picker-section" hidden>
+            <div class="section-header">Relationships</div>
+            <div class="relationship-evidence-fields">
+              <label class="relationship-evidence-field" for="relationship-trigger-select">
+                <select id="relationship-trigger-select" class="relationship-evidence-select" aria-label="Choose what influences this">
+                  <option value="">Choose what influences this</option>
+                </select>
+              </label>
+              <label class="relationship-evidence-field" for="relationship-effect-select">
+                <select id="relationship-effect-select" class="relationship-evidence-select" aria-label="Choose what this influences">
+                  <option value="">Choose what this influences</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <div id="connection-detail-section" class="console-section connection-detail-section" hidden>
+            <div id="connection-detail-header" class="section-header">How does this connection work?</div>
+            <div class="connection-detail-card">
+              <p id="connection-detail-reason" class="connection-detail-reason"></p>
+              <div id="connection-detail-evidence" class="connection-detail-evidence" hidden></div>
+            </div>
+          </div>
+        </div>
+
+          <div class="console-section human-impact-section">
+            <div class="section-header">Impact on Humans</div>
+            <div class="human-impact-card">
+              <div class="human-impact-header-row">
+                <span id="human-impact-severity" class="human-impact-severity severity-emerging">EMERGING HUMAN STRESS</span>
+                <span id="human-impact-reach" class="human-impact-reach">Reach: ---</span>
+              </div>
+              <p id="human-impact-summary" class="human-impact-summary">
+                Select a node to see how it affects people directly.
+              </p>
+              <div id="human-impact-domains" class="human-impact-domains"></div>
+              <ul id="human-impact-consequences" class="human-impact-consequences">
+                <li>Human-facing consequences will appear here.</li>
+              </ul>
+              <div id="human-impact-economic" class="impact-economic-block" hidden>
+                <div id="human-impact-hidden-cost-item" class="impact-economic-item" hidden>
+                  <div class="impact-economic-label">Hidden Cost</div>
+                  <p id="human-impact-hidden-cost" class="impact-economic-copy"></p>
+                </div>
+                <div id="human-impact-who-pays-item" class="impact-economic-item" hidden>
+                  <div class="impact-economic-label">Who Pays for It</div>
+                  <p id="human-impact-who-pays" class="impact-economic-copy"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="console-section planet-impact-section">
+            <div class="section-header">Impact on the Planet</div>
+            <div class="planet-impact-card">
+              <div class="planet-impact-header-row">
+                <span id="planet-impact-severity" class="planet-impact-severity severity-emerging">EMERGING PLANETARY STRESS</span>
+                <span id="planet-impact-reach" class="planet-impact-reach">Reach: ---</span>
+              </div>
+              <p id="planet-impact-summary" class="planet-impact-summary">
+                Select a node to see how it affects ecosystems and Earth systems directly.
+              </p>
+              <div id="planet-impact-domains" class="planet-impact-domains"></div>
+              <ul id="planet-impact-consequences" class="planet-impact-consequences">
+                <li>Planet-facing consequences will appear here.</li>
+              </ul>
+              <div id="planet-impact-economic" class="impact-economic-block" hidden>
+                <div id="planet-impact-physical-limit-item" class="impact-economic-item" hidden>
+                  <div class="impact-economic-label">Physical Limit</div>
+                  <p id="planet-impact-physical-limit" class="impact-economic-copy"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="console-section response-section">
+            <div class="section-header">What Can Be Done</div>
+            <div class="response-card">
+              <div class="impact-economic-item">
+                <div class="impact-economic-label">Default Driver</div>
+                <p id="response-default-driver" class="impact-economic-copy">Structural response guidance has not been curated for this node yet.</p>
+              </div>
+              <div class="impact-economic-item">
+                <div class="impact-economic-label">System Levers</div>
+                <ul id="response-system-levers" class="response-system-levers">
+                  <li>Curated system levers will appear here as nodes are converted.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- SELF-REINFORCING FEEDBACK LOOPS -->
+          <div class="console-section feedback-loops-section">
+            <div class="section-header">Self-Reinforcing Loops</div>
+            <div id="console-feedback-loops-list" class="feedback-loops-list">
+              <div class="causal-empty">No active reinforcing loops detected for this vector.</div>
+            </div>
+          </div>
+
+          <!-- MONITORING SOURCE -->
+          <div id="monitoring-source-section" class="console-section simulator-section">
+            <button id="monitoring-source-toggle" class="section-header section-toggle collapsed" type="button" aria-expanded="false">
+              <span>Monitoring Sources</span>
+              <span class="section-toggle-arrow" aria-hidden="true"></span>
+            </button>
+            <div id="monitoring-source-content" class="section-toggle-content" hidden>
+              <div class="simulator-card" style="padding: 16px;">
+                <div class="meta-desc-section" style="margin-top: 0;">
+                  <div class="meta-label" style="margin-bottom: 10px; color: var(--accent-color); font-size: 12px; letter-spacing: 1.5px; font-weight: 700;">ACTIVE OBSERVATION SENSORS</div>
+                  <ul id="console-node-sensors" class="monitoring-sensors-list" style="margin: 0; padding-left: 20px; color: rgba(255, 255, 255, 0.7); font-size: 13.5px; line-height: 1.6; font-family: var(--font-sans);">
+                    <!-- Dynamic sensors list -->
+                  </ul>
+                </div>
+                <div id="data-center-intel-card" class="meta-desc-section" style="display: none; margin-top: 16px;">
+                  <div class="meta-label" style="margin-bottom: 10px; color: rgba(96, 165, 250, 0.95); font-size: 12px; letter-spacing: 1.5px; font-weight: 700;">DATA-CENTRE ENERGY &amp; EMISSIONS</div>
+                  <div id="data-center-intel-list" style="display: flex; flex-direction: column; gap: 10px;">
+                    <div style="font-size: 12px; color: rgba(255,255,255,0.52); line-height: 1.5;">
+                      Data-centre measurements will appear here.
+                    </div>
+                  </div>
+                </div>
+                <div class="meta-desc-section" style="margin-top: 16px;">
+                  <div class="meta-label" style="margin-bottom: 10px; color: rgba(255, 220, 174, 0.95); font-size: 12px; letter-spacing: 1.5px; font-weight: 700;">NASA EARTHDATA COLLECTIONS</div>
+                  <div id="console-earthdata-collections" style="display: flex; flex-direction: column; gap: 8px;">
+                    <div style="font-size: 12px; color: rgba(255,255,255,0.52); line-height: 1.5;">
+                      Earthdata collection matches will appear here.
+                    </div>
+                  </div>
+                </div>
+                <div class="meta-desc-section" style="margin-top: 16px;">
+                  <div class="meta-label" style="margin-bottom: 10px; color: rgba(96, 165, 250, 0.95); font-size: 12px; letter-spacing: 1.5px; font-weight: 700;">GRACE MASS-CHANGE PRODUCTS</div>
+                  <div id="console-grace-collections" style="display: flex; flex-direction: column; gap: 8px;">
+                    <div style="font-size: 12px; color: rgba(255,255,255,0.52); line-height: 1.5;">
+                      GRACE product matches will appear here.
+                    </div>
+                  </div>
+                </div>
+                <div class="meta-desc-section" style="margin-top: 16px;">
+                  <div class="meta-label" style="margin-bottom: 10px; color: rgba(255, 176, 80, 0.95); font-size: 12px; letter-spacing: 1.5px; font-weight: 700;">NASA POWER CLIMATE BASELINES</div>
+                  <div id="console-power-baselines" style="display: flex; flex-direction: column; gap: 8px;">
+                    <div style="font-size: 12px; color: rgba(255,255,255,0.52); line-height: 1.5;">
+                      NASA POWER climatology baselines will appear here.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+      </div>
+
+      <section id="phenomena-view" class="phenomena-view" hidden>
+        <div class="phenomena-shell">
+
+          <div id="phenomena-selector" class="phenomena-selector" aria-label="Footprint selector"></div>
+
+          <div class="phenomena-focus-card">
+            <div class="phenomena-mode-toggle" role="tablist" aria-label="Footprint content mode">
+              <button id="phenomena-mode-footprint" class="phenomena-mode-btn active" type="button" role="tab" aria-selected="true">Footprint</button>
+              <button id="phenomena-mode-actions" class="phenomena-mode-btn" type="button" role="tab" aria-selected="false">Actions</button>
+            </div>
+
+            <div class="phenomena-focus-meta">
+              <div id="phenomena-focus-sphere" class="phenomena-focus-sphere">Farming & Food</div>
+              <h3 id="phenomena-focus-name" class="phenomena-focus-name">
+                <span id="phenomena-focus-icon" class="phenomena-focus-icon" aria-hidden="true"></span>
+                <span id="phenomena-focus-name-text" class="phenomena-focus-name-text">Agricultural Demand</span>
+              </h3>
+              <p id="phenomena-focus-description" class="phenomena-focus-description">Footprint-specific explanation surface.</p>
+            </div>
+
+            <div id="phenomenon-lens-panel" class="phenomenon-panel phenomenon-panel-active">
+            <div class="phenomenon-lens-card">
+              <div class="phenomenon-lens-meta">
+                <div id="phenomenon-lens-eyebrow" class="phenomenon-lens-eyebrow">Standalone footprint lens</div>
+                <h3 id="phenomenon-lens-title" class="phenomenon-lens-title">Footprint lens</h3>
+                <p id="phenomenon-lens-intro" class="phenomenon-lens-intro">A separate visualization surface for footprint-specific data.</p>
+                <div id="phenomenon-lens-scale" class="phenomenon-lens-scale">Separate from TULIP scoring.</div>
+                <div id="phenomenon-lens-source" class="phenomenon-lens-source"></div>
+              </div>
+              <div class="phenomenon-lens-spectrum">
+                <div id="phenomenon-lens-axis" class="phenomenon-lens-axis"></div>
+                <div id="phenomenon-lens-rows" class="phenomenon-lens-rows"></div>
+              </div>
+              <p id="phenomenon-lens-takeaway" class="phenomenon-lens-takeaway"></p>
+            </div>
+            </div>
+
+            <div id="phenomenon-actions-panel" class="phenomenon-panel">
+              <div class="phenomena-focus-card actions-focus-card">
+                <div class="phenomena-focus-meta actions-focus-meta">
+                  <div id="actions-focus-confidence" class="actions-confidence"></div>
+                  <div id="actions-focus-strongest" class="actions-strongest">IMMEDIATE ACTION: Replace beef and lamb first.</div>
+                </div>
+
+                <div class="actions-grid">
+                  <article class="actions-column">
+                    <div class="actions-column-label actions-column-label-personal">PERSONAL</div>
+                    <div class="actions-column-note">Closest to individual habits and daily choices.</div>
+                    <ul id="actions-personal-list" class="actions-list"></ul>
+                  </article>
+                  <article class="actions-column">
+                    <div class="actions-column-label actions-column-label-community">COMMUNITY</div>
+                    <div class="actions-column-note">Shared places, institutions, and local systems.</div>
+                    <ul id="actions-community-list" class="actions-list"></ul>
+                  </article>
+                  <article class="actions-column">
+                    <div class="actions-column-label actions-column-label-policy">POLICY</div>
+                    <div class="actions-column-note">Rules, prices, and investments that shift whole systems.</div>
+                    <ul id="actions-policy-list" class="actions-list"></ul>
+                  </article>
+                </div>
+
+                <div class="actions-impact-grid">
+                  <article class="actions-footer-card">
+                    <div class="actions-column-label actions-column-label-personal">IMPACT</div>
+                    <div class="actions-column-note">What changes first at the personal level.</div>
+                    <ul id="actions-impact-personal-list" class="actions-list actions-impact-list"></ul>
+                  </article>
+                  <article class="actions-footer-card">
+                    <div class="actions-column-label actions-column-label-community">IMPACT</div>
+                    <div class="actions-column-note">What changes first at the community level.</div>
+                    <ul id="actions-impact-community-list" class="actions-list actions-impact-list"></ul>
+                  </article>
+                  <article class="actions-footer-card">
+                    <div class="actions-column-label actions-column-label-policy">IMPACT</div>
+                    <div class="actions-column-note">What changes first at the policy level.</div>
+                    <ul id="actions-impact-policy-list" class="actions-list actions-impact-list"></ul>
+                  </article>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="personal-footprint-view" class="personal-footprint-view" hidden>
+        <div class="phenomena-shell personal-footprint-shell">
+          <div class="phenomena-focus-card personal-footprint-focus-card">
+            <div class="personal-footprint-sticky-panel">
+              <div class="phenomena-focus-meta personal-footprint-focus-meta">
+                <h3 class="phenomena-focus-name personal-footprint-focus-name">
+                  <span id="personal-footprint-focus-name-text" class="phenomena-focus-name-text">Your Footprint</span>
+                </h3>
+                <p id="personal-footprint-focus-description" class="phenomena-focus-description personal-footprint-focus-description">
+                  Annual carbon and resource pressure will update as you answer.
+                </p>
+                <div id="personal-footprint-metric-strip" class="personal-footprint-metric-strip"></div>
+              </div>
+              <div class="personal-footprint-summary-divider" aria-hidden="true"></div>
+            </div>
+
+            <div class="personal-footprint-scroll-content">
+              <div class="phenomenon-lens-card personal-footprint-lens-card personal-footprint-questions-card">
+                <div id="personal-footprint-questions" class="personal-footprint-questions" aria-label="Personal footprint questions"></div>
+              </div>
+
+              <div class="actions-footer-grid personal-footprint-footer-grid">
+                <article class="actions-footer-card">
+                  <div class="personal-footprint-breakdown-heading">Breakdown</div>
+                  <div id="personal-footprint-global-rank" class="personal-footprint-global-rank is-empty" aria-live="polite">
+                    <span class="personal-footprint-global-rank-label">Global carbon rank</span>
+                    <strong>0 of 11 questions answered</strong>
+                  </div>
+                  <div id="personal-footprint-breakdown" class="personal-footprint-breakdown"></div>
+                </article>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FULL-SCREEN ENVIRONMENTAL REGISTRIES DASHBOARD OVERLAY -->
+      <div id="registries-dashboard" class="registries-dashboard-overlay" role="dialog" aria-modal="true" aria-labelledby="registries-title" tabindex="-1" style="display: none;">
+        <div class="dashboard-header">
+          <div class="dashboard-title-area">
+            <div class="footer-overlay-heading-row">
+              <h2 id="registries-title">Environmental Registries</h2>
+            </div>
+            <p>Shared monitoring systems, dataset catalogs, disclosure layers, and reference feeds <span id="dashboard-active-node-name">available across the platform</span></p>
+          </div>
+        </div>
+        <div class="dashboard-body registry-directory-body">
+          <section id="registry-coverage-cockpit" class="registry-coverage-cockpit" aria-label="Registry coverage cockpit">
+            <p class="registry-cockpit-loading">Calculating current graph and evidence coverage…</p>
+          </section>
+          <div class="registry-evidence-heading">
+            <div>
+              <div class="registry-evidence-kicker">Evidence detail</div>
+              <h3>Registry directory</h3>
+            </div>
+            <p>Open the source catalogs and research records behind the coverage summary.</p>
+          </div>
+          <div class="registry-tab-bar" role="tablist" aria-label="Registry categories">
+            <button class="registry-tab-btn active" data-registry-tab="climate" role="tab" aria-selected="true">Climate & Air</button>
+            <button class="registry-tab-btn" data-registry-tab="water" role="tab" aria-selected="false">Land & Water</button>
+            <button class="registry-tab-btn" data-registry-tab="energy" role="tab" aria-selected="false">Energy & Compute</button>
+            <button class="registry-tab-btn" data-registry-tab="lineage" role="tab" aria-selected="false">Pipeline Lineage</button>
+            <button class="registry-tab-btn" data-registry-tab="research" role="tab" aria-selected="false">Research Backlog</button>
+          </div>
+          <div id="registry-panels"></div>
+        </div>
+      </div>
+
+      <!-- TULIP SCORE EXPLANATION POPUP -->
+      <div id="tulip-score-popup" class="tulip-score-popup-overlay" role="dialog" aria-modal="true" aria-labelledby="tulip-score-title" tabindex="-1" style="display: none;">
+        <div class="tulip-score-card">
+          <div class="footer-overlay-heading-row">
+            <h2 id="tulip-score-title" class="panel-hero-title">TULIP Score</h2>
+          </div>
+
+          <section class="tulip-score-overview" aria-labelledby="tulip-score-overview-title">
+            <div>
+              <span class="tulip-score-eyebrow">Global urgency · 1.0 to 10.0</span>
+              <h3 id="tulip-score-overview-title">How urgent is this issue now?</h3>
+              <p>The TULIP Score is a 1–10 urgency rating for climate and environmental problems. It combines evidence about how serious a problem is now, how close it is to a dangerous level, whether it is getting worse, and how widely it is happening.</p>
+            </div>
+          </section>
+
+          <section class="tulip-score-section">
+            <div class="tulip-score-section-heading is-text-only">
+              <div>
+                <h3>First: choose the evidence</h3>
+              </div>
+            </div>
+            <p class="tulip-score-prose">TULIP prefers recent, global measurements. When those are available, it asks four questions: <strong>How large is the problem now? How close is it to a dangerous threshold? How quickly is it changing? How much of the world does it affect?</strong></p>
+            <p class="tulip-score-prose">If current measurements are incomplete, TULIP uses documented harm that has already occurred—to natural systems, people, and the economy. A model estimate is used only as a last resort and is clearly marked <strong>Modeled</strong>.</p>
+          </section>
+
+          <section class="tulip-score-section">
+            <div class="tulip-score-section-heading is-text-only">
+              <div>
+                <h3>Next: translate everything to the same scale</h3>
+              </div>
+            </div>
+            <p class="tulip-score-prose">Climate problems are measured in incompatible units: degrees of warming, tonnes of pollution, hectares lost, people exposed, or dollars of damage. Before combining them, TULIP translates every measurement to a common <strong>0–1 scale</strong>.</p>
+            <p class="tulip-score-prose"><strong>0 means the reference condition. About 0.33 means concerning. About 0.67 means critical. 1 means extreme.</strong> A measurement between two points receives a value between them. This translation makes different kinds of problems comparable without pretending that their original units are the same.</p>
+          </section>
+
+          <section class="tulip-score-section">
+            <div class="tulip-score-section-heading is-text-only">
+              <div>
+                <h3>Then: blend the four signals</h3>
+              </div>
+            </div>
+            <p class="tulip-score-prose">For issues with current data, the four signals do not count equally. <strong>Current magnitude counts for 30%, dangerous-threshold position for 30%, momentum for 25%, and geographic extent for 15%.</strong></p>
+            <p class="tulip-score-prose">In shorthand: <strong>(magnitude × 0.30) + (threshold × 0.30) + (momentum × 0.25) + (extent × 0.15) = the weighted composite.</strong></p>
+            <p class="tulip-score-prose">When TULIP has to use documented harm instead, the blend changes to <strong>35% physical or ecological harm, 30% harm to people or the economy, 20% persistence, and 15% geographic extent</strong>. The result is still a weighted composite between 0 and 1.</p>
+            <p class="tulip-score-prose">The weighted composite is still between 0 and 1. To turn it into the familiar TULIP scale, multiply it by 9 and add 1: <strong>TULIP Score = 1 + (9 × weighted composite)</strong>. Multiplying by 9 stretches the range from nine points wide; adding 1 shifts it from 0–9 to 1–10.</p>
+            <p id="tulip-score-band-description" class="tulip-score-prose">The result is rounded to one decimal place. <strong>1.0–2.9 is Low, 3.0–4.9 is Elevated, 5.0–6.9 is Rising, and 7.0–10.0 is Critical.</strong></p>
+          </section>
+
+          <section class="tulip-score-section">
+            <div class="tulip-score-section-heading is-text-only">
+              <div>
+                <h3>Finally: see the formula in action</h3>
+              </div>
+            </div>
+            <p class="tulip-score-prose">For Global Temperature, TULIP translates the evidence into four 0–1 values: <strong>0.62 for current magnitude, 0.62 for threshold position, 0.71 for momentum, and 1.00 for global extent.</strong></p>
+            <p class="tulip-score-prose">Apply the weights: <strong>(0.62 × 0.30) + (0.62 × 0.30) + (0.71 × 0.25) + (1.00 × 0.15) ≈ 0.70.</strong> That 0.70 is the weighted composite, not the final score.</p>
+            <p class="tulip-score-prose">Convert it to 1–10: <strong>1 + (9 × 0.70) = 7.3.</strong> Global Temperature therefore receives a TULIP Score of <strong id="tulip-score-temperature-band-example">7.3, or Critical</strong>.</p>
+            <p class="tulip-score-prose">A 7.3 does not mean 73% damage or a 73% chance of disaster. It means the available evidence places the issue high on TULIP's urgency scale. The score also does not measure scientific confidence, popularity, or how easy the issue is to solve.</p>
+            <p class="tulip-score-prose"><strong>Receipt verification is computational, not scientific proof.</strong> It checks that stored components reproduce the score and band and that hashed content has not changed. Scientific review separately evaluates the measurement, anchors, transformation, scoring route, and continuing source support.</p>
+          </section>
+        </div>
+      </div>
+
+      <div id="about-popup" class="about-popup-overlay" role="dialog" aria-modal="true" aria-labelledby="about-title" tabindex="-1" style="display: none;">
+        <div class="about-card">
+          <div id="about-long-copy" class="about-long-copy">
+            <div class="footer-overlay-heading-row">
+              <h2 id="about-title" class="about-title">Tracking Use, Loss, and Impact of Planetary Resources</h2>
+            </div>
+
+            <p class="about-section-lead">The TULIP Project helps people understand how human choices affect Earth’s atmosphere, oceans, ecosystems, economies, and future.</p>
+
+            <div class="overlay-body-copy">
+              <p>
+                It brings climate data and interconnected relationships into one explorable system.
+              </p>
+              <p>
+                This makes complex causes and consequences easier to understand without reducing them to a single story.
+              </p>
+
+              <h3 class="about-section-title">What You Can Do</h3>
+              <ul class="about-list">
+                <li>Explore connected environmental causes and effects</li>
+                <li>Follow what drives a problem and what it affects next</li>
+                <li>Understand how human activity influences the climate</li>
+                <li>Estimate your personal carbon, water, land, and material footprints</li>
+              </ul>
+
+              <p>
+                TULIP combines public datasets, institutional monitoring, reported disclosures, and modeled relationships.
+              </p>
+              <p>
+                Not every connection carries the same level of certainty, and TULIP is not a substitute for primary scientific institutions.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="contact-popup" class="contact-popup-overlay" role="dialog" aria-modal="true" aria-labelledby="contact-title" tabindex="-1" style="display: none;">
+        <div class="contact-card">
+          <div class="about-long-copy">
+            <h2 id="contact-title" class="about-title">Contact</h2>
+
+            <p class="about-section-lead">For partnerships, research collaboration, platform questions, data discussions, and institutional outreach related to TULIP.</p>
+
+            <form
+              id="contact-form"
+              class="contact-form"
+              action="/api/contact"
+              method="POST"
+            >
+              <input type="hidden" name="_subject" value="New TULIP contact form message" />
+              <input type="hidden" name="_template" value="table" />
+              <input class="contact-form-honeypot" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+              <div class="contact-form-grid">
+                <label class="contact-form-field">
+                  <span>Name</span>
+                  <input type="text" name="name" autocomplete="name" maxlength="100" required />
+                </label>
+
+                <label class="contact-form-field">
+                  <span>Email</span>
+                  <input type="email" name="email" autocomplete="email" maxlength="160" required />
+                </label>
+
+                <label class="contact-form-field">
+                  <span>Organization <small>Optional</small></span>
+                  <input type="text" name="organization" autocomplete="organization" maxlength="140" />
+                </label>
+
+                <label class="contact-form-field">
+                  <span>Topic</span>
+                  <select name="topic" required>
+                    <option value="" selected disabled>Select a topic</option>
+                    <option value="Platform question">Platform question</option>
+                    <option value="Research collaboration">Research collaboration</option>
+                    <option value="Data or evidence">Data or evidence</option>
+                    <option value="Partnership">Partnership</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </label>
+              </div>
+
+              <label class="contact-form-field contact-form-message">
+                <span>Message</span>
+                <textarea name="message" rows="7" maxlength="4000" required></textarea>
+              </label>
+
+              <div class="contact-form-actions">
+                <button class="contact-form-submit" type="submit">Send message</button>
+                <p id="contact-form-status" role="status" aria-live="polite">Required fields must be completed. No tracking identifiers are added.</p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+    <!-- NEW TULIP FOOTER BAR -->
+    <footer id="tulip-footer-bar" class="tulip-footer-bar">
+      <div class="footer-left">
+        <img src="/logo-monogram.svg" alt="TULIP Monogram" />
+        <span>© 2026 All Rights Reserved</span>
+      </div>
+      <div class="footer-center">
+        <div id="search-container">
+          <input type="text" id="node-search-input" placeholder="Search TULIP" aria-label="Search the TULIP climate network" autocomplete="off" />
+          <div id="search-results" style="display: none;"></div>
+        </div>
+        <button class="footer-nav-btn active" id="footer-btn-explore">EXPLORE</button>
+        <button class="footer-nav-btn" id="footer-btn-analyse">ANALYSE</button>
+        <button class="footer-nav-btn" id="footer-btn-phenomena">ACTIVITY IMPACTS</button>
+        <button class="footer-nav-btn" id="footer-btn-personal-footprint">MY FOOTPRINT</button>
+      </div>
+      <div class="footer-right">
+        <a href="#" id="tulip-score-btn" class="footer-link">TULIP Score</a>
+        <a href="#" id="sources-tab-btn" class="footer-link">Sources</a>
+        <a href="#" id="registries-btn" class="footer-link">Registries</a>
+        <a href="#" id="about-btn" class="footer-link">About</a>
+        <span class="footer-contact-disabled">
+          <span id="contact-btn" class="footer-link is-disabled" aria-disabled="true" tabindex="0" aria-describedby="contact-disabled-tooltip">Contact</span>
+          <span id="contact-disabled-tooltip" class="footer-contact-tooltip" role="tooltip">
+            <span>Contact:</span>
+            <a href="mailto:aniket1.warade@gmail.com">aniket1.warade@gmail.com</a>
+          </span>
+        </span>
+      </div>
+    </footer>
+
+    <!-- Application script -->
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,54 @@
+{
+  "version": "1.0.0",
+  "snapshot_family": "reviewed_report_snapshot",
+  "contract_id": "fast_fashion_accumulated_impact_v1",
+  "node_id": "fast_fashion",
+  "as_of": "2025-03-30",
+  "captured_at": "2026-07-31T00:00:00.000Z",
+  "method_boundary": "Quantitative accumulated-impact evidence for the textile and apparel system; not a current global fast-fashion observation series.",
+  "indicators": [
+    {
+      "id": "annual_textile_waste",
+      "value": 92,
+      "unit": "million tonnes per year",
+      "source_id": "unep_zero_waste_day_2025"
+    },
+    {
+      "id": "production_growth_2000_2015",
+      "value": 100,
+      "unit": "percent",
+      "source_id": "unep_zero_waste_day_2025"
+    },
+    {
+      "id": "garment_use_duration_change",
+      "value": -36,
+      "unit": "percent",
+      "source_id": "unep_zero_waste_day_2025"
+    },
+    {
+      "id": "industry_ghg_share_range",
+      "value": [2, 8],
+      "unit": "percent of global greenhouse gas emissions",
+      "source_id": "unep_annual_report_2025_fashion"
+    },
+    {
+      "id": "fiber_recycled_share_2023",
+      "value": 8,
+      "unit": "percent",
+      "source_id": "unep_zero_waste_day_2025"
+    }
+  ],
+  "sources": [
+    {
+      "id": "unep_zero_waste_day_2025",
+      "publisher": "United Nations Environment Programme",
+      "url": "https://www.unep.org/news-and-stories/press-release/unsustainable-fashion-and-textiles-focus-international-day-zero"
+    },
+    {
+      "id": "unep_annual_report_2025_fashion",
+      "publisher": "United Nations Environment Programme",
+      "url": "https://www.unep.org/annualreport/2025/stories/minimizing-fashions-environmental-footprint"
+    }
+  ],
+  "uncertainty": "Sector boundaries and attribution to fast fashion vary across studies. Values are retained as source-reported ranges or totals and are used only for the accumulated-impact fallback."
+}

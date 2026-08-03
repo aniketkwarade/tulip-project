@@ -1,0 +1,52 @@
+{
+  "version": "undrr_gar_2025_global_drought_impact_v1",
+  "captured_at": "2026-07-31T18:15:44.188Z",
+  "source": {
+    "id": "undrr_gar_2025_global_drought_impacts",
+    "name": "UNDRR Global Assessment Report 2025 Hazard Exploration: Droughts",
+    "publisher": "United Nations Office for Disaster Risk Reduction",
+    "url": "https://www.undrr.org/gar/gar2025/hazard-exploration/droughts",
+    "terminology_url": "https://www.undrr.org/understanding-disaster-risk/terminology/hips/mh0401"
+  },
+  "ingestion_job_id": "export_undrr_global_drought_impact_snapshot",
+  "metric_contract_ids": [
+    "drought_event_duration_spi6"
+  ],
+  "contract_bindings": [
+    {
+      "node_id": "drought_persistence",
+      "metric_id": "drought_event_duration_spi6",
+      "measurement_role": "global_accumulated_drought_frequency_human_loss_and_persistence_assessment"
+    }
+  ],
+  "cadence": "UNDRR GAR release review with annual drought-terminology and loss-estimate checks.",
+  "provenance": "Official UNDRR global drought hazard assessment values. Recorded occurrence change, affected people, recorded economic cost and modeled present annual losses remain separate fields.",
+  "uncertainty": "Drought onset, duration, direct and indirect losses and affected-population reporting are incomplete and definition-sensitive. The US$307 billion annual figure is an estimated current loss burden, not a reconciled observation inventory. The 1.5 billion affected count and US$125 billion recorded cost use the decade ending in 2017.",
+  "failure_behavior": "Retain the last reviewed GAR assessment and mark stale; reject changed time windows or mixed loss-price boundaries. Never add affected populations across overlapping periods, turn a global occurrence trend into a local SPI value, or treat the modeled annual loss estimate as an observed ledger.",
+  "assessment": {
+    "report_year": 2025,
+    "recorded_drought_count_increase_pct_over_20_years": 29,
+    "occurrence_change_period_years": 20,
+    "people_affected_decade_to_2017_billion_lower_bound": 1.5,
+    "recorded_economic_cost_decade_to_2017_usd_billion": 125,
+    "estimated_current_annual_loss_usd_billion_context_only": 307,
+    "estimated_disaster_loss_share_pct_context_only": 15,
+    "livestock_death_share_pct_context_only": 85.8,
+    "annual_people_affected_million_context_only": 55,
+    "geographic_scope": "countries in every world region",
+    "global_region_coverage_normalized": 1,
+    "source_locators": [
+      "GAR 2025 drought hazard exploration: at least 1.5 billion people affected and US$125 billion cost in the decade to 2017.",
+      "GAR 2025 drought hazard exploration: recorded droughts increased 29 percent over the past 20 years.",
+      "GAR 2025 drought hazard exploration: droughts are widespread and affect countries in every region of the world.",
+      "GAR 2025 drought hazard exploration: present drought-induced losses estimated at approximately US$307 billion annually (context only)."
+    ]
+  },
+  "excluded_from_scoring": [
+    "2050 population projection",
+    "modeled US$307 billion annual loss",
+    "livestock-death share",
+    "regional hotspot counts",
+    "local SPI inferred from global impacts"
+  ]
+}

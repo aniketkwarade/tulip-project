@@ -1,0 +1,109 @@
+{
+  "version": "2026-07-16",
+  "updated_at": "2026-07-16",
+  "category": "freshwater",
+  "refresh_policy": {
+    "default_days": 45,
+    "notes": "Freshwater source packs should be refreshed monthly to quarterly unless a source is near-real-time or event-driven."
+  },
+  "priority_nodes": [
+    {
+      "id": "water_stress",
+      "label": "Baseline Water Stress",
+      "sources": [
+        "wri_aqueduct",
+        "fao_aquastat"
+      ]
+    },
+    {
+      "id": "groundwater_depletion",
+      "label": "Groundwater Depletion",
+      "sources": [
+        "grace_fo",
+        "usgs_groundwater_depletion"
+      ]
+    },
+    {
+      "id": "river_flow_regime_shift",
+      "label": "River Flow Regime Change",
+      "sources": [
+        "wmo_global_water_resources",
+        "usgs_water_resources"
+      ]
+    },
+    {
+      "id": "glacier_meltwater_dependency",
+      "label": "Glacier-Fed Water Dependence",
+      "sources": [
+        "nasa_glims",
+        "ipcc_wg1_ch9"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "wri_aqueduct",
+      "label": "WRI Aqueduct",
+      "url": "https://www.wri.org/aqueduct",
+      "type": "atlas",
+      "applies_to": ["water_stress", "industry_farming->water_stress"],
+      "notes": "Basin-scale water stress, seasonal variability, and physical water risk atlas."
+    },
+    {
+      "id": "fao_aquastat",
+      "label": "FAO AQUASTAT",
+      "url": "https://www.fao.org/aquastat/",
+      "type": "data_portal",
+      "applies_to": ["water_stress", "groundwater_depletion", "industry_farming->groundwater_depletion"],
+      "notes": "Water withdrawals, irrigation, and sectoral water-use reference system."
+    },
+    {
+      "id": "grace_fo",
+      "label": "NASA GRACE-FO",
+      "url": "https://gracefo.jpl.nasa.gov/",
+      "type": "mission",
+      "applies_to": ["groundwater_depletion"],
+      "notes": "Mass-change and terrestrial water-storage mission used to track groundwater-related decline."
+    },
+    {
+      "id": "usgs_groundwater_depletion",
+      "label": "USGS Groundwater Depletion",
+      "url": "https://www.usgs.gov/mission-areas/water-resources/science/groundwater-depletion",
+      "type": "science_page",
+      "applies_to": ["groundwater_depletion"],
+      "notes": "Official groundwater depletion framing and reference support."
+    },
+    {
+      "id": "wmo_global_water_resources",
+      "label": "WMO State of Global Water Resources 2024",
+      "url": "https://wmo.int/publication-series/state-of-global-water-resources-2024",
+      "type": "report",
+      "applies_to": ["river_flow_regime_shift"],
+      "notes": "Official multihazard framing for river flow, storage, drought, and hydrologic variability."
+    },
+    {
+      "id": "usgs_water_resources",
+      "label": "USGS Water Resources Mission Area",
+      "url": "https://www.usgs.gov/mission-areas/water-resources",
+      "type": "science_page",
+      "applies_to": ["river_flow_regime_shift"],
+      "notes": "Operational hydrology support for river flow, drought, and watershed monitoring."
+    },
+    {
+      "id": "nasa_glims",
+      "label": "NASA GLIMS Glacier Database",
+      "url": "https://www.earthdata.nasa.gov/data/tools/glims-glacier-database",
+      "type": "database",
+      "applies_to": ["glacier_meltwater_dependency"],
+      "notes": "Glacier inventory and monitoring support for glacier-fed water dependence."
+    },
+    {
+      "id": "ipcc_wg1_ch9",
+      "label": "IPCC AR6 WG1 Chapter 9",
+      "url": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-9/",
+      "type": "assessment",
+      "applies_to": ["glacier_meltwater_dependency"],
+      "notes": "Cryosphere and hydrologic assessment context for glacier runoff change."
+    }
+  ]
+}

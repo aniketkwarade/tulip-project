@@ -1,0 +1,151 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_98_tsmc_semiconductor_fabrication_footprint",
+  "generated_at": "2026-08-01T18:22:11.190Z",
+  "source_snapshots": [
+    "public/tsmc-semiconductor-fabrication-footprint-impact-snapshot.json"
+  ],
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "semiconductor_fabrication_footprint",
+      "value": 8.6,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "biophysical_burden": 0.757209,
+        "human_economic_burden": 0.924025,
+        "persistence": 1,
+        "extent": 0.67
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "total_water_million_m3": 129,
+          "water_litres_per_wafer_mask_layer": 161,
+          "implied_wafer_mask_layers_derived": 801242236.025,
+          "total_energy_gwh": 27456,
+          "energy_kwh_per_wafer_mask_layer_derived": 34.266791,
+          "total_scope_1_2_3_ghg_tonnes_co2e": 21006442,
+          "ghg_kg_co2e_per_wafer_mask_layer_derived": 26.217342,
+          "normalized_subcomponents": {
+            "energy": 0.826935,
+            "water": 0.7063,
+            "ghg": 0.738391
+          },
+          "normalization_anchors": {
+            "energy": [
+              0,
+              5,
+              20,
+              50
+            ],
+            "water": [
+              0,
+              50,
+              150,
+              250
+            ],
+            "ghg": [
+              0,
+              5,
+              20,
+              50
+            ]
+          }
+        },
+        "human_economic_burden": {
+          "environmental_expense_billion_twd": 24.478265,
+          "environmental_investment_billion_twd": 39.01036,
+          "combined_environmental_cost_billion_twd_derived": 63.488625,
+          "normalization_anchors_billion_twd": [
+            0,
+            5,
+            25,
+            75
+          ]
+        },
+        "persistence": {
+          "environmental_cost_billion_twd_2014_derived": 14.142326,
+          "environmental_cost_billion_twd_2024_derived": 63.488625,
+          "accounting_span_years_derived": 10,
+          "normalization_anchors_years": [
+            0,
+            1,
+            5,
+            10
+          ]
+        },
+        "extent": {
+          "countries_or_economies": 4,
+          "named_entities_or_site_groups": 7,
+          "normalization_anchors_countries_or_economies": [
+            1,
+            2,
+            4,
+            7
+          ]
+        },
+        "source_snapshot": {
+          "path": "public/tsmc-semiconductor-fabrication-footprint-impact-snapshot.json",
+          "version": "tsmc_semiconductor_fabrication_footprint_2014_2024_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z",
+          "source_locators": [
+            "The report gives 2024 total water use of 129 million cubic metres and unit water use of 161.0 litres per 12-inch equivalent wafer mask layer for Taiwan and named subsidiaries.",
+            "It reports total energy consumption of 27,456 GWh and total Scope 1, 2 and 3 GHG emissions of 21,006,442 tCO2e for 2024.",
+            "It reports that absolute GHG emissions increased 8% year over year and emissions per unit product increased 19%; water intensity declined 8.7% from 2023 but remained 14.3% above the 2010 baseline.",
+            "The water reporting note covers Taiwan fabs, TSMC China, TSMC Nanjing, TSMC Washington, TSMC Arizona, JASM and VisEra.",
+            "The Taiwan-fab environmental accounting table reports NT$24,478,265 thousand in 2024 expense and NT$39,010,360 thousand in investment.",
+            "The table separately identifies pollution control, resource conservation, energy conservation, GHG reduction, waste treatment and environmental management costs.",
+            "The report gives 2024 outsourced waste of 344,056 tonnes general and 445,152 tonnes hazardous, plus 1.16 kg per 12-inch equivalent wafer mask layer for Taiwan facilities.",
+            "The 2014 Taiwan-fab environmental accounting table reports total environmental investment of NT$9,703,309 thousand and expense of NT$4,439,017 thousand.",
+            "The matching 2014 and 2024 accounting endpoints establish ten years of recurring quantified environmental expenditure at the main manufacturing boundary."
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "common_wafer_layer_denominator",
+          "formula": "Derive 12-inch equivalent wafer mask layers as 129 million m3 × 1,000 litres/m3 ÷ 161 litres per wafer layer; retain the source denominator and never relabel it as wafer starts."
+        },
+        {
+          "type": "resource_and_emissions_intensity",
+          "formula": "Divide 27,456 GWh and 21,006,442 tCO2e by the same derived wafer-layer denominator; normalize energy, water and GHG intensity separately and average the three normalized values."
+        },
+        {
+          "type": "realized_environmental_cost",
+          "formula": "Add the 2024 Taiwan-fab environmental expense and investment accounts; do not use corporate revenue or avoided-loss estimates."
+        },
+        {
+          "type": "persistence_endpoint_span",
+          "formula": "Use matching 2014 and 2024 environmental-accounting endpoints to establish a ten-year quantified span."
+        },
+        {
+          "type": "bounded_multinational_extent",
+          "formula": "Normalize four disclosed countries or economies; do not assign global industry extent."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "tsmc_sustainability_report_2024_fab_footprint",
+        "tsmc_annual_report_2024_environmental_accounting",
+        "tsmc_annual_report_2014_environmental_accounting"
+      ],
+      "uncertainty": "The energy and GHG intensities are deterministic derivations that divide disclosed totals by an implied wafer-mask-layer denominator derived from total water and disclosed water intensity. Scope 3 is retained because the reported total includes it; the value is therefore a company footprint intensity, not only fab-gate emissions. Environmental expense and investment cover Taiwan fabs, a narrower boundary than the multinational resource totals, and represent realized prevention, control, treatment and management costs rather than monetized environmental damage. Four countries or economies and seven named entities or site groups describe reporting reach, not global industry coverage.",
+      "freshness": "2024 footprint and 2014–2024 environmental-accounting endpoints reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "Primary corporate reports provide a common wafer-mask-layer denominator for water, energy and total GHG intensity, realized environmental expense and investment, a ten-year accounting span and a named multinational reporting boundary.",
+        "higher_priority_failures": [
+          "The evidence covers one multinational foundry rather than a defensible current global industry aggregation.",
+          "The current-data method cannot assign global extent or an industry-wide threshold from this company boundary."
+        ]
+      },
+      "input_hash": "fnv1a32:aaebd73c"
+    }
+  ]
+}

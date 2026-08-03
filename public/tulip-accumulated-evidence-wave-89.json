@@ -1,0 +1,122 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_89_cattle_grazing_compaction",
+  "generated_at": "2026-08-01T17:45:20.781Z",
+  "source_snapshots": [
+    "public/cattle-grazing-compaction-impact-snapshot.json"
+  ],
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "cattle_grazing_overcompaction",
+      "value": 9.6,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2026",
+      "components": {
+        "biophysical_burden": 1,
+        "human_economic_burden": 0.868,
+        "persistence": 1,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "ungrazed_infiltration_centimetres_per_day": 28.5,
+          "high_density_infiltration_centimetres_per_day": 5,
+          "high_density_infiltration_loss_percent_derived": 82.45614,
+          "high_stocking_density_cows_per_hectare": 50,
+          "measured_compaction_depth_centimetres": 10,
+          "normalization_anchors_percent": [
+            0,
+            10,
+            30,
+            60
+          ]
+        },
+        "human_economic_burden": {
+          "cattle_trampling_first_cut_grass_yield_loss_percent_up_to": 19,
+          "normalization_anchors_percent": [
+            0,
+            2,
+            10,
+            25
+          ]
+        },
+        "persistence": {
+          "usda_grazing_treatment_years": 10,
+          "normalization_anchors_years": [
+            0,
+            1,
+            5,
+            10
+          ]
+        },
+        "extent": {
+          "usda_grazed_paddock_count": 6,
+          "usda_ungrazed_control_site_count": 2,
+          "normalization_anchors_paddocks": [
+            0,
+            1,
+            3,
+            6
+          ]
+        },
+        "unscored_context": {
+          "low_stocking_density_cows_per_hectare": 12.5,
+          "medium_stocking_density_cows_per_hectare": 25,
+          "low_density_infiltration_centimetres_per_day": 7,
+          "medium_density_infiltration_centimetres_per_day": 5,
+          "annual_grass_dry_matter_yield_loss_percent_year_three": 14.3,
+          "tractor_compaction_first_cut_yield_loss_percent": 37.7
+        },
+        "source_snapshot": {
+          "path": "public/cattle-grazing-compaction-impact-snapshot.json",
+          "version": "usda_sruc_cattle_grazing_compaction_2002_2026_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z",
+          "source_locators": [
+            "Six tall-grass prairie paddocks in Oklahoma were rotationally grazed for ten years at 12.5, 25 or 50 cows per hectare; two adjacent ungrazed sites were controls.",
+            "Penetration resistance and bulk density increased in the upper 10 centimetres, with significant impact in the high-density treatment.",
+            "Surface infiltration fell from 28.5 centimetres per day in ungrazed controls to 7, 5 and 5 centimetres per day under low, moderate and high stocking density.",
+            "The field experiment compared soil compaction caused by cattle trampling and tractor use with uncompacted grassland and evaluated grass yield and quality.",
+            "First-cut grass-silage yield loss reached 19.0 percent under cattle trampling; the larger 37.7-percent tractor result is excluded.",
+            "By the third year, the experiment measured a 14.3-percent annual loss of grass dry-matter yield."
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "control_relative_infiltration_loss",
+          "formula": "Compute (28.5 - 5) / 28.5 × 100 = 82.456140 percent loss using the ungrazed-control and high-density-treatment infiltration endpoints."
+        },
+        {
+          "type": "cattle_only_yield_burden",
+          "formula": "Normalize the source-reported maximum 19-percent first-cut grass-silage yield loss from cattle trampling; exclude the 37.7-percent tractor-compaction result."
+        },
+        {
+          "type": "bounded_duration_and_extent",
+          "formula": "Normalize ten treatment years and six grazed USDA paddocks; retain two adjacent ungrazed sites as control design rather than additional affected extent."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "usda_ars_long_term_grazing_density_soil_compaction_2002",
+        "sruc_ahdb_dairy_cattle_trampling_soil_compaction"
+      ],
+      "uncertainty": "The USDA experiment measures a specific Oklahoma tall-grass prairie system after ten years and the SRUC/AHDB result is a separate grassland trial; neither represents global pasture prevalence. Infiltration change is calculated from source-reported endpoints and is not converted to runoff, erosion or plant-available water volume. The 19-percent yield loss is a maximum first-cut result; tractor compaction and the year-three 14.3-percent annual dry-matter result remain unscored corroboration. Soil texture, moisture, grazing rotation and recovery can materially change outcomes.",
+      "freshness": "Historical ten-year USDA grazing experiment plus current SRUC/AHDB research summary reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "Controlled field evidence directly measures cattle stocking density, soil penetration and bulk-density response, infiltration loss, treatment duration and cattle-specific grass-yield burden.",
+        "higher_priority_failures": [
+          "The evidence consists of bounded Oklahoma and Scottish/UK experiments rather than a current global grazing-compaction observation.",
+          "No comparable global monthly or annual soil-compaction series meets the current-data coverage and historical-distribution gates."
+        ]
+      },
+      "input_hash": "fnv1a32:1ca83a9e"
+    }
+  ]
+}

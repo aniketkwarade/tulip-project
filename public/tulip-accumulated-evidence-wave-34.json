@@ -1,0 +1,466 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_34_global_terrestrial_and_river_connectivity",
+  "generated_at": "2026-07-31T22:14:42.834Z",
+  "promoted_node_count": 5,
+  "receipts": [
+    {
+      "node_id": "forest_fragmentation",
+      "value": 8.6,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "biophysical_burden": 0.79375,
+        "human_economic_burden": 0.8416,
+        "persistence": 0.835,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "forests_in_fragments_with_little_or_no_connectivity_pct_lower_bound": 10,
+          "protected_area_network_connectivity_gap_pct_lower_bound": 90,
+          "anchors_fragmented_forest_pct": [
+            0,
+            2,
+            7,
+            15
+          ],
+          "boundary": "Structural connectivity only; species-specific functional connectivity is not inferred."
+        },
+        "human_economic_burden": {
+          "forest_production_designation_pct": 29,
+          "forest_soil_water_protection_designation_pct": 9,
+          "bounded_service_scope_pct": 38,
+          "anchors_pct": [
+            0,
+            10,
+            25,
+            50
+          ],
+          "boundary": "Non-overlap is not guaranteed; the precomputed bounded sum is service scope, not realized loss."
+        },
+        "persistence": {
+          "start_year": 1990,
+          "forest_assessment_year": 2025,
+          "years": 35,
+          "cumulative_deforestation_million_ha": 489,
+          "anchors_years": [
+            0,
+            5,
+            20,
+            50
+          ]
+        },
+        "extent": {
+          "countries_and_areas_covered": 236,
+          "geography": "Global forests and terrestrial protected-area network",
+          "normalized_value": 1
+        },
+        "source_snapshot": {
+          "path": "public/global-habitat-connectivity-impact-snapshot.json",
+          "version": "unep_wcmc_fao_global_habitat_connectivity_snapshot_v1",
+          "captured_at": "2026-07-31T22:14:42.743Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "rounded_connectivity_lower_bound",
+          "formula": "Normalize the UNEP-WCMC rounded lower bound for forests in poorly connected fragments."
+        },
+        {
+          "type": "bounded_forest_service_scope",
+          "formula": "Normalize the stated production plus soil-and-water designation shares only as an upper-bound service scope."
+        },
+        {
+          "type": "forest_loss_persistence",
+          "formula": "Use the FAO 1990-2025 global forest-loss observation interval; do not attribute every loss to fragmentation."
+        },
+        {
+          "type": "global_assessment_extent",
+          "formula": "Use full extent for the 236-country-and-area FRA coverage and global connectivity assessment."
+        }
+      ],
+      "source_ids": [
+        "unep_wcmc_global_ecological_connectivity_assessment",
+        "fao_global_forest_resources_assessment"
+      ],
+      "uncertainty": "The connectivity values are rounded global shares. Structural connectivity does not prove functional movement, occupancy, gene flow or population benefit. FAO forest designations overlap in purpose and are not fragmentation observations.",
+      "freshness": "Reviewed global assessment as of 2025; snapshot captured 2026-07-31T22:14:42.743Z.",
+      "selection_reason": {
+        "selected_method_passed": "UNEP-WCMC quantifies global structural-connectivity deficits while FAO supplies accumulated forest-loss persistence and worldwide service context.",
+        "higher_priority_failures": [
+          "No complete 20-year annual global structural-connectivity series exists under one method.",
+          "Species-specific movement and demographic effects are not inferred from structural connectivity."
+        ]
+      },
+      "input_hash": "fnv1a32:aa7464cf"
+    },
+    {
+      "node_id": "wildlife_habitat_patches",
+      "value": 8.6,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "biophysical_burden": 0.79375,
+        "human_economic_burden": 0.8416,
+        "persistence": 0.835,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "forests_in_fragments_with_little_or_no_connectivity_pct_lower_bound": 10,
+          "protected_area_network_connectivity_gap_pct_lower_bound": 90,
+          "anchors_fragmented_forest_pct": [
+            0,
+            2,
+            7,
+            15
+          ],
+          "boundary": "Structural connectivity only; species-specific functional connectivity is not inferred."
+        },
+        "human_economic_burden": {
+          "forest_production_designation_pct": 29,
+          "forest_soil_water_protection_designation_pct": 9,
+          "bounded_service_scope_pct": 38,
+          "anchors_pct": [
+            0,
+            10,
+            25,
+            50
+          ],
+          "boundary": "Non-overlap is not guaranteed; the precomputed bounded sum is service scope, not realized loss."
+        },
+        "persistence": {
+          "start_year": 1990,
+          "forest_assessment_year": 2025,
+          "years": 35,
+          "cumulative_deforestation_million_ha": 489,
+          "anchors_years": [
+            0,
+            5,
+            20,
+            50
+          ]
+        },
+        "extent": {
+          "countries_and_areas_covered": 236,
+          "geography": "Global forests and terrestrial protected-area network",
+          "normalized_value": 1
+        },
+        "source_snapshot": {
+          "path": "public/global-habitat-connectivity-impact-snapshot.json",
+          "version": "unep_wcmc_fao_global_habitat_connectivity_snapshot_v1",
+          "captured_at": "2026-07-31T22:14:42.743Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "rounded_connectivity_lower_bound",
+          "formula": "Normalize the UNEP-WCMC rounded lower bound for forests in poorly connected fragments."
+        },
+        {
+          "type": "bounded_forest_service_scope",
+          "formula": "Normalize the stated production plus soil-and-water designation shares only as an upper-bound service scope."
+        },
+        {
+          "type": "forest_loss_persistence",
+          "formula": "Use the FAO 1990-2025 global forest-loss observation interval; do not attribute every loss to fragmentation."
+        },
+        {
+          "type": "global_assessment_extent",
+          "formula": "Use full extent for the 236-country-and-area FRA coverage and global connectivity assessment."
+        }
+      ],
+      "source_ids": [
+        "unep_wcmc_global_ecological_connectivity_assessment",
+        "fao_global_forest_resources_assessment"
+      ],
+      "uncertainty": "The connectivity values are rounded global shares. Structural connectivity does not prove functional movement, occupancy, gene flow or population benefit. FAO forest designations overlap in purpose and are not fragmentation observations.",
+      "freshness": "Reviewed global assessment as of 2025; snapshot captured 2026-07-31T22:14:42.743Z.",
+      "selection_reason": {
+        "selected_method_passed": "UNEP-WCMC quantifies global structural-connectivity deficits while FAO supplies accumulated forest-loss persistence and worldwide service context.",
+        "higher_priority_failures": [
+          "No complete 20-year annual global structural-connectivity series exists under one method.",
+          "Species-specific movement and demographic effects are not inferred from structural connectivity."
+        ]
+      },
+      "input_hash": "fnv1a32:aa7464cf"
+    },
+    {
+      "node_id": "biodiversity_corridors_disruption",
+      "value": 8.6,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "biophysical_burden": 0.79375,
+        "human_economic_burden": 0.8416,
+        "persistence": 0.835,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "forests_in_fragments_with_little_or_no_connectivity_pct_lower_bound": 10,
+          "protected_area_network_connectivity_gap_pct_lower_bound": 90,
+          "anchors_fragmented_forest_pct": [
+            0,
+            2,
+            7,
+            15
+          ],
+          "boundary": "Structural connectivity only; species-specific functional connectivity is not inferred."
+        },
+        "human_economic_burden": {
+          "forest_production_designation_pct": 29,
+          "forest_soil_water_protection_designation_pct": 9,
+          "bounded_service_scope_pct": 38,
+          "anchors_pct": [
+            0,
+            10,
+            25,
+            50
+          ],
+          "boundary": "Non-overlap is not guaranteed; the precomputed bounded sum is service scope, not realized loss."
+        },
+        "persistence": {
+          "start_year": 1990,
+          "forest_assessment_year": 2025,
+          "years": 35,
+          "cumulative_deforestation_million_ha": 489,
+          "anchors_years": [
+            0,
+            5,
+            20,
+            50
+          ]
+        },
+        "extent": {
+          "countries_and_areas_covered": 236,
+          "geography": "Global forests and terrestrial protected-area network",
+          "normalized_value": 1
+        },
+        "source_snapshot": {
+          "path": "public/global-habitat-connectivity-impact-snapshot.json",
+          "version": "unep_wcmc_fao_global_habitat_connectivity_snapshot_v1",
+          "captured_at": "2026-07-31T22:14:42.743Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "rounded_connectivity_lower_bound",
+          "formula": "Normalize the UNEP-WCMC rounded lower bound for forests in poorly connected fragments."
+        },
+        {
+          "type": "bounded_forest_service_scope",
+          "formula": "Normalize the stated production plus soil-and-water designation shares only as an upper-bound service scope."
+        },
+        {
+          "type": "forest_loss_persistence",
+          "formula": "Use the FAO 1990-2025 global forest-loss observation interval; do not attribute every loss to fragmentation."
+        },
+        {
+          "type": "global_assessment_extent",
+          "formula": "Use full extent for the 236-country-and-area FRA coverage and global connectivity assessment."
+        }
+      ],
+      "source_ids": [
+        "unep_wcmc_global_ecological_connectivity_assessment",
+        "fao_global_forest_resources_assessment"
+      ],
+      "uncertainty": "The connectivity values are rounded global shares. Structural connectivity does not prove functional movement, occupancy, gene flow or population benefit. FAO forest designations overlap in purpose and are not fragmentation observations.",
+      "freshness": "Reviewed global assessment as of 2025; snapshot captured 2026-07-31T22:14:42.743Z.",
+      "selection_reason": {
+        "selected_method_passed": "UNEP-WCMC quantifies global structural-connectivity deficits while FAO supplies accumulated forest-loss persistence and worldwide service context.",
+        "higher_priority_failures": [
+          "No complete 20-year annual global structural-connectivity series exists under one method.",
+          "Species-specific movement and demographic effects are not inferred from structural connectivity."
+        ]
+      },
+      "input_hash": "fnv1a32:aa7464cf"
+    },
+    {
+      "node_id": "riverine_habitat_fragmentation",
+      "value": 8.3,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2019",
+      "components": {
+        "biophysical_burden": 0.77725,
+        "human_economic_burden": 0.7976,
+        "persistence": 0.736,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "long_rivers_not_free_flowing_pct": 63,
+          "long_rivers_free_flowing_pct": 37,
+          "uninterrupted_to_ocean_pct": 23,
+          "anchors_pct": [
+            0,
+            20,
+            50,
+            90
+          ]
+        },
+        "human_economic_burden": {
+          "inland_fisheries_population_service_scope_million": 158,
+          "anchors_million_people": [
+            0,
+            25,
+            100,
+            250
+          ],
+          "boundary": "Population relying on inland fisheries is service exposure, not harm attributed to every barrier."
+        },
+        "persistence": {
+          "assessment_year": 2019,
+          "receipt_year": 2026,
+          "years": 7,
+          "anchors_years": [
+            0,
+            2,
+            5,
+            15
+          ]
+        },
+        "extent": {
+          "global_river_network_million_km": 12,
+          "geography": "Twelve million kilometres of the global river network, with reported long-river statistics for rivers longer than 1,000 kilometres",
+          "normalized_value": 1
+        },
+        "source_snapshot": {
+          "path": "public/global-river-connectivity-impact-snapshot.json",
+          "version": "global_free_flowing_rivers_assessment_2019_snapshot_v1",
+          "captured_at": "2026-07-31T22:14:42.789Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "long_river_connectivity_gap",
+          "formula": "Subtract the reported free-flowing share from 100 percent and retain the long-river boundary."
+        },
+        {
+          "type": "bounded_fisheries_service_scope",
+          "formula": "Normalize the institutional-summary population estimate as exposure, not attributable harm."
+        },
+        {
+          "type": "minimum_persistence",
+          "formula": "Retain the elapsed period since the 2019 global assessment as a conservative persistence floor."
+        },
+        {
+          "type": "global_network_extent",
+          "formula": "Use full extent for the assessed 12-million-kilometre global river network."
+        }
+      ],
+      "source_ids": [
+        "global_free_flowing_rivers_assessment_2019"
+      ],
+      "uncertainty": "Barrier inventories, river-network resolution, Connectivity Status Index thresholds, natural barriers, flow regulation and tributary treatment affect classification. Long-river results do not represent every stream.",
+      "freshness": "Reviewed global assessment as of 2019; snapshot captured 2026-07-31T22:14:42.789Z.",
+      "selection_reason": {
+        "selected_method_passed": "The primary global assessment quantifies long-river connectivity loss, assessed network extent, persistent barrier burden and bounded inland-fisheries service exposure.",
+        "higher_priority_failures": [
+          "No method-comparable annual global connectivity panel satisfies the historical-distribution gate.",
+          "The assessment does not provide current focal-species passability or local barrier inventories."
+        ]
+      },
+      "input_hash": "fnv1a32:72c9d770"
+    },
+    {
+      "node_id": "dam_and_diversion_infrastructure",
+      "value": 8.3,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2019",
+      "components": {
+        "biophysical_burden": 0.77725,
+        "human_economic_burden": 0.7976,
+        "persistence": 0.736,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "long_rivers_not_free_flowing_pct": 63,
+          "long_rivers_free_flowing_pct": 37,
+          "uninterrupted_to_ocean_pct": 23,
+          "anchors_pct": [
+            0,
+            20,
+            50,
+            90
+          ]
+        },
+        "human_economic_burden": {
+          "inland_fisheries_population_service_scope_million": 158,
+          "anchors_million_people": [
+            0,
+            25,
+            100,
+            250
+          ],
+          "boundary": "Population relying on inland fisheries is service exposure, not harm attributed to every barrier."
+        },
+        "persistence": {
+          "assessment_year": 2019,
+          "receipt_year": 2026,
+          "years": 7,
+          "anchors_years": [
+            0,
+            2,
+            5,
+            15
+          ]
+        },
+        "extent": {
+          "global_river_network_million_km": 12,
+          "geography": "Twelve million kilometres of the global river network, with reported long-river statistics for rivers longer than 1,000 kilometres",
+          "normalized_value": 1
+        },
+        "source_snapshot": {
+          "path": "public/global-river-connectivity-impact-snapshot.json",
+          "version": "global_free_flowing_rivers_assessment_2019_snapshot_v1",
+          "captured_at": "2026-07-31T22:14:42.789Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "long_river_connectivity_gap",
+          "formula": "Subtract the reported free-flowing share from 100 percent and retain the long-river boundary."
+        },
+        {
+          "type": "bounded_fisheries_service_scope",
+          "formula": "Normalize the institutional-summary population estimate as exposure, not attributable harm."
+        },
+        {
+          "type": "minimum_persistence",
+          "formula": "Retain the elapsed period since the 2019 global assessment as a conservative persistence floor."
+        },
+        {
+          "type": "global_network_extent",
+          "formula": "Use full extent for the assessed 12-million-kilometre global river network."
+        }
+      ],
+      "source_ids": [
+        "global_free_flowing_rivers_assessment_2019"
+      ],
+      "uncertainty": "Barrier inventories, river-network resolution, Connectivity Status Index thresholds, natural barriers, flow regulation and tributary treatment affect classification. Long-river results do not represent every stream.",
+      "freshness": "Reviewed global assessment as of 2019; snapshot captured 2026-07-31T22:14:42.789Z.",
+      "selection_reason": {
+        "selected_method_passed": "The primary global assessment quantifies long-river connectivity loss, assessed network extent, persistent barrier burden and bounded inland-fisheries service exposure.",
+        "higher_priority_failures": [
+          "No method-comparable annual global connectivity panel satisfies the historical-distribution gate.",
+          "The assessment does not provide current focal-species passability or local barrier inventories."
+        ]
+      },
+      "input_hash": "fnv1a32:72c9d770"
+    }
+  ]
+}

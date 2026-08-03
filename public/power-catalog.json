@@ -1,0 +1,569 @@
+{
+  "updated_at": "2026-07-18",
+  "version": "2026-07-18T12:51:25.051Z",
+  "source": {
+    "id": "nasa_power_open_api",
+    "name": "NASA POWER",
+    "docs_url": "https://power.larc.nasa.gov/docs/services/api/",
+    "base_url": "https://power.larc.nasa.gov/api/temporal/climatology/point",
+    "access": "open_api"
+  },
+  "refresh_policy": {
+    "default_days": 42,
+    "notes": "POWER climatology products are stable baseline surfaces and fit the platform refresh cadence better than day-to-day live weather feeds."
+  },
+  "query_groups": [
+    {
+      "id": "humid_heat_water",
+      "label": "Humid heat and water stress",
+      "location": {
+        "label": "Dhaka, Bangladesh",
+        "latitude": 23.8103,
+        "longitude": 90.4125
+      },
+      "community": "RE",
+      "parameters": [
+        "T2M",
+        "RH2M",
+        "PRECTOTCORR",
+        "ALLSKY_SFC_SW_DWN"
+      ],
+      "primary_spheres": [
+        "atmosphere",
+        "agriculture",
+        "sociopolitical"
+      ],
+      "match_terms": [
+        "heat",
+        "humidity",
+        "wet bulb",
+        "monsoon",
+        "precipitation",
+        "human exposure",
+        "disease",
+        "flood"
+      ],
+      "node_hints": [
+        "global_temperature",
+        "wet_bulb_heat",
+        "migration",
+        "food"
+      ]
+    },
+    {
+      "id": "arid_drought_fire",
+      "label": "Arid heat, drought, and fire weather",
+      "location": {
+        "label": "Phoenix, United States",
+        "latitude": 33.4484,
+        "longitude": -112.074
+      },
+      "community": "RE",
+      "parameters": [
+        "T2M",
+        "RH2M",
+        "PRECTOTCORR",
+        "ALLSKY_SFC_SW_DWN"
+      ],
+      "primary_spheres": [
+        "agriculture",
+        "biosphere",
+        "energy",
+        "sociopolitical"
+      ],
+      "match_terms": [
+        "drought",
+        "aridity",
+        "wildfire",
+        "water stress",
+        "crop stress",
+        "resource depletion",
+        "cooling water"
+      ],
+      "node_hints": [
+        "resource_depletion",
+        "cooling_water_competition",
+        "food"
+      ]
+    },
+    {
+      "id": "cryosphere_margin",
+      "label": "Cryosphere margin baseline",
+      "location": {
+        "label": "Nuuk, Greenland",
+        "latitude": 64.1835,
+        "longitude": -51.7216
+      },
+      "community": "RE",
+      "parameters": [
+        "T2M",
+        "PRECTOTCORR",
+        "ALLSKY_SFC_SW_DWN"
+      ],
+      "primary_spheres": [
+        "cryosphere",
+        "oceans"
+      ],
+      "match_terms": [
+        "ice",
+        "glacier",
+        "snow",
+        "permafrost",
+        "sea ice",
+        "thaw",
+        "albedo"
+      ],
+      "node_hints": [
+        "permafrost_thaw",
+        "environ_anomalies"
+      ]
+    },
+    {
+      "id": "grid_cooling_load",
+      "label": "Grid cooling and compute load baseline",
+      "location": {
+        "label": "Ashburn, United States",
+        "latitude": 39.0438,
+        "longitude": -77.4874
+      },
+      "community": "RE",
+      "parameters": [
+        "T2M",
+        "RH2M",
+        "PRECTOTCORR",
+        "ALLSKY_SFC_SW_DWN"
+      ],
+      "primary_spheres": [
+        "energy",
+        "sociopolitical"
+      ],
+      "match_terms": [
+        "data center",
+        "ai compute",
+        "electricity demand",
+        "cooling load",
+        "grid stress",
+        "heat exposure"
+      ],
+      "node_hints": [
+        "ai_data_centers",
+        "data_centers",
+        "cooling_water_competition"
+      ]
+    }
+  ],
+  "baselines": [
+    {
+      "id": "humid_heat_water",
+      "label": "Humid heat and water stress",
+      "community": "RE",
+      "location": {
+        "label": "Dhaka, Bangladesh",
+        "latitude": 23.8103,
+        "longitude": 90.4125
+      },
+      "docs_url": "https://power.larc.nasa.gov/docs/services/api/",
+      "api_url": "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M%2CRH2M%2CPRECTOTCORR%2CALLSKY_SFC_SW_DWN&community=RE&longitude=90.4125&latitude=23.8103&format=JSON",
+      "source_api": "https://power.larc.nasa.gov/api/temporal/climatology/point",
+      "primary_spheres": [
+        "atmosphere",
+        "agriculture",
+        "sociopolitical"
+      ],
+      "match_terms": [
+        "heat",
+        "humidity",
+        "wet bulb",
+        "monsoon",
+        "precipitation",
+        "human exposure",
+        "disease",
+        "flood"
+      ],
+      "node_hints": [
+        "global_temperature",
+        "wet_bulb_heat",
+        "migration",
+        "food"
+      ],
+      "metrics": {
+        "annual_air_temperature_c": 25.51,
+        "annual_relative_humidity_pct": 74.86,
+        "annual_precipitation_mm_day": 5.97,
+        "annual_surface_solar_kwh_m2_day": 4.5
+      },
+      "monthly": {
+        "ALLSKY_SFC_SW_DWN": {
+          "JAN": 3.6233,
+          "FEB": 4.6032,
+          "MAR": 5.2853,
+          "APR": 5.4965,
+          "MAY": 5.2361,
+          "JUN": 4.4378,
+          "JUL": 4.3798,
+          "AUG": 4.5518,
+          "SEP": 4.3258,
+          "OCT": 4.3915,
+          "NOV": 4.2132,
+          "DEC": 3.5177,
+          "ANN": 4.5031
+        },
+        "PRECTOTCORR": {
+          "JAN": 0.32,
+          "FEB": 0.74,
+          "MAR": 1.74,
+          "APR": 5.85,
+          "MAY": 10.01,
+          "JUN": 12.89,
+          "JUL": 13.04,
+          "AUG": 10.54,
+          "SEP": 9.02,
+          "OCT": 5.67,
+          "NOV": 1.02,
+          "DEC": 0.52,
+          "ANN": 5.97
+        },
+        "RH2M": {
+          "JAN": 64.13,
+          "FEB": 53.62,
+          "MAR": 50.09,
+          "APR": 63.58,
+          "MAY": 75.38,
+          "JUN": 87.01,
+          "JUL": 89.4,
+          "AUG": 89.38,
+          "SEP": 88.6,
+          "OCT": 84.28,
+          "NOV": 77.79,
+          "DEC": 73.71,
+          "ANN": 74.86
+        },
+        "T2M": {
+          "JAN": 17.65,
+          "FEB": 21.68,
+          "MAR": 26.74,
+          "APR": 29.55,
+          "MAY": 29.61,
+          "JUN": 28.77,
+          "JUL": 28.39,
+          "AUG": 28.24,
+          "SEP": 27.79,
+          "OCT": 26.14,
+          "NOV": 22.54,
+          "DEC": 18.87,
+          "ANN": 25.51
+        }
+      },
+      "api_header": {
+        "title": "NASA/POWER Source Native Resolution Climatology Climatologies",
+        "version": "v2.9.7",
+        "fill_value": -999,
+        "start": null,
+        "end": null
+      }
+    },
+    {
+      "id": "arid_drought_fire",
+      "label": "Arid heat, drought, and fire weather",
+      "community": "RE",
+      "location": {
+        "label": "Phoenix, United States",
+        "latitude": 33.4484,
+        "longitude": -112.074
+      },
+      "docs_url": "https://power.larc.nasa.gov/docs/services/api/",
+      "api_url": "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M%2CRH2M%2CPRECTOTCORR%2CALLSKY_SFC_SW_DWN&community=RE&longitude=-112.074&latitude=33.4484&format=JSON",
+      "source_api": "https://power.larc.nasa.gov/api/temporal/climatology/point",
+      "primary_spheres": [
+        "agriculture",
+        "biosphere",
+        "energy",
+        "sociopolitical"
+      ],
+      "match_terms": [
+        "drought",
+        "aridity",
+        "wildfire",
+        "water stress",
+        "crop stress",
+        "resource depletion",
+        "cooling water"
+      ],
+      "node_hints": [
+        "resource_depletion",
+        "cooling_water_competition",
+        "food"
+      ],
+      "metrics": {
+        "annual_air_temperature_c": 22.35,
+        "annual_relative_humidity_pct": 33.09,
+        "annual_precipitation_mm_day": 0.7,
+        "annual_surface_solar_kwh_m2_day": 5.85
+      },
+      "monthly": {
+        "ALLSKY_SFC_SW_DWN": {
+          "JAN": 3.432,
+          "FEB": 4.4314,
+          "MAR": 5.8872,
+          "APR": 7.2782,
+          "MAY": 8.1689,
+          "JUN": 8.4958,
+          "JUL": 7.4866,
+          "AUG": 6.9103,
+          "SEP": 6.1613,
+          "OCT": 5.0069,
+          "NOV": 3.78,
+          "DEC": 3.0816,
+          "ANN": 5.8476
+        },
+        "PRECTOTCORR": {
+          "JAN": 1.07,
+          "FEB": 1.14,
+          "MAR": 0.68,
+          "APR": 0.28,
+          "MAY": 0.19,
+          "JUN": 0.07,
+          "JUL": 1.06,
+          "AUG": 1.08,
+          "SEP": 0.74,
+          "OCT": 0.46,
+          "NOV": 0.64,
+          "DEC": 1.01,
+          "ANN": 0.7
+        },
+        "RH2M": {
+          "JAN": 45.71,
+          "FEB": 43.65,
+          "MAR": 37.76,
+          "APR": 29.04,
+          "MAY": 21.57,
+          "JUN": 15.33,
+          "JUL": 30.16,
+          "AUG": 34.56,
+          "SEP": 30.88,
+          "OCT": 30.14,
+          "NOV": 33.92,
+          "DEC": 44.57,
+          "ANN": 33.09
+        },
+        "T2M": {
+          "JAN": 11.41,
+          "FEB": 12.87,
+          "MAR": 16.84,
+          "APR": 20.61,
+          "MAY": 25.92,
+          "JUN": 31.96,
+          "JUL": 33.91,
+          "AUG": 32.96,
+          "SEP": 29.97,
+          "OCT": 23.42,
+          "NOV": 16.82,
+          "DEC": 10.98,
+          "ANN": 22.35
+        }
+      },
+      "api_header": {
+        "title": "NASA/POWER Source Native Resolution Climatology Climatologies",
+        "version": "v2.9.7",
+        "fill_value": -999,
+        "start": null,
+        "end": null
+      }
+    },
+    {
+      "id": "cryosphere_margin",
+      "label": "Cryosphere margin baseline",
+      "community": "RE",
+      "location": {
+        "label": "Nuuk, Greenland",
+        "latitude": 64.1835,
+        "longitude": -51.7216
+      },
+      "docs_url": "https://power.larc.nasa.gov/docs/services/api/",
+      "api_url": "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M%2CPRECTOTCORR%2CALLSKY_SFC_SW_DWN&community=RE&longitude=-51.7216&latitude=64.1835&format=JSON",
+      "source_api": "https://power.larc.nasa.gov/api/temporal/climatology/point",
+      "primary_spheres": [
+        "cryosphere",
+        "oceans"
+      ],
+      "match_terms": [
+        "ice",
+        "glacier",
+        "snow",
+        "permafrost",
+        "sea ice",
+        "thaw",
+        "albedo"
+      ],
+      "node_hints": [
+        "permafrost_thaw",
+        "environ_anomalies"
+      ],
+      "metrics": {
+        "annual_air_temperature_c": -1.2,
+        "annual_relative_humidity_pct": null,
+        "annual_precipitation_mm_day": 2.42,
+        "annual_surface_solar_kwh_m2_day": 2.54
+      },
+      "monthly": {
+        "ALLSKY_SFC_SW_DWN": {
+          "JAN": 0.1133,
+          "FEB": 0.5731,
+          "MAR": 1.9627,
+          "APR": 3.7301,
+          "MAY": 5.2903,
+          "JUN": 5.7737,
+          "JUL": 5.3561,
+          "AUG": 3.9893,
+          "SEP": 2.3141,
+          "OCT": 0.9953,
+          "NOV": 0.2129,
+          "DEC": 0.0442,
+          "ANN": 2.539
+        },
+        "PRECTOTCORR": {
+          "JAN": 1.76,
+          "FEB": 1.82,
+          "MAR": 1.64,
+          "APR": 1.96,
+          "MAY": 2.28,
+          "JUN": 2.53,
+          "JUL": 2.62,
+          "AUG": 3.08,
+          "SEP": 3.61,
+          "OCT": 2.51,
+          "NOV": 2.8,
+          "DEC": 2.44,
+          "ANN": 2.42
+        },
+        "T2M": {
+          "JAN": -7.39,
+          "FEB": -7.95,
+          "MAR": -7.22,
+          "APR": -3.42,
+          "MAY": 0.64,
+          "JUN": 3.98,
+          "JUL": 6.25,
+          "AUG": 6.29,
+          "SEP": 3.3,
+          "OCT": -0.28,
+          "NOV": -3.55,
+          "DEC": -5.54,
+          "ANN": -1.2
+        }
+      },
+      "api_header": {
+        "title": "NASA/POWER Source Native Resolution Climatology Climatologies",
+        "version": "v2.9.7",
+        "fill_value": -999,
+        "start": null,
+        "end": null
+      }
+    },
+    {
+      "id": "grid_cooling_load",
+      "label": "Grid cooling and compute load baseline",
+      "community": "RE",
+      "location": {
+        "label": "Ashburn, United States",
+        "latitude": 39.0438,
+        "longitude": -77.4874
+      },
+      "docs_url": "https://power.larc.nasa.gov/docs/services/api/",
+      "api_url": "https://power.larc.nasa.gov/api/temporal/climatology/point?parameters=T2M%2CRH2M%2CPRECTOTCORR%2CALLSKY_SFC_SW_DWN&community=RE&longitude=-77.4874&latitude=39.0438&format=JSON",
+      "source_api": "https://power.larc.nasa.gov/api/temporal/climatology/point",
+      "primary_spheres": [
+        "energy",
+        "sociopolitical"
+      ],
+      "match_terms": [
+        "data center",
+        "ai compute",
+        "electricity demand",
+        "cooling load",
+        "grid stress",
+        "heat exposure"
+      ],
+      "node_hints": [
+        "ai_data_centers",
+        "data_centers",
+        "cooling_water_competition"
+      ],
+      "metrics": {
+        "annual_air_temperature_c": 12.75,
+        "annual_relative_humidity_pct": 76.15,
+        "annual_precipitation_mm_day": 3.06,
+        "annual_surface_solar_kwh_m2_day": 3.98
+      },
+      "monthly": {
+        "ALLSKY_SFC_SW_DWN": {
+          "JAN": 1.9678,
+          "FEB": 2.8229,
+          "MAR": 3.7709,
+          "APR": 4.8696,
+          "MAY": 5.4271,
+          "JUN": 6.0742,
+          "JUL": 6.0072,
+          "AUG": 5.3062,
+          "SEP": 4.2871,
+          "OCT": 3.1457,
+          "NOV": 2.281,
+          "DEC": 1.7213,
+          "ANN": 3.9775
+        },
+        "PRECTOTCORR": {
+          "JAN": 2.11,
+          "FEB": 2.38,
+          "MAR": 2.6,
+          "APR": 3.12,
+          "MAY": 3.88,
+          "JUN": 3.85,
+          "JUL": 3.5,
+          "AUG": 3.06,
+          "SEP": 3.6,
+          "OCT": 3.2,
+          "NOV": 2.58,
+          "DEC": 2.81,
+          "ANN": 3.06
+        },
+        "RH2M": {
+          "JAN": 82,
+          "FEB": 80.8,
+          "MAR": 78.67,
+          "APR": 76.23,
+          "MAY": 77.73,
+          "JUN": 73.69,
+          "JUL": 68.09,
+          "AUG": 67.83,
+          "SEP": 70.37,
+          "OCT": 75.96,
+          "NOV": 78.94,
+          "DEC": 83.77,
+          "ANN": 76.15
+        },
+        "T2M": {
+          "JAN": -0.44,
+          "FEB": 0.82,
+          "MAR": 5.62,
+          "APR": 12.09,
+          "MAY": 17.6,
+          "JUN": 22.71,
+          "JUL": 25.58,
+          "AUG": 24.89,
+          "SEP": 20.81,
+          "OCT": 13.66,
+          "NOV": 7.02,
+          "DEC": 1.92,
+          "ANN": 12.75
+        }
+      },
+      "api_header": {
+        "title": "NASA/POWER Source Native Resolution Climatology Climatologies",
+        "version": "v2.9.7",
+        "fill_value": -999,
+        "start": null,
+        "end": null
+      }
+    }
+  ]
+}

@@ -1,0 +1,1085 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_46_nasa_power_global_sentinel_heat_moisture_and_precipitation",
+  "generated_at": "2026-08-01T15:38:10.446Z",
+  "source_snapshots": [
+    "public/power-heat-hazard-snapshot.json",
+    "public/heat-health-snapshot.json"
+  ],
+  "source_ids": [
+    "nasa_power_open_api",
+    "lancet_countdown_data_explorer"
+  ],
+  "promoted_node_count": 7,
+  "receipts": [
+    {
+      "node_id": "wet_bulb_heat",
+      "value": 5.6,
+      "band": "Rising",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025-12-31",
+      "components": {
+        "magnitude": 0.258087,
+        "threshold": 0.117006,
+        "momentum": 1,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "location_maximum_wet_bulb_c": [
+            {
+              "location_id": "vancouver",
+              "value": 22.82
+            },
+            {
+              "location_id": "chicago",
+              "value": 26.86
+            },
+            {
+              "location_id": "kolkata",
+              "value": 30.7
+            },
+            {
+              "location_id": "lagos",
+              "value": 28.4
+            },
+            {
+              "location_id": "singapore",
+              "value": 29.04
+            },
+            {
+              "location_id": "houston",
+              "value": 29.54
+            },
+            {
+              "location_id": "mexico_city",
+              "value": 17.74
+            },
+            {
+              "location_id": "manaus",
+              "value": 28.89
+            },
+            {
+              "location_id": "brasilia",
+              "value": 25.28
+            },
+            {
+              "location_id": "lima",
+              "value": 20.62
+            },
+            {
+              "location_id": "buenos_aires",
+              "value": 27.83
+            },
+            {
+              "location_id": "london",
+              "value": 23.32
+            },
+            {
+              "location_id": "madrid",
+              "value": 24.43
+            },
+            {
+              "location_id": "moscow",
+              "value": 26.33
+            },
+            {
+              "location_id": "cairo",
+              "value": 29.05
+            },
+            {
+              "location_id": "dakar",
+              "value": 28.26
+            },
+            {
+              "location_id": "nairobi",
+              "value": 21.96
+            },
+            {
+              "location_id": "johannesburg",
+              "value": 23.23
+            },
+            {
+              "location_id": "delhi",
+              "value": 31.01
+            },
+            {
+              "location_id": "bangkok",
+              "value": 30.12
+            },
+            {
+              "location_id": "beijing",
+              "value": 29.42
+            },
+            {
+              "location_id": "tokyo",
+              "value": 30.55
+            },
+            {
+              "location_id": "jakarta",
+              "value": 28.18
+            },
+            {
+              "location_id": "sydney",
+              "value": 27.68
+            }
+          ],
+          "documented_anchors_c": [
+            26,
+            28,
+            32,
+            35
+          ],
+          "aggregation": "equal-location mean of locally normalized values",
+          "direction": "higher_is_worse"
+        },
+        "threshold": {
+          "location_p95_wet_bulb_c": [
+            {
+              "location_id": "vancouver",
+              "value": 16.86
+            },
+            {
+              "location_id": "chicago",
+              "value": 23.41
+            },
+            {
+              "location_id": "kolkata",
+              "value": 28.89
+            },
+            {
+              "location_id": "lagos",
+              "value": 27.41
+            },
+            {
+              "location_id": "singapore",
+              "value": 27.77
+            },
+            {
+              "location_id": "houston",
+              "value": 27.55
+            },
+            {
+              "location_id": "mexico_city",
+              "value": 15.4
+            },
+            {
+              "location_id": "manaus",
+              "value": 27.58
+            },
+            {
+              "location_id": "brasilia",
+              "value": 23.42
+            },
+            {
+              "location_id": "lima",
+              "value": 18.73
+            },
+            {
+              "location_id": "buenos_aires",
+              "value": 24.65
+            },
+            {
+              "location_id": "london",
+              "value": 18.32
+            },
+            {
+              "location_id": "madrid",
+              "value": 20.52
+            },
+            {
+              "location_id": "moscow",
+              "value": 19.72
+            },
+            {
+              "location_id": "cairo",
+              "value": 23.82
+            },
+            {
+              "location_id": "dakar",
+              "value": 27.32
+            },
+            {
+              "location_id": "nairobi",
+              "value": 20.06
+            },
+            {
+              "location_id": "johannesburg",
+              "value": 20.35
+            },
+            {
+              "location_id": "delhi",
+              "value": 28.82
+            },
+            {
+              "location_id": "bangkok",
+              "value": 28.54
+            },
+            {
+              "location_id": "beijing",
+              "value": 25.37
+            },
+            {
+              "location_id": "tokyo",
+              "value": 26.87
+            },
+            {
+              "location_id": "jakarta",
+              "value": 27.36
+            },
+            {
+              "location_id": "sydney",
+              "value": 22.62
+            }
+          ],
+          "documented_anchors_c": [
+            26,
+            28,
+            32,
+            35
+          ],
+          "aggregation": "equal-location mean of locally normalized values",
+          "direction": "higher_is_worse"
+        },
+        "momentum": {
+          "fill_type": "quantitative_accumulated_impact_indicator",
+          "metric_id": "heat_related_working_hour_loss",
+          "latest_observation_year": 2024,
+          "latest_global_potential_work_hours_lost": 639855005649.9999,
+          "latest_annual_change_hours": 89346732700.00012,
+          "historical_distribution_anchors_annual_change_hours": [
+            7138055190.000061,
+            23873710439.999878,
+            44401819058.00024,
+            59534547132.00008
+          ],
+          "complete_prior_annual_change_observations": 33,
+          "direction": "higher_is_worse"
+        },
+        "extent": {
+          "threshold_c": 26,
+          "exposed_continents": [
+            "Africa",
+            "Asia",
+            "Europe",
+            "North America",
+            "Oceania",
+            "South America"
+          ],
+          "represented_inhabited_continents": 6,
+          "normalized_value": 1
+        },
+        "source_snapshots": [
+          {
+            "path": "public/power-heat-hazard-snapshot.json",
+            "version": "power_heat_hazard_2025_global_sentinel_v5",
+            "captured_at": "2026-07-31T22:34:25.641Z"
+          },
+          {
+            "path": "public/heat-health-snapshot.json",
+            "version": "2026-07-31T16:48:36.436Z",
+            "captured_at": "2026-07-31T16:48:36.436Z"
+          }
+        ],
+        "coverage_gate": {
+          "direct_components": [
+            "magnitude",
+            "threshold",
+            "extent"
+          ],
+          "global_scope": true,
+          "current_observation": true
+        }
+      },
+      "transformations": [
+        {
+          "type": "recognized_wet_bulb_anchor_normalization",
+          "formula": "Normalize each location maximum and p95 wet-bulb temperature through 26, 28, 32 and 35 degrees Celsius, then take the equal-location mean."
+        },
+        {
+          "type": "accumulated_impact_momentum_fill",
+          "formula": "Normalize the latest annual change in global potential heat-related work hours lost through the prior annual-change median, p75, p90 and p97.5 distribution."
+        },
+        {
+          "type": "sentinel_continent_extent",
+          "formula": "Divide inhabited continents with at least one sentinel location reaching 26 degrees Celsius maximum wet-bulb temperature by six."
+        }
+      ],
+      "source_ids": [
+        "nasa_power_open_api",
+        "lancet_countdown_data_explorer"
+      ],
+      "uncertainty": "NASA POWER is gridded reanalysis-derived data rather than a station or personal exposure measure. The fixed sentinel panel is geographically distributed but is not an area- or population-weighted global mean. Meteorological resolution, source replacement within two to three months of near-real-time, point-to-grid assignment, percentile choice, and the selected hazard pair affect interpretation. The momentum component is a quantitative accumulated-impact fill based on modeled potential work-hour loss and is not a direct wet-bulb trend.",
+      "freshness": "Wet-bulb observations cover complete calendar year 2025; work-loss impact series extends through 2024.",
+      "selection_reason": {
+        "selected_method_passed": "Current wet-bulb magnitude, recognized-threshold position and six-continent reach supply 75 percent direct weight; the remaining momentum component is filled by a quantitative global heat-work impact series.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:6c6e9c1e"
+    },
+    {
+      "node_id": "humidity_amplification",
+      "value": 7.8,
+      "band": "Critical",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "magnitude": 1,
+        "threshold": 1,
+        "momentum": 0,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "metric": "annual mean total-column water vapour",
+          "latest_equal_location_panel_value": 30.502542,
+          "historical_mean_reference": 28.232734,
+          "latest_anomaly_from_reference": 2.269807,
+          "historical_distribution_anchors": [
+            -0.285464,
+            -0.029266,
+            0.861645,
+            2.194551
+          ],
+          "unit": "kilograms per square metre",
+          "direction": "higher_is_worse"
+        },
+        "threshold": {
+          "latest_equal_location_panel_value": 30.502542,
+          "historical_distribution_anchors": [
+            27.947271,
+            28.203469,
+            29.094379,
+            30.427285
+          ],
+          "threshold_basis": "historical_distribution_no_recognized_global_threshold",
+          "complete_prior_annual_observations": 24,
+          "unit": "kilograms per square metre",
+          "direction": "higher_is_worse"
+        },
+        "momentum": {
+          "latest_change": -0.366583,
+          "from_year": 2024,
+          "to_year": 2025,
+          "historical_distribution_anchors": [
+            0.133375,
+            0.34325,
+            0.815517,
+            1.109981
+          ],
+          "complete_prior_annual_change_observations": 23,
+          "unit": "kilograms per square metre per year",
+          "direction": "higher_is_worse"
+        },
+        "extent": {
+          "affected_continents": [
+            "Africa",
+            "Asia",
+            "Europe",
+            "North America",
+            "Oceania",
+            "South America"
+          ],
+          "represented_continents": [
+            "Africa",
+            "Asia",
+            "Europe",
+            "North America",
+            "Oceania",
+            "South America"
+          ],
+          "rule": "continent counts as affected when at least one sentinel location is above its prior annual median",
+          "normalized_value": 1
+        },
+        "source_snapshot": {
+          "path": "public/power-heat-hazard-snapshot.json",
+          "version": "power_heat_hazard_2025_global_sentinel_v5",
+          "captured_at": "2026-07-31T22:34:25.641Z",
+          "aggregation_boundary": "Fixed 24-location sentinel panel spanning North America, South America, Europe, Africa, Asia and Oceania; equal-location summaries only.",
+          "complete_panel_years": 25,
+          "location_count": 24
+        },
+        "coverage_gate": {
+          "direct_components": [
+            "magnitude",
+            "threshold",
+            "momentum",
+            "extent"
+          ],
+          "global_scope": true,
+          "current_observation": true
+        }
+      },
+      "transformations": [
+        {
+          "type": "equal_location_annual_panel_aggregation",
+          "formula": "For each complete year, average value_kg_m2 across all 24 fixed sentinel locations; do not population- or area-weight."
+        },
+        {
+          "type": "historical_distribution_magnitude",
+          "formula": "Subtract the prior-year mean reference from each annual panel value and map the latest anomaly through the prior median, p75, p90 and p97.5 anchors."
+        },
+        {
+          "type": "historical_distribution_threshold",
+          "formula": "Because no recognized global threshold exists, map the latest annual panel value through the prior median, p75, p90 and p97.5 anchors."
+        },
+        {
+          "type": "annual_momentum",
+          "formula": "Subtract the preceding complete-year panel value from the latest value and normalize against prior year-over-year changes."
+        },
+        {
+          "type": "sentinel_continent_extent",
+          "formula": "Divide represented inhabited continents with at least one location above its local prior annual median by six."
+        }
+      ],
+      "source_ids": [
+        "nasa_power_open_api"
+      ],
+      "uncertainty": "NASA POWER is gridded reanalysis-derived data rather than a station or personal exposure measure. The fixed sentinel panel is geographically distributed but is not an area- or population-weighted global mean. Meteorological resolution, source replacement within two to three months of near-real-time, point-to-grid assignment, percentile choice, and the selected hazard pair affect interpretation. Equal-location results are a reproducible global sentinel index, not a population- or area-weighted global field.",
+      "freshness": "Latest complete calendar year 2025; NASA POWER snapshot captured 2026-07-31T22:34:25.641Z.",
+      "selection_reason": {
+        "selected_method_passed": "25 complete annual values across the fixed 24-location, six-continent panel supply current magnitude, historical threshold position, momentum and extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:f528cdf6"
+    },
+    {
+      "node_id": "extreme_precipitation_intensity",
+      "value": 5.4,
+      "band": "Rising",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "magnitude": 0.570663,
+        "threshold": 0.570663,
+        "momentum": 0,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "metric": "annual maximum corrected daily precipitation",
+          "latest_equal_location_panel_value": 56.775833,
+          "historical_mean_reference": 49.452525,
+          "latest_anomaly_from_reference": 7.323309,
+          "historical_distribution_anchors": [
+            -1.456483,
+            1.237475,
+            9.835309,
+            13.443663
+          ],
+          "unit": "millimetres per day",
+          "direction": "higher_is_worse"
+        },
+        "threshold": {
+          "latest_equal_location_panel_value": 56.775833,
+          "historical_distribution_anchors": [
+            47.996042,
+            50.69,
+            59.287833,
+            62.896187
+          ],
+          "threshold_basis": "historical_distribution_no_recognized_global_threshold",
+          "complete_prior_annual_observations": 34,
+          "unit": "millimetres per day",
+          "direction": "higher_is_worse"
+        },
+        "momentum": {
+          "latest_change": -7.186667,
+          "from_year": 2024,
+          "to_year": 2025,
+          "historical_distribution_anchors": [
+            1.03,
+            3.989167,
+            7.588333,
+            13.126917
+          ],
+          "complete_prior_annual_change_observations": 33,
+          "unit": "millimetres per day per year",
+          "direction": "higher_is_worse"
+        },
+        "extent": {
+          "affected_continents": [
+            "Africa",
+            "Asia",
+            "Europe",
+            "North America",
+            "Oceania",
+            "South America"
+          ],
+          "represented_continents": [
+            "Africa",
+            "Asia",
+            "Europe",
+            "North America",
+            "Oceania",
+            "South America"
+          ],
+          "rule": "continent counts as affected when at least one sentinel location is above its prior annual median",
+          "normalized_value": 1
+        },
+        "source_snapshot": {
+          "path": "public/power-heat-hazard-snapshot.json",
+          "version": "power_heat_hazard_2025_global_sentinel_v5",
+          "captured_at": "2026-07-31T22:34:25.641Z",
+          "aggregation_boundary": "Fixed 24-location sentinel panel spanning North America, South America, Europe, Africa, Asia and Oceania; equal-location summaries only.",
+          "complete_panel_years": 35,
+          "location_count": 24
+        },
+        "coverage_gate": {
+          "direct_components": [
+            "magnitude",
+            "threshold",
+            "momentum",
+            "extent"
+          ],
+          "global_scope": true,
+          "current_observation": true
+        }
+      },
+      "transformations": [
+        {
+          "type": "equal_location_annual_panel_aggregation",
+          "formula": "For each complete year, average value_mm_day across all 24 fixed sentinel locations; do not population- or area-weight."
+        },
+        {
+          "type": "historical_distribution_magnitude",
+          "formula": "Subtract the prior-year mean reference from each annual panel value and map the latest anomaly through the prior median, p75, p90 and p97.5 anchors."
+        },
+        {
+          "type": "historical_distribution_threshold",
+          "formula": "Because no recognized global threshold exists, map the latest annual panel value through the prior median, p75, p90 and p97.5 anchors."
+        },
+        {
+          "type": "annual_momentum",
+          "formula": "Subtract the preceding complete-year panel value from the latest value and normalize against prior year-over-year changes."
+        },
+        {
+          "type": "sentinel_continent_extent",
+          "formula": "Divide represented inhabited continents with at least one location above its local prior annual median by six."
+        }
+      ],
+      "source_ids": [
+        "nasa_power_open_api"
+      ],
+      "uncertainty": "NASA POWER is gridded reanalysis-derived data rather than a station or personal exposure measure. The fixed sentinel panel is geographically distributed but is not an area- or population-weighted global mean. Meteorological resolution, source replacement within two to three months of near-real-time, point-to-grid assignment, percentile choice, and the selected hazard pair affect interpretation. Equal-location results are a reproducible global sentinel index, not a population- or area-weighted global field.",
+      "freshness": "Latest complete calendar year 2025; NASA POWER snapshot captured 2026-07-31T22:34:25.641Z.",
+      "selection_reason": {
+        "selected_method_passed": "35 complete annual values across the fixed 24-location, six-continent panel supply current magnitude, historical threshold position, momentum and extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:d60044f9"
+    },
+    {
+      "node_id": "environ_anomalies",
+      "value": 6.2,
+      "band": "Rising",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "magnitude": 0.715993,
+        "threshold": 0.715993,
+        "momentum": 0,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "metric": "same-day local-p95 heat and heavy-precipitation co-occurrence",
+          "latest_equal_location_panel_value": 0.583333,
+          "historical_mean_reference": 0.264706,
+          "latest_anomaly_from_reference": 0.318627,
+          "historical_distribution_anchors": [
+            -0.056373,
+            0.058211,
+            0.276961,
+            0.575919
+          ],
+          "unit": "days per location-year",
+          "direction": "higher_is_worse"
+        },
+        "threshold": {
+          "latest_equal_location_panel_value": 0.583333,
+          "historical_distribution_anchors": [
+            0.208333,
+            0.322917,
+            0.541667,
+            0.840625
+          ],
+          "threshold_basis": "historical_distribution_no_recognized_global_threshold",
+          "complete_prior_annual_observations": 34,
+          "unit": "days per location-year",
+          "direction": "higher_is_worse"
+        },
+        "momentum": {
+          "latest_change": -0.25,
+          "from_year": 2024,
+          "to_year": 2025,
+          "historical_distribution_anchors": [
+            0,
+            0.125,
+            0.325,
+            0.475
+          ],
+          "complete_prior_annual_change_observations": 33,
+          "unit": "days per location-year per year",
+          "direction": "higher_is_worse"
+        },
+        "extent": {
+          "affected_continents": [
+            "Africa",
+            "Asia",
+            "Europe",
+            "North America",
+            "Oceania",
+            "South America"
+          ],
+          "represented_continents": [
+            "Africa",
+            "Asia",
+            "Europe",
+            "North America",
+            "Oceania",
+            "South America"
+          ],
+          "rule": "continent counts as affected when at least one sentinel location is above its prior annual median",
+          "normalized_value": 1
+        },
+        "source_snapshot": {
+          "path": "public/power-heat-hazard-snapshot.json",
+          "version": "power_heat_hazard_2025_global_sentinel_v5",
+          "captured_at": "2026-07-31T22:34:25.641Z",
+          "aggregation_boundary": "Fixed 24-location sentinel panel spanning North America, South America, Europe, Africa, Asia and Oceania; equal-location summaries only.",
+          "complete_panel_years": 35,
+          "location_count": 24
+        },
+        "coverage_gate": {
+          "direct_components": [
+            "magnitude",
+            "threshold",
+            "momentum",
+            "extent"
+          ],
+          "global_scope": true,
+          "current_observation": true
+        }
+      },
+      "transformations": [
+        {
+          "type": "equal_location_annual_panel_aggregation",
+          "formula": "For each complete year, average days across all 24 fixed sentinel locations; do not population- or area-weight."
+        },
+        {
+          "type": "historical_distribution_magnitude",
+          "formula": "Subtract the prior-year mean reference from each annual panel value and map the latest anomaly through the prior median, p75, p90 and p97.5 anchors."
+        },
+        {
+          "type": "historical_distribution_threshold",
+          "formula": "Because no recognized global threshold exists, map the latest annual panel value through the prior median, p75, p90 and p97.5 anchors."
+        },
+        {
+          "type": "annual_momentum",
+          "formula": "Subtract the preceding complete-year panel value from the latest value and normalize against prior year-over-year changes."
+        },
+        {
+          "type": "sentinel_continent_extent",
+          "formula": "Divide represented inhabited continents with at least one location above its local prior annual median by six."
+        }
+      ],
+      "source_ids": [
+        "nasa_power_open_api"
+      ],
+      "uncertainty": "NASA POWER is gridded reanalysis-derived data rather than a station or personal exposure measure. The fixed sentinel panel is geographically distributed but is not an area- or population-weighted global mean. Meteorological resolution, source replacement within two to three months of near-real-time, point-to-grid assignment, percentile choice, and the selected hazard pair affect interpretation. Equal-location results are a reproducible global sentinel index, not a population- or area-weighted global field.",
+      "freshness": "Latest complete calendar year 2025; NASA POWER snapshot captured 2026-07-31T22:34:25.641Z.",
+      "selection_reason": {
+        "selected_method_passed": "35 complete annual values across the fixed 24-location, six-continent panel supply current magnitude, historical threshold position, momentum and extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:65e4ddef"
+    },
+    {
+      "node_id": "atmospheric_dryness",
+      "value": 4,
+      "band": "Elevated",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "magnitude": 0.31001,
+        "threshold": 0.31001,
+        "momentum": 0,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "metric": "annual mean daily near-surface vapour-pressure deficit",
+          "latest_equal_location_panel_value": 0.711,
+          "historical_mean_reference": 0.697099,
+          "latest_anomaly_from_reference": 0.013901,
+          "historical_distribution_anchors": [
+            -0.00613,
+            0.015193,
+            0.039179,
+            0.062067
+          ],
+          "unit": "kilopascals",
+          "direction": "higher_is_worse"
+        },
+        "threshold": {
+          "latest_equal_location_panel_value": 0.711,
+          "historical_distribution_anchors": [
+            0.690969,
+            0.712292,
+            0.736278,
+            0.759166
+          ],
+          "threshold_basis": "historical_distribution_no_recognized_global_threshold",
+          "complete_prior_annual_observations": 34,
+          "unit": "kilopascals",
+          "direction": "higher_is_worse"
+        },
+        "momentum": {
+          "latest_change": -0.047262,
+          "from_year": 2024,
+          "to_year": 2025,
+          "historical_distribution_anchors": [
+            -0.006292,
+            0.03265,
+            0.040697,
+            0.053607
+          ],
+          "complete_prior_annual_change_observations": 33,
+          "unit": "kilopascals per year",
+          "direction": "higher_is_worse"
+        },
+        "extent": {
+          "affected_continents": [
+            "Africa",
+            "Asia",
+            "Europe",
+            "North America",
+            "Oceania",
+            "South America"
+          ],
+          "represented_continents": [
+            "Africa",
+            "Asia",
+            "Europe",
+            "North America",
+            "Oceania",
+            "South America"
+          ],
+          "rule": "continent counts as affected when at least one sentinel location is above its prior annual median",
+          "normalized_value": 1
+        },
+        "source_snapshot": {
+          "path": "public/power-heat-hazard-snapshot.json",
+          "version": "power_heat_hazard_2025_global_sentinel_v5",
+          "captured_at": "2026-07-31T22:34:25.641Z",
+          "aggregation_boundary": "Fixed 24-location sentinel panel spanning North America, South America, Europe, Africa, Asia and Oceania; equal-location summaries only.",
+          "complete_panel_years": 35,
+          "location_count": 24
+        },
+        "coverage_gate": {
+          "direct_components": [
+            "magnitude",
+            "threshold",
+            "momentum",
+            "extent"
+          ],
+          "global_scope": true,
+          "current_observation": true
+        }
+      },
+      "transformations": [
+        {
+          "type": "equal_location_annual_panel_aggregation",
+          "formula": "For each complete year, average value_kpa across all 24 fixed sentinel locations; do not population- or area-weight."
+        },
+        {
+          "type": "historical_distribution_magnitude",
+          "formula": "Subtract the prior-year mean reference from each annual panel value and map the latest anomaly through the prior median, p75, p90 and p97.5 anchors."
+        },
+        {
+          "type": "historical_distribution_threshold",
+          "formula": "Because no recognized global threshold exists, map the latest annual panel value through the prior median, p75, p90 and p97.5 anchors."
+        },
+        {
+          "type": "annual_momentum",
+          "formula": "Subtract the preceding complete-year panel value from the latest value and normalize against prior year-over-year changes."
+        },
+        {
+          "type": "sentinel_continent_extent",
+          "formula": "Divide represented inhabited continents with at least one location above its local prior annual median by six."
+        }
+      ],
+      "source_ids": [
+        "nasa_power_open_api"
+      ],
+      "uncertainty": "NASA POWER is gridded reanalysis-derived data rather than a station or personal exposure measure. The fixed sentinel panel is geographically distributed but is not an area- or population-weighted global mean. Meteorological resolution, source replacement within two to three months of near-real-time, point-to-grid assignment, percentile choice, and the selected hazard pair affect interpretation. Equal-location results are a reproducible global sentinel index, not a population- or area-weighted global field.",
+      "freshness": "Latest complete calendar year 2025; NASA POWER snapshot captured 2026-07-31T22:34:25.641Z.",
+      "selection_reason": {
+        "selected_method_passed": "35 complete annual values across the fixed 24-location, six-continent panel supply current magnitude, historical threshold position, momentum and extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:d323ee70"
+    },
+    {
+      "node_id": "nocturnal_heat_stress",
+      "value": 6.5,
+      "band": "Rising",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "magnitude": 0.772159,
+        "threshold": 0.772159,
+        "momentum": 0,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "metric": "night-time minimum-temperature days above the local 1991-2020 p95 threshold",
+          "latest_equal_location_panel_value": 38.25,
+          "historical_mean_reference": 20.758578,
+          "latest_anomaly_from_reference": 17.491422,
+          "historical_distribution_anchors": [
+            -3.258578,
+            5.345588,
+            12.112255,
+            29.488297
+          ],
+          "unit": "nights per location-year",
+          "direction": "higher_is_worse"
+        },
+        "threshold": {
+          "latest_equal_location_panel_value": 38.25,
+          "historical_distribution_anchors": [
+            17.5,
+            26.104167,
+            32.870833,
+            50.246875
+          ],
+          "threshold_basis": "historical_distribution_no_recognized_global_threshold",
+          "complete_prior_annual_observations": 34,
+          "unit": "nights per location-year",
+          "direction": "higher_is_worse"
+        },
+        "momentum": {
+          "latest_change": -22,
+          "from_year": 2024,
+          "to_year": 2025,
+          "historical_distribution_anchors": [
+            1.333333,
+            5.916667,
+            11.65,
+            18.35
+          ],
+          "complete_prior_annual_change_observations": 33,
+          "unit": "nights per location-year per year",
+          "direction": "higher_is_worse"
+        },
+        "extent": {
+          "affected_continents": [
+            "Africa",
+            "Asia",
+            "Europe",
+            "North America",
+            "Oceania",
+            "South America"
+          ],
+          "represented_continents": [
+            "Africa",
+            "Asia",
+            "Europe",
+            "North America",
+            "Oceania",
+            "South America"
+          ],
+          "rule": "continent counts as affected when at least one sentinel location is above its prior annual median",
+          "normalized_value": 1
+        },
+        "source_snapshot": {
+          "path": "public/power-heat-hazard-snapshot.json",
+          "version": "power_heat_hazard_2025_global_sentinel_v5",
+          "captured_at": "2026-07-31T22:34:25.641Z",
+          "aggregation_boundary": "Fixed 24-location sentinel panel spanning North America, South America, Europe, Africa, Asia and Oceania; equal-location summaries only.",
+          "complete_panel_years": 35,
+          "location_count": 24
+        },
+        "coverage_gate": {
+          "direct_components": [
+            "magnitude",
+            "threshold",
+            "momentum",
+            "extent"
+          ],
+          "global_scope": true,
+          "current_observation": true
+        }
+      },
+      "transformations": [
+        {
+          "type": "equal_location_annual_panel_aggregation",
+          "formula": "For each complete year, average nights across all 24 fixed sentinel locations; do not population- or area-weight."
+        },
+        {
+          "type": "historical_distribution_magnitude",
+          "formula": "Subtract the prior-year mean reference from each annual panel value and map the latest anomaly through the prior median, p75, p90 and p97.5 anchors."
+        },
+        {
+          "type": "historical_distribution_threshold",
+          "formula": "Because no recognized global threshold exists, map the latest annual panel value through the prior median, p75, p90 and p97.5 anchors."
+        },
+        {
+          "type": "annual_momentum",
+          "formula": "Subtract the preceding complete-year panel value from the latest value and normalize against prior year-over-year changes."
+        },
+        {
+          "type": "sentinel_continent_extent",
+          "formula": "Divide represented inhabited continents with at least one location above its local prior annual median by six."
+        }
+      ],
+      "source_ids": [
+        "nasa_power_open_api"
+      ],
+      "uncertainty": "NASA POWER is gridded reanalysis-derived data rather than a station or personal exposure measure. The fixed sentinel panel is geographically distributed but is not an area- or population-weighted global mean. Meteorological resolution, source replacement within two to three months of near-real-time, point-to-grid assignment, percentile choice, and the selected hazard pair affect interpretation. Equal-location results are a reproducible global sentinel index, not a population- or area-weighted global field.",
+      "freshness": "Latest complete calendar year 2025; NASA POWER snapshot captured 2026-07-31T22:34:25.641Z.",
+      "selection_reason": {
+        "selected_method_passed": "35 complete annual values across the fixed 24-location, six-continent panel supply current magnitude, historical threshold position, momentum and extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:4c6fb385"
+    },
+    {
+      "node_id": "compound_day_night_heat_extremes",
+      "value": 6.1,
+      "band": "Rising",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "magnitude": 0.700667,
+        "threshold": 0.700667,
+        "momentum": 0,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "metric": "days in consecutive runs with both daily maximum and minimum temperature above local 1991-2020 p95 thresholds",
+          "latest_equal_location_panel_value": 10.916667,
+          "historical_mean_reference": 6.171569,
+          "latest_anomaly_from_reference": 4.745098,
+          "historical_distribution_anchors": [
+            -1.025735,
+            1.338848,
+            3.882598,
+            13.163848
+          ],
+          "unit": "event-days per location-year",
+          "direction": "higher_is_worse"
+        },
+        "threshold": {
+          "latest_equal_location_panel_value": 10.916667,
+          "historical_distribution_anchors": [
+            5.145833,
+            7.510417,
+            10.054167,
+            19.335417
+          ],
+          "threshold_basis": "historical_distribution_no_recognized_global_threshold",
+          "complete_prior_annual_observations": 34,
+          "unit": "event-days per location-year",
+          "direction": "higher_is_worse"
+        },
+        "momentum": {
+          "latest_change": -8.625,
+          "from_year": 2024,
+          "to_year": 2025,
+          "historical_distribution_anchors": [
+            0.291667,
+            1.75,
+            3.625,
+            6.941667
+          ],
+          "complete_prior_annual_change_observations": 33,
+          "unit": "event-days per location-year per year",
+          "direction": "higher_is_worse"
+        },
+        "extent": {
+          "affected_continents": [
+            "Africa",
+            "Asia",
+            "Europe",
+            "North America",
+            "Oceania",
+            "South America"
+          ],
+          "represented_continents": [
+            "Africa",
+            "Asia",
+            "Europe",
+            "North America",
+            "Oceania",
+            "South America"
+          ],
+          "rule": "continent counts as affected when at least one sentinel location is above its prior annual median",
+          "normalized_value": 1
+        },
+        "source_snapshot": {
+          "path": "public/power-heat-hazard-snapshot.json",
+          "version": "power_heat_hazard_2025_global_sentinel_v5",
+          "captured_at": "2026-07-31T22:34:25.641Z",
+          "aggregation_boundary": "Fixed 24-location sentinel panel spanning North America, South America, Europe, Africa, Asia and Oceania; equal-location summaries only.",
+          "complete_panel_years": 35,
+          "location_count": 24
+        },
+        "coverage_gate": {
+          "direct_components": [
+            "magnitude",
+            "threshold",
+            "momentum",
+            "extent"
+          ],
+          "global_scope": true,
+          "current_observation": true
+        }
+      },
+      "transformations": [
+        {
+          "type": "equal_location_annual_panel_aggregation",
+          "formula": "For each complete year, average days across all 24 fixed sentinel locations; do not population- or area-weight."
+        },
+        {
+          "type": "historical_distribution_magnitude",
+          "formula": "Subtract the prior-year mean reference from each annual panel value and map the latest anomaly through the prior median, p75, p90 and p97.5 anchors."
+        },
+        {
+          "type": "historical_distribution_threshold",
+          "formula": "Because no recognized global threshold exists, map the latest annual panel value through the prior median, p75, p90 and p97.5 anchors."
+        },
+        {
+          "type": "annual_momentum",
+          "formula": "Subtract the preceding complete-year panel value from the latest value and normalize against prior year-over-year changes."
+        },
+        {
+          "type": "sentinel_continent_extent",
+          "formula": "Divide represented inhabited continents with at least one location above its local prior annual median by six."
+        }
+      ],
+      "source_ids": [
+        "nasa_power_open_api"
+      ],
+      "uncertainty": "NASA POWER is gridded reanalysis-derived data rather than a station or personal exposure measure. The fixed sentinel panel is geographically distributed but is not an area- or population-weighted global mean. Meteorological resolution, source replacement within two to three months of near-real-time, point-to-grid assignment, percentile choice, and the selected hazard pair affect interpretation. Equal-location results are a reproducible global sentinel index, not a population- or area-weighted global field.",
+      "freshness": "Latest complete calendar year 2025; NASA POWER snapshot captured 2026-07-31T22:34:25.641Z.",
+      "selection_reason": {
+        "selected_method_passed": "35 complete annual values across the fixed 24-location, six-continent panel supply current magnitude, historical threshold position, momentum and extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:912dc1f5"
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+
+const snapshot = {
+  version: 'us_climate_insurance_retreat_2018_2022_v1',
+  captured_at: '2026-08-01T00:00:00.000Z',
+  sources: [
+    {
+      id: 'us_treasury_fio_homeowners_insurance_climate_risk_2025',
+      name: 'Analyses of U.S. Homeowners Insurance Markets, 2018–2022: Climate-Related Risks and Other Factors',
+      publisher: 'U.S. Department of the Treasury, Federal Insurance Office',
+      url: 'https://home.treasury.gov/news/press-releases/jy2791',
+      report_url: 'https://home.treasury.gov/system/files/311/Analyses_of_US_Homeowners_Insurance_Markets_2018-2022_Climate-Related_Risks_and_Other_Factors_0.pdf'
+    }
+  ],
+  assessment: {
+    coverage: {
+      observation_start_year: 2018,
+      observation_end_year: 2022,
+      observation_years: 5,
+      insurer_count_lower_bound: 330,
+      policy_years_lower_bound: 246000000,
+      annual_average_policies: 49300000,
+      aggregation: 'ZIP Code',
+      us_regions: 7,
+      climate_related_peril_types: 9,
+      flooding_excluded: true
+    },
+    availability: {
+      highest_risk_zip_average_nonrenewal_rate_pct: 1.61,
+      highest_vs_lowest_risk_nonrenewal_rate_increase_pct: 80,
+      highest_risk_nonrenewal_increased_more_over_period: true,
+      regions_where_highest_risk_zip_nonrenewal_exceeded_lowest_risk_zip_nonrenewal: 6
+    },
+    household_and_insurer_burden: {
+      highest_risk_zip_average_premium_usd: 2321,
+      highest_vs_lowest_risk_premium_increase_pct: 82,
+      highest_vs_lowest_risk_paid_loss_ratio_increase_pct: 18,
+      highest_risk_average_claim_severity_usd: 24000,
+      lowest_risk_average_claim_severity_usd: 19000
+    },
+    geographic_extent: {
+      directly_assessed_countries: ['United States'],
+      directly_assessed_country_count: 1,
+      scoring_boundary: 'The evidence is nationally comprehensive for the United States but is not extrapolated to other countries.'
+    }
+  },
+  uncertainty: 'The Federal Insurance Office analysis covers owner-occupied homeowners multi-peril policies reported by participating insurers and aggregates protected records to ZIP Code. Public data are suppressed where fewer than ten insurers or fifty policies are represented. Flood insurance is excluded, expected annual loss is modeled, and nonrenewal can reflect multiple underwriting and market factors; the report establishes association with climate-peril risk, not exclusive causal attribution.'
+};
+
+await fs.writeFile(
+  path.join(ROOT, 'public/us-climate-insurance-retreat-impact-snapshot.json'),
+  `${JSON.stringify(snapshot, null, 2)}\n`
+);
+
+console.log(JSON.stringify({
+  output: 'public/us-climate-insurance-retreat-impact-snapshot.json',
+  version: snapshot.version,
+  source_count: snapshot.sources.length
+}, null, 2));

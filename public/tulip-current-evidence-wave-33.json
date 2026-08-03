@@ -1,0 +1,127 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_33_faostat_peatland_drainage_co2",
+  "generated_at": "2026-07-31T18:59:13.094Z",
+  "source_snapshot": "public/faostat-agriculture-snapshot.json",
+  "source_id": "faostat",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "peatland_drainage_co2",
+      "value": 8.3,
+      "band": "Critical",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2022",
+      "components": {
+        "magnitude": 0.675779,
+        "threshold": 1,
+        "momentum": 0.611447,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_global_kilotonnes_co2_per_year": 830200.724,
+          "latest_source_flag": "E",
+          "reference_period": [
+            1990,
+            1999
+          ],
+          "reference_median_kilotonnes_co2_per_year": 753528.39635,
+          "increase_pct": 10.175108,
+          "anchors_pct": [
+            0,
+            5,
+            10,
+            20
+          ]
+        },
+        "threshold": {
+          "latest_global_kilotonnes_co2_per_year": 830200.724,
+          "historical_period": [
+            1990,
+            2019
+          ],
+          "complete_annual_observations": 30,
+          "historical_distribution_anchors_kilotonnes": [
+            777768.25025,
+            811847.90215,
+            819843.08151,
+            825356.011922
+          ],
+          "percentiles": [
+            "median",
+            "75th",
+            "90th",
+            "97.5th"
+          ]
+        },
+        "momentum": {
+          "start_year": 2017,
+          "start_kilotonnes_co2_per_year": 820957.7703,
+          "end_year": 2022,
+          "end_kilotonnes_co2_per_year": 830200.724,
+          "annualized_change_pct": 0.224168,
+          "anchors_pct_per_year": [
+            0,
+            0.1,
+            0.25,
+            0.5
+          ]
+        },
+        "extent": {
+          "source_geography": "World",
+          "normalized_value": 1,
+          "boundary": "FAOSTAT agricultural cropland-and-grassland drained organic soils only."
+        },
+        "excluded_imputed_rows": [
+          {
+            "year": 2023,
+            "value": 830200.724,
+            "source_flag": "I"
+          },
+          {
+            "year": 2024,
+            "value": 830200.724,
+            "source_flag": "I"
+          }
+        ],
+        "source_snapshot": {
+          "path": "public/faostat-agriculture-snapshot.json",
+          "version": "faostat_agriculture_metrics_v4",
+          "captured_at": "2026-07-31T14:47:29.019Z",
+          "coverage_boundary": "This snapshot operationalizes global crop-yield variability, agricultural input-intensity components, apparent demand, mass-based food import dependency, fertilizer output, cereal feed use, and FAOSTAT agricultural drained-organic-soil area and carbon-dioxide emissions. The wetland records cover cropland and grassland organic soils only; they are not global observations of every drained wetland, newly drained area, peat fire or non-agricultural conversion. Country rows must not be summed with regional aggregates."
+        }
+      },
+      "transformations": [
+        {
+          "type": "latest_non_imputed_world_estimate",
+          "formula": "Select the latest World total whose FAOSTAT flag is not I; retain 2023-2024 imputed repeats as excluded metadata."
+        },
+        {
+          "type": "fixed_reference_increase",
+          "formula": "Compare 2022 with the median of the complete 1990-1999 global annual inventory."
+        },
+        {
+          "type": "historical_distribution",
+          "formula": "Normalize 2022 through median, 75th, 90th and 97.5th percentiles of 30 complete annual values from 1990-2019."
+        },
+        {
+          "type": "five_year_annualized_momentum",
+          "formula": "Calculate compound annual change from 2017 to 2022 without extrapolating beyond the inventory."
+        }
+      ],
+      "source_ids": [
+        "faostat"
+      ],
+      "uncertainty": "FAOSTAT flags combine official, estimated, imputed, and aggregate values. World and regional records inherit reporting and estimation uncertainty. Fertilizer product tonnes are not nutrient tonnes. Food import dependency depends on food-balance conventions, stock variation, re-exports, commodity aggregation, and mass rather than calorie weighting. Yield detrending is descriptive, not climate attribution. Drained-organic-soil estimates use Tier 1 geospatial area and emission-factor methods and cover agricultural cropland and grassland rather than all wetlands.",
+      "freshness": "FAOSTAT release 2025-10-28T00:00:00; latest non-imputed global estimate 2022; snapshot captured 2026-07-31T14:47:29.019Z.",
+      "selection_reason": {
+        "selected_method_passed": "FAOSTAT supplies a source-reported World total, 33 complete non-imputed annual values through 2022, a valid 30-year historical distribution and a five-year observed inventory trend.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:8db23f82"
+    }
+  ]
+}

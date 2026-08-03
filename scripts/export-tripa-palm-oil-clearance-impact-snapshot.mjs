@@ -1,0 +1,79 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const burnedAreaHectares = 1000;
+const licensedAreaHectares = 1605;
+const firstDocumentedBurnYear = 2009;
+const lastDocumentedBurnYear = 2012;
+const snapshot = {
+  version: 'tripa_kallista_palm_oil_clearance_2009_2017_v1',
+  captured_at: '2026-08-01T00:00:00.000Z',
+  sources: [
+    {
+      id: 'indonesia_supreme_court_kallista_alam_651_2015',
+      name: 'Supreme Court Decision 651 K/Pdt/2015',
+      publisher: 'Supreme Court of the Republic of Indonesia',
+      publication_date: '2015-08-28',
+      url: 'https://putusan3.mahkamahagung.go.id/direktori/putusan/bbf15c165693d4bdda18ed636b2c40b1.html',
+      source_locators: [
+        'The Supreme Court rejected PT Kallista Alam’s civil appeal and the judgment has permanent legal force.',
+        'The litigation concerns land clearing by fire for oil-palm cultivation within the company’s licensed Tripa peatland area.',
+        'The court record identifies an approximately 1,605-hectare oil-palm business-license boundary.'
+      ]
+    },
+    {
+      id: 'indonesia_supreme_court_kallista_alam_review_1_2017',
+      name: 'Supreme Court Judicial Review Decision 1 PK/Pdt/2017',
+      publisher: 'Supreme Court of the Republic of Indonesia',
+      publication_date: '2017-04-18',
+      url: 'https://putusan3.mahkamahagung.go.id/direktori/putusan/6a6b644bad35d04047a3e8b9783604e8.html',
+      source_locators: [
+        'The Supreme Court rejected the company’s judicial-review petition on 18 April 2017.',
+        'The final decision preserves the civil liability attached to the bounded Tripa peat-forest burning case.'
+      ]
+    },
+    {
+      id: 'indonesia_klhk_kallista_alam_liability_2017',
+      name: 'KLHK Forest and Land Fire Enforcement Release',
+      publisher: 'Indonesian Ministry of Environment and Forestry',
+      publication_date: '2017-11-28',
+      url: 'https://ksdae.menlhk.go.id/assets/publikasi/SIARAN_PERS_-_Banding_PT_WAJ_Ditolak%2C_KLHK_Menangkan_Kasus_Karhutla.pdf',
+      source_locators: [
+        'KLHK reports that the final PT Kallista Alam judgment carries Rp366 billion in environmental compensation and restoration liability.',
+        'The underlying case quantified approximately 1,000 hectares of burned Tripa peat forest associated with the oil-palm development area.',
+        'The liability is a court-ordered environmental response burden, not an estimate derived from a generic carbon price.'
+      ]
+    }
+  ],
+  metric_contract: {
+    node_id: 'palm_oil_canopy_clearance',
+    metric_id: 'verified_forest_conversion_within_oil_palm_expansion',
+    unit: 'verified burned forest hectares within a named oil-palm license, duration, affected-license share and adjudicated environmental liability',
+    geography: 'PT Kallista Alam oil-palm license in the Tripa peat swamp, Aceh, Indonesia',
+    assessment_period: 'documented repeated burning from 2009–2012 through final Supreme Court review in 2017',
+    boundary: 'The receipt uses a final adjudicated causal boundary for land clearing by fire in an oil-palm development area. It does not treat all concession tree-cover loss as oil-palm conversion, generalize the company case nationally, or convert the liability into carbon tonnes.'
+  },
+  accumulated_impact: {
+    verified_burned_tripa_peat_forest_hectares_approximate: burnedAreaHectares,
+    oil_palm_business_license_hectares_approximate: licensedAreaHectares,
+    affected_license_share_percent_derived: Number(((burnedAreaHectares / licensedAreaHectares) * 100).toFixed(6)),
+    first_documented_burn_year: firstDocumentedBurnYear,
+    last_documented_burn_year: lastDocumentedBurnYear,
+    repeated_burning_span_years_derived: lastDocumentedBurnYear - firstDocumentedBurnYear,
+    final_environmental_liability_idr_billions: 366,
+    supreme_court_final_decision_year: 2015,
+    supreme_court_review_rejection_year: 2017
+  },
+  reviewed_normalization_anchors: {
+    verified_burned_forest_hectares: [0, 10, 100, 1000],
+    adjudicated_liability_idr_billions: [0, 10, 100, 500],
+    repeated_burning_span_years: [0, 0.1, 1, 5],
+    affected_license_share_percent: [0, 5, 25, 75]
+  },
+  uncertainty: 'Area values are approximate quantities preserved in court and ministry reporting, and burning severity can vary within the mapped boundary. A final civil judgment establishes the case-specific legal attribution but does not establish the cause of every fire or every canopy-loss pixel in Indonesian oil-palm concessions. Court-ordered compensation and restoration liability is an administrative/economic burden, not proof that the full amount was collected by the capture date. Ecological recovery and peat-carbon loss are not inferred from the monetary award.'
+};
+
+await fs.writeFile(path.join(ROOT, 'public/tripa-palm-oil-clearance-impact-snapshot.json'), `${JSON.stringify(snapshot, null, 2)}\n`);
+console.log(JSON.stringify({ output: 'public/tripa-palm-oil-clearance-impact-snapshot.json', version: snapshot.version, accumulated: snapshot.accumulated_impact }, null, 2));

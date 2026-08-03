@@ -1,0 +1,99 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_5_noaa_ibtracs_since_1980",
+  "generated_at": "2026-07-31T22:57:28.930Z",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "tropical_cyclone_rapid_intensification",
+      "value": 1.7,
+      "band": "Low",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "magnitude": 0,
+        "threshold": 0,
+        "momentum": 0,
+        "extent": 0.5
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_rapid_intensification_storm_share_pct": 30.555556,
+          "reference_year": 1980,
+          "reference_rapid_intensification_storm_share_pct": 44.791667,
+          "value_against_reference_percentage_points": -14.236111,
+          "complete_annual_observations": 46,
+          "anchors": [
+            -4.387626,
+            -0.086806,
+            3.475067,
+            8.573718
+          ],
+          "source_locator": "https://www.ncei.noaa.gov/data/international-best-track-archive-for-climate-stewardship-ibtracs/v04r01/access/csv/ibtracs.since1980.list.v04r01.csv"
+        },
+        "threshold": {
+          "latest_rapid_intensification_storm_share_pct": 30.555556,
+          "threshold_basis": "historical_distribution_fallback",
+          "anchors": [
+            40.40404,
+            44.704861,
+            48.266733,
+            53.365385
+          ],
+          "source_locator": "https://www.ncei.noaa.gov/data/international-best-track-archive-for-climate-stewardship-ibtracs/v04r01/access/csv/ibtracs.since1980.list.v04r01.csv"
+        },
+        "momentum": {
+          "latest_year_over_year_change_percentage_points": -15.362812,
+          "annual_change_observations": 45,
+          "anchors": [
+            0.59596,
+            4.018913,
+            8.398735,
+            11.474371
+          ],
+          "source_locator": "https://www.ncei.noaa.gov/data/international-best-track-archive-for-climate-stewardship-ibtracs/v04r01/access/csv/ibtracs.since1980.list.v04r01.csv"
+        },
+        "extent": {
+          "latest_basins_with_rapid_intensification": 2,
+          "latest_basins_with_valid_storm_observations": 4,
+          "normalized_value": 0.5,
+          "source_locator": "https://www.ncei.noaa.gov/data/international-best-track-archive-for-climate-stewardship-ibtracs/v04r01/access/csv/ibtracs.since1980.list.v04r01.csv"
+        },
+        "source_snapshot": {
+          "path": "public/noaa-ibtracs-rapid-intensification-snapshot.json",
+          "version": "2026-07-31T14:35:45.270Z",
+          "captured_at": "2026-07-31T14:35:45.270Z",
+          "storm_records": 4711,
+          "annual_panel_start": 1980,
+          "annual_panel_end": 2025
+        }
+      },
+      "transformations": [
+        {
+          "type": "annual_global_storm_prevalence",
+          "formula": "storms with at least one exact 24-hour USA_WIND increase of 30 knots or more divided by storms with valid exact 24-hour pairs"
+        },
+        {
+          "type": "historical_distribution_normalization",
+          "formula": "Map annual global prevalence and its change through median / p75 / p90 / p97.5 anchors"
+        },
+        {
+          "type": "global_basin_extent",
+          "formula": "basins with at least one rapid-intensification storm divided by basins with valid storm observations in the latest season"
+        }
+      ],
+      "source_ids": [
+        "noaa_ibtracs"
+      ],
+      "uncertainty": "IBTrACS merges agency best tracks, and wind estimates, observing systems, post-storm revisions, averaging periods, agency practices, provisional tracks, and missing exact 24-hour pairs affect the result. This bounded metric deliberately uses USA_WIND rather than mixing agency wind fields.",
+      "freshness": "NOAA IBTrACS since-1980 archive through season 2025; snapshot captured 2026-07-31T14:35:45.270Z.",
+      "selection_reason": {
+        "selected_method_passed": "The official NOAA archive supplies 46 complete annual global storm aggregates, an operational 30-knot threshold, annual prevalence, momentum, and basin extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:d75a2217"
+    }
+  ]
+}

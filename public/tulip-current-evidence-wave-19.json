@@ -1,0 +1,104 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_19_nasa_ozone_watch",
+  "generated_at": "2026-07-31T22:57:33.153Z",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "stratospheric_chlorine_sinks",
+      "value": 1.9,
+      "band": "Low",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "magnitude": 0,
+        "threshold": 0,
+        "momentum": 0,
+        "extent": 0.703008
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_minimum_mean_ozone_du": 138.3,
+          "reference_year": 1979,
+          "reference_minimum_mean_ozone_du": 225,
+          "decline_against_reference_du": 86.7,
+          "complete_annual_observations": 46,
+          "anchors_decline_du": [
+            105,
+            116.2,
+            123.25,
+            126.5625
+          ],
+          "source_locator": "https://ozonewatch.gsfc.nasa.gov/statistics/annual_data.txt; annual row 2025"
+        },
+        "threshold": {
+          "latest_minimum_mean_ozone_du": 138.3,
+          "recognized_ozone_hole_threshold_du": 220,
+          "latest_deficit_against_threshold_du": 81.7,
+          "threshold_basis": "historical_distribution_fallback_with_lower_values_worse",
+          "anchors_du_lower_is_worse": [
+            120,
+            108.8,
+            101.75,
+            98.4375
+          ],
+          "source_locator": "https://ozonewatch.gsfc.nasa.gov/statistics/annual_data.txt; annual row 2025"
+        },
+        "momentum": {
+          "latest_annualized_ozone_change_du_per_year": 17.3,
+          "annualized_change_observations": 45,
+          "anchors_du_per_year_lower_is_worse": [
+            -2.8,
+            -12.1,
+            -27.8,
+            -48.23
+          ],
+          "missing_year_handling": "Changes spanning the missing 1995 record are divided by elapsed years; no 1995 value is imputed.",
+          "source_locator": "https://ozonewatch.gsfc.nasa.gov/statistics/annual_data.txt; annual row 2025"
+        },
+        "extent": {
+          "latest_mean_ozone_hole_area_million_km2": 18.7,
+          "maximum_observed_mean_ozone_hole_area_million_km2": 26.6,
+          "normalized_value": 0.703008,
+          "geography_boundary": "Southern Hemisphere Antarctic ozone-hole domain",
+          "source_locator": "https://ozonewatch.gsfc.nasa.gov/statistics/annual_data.txt; annual row 2025"
+        },
+        "source_snapshot": {
+          "path": "public/nasa-ozone-watch-annual-snapshot.json",
+          "version": "nasa_ozone_watch_annual_1979_2025_v1",
+          "captured_at": "2026-07-31T17:11:57.617Z",
+          "source_last_modified": "Mon, 20 Oct 2025 21:41:24 GMT",
+          "retained_history_start": 1979,
+          "retained_history_end": 2025,
+          "retained_history_record_count": 46
+        }
+      },
+      "transformations": [
+        {
+          "type": "fixed_window_antarctic_indicator",
+          "formula": "Retain NASA mean ozone-hole area for 7 September-13 October and minimum mean ozone for 21 September-16 October as separate annual quantities."
+        },
+        {
+          "type": "reverse_direction_historical_normalization",
+          "formula": "Lower ozone is worse: map the latest Dobson Unit value and annual change through reversed median / p75 / p90 / p97.5 historical anchors."
+        },
+        {
+          "type": "missing_year_preserving_momentum",
+          "formula": "Annualize changes by elapsed years across the declared 1995 gap without interpolation or zero fill."
+        }
+      ],
+      "source_ids": [
+        "nasa_ozone_watch"
+      ],
+      "uncertainty": "Polar-vortex dynamics, temperature, aerosols, sunlight, transport, sensor transitions, missing-orbit assimilation and fixed seasonal windows affect annual values. This Antarctic indicator is not a uniform global ozone-column measurement.",
+      "freshness": "NASA finalized annual history through 2025; source last modified Mon, 20 Oct 2025 21:41:24 GMT; snapshot captured 2026-07-31T17:11:57.617Z.",
+      "selection_reason": {
+        "selected_method_passed": "NASA supplies 46 complete annual Antarctic ozone-hole observations, a recognized 220-DU depletion threshold, reverse-direction magnitude and momentum, and measured spatial extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:6e52eb40"
+    }
+  ]
+}

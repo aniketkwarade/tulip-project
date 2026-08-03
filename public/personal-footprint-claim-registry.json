@@ -1,0 +1,154 @@
+{
+  "registryVersion": "2026-07-30",
+  "scope": "My Footprint contextual claims and equivalencies",
+  "claims": [
+    {
+      "id": "carbon-global-percentile-2019",
+      "status": "active",
+      "metric": "carbon",
+      "displayClaim": "Estimated percentile of the global population by annual individual carbon footprint",
+      "referenceYear": 2019,
+      "boundary": "All greenhouse gases from domestic consumption, public and private investment, and carbon embedded in traded goods and services; emissions split equally within households.",
+      "method": "Log-linear interpolation between published global distribution thresholds. Values below 1.8 tCO2e are only reported as below the 20th percentile.",
+      "anchors": [
+        { "percentile": 20, "tonnesCo2ePerPersonYear": 1.8 },
+        { "percentile": 50, "tonnesCo2ePerPersonYear": 3.1 },
+        { "percentile": 90, "tonnesCo2ePerPersonYear": 13 },
+        { "percentile": 99, "tonnesCo2ePerPersonYear": 46 },
+        { "percentile": 99.9, "tonnesCo2ePerPersonYear": 130 },
+        { "percentile": 99.99, "tonnesCo2ePerPersonYear": 569 }
+      ],
+      "source": {
+        "publisher": "World Inequality Lab",
+        "title": "Global Carbon Inequality, 1990–2019",
+        "url": "https://wid.world/wp-content/uploads/2021/10/Chancel2022-20Feb22-14h25.pdf"
+      },
+      "limitations": "TULIP estimates lifestyle-linked demand from a short questionnaire, while the reference distribution also allocates public and investment emissions. The rank is contextual, not a measured personal inventory."
+    },
+    {
+      "id": "carbon-gasoline-vehicle-year",
+      "status": "active",
+      "metric": "carbon",
+      "factor": { "tonnesCo2ePerVehicleYear": 4.29 },
+      "source": {
+        "publisher": "U.S. Environmental Protection Agency",
+        "title": "Greenhouse Gas Equivalencies Calculator — Calculations and References",
+        "url": "https://www.epa.gov/energy/greenhouse-gas-equivalencies-calculator-calculations-and-references"
+      },
+      "limitations": "Operational emissions from an average U.S. gasoline passenger vehicle; excludes vehicle manufacture."
+    },
+    {
+      "id": "carbon-gasoline-vehicle-mile",
+      "status": "active",
+      "metric": "carbon",
+      "factor": { "tonnesCo2ePerVehicleMile": 0.000393 },
+      "source": {
+        "publisher": "U.S. Environmental Protection Agency",
+        "title": "Greenhouse Gas Equivalencies Calculator — Calculations and References",
+        "url": "https://www.epa.gov/energy/greenhouse-gas-equivalencies-calculator-calculations-and-references"
+      },
+      "limitations": "Operational emissions from an average U.S. gasoline passenger vehicle; excludes vehicle manufacture."
+    },
+    {
+      "id": "carbon-world-average-2019",
+      "status": "active",
+      "metric": "carbon",
+      "factor": { "tonnesCo2ePerPersonYear": 6.6 },
+      "source": {
+        "publisher": "World Inequality Lab",
+        "title": "Global Carbon Inequality, 1990–2019",
+        "url": "https://wid.world/wp-content/uploads/2021/10/Chancel2022-20Feb22-14h25.pdf"
+      },
+      "limitations": "Uses the same broad carbon boundary as the percentile distribution."
+    },
+    {
+      "id": "carbon-one-point-five-degree-level",
+      "status": "active",
+      "metric": "carbon",
+      "factor": { "tonnesCo2ePerPersonYear": 1.1 },
+      "source": {
+        "publisher": "World Inequality Lab",
+        "title": "Climate Change & the Global Inequality of Carbon Emissions",
+        "url": "https://wid.world/www-site/uploads/2021/10/Chancel2021CarbonInequality-online.pdf"
+      },
+      "limitations": "Equal per-capita allocation of the remaining budget for an 83% chance of staying below 1.5°C, applied annually from 2021–2050."
+    },
+    {
+      "id": "water-world-consumer-average",
+      "status": "active",
+      "metric": "water",
+      "factor": { "cubicMetresPerPersonYear": 1385 },
+      "referencePeriod": "1996–2005",
+      "source": {
+        "publisher": "Water Footprint Network",
+        "title": "National Water Footprint Accounts",
+        "url": "https://www.waterfootprint.org/resources/Report50-NationalWaterFootprints-Vol1.pdf"
+      },
+      "limitations": "Long-run modeled consumption footprint, not metered household water use."
+    },
+    {
+      "id": "land-world-cropland-average-2021",
+      "status": "active",
+      "metric": "land",
+      "factor": { "squareMetresPerPersonYear": 1900 },
+      "source": {
+        "publisher": "European Commission Joint Research Centre",
+        "title": "EU land use footprint: modelling the land needed for EU consumption",
+        "url": "https://joint-research-centre.ec.europa.eu/jrc-news-and-updates/eu-land-use-footprint-modelling-land-needed-eu-consumption-2024-08-23_en"
+      },
+      "limitations": "Cropland footprint for food and bio-based products; not all land occupation."
+    },
+    {
+      "id": "material-world-average-2022",
+      "status": "active",
+      "metric": "materials",
+      "factor": { "tonnesRawMaterialEquivalentPerPersonYearApprox": 12.3 },
+      "method": "98.0 billion tonnes divided by the 2022 world population (about 7.95 billion).",
+      "source": {
+        "publisher": "United Nations Statistics Division",
+        "title": "The Sustainable Development Goals Report 2024 — Goal 12",
+        "url": "https://unstats.un.org/sdgs/report/2024/Goal-12/"
+      },
+      "limitations": "Rounded derived per-capita value; global total is the directly published statistic."
+    },
+    {
+      "id": "water-average-shower",
+      "status": "active",
+      "metric": "water",
+      "factor": { "litresPerShower": 65.1 },
+      "source": {
+        "publisher": "U.S. Environmental Protection Agency WaterSense",
+        "title": "Draft Specification for Showerheads — Supporting Statement",
+        "url": "https://www.epa.gov/sites/production/files/2017-02/documents/ws-background-showerheads-suppstatement.pdf"
+      },
+      "limitations": "Based on the EPA assumption of 17.2 U.S. gallons per average shower. Actual duration and flow rate vary."
+    },
+    {
+      "id": "land-nba-basketball-court",
+      "status": "active",
+      "metric": "land",
+      "factor": { "squareMetresPerCourt": 436.64 },
+      "definition": "NBA-size playing court measuring 94 ft × 50 ft.",
+      "source": {
+        "publisher": "NBA",
+        "title": "Jr. NBA Interactive Court",
+        "url": "https://jr.nba.com/interactive-court/"
+      },
+      "limitations": "This converts area-years only; it does not imply that the land resembles a paved court."
+    },
+    {
+      "id": "materials-two-tonne-car",
+      "status": "active",
+      "metric": "materials",
+      "factor": { "tonnesPerIllustrativeCar": 2 },
+      "definition": "A deliberately round two-tonne car mass benchmark.",
+      "limitations": "Mass analogy only. It does not estimate the raw-material footprint or emissions of vehicle production."
+    },
+    {
+      "id": "non-carbon-population-percentiles",
+      "status": "research-gated",
+      "metrics": ["water", "land", "materials"],
+      "reason": "No compatible, recent, global person-level distributions were identified with boundaries aligned to the TULIP questionnaire. Population percentile claims remain disabled."
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_75_blacktail_creek_fracking_wastewater",
+  "generated_at": "2026-08-01T16:54:45.453Z",
+  "source_snapshots": [
+    "public/blacktail-creek-fracking-wastewater-impact-snapshot.json"
+  ],
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "fracking_wastewater_lakes",
+      "value": 8.3,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2021-08-06",
+      "components": {
+        "biophysical_burden": 0.988621,
+        "human_economic_burden": 0.761667,
+        "persistence": 0.9175,
+        "extent": 0.33
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "enforcement_reported_release_gallons": 29000000,
+          "release_duration_days": 143,
+          "affected_tributary_miles_more_than": 30,
+          "earlier_scientific_study_release_estimate_litres": 11000000,
+          "earlier_scientific_study_release_estimate_gallons_approx": 2905892,
+          "normalization_anchors_gallons": [
+            0,
+            10000,
+            1000000,
+            30000000
+          ]
+        },
+        "human_economic_burden": {
+          "criminal_fines_and_civil_penalties_usd": 35000000,
+          "normalization_anchors_usd": [
+            0,
+            1000000,
+            10000000,
+            100000000
+          ],
+          "boundary": "Enforcement penalties are a direct economic consequence but not a total-damage or cleanup-cost valuation."
+        },
+        "persistence": {
+          "measured_geochemical_signature_persistence_years": 2.5,
+          "normalization_anchors_years": [
+            0,
+            0.25,
+            1,
+            3
+          ]
+        },
+        "extent": {
+          "affected_tributary_miles_more_than": 30,
+          "represented_country": "United States",
+          "represented_country_count": 1,
+          "normalization_anchors_countries": [
+            0,
+            1,
+            10,
+            100
+          ]
+        },
+        "source_snapshot": {
+          "path": "public/blacktail-creek-fracking-wastewater-impact-snapshot.json",
+          "version": "blacktail_creek_fracking_wastewater_release_2014_2021_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z",
+          "source_locators": [
+            "Enforcement summary: 29 million gallons of hydraulic-fracturing produced water discharged over 143 days in 2014-2015.",
+            "Impact and settlement summary: land, groundwater and more than 30 miles of Missouri River tributaries were contaminated; criminal fines and civil penalties totaled USD 35 million.",
+            "Study summary: oil-and-gas wastewater signatures remained detectable in Blacktail Creek water and sediment samples as many as 2.5 years after the spill.",
+            "Chemistry boundary: wastewaters can contain salts, hydrocarbons, metals, radioactive elements, arsenic and mercury; the receipt does not assign unsampled constituents to every sample."
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "actual_release_only",
+          "formula": "Use the later EPA/DOJ enforcement estimate of 29 million released gallons; retain the earlier approximately 11-million-litre scientific estimate as an explicit discrepancy and do not infer releases from production or capacity."
+        },
+        {
+          "type": "enforcement_economic_burden",
+          "formula": "Normalize the source-reported USD 35 million criminal fines and civil penalties without labeling it total cleanup or ecological damage."
+        },
+        {
+          "type": "measured_signature_persistence",
+          "formula": "Use the USGS maximum sampling interval of 2.5 years with detected wastewater geochemical signatures; do not claim all constituents persisted everywhere."
+        },
+        {
+          "type": "bounded_extent",
+          "formula": "Normalize the one represented country while retaining the more-than-30-mile receiving-water footprint as a lower-bound case descriptor."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "epa_doj_summit_blacktail_produced_water_spill_2021",
+        "usgs_blacktail_creek_wastewater_persistence_2021"
+      ],
+      "uncertainty": "The 2021 federal enforcement release reports 29 million gallons, while the USGS persistence summary describes the same 2015 discovery using an earlier approximately 11-million-litre estimate. The receipt uses the later enforcement value for volume and explicitly retains the discrepancy; it uses USGS only for measured persistence. The USD 35 million is criminal fines and civil penalties, not total cleanup or ecological damage. More-than-30 miles is retained as a lower-bound footprint, while normalized extent remains one country.",
+      "freshness": "Historical release with enforcement resolution 2021-08-06; persistence study 2021-06-23.",
+      "selection_reason": {
+        "selected_method_passed": "Federal enforcement and USGS records quantify a named hydraulic-fracturing produced-water release, duration, receiving-water footprint, penalties and measured multi-year geochemical persistence.",
+        "higher_priority_failures": [
+          "The evidence is a severe site-specific accumulated-impact case, not a current global wastewater-containment aggregation.",
+          "No method-comparable global annual or monthly series supplies current magnitude plus threshold or momentum coverage."
+        ]
+      },
+      "input_hash": "fnv1a32:e9965b85"
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+
+const OUTPUT_PATH = path.resolve('public/fao-fertilizer-product-output-snapshot.json');
+const years = Array.from({ length: 22 }, (_, index) => 2002 + index);
+const products = {
+  '4003': { name: 'Ammonium nitrate (AN)', values: [8428794.44,7772034.58,6491226.72,6185563.86,4628452.5,2214222,4880094.18,13602727,17265586.74,19567353.39,19643096.75,18174434.57,18743789.2,17983574.43,19423263.07,17381595.81,17364776.16,17657465.9,18884852.37,18264586.92,17020077.87,15888426.89] },
+  '4002': { name: 'Ammonium sulphate', values: [5875035,6221628,5926643,6154911,6937087.38,6383467.78,8788412.19,11034045.38,11901704.74,12360442.04,12420897.6,12454417.23,11673354.04,11409509.58,12589328.86,11477801.94,10669681.31,10976016.66,12494168.99,11605516.7,10135948.27,6531583.04] },
+  '4004': { name: 'Calcium ammonium nitrate (CAN) and other mixtures with calcium carbonate', values: [2286097,3672899.75,2557020.5,3137661.25,2913971,3073035.05,3409348,4699129,5177671.6,6161500,4973755,5137112,5218913,4074758.17,6534599.2,5053358,4711453.92,5071352.81,5793375.1,5547278.42,4602385,3647574.35] },
+  '4022': { name: 'Diammonium phosphate (DAP)', values: [10191608.71,10398369,10414756,9941369,10270959,9385202.56,14855026.51,18671977,19586347.13,18841669.77,18577622.24,17847093.94,13889357.97,13999614.46,14163841.44,10548332.84,8406691.02,8939849.99,11906550.35,11940377.5,11988080.38,11034291.46] },
+  '4023': { name: 'Monoammonium phosphate (MAP)', values: [1628961,1939705,1803461,1626911,2018812,1834114.66,5960727.05,5229738,6759628.24,7797474.06,7709692.36,7914853,7961170,7617846.02,8756589,7476828.02,7177752.75,7484679.36,7872408.84,6777318.64,5580554.61,1255542.13] },
+  '4021': { name: 'NPK fertilizers', values: [3398278.19,5000927,8511951,10441531,11023277,9976274,12264500.29,12447899,14349018.6,15147091.5,14619308.2,14638685.8,25480350.5,24602333.5,24796424.6,27216784.03,25582551.75,25925079.23,33686624.06,35202141.59,32952536.04,30820912.46] },
+  '4024': { name: 'Other NP compounds', values: [453529.1,1878802,2571716,2337215,2415239,2499550.13,2222353,2446745,7221085,8153474,7344474,11274522.11,11544261.04,11402349,11327531.53,12466259.44,11297867.11,11194071.68,12242250.14,11839553.41,15306264.62,14047983.23] },
+  '4027': { name: 'PK compounds', values: [17545,6564,16418,732328,811195,684645.61,536300.87,311346,655730,712653,653273,584343,588263,183319,197637.36,258108.77,321178.41,348323.3,185733.56,263825.99,265546.61,114596.45] },
+  '4011': { name: 'Phosphate rock', values: [15832536,16777068,17606523,17936702,16861630,17015411,18224826,21114835,22866566,20691439.5,23859193,55752742.08,52104195.45,52610203.03,48635019.16,37961404.34,31029107.81,26556251.8,28322793.05,26499917.77,24419309.68,5541898] },
+  '4016': { name: 'Potassium chloride (muriate of potash) (MOP)', values: [10481661,11558642,12525719,13025238,26575682,29881407.25,22244445.1,25173366,40260878.55,41336806.89,37359240.31,36592268.67,43907226,44596668.67,42348138.67,45038859,24650959,25053359.25,50056986.78,40893929.42,34763426.69,37704475.7] },
+  '4025': { name: 'Potassium nitrate', values: [7520,7850,79885,8361,177135.19,104430.78,150953.96,9230,110246,127430,111629,119219.23,135739.74,136124,139944.42,811155,20956,78493.6,5166159.85,5025285,6288834.4,6347582.25] },
+  '4017': { name: 'Potassium sulphate (sulphate of potash) (SOP)', values: [73706,81467,137819,263229,219210,78785.33,493427.89,267973,495350.47,496709.47,468097.47,681074,637536,619250.47,576279.76,500395.54,513105.47,508979.19,515354.74,529685.93,527676.01,141689.08] },
+  '4012': { name: 'Superphosphates above 35%', values: [1731734.58,2708882.43,3494210.29,4561509.14,4496249.65,4924853.7,4850107.45,4610614.74,5483198.35,5263124.79,5269501.69,3987458.31,4417578.48,3741188.61,4222986.17,3188247.56,1933977,1878231.46,1585432.35,1230685.43,1087939.39,862829.87] },
+  '4001': { name: 'Urea', values: [47687730,52891622.5,55742222,57032217.5,62203878.52,58920999.35,63491072.48,70851080.65,77656059.66,80238696.63,81136961.91,76098278.01,74539663.6,75471454,81002142.72,73315380.16,71969388.05,76908735.67,87550749.35,88366372,86983255.14,69421046.19] },
+  '4006': { name: 'Urea and ammonium nitrate solutions (UAN)', values: [780150,996774,1045603,933442,2104720,2687010.49,10614372.06,9833342.5,13558477.04,14943693.63,14051652.3,17395769.88,17168188.89,17075420.61,18528922.42,16243193.2,17264289.13,18395678.7,18195506.33,16098839.28,15141913.96,3350296.71] }
+};
+
+for (const product of Object.values(products)) {
+  if (product.values.length !== years.length || product.values.some(value => !Number.isFinite(value) || value <= 0)) throw new Error(`Invalid complete product series: ${product.name}`);
+}
+
+const snapshot = {
+  version: 'faostat_fertilizer_product_output_2026_v1',
+  captured_at: new Date().toISOString(),
+  source: {
+    id: 'faostat_fertilizer_product_output_2026',
+    name: 'FAOSTAT Fertilizers by Product',
+    publisher: 'Food and Agriculture Organization of the United Nations',
+    landing_url: 'https://www.fao.org/faostat/en/#data/RFB',
+    methodology_url: 'https://files-faostat.fao.org/production/RFB/RFB_EN_README.pdf',
+    bulk_url: 'https://bulks-faostat.fao.org/production/Inputs_FertilizersProduct_E_All_Data_(Normalized).zip',
+    bulk_sha256: 'f78a2c3cadaca95af74132ef66f66a1a908beb9a6b4d78c61e6dead3944725ce',
+    release_file_timestamp: '2026-07-29T10:27:00Z'
+  },
+  ingestion_job_id: 'export_fao_fertilizer_product_output_snapshot',
+  metric_contract_ids: ['fertilizer_product_output'],
+  contract_bindings: [{ node_id: 'fertilizer_production', metric_id: 'fertilizer_product_output', measurement_role: 'global_annual_product_class_output_from_disjoint_country_rows' }],
+  cadence: 'Annual FAOSTAT fertilizer-product release.',
+  provenance: 'Exact production rows in tonnes were filtered to FAOSTAT country and territory area codes below 500, excluding regional and world aggregates, then summed within product code and year. The scoring panel retains the 15 product classes with complete positive 2002-2023 global reported totals. Product classes remain separate and are never added into a single product-mass total.',
+  uncertainty: 'Official, estimated and imputed source flags, confidential production, country reporting gaps, revisions and secondary production affect totals. Product masses have different compositions and cannot be converted to nutrient content without product-specific factors. The 2024 release rows cover only 25 countries versus 41 in the selected 2023 panel and are withheld as incomplete.',
+  failure_behavior: 'Retain the last checksum-validated complete product-class panel and mark stale. Reject checksum, schema, element, unit or area-code changes. Never fill absent country-product-years with zero, add country and aggregate rows, sum product classes, convert product mass to nutrient mass without composition factors or score the incomplete 2024 panel.',
+  assessment: {
+    selected_start_year: years[0],
+    selected_end_year: years.at(-1),
+    complete_annual_observations_per_product: years.length,
+    complete_product_class_count: Object.keys(products).length,
+    selected_year_reporting_country_or_territory_count: 41,
+    selected_year_source_row_count: 439,
+    selected_year_product_class_count_all_histories: 18,
+    selected_year_source_flag_counts: { A: 439 },
+    withheld_incomplete_year: { year: 2024, reporting_country_or_territory_count: 25, source_row_count: 259, product_class_count: 18 },
+    geography: 'World totals derived only from disjoint country and territory rows',
+    unit: 'tonnes product per year, retained separately by product class',
+    global_extent_normalized: 1,
+    years,
+    products
+  },
+  excluded_from_scoring: ['2024 incomplete country panel', 'fertilizer nutrient-content totals', 'agricultural use', 'imports and exports', 'regional aggregate rows', 'sum across product classes', 'missing observations as zero']
+};
+
+await fs.writeFile(OUTPUT_PATH, `${JSON.stringify(snapshot, null, 2)}\n`);
+console.log(JSON.stringify({ output: OUTPUT_PATH, product_classes: Object.keys(products).length, annual_observations_per_product: years.length, selected_year: years.at(-1) }, null, 2));

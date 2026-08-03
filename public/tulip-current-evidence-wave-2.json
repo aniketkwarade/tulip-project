@@ -1,0 +1,499 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_2_global_histories",
+  "generated_at": "2026-07-31T22:57:28.019Z",
+  "promoted_node_count": 5,
+  "receipts": [
+    {
+      "node_id": "marine_fisheries_collapse",
+      "value": 7.8,
+      "band": "Critical",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2021",
+      "components": {
+        "magnitude": 1,
+        "threshold": 1,
+        "momentum": 0,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_value": 35.5,
+          "reference_value": 10,
+          "value_against_reference": 25.5,
+          "unit": "percent of assessed marine fish stocks biologically unsustainable",
+          "observation_count": 48,
+          "cadence": "annual",
+          "anchors": [
+            15.135,
+            20.3375,
+            23.863,
+            25.48775
+          ],
+          "source_locator": "https://unstats.un.org/SDGAPI/v1/sdg/Indicator/Data?indicator=14.4.1&pageSize=5000"
+        },
+        "threshold": {
+          "latest_value": 35.5,
+          "unit": "percent of assessed marine fish stocks biologically unsustainable",
+          "threshold_basis": "historical_distribution_fallback",
+          "observation_count": 48,
+          "cadence": "annual",
+          "anchors": [
+            25.135,
+            30.3375,
+            33.863,
+            35.48775
+          ],
+          "source_locator": "https://unstats.un.org/SDGAPI/v1/sdg/Indicator/Data?indicator=14.4.1&pageSize=5000"
+        },
+        "momentum": {
+          "latest_year_over_year_change": -1.05,
+          "unit": "percent of assessed marine fish stocks biologically unsustainable per year",
+          "annual_observations": 48,
+          "rolling_slope_observations": 47,
+          "anchors": [
+            0.75,
+            1.54,
+            2.598,
+            3.07
+          ],
+          "source_locator": "https://unstats.un.org/SDGAPI/v1/sdg/Indicator/Data?indicator=14.4.1&pageSize=5000"
+        },
+        "extent": {
+          "value": 1,
+          "definition": "FAO/UNSD World aggregate for assessed marine fish stocks.",
+          "source_locator": "https://unstats.un.org/SDGAPI/v1/sdg/Indicator/Data?indicator=14.4.1&pageSize=5000"
+        },
+        "source_snapshot": {
+          "path": "public/fao-fish-stock-sustainability-snapshot.json",
+          "version": "2026-07-19T00:18:50.675Z",
+          "captured_at": "2026-07-19T00:18:50.675Z",
+          "updated_at": "2026-07-19",
+          "record_count": 389
+        }
+      },
+      "transformations": [
+        {
+          "type": "magnitude_against_reference_historical_normalization",
+          "formula": "latest value minus documented reference, mapped through median / p75 / p90 / p97.5 anchors"
+        },
+        {
+          "type": "historical_distribution_threshold_fallback",
+          "formula": "latest source value mapped through median / p75 / p90 / p97.5 anchors"
+        },
+        {
+          "type": "year_over_year_momentum",
+          "formula": "latest one-year slope mapped through the historical distribution of complete year-over-year slopes"
+        },
+        {
+          "type": "source_global_extent",
+          "formula": "1 when the retained source series is itself a documented global aggregate"
+        }
+      ],
+      "source_ids": [
+        "unsd_sdg_api_fao_fish_stock_status"
+      ],
+      "uncertainty": "The API does not provide observation-level numeric uncertainty bounds for this series. Stock coverage, unknown-status shares, national methods, assessment quality, reporting status, and footnotes materially affect comparability and are retained. The unsustainable share is an arithmetic complement, not an independently estimated quantity.",
+      "freshness": "Annual FAO/UNSD assessment; snapshot captured 2026-07-19T00:18:50.675Z.",
+      "selection_reason": {
+        "selected_method_passed": "The source supplies 48 complete annual global observations, current magnitude, historical-distribution threshold position, year-over-year momentum and a documented global aggregate.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:b413dac4"
+    },
+    {
+      "node_id": "fertilizer_price_shock",
+      "value": 5.5,
+      "band": "Rising",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025-12",
+      "components": {
+        "magnitude": 0.413031,
+        "threshold": 0.413031,
+        "momentum": 0.409504,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_value": 132.853,
+          "reference_value": 100,
+          "value_against_reference": 32.853,
+          "unit": "World Bank fertilizer price index, 2010=100",
+          "observation_count": 312,
+          "cadence": "monthly",
+          "anchors": [
+            -11.1955,
+            23.82025,
+            60.8081,
+            140.782175
+          ],
+          "source_locator": "https://thedocs.worldbank.org/en/doc/18675f1d1639c7a34d463f59263ba0a2-0050012025/related/CMO-Historical-Data-Monthly.xlsx"
+        },
+        "threshold": {
+          "latest_value": 132.853,
+          "unit": "World Bank fertilizer price index, 2010=100",
+          "threshold_basis": "historical_distribution_fallback",
+          "observation_count": 312,
+          "cadence": "monthly",
+          "anchors": [
+            88.8045,
+            123.82025,
+            160.8081,
+            240.782175
+          ],
+          "source_locator": "https://thedocs.worldbank.org/en/doc/18675f1d1639c7a34d463f59263ba0a2-0050012025/related/CMO-Historical-Data-Monthly.xlsx"
+        },
+        "momentum": {
+          "latest_year_over_year_change": 21.09975,
+          "unit": "World Bank fertilizer price index, 2010=100 per year",
+          "annual_observations": 26,
+          "rolling_slope_observations": 25,
+          "anchors": [
+            0.059833,
+            8.718583,
+            61.66655,
+            92.747583
+          ],
+          "source_locator": "https://thedocs.worldbank.org/en/doc/18675f1d1639c7a34d463f59263ba0a2-0050012025/related/CMO-Historical-Data-Monthly.xlsx"
+        },
+        "extent": {
+          "value": 1,
+          "definition": "World Bank global commodity-group index.",
+          "source_locator": "https://thedocs.worldbank.org/en/doc/18675f1d1639c7a34d463f59263ba0a2-0050012025/related/CMO-Historical-Data-Monthly.xlsx"
+        },
+        "source_snapshot": {
+          "path": "public/world-bank-fertilizer-price-snapshot.json",
+          "version": "world_bank_fertilizer_price_monthly_through_2025m12_v1",
+          "captured_at": "2026-07-31T15:02:54.313Z",
+          "updated_at": null,
+          "record_count": 624
+        }
+      },
+      "transformations": [
+        {
+          "type": "magnitude_against_reference_historical_normalization",
+          "formula": "latest value minus documented reference, mapped through median / p75 / p90 / p97.5 anchors"
+        },
+        {
+          "type": "historical_distribution_threshold_fallback",
+          "formula": "latest source value mapped through median / p75 / p90 / p97.5 anchors"
+        },
+        {
+          "type": "year_over_year_momentum",
+          "formula": "latest one-year slope mapped through the historical distribution of complete year-over-year slopes"
+        },
+        {
+          "type": "source_global_extent",
+          "formula": "1 when the retained source series is itself a documented global aggregate"
+        }
+      ],
+      "source_ids": [
+        "world_bank_commodity_price_data_the_pink_sheet"
+      ],
+      "uncertainty": "The workbook does not publish observation-level uncertainty intervals. Commodity composition and weights, quoted-market coverage, nominal-dollar conditions, estimated components, revisions and product substitutions affect comparison.",
+      "freshness": "Monthly World Bank release; snapshot captured 2026-07-31T15:02:54.313Z.",
+      "selection_reason": {
+        "selected_method_passed": "The source supplies 312 complete monthly global observations, current magnitude, historical-distribution threshold position, year-over-year momentum and a documented global aggregate.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:a1eaf68d"
+    },
+    {
+      "node_id": "staple_food_price_volatility",
+      "value": 2.3,
+      "band": "Low",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025-12",
+      "components": {
+        "magnitude": 0,
+        "threshold": 0,
+        "momentum": 0,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_value": 9.665504,
+          "reference_value": 12.794293618638065,
+          "value_against_reference": -3.128789,
+          "unit": "trailing 12-month annualized volatility of monthly World Bank grains-index log returns, percent",
+          "observation_count": 300,
+          "cadence": "monthly",
+          "anchors": [
+            0.008258,
+            2.822424,
+            6.541986,
+            12.889644
+          ],
+          "source_locator": "https://thedocs.worldbank.org/en/doc/18675f1d1639c7a34d463f59263ba0a2-0050012025/related/CMO-Historical-Data-Monthly.xlsx"
+        },
+        "threshold": {
+          "latest_value": 9.665504,
+          "unit": "trailing 12-month annualized volatility of monthly World Bank grains-index log returns, percent",
+          "threshold_basis": "historical_distribution_fallback",
+          "observation_count": 300,
+          "cadence": "monthly",
+          "anchors": [
+            12.802552,
+            15.616718,
+            19.336279,
+            25.683937
+          ],
+          "source_locator": "https://thedocs.worldbank.org/en/doc/18675f1d1639c7a34d463f59263ba0a2-0050012025/related/CMO-Historical-Data-Monthly.xlsx"
+        },
+        "momentum": {
+          "latest_year_over_year_change": -0.959539,
+          "unit": "trailing 12-month annualized volatility of monthly World Bank grains-index log returns, percent per year",
+          "annual_observations": 25,
+          "rolling_slope_observations": 24,
+          "anchors": [
+            -0.181879,
+            1.647776,
+            3.216661,
+            5.725229
+          ],
+          "source_locator": "https://thedocs.worldbank.org/en/doc/18675f1d1639c7a34d463f59263ba0a2-0050012025/related/CMO-Historical-Data-Monthly.xlsx"
+        },
+        "extent": {
+          "value": 1,
+          "definition": "World Bank global grains commodity-group price index; the indicator is a global market benchmark rather than a household affordability measure.",
+          "source_locator": "https://thedocs.worldbank.org/en/doc/18675f1d1639c7a34d463f59263ba0a2-0050012025/related/CMO-Historical-Data-Monthly.xlsx"
+        },
+        "source_snapshot": {
+          "path": "public/world-bank-fertilizer-price-snapshot.json",
+          "version": "world_bank_fertilizer_price_monthly_through_2025m12_v1",
+          "captured_at": "2026-07-31T15:02:54.313Z",
+          "updated_at": null,
+          "record_count": 624
+        }
+      },
+      "transformations": [
+        {
+          "type": "magnitude_against_reference_historical_normalization",
+          "formula": "latest value minus documented reference, mapped through median / p75 / p90 / p97.5 anchors"
+        },
+        {
+          "type": "historical_distribution_threshold_fallback",
+          "formula": "latest source value mapped through median / p75 / p90 / p97.5 anchors"
+        },
+        {
+          "type": "year_over_year_momentum",
+          "formula": "latest one-year slope mapped through the historical distribution of complete year-over-year slopes"
+        },
+        {
+          "type": "source_global_extent",
+          "formula": "1 when the retained source series is itself a documented global aggregate"
+        }
+      ],
+      "source_ids": [
+        "world_bank_commodity_price_data_the_pink_sheet"
+      ],
+      "uncertainty": "The workbook does not publish observation-level uncertainty intervals. Commodity composition and weights, quoted-market coverage, nominal-dollar conditions, estimated components, revisions and product substitutions affect comparison. The grains basket is a global nominal-dollar market index and does not measure local retail prices, calorie affordability or every staple commodity.",
+      "freshness": "Monthly World Bank release; snapshot captured 2026-07-31T15:02:54.313Z.",
+      "selection_reason": {
+        "selected_method_passed": "The source supplies 300 complete monthly global observations, current magnitude, historical-distribution threshold position, year-over-year momentum and a documented global aggregate.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:e0c5d3c1"
+    },
+    {
+      "node_id": "sea_level_rise",
+      "value": 7.4,
+      "band": "Critical",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025.1268",
+      "components": {
+        "magnitude": 0.940944,
+        "threshold": 0.940944,
+        "momentum": 0,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_value": 80.63,
+          "reference_value": 0,
+          "value_against_reference": 80.63,
+          "unit": "millimetres of global mean sea-level anomaly",
+          "observation_count": 387,
+          "cadence": "monthly",
+          "anchors": [
+            23.71,
+            51.956667,
+            71.614667,
+            82.595
+          ],
+          "source_locator": "https://www.star.nesdis.noaa.gov/socd/lsa/SeaLevelRise/slr/slr_sla_gbl_keep_ref_90.csv"
+        },
+        "threshold": {
+          "latest_value": 80.63,
+          "unit": "millimetres of global mean sea-level anomaly",
+          "threshold_basis": "historical_distribution_fallback",
+          "observation_count": 387,
+          "cadence": "monthly",
+          "anchors": [
+            23.71,
+            51.956667,
+            71.614667,
+            82.595
+          ],
+          "source_locator": "https://www.star.nesdis.noaa.gov/socd/lsa/SeaLevelRise/slr/slr_sla_gbl_keep_ref_90.csv"
+        },
+        "momentum": {
+          "latest_year_over_year_change": 0.674524,
+          "unit": "millimetres of global mean sea-level anomaly per year",
+          "annual_observations": 34,
+          "rolling_slope_observations": 33,
+          "anchors": [
+            3.292583,
+            4.117361,
+            5.705591,
+            9.05947
+          ],
+          "source_locator": "https://www.star.nesdis.noaa.gov/socd/lsa/SeaLevelRise/slr/slr_sla_gbl_keep_ref_90.csv"
+        },
+        "extent": {
+          "value": 1,
+          "definition": "Satellite-altimetry global mean across the ocean between 66°S and 66°N.",
+          "source_locator": "https://www.star.nesdis.noaa.gov/socd/lsa/SeaLevelRise/slr/slr_sla_gbl_keep_ref_90.csv"
+        },
+        "source_snapshot": {
+          "path": "public/noaa-global-mean-sea-level-snapshot.json",
+          "version": "2026-07-18T23:56:20.652Z",
+          "captured_at": "2026-07-18T23:56:20.652Z",
+          "updated_at": "2026-07-18",
+          "record_count": 1557
+        }
+      },
+      "transformations": [
+        {
+          "type": "magnitude_against_reference_historical_normalization",
+          "formula": "latest value minus documented reference, mapped through median / p75 / p90 / p97.5 anchors"
+        },
+        {
+          "type": "historical_distribution_threshold_fallback",
+          "formula": "latest source value mapped through median / p75 / p90 / p97.5 anchors"
+        },
+        {
+          "type": "year_over_year_momentum",
+          "formula": "latest one-year slope mapped through the historical distribution of complete year-over-year slopes"
+        },
+        {
+          "type": "source_global_extent",
+          "formula": "1 when the retained source series is itself a documented global aggregate"
+        }
+      ],
+      "source_ids": [
+        "noaa_laboratory_for_satellite_altimetry"
+      ],
+      "uncertainty": "The source file does not report an observation-level confidence interval. Mission overlap spread is retained but is not relabeled as statistical uncertainty. Orbit and instrument corrections, mission calibration, inverse-barometer treatment, spatial coverage, GIA omission, and reference choice affect the series.",
+      "freshness": "Source series latest decimal year 2025.1268; snapshot captured 2026-07-18T23:56:20.652Z.",
+      "selection_reason": {
+        "selected_method_passed": "The source supplies 387 complete monthly global observations, current magnitude, historical-distribution threshold position, year-over-year momentum and a documented global aggregate.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:74d116e8"
+    },
+    {
+      "node_id": "ocean_heat_content",
+      "value": 8.9,
+      "band": "Critical",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "magnitude": 1,
+        "threshold": 1,
+        "momentum": 0.528701,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_value": 325.33,
+          "reference_value": 0,
+          "value_against_reference": 325.33,
+          "unit": "zettajoules of 0–2000 m global ocean heat-content anomaly",
+          "observation_count": 21,
+          "cadence": "annual",
+          "anchors": [
+            207.99,
+            255.25,
+            292.2,
+            314.245
+          ],
+          "source_locator": "https://www.ncei.noaa.gov/data/oceans/woa/DATA_ANALYSIS/3M_HEAT_CONTENT/DATA/basin/yearly/h22-w0-2000m.dat"
+        },
+        "threshold": {
+          "latest_value": 325.33,
+          "unit": "zettajoules of 0–2000 m global ocean heat-content anomaly",
+          "threshold_basis": "historical_distribution_fallback",
+          "observation_count": 21,
+          "cadence": "annual",
+          "anchors": [
+            207.99,
+            255.25,
+            292.2,
+            314.245
+          ],
+          "source_locator": "https://www.ncei.noaa.gov/data/oceans/woa/DATA_ANALYSIS/3M_HEAT_CONTENT/DATA/basin/yearly/h22-w0-2000m.dat"
+        },
+        "momentum": {
+          "latest_year_over_year_change": 22.17,
+          "unit": "zettajoules of 0–2000 m global ocean heat-content anomaly per year",
+          "annual_observations": 21,
+          "rolling_slope_observations": 20,
+          "anchors": [
+            10.62,
+            18.705,
+            24.634,
+            26.36575
+          ],
+          "source_locator": "https://www.ncei.noaa.gov/data/oceans/woa/DATA_ANALYSIS/3M_HEAT_CONTENT/DATA/basin/yearly/h22-w0-2000m.dat"
+        },
+        "extent": {
+          "value": 1,
+          "definition": "NOAA World Ocean 0–2000 m aggregate with both hemispheres retained.",
+          "source_locator": "https://www.ncei.noaa.gov/data/oceans/woa/DATA_ANALYSIS/3M_HEAT_CONTENT/DATA/basin/yearly/h22-w0-2000m.dat"
+        },
+        "source_snapshot": {
+          "path": "public/noaa-ocean-heat-content-snapshot.json",
+          "version": "2026-07-18T23:40:15.689Z",
+          "captured_at": "2026-07-18T23:40:15.689Z",
+          "updated_at": "2026-07-18",
+          "record_count": 21
+        }
+      },
+      "transformations": [
+        {
+          "type": "magnitude_against_reference_historical_normalization",
+          "formula": "latest value minus documented reference, mapped through median / p75 / p90 / p97.5 anchors"
+        },
+        {
+          "type": "historical_distribution_threshold_fallback",
+          "formula": "latest source value mapped through median / p75 / p90 / p97.5 anchors"
+        },
+        {
+          "type": "year_over_year_momentum",
+          "formula": "latest one-year slope mapped through the historical distribution of complete year-over-year slopes"
+        },
+        {
+          "type": "source_global_extent",
+          "formula": "1 when the retained source series is itself a documented global aggregate"
+        }
+      ],
+      "source_ids": [
+        "noaa_global_ocean_heat_content_cdr"
+      ],
+      "uncertainty": "Source standard errors are retained. The 95 percent intervals are transparently derived as estimate plus or minus 1.96 standard errors and are not relabeled as source-reported confidence intervals.",
+      "freshness": "Annual NOAA analysis through 2025; snapshot captured 2026-07-18T23:40:15.689Z.",
+      "selection_reason": {
+        "selected_method_passed": "The source supplies 21 complete annual global observations, current magnitude, historical-distribution threshold position, year-over-year momentum and a documented global aggregate.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:f878e3fc"
+    }
+  ]
+}

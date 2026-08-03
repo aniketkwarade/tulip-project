@@ -1,0 +1,548 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_27_fao_soil_salinity_and_unep_nutrient_pollution",
+  "generated_at": "2026-07-31T22:57:27.674Z",
+  "source_snapshots": [
+    "public/fao-global-soil-salinity-impact-snapshot.json",
+    "public/unep-global-nutrient-pollution-impact-snapshot.json"
+  ],
+  "source_ids": [
+    "fao_global_soil_salinity_impact",
+    "unep_global_nutrient_pollution_impact"
+  ],
+  "promoted_node_count": 5,
+  "receipts": [
+    {
+      "node_id": "topsoil_salinization_fields",
+      "value": 9.4,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "biophysical_burden": 0.94764,
+        "human_economic_burden": 0.9406,
+        "persistence": 1,
+        "extent": 0.8108
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "global_salt_affected_soil_million_hectares": 1381,
+          "anchors_million_hectares": [
+            0,
+            250,
+            750,
+            1500
+          ],
+          "boundary": "Currently mapped salt-affected soil; the additional area at risk is excluded."
+        },
+        "human_economic_burden": {
+          "annual_crop_production_loss_usd_billion": 27.3,
+          "anchors_usd_billion_per_year": [
+            0,
+            5,
+            15,
+            30
+          ],
+          "population_context_billion": 1.5,
+          "boundary": "FAO estimate of lost crop production in irrigated salt-degraded areas; population context is not added."
+        },
+        "persistence": {
+          "annual_farmland_removed_from_production_million_hectares": 1.5,
+          "anchors_million_hectares_per_year": [
+            0,
+            0.25,
+            0.75,
+            1.5
+          ],
+          "boundary": "Earlier FAO assessment synthesis of recurring annual farmland loss; not a current annual panel."
+        },
+        "extent": {
+          "global_land_area_affected_pct": 10.7,
+          "anchors_pct_global_land": [
+            0,
+            2.5,
+            7.5,
+            15
+          ],
+          "global_extent_context": "Global land assessment with salt-affected soils on all continents and explicit irrigated and rainfed cropland estimates"
+        },
+        "source_snapshot": {
+          "path": "public/fao-global-soil-salinity-impact-snapshot.json",
+          "version": "fao_global_soil_salinity_impact_v1",
+          "captured_at": "2026-07-31T21:32:51.837Z",
+          "source_locators": {
+            "biophysical_burden": "FAO 2024 release: 1,381 million hectares, or 10.7 percent of global land, are salt-affected.",
+            "human_economic_burden": "FAO Global Soil Partnership: global annual cost of salt-induced land degradation in irrigated areas is estimated at US$27.3 billion in lost crop production.",
+            "persistence": "FAO Global Soil Partnership: salinization takes up to 1.5 million hectares of farmland out of production each year.",
+            "extent": "FAO Global Soil Partnership: salt-affected soils occur on all continents; the 2024 assessment reports global irrigated and rainfed cropland shares.",
+            "human_context": "FAO Global Soil Partnership 2021 map release: more than 1.5 billion people face significant food-growing challenges associated with saline irrigated soils."
+          },
+          "excluded_from_scoring": [
+            "one billion additional hectares at risk, which is not added to currently affected area",
+            "upper-bound crop-yield losses in the most affected countries, which are not a global mean",
+            "population challenge context, which is retained but not added to the monetary burden",
+            "future 24 to 32 percent land-area projections",
+            "unreported uncertainty as zero"
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "fixed_global_salt_affected_area",
+          "formula": "Normalize 1,381 million currently affected hectares through declared area anchors; exclude one billion hectares at risk."
+        },
+        {
+          "type": "source_reported_crop_loss_cost",
+          "formula": "Normalize the FAO annual crop-production-loss estimate without adding population exposure or projected losses."
+        },
+        {
+          "type": "recurring_farmland_loss",
+          "formula": "Normalize the source-reported annual farmland area taken out of production."
+        },
+        {
+          "type": "global_land_share_extent",
+          "formula": "Normalize the mapped share of global land while retaining all-continent scope and spatial heterogeneity."
+        }
+      ],
+      "source_ids": [
+        "fao_global_soil_salinity_impact"
+      ],
+      "uncertainty": "The 2024 global map combines heterogeneous national inventories, remote sensing, soil surveys and models. Natural salinity and human-induced salinization are not fully separable everywhere. The annual land-loss and crop-cost estimates come from earlier assessment syntheses and are not a current observation series. Irrigated-land and population exposure do not imply uniform yield loss.",
+      "freshness": "FAO global salt-affected-soils assessment 2024; earlier annual cost and land-loss syntheses retained with caveats; snapshot captured 2026-07-31T21:32:51.837Z.",
+      "selection_reason": {
+        "selected_method_passed": "FAO quantifies accumulated salt-affected area, crop-production cost, recurring annual farmland loss and global land extent under explicit boundaries.",
+        "higher_priority_failures": [
+          "The assessment is not a source-consistent current global annual field-salinity panel with magnitude plus threshold or momentum.",
+          "The annual land-loss estimate is an assessment synthesis and is therefore retained as persistence evidence rather than relabeled current data."
+        ]
+      },
+      "input_hash": "fnv1a32:b0f38db7"
+    },
+    {
+      "node_id": "nutrient_pollution",
+      "value": 9.7,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "biophysical_burden": 1,
+        "human_economic_burden": 0.89,
+        "persistence": 0.9736,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "value": 200,
+          "anchors": [
+            0,
+            50,
+            120,
+            200
+          ],
+          "boundary": "All UNEP reactive-nitrogen losses to the environment, including leaching to soil, rivers and lakes; overlapping pathways are not added."
+        },
+        "human_economic_burden": {
+          "value": 200,
+          "anchors": [
+            0,
+            25,
+            100,
+            250
+          ],
+          "boundary": "Global annual lost-nitrogen resource cost; not a water-only damage estimate."
+        },
+        "persistence": {
+          "documented_dead_zones_1960": 10,
+          "documented_dead_zones_2008": 405,
+          "growth_period_years": 48,
+          "anchors_years": [
+            0,
+            10,
+            25,
+            50
+          ],
+          "boundary": "Duration of the documented global dead-zone inventory increase; not a continuous severity series."
+        },
+        "extent": {
+          "global_extent_normalized": 1,
+          "geographic_scope": "Worldwide nutrient losses to air, soil, rivers, lakes, marine and coastal systems; coastal eutrophication and dead-zone inventories are global lower bounds",
+          "coastal_areas_impacted_lower_bound": 500,
+          "boundary": "UNEP worldwide lower-bound inventory; no unmonitored area is classified."
+        },
+        "source_snapshot": {
+          "path": "public/unep-global-nutrient-pollution-impact-snapshot.json",
+          "version": "unep_global_nutrient_pollution_impact_v1",
+          "captured_at": "2026-07-31T21:51:19.347Z",
+          "source_locators": {
+            "biophysical_burden": "UNEP nitrogen facts: 200 million tonnes of reactive nitrogen, or 80 percent, is lost to the environment each year, including leaching to soil, rivers and lakes.",
+            "economic_burden": "UNEP nitrogen facts: annual cost of lost nitrogen resources is estimated at around US$200 billion.",
+            "agricultural_runoff": "UNEP agricultural-runoff summary: more than half of nitrogen applied to farmland washes into rivers rather than being absorbed by crops.",
+            "eutrophication_extent": "UNEP nutrient-management issue: more than 500 coastal areas worldwide are impacted by eutrophication caused by excess nutrients.",
+            "persistence": "UNEP nutrient-management issue: documented ocean dead zones increased from 10 in 1960 to 405 in 2008.",
+            "fisheries_exposure": "UNEP nutrient-management issue: more than 90 percent of world fisheries depend in some way on estuarine and near-shore habitats."
+          },
+          "excluded_from_scoring": [
+            "regional European nutrient-pollution cost ranges",
+            "United States-only eutrophication costs",
+            "dead-zone count converted to area or volume",
+            "fisheries dependence treated as realized loss",
+            "reactive-nitrogen pathways added across overlapping budgets",
+            "unreported uncertainty as zero"
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "source_specific_global_burden",
+          "formula": "Normalize only the node-matched UNEP mass, share or affected-system count through declared anchors."
+        },
+        {
+          "type": "bounded_human_economic_component",
+          "formula": "Normalize the source-reported global nitrogen-resource cost or fisheries-system exposure without allocating it to a locality or treating exposure as realized loss."
+        },
+        {
+          "type": "documented_inventory_duration",
+          "formula": "Normalize the 48-year interval over which UNEP reports the global dead-zone inventory rose from 10 to 405."
+        },
+        {
+          "type": "worldwide_lower_bound_extent",
+          "formula": "Use the source-declared worldwide assessment scope; retain site counts as lower bounds and never convert them to area."
+        }
+      ],
+      "source_ids": [
+        "unep_global_nutrient_pollution_impact"
+      ],
+      "uncertainty": "Reactive-nitrogen budgets combine air, soil, freshwater and marine pathways. The annual resource-cost estimate is global nitrogen loss, not an allocated water-pollution damage value. Coastal-system inventories depend on monitoring and definitions and therefore are lower bounds. Fisheries dependence is economic-system exposure, not realized attributable loss.",
+      "freshness": "UNEP global nutrient-management findings reviewed 2024; underlying budgets and inventories have different assessment years; snapshot captured 2026-07-31T21:51:19.347Z.",
+      "selection_reason": {
+        "selected_method_passed": "UNEP quantifies annual global reactive-nitrogen loss, the associated resource cost, multi-decade dead-zone accumulation and worldwide aquatic extent.",
+        "higher_priority_failures": [
+          "The existing USGS and EPA monitoring sources are regional and cannot establish a current global aggregation.",
+          "UNEP supplies global burden and inventory findings but not a 20-year complete annual or 60-month harmonized concentration panel, so the results are not labeled current data."
+        ]
+      },
+      "input_hash": "fnv1a32:bd697170"
+    },
+    {
+      "node_id": "nitrogen_fertilizer_runoff",
+      "value": 9.3,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "biophysical_burden": 0.89,
+        "human_economic_burden": 0.89,
+        "persistence": 0.9736,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "value": 50,
+          "anchors": [
+            0,
+            10,
+            30,
+            60
+          ],
+          "boundary": "Lower-bound share of nitrogen applied to farmland washing into rivers rather than being absorbed by crops."
+        },
+        "human_economic_burden": {
+          "value": 200,
+          "anchors": [
+            0,
+            25,
+            100,
+            250
+          ],
+          "boundary": "Global annual lost-nitrogen resource cost; no allocation to a crop, farm or watershed."
+        },
+        "persistence": {
+          "documented_dead_zones_1960": 10,
+          "documented_dead_zones_2008": 405,
+          "growth_period_years": 48,
+          "anchors_years": [
+            0,
+            10,
+            25,
+            50
+          ],
+          "boundary": "Duration of the documented global dead-zone inventory increase; not a continuous severity series."
+        },
+        "extent": {
+          "global_extent_normalized": 1,
+          "geographic_scope": "Worldwide nutrient losses to air, soil, rivers, lakes, marine and coastal systems; coastal eutrophication and dead-zone inventories are global lower bounds",
+          "coastal_areas_impacted_lower_bound": 500,
+          "boundary": "UNEP worldwide lower-bound inventory; no unmonitored area is classified."
+        },
+        "source_snapshot": {
+          "path": "public/unep-global-nutrient-pollution-impact-snapshot.json",
+          "version": "unep_global_nutrient_pollution_impact_v1",
+          "captured_at": "2026-07-31T21:51:19.347Z",
+          "source_locators": {
+            "biophysical_burden": "UNEP nitrogen facts: 200 million tonnes of reactive nitrogen, or 80 percent, is lost to the environment each year, including leaching to soil, rivers and lakes.",
+            "economic_burden": "UNEP nitrogen facts: annual cost of lost nitrogen resources is estimated at around US$200 billion.",
+            "agricultural_runoff": "UNEP agricultural-runoff summary: more than half of nitrogen applied to farmland washes into rivers rather than being absorbed by crops.",
+            "eutrophication_extent": "UNEP nutrient-management issue: more than 500 coastal areas worldwide are impacted by eutrophication caused by excess nutrients.",
+            "persistence": "UNEP nutrient-management issue: documented ocean dead zones increased from 10 in 1960 to 405 in 2008.",
+            "fisheries_exposure": "UNEP nutrient-management issue: more than 90 percent of world fisheries depend in some way on estuarine and near-shore habitats."
+          },
+          "excluded_from_scoring": [
+            "regional European nutrient-pollution cost ranges",
+            "United States-only eutrophication costs",
+            "dead-zone count converted to area or volume",
+            "fisheries dependence treated as realized loss",
+            "reactive-nitrogen pathways added across overlapping budgets",
+            "unreported uncertainty as zero"
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "source_specific_global_burden",
+          "formula": "Normalize only the node-matched UNEP mass, share or affected-system count through declared anchors."
+        },
+        {
+          "type": "bounded_human_economic_component",
+          "formula": "Normalize the source-reported global nitrogen-resource cost or fisheries-system exposure without allocating it to a locality or treating exposure as realized loss."
+        },
+        {
+          "type": "documented_inventory_duration",
+          "formula": "Normalize the 48-year interval over which UNEP reports the global dead-zone inventory rose from 10 to 405."
+        },
+        {
+          "type": "worldwide_lower_bound_extent",
+          "formula": "Use the source-declared worldwide assessment scope; retain site counts as lower bounds and never convert them to area."
+        }
+      ],
+      "source_ids": [
+        "unep_global_nutrient_pollution_impact"
+      ],
+      "uncertainty": "Reactive-nitrogen budgets combine air, soil, freshwater and marine pathways. The annual resource-cost estimate is global nitrogen loss, not an allocated water-pollution damage value. Coastal-system inventories depend on monitoring and definitions and therefore are lower bounds. Fisheries dependence is economic-system exposure, not realized attributable loss.",
+      "freshness": "UNEP global nutrient-management findings reviewed 2024; underlying budgets and inventories have different assessment years; snapshot captured 2026-07-31T21:51:19.347Z.",
+      "selection_reason": {
+        "selected_method_passed": "UNEP directly quantifies fertilizer nitrogen escaping to rivers, the global lost-resource cost, persistent downstream dead-zone accumulation and worldwide extent.",
+        "higher_priority_failures": [
+          "The existing USGS and EPA monitoring sources are regional and cannot establish a current global aggregation.",
+          "UNEP supplies global burden and inventory findings but not a 20-year complete annual or 60-month harmonized concentration panel, so the results are not labeled current data."
+        ]
+      },
+      "input_hash": "fnv1a32:873ef7ff"
+    },
+    {
+      "node_id": "estuary_eutrophication",
+      "value": 9.7,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "biophysical_burden": 1,
+        "human_economic_burden": 0.9175,
+        "persistence": 0.9736,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "value": 500,
+          "anchors": [
+            0,
+            50,
+            200,
+            500
+          ],
+          "boundary": "Worldwide lower-bound count of coastal areas affected by nutrient-driven eutrophication; not area, volume or uniform condition."
+        },
+        "human_economic_burden": {
+          "value": 90,
+          "anchors": [
+            0,
+            25,
+            60,
+            100
+          ],
+          "boundary": "Share of world fisheries dependent on estuarine and near-shore habitats, used as economic-system exposure rather than realized attributable loss."
+        },
+        "persistence": {
+          "documented_dead_zones_1960": 10,
+          "documented_dead_zones_2008": 405,
+          "growth_period_years": 48,
+          "anchors_years": [
+            0,
+            10,
+            25,
+            50
+          ],
+          "boundary": "Duration of the documented global dead-zone inventory increase; not a continuous severity series."
+        },
+        "extent": {
+          "global_extent_normalized": 1,
+          "geographic_scope": "Worldwide nutrient losses to air, soil, rivers, lakes, marine and coastal systems; coastal eutrophication and dead-zone inventories are global lower bounds",
+          "coastal_areas_impacted_lower_bound": 500,
+          "boundary": "UNEP worldwide lower-bound inventory; no unmonitored area is classified."
+        },
+        "source_snapshot": {
+          "path": "public/unep-global-nutrient-pollution-impact-snapshot.json",
+          "version": "unep_global_nutrient_pollution_impact_v1",
+          "captured_at": "2026-07-31T21:51:19.347Z",
+          "source_locators": {
+            "biophysical_burden": "UNEP nitrogen facts: 200 million tonnes of reactive nitrogen, or 80 percent, is lost to the environment each year, including leaching to soil, rivers and lakes.",
+            "economic_burden": "UNEP nitrogen facts: annual cost of lost nitrogen resources is estimated at around US$200 billion.",
+            "agricultural_runoff": "UNEP agricultural-runoff summary: more than half of nitrogen applied to farmland washes into rivers rather than being absorbed by crops.",
+            "eutrophication_extent": "UNEP nutrient-management issue: more than 500 coastal areas worldwide are impacted by eutrophication caused by excess nutrients.",
+            "persistence": "UNEP nutrient-management issue: documented ocean dead zones increased from 10 in 1960 to 405 in 2008.",
+            "fisheries_exposure": "UNEP nutrient-management issue: more than 90 percent of world fisheries depend in some way on estuarine and near-shore habitats."
+          },
+          "excluded_from_scoring": [
+            "regional European nutrient-pollution cost ranges",
+            "United States-only eutrophication costs",
+            "dead-zone count converted to area or volume",
+            "fisheries dependence treated as realized loss",
+            "reactive-nitrogen pathways added across overlapping budgets",
+            "unreported uncertainty as zero"
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "source_specific_global_burden",
+          "formula": "Normalize only the node-matched UNEP mass, share or affected-system count through declared anchors."
+        },
+        {
+          "type": "bounded_human_economic_component",
+          "formula": "Normalize the source-reported global nitrogen-resource cost or fisheries-system exposure without allocating it to a locality or treating exposure as realized loss."
+        },
+        {
+          "type": "documented_inventory_duration",
+          "formula": "Normalize the 48-year interval over which UNEP reports the global dead-zone inventory rose from 10 to 405."
+        },
+        {
+          "type": "worldwide_lower_bound_extent",
+          "formula": "Use the source-declared worldwide assessment scope; retain site counts as lower bounds and never convert them to area."
+        }
+      ],
+      "source_ids": [
+        "unep_global_nutrient_pollution_impact"
+      ],
+      "uncertainty": "Reactive-nitrogen budgets combine air, soil, freshwater and marine pathways. The annual resource-cost estimate is global nitrogen loss, not an allocated water-pollution damage value. Coastal-system inventories depend on monitoring and definitions and therefore are lower bounds. Fisheries dependence is economic-system exposure, not realized attributable loss.",
+      "freshness": "UNEP global nutrient-management findings reviewed 2024; underlying budgets and inventories have different assessment years; snapshot captured 2026-07-31T21:51:19.347Z.",
+      "selection_reason": {
+        "selected_method_passed": "UNEP quantifies the worldwide eutrophication inventory, fisheries-system exposure, multi-decade accumulation of downstream dead zones and global extent.",
+        "higher_priority_failures": [
+          "The existing USGS and EPA monitoring sources are regional and cannot establish a current global aggregation.",
+          "UNEP supplies global burden and inventory findings but not a 20-year complete annual or 60-month harmonized concentration panel, so the results are not labeled current data."
+        ]
+      },
+      "input_hash": "fnv1a32:8f0cbffc"
+    },
+    {
+      "node_id": "anoxic_dead_zones",
+      "value": 9.4,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "biophysical_burden": 0.8955,
+        "human_economic_burden": 0.9175,
+        "persistence": 0.9736,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "value": 405,
+          "anchors": [
+            0,
+            50,
+            200,
+            500
+          ],
+          "boundary": "Documented global dead-zone count at the fixed 2008 inventory point; not area, volume or current unmonitored status."
+        },
+        "human_economic_burden": {
+          "value": 90,
+          "anchors": [
+            0,
+            25,
+            60,
+            100
+          ],
+          "boundary": "Share of world fisheries dependent on estuarine and near-shore habitats, retained as exposed economic-service scope and not realized loss."
+        },
+        "persistence": {
+          "documented_dead_zones_1960": 10,
+          "documented_dead_zones_2008": 405,
+          "growth_period_years": 48,
+          "anchors_years": [
+            0,
+            10,
+            25,
+            50
+          ],
+          "boundary": "Duration of the documented global dead-zone inventory increase; not a continuous severity series."
+        },
+        "extent": {
+          "global_extent_normalized": 1,
+          "geographic_scope": "Worldwide nutrient losses to air, soil, rivers, lakes, marine and coastal systems; coastal eutrophication and dead-zone inventories are global lower bounds",
+          "coastal_areas_impacted_lower_bound": 500,
+          "boundary": "UNEP worldwide lower-bound inventory; no unmonitored area is classified."
+        },
+        "source_snapshot": {
+          "path": "public/unep-global-nutrient-pollution-impact-snapshot.json",
+          "version": "unep_global_nutrient_pollution_impact_v1",
+          "captured_at": "2026-07-31T21:51:19.347Z",
+          "source_locators": {
+            "biophysical_burden": "UNEP nitrogen facts: 200 million tonnes of reactive nitrogen, or 80 percent, is lost to the environment each year, including leaching to soil, rivers and lakes.",
+            "economic_burden": "UNEP nitrogen facts: annual cost of lost nitrogen resources is estimated at around US$200 billion.",
+            "agricultural_runoff": "UNEP agricultural-runoff summary: more than half of nitrogen applied to farmland washes into rivers rather than being absorbed by crops.",
+            "eutrophication_extent": "UNEP nutrient-management issue: more than 500 coastal areas worldwide are impacted by eutrophication caused by excess nutrients.",
+            "persistence": "UNEP nutrient-management issue: documented ocean dead zones increased from 10 in 1960 to 405 in 2008.",
+            "fisheries_exposure": "UNEP nutrient-management issue: more than 90 percent of world fisheries depend in some way on estuarine and near-shore habitats."
+          },
+          "excluded_from_scoring": [
+            "regional European nutrient-pollution cost ranges",
+            "United States-only eutrophication costs",
+            "dead-zone count converted to area or volume",
+            "fisheries dependence treated as realized loss",
+            "reactive-nitrogen pathways added across overlapping budgets",
+            "unreported uncertainty as zero"
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "source_specific_global_burden",
+          "formula": "Normalize only the node-matched UNEP mass, share or affected-system count through declared anchors."
+        },
+        {
+          "type": "bounded_human_economic_component",
+          "formula": "Normalize the source-reported global nitrogen-resource cost or fisheries-system exposure without allocating it to a locality or treating exposure as realized loss."
+        },
+        {
+          "type": "documented_inventory_duration",
+          "formula": "Normalize the 48-year interval over which UNEP reports the global dead-zone inventory rose from 10 to 405."
+        },
+        {
+          "type": "worldwide_lower_bound_extent",
+          "formula": "Use the source-declared worldwide assessment scope; retain site counts as lower bounds and never convert them to area."
+        }
+      ],
+      "source_ids": [
+        "unep_global_nutrient_pollution_impact"
+      ],
+      "uncertainty": "Reactive-nitrogen budgets combine air, soil, freshwater and marine pathways. The annual resource-cost estimate is global nitrogen loss, not an allocated water-pollution damage value. Coastal-system inventories depend on monitoring and definitions and therefore are lower bounds. Fisheries dependence is economic-system exposure, not realized attributable loss.",
+      "freshness": "UNEP global nutrient-management findings reviewed 2024; underlying budgets and inventories have different assessment years; snapshot captured 2026-07-31T21:51:19.347Z.",
+      "selection_reason": {
+        "selected_method_passed": "UNEP quantifies a global dead-zone inventory, 48 years of documented accumulation, fisheries-system exposure and worldwide coastal extent.",
+        "higher_priority_failures": [
+          "The existing USGS and EPA monitoring sources are regional and cannot establish a current global aggregation.",
+          "UNEP supplies global burden and inventory findings but not a 20-year complete annual or 60-month harmonized concentration panel, so the results are not labeled current data."
+        ]
+      },
+      "input_hash": "fnv1a32:55f08602"
+    }
+  ]
+}

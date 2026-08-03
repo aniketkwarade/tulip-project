@@ -1,0 +1,113 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_43_world_bank_global_pm2_5_exposure",
+  "generated_at": "2026-07-31T22:57:37.054Z",
+  "source_snapshot": "public/world-bank-global-air-quality-snapshot.json",
+  "source_id": "world_bank_wdi_global_pm2_5_exposure",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "pm2_5_particulates",
+      "value": 8.3,
+      "band": "Critical",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2023",
+      "components": {
+        "magnitude": 0.929789,
+        "threshold": 0.929789,
+        "momentum": 0.393197,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_complete_year": 2023,
+          "latest_world_population_weighted_mean_pm2_5_ug_m3": 32.872382373,
+          "baseline": "WHO 2021 annual PM2.5 air-quality guideline",
+          "baseline_ug_m3": 5,
+          "complete_prior_annual_observations": 33,
+          "direction": "higher_is_worse"
+        },
+        "threshold": {
+          "latest_world_population_weighted_mean_pm2_5_ug_m3": 32.872382373,
+          "threshold_basis": "recognized_who_2021_annual_pm2_5_air_quality_guideline_and_interim_targets",
+          "four_normalization_anchors_ug_m3": {
+            "reference_aqg": 5,
+            "concerning_interim_target_3": 15,
+            "critical_interim_target_2": 25,
+            "extreme_interim_target_1": 35
+          },
+          "excluded_intermediate_who_target": {
+            "interim_target_4_ug_m3": 10,
+            "reason": "TULIP v2 requires exactly four documented normalization anchors."
+          },
+          "direction": "higher_is_worse"
+        },
+        "momentum": {
+          "prior_complete_year": 2022,
+          "prior_world_population_weighted_mean_pm2_5_ug_m3": 32.732143388,
+          "latest_year_over_year_increase_ug_m3": 0.140239,
+          "complete_prior_annual_change_observations": 32,
+          "historical_distribution_anchors_annual_increase_ug_m3": [
+            -0.034915,
+            0.026964,
+            0.636386,
+            0.951162
+          ]
+        },
+        "extent": {
+          "normalized_value": 1,
+          "geography": "World",
+          "aggregation": "World Bank source-native population-weighted global mean exposure"
+        },
+        "source_snapshot": {
+          "path": "public/world-bank-global-air-quality-snapshot.json",
+          "version": "2026-07-31T20:40:51.223Z",
+          "captured_at": "2026-07-31T20:40:51.223Z",
+          "source_last_updated": "2026-07-13",
+          "indicator_id": "EN.ATM.PM25.MC.M3",
+          "complete_annual_observations": 34
+        },
+        "coverage_gate": {
+          "direct_components": [
+            "magnitude",
+            "threshold",
+            "momentum",
+            "extent"
+          ],
+          "global_scope": true,
+          "current_observation": true
+        }
+      },
+      "transformations": [
+        {
+          "type": "source_native_global_aggregation",
+          "formula": "Use the World Bank WLD observation directly; do not manually average or sum country rows."
+        },
+        {
+          "type": "recognized_threshold_normalization",
+          "formula": "Piecewise-linearly map 5, 15, 25 and 35 micrograms per cubic metre to normalized 0, 0.33, 0.67 and 1 using WHO 2021 annual PM2.5 AQG and interim targets."
+        },
+        {
+          "type": "annual_increase_momentum",
+          "formula": "Subtract the preceding complete-year World exposure from the latest complete year and normalize the increase through the prior annual-change median, p75, p90 and p97.5 distribution."
+        },
+        {
+          "type": "global_population_exposure_extent",
+          "formula": "Assign full extent because the source observation is the World population-weighted aggregate for the metric contract."
+        }
+      ],
+      "source_ids": [
+        "world_bank_wdi_global_pm2_5_exposure"
+      ],
+      "uncertainty": "The indicator is a model-based population-exposure estimate informed by satellite retrievals, chemical transport models and monitoring data rather than a direct worldwide instrument average. Exposure surfaces, population weights, calibration, source revisions and the GBD estimation framework affect comparisons. WHO thresholds are health-based guidance rather than legal exceedance limits, and the latest exposure year trails the source update date.",
+      "freshness": "World Bank source updated 2026-07-13; latest complete global exposure year 2023; snapshot captured 2026-07-31T20:40:51.223Z.",
+      "selection_reason": {
+        "selected_method_passed": "The World Bank supplies 34 consecutive World population-weighted annual exposure estimates, including current magnitude, recognized WHO threshold position, annual momentum and global extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:4a9ed218"
+    }
+  ]
+}

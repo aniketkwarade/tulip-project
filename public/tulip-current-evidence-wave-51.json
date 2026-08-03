@@ -1,0 +1,112 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_51_ceds_global_coal_power_so2",
+  "generated_at": "2026-08-01T15:38:12.688Z",
+  "source_snapshot": "public/ceds-coal-power-so2-snapshot.json",
+  "source_id": "ceds_v2024_04_01_release_emission_data",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "coal_power_sulfur_emissions",
+      "value": 2.5,
+      "band": "Low",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2022",
+      "components": {
+        "magnitude": 0,
+        "threshold": 0,
+        "momentum": 0.062541,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_year": 2022,
+          "latest_global_coal_power_so2_kt": 20966.150656,
+          "historical_distribution_anchors_kt_so2": [
+            29827.285632,
+            32889.71168,
+            35880.193201,
+            36149.023976
+          ],
+          "direction": "higher_is_worse"
+        },
+        "threshold": {
+          "basis": "historical_distribution_fallback_no_recognized_global_coal_power_so2_emission_threshold",
+          "anchors_kt_so2": [
+            29827.285632,
+            32889.71168,
+            35880.193201,
+            36149.023976
+          ],
+          "complete_prior_annual_observations": 52
+        },
+        "momentum": {
+          "prior_year": 2021,
+          "prior_global_coal_power_so2_kt": 20757.260729,
+          "latest_annual_change_kt_so2": 208.889927,
+          "historical_change_anchors_kt_so2": [
+            53.707454,
+            872.538352,
+            1456.266318,
+            2276.252052
+          ]
+        },
+        "extent": {
+          "normalized_value": 1,
+          "geography": "CEDS source-native global aggregate",
+          "aggregation": "Sum CEDS global SO2 rows for public and autoproducer electricity and brown coal, hard coal, and coal coke."
+        },
+        "coverage_gate": {
+          "direct_components": [
+            "magnitude",
+            "threshold",
+            "momentum",
+            "extent"
+          ],
+          "global_scope": true,
+          "current_observation": true
+        },
+        "source_snapshot": {
+          "path": "public/ceds-coal-power-so2-snapshot.json",
+          "version": "ceds_v2024_04_01_global_coal_power_so2_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z",
+          "archive_md5": "636752881e915244bb96b4793d9fb121",
+          "archive_sha256": "913237080a65c9166a0270b9765bb1489701c125aebe0f512f0da2634098d04e",
+          "member_sha256": "0ac20318c62d7136dcd6b197247412fc8534524fd9f289a2ae2e98aa392a062a",
+          "annual_observations": 53
+        }
+      },
+      "transformations": [
+        {
+          "type": "contract_bound_fuel_sector_aggregation",
+          "formula": "Sum CEDS global SO2 rows for public and autoproducer electricity and brown coal, hard coal, and coal coke."
+        },
+        {
+          "type": "historical_distribution_normalization",
+          "formula": "Map the prior annual median, p75, p90 and p97.5 to 0, 0.33, 0.67 and 1 because no recognized global coal-power SO2 emission threshold exists."
+        },
+        {
+          "type": "annual_change_momentum",
+          "formula": "Subtract the prior complete-year coal-power SO2 total and normalize the latest change against preceding complete annual changes."
+        },
+        {
+          "type": "global_extent",
+          "formula": "Assign full extent because the selected rows are CEDS source-native global aggregates, not a country sample or extrapolation."
+        }
+      ],
+      "source_ids": [
+        "ceds_v2024_04_01_release_emission_data",
+        "mcduffie_ceds_sector_fuel_specific_inventory_2020"
+      ],
+      "uncertainty": "CEDS is an inventory estimate assembled from activity data, emission factors and scaling inventories rather than a direct global monitor. Fuel and sector assignments, historical revisions and national input quality affect values. The latest release observation is 2022; it is the newest complete year in this source, not a 2026 nowcast. Electricity heat production and non-coal fuels are deliberately excluded, and missing values are never converted to zero.",
+      "freshness": "Latest complete inventory year 2022; CEDS release 2024-04-01; snapshot reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "CEDS supplies 53 complete source-native global annual observations that isolate coal fuels within electricity generation, covering magnitude, historical position, momentum and global extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:336f2396"
+    }
+  ]
+}

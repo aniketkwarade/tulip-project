@@ -1,0 +1,155 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_64_usfs_bark_beetle",
+  "generated_at": "2026-08-01T16:17:06.513Z",
+  "source_snapshots": [
+    "public/usfs-bark-beetle-impact-snapshot.json"
+  ],
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "bark_beetle_epidemics",
+      "value": 7.9,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "biophysical_burden": 0.758341,
+        "human_economic_burden": 0.849143,
+        "persistence": 0.967,
+        "extent": 0.33
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "start_year": 2021,
+          "end_year": 2025,
+          "annual": [
+            {
+              "year": 2021,
+              "mapped_acre_observations": 2414187.4,
+              "records": 28018,
+              "unweighted_mean_reported_percent_mid": 12.153
+            },
+            {
+              "year": 2022,
+              "mapped_acre_observations": 2559563.27,
+              "records": 35174,
+              "unweighted_mean_reported_percent_mid": 12.671
+            },
+            {
+              "year": 2023,
+              "mapped_acre_observations": 2641116.98,
+              "records": 31963,
+              "unweighted_mean_reported_percent_mid": 11.987
+            },
+            {
+              "year": 2024,
+              "mapped_acre_observations": 1628770.23,
+              "records": 32530,
+              "unweighted_mean_reported_percent_mid": 11.116
+            },
+            {
+              "year": 2025,
+              "mapped_acre_observations": 1110374.436,
+              "records": 18942,
+              "unweighted_mean_reported_percent_mid": 18.217
+            }
+          ],
+          "mapped_acre_observations": 10354012.316,
+          "observation_records": 146627,
+          "normalization_anchors_acre_observations": [
+            0,
+            100000,
+            5000000,
+            25000000
+          ]
+        },
+        "human_economic_burden": {
+          "documented_southern_pine_beetle_timber_producer_loss_usd": 1200000000,
+          "normalization_anchors_usd": [
+            0,
+            10000000,
+            250000000,
+            2000000000
+          ],
+          "boundary": "Historical U.S. South subset; not attributed to the current IDS polygons."
+        },
+        "persistence": {
+          "documented_economic_loss_period_years": 28,
+          "normalization_anchors_years": [
+            0,
+            1,
+            10,
+            30
+          ]
+        },
+        "extent": {
+          "represented_us_areas": [
+            "Alaska",
+            "CONUS"
+          ],
+          "directly_assessed_countries": [
+            "United States"
+          ],
+          "directly_assessed_country_count": 1,
+          "normalization_anchors_countries": [
+            0,
+            1,
+            5,
+            25
+          ]
+        },
+        "source_snapshot": {
+          "path": "public/usfs-bark-beetle-impact-snapshot.json",
+          "version": "usfs_ids_bark_beetle_mortality_2021_2025_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z",
+          "annual_statistics_response_sha256": "59c661dfd8db1a89c5f161a7bcbd26047d179851e440e2b3298f76eb0b9b6ea1",
+          "agent_names_response_sha256": "103147979c22d26950588b9a999a816912e913a395326d305b4875f160680407",
+          "economic_report_sha256": "3b8eced17d26230f18c30564cb2b5fab349e08e8faa6da289b40351eb314a2c8"
+        }
+      },
+      "transformations": [
+        {
+          "type": "exact_agent_and_damage_filter",
+          "formula": "Select IDS area records with a mortality damage type and an agent common name containing beetle; exclude root disease and beetle complex because causation is mixed."
+        },
+        {
+          "type": "annual_mapped_area_accounting",
+          "formula": "Sum mapped acres by survey year and across years as annual acre-observations; do not deduplicate or label the result unique cumulative land."
+        },
+        {
+          "type": "economic_subset_boundary",
+          "formula": "Normalize the published U.S. South timber-producer loss separately; do not transfer that value to current national polygons."
+        },
+        {
+          "type": "persistence_boundary",
+          "formula": "Use the source-reported 28-year economic-loss interval without inventing annual loss observations."
+        },
+        {
+          "type": "bounded_country_extent",
+          "formula": "Normalize the one directly assessed country; CONUS and Alaska survey coverage does not become global coverage."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "usfs_ids_bark_beetle_mortality_2021_2025",
+        "usfs_bark_beetle_economic_impact_2019"
+      ],
+      "uncertainty": "Aerial detection surveys are reconnaissance data rather than a complete damage inventory, can omit or misclassify damage, and have no national accuracy assessment. Acres can overlap across years and are therefore retained as annual mapped acre-observations rather than unique cumulative land. Percent-affected classes are not converted into killed-tree counts. The economic estimate covers southern pine beetle timber-producer losses over a different historical period and geography; it is a bounded accumulated-impact component, not a valuation of the current mapped records.",
+      "freshness": "IDS records through 2025; API queried 2026-08-01; economic study published 2019; snapshot reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "Forest Service survey records quantify bark-beetle mortality-area observations, a published producer-loss burden, persistence and one-country extent under an explicit exact-agent filter.",
+        "higher_priority_failures": [
+          "Aerial survey coverage and detection effort vary spatially and annually, preventing a defensible current national or global trend.",
+          "The service contains five annual survey years, below the 20-annual-observation historical-distribution gate."
+        ]
+      },
+      "input_hash": "fnv1a32:3081d55e"
+    }
+  ]
+}

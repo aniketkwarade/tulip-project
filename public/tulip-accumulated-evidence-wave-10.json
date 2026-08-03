@@ -1,0 +1,124 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_10_lancet_heatwave_excess_mortality",
+  "generated_at": "2026-07-31T22:57:24.135Z",
+  "source_snapshot": "public/heat-health-snapshot.json",
+  "source_id": "lancet_countdown_data_explorer",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "heatwave_excess_mortality_rates",
+      "value": 5.8,
+      "band": "Rising",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2021",
+      "components": {
+        "biophysical_burden": 0.019412,
+        "human_economic_burden": 0.590946,
+        "persistence": 1,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "indicator": "heat-attributable fraction of all deaths",
+          "latest_value": 0.83,
+          "latest_year": 2021,
+          "unit": "percent of all deaths",
+          "historical_observations": 32,
+          "historical_anchors": [
+            0.825,
+            0.91,
+            1.153,
+            1.26925
+          ],
+          "source_metric_id": "heat_attributable_mortality_rate"
+        },
+        "human_economic_burden": {
+          "indicator": "heat-attributable deaths",
+          "latest_value": 558304,
+          "latest_year": 2021,
+          "unit": "deaths",
+          "historical_observations": 32,
+          "historical_anchors": [
+            414197.5,
+            511348.25,
+            572529.4,
+            705867.125
+          ],
+          "source_metric_id": "heat_attributable_mortality_rate"
+        },
+        "persistence": {
+          "definition": "Share of the latest ten complete global annual observations above the full-history median burden.",
+          "window_years": [
+            2012,
+            2013,
+            2014,
+            2015,
+            2016,
+            2017,
+            2018,
+            2019,
+            2020,
+            2021
+          ],
+          "historical_median": 414197.5,
+          "years_above_median": 10,
+          "window_observations": 10
+        },
+        "extent": {
+          "definition": "Share of WHO regions with a positive source-reported burden in the latest common year.",
+          "latest_year": 2021,
+          "affected_geographies": 6,
+          "retained_geographies": 6
+        },
+        "source_snapshot": {
+          "path": "public/heat-health-snapshot.json",
+          "version": "2026-07-31T16:48:36.436Z",
+          "captured_at": "2026-07-31T16:48:36.436Z",
+          "source_locators": [
+            "https://lancetcountdown.org/wp-content/uploads/2025/10/Indicator-1.1.5_Data-Download_2025-Lancet-Countdown-Report-1.xlsx"
+          ]
+        },
+        "metric_boundary": {
+          "metric_id": "heat_attributable_mortality_rate",
+          "metric_name": "Global and WHO-region modelled heat-attributable mortality",
+          "distinction": "Uses the provider-modelled all-heat attributable mortality series. Individual declared heatwave event totals remain separate contextual evidence."
+        }
+      },
+      "transformations": [
+        {
+          "type": "historical_distribution_normalization",
+          "components": [
+            "biophysical_burden",
+            "human_economic_burden"
+          ],
+          "anchors": "median, 75th percentile, 90th percentile, 97.5th percentile across complete global annual observations",
+          "direction": "higher_is_worse"
+        },
+        {
+          "type": "quantitative_persistence_ratio",
+          "formula": "latest ten annual observations above full-history median / ten"
+        },
+        {
+          "type": "quantitative_geographic_extent_ratio",
+          "formula": "latest-year retained geographies with positive burden / all retained latest-year geographies"
+        }
+      ],
+      "source_ids": [
+        "lancet_countdown_data_explorer"
+      ],
+      "uncertainty": "The downloads provide modelled point estimates but no observation-level uncertainty intervals. Mortality meta-prediction, WBGT and employment assumptions, country-average sector allocation, disease-model omissions, reanalysis input, population data, and revisions affect estimates. WHO separately summarizes approximately 489,000 heat-related deaths per year during 2000–2019; that fact-sheet estimate is corroborating context and is not added to the Lancet series.",
+      "freshness": "Annual source release; snapshot captured 2026-07-31T16:48:36.436Z. Latest complete global burden year is 2021.",
+      "selection_reason": {
+        "selected_method_passed": "The operational Lancet Countdown source supplies 32 complete global annual modeled heat-attributable death and attributable-fraction observations plus WHO-region extent; WHO current guidance independently corroborates the global mortality scale.",
+        "higher_priority_failures": [
+          "The source labels mortality values as provider-modelled attributable estimates rather than direct current physical observations.",
+          "No recognized current heatwave-mortality threshold contract supports current-data scoring."
+        ]
+      },
+      "input_hash": "fnv1a32:967846d8"
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_41_noaa_ratpac_lower_stratosphere",
+  "generated_at": "2026-07-31T22:57:36.501Z",
+  "source_snapshot": "public/noaa-ratpac-snapshot.json",
+  "source_id": "noaa_ratpac",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "stratospheric_cooling",
+      "value": 7.5,
+      "band": "Critical",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "magnitude": 0.959808,
+        "threshold": 0.959808,
+        "momentum": 0,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_complete_year": 2025,
+          "latest_global_100_70_50_hpa_mean_anomaly_deg_c": -1.48,
+          "latest_cooling_magnitude_deg_c": 1.48,
+          "complete_prior_annual_observations": 67,
+          "historical_distribution_anchors_cooling_deg_c": [
+            0.4633,
+            1.2383,
+            1.35998,
+            1.496645
+          ]
+        },
+        "threshold": {
+          "latest_global_100_70_50_hpa_mean_anomaly_deg_c": -1.48,
+          "threshold_basis": "historical_distribution_fallback",
+          "direction": "lower_is_worse",
+          "historical_distribution_anchors_anomaly_deg_c_in_worsening_order": [
+            -0.4633,
+            -1.2383,
+            -1.35998,
+            -1.496645
+          ]
+        },
+        "momentum": {
+          "latest_year_over_year_additional_cooling_deg_c": 0.0067,
+          "complete_prior_annual_change_observations": 66,
+          "historical_distribution_anchors_additional_cooling_deg_c": [
+            0.01165,
+            0.15585,
+            0.2983,
+            0.662525
+          ]
+        },
+        "extent": {
+          "normalized_value": 1,
+          "geography": "Globe",
+          "definition": "NOAA RATPAC source-native global large-area aggregate."
+        },
+        "source_snapshot": {
+          "path": "public/noaa-ratpac-snapshot.json",
+          "version": "2026-07-31T20:14:38.272Z",
+          "captured_at": "2026-07-31T20:14:38.272Z",
+          "component_pressure_levels_hpa": [
+            100,
+            70,
+            50
+          ],
+          "complete_annual_observations": 68
+        },
+        "coverage_gate": {
+          "direct_components": [
+            "magnitude",
+            "threshold",
+            "momentum",
+            "extent"
+          ],
+          "global_scope": true,
+          "current_observation": true
+        }
+      },
+      "transformations": [
+        {
+          "type": "lower_stratosphere_layer_aggregation",
+          "formula": "Arithmetic mean of source-native NOAA RATPAC global annual anomalies at 100, 70 and 50 hPa; require all three pressure levels for each retained year."
+        },
+        {
+          "type": "cooling_direction",
+          "formula": "Negate the temperature anomaly for magnitude and calculate previous-year minus current-year anomaly for momentum, so stronger or accelerating cooling maps upward."
+        },
+        {
+          "type": "historical_distribution_normalization",
+          "formula": "Map current cooling magnitude, source anomaly in reverse direction and annual additional cooling through prior complete-year median / p75 / p90 / p97.5 distributions."
+        },
+        {
+          "type": "global_extent",
+          "formula": "Use only the NOAA RATPAC Globe rows; do not infer local stratospheric conditions."
+        }
+      ],
+      "source_ids": [
+        "noaa_ratpac"
+      ],
+      "uncertainty": "NOAA RATPAC reduces temporal inhomogeneities from instrument and observing-practice changes, but radiosonde coverage, homogenization, pressure-level and layer weighting, baseline, missingness, current-year incompleteness, trend window and residual autocorrelation affect estimates. OLS intervals are derived by this job and are not NOAA-reported uncertainty. The three-pressure-level arithmetic mean is a transparent contract-bound layer indicator, not a NOAA-published lower-stratosphere product.",
+      "freshness": "NOAA RATPAC complete global annual pressure-level observations through 2025; snapshot captured 2026-07-31T20:14:38.272Z.",
+      "selection_reason": {
+        "selected_method_passed": "NOAA RATPAC supplies 68 complete annual global observations through 2025 at all three declared lower-stratosphere levels, directly supporting magnitude, historical position, momentum and global extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:aa8b31a3"
+    }
+  ]
+}

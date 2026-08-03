@@ -1,0 +1,813 @@
+{
+  "version": "regional_hub_profiles_v1",
+  "generated_at": "2026-08-02T00:46:44.995Z",
+  "policy": "Profiles state broad applicability, weakening conditions, and evidence gaps. Individual edge dossiers remain authoritative for relationship-specific scope.",
+  "summary": {
+    "profiles": 25,
+    "top_hubs": 25
+  },
+  "top_hubs": [
+    {
+      "rank": 1,
+      "node_id": "temp",
+      "node_name": "Global Temperature",
+      "degree": 131,
+      "profile": {
+        "scale": "global_with_regional_expression",
+        "applies_where": [
+          "All regions; strongest amplification over Arctic land and high northern latitudes",
+          "Land areas and continental interiors during many heat extremes"
+        ],
+        "weakens_where": [
+          "Ocean regions with strong heat uptake",
+          "Regions and seasons dominated by circulation variability"
+        ],
+        "evidence_absent_or_limited_where": [
+          "Sparse-observation polar, mountain, and conflict-affected regions"
+        ],
+        "temporal_context": "Multi-decadal forced trend with seasonal, annual, and decadal variability.",
+        "source_locators": [
+          {
+            "url": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-2/",
+            "locator": "Observed global and regional climate change"
+          },
+          {
+            "url": "https://data.giss.nasa.gov/gistemp/",
+            "locator": "NASA global surface-temperature analysis"
+          }
+        ],
+        "reviewed_at": "2026-07-18",
+        "interpretation_boundary": "This profile bounds where incident relationships are generally plausible. It does not make every edge universally valid within the listed regions."
+      }
+    },
+    {
+      "rank": 2,
+      "node_id": "carbon_emission",
+      "node_name": "Carbon Emission",
+      "degree": 130,
+      "profile": {
+        "scale": "global_sources_with_local_inventories",
+        "applies_where": [
+          "Fossil-fuel, industrial, land-use, and agricultural source regions worldwide",
+          "Consumption-linked supply chains across borders"
+        ],
+        "weakens_where": [
+          "Low-carbon electricity systems and low-emission production routes",
+          "Sectors with mature abatement, efficiency, and circularity"
+        ],
+        "evidence_absent_or_limited_where": [
+          "Informal activity, conflict zones, small sources, and poorly inventoried land-use change"
+        ],
+        "temporal_context": "Annual inventories; near-real-time proxies require later reconciliation.",
+        "source_locators": [
+          {
+            "url": "https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-2/",
+            "locator": "Emission trends and drivers"
+          },
+          {
+            "url": "https://edgar.jrc.ec.europa.eu/",
+            "locator": "EDGAR spatial emissions inventories"
+          }
+        ],
+        "reviewed_at": "2026-07-18",
+        "interpretation_boundary": "This profile bounds where incident relationships are generally plausible. It does not make every edge universally valid within the listed regions."
+      }
+    },
+    {
+      "rank": 3,
+      "node_id": "industry_farming",
+      "node_name": "Industry Farming",
+      "degree": 37,
+      "profile": {
+        "scale": "regional_production_systems_with_global_markets",
+        "applies_where": [
+          "Intensive crop and livestock regions",
+          "Irrigated, fertilizer-intensive, and export-oriented systems"
+        ],
+        "weakens_where": [
+          "Low-input, diversified, agroecological, or predominantly pastoral systems"
+        ],
+        "evidence_absent_or_limited_where": [
+          "Smallholder and informal production with weak statistics",
+          "Regions lacking field-scale soil, water, and input data"
+        ],
+        "temporal_context": "Seasonal production cycles embedded in multi-year land, soil, and market change.",
+        "source_locators": [
+          {
+            "url": "https://www.ipcc.ch/report/ar6/wg2/chapter/chapter-5/",
+            "locator": "Food and agricultural climate risks"
+          },
+          {
+            "url": "https://www.fao.org/faostat/",
+            "locator": "FAOSTAT production and input statistics"
+          }
+        ],
+        "reviewed_at": "2026-07-18",
+        "interpretation_boundary": "This profile bounds where incident relationships are generally plausible. It does not make every edge universally valid within the listed regions."
+      }
+    },
+    {
+      "rank": 4,
+      "node_id": "drought_persistence",
+      "node_name": "Drought Persistence",
+      "degree": 36,
+      "profile": {
+        "scale": "regional_hydroclimate",
+        "applies_where": [
+          "Drylands, Mediterranean-type climates, continental interiors, and rainfall-sensitive basins",
+          "Regions with persistent precipitation deficits and high evaporative demand"
+        ],
+        "weakens_where": [
+          "Humid regions with reliable precipitation and substantial storage",
+          "Managed basins where imports or reservoirs temporarily buffer deficits"
+        ],
+        "evidence_absent_or_limited_where": [
+          "Basins with sparse soil-moisture, groundwater, and withdrawal observations"
+        ],
+        "temporal_context": "Weeks to multi-year events; trends depend on drought definition and baseline.",
+        "source_locators": [
+          {
+            "url": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-11/",
+            "locator": "Weather and climate extreme events"
+          },
+          {
+            "url": "https://www.ipcc.ch/report/ar6/wg2/chapter/chapter-4/",
+            "locator": "Water scarcity and drought impacts"
+          }
+        ],
+        "reviewed_at": "2026-07-18",
+        "interpretation_boundary": "This profile bounds where incident relationships are generally plausible. It does not make every edge universally valid within the listed regions."
+      }
+    },
+    {
+      "rank": 5,
+      "node_id": "ocean_acidification",
+      "node_name": "Ocean Acidification",
+      "degree": 35,
+      "profile": {
+        "scale": "global_ocean_with_regional_chemistry",
+        "applies_where": [
+          "Surface oceans absorbing anthropogenic carbon",
+          "High-latitude and upwelling systems with naturally lower carbonate saturation"
+        ],
+        "weakens_where": [
+          "Highly buffered waters and areas with lower anthropogenic carbon penetration"
+        ],
+        "evidence_absent_or_limited_where": [
+          "Coastal waters lacking sustained carbonate-system observations",
+          "Depths and regions with sparse sampling"
+        ],
+        "temporal_context": "Long-term trend with seasonal, event-scale, depth, and circulation variability.",
+        "source_locators": [
+          {
+            "url": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-9/",
+            "locator": "Ocean biogeochemistry and acidification"
+          },
+          {
+            "url": "https://www.ncei.noaa.gov/products/ocean-carbon-acidification-data-system",
+            "locator": "NOAA OCADS observations"
+          }
+        ],
+        "reviewed_at": "2026-07-18",
+        "interpretation_boundary": "This profile bounds where incident relationships are generally plausible. It does not make every edge universally valid within the listed regions."
+      }
+    },
+    {
+      "rank": 6,
+      "node_id": "critical_infrastructure_fragility",
+      "node_name": "Critical Infrastructure Fragility",
+      "degree": 30,
+      "profile": {
+        "scale": "asset_and_network_specific",
+        "applies_where": [
+          "Hazard-exposed, aging, interdependent, and capacity-constrained networks",
+          "Rapidly growing settlements with infrastructure deficits"
+        ],
+        "weakens_where": [
+          "Redundant, maintained, climate-adapted networks with spare capacity"
+        ],
+        "evidence_absent_or_limited_where": [
+          "Informal systems, proprietary networks, and locations without asset or outage inventories"
+        ],
+        "temporal_context": "Event-scale failures interact with decades-long maintenance and investment cycles.",
+        "source_locators": [
+          {
+            "url": "https://www.ipcc.ch/report/ar6/wg2/chapter/chapter-6/",
+            "locator": "Cities, settlements, and key infrastructure"
+          },
+          {
+            "url": "https://www.undrr.org/",
+            "locator": "Disaster-risk and infrastructure resilience evidence"
+          }
+        ],
+        "reviewed_at": "2026-07-18",
+        "interpretation_boundary": "This profile bounds where incident relationships are generally plausible. It does not make every edge universally valid within the listed regions."
+      }
+    },
+    {
+      "rank": 7,
+      "node_id": "wildfire_regime_shift",
+      "node_name": "Wildfire Regime Shift",
+      "degree": 29,
+      "profile": {
+        "scale": "regional_fire_ecology",
+        "applies_where": [
+          "Fire-prone forests, shrublands, peatlands, and wildland-urban interfaces",
+          "Regions with increasing fuel aridity or altered ignition and fuel regimes"
+        ],
+        "weakens_where": [
+          "Fuel-limited deserts, wet forests in persistently moist periods, and intensively suppressed local systems"
+        ],
+        "evidence_absent_or_limited_where": [
+          "Regions lacking fire-history, severity, fuel, and ignition attribution data"
+        ],
+        "temporal_context": "Fire weather is event-scale; regime shifts require multi-decadal records.",
+        "source_locators": [
+          {
+            "url": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-11/",
+            "locator": "Fire weather extremes"
+          },
+          {
+            "url": "https://firms.modaps.eosdis.nasa.gov/",
+            "locator": "NASA FIRMS active-fire observations"
+          }
+        ],
+        "reviewed_at": "2026-07-18",
+        "interpretation_boundary": "This profile bounds where incident relationships are generally plausible. It does not make every edge universally valid within the listed regions."
+      }
+    },
+    {
+      "rank": 8,
+      "node_id": "deforestation",
+      "node_name": "Deforestation",
+      "degree": 28,
+      "profile": {
+        "scale": "regional_land_change_with_global_effects",
+        "applies_where": [
+          "Tropical and boreal forest-loss fronts",
+          "Regions with agricultural expansion, logging, mining, roads, or fire conversion"
+        ],
+        "weakens_where": [
+          "Stable forest landscapes with strong protection and low conversion pressure"
+        ],
+        "evidence_absent_or_limited_where": [
+          "Degradation below canopy-loss detection, informal clearing, and cloudy or poorly validated regions"
+        ],
+        "temporal_context": "Event to annual detection; carbon and ecological effects persist for decades or longer.",
+        "source_locators": [
+          {
+            "url": "https://www.fao.org/forest-resources-assessment/",
+            "locator": "FAO Global Forest Resources Assessment"
+          },
+          {
+            "url": "https://www.globalforestwatch.org/",
+            "locator": "Global Forest Watch tree-cover change"
+          }
+        ],
+        "reviewed_at": "2026-07-18",
+        "interpretation_boundary": "This profile bounds where incident relationships are generally plausible. It does not make every edge universally valid within the listed regions."
+      }
+    },
+    {
+      "rank": 9,
+      "node_id": "environ_anomalies",
+      "node_name": "Compound Climate Hazards",
+      "degree": 27,
+      "profile": {
+        "scale": "observation_dependent_global_screen",
+        "applies_where": [
+          "Regions with stable baselines and dense monitoring",
+          "Areas experiencing rapid climate or land-use change"
+        ],
+        "weakens_where": [
+          "Naturally high-variability systems where anomaly attribution is weak"
+        ],
+        "evidence_absent_or_limited_where": [
+          "Data-sparse regions, changing instruments, and short or discontinuous records"
+        ],
+        "temporal_context": "Depends on the declared baseline; event, seasonal, and long-term anomalies must remain separate.",
+        "source_locators": [
+          {
+            "url": "https://www.ncei.noaa.gov/access/monitoring/",
+            "locator": "NOAA environmental monitoring products"
+          },
+          {
+            "url": "https://earthdata.nasa.gov/",
+            "locator": "NASA Earth observation catalog"
+          }
+        ],
+        "reviewed_at": "2026-07-18",
+        "interpretation_boundary": "This profile bounds where incident relationships are generally plausible. It does not make every edge universally valid within the listed regions."
+      }
+    },
+    {
+      "rank": 10,
+      "node_id": "biodiversity_intactness_loss",
+      "node_name": "Biodiversity Intactness Loss",
+      "degree": 26,
+      "profile": {
+        "scale": "local_to_global_ecosystems",
+        "applies_where": [
+          "Land- and sea-use conversion fronts",
+          "Highly fragmented, polluted, overexploited, or rapidly warming ecosystems"
+        ],
+        "weakens_where": [
+          "Protected and connected landscapes with low pressure",
+          "Restored systems where recovery is established"
+        ],
+        "evidence_absent_or_limited_where": [
+          "Taxa and regions with low monitoring effort, especially in tropics and deep ocean"
+        ],
+        "temporal_context": "Often multi-decadal; abrupt losses and delayed ecological responses coexist.",
+        "source_locators": [
+          {
+            "url": "https://ipbes.net/global-assessment",
+            "locator": "IPBES global biodiversity assessment"
+          },
+          {
+            "url": "https://www.gbif.org/",
+            "locator": "GBIF biodiversity occurrence evidence"
+          }
+        ],
+        "reviewed_at": "2026-07-18",
+        "interpretation_boundary": "This profile bounds where incident relationships are generally plausible. It does not make every edge universally valid within the listed regions."
+      }
+    },
+    {
+      "rank": 11,
+      "node_id": "public_health_heat_burden",
+      "node_name": "Public Health Heat Burden",
+      "degree": 22,
+      "profile": {
+        "scale": "population_and_place_specific",
+        "applies_where": [
+          "Urban heat islands, hot climates, aging populations, outdoor workers, and low-cooling-access communities"
+        ],
+        "weakens_where": [
+          "Acclimatized populations with effective housing, warnings, healthcare, and cooling access"
+        ],
+        "evidence_absent_or_limited_where": [
+          "Places without cause-specific mortality, morbidity, exposure, or vulnerability data"
+        ],
+        "temporal_context": "Hourly to seasonal exposure; adaptation and demographic change alter long-term baselines.",
+        "source_locators": [
+          {
+            "url": "https://www.who.int/news-room/fact-sheets/detail/climate-change-heat-and-health",
+            "locator": "WHO heat and health risk"
+          },
+          {
+            "url": "https://www.who.int/europe/publications/i/item/9789289062930",
+            "locator": "WHO heat-health action plans"
+          }
+        ],
+        "reviewed_at": "2026-07-18",
+        "interpretation_boundary": "This profile bounds where incident relationships are generally plausible. It does not make every edge universally valid within the listed regions."
+      }
+    },
+    {
+      "rank": 12,
+      "node_id": "water_stress",
+      "node_name": "Baseline Water Stress",
+      "degree": 22,
+      "profile": {
+        "scale": "basin_and_use_specific",
+        "applies_where": [
+          "Basins where withdrawals approach available renewable supply",
+          "Arid, densely populated, heavily irrigated, or rapidly growing regions"
+        ],
+        "weakens_where": [
+          "Water-abundant basins with low withdrawals and strong storage or reuse"
+        ],
+        "evidence_absent_or_limited_where": [
+          "Basins with unreported withdrawals, groundwater depletion, transfers, or environmental-flow needs"
+        ],
+        "temporal_context": "Seasonal to multi-decadal; annual ratios can hide acute seasonal scarcity.",
+        "source_locators": [
+          {
+            "url": "https://www.wri.org/aqueduct",
+            "locator": "Aqueduct baseline water stress"
+          },
+          {
+            "url": "https://www.fao.org/aquastat/",
+            "locator": "FAO water resources and withdrawals"
+          }
+        ],
+        "reviewed_at": "2026-07-18",
+        "interpretation_boundary": "This profile bounds where incident relationships are generally plausible. It does not make every edge universally valid within the listed regions."
+      }
+    },
+    {
+      "rank": 13,
+      "node_id": "coastal_inundation_risk",
+      "node_name": "Coastal Inundation Risk",
+      "degree": 21,
+      "profile": {
+        "scale": "coastal_local_to_regional",
+        "applies_where": [
+          "Low-lying coasts, deltas, small islands, subsiding cities, and storm-surge zones"
+        ],
+        "weakens_where": [
+          "Elevated or accreting coasts with low exposure and effective protection"
+        ],
+        "evidence_absent_or_limited_where": [
+          "Coasts lacking elevation, subsidence, wave, defense-condition, and exposure data"
+        ],
+        "temporal_context": "Tidal and storm events superimposed on multi-decadal sea-level rise.",
+        "source_locators": [
+          {
+            "url": "https://sealevel.nasa.gov/",
+            "locator": "NASA sea-level observations"
+          },
+          {
+            "url": "https://www.ipcc.ch/report/ar6/wg2/chapter/ccp2/",
+            "locator": "IPCC coastal settlements and sea-level risk"
+          }
+        ],
+        "reviewed_at": "2026-07-18",
+        "interpretation_boundary": "This profile bounds where incident relationships are generally plausible. It does not make every edge universally valid within the listed regions."
+      }
+    },
+    {
+      "rank": 14,
+      "node_id": "crop_yield_volatility",
+      "node_name": "Crop Yield Volatility",
+      "degree": 21,
+      "profile": {
+        "scale": "crop_and_region_specific",
+        "applies_where": [
+          "Rainfed and heat-sensitive production regions",
+          "Areas exposed to compound weather, pest, input, and market shocks"
+        ],
+        "weakens_where": [
+          "Irrigated or controlled systems with diverse crops, storage, and insurance"
+        ],
+        "evidence_absent_or_limited_where": [
+          "Smallholder systems and crops with weak subnational yield and management data"
+        ],
+        "temporal_context": "Seasonal harvest outcomes; robust volatility estimates need long, consistent series.",
+        "source_locators": [
+          {
+            "url": "https://www.ipcc.ch/report/ar6/wg2/chapter/chapter-5/",
+            "locator": "Crop impacts and adaptation"
+          },
+          {
+            "url": "https://www.fao.org/faostat/",
+            "locator": "FAOSTAT crop production series"
+          }
+        ],
+        "reviewed_at": "2026-07-18",
+        "interpretation_boundary": "This profile bounds where incident relationships are generally plausible. It does not make every edge universally valid within the listed regions."
+      }
+    },
+    {
+      "rank": 15,
+      "node_id": "freshwater_ecosystem_collapse",
+      "node_name": "Freshwater Ecosystem Collapse",
+      "degree": 21,
+      "profile": {
+        "scale": "basin_and_ecosystem_specific",
+        "applies_where": [
+          "Overallocated, fragmented, polluted, warming, or flow-altered rivers, lakes, and wetlands"
+        ],
+        "weakens_where": [
+          "Connected systems with environmental flows, good water quality, and intact refugia"
+        ],
+        "evidence_absent_or_limited_where": [
+          "Ungauged basins and systems lacking biological time series"
+        ],
+        "temporal_context": "Can be abrupt after thresholds; recovery and community turnover may take years to decades.",
+        "source_locators": [
+          {
+            "url": "https://www.ipcc.ch/report/ar6/wg2/chapter/chapter-4/",
+            "locator": "Freshwater ecosystems and water risks"
+          },
+          {
+            "url": "https://www.usgs.gov/mission-areas/water-resources",
+            "locator": "USGS freshwater observations"
+          }
+        ],
+        "reviewed_at": "2026-07-18",
+        "interpretation_boundary": "This profile bounds where incident relationships are generally plausible. It does not make every edge universally valid within the listed regions."
+      }
+    },
+    {
+      "rank": 16,
+      "node_id": "extreme_precipitation_intensity",
+      "node_name": "Extreme Precipitation Intensity",
+      "degree": 20,
+      "profile": {
+        "scale": "global_hazard_with_regional_dynamics",
+        "applies_where": [
+          "Moisture-rich storm tracks, monsoon regions, tropical cyclones, and convective environments"
+        ],
+        "weakens_where": [
+          "Moisture-limited regions or seasons",
+          "Locations where circulation changes offset thermodynamic intensification"
+        ],
+        "evidence_absent_or_limited_where": [
+          "Radar- and gauge-sparse regions, mountains, and short sub-daily records"
+        ],
+        "temporal_context": "Minutes to days for events; climate statistics require multi-decadal baselines.",
+        "source_locators": [
+          {
+            "url": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-11/",
+            "locator": "Heavy precipitation assessment"
+          },
+          {
+            "url": "https://gpm.nasa.gov/data",
+            "locator": "NASA GPM precipitation observations"
+          }
+        ],
+        "reviewed_at": "2026-07-18",
+        "interpretation_boundary": "This profile bounds where incident relationships are generally plausible. It does not make every edge universally valid within the listed regions."
+      }
+    },
+    {
+      "rank": 17,
+      "node_id": "grid_peak_load_stress",
+      "node_name": "Grid Peak Load Stress",
+      "degree": 20,
+      "profile": {
+        "scale": "power_system_and_hour_specific",
+        "applies_where": [
+          "Hot or cold weather systems with electrified heating/cooling",
+          "Capacity-constrained grids with inflexible demand and low reserve margins"
+        ],
+        "weakens_where": [
+          "Systems with demand response, storage, interconnection, efficiency, and ample firm capacity"
+        ],
+        "evidence_absent_or_limited_where": [
+          "Utilities without transparent interval load, capacity, and outage data"
+        ],
+        "temporal_context": "Minutes to seasonal peaks; planning adequacy spans years to decades.",
+        "source_locators": [
+          {
+            "url": "https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-6/",
+            "locator": "Power-system flexibility and demand response"
+          },
+          {
+            "url": "https://www.eia.gov/opendata/",
+            "locator": "EIA electricity operational data"
+          }
+        ],
+        "reviewed_at": "2026-07-18",
+        "interpretation_boundary": "This profile bounds where incident relationships are generally plausible. It does not make every edge universally valid within the listed regions."
+      }
+    },
+    {
+      "rank": 18,
+      "node_id": "marine_food_web_simplification",
+      "node_name": "Marine Food-Web Reorganization",
+      "degree": 18,
+      "profile": {
+        "scale": "ecosystem_and_trophic_network_specific",
+        "applies_where": [
+          "Heavily fished, warming, acidifying, deoxygenating, or habitat-degraded marine systems"
+        ],
+        "weakens_where": [
+          "Diverse, connected, lightly exploited systems with intact habitat and refugia"
+        ],
+        "evidence_absent_or_limited_where": [
+          "Deep sea, polar systems, microbial networks, and regions lacking repeated trophic observations"
+        ],
+        "temporal_context": "Seasonal to multi-decadal; trophic reorganization may lag physical forcing.",
+        "source_locators": [
+          {
+            "url": "https://www.ipcc.ch/report/ar6/wg2/chapter/chapter-3/",
+            "locator": "Ocean and coastal ecosystem risks"
+          },
+          {
+            "url": "https://obis.org/",
+            "locator": "OBIS marine biodiversity observations"
+          }
+        ],
+        "reviewed_at": "2026-07-18",
+        "interpretation_boundary": "This profile bounds where incident relationships are generally plausible. It does not make every edge universally valid within the listed regions."
+      }
+    },
+    {
+      "rank": 19,
+      "node_id": "wet_bulb_heat",
+      "node_name": "Wet-Bulb Heat",
+      "degree": 18,
+      "profile": {
+        "scale": "regional_heat_humidity_hazard",
+        "applies_where": [
+          "Humid tropics, monsoon regions, irrigated zones, and coastal heat environments"
+        ],
+        "weakens_where": [
+          "Dry regions where humidity is low, although dry-bulb heat can remain dangerous"
+        ],
+        "evidence_absent_or_limited_where": [
+          "Regions without reliable co-located temperature and humidity observations or exposure data"
+        ],
+        "temporal_context": "Hourly events and seasonal climatology; thresholds depend on activity, acclimatization, and exposure.",
+        "source_locators": [
+          {
+            "url": "https://www.ipcc.ch/report/ar6/wg2/chapter/chapter-7/",
+            "locator": "Heat stress and human health"
+          },
+          {
+            "url": "https://www.who.int/news-room/fact-sheets/detail/climate-change-heat-and-health",
+            "locator": "WHO heat exposure context"
+          }
+        ],
+        "reviewed_at": "2026-07-18",
+        "interpretation_boundary": "This profile bounds where incident relationships are generally plausible. It does not make every edge universally valid within the listed regions."
+      }
+    },
+    {
+      "rank": 20,
+      "node_id": "food",
+      "node_name": "Agricultural Demand",
+      "degree": 17,
+      "profile": {
+        "scale": "global_supply_with_household_outcomes",
+        "applies_where": [
+          "Import-dependent, conflict-affected, climate-exposed, and low-income populations",
+          "Regions with high food-price and livelihood sensitivity"
+        ],
+        "weakens_where": [
+          "Diversified supply chains, social protection, storage, and resilient local production"
+        ],
+        "evidence_absent_or_limited_where": [
+          "Informal markets and places lacking timely price, diet, access, and household survey data"
+        ],
+        "temporal_context": "Daily access and seasonal production embedded in multi-year economic and climate trends.",
+        "source_locators": [
+          {
+            "url": "https://www.fao.org/publications/sofi/",
+            "locator": "FAO State of Food Security and Nutrition"
+          },
+          {
+            "url": "https://www.ipcc.ch/report/ar6/wg2/chapter/chapter-5/",
+            "locator": "Food-system climate risks"
+          }
+        ],
+        "reviewed_at": "2026-07-18",
+        "interpretation_boundary": "This profile bounds where incident relationships are generally plausible. It does not make every edge universally valid within the listed regions."
+      }
+    },
+    {
+      "rank": 21,
+      "node_id": "ice_sheet_mass_loss",
+      "node_name": "Ice Sheet Mass Loss",
+      "degree": 17,
+      "profile": {
+        "scale": "greenland_and_antarctica",
+        "applies_where": [
+          "Greenland and Antarctic ice sheets and their outlet glaciers"
+        ],
+        "weakens_where": [
+          "Interior accumulation zones in periods or scenarios where snowfall offsets some dynamic loss"
+        ],
+        "evidence_absent_or_limited_where": [
+          "Subglacial processes, ice-shelf cavities, and regions with short or uncertain mass-balance records"
+        ],
+        "temporal_context": "Seasonal surface balance embedded in multi-decadal to centennial dynamic response.",
+        "source_locators": [
+          {
+            "url": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-9/",
+            "locator": "Ice sheets and sea-level contribution"
+          },
+          {
+            "url": "https://gracefo.jpl.nasa.gov/science/ice-sheets-and-glaciers/",
+            "locator": "GRACE-FO ice-mass observations"
+          }
+        ],
+        "reviewed_at": "2026-07-18",
+        "interpretation_boundary": "This profile bounds where incident relationships are generally plausible. It does not make every edge universally valid within the listed regions."
+      }
+    },
+    {
+      "rank": 22,
+      "node_id": "methane",
+      "node_name": "Methane Emissions",
+      "degree": 17,
+      "profile": {
+        "scale": "global_atmosphere_with_regional_sources",
+        "applies_where": [
+          "Fossil fuel, agriculture, waste, wetlands, and fire source regions"
+        ],
+        "weakens_where": [
+          "Regions with low emissions or strong oxidation relative to source strength"
+        ],
+        "evidence_absent_or_limited_where": [
+          "Diffuse sources, tropical wetlands, abandoned infrastructure, and regions lacking atmospheric inversions"
+        ],
+        "temporal_context": "Atmospheric response over roughly a decade; emissions vary seasonally and interannually.",
+        "source_locators": [
+          {
+            "url": "https://gml.noaa.gov/ccgg/trends_ch4/",
+            "locator": "NOAA atmospheric methane trend"
+          },
+          {
+            "url": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-7/",
+            "locator": "Methane radiative forcing and lifetime"
+          }
+        ],
+        "reviewed_at": "2026-07-18",
+        "interpretation_boundary": "This profile bounds where incident relationships are generally plausible. It does not make every edge universally valid within the listed regions."
+      }
+    },
+    {
+      "rank": 23,
+      "node_id": "urbanization",
+      "node_name": "Urbanization",
+      "degree": 17,
+      "profile": {
+        "scale": "city_and_region_specific_socioeconomic_transition",
+        "applies_where": [
+          "Rapidly growing cities and metropolitan regions where settlement, infrastructure, household, transport, industry, land and energy systems are changing together",
+          "Urban regions with spatially resolved population, built-area, energy, emissions, mobility, housing and economic observations"
+        ],
+        "weakens_where": [
+          "Compact, transit-rich, efficient or low-carbon urban systems where agglomeration and technology offset added activity",
+          "Regions where urban population growth is slow or urban and rural production emissions are weakly distinguished"
+        ],
+        "evidence_absent_or_limited_where": [
+          "Informal settlements and rapidly changing peri-urban areas with weak population, building, transport, energy or emissions inventories",
+          "Regions where territorial accounts omit large embodied interregional emissions or administrative boundaries change through time"
+        ],
+        "temporal_context": "Annual to multi-decadal transition; short-run agglomeration and efficiency effects must remain separate from long-run infrastructure, income, consumption and land-use effects.",
+        "source_locators": [
+          {
+            "url": "https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-8/",
+            "locator": "Urban systems, settlement form, infrastructure, energy use, emissions pathways, mitigation options and regional heterogeneity"
+          },
+          {
+            "url": "https://population.un.org/wup/",
+            "locator": "United Nations World Urbanization Prospects definitions and urban population series"
+          }
+        ],
+        "reviewed_at": "2026-07-18",
+        "interpretation_boundary": "This profile bounds where incident relationships are generally plausible. It does not make every edge universally valid within the listed regions."
+      }
+    },
+    {
+      "rank": 24,
+      "node_id": "marine_heatwaves",
+      "node_name": "Marine Heatwaves",
+      "degree": 16,
+      "profile": {
+        "scale": "event_and_region_specific_ocean_hazard",
+        "applies_where": [
+          "Named marine heatwave regions with declared climatology, duration, intensity, depth, and ecosystem observations",
+          "Eastern-boundary upwelling systems, coral reefs, kelp forests, seagrass meadows, and fisheries exposed to persistent anomalous heat"
+        ],
+        "weakens_where": [
+          "Regions where circulation, nutrient inputs, acclimatization, refugia, or seasonal timing offset heat effects",
+          "Short warm anomalies that do not meet the declared marine-heatwave definition"
+        ],
+        "evidence_absent_or_limited_where": [
+          "Subsurface and coastal regions lacking sustained temperature, nutrient, biomass, habitat, or species observations"
+        ],
+        "temporal_context": "Events last days to months; recurrence and ecological recovery require multi-year records, and event attribution must remain separate from long-term warming.",
+        "source_locators": [
+          {
+            "url": "https://www.ipcc.ch/report/ar6/wg2/chapter/chapter-3/",
+            "locator": "Marine heatwaves, compound ocean change, ecosystem impacts, and regional heterogeneity"
+          },
+          {
+            "url": "https://www.nature.com/articles/s43247-024-01805-w",
+            "locator": "Primary satellite and model study of phytoplankton biomass and size changes during eastern-boundary marine heatwaves"
+          }
+        ],
+        "reviewed_at": "2026-07-18",
+        "interpretation_boundary": "This profile bounds where incident relationships are generally plausible. It does not make every edge universally valid within the listed regions."
+      }
+    },
+    {
+      "rank": 25,
+      "node_id": "air_pollution_health_burden",
+      "node_name": "Air Pollution Health Burden",
+      "degree": 15,
+      "profile": {
+        "scale": "pollutant_population_and_airshed_specific",
+        "applies_where": [
+          "Densely populated urban and industrial airsheds",
+          "Households and workers exposed to combustion, wildfire smoke, dust, ozone, or fine particles"
+        ],
+        "weakens_where": [
+          "Low-emission regions with effective controls and low background pollution"
+        ],
+        "evidence_absent_or_limited_where": [
+          "Regions lacking calibrated monitors, emissions inventories, cause-specific health data, or exposure models"
+        ],
+        "temporal_context": "Hourly and daily pollution episodes accumulate into annual and chronic health burdens.",
+        "source_locators": [
+          {
+            "url": "https://www.who.int/news-room/fact-sheets/detail/ambient-(outdoor)-air-quality-and-health",
+            "locator": "WHO ambient air pollution and health assessment"
+          },
+          {
+            "url": "https://www.epa.gov/outdoor-air-quality-data",
+            "locator": "EPA ambient air monitoring data"
+          }
+        ],
+        "reviewed_at": "2026-07-18",
+        "interpretation_boundary": "This profile bounds where incident relationships are generally plausible. It does not make every edge universally valid within the listed regions."
+      }
+    }
+  ]
+}

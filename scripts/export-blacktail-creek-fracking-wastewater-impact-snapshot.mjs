@@ -1,0 +1,56 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const snapshot = {
+  version: 'blacktail_creek_fracking_wastewater_release_2014_2021_v1',
+  captured_at: '2026-08-01T00:00:00.000Z',
+  sources: [
+    {
+      id: 'epa_doj_summit_blacktail_produced_water_spill_2021',
+      name: 'North Dakota Pipeline Company to Pay $35 Million for Largest-Ever Inland Produced-Water Spill',
+      publisher: 'U.S. Environmental Protection Agency and U.S. Department of Justice',
+      publication_date: '2021-08-06',
+      url: 'https://www.epa.gov/newsreleases/north-dakota-pipeline-company-pay-35-million-criminal-fines-and-civil-penalties',
+      source_locators: ['Enforcement summary: 29 million gallons of hydraulic-fracturing produced water discharged over 143 days in 2014-2015.', 'Impact and settlement summary: land, groundwater and more than 30 miles of Missouri River tributaries were contaminated; criminal fines and civil penalties totaled USD 35 million.']
+    },
+    {
+      id: 'usgs_blacktail_creek_wastewater_persistence_2021',
+      name: 'Geochemical Signatures of Oil and Gas Wastewater from an Accidental Release Detected in Stream Sediment and Pore Waters Two Years Post Spill',
+      publisher: 'U.S. Geological Survey',
+      publication_date: '2021-06-23',
+      url: 'https://www.usgs.gov/programs/environmental-health-program/science/geochemical-signatures-oil-and-gas-wastewater',
+      source_locators: ['Study summary: oil-and-gas wastewater signatures remained detectable in Blacktail Creek water and sediment samples as many as 2.5 years after the spill.', 'Chemistry boundary: wastewaters can contain salts, hydrocarbons, metals, radioactive elements, arsenic and mercury; the receipt does not assign unsampled constituents to every sample.']
+    }
+  ],
+  metric_contract: {
+    node_id: 'fracking_wastewater_lakes',
+    metric_id: 'fracking_wastewater_risk',
+    unit: 'reported produced-water release volume, release duration, affected stream miles, enforcement amount and measured persistence',
+    geography: 'Summit Midstream pipeline near Williston and Blacktail Creek tributaries of the Missouri River, North Dakota, United States',
+    assessment_period: '2014-2021',
+    boundary: 'Scores a documented hydraulic-fracturing produced-water release to named land, groundwater and receiving waters. It does not infer release from well production, storage capacity, wastewater generation or facility presence.'
+  },
+  accumulated_impact: {
+    enforcement_reported_release_gallons: 29000000,
+    release_duration_days: 143,
+    affected_tributary_miles_more_than: 30,
+    criminal_fines_and_civil_penalties_usd: 35000000,
+    measured_geochemical_signature_persistence_years: 2.5,
+    earlier_scientific_study_release_estimate_litres: 11000000,
+    earlier_scientific_study_release_estimate_gallons_approx: 2905892,
+    represented_country_count: 1,
+    represented_country: 'United States'
+  },
+  reviewed_normalization_anchors: {
+    release_gallons: [0, 10000, 1000000, 30000000],
+    fines_and_penalties_usd: [0, 1000000, 10000000, 100000000],
+    measured_persistence_years: [0, 0.25, 1, 3],
+    represented_country_count: [0, 1, 10, 100]
+  },
+  uncertainty: 'The 2021 federal enforcement release reports 29 million gallons, while the USGS persistence summary describes the same 2015 discovery using an earlier approximately 11-million-litre estimate. The receipt uses the later enforcement value for volume and explicitly retains the discrepancy; it uses USGS only for measured persistence. The USD 35 million is criminal fines and civil penalties, not total cleanup or ecological damage. More-than-30 miles is retained as a lower-bound footprint, while normalized extent remains one country.'
+};
+
+await fs.writeFile(path.join(ROOT, 'public/blacktail-creek-fracking-wastewater-impact-snapshot.json'), `${JSON.stringify(snapshot, null, 2)}\n`);
+console.log(JSON.stringify({ output: 'public/blacktail-creek-fracking-wastewater-impact-snapshot.json', version: snapshot.version, accumulated: snapshot.accumulated_impact }, null, 2));

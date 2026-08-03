@@ -1,0 +1,41 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+
+const OUTPUT_PATH = path.resolve('public/world-bank-global-non-revenue-water-impact-snapshot.json');
+const snapshot = {
+  version: 'world_bank_global_non_revenue_water_snapshot_v1',
+  captured_at: new Date().toISOString(),
+  source: {
+    id: 'world_bank_global_non_revenue_water_assessment',
+    name: 'World Bank Global Non-Revenue Water Assessment',
+    publisher: 'World Bank',
+    assessment_year: 2018,
+    source_url: 'https://blogs.worldbank.org/en/ppps/what-do-private-companies-look-performance-based-non-revenue-water-project'
+  },
+  ingestion_job_id: 'export_world_bank_global_non_revenue_water_impact_snapshot',
+  metric_contract_ids: ['global_non_revenue_water_volume'],
+  contract_bindings: [
+    { node_id: 'urban_distribution_water_loss', metric_id: 'global_non_revenue_water_volume', measurement_role: 'global_non_revenue_water_assessment_primary' }
+  ],
+  cadence: 'Refresh when the World Bank or another authoritative source publishes a method-comparable global estimate.',
+  provenance: 'Reviewed World Bank global annual estimate. Volume and economic loss are retained separately; non-revenue water is not relabeled as physical leakage.',
+  uncertainty: 'The estimate is older and combines physical losses, meter error, illegal connections and unbilled authorized use. Utility coverage, exchange rates and valuation methods vary.',
+  failure_behavior: 'Retain the last reviewed assessment and mark stale; never treat all non-revenue water as leakage, infer city-level performance or convert missing utilities to zero.',
+  assessment: {
+    assessment_year: 2018,
+    global_non_revenue_water_billion_m3_per_year: 126,
+    global_economic_loss_usd_billion_per_year: 40,
+    persistence_years_to_2026: 8,
+    performance_contract_projects_reviewed: 43,
+    performance_contract_relative_effectiveness_pct: 68,
+    geography_boundary: 'Global public-water utility non-revenue water estimate',
+    source_locators: [
+      'World Bank: estimated global non-revenue water is 126 billion cubic metres per year.',
+      'World Bank: waste and foregone revenue are valued at nearly USD 40 billion per year.',
+      'Non-revenue water includes commercial and physical losses; it is not a leakage-only measure.'
+    ]
+  }
+};
+
+await fs.writeFile(OUTPUT_PATH, `${JSON.stringify(snapshot, null, 2)}\n`);
+console.log(JSON.stringify({ output: OUTPUT_PATH, metric_contract_ids: snapshot.metric_contract_ids }, null, 2));

@@ -1,0 +1,82 @@
+[
+  {
+    "id": "pik_tipping_points",
+    "name": "PIK Potsdam Global Tipping Point Risk Index",
+    "description": "Risk assessment metric indicating instability and proximity to irreversible thresholds in key Earth systems (Atlantic circulation, Amazon forest, West Antarctic ice sheet).",
+    "unit": "risk index",
+    "keywords": ["climate", "warming", "temperature", "tipping", "ocean", "forest", "cryosphere", "feedback", "atmosphere"],
+    "timeseries": [
+      {"year": 2015, "value": 2.2},
+      {"year": 2016, "value": 2.5},
+      {"year": 2017, "value": 2.8},
+      {"year": 2018, "value": 3.1},
+      {"year": 2019, "value": 3.5},
+      {"year": 2020, "value": 3.9},
+      {"year": 2021, "value": 4.2},
+      {"year": 2022, "value": 4.6},
+      {"year": 2023, "value": 5.1},
+      {"year": 2024, "value": 5.8}
+    ],
+    "link": "https://www.pik-potsdam.de/en/institute/departments/earth-system-analysis/research/tipping-elements"
+  },
+  {
+    "id": "wb_projected_temp",
+    "name": "World Bank CCKP Projected Temp Anomaly",
+    "description": "Projected global surface temperature anomalies relative to the 1991-2020 climatology under standard warming pathways.",
+    "unit": "°C anomaly",
+    "keywords": ["temperature", "warming", "climate", "heat", "atmosphere", "extremes"],
+    "timeseries": [
+      {"year": 2015, "value": 0.85},
+      {"year": 2016, "value": 0.92},
+      {"year": 2017, "value": 0.98},
+      {"year": 2018, "value": 1.05},
+      {"year": 2019, "value": 1.12},
+      {"year": 2020, "value": 1.20},
+      {"year": 2021, "value": 1.27},
+      {"year": 2022, "value": 1.35},
+      {"year": 2023, "value": 1.45},
+      {"year": 2024, "value": 1.54}
+    ],
+    "link": "https://climateknowledgeportal.worldbank.org/country/world/climate-data-projections"
+  },
+  {
+    "id": "wb_projected_precip",
+    "name": "World Bank CCKP Projected Precip Anomaly",
+    "description": "Model projections of anomalies in precipitation intensity and deviation from historical baselines.",
+    "unit": "% deviation",
+    "keywords": ["precipitation", "rain", "floods", "drought", "water", "atmosphere", "monsoon"],
+    "timeseries": [
+      {"year": 2015, "value": 1.5},
+      {"year": 2016, "value": 2.1},
+      {"year": 2017, "value": 1.8},
+      {"year": 2018, "value": 2.6},
+      {"year": 2019, "value": 3.2},
+      {"year": 2020, "value": 2.8},
+      {"year": 2021, "value": 3.5},
+      {"year": 2022, "value": 4.1},
+      {"year": 2023, "value": 3.8},
+      {"year": 2024, "value": 4.6}
+    ],
+    "link": "https://climateknowledgeportal.worldbank.org/country/world/climate-data-historical"
+  },
+  {
+    "id": "pik_crop_yield",
+    "name": "PIK Potsdam Projected Crop Yield Deviation",
+    "description": "Impact model showing projected global crop yield changes for major grains under combined heat stress and soil moisture deficits.",
+    "unit": "% change",
+    "keywords": ["agriculture", "farming", "crop", "food", "soil", "drought", "biosphere", "consumption"],
+    "timeseries": [
+      {"year": 2015, "value": -1.2},
+      {"year": 2016, "value": -1.8},
+      {"year": 2017, "value": -2.1},
+      {"year": 2018, "value": -2.6},
+      {"year": 2019, "value": -3.2},
+      {"year": 2020, "value": -3.8},
+      {"year": 2021, "value": -4.5},
+      {"year": 2022, "value": -5.2},
+      {"year": 2023, "value": -6.1},
+      {"year": 2024, "value": -7.2}
+    ],
+    "link": "https://www.pik-potsdam.de/en/institute/departments/climate-resilience/research/food-and-water"
+  }
+]

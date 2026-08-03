@@ -1,0 +1,120 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_31_fao_fishstat_marine_capture",
+  "generated_at": "2026-07-31T18:51:57.084Z",
+  "source_snapshot": "public/fao-fishstat-marine-capture-snapshot.json",
+  "source_id": "fao_fishstat_global_marine_capture_2026",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "fish_landing_supply_disruption",
+      "value": 3.3,
+      "band": "Elevated",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "magnitude": 0.169067,
+        "threshold": 0.169184,
+        "momentum": 0,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_global_marine_capture_tonnes": 79619643.538,
+          "baseline_median_tonnes": 80443912.799,
+          "shortfall_pct": 1.024651,
+          "anchors_shortfall_pct": [
+            0,
+            2,
+            5,
+            10
+          ]
+        },
+        "threshold": {
+          "latest_global_marine_capture_tonnes": 79619643.538,
+          "historical_distribution_anchors_tonnes": [
+            80443912.799,
+            78836145.3,
+            77911705.185,
+            77136756.807
+          ],
+          "percentiles": [
+            "median",
+            "25th",
+            "10th",
+            "2.5th"
+          ],
+          "direction": "lower_is_worse"
+        },
+        "momentum": {
+          "latest_year": 2024,
+          "prior_year": 2023,
+          "latest_tonnes": 79619643.538,
+          "prior_tonnes": 78372507.279,
+          "annual_change_pct": 1.591293,
+          "anchors_pct": [
+            0,
+            -2,
+            -5,
+            -10
+          ]
+        },
+        "extent": {
+          "geographic_scope": "All FAO marine fishing areas aggregated globally",
+          "normalized_value": 1
+        },
+        "source_snapshot": {
+          "path": "public/fao-fishstat-marine-capture-snapshot.json",
+          "version": "fao_fishstat_global_marine_capture_2026_1_0",
+          "captured_at": "2026-07-31T18:51:56.825Z",
+          "extraction": {
+            "official_workspace_sha256": "e232ca53320c1b93b497cf98999007cd50cba6c0eec3d49b61656fd3989c126c",
+            "extraction_package_version": "2026.1.0.0",
+            "extraction_package_sha256": "543531f00a624d0b238135face88f1f5402c0e398c4dac0546de56414b88fdd5",
+            "capture_rdata_sha256": "25f9089cf28724efc7e14daaa5805d38c4dd58dd9df1f873b9984c2f8ce9219e",
+            "measure_filter": "Q_tlw",
+            "area_filter": "inlandmarine == Marine areas",
+            "species_filter": "yearbook contains Fish, crustaceans and molluscs"
+          },
+          "excluded_from_scoring": [
+            "inland capture",
+            "aquaculture",
+            "number-of-individual records",
+            "regional disruption inference",
+            "unreported-catch adjustment"
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "global_marine_only_aggregation",
+          "formula": "Sum FishStat Q_tlw records in FAO marine areas for the SOFIA fish, crustaceans and molluscs category; exclude inland capture and aquaculture."
+        },
+        {
+          "type": "fixed_baseline_shortfall",
+          "formula": "Compare 2024 with the median of 30 complete annual observations from 1991-2020; a value above the median is an observed zero shortfall, not missing data."
+        },
+        {
+          "type": "reverse_historical_distribution",
+          "formula": "Map median, 25th, 10th and 2.5th percentile production to reference, concerning, critical and extreme because lower landings are worse."
+        },
+        {
+          "type": "year_over_year_momentum",
+          "formula": "Normalize the 2023-2024 percent change with negative change as worse; positive change maps to reference."
+        }
+      ],
+      "source_ids": [
+        "fao_fishstat_global_marine_capture_2026"
+      ],
+      "uncertainty": "National submissions include official, estimated, provisional and negligible-value flags; reporting coverage, illegal or unreported catch, species and area attribution, revisions and live-weight conversions affect totals. Global stability can mask severe regional or species-level disruption.",
+      "freshness": "FAO FishStat release 2026.1.0 through 2024; snapshot captured 2026-07-31T18:51:56.825Z.",
+      "selection_reason": {
+        "selected_method_passed": "FAO FishStat supplies 34 complete global marine-only annual observations, a current magnitude against a fixed baseline, a valid reverse-direction historical distribution, current momentum and complete marine-area extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:b340560a"
+    }
+  ]
+}

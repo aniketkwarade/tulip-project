@@ -1,0 +1,140 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_68_usgs_gao_alaska_coastal_permafrost",
+  "generated_at": "2026-08-01T16:33:05.635Z",
+  "source_snapshots": [
+    "public/alaska-coastal-permafrost-impact-snapshot.json"
+  ],
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "coastal_permafrost_erosion",
+      "value": 7.5,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2015",
+      "components": {
+        "biophysical_burden": 0.703,
+        "human_economic_burden": 0.7624,
+        "persistence": 1,
+        "extent": 0.33
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "studied_coastline_km_lower_bound": 1600,
+          "net_average_shoreline_retreat_m_per_year": 1.4,
+          "most_coast_retreat_rate_m_per_year_lower_bound": 1,
+          "normalization_anchors_m_per_year": [
+            0,
+            0.25,
+            1,
+            5
+          ]
+        },
+        "human_economic_burden": {
+          "assessed_villages": [
+            {
+              "name": "Kivalina",
+              "relocation_cost_lower_bound_usd": 80000000,
+              "relocation_cost_upper_bound_usd": 200000000
+            },
+            {
+              "name": "Newtok",
+              "relocation_cost_lower_bound_usd": 80000000,
+              "relocation_cost_upper_bound_usd": 200000000
+            },
+            {
+              "name": "Shishmaref",
+              "relocation_cost_lower_bound_usd": 80000000,
+              "relocation_cost_upper_bound_usd": 200000000
+            }
+          ],
+          "assessed_village_count": 3,
+          "combined_relocation_cost_lower_bound_usd": 240000000,
+          "combined_relocation_cost_upper_bound_usd": 600000000,
+          "normalization_anchors_usd": [
+            0,
+            25000000,
+            100000000,
+            600000000
+          ],
+          "boundary": "Lower-bound associated relocation burden from compound coastal flooding and erosion; not a permafrost-only causal attribution."
+        },
+        "persistence": {
+          "observed_record_years_lower_bound": 50,
+          "normalization_anchors_years": [
+            0,
+            5,
+            20,
+            50
+          ],
+          "corps_estimated_location_loss_years_range": [
+            10,
+            15
+          ]
+        },
+        "extent": {
+          "directly_assessed_country_count": 1,
+          "studied_coastline_km_lower_bound": 1600,
+          "normalization_anchors_countries": [
+            0,
+            1,
+            10,
+            100
+          ]
+        },
+        "source_snapshot": {
+          "path": "public/alaska-coastal-permafrost-impact-snapshot.json",
+          "version": "usgs_gao_alaska_coastal_permafrost_erosion_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z",
+          "source_locators": [
+            "USGS reports analysis of more than 1,600 km of northern Alaska coast over more than half a century, with most coast retreating faster than 1 m/year and net average shoreline loss of 1.4 m/year.",
+            "GAO reports Army Corps estimates that Kivalina, Newtok and Shishmaref each faced $80 million-$200 million relocation costs and 10-15 years before existing locations were lost to erosion."
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "regional_retreat_rate",
+          "formula": "Normalize the USGS net average shoreline loss rate across the assessed northern Alaska coast; retain coast length and the greater-than-1 m/year majority statement as context."
+        },
+        {
+          "type": "lower_bound_relocation_cost",
+          "formula": "Multiply the source-reported $80 million lower bound by the three named villages; retain the $200 million each upper bound without scoring it."
+        },
+        {
+          "type": "associated_burden_boundary",
+          "formula": "Treat relocation cost as associated compound coastal-erosion burden and do not attribute every dollar to permafrost thaw alone."
+        },
+        {
+          "type": "observation_persistence_floor",
+          "formula": "Use 50 years as the conservative numeric lower bound for a source record described as more than half a century."
+        },
+        {
+          "type": "bounded_country_extent",
+          "formula": "Normalize one directly assessed country; 1,600 km of Arctic coast is not expanded to pan-Arctic coverage."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "usgs_northern_alaska_shoreline_change_2015",
+        "gao_09_551_alaska_village_erosion_relocation"
+      ],
+      "uncertainty": "Shoreline response varies strongly by bluff type, exposure, sea ice, storms and interval, and the 1.4 m/year figure is a net regional average that includes erosion and accretion. The human/economic component uses the lower bound of three historical relocation-cost ranges; flooding, storms and erosion act together, so the cost is associated burden rather than a permafrost-only attribution. The assessment covers one country and is not a pan-Arctic census.",
+      "freshness": "USGS regional assessment published 2015-09-01; relocation estimates reported 2009-06-03; snapshot reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "USGS directly quantifies named Arctic-coast retreat rate and spatial coverage, while GAO reports bounded relocation-cost ranges for three named erosion-threatened villages; the receipt preserves persistence and one-country extent.",
+        "higher_priority_failures": [
+          "The latest source is a historical regional assessment rather than a current pan-Arctic aggregation.",
+          "The record does not provide a method-comparable current global magnitude, threshold and momentum series."
+        ]
+      },
+      "input_hash": "fnv1a32:d6906764"
+    }
+  ]
+}

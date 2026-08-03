@@ -1,0 +1,104 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_9_world_bank_desalination",
+  "generated_at": "2026-07-31T22:57:23.873Z",
+  "source_snapshot": "public/world-bank-desalination-impact-snapshot.json",
+  "source_id": "world_bank_the_role_of_desalination_in_an_increasingly_water_scarce_world",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "desalination_dependence",
+      "value": 7.6,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2019",
+      "components": {
+        "biophysical_burden": 0.8515,
+        "human_economic_burden": 0.78,
+        "persistence": 0.398,
+        "extent": 0.777202
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "middle_east_capacity_million_m3_day": 34.1,
+          "middle_east_share_global_capacity_pct": 44,
+          "implied_global_installed_capacity_million_m3_day": 77.5,
+          "anchors_million_m3_day": [
+            0,
+            25,
+            50,
+            100
+          ],
+          "boundary": "Installed capacity, not actual production or municipal-supply share."
+        },
+        "human_economic_burden": {
+          "people_supplied_daily_million": 300,
+          "anchors_million_people": [
+            0,
+            100,
+            200,
+            500
+          ],
+          "global_desalination_plants_lower_bound_context_only": 20000
+        },
+        "persistence": {
+          "source_capacity_panel_start_year": 2010,
+          "source_capacity_panel_end_year": 2016,
+          "source_capacity_panel_year_span": 6,
+          "anchors_years": [
+            0,
+            5,
+            10,
+            20
+          ],
+          "boundary": "Persistence uses only the report figure period and does not reconstruct annual capacity values."
+        },
+        "extent": {
+          "countries_using_desalination_lower_bound": 150,
+          "un_member_state_denominator": 193,
+          "normalized_value": 0.777202,
+          "geography_boundary": "Global assessment covering more than 150 countries"
+        },
+        "source_snapshot": {
+          "path": "public/world-bank-desalination-impact-snapshot.json",
+          "version": "world_bank_desalination_2019_global_snapshot_v1",
+          "captured_at": "2026-07-31T16:45:47.564Z",
+          "source_locators": [
+            "World Bank report executive summary: plant, country and people totals",
+            "World Bank report chapter 2: Middle East capacity and global share",
+            "World Bank report figure 2.2: global installed capacity, 2010–2016"
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "transparent_global_capacity_implication",
+          "formula": "34.1 million m3/day Middle East capacity / 0.44 source-reported global share; retain rounding uncertainty and label as installed capacity."
+        },
+        {
+          "type": "fixed_dependence_ranges",
+          "formula": "Normalize implied installed capacity and approximate people supplied through named fixed ranges."
+        },
+        {
+          "type": "country_extent_ratio",
+          "formula": "More than 150 source-reported countries using desalination / 193 UN Member States; use 150 as a conservative lower bound."
+        }
+      ],
+      "source_ids": [
+        "world_bank_the_role_of_desalination_in_an_increasingly_water_scarce_world"
+      ],
+      "uncertainty": "Plant and capacity databases change rapidly and may include announced, contracted, installed or operating capacity differently. The global capacity total is derived from a rounded regional value and rounded share. People supplied is an approximate assessment total, not a utility-level service denominator.",
+      "freshness": "World Bank 2019 global technical assessment; snapshot captured 2026-07-31T16:45:47.564Z.",
+      "selection_reason": {
+        "selected_method_passed": "The World Bank quantifies global plant stock, an installed-capacity share, people supplied, a multi-year capacity panel and country extent.",
+        "higher_priority_failures": [
+          "The public assessment does not provide 20 complete annual global observations for the contracted supply-dependence measure.",
+          "No recognized global urgency threshold or source-consistent recent momentum series supports current-data scoring."
+        ]
+      },
+      "input_hash": "fnv1a32:4501a444"
+    }
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_25_ember_global_hydropower_shortfall",
+  "generated_at": "2026-07-31T22:57:34.800Z",
+  "source_snapshot": "public/ember-global-power-snapshot.json",
+  "source_id": "ember_global_electricity_data",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "hydropower_reliability_decline",
+      "value": 7.2,
+      "band": "Critical",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "magnitude": 0.764604,
+        "threshold": 0.764604,
+        "momentum": 0.33,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_generation_twh": 4432.3,
+          "fitted_expected_generation_twh": 4641.455214,
+          "latest_shortfall_pct": 4.506242,
+          "historical_median_shortfall_baseline_pct": -0.140583,
+          "excess_shortfall_over_baseline_percentage_points": 4.646825,
+          "complete_annual_observations": 26,
+          "anchors_percentage_points": [
+            0,
+            2.392124,
+            4.177333,
+            5.815031
+          ],
+          "source_locator": "https://storage.googleapis.com/emb-prod-bkt-publicdata/public-downloads/yearly_full_release_long_format.csv; Area=World; Category=Electricity generation; Subcategory=Fuel; Variable=Hydro; Unit=TWh; Year=2025"
+        },
+        "threshold": {
+          "latest_shortfall_pct": 4.506242,
+          "threshold_basis": "historical_distribution_fallback",
+          "anchors_pct": [
+            -0.140583,
+            2.251541,
+            4.03675,
+            5.674448
+          ],
+          "source_locator": "https://storage.googleapis.com/emb-prod-bkt-publicdata/public-downloads/yearly_full_release_long_format.csv; Area=World; Category=Electricity generation; Subcategory=Fuel; Variable=Hydro; Unit=TWh; Year=2025"
+        },
+        "momentum": {
+          "latest_year_over_year_shortfall_change_percentage_points": 1.832127,
+          "annual_change_observations": 25,
+          "anchors_percentage_points": [
+            0.732481,
+            1.832127,
+            3.180855,
+            4.563577
+          ],
+          "source_locator": "https://storage.googleapis.com/emb-prod-bkt-publicdata/public-downloads/yearly_full_release_long_format.csv; Area=World; Category=Electricity generation; Subcategory=Fuel; Variable=Hydro; Unit=TWh; Year=2025"
+        },
+        "extent": {
+          "geography": "World",
+          "normalized_value": 1,
+          "definition": "Ember source-reported World hydropower generation; no country rows are summed.",
+          "source_locator": "https://storage.googleapis.com/emb-prod-bkt-publicdata/public-downloads/yearly_full_release_long_format.csv; Area=World; Category=Electricity generation; Subcategory=Fuel; Variable=Hydro; Unit=TWh; Year=2025"
+        },
+        "expectation_model": {
+          "type": "ordinary_least_squares_linear_generation_trend",
+          "start_year": 2000,
+          "end_year": 2025,
+          "slope_twh_per_year": 84.055094,
+          "intercept_twh": -165570.110171,
+          "boundary": "Expected output is a transparent historical trend, not installed capacity, climate-normal generation or a causal hydrological attribution."
+        },
+        "source_snapshot": {
+          "path": "public/ember-global-power-snapshot.json",
+          "version": "ember_yearly_global_power_2026-06-23_v1",
+          "captured_at": "2026-07-31T18:09:17.174Z",
+          "source_last_modified": "Tue, 23 Jun 2026 10:58:24 GMT"
+        }
+      },
+      "transformations": [
+        {
+          "type": "source_reported_world_hydropower_generation",
+          "formula": "Retain Ember Area=World / Electricity generation / Fuel / Hydro / TWh annual rows without country aggregation."
+        },
+        {
+          "type": "transparent_expected_output",
+          "formula": "Fit one OLS line to the complete retained global generation history and express annual below-trend output as percent of fitted output."
+        },
+        {
+          "type": "historical_distribution_normalization",
+          "formula": "Map shortfall magnitude, shortfall position and annual worsening through median / p75 / p90 / p97.5 anchors from the complete series."
+        }
+      ],
+      "source_ids": [
+        "ember_global_electricity_data"
+      ],
+      "uncertainty": "Ember reconciles national and multi-country generation sources, estimates some latest-year values from monthly data, and calculates fuel-specific lifecycle power emissions using documented IPCC and technology factors. Country coverage, thermal disaggregation, imports, captive power and revised upstream statistics affect the World series. The linear expected-output counterfactual does not isolate hydrology, capacity additions, outages, dispatch, curtailment or electricity demand.",
+      "freshness": "Annual Ember Yearly Electricity Data through 2025; snapshot captured 2026-07-31T18:09:17.174Z.",
+      "selection_reason": {
+        "selected_method_passed": "Ember supplies 26 complete annual source-reported World hydropower generation observations; a transparent trend residual supplies current shortfall magnitude, historical position and momentum at global scope.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:db333108"
+    }
+  ]
+}

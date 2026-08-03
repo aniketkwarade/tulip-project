@@ -1,0 +1,122 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_27_noaa_ioc_coastal_hypoxia",
+  "generated_at": "2026-07-31T22:57:35.351Z",
+  "source_snapshots": [
+    "public/noaa-coastal-hypoxia-snapshot.json",
+    "public/ioc-global-ocean-oxygen-impact-snapshot.json"
+  ],
+  "source_ids": [
+    "noaa_dynamics_and_distribution_of_natural_and_human_caused_coastal_hypoxia",
+    "ioc_unesco_global_ocean_oxygen_network"
+  ],
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "coastal_hypoxia",
+      "value": 8.1,
+      "band": "Critical",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "magnitude": 0.716236,
+        "threshold": 0.716236,
+        "momentum": 0.835,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "noaa_gulf_hypoxic_area_km2": 11401.1,
+          "source_reported_square_miles": 4402,
+          "survey_window": [
+            "July 20, 2025",
+            "July 25, 2025"
+          ],
+          "anchors_km2": [
+            0,
+            5000,
+            10000,
+            20000
+          ],
+          "geography": "northern Gulf of America continental shelf off Louisiana and Texas"
+        },
+        "threshold": {
+          "dissolved_oxygen_threshold_mg_l": 2,
+          "hypoxic_area_management_goal_km2": 5000,
+          "goal_horizon_year": 2035,
+          "observed_to_goal_ratio": 2.28022,
+          "anchors_ratio": [
+            1,
+            1.25,
+            2,
+            4
+          ],
+          "boundary": "EPA goal is a five-year running-average area; the annual 2025 observation is retained as an annual value and not mislabeled as that average."
+        },
+        "momentum": {
+          "role": "accumulated_impact_fill_for_unavailable_global_momentum",
+          "global_coastal_low_oxygen_sites_lower_bound": 500,
+          "comparison_start_decade": 1960,
+          "anchors_sites": [
+            0,
+            50,
+            250,
+            750
+          ],
+          "boundary": "Site inventory is used only as accumulated spread evidence; it is not an annual trend or global area."
+        },
+        "extent": {
+          "geographic_scope": "global open ocean, estuaries and other coastal water bodies",
+          "normalized_value": 1,
+          "boundary": "Global presence, not uniform coverage or concurrent area."
+        },
+        "source_snapshots": [
+          {
+            "path": "public/noaa-coastal-hypoxia-snapshot.json",
+            "version": "noaa_gulf_coastal_hypoxia_2025_v1",
+            "captured_at": "2026-07-19T05:15:06.742Z"
+          },
+          {
+            "path": "public/ioc-global-ocean-oxygen-impact-snapshot.json",
+            "version": "ioc_unesco_go2ne_global_ocean_oxygen_v1",
+            "captured_at": "2026-07-31T21:56:51.289Z",
+            "source_locators": [
+              "IOC-UNESCO GO2NE: since the 1960s, low-oxygen open-ocean area increased by 4.5 million square kilometres.",
+              "IOC-UNESCO GO2NE: over 500 low-oxygen sites identified in estuaries and other coastal water bodies.",
+              "UNESCO Ocean Decade: the ocean directly supports the livelihoods of about 500 million people, retained as exposed ocean-service scope rather than attributable harm."
+            ]
+          }
+        ],
+        "current_data_coverage_weight": 0.6,
+        "accumulated_impact_fill_weight": 0.4
+      },
+      "transformations": [
+        {
+          "type": "bounded_current_area",
+          "formula": "Normalize the NOAA source-reported 2025 northern-Gulf hypoxic-zone area; do not extrapolate it to other coasts."
+        },
+        {
+          "type": "recognized_management_goal_position",
+          "formula": "Divide the annual observed area by the EPA Hypoxia Task Force 5,000-square-kilometre management goal while preserving the annual-versus-five-year-average distinction."
+        },
+        {
+          "type": "accumulated_global_fill",
+          "formula": "Use the IOC-UNESCO lower-bound coastal site inventory for the unavailable momentum component and global presence for extent; never convert sites to area."
+        }
+      ],
+      "source_ids": [
+        "noaa_dynamics_and_distribution_of_natural_and_human_caused_coastal_hypoxia",
+        "ioc_unesco_global_ocean_oxygen_network"
+      ],
+      "uncertainty": "The status page does not publish an interval for the annual mapped area. Cruise timing, station spacing, contour interpolation, storms, mixing, river discharge, nutrient load and transient oxygen conditions affect the mapped maximum midsummer extent. Coastal monitoring is geographically uneven and underreporting is likely, especially in the tropics. Site inventories do not provide consistent area, duration, severity or observation cadence and cannot be summed into a global hypoxic area.",
+      "freshness": "NOAA 2025 midsummer survey and current IOC-UNESCO GO2NE assessment; companion snapshot captured 2026-07-31T21:56:51.289Z.",
+      "selection_reason": {
+        "selected_method_passed": "NOAA supplies current magnitude and recognized threshold position for 60 percent of component weight; quantitative IOC-UNESCO accumulated-impact indicators fill the remaining 40 percent and establish global presence.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:b306170e"
+    }
+  ]
+}

@@ -1,0 +1,489 @@
+[
+  {
+    "id": "northern_hotspots",
+    "name": "VIIRS Hotspots (Northern ASEAN)",
+    "description": "Satellite-detected active fire hotspots in Northern Southeast Asia (Mekong sub-region), tracking dry season forest clearing.",
+    "unit": "hotspots/month",
+    "keywords": [
+      "deforestation",
+      "forest",
+      "land cover",
+      "wildfire",
+      "fire",
+      "coal",
+      "agriculture",
+      "farming",
+      "pesticide",
+      "agricultural"
+    ],
+    "timeseries": [
+      {
+        "year": 2015,
+        "value": 12400
+      },
+      {
+        "year": 2016,
+        "value": 6200
+      },
+      {
+        "year": 2017,
+        "value": 5800
+      },
+      {
+        "year": 2018,
+        "value": 8400
+      },
+      {
+        "year": 2019,
+        "value": 14500
+      },
+      {
+        "year": 2020,
+        "value": 7100
+      },
+      {
+        "year": 2021,
+        "value": 5900
+      },
+      {
+        "year": 2022,
+        "value": 4800
+      },
+      {
+        "year": 2023,
+        "value": 11200
+      },
+      {
+        "year": 2024,
+        "value": 9800
+      }
+    ],
+    "link": "https://haze.asean.org/"
+  },
+  {
+    "id": "southern_hotspots",
+    "name": "VIIRS Hotspots (Southern ASEAN)",
+    "description": "Active fire hotspots in Southern Southeast Asia, primarily monitoring peatland fires in Sumatra and Kalimantan.",
+    "unit": "hotspots/month",
+    "keywords": [
+      "deforestation",
+      "forest",
+      "land cover",
+      "wildfire",
+      "fire",
+      "methane",
+      "soil",
+      "biosphere"
+    ],
+    "timeseries": [
+      {
+        "year": 2015,
+        "value": 18500
+      },
+      {
+        "year": 2016,
+        "value": 4200
+      },
+      {
+        "year": 2017,
+        "value": 3800
+      },
+      {
+        "year": 2018,
+        "value": 5100
+      },
+      {
+        "year": 2019,
+        "value": 16800
+      },
+      {
+        "year": 2020,
+        "value": 3100
+      },
+      {
+        "year": 2021,
+        "value": 2800
+      },
+      {
+        "year": 2022,
+        "value": 2400
+      },
+      {
+        "year": 2023,
+        "value": 9400
+      },
+      {
+        "year": 2024,
+        "value": 5800
+      }
+    ],
+    "link": "https://haze.asean.org/"
+  },
+  {
+    "id": "haze_density",
+    "name": "Smoke Haze Density Index",
+    "description": "Regional composite index of transboundary smoke haze density mapped from visible satellite channel imagery.",
+    "unit": "index value",
+    "keywords": [
+      "atmosphere",
+      "air",
+      "pollution",
+      "pm25",
+      "aerosol",
+      "health",
+      "smoke",
+      "haze",
+      "carbon",
+      "co2",
+      "greenhouse",
+      "emissions"
+    ],
+    "timeseries": [
+      {
+        "year": 2015,
+        "value": 8.5
+      },
+      {
+        "year": 2016,
+        "value": 2.1
+      },
+      {
+        "year": 2017,
+        "value": 1.8
+      },
+      {
+        "year": 2018,
+        "value": 3.2
+      },
+      {
+        "year": 2019,
+        "value": 7.9
+      },
+      {
+        "year": 2020,
+        "value": 1.5
+      },
+      {
+        "year": 2021,
+        "value": 1.4
+      },
+      {
+        "year": 2022,
+        "value": 1.2
+      },
+      {
+        "year": 2023,
+        "value": 5.4
+      },
+      {
+        "year": 2024,
+        "value": 3.8
+      }
+    ],
+    "link": "https://haze.asean.org/"
+  },
+  {
+    "id": "rainfall_anomaly",
+    "name": "ASEAN Seasonal Rainfall Anomaly",
+    "description": "Monsoon precipitation deviation from the 30-year regional baseline, indicating severe dry spell or flood risks.",
+    "unit": "% deviation",
+    "keywords": [
+      "atmosphere",
+      "climate",
+      "precipitation",
+      "rain",
+      "weather",
+      "floods",
+      "water",
+      "freshwater",
+      "river",
+      "streamflow",
+      "runoff"
+    ],
+    "timeseries": [
+      {
+        "year": 2015,
+        "value": -24.5
+      },
+      {
+        "year": 2016,
+        "value": 12.1
+      },
+      {
+        "year": 2017,
+        "value": 8.5
+      },
+      {
+        "year": 2018,
+        "value": -4.2
+      },
+      {
+        "year": 2019,
+        "value": -18.9
+      },
+      {
+        "year": 2020,
+        "value": 15.2
+      },
+      {
+        "year": 2021,
+        "value": 10.4
+      },
+      {
+        "year": 2022,
+        "value": 14.8
+      },
+      {
+        "year": 2023,
+        "value": -11.5
+      },
+      {
+        "year": 2024,
+        "value": 2.5
+      }
+    ],
+    "link": "https://asmc.asean.org/"
+  },
+  {
+    "id": "mjo_amplitude",
+    "name": "MJO Wave Amplitude Index",
+    "description": "Strength of the tropical Madden-Julian Oscillation, a key climate driver modulating rain and cloudiness in Southeast Asia.",
+    "unit": "amplitude index",
+    "keywords": [
+      "atmosphere",
+      "climate",
+      "wind",
+      "temp",
+      "storm",
+      "cyclone",
+      "extremes",
+      "disaster",
+      "temperature",
+      "heat"
+    ],
+    "timeseries": [
+      {
+        "year": 2015,
+        "value": 1.45
+      },
+      {
+        "year": 2016,
+        "value": 1.62
+      },
+      {
+        "year": 2017,
+        "value": 1.5
+      },
+      {
+        "year": 2018,
+        "value": 1.35
+      },
+      {
+        "year": 2019,
+        "value": 1.58
+      },
+      {
+        "year": 2020,
+        "value": 1.72
+      },
+      {
+        "year": 2021,
+        "value": 1.68
+      },
+      {
+        "year": 2022,
+        "value": 1.85
+      },
+      {
+        "year": 2023,
+        "value": 1.48
+      },
+      {
+        "year": 2024,
+        "value": 1.52
+      }
+    ],
+    "link": "https://asmc.asean.org/"
+  },
+  {
+    "id": "sst_anomaly",
+    "name": "Equatorial Sea Surface Temp Anomaly",
+    "description": "Sea surface temperature anomalies in equatorial Southeast Asian seas, controlling convective cloud formations.",
+    "unit": "\u00b0C anomaly",
+    "keywords": [
+      "oceans",
+      "sea",
+      "reef",
+      "marine",
+      "temperature",
+      "heat",
+      "warming",
+      "climate",
+      "ph",
+      "acidification",
+      "cryosphere"
+    ],
+    "timeseries": [
+      {
+        "year": 2015,
+        "value": 0.85
+      },
+      {
+        "year": 2016,
+        "value": 0.92
+      },
+      {
+        "year": 2017,
+        "value": 0.52
+      },
+      {
+        "year": 2018,
+        "value": 0.45
+      },
+      {
+        "year": 2019,
+        "value": 0.78
+      },
+      {
+        "year": 2020,
+        "value": 0.81
+      },
+      {
+        "year": 2021,
+        "value": 0.42
+      },
+      {
+        "year": 2022,
+        "value": 0.38
+      },
+      {
+        "year": 2023,
+        "value": 0.95
+      },
+      {
+        "year": 2024,
+        "value": 1.12
+      }
+    ],
+    "link": "https://asmc.asean.org/"
+  },
+  {
+    "id": "boundary_layer_winds",
+    "name": "Tropospheric Wind Speeds (925hPa)",
+    "description": "Numerical meteorological model boundary layer winds governing regional smoke haze dispersion directions.",
+    "unit": "m/s",
+    "keywords": [
+      "atmosphere",
+      "air",
+      "wind",
+      "pollution",
+      "smoke",
+      "haze",
+      "aerosol",
+      "transport"
+    ],
+    "timeseries": [
+      {
+        "year": 2015,
+        "value": 4.8
+      },
+      {
+        "year": 2016,
+        "value": 5.1
+      },
+      {
+        "year": 2017,
+        "value": 4.9
+      },
+      {
+        "year": 2018,
+        "value": 5.3
+      },
+      {
+        "year": 2019,
+        "value": 4.6
+      },
+      {
+        "year": 2020,
+        "value": 5.5
+      },
+      {
+        "year": 2021,
+        "value": 5.2
+      },
+      {
+        "year": 2022,
+        "value": 5.8
+      },
+      {
+        "year": 2023,
+        "value": 4.7
+      },
+      {
+        "year": 2024,
+        "value": 5.0
+      }
+    ],
+    "link": "https://asmc.asean.org/asmc-gis-portal/"
+  },
+  {
+    "id": "drought_index",
+    "name": "ASEAN Drought Risk Index",
+    "description": "Composite index tracking dry spell periods and soil moisture deficits, mapping agricultural wildfire risks.",
+    "unit": "risk level (0-10)",
+    "keywords": [
+      "drought",
+      "dry",
+      "water",
+      "freshwater",
+      "soil",
+      "agricultural",
+      "farming",
+      "irrigation",
+      "aquifer"
+    ],
+    "timeseries": [
+      {
+        "year": 2015,
+        "value": 8.2
+      },
+      {
+        "year": 2016,
+        "value": 2.5
+      },
+      {
+        "year": 2017,
+        "value": 2.1
+      },
+      {
+        "year": 2018,
+        "value": 4.5
+      },
+      {
+        "year": 2019,
+        "value": 7.8
+      },
+      {
+        "year": 2020,
+        "value": 1.8
+      },
+      {
+        "year": 2021,
+        "value": 1.5
+      },
+      {
+        "year": 2022,
+        "value": 1.2
+      },
+      {
+        "year": 2023,
+        "value": 6.2
+      },
+      {
+        "year": 2024,
+        "value": 3.5
+      }
+    ],
+    "link": "https://asmc.asean.org/"
+  }
+]

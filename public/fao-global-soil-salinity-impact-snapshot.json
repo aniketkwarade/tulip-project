@@ -1,0 +1,57 @@
+{
+  "version": "fao_global_soil_salinity_impact_v1",
+  "captured_at": "2026-07-31T21:32:51.837Z",
+  "source": {
+    "id": "fao_global_soil_salinity_impact",
+    "name": "FAO Global Soil Salinity Assessment",
+    "publisher": "Food and Agriculture Organization of the United Nations",
+    "assessment_year": 2024,
+    "report_url": "https://openknowledge.fao.org/handle/20.500.14283/cd3044en",
+    "release_url": "https://www.fao.org/newsroom/detail/fao-launches-first-major-global-assessment-of-salt-affected-soils-in-50-years/",
+    "economic_context_url": "https://www.fao.org/global-soil-partnership/areas-of-work/soil-salinity/en/",
+    "human_context_url": "https://www.fao.org/global-soil-partnership/resources/highlights/detail/en/c/1445579/"
+  },
+  "ingestion_job_id": "export_fao_global_soil_salinity_impact_snapshot",
+  "metric_contract_ids": [
+    "root_zone_soil_electrical_conductivity_and_salt_affected_area"
+  ],
+  "contract_bindings": [
+    {
+      "node_id": "topsoil_salinization_fields",
+      "metric_contract_id": "root_zone_soil_electrical_conductivity_and_salt_affected_area",
+      "measurement_role": "global_accumulated_salt_affected_area_crop_loss_annual_land_loss_and_extent"
+    }
+  ],
+  "cadence": "Refresh when FAO publishes a successor global salt-affected-soils assessment or Global Soil Salinity Map.",
+  "provenance": "Official FAO global assessment and Global Soil Partnership summaries. Current mapped area, affected land share, annual crop-production cost, annual land removed from production and population context are retained as separate source-reported quantities.",
+  "uncertainty": "The 2024 global map combines heterogeneous national inventories, remote sensing, soil surveys and models. Natural salinity and human-induced salinization are not fully separable everywhere. The annual land-loss and crop-cost estimates come from earlier assessment syntheses and are not a current observation series. Irrigated-land and population exposure do not imply uniform yield loss.",
+  "failure_behavior": "Retain the last reviewed assessment and mark stale. Reject changed area, currency, annualization, land or salinity boundaries. Never treat all salt-affected land as human-caused, distribute a global burden uniformly, score the additional area at risk as already affected, or fill missing uncertainty with zero.",
+  "assessment": {
+    "assessment_year": 2024,
+    "global_salt_affected_soil_million_hectares": 1381,
+    "global_land_area_affected_pct": 10.7,
+    "additional_land_at_risk_million_hectares": 1000,
+    "irrigated_cropland_affected_pct": 10,
+    "rainfed_cropland_affected_pct": 10,
+    "annual_farmland_removed_from_production_million_hectares": 1.5,
+    "annual_crop_production_loss_usd_billion": 27.3,
+    "people_facing_food_production_challenges_billion": 1.5,
+    "countries_most_affected_yield_loss_upper_pct": 70,
+    "global_extent_normalized": 1,
+    "geographic_scope": "Global land assessment with salt-affected soils on all continents and explicit irrigated and rainfed cropland estimates",
+    "source_locators": {
+      "biophysical_burden": "FAO 2024 release: 1,381 million hectares, or 10.7 percent of global land, are salt-affected.",
+      "human_economic_burden": "FAO Global Soil Partnership: global annual cost of salt-induced land degradation in irrigated areas is estimated at US$27.3 billion in lost crop production.",
+      "persistence": "FAO Global Soil Partnership: salinization takes up to 1.5 million hectares of farmland out of production each year.",
+      "extent": "FAO Global Soil Partnership: salt-affected soils occur on all continents; the 2024 assessment reports global irrigated and rainfed cropland shares.",
+      "human_context": "FAO Global Soil Partnership 2021 map release: more than 1.5 billion people face significant food-growing challenges associated with saline irrigated soils."
+    }
+  },
+  "excluded_from_scoring": [
+    "one billion additional hectares at risk, which is not added to currently affected area",
+    "upper-bound crop-yield losses in the most affected countries, which are not a global mean",
+    "population challenge context, which is retained but not added to the monetary burden",
+    "future 24 to 32 percent land-area projections",
+    "unreported uncertainty as zero"
+  ]
+}

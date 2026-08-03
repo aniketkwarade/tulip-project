@@ -1,0 +1,411 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_52_ceds_global_sector_fuel_co2",
+  "generated_at": "2026-08-01T15:38:13.072Z",
+  "source_snapshot": "public/ceds-sector-fuel-co2-snapshot.json",
+  "source_id": "ceds_v2024_04_01_release_emission_data",
+  "promoted_node_count": 4,
+  "receipts": [
+    {
+      "node_id": "commercial_gas_heat_co2",
+      "value": 7.6,
+      "band": "Critical",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2022",
+      "components": {
+        "magnitude": 0.972754,
+        "threshold": 0.972754,
+        "momentum": 0,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_year": 2022,
+          "latest_global_kt_co2": 469938.654381,
+          "historical_distribution_anchors_kt_co2": [
+            303736.17314,
+            387639.987713,
+            422698.720167,
+            474189.994208
+          ],
+          "direction": "higher_is_worse"
+        },
+        "threshold": {
+          "basis": "historical_distribution_fallback_no_recognized_global_sector_fuel_co2_threshold",
+          "anchors_kt_co2": [
+            303736.17314,
+            387639.987713,
+            422698.720167,
+            474189.994208
+          ],
+          "complete_prior_annual_observations": 52
+        },
+        "momentum": {
+          "prior_year": 2021,
+          "prior_global_kt_co2": 476301.757556,
+          "latest_annual_change_kt_co2": -6363.103175,
+          "historical_change_anchors_kt_co2": [
+            3438.183086,
+            11602.879659,
+            21351.367796,
+            30488.996958
+          ]
+        },
+        "extent": {
+          "normalized_value": 1,
+          "geography": "CEDS source-native global aggregate",
+          "aggregation": "Sum CEDS global CO2 rows for sectors 1A4a_Commercial-institutional and fuels natural_gas."
+        },
+        "coverage_gate": {
+          "direct_components": [
+            "magnitude",
+            "threshold",
+            "momentum",
+            "extent"
+          ],
+          "global_scope": true,
+          "current_observation": true
+        },
+        "source_snapshot": {
+          "path": "public/ceds-sector-fuel-co2-snapshot.json",
+          "version": "ceds_v2024_04_01_global_sector_fuel_co2_v1",
+          "archive_md5": "636752881e915244bb96b4793d9fb121",
+          "archive_sha256": "913237080a65c9166a0270b9765bb1489701c125aebe0f512f0da2634098d04e",
+          "member_sha256": "5568aba2a7a83d5d8a2a658cc0e2e9956470cd70caf3c3bb640493afcb9e1fac",
+          "annual_observations": 53
+        }
+      },
+      "transformations": [
+        {
+          "type": "contract_bound_fuel_sector_aggregation",
+          "formula": "Sum CEDS global CO2 rows for sectors 1A4a_Commercial-institutional and fuels natural_gas."
+        },
+        {
+          "type": "historical_distribution_normalization",
+          "formula": "Map the prior annual median, p75, p90 and p97.5 to 0, 0.33, 0.67 and 1 because no recognized global threshold exists for this exact sector-fuel CO2 total."
+        },
+        {
+          "type": "annual_change_momentum",
+          "formula": "Normalize the latest complete-year change against the preceding complete annual changes."
+        },
+        {
+          "type": "global_extent",
+          "formula": "Assign full extent because the selected rows are CEDS source-native global aggregates."
+        }
+      ],
+      "source_ids": [
+        "ceds_v2024_04_01_release_emission_data",
+        "mcduffie_ceds_sector_fuel_specific_inventory_2020"
+      ],
+      "uncertainty": "CEDS is an inventory estimate assembled from activity data, emission factors and scaling inventories rather than a direct global monitor. Fuel and sector assignments, historical revisions and national input quality affect values. The latest release observation is 2022; it is the newest complete year in this source, not a 2026 nowcast. Missing values are never converted to zero. Each metric uses only its declared sector-fuel rows. Biomass, coal, non-declared oil fuels, natural gas outside the gas metrics, heat production, non-building end uses and non-electricity power rows are excluded as applicable.",
+      "freshness": "Latest complete inventory year 2022; CEDS release 2024-04-01; snapshot reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "CEDS supplies 53 complete source-native global annual observations for the exact declared sector-fuel aggregation, covering magnitude, historical position, momentum and extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:109c5c4e"
+    },
+    {
+      "node_id": "residential_gas_heat_co2",
+      "value": 7.6,
+      "band": "Critical",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2022",
+      "components": {
+        "magnitude": 0.96414,
+        "threshold": 0.96414,
+        "momentum": 0,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_year": 2022,
+          "latest_global_kt_co2": 1104008.759001,
+          "historical_distribution_anchors_kt_co2": [
+            782314.461448,
+            934223.980965,
+            996198.269349,
+            1117152.624353
+          ],
+          "direction": "higher_is_worse"
+        },
+        "threshold": {
+          "basis": "historical_distribution_fallback_no_recognized_global_sector_fuel_co2_threshold",
+          "anchors_kt_co2": [
+            782314.461448,
+            934223.980965,
+            996198.269349,
+            1117152.624353
+          ],
+          "complete_prior_annual_observations": 52
+        },
+        "momentum": {
+          "prior_year": 2021,
+          "prior_global_kt_co2": 1159734.446919,
+          "latest_annual_change_kt_co2": -55725.687918,
+          "historical_change_anchors_kt_co2": [
+            19835.781168,
+            27433.151376,
+            47374.361697,
+            71985.139888
+          ]
+        },
+        "extent": {
+          "normalized_value": 1,
+          "geography": "CEDS source-native global aggregate",
+          "aggregation": "Sum CEDS global CO2 rows for sectors 1A4b_Residential and fuels natural_gas."
+        },
+        "coverage_gate": {
+          "direct_components": [
+            "magnitude",
+            "threshold",
+            "momentum",
+            "extent"
+          ],
+          "global_scope": true,
+          "current_observation": true
+        },
+        "source_snapshot": {
+          "path": "public/ceds-sector-fuel-co2-snapshot.json",
+          "version": "ceds_v2024_04_01_global_sector_fuel_co2_v1",
+          "archive_md5": "636752881e915244bb96b4793d9fb121",
+          "archive_sha256": "913237080a65c9166a0270b9765bb1489701c125aebe0f512f0da2634098d04e",
+          "member_sha256": "5568aba2a7a83d5d8a2a658cc0e2e9956470cd70caf3c3bb640493afcb9e1fac",
+          "annual_observations": 53
+        }
+      },
+      "transformations": [
+        {
+          "type": "contract_bound_fuel_sector_aggregation",
+          "formula": "Sum CEDS global CO2 rows for sectors 1A4b_Residential and fuels natural_gas."
+        },
+        {
+          "type": "historical_distribution_normalization",
+          "formula": "Map the prior annual median, p75, p90 and p97.5 to 0, 0.33, 0.67 and 1 because no recognized global threshold exists for this exact sector-fuel CO2 total."
+        },
+        {
+          "type": "annual_change_momentum",
+          "formula": "Normalize the latest complete-year change against the preceding complete annual changes."
+        },
+        {
+          "type": "global_extent",
+          "formula": "Assign full extent because the selected rows are CEDS source-native global aggregates."
+        }
+      ],
+      "source_ids": [
+        "ceds_v2024_04_01_release_emission_data",
+        "mcduffie_ceds_sector_fuel_specific_inventory_2020"
+      ],
+      "uncertainty": "CEDS is an inventory estimate assembled from activity data, emission factors and scaling inventories rather than a direct global monitor. Fuel and sector assignments, historical revisions and national input quality affect values. The latest release observation is 2022; it is the newest complete year in this source, not a 2026 nowcast. Missing values are never converted to zero. Each metric uses only its declared sector-fuel rows. Biomass, coal, non-declared oil fuels, natural gas outside the gas metrics, heat production, non-building end uses and non-electricity power rows are excluded as applicable.",
+      "freshness": "Latest complete inventory year 2022; CEDS release 2024-04-01; snapshot reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "CEDS supplies 53 complete source-native global annual observations for the exact declared sector-fuel aggregation, covering magnitude, historical position, momentum and extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:eded7799"
+    },
+    {
+      "node_id": "oil_building_heat_co2",
+      "value": 2.9,
+      "band": "Low",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2022",
+      "components": {
+        "magnitude": 0,
+        "threshold": 0,
+        "momentum": 0.23544,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_year": 2022,
+          "latest_global_kt_co2": 823892.194831,
+          "historical_distribution_anchors_kt_co2": [
+            906032.209751,
+            978354.518436,
+            1082160.420459,
+            1141241.696577
+          ],
+          "direction": "higher_is_worse"
+        },
+        "threshold": {
+          "basis": "historical_distribution_fallback_no_recognized_global_sector_fuel_co2_threshold",
+          "anchors_kt_co2": [
+            906032.209751,
+            978354.518436,
+            1082160.420459,
+            1141241.696577
+          ],
+          "complete_prior_annual_observations": 52
+        },
+        "momentum": {
+          "prior_year": 2021,
+          "prior_global_kt_co2": 809640.440882,
+          "latest_annual_change_kt_co2": 14251.753949,
+          "historical_change_anchors_kt_co2": [
+            -1252.647152,
+            20478.768204,
+            34173.904673,
+            62293.565528
+          ]
+        },
+        "extent": {
+          "normalized_value": 1,
+          "geography": "CEDS source-native global aggregate",
+          "aggregation": "Sum CEDS global CO2 rows for sectors 1A4a_Commercial-institutional + 1A4b_Residential and fuels diesel_oil + heavy_oil + light_oil."
+        },
+        "coverage_gate": {
+          "direct_components": [
+            "magnitude",
+            "threshold",
+            "momentum",
+            "extent"
+          ],
+          "global_scope": true,
+          "current_observation": true
+        },
+        "source_snapshot": {
+          "path": "public/ceds-sector-fuel-co2-snapshot.json",
+          "version": "ceds_v2024_04_01_global_sector_fuel_co2_v1",
+          "archive_md5": "636752881e915244bb96b4793d9fb121",
+          "archive_sha256": "913237080a65c9166a0270b9765bb1489701c125aebe0f512f0da2634098d04e",
+          "member_sha256": "5568aba2a7a83d5d8a2a658cc0e2e9956470cd70caf3c3bb640493afcb9e1fac",
+          "annual_observations": 53
+        }
+      },
+      "transformations": [
+        {
+          "type": "contract_bound_fuel_sector_aggregation",
+          "formula": "Sum CEDS global CO2 rows for sectors 1A4a_Commercial-institutional + 1A4b_Residential and fuels diesel_oil + heavy_oil + light_oil."
+        },
+        {
+          "type": "historical_distribution_normalization",
+          "formula": "Map the prior annual median, p75, p90 and p97.5 to 0, 0.33, 0.67 and 1 because no recognized global threshold exists for this exact sector-fuel CO2 total."
+        },
+        {
+          "type": "annual_change_momentum",
+          "formula": "Normalize the latest complete-year change against the preceding complete annual changes."
+        },
+        {
+          "type": "global_extent",
+          "formula": "Assign full extent because the selected rows are CEDS source-native global aggregates."
+        }
+      ],
+      "source_ids": [
+        "ceds_v2024_04_01_release_emission_data",
+        "mcduffie_ceds_sector_fuel_specific_inventory_2020"
+      ],
+      "uncertainty": "CEDS is an inventory estimate assembled from activity data, emission factors and scaling inventories rather than a direct global monitor. Fuel and sector assignments, historical revisions and national input quality affect values. The latest release observation is 2022; it is the newest complete year in this source, not a 2026 nowcast. Missing values are never converted to zero. Each metric uses only its declared sector-fuel rows. Biomass, coal, non-declared oil fuels, natural gas outside the gas metrics, heat production, non-building end uses and non-electricity power rows are excluded as applicable.",
+      "freshness": "Latest complete inventory year 2022; CEDS release 2024-04-01; snapshot reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "CEDS supplies 53 complete source-native global annual observations for the exact declared sector-fuel aggregation, covering magnitude, historical position, momentum and extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:681cd65c"
+    },
+    {
+      "node_id": "oil_power_co2_output",
+      "value": 3,
+      "band": "Elevated",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2022",
+      "components": {
+        "magnitude": 0,
+        "threshold": 0,
+        "momentum": 0.303612,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_year": 2022,
+          "latest_global_kt_co2": 550930.505768,
+          "historical_distribution_anchors_kt_co2": [
+            811447.942986,
+            898717.073987,
+            972012.855814,
+            1040762.304545
+          ],
+          "direction": "higher_is_worse"
+        },
+        "threshold": {
+          "basis": "historical_distribution_fallback_no_recognized_global_sector_fuel_co2_threshold",
+          "anchors_kt_co2": [
+            811447.942986,
+            898717.073987,
+            972012.855814,
+            1040762.304545
+          ],
+          "complete_prior_annual_observations": 52
+        },
+        "momentum": {
+          "prior_year": 2021,
+          "prior_global_kt_co2": 520505.405105,
+          "latest_annual_change_kt_co2": 30425.100663,
+          "historical_change_anchors_kt_co2": [
+            -1835.611415,
+            33228.977535,
+            64098.205316,
+            129800.131636
+          ]
+        },
+        "extent": {
+          "normalized_value": 1,
+          "geography": "CEDS source-native global aggregate",
+          "aggregation": "Sum CEDS global CO2 rows for sectors 1A1a_Electricity-autoproducer + 1A1a_Electricity-public and fuels diesel_oil + heavy_oil + light_oil."
+        },
+        "coverage_gate": {
+          "direct_components": [
+            "magnitude",
+            "threshold",
+            "momentum",
+            "extent"
+          ],
+          "global_scope": true,
+          "current_observation": true
+        },
+        "source_snapshot": {
+          "path": "public/ceds-sector-fuel-co2-snapshot.json",
+          "version": "ceds_v2024_04_01_global_sector_fuel_co2_v1",
+          "archive_md5": "636752881e915244bb96b4793d9fb121",
+          "archive_sha256": "913237080a65c9166a0270b9765bb1489701c125aebe0f512f0da2634098d04e",
+          "member_sha256": "5568aba2a7a83d5d8a2a658cc0e2e9956470cd70caf3c3bb640493afcb9e1fac",
+          "annual_observations": 53
+        }
+      },
+      "transformations": [
+        {
+          "type": "contract_bound_fuel_sector_aggregation",
+          "formula": "Sum CEDS global CO2 rows for sectors 1A1a_Electricity-autoproducer + 1A1a_Electricity-public and fuels diesel_oil + heavy_oil + light_oil."
+        },
+        {
+          "type": "historical_distribution_normalization",
+          "formula": "Map the prior annual median, p75, p90 and p97.5 to 0, 0.33, 0.67 and 1 because no recognized global threshold exists for this exact sector-fuel CO2 total."
+        },
+        {
+          "type": "annual_change_momentum",
+          "formula": "Normalize the latest complete-year change against the preceding complete annual changes."
+        },
+        {
+          "type": "global_extent",
+          "formula": "Assign full extent because the selected rows are CEDS source-native global aggregates."
+        }
+      ],
+      "source_ids": [
+        "ceds_v2024_04_01_release_emission_data",
+        "mcduffie_ceds_sector_fuel_specific_inventory_2020"
+      ],
+      "uncertainty": "CEDS is an inventory estimate assembled from activity data, emission factors and scaling inventories rather than a direct global monitor. Fuel and sector assignments, historical revisions and national input quality affect values. The latest release observation is 2022; it is the newest complete year in this source, not a 2026 nowcast. Missing values are never converted to zero. Each metric uses only its declared sector-fuel rows. Biomass, coal, non-declared oil fuels, natural gas outside the gas metrics, heat production, non-building end uses and non-electricity power rows are excluded as applicable.",
+      "freshness": "Latest complete inventory year 2022; CEDS release 2024-04-01; snapshot reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "CEDS supplies 53 complete source-native global annual observations for the exact declared sector-fuel aggregation, covering magnitude, historical position, momentum and extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:7de3a7d5"
+    }
+  ]
+}

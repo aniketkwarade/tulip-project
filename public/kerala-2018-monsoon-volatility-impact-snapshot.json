@@ -1,0 +1,93 @@
+{
+  "version": "kerala_monsoon_floods_june_august_2018_v1",
+  "captured_at": "2026-08-01T00:00:00.000Z",
+  "sources": [
+    {
+      "id": "kerala_2018_post_disaster_needs_assessment",
+      "name": "Kerala Post-Disaster Needs Assessment: Floods and Landslides August 2018",
+      "publisher": "Government of Kerala and United Nations",
+      "publication_date": "2018-12-12",
+      "url": "https://sdma.kerala.gov.in/wp-content/uploads/2019/03/PDNA-report-FINAL-FEB-2019_compressed.pdf",
+      "source_locators": [
+        "The assessment reports statewide rainfall about 42 percent above normal from June 1 through August 19 and August rainfall 164 percent above normal during the first three weeks.",
+        "Flooding affected 13 of 14 districts, with many areas submerged for more than two weeks and 341 landslides reported across 10 districts.",
+        "The disaster affected 5.4 million people, displaced 1.4 million, caused 433 deaths and generated an assessed damage-and-loss total later reported as about USD 3.8 billion."
+      ]
+    },
+    {
+      "id": "world_bank_kerala_state_partnership_2018_floods",
+      "name": "World Bank Kerala State Partnership and 2018 Flood Assessment",
+      "publisher": "World Bank",
+      "publication_date": "2024-01-22",
+      "url": "https://www.worldbank.org/en/country/india/brief/world-bank-kerala-state-partnership-breaks-new-ground-in-sub-national-strategic-engagement",
+      "source_locators": [
+        "The World Bank reports that Kerala’s 2018 floods and landslides affected 5.4 million people and destroyed more than 10,000 km of roads.",
+        "The same review reports losses of almost USD 3.8 billion.",
+        "The record treats the 2018 monsoon disaster as a Kerala state event and does not transfer its losses to other monsoon regions."
+      ]
+    },
+    {
+      "id": "imd_southwest_monsoon_2018_kerala_rainfall",
+      "name": "India Meteorological Department Southwest Monsoon 2018 Report",
+      "publisher": "India Meteorological Department",
+      "publication_date": "2018-12-01",
+      "url": "https://mausam.imd.gov.in/chennai/mcdata/sw_monsoon_2018.pdf",
+      "source_locators": [
+        "IMD documents three major Kerala rainfall weeks and reports excess-to-large-excess rainfall across 13 or 14 districts in July and all 14 districts during August 9-15.",
+        "IMD reports Idukki weekly excess rainfall of 217, 233 and 438 percent during the three major rainfall weeks.",
+        "The receipt uses the statewide June-August anomaly rather than selecting the largest district-week value."
+      ]
+    }
+  ],
+  "metric_contract": {
+    "node_id": "monsoon_volatility",
+    "metric_id": "monsoon_onset_and_seasonal_rainfall_variability",
+    "unit": "percent seasonal rainfall anomaly, US dollars, people, event days and Kerala districts",
+    "geography": "Kerala state southwest-monsoon reporting boundary",
+    "assessment_period": "2018-06-01 to 2018-08-19",
+    "boundary": "The receipt scores the reported Kerala seasonal rainfall anomaly and matched disaster burden. It does not call the rainfall record an official onset-date measure, add dam-release effects to the rainfall anomaly, or transfer Kerala impacts to other monsoon systems."
+  },
+  "accumulated_impact": {
+    "june_1_to_august_19_rainfall_percent_above_normal": 42,
+    "august_first_three_weeks_rainfall_percent_above_normal": 164,
+    "damage_and_loss_usd_billions_approx": 3.8,
+    "people_affected": 5400000,
+    "people_displaced": 1400000,
+    "deaths": 433,
+    "roads_destroyed_kilometres_more_than": 10000,
+    "event_start_date": "2018-06-01",
+    "event_end_date": "2018-08-19",
+    "inclusive_event_day_count": 80,
+    "flooded_district_count": 13,
+    "kerala_district_count": 14,
+    "flooded_district_share_percent_derived": 92.857143,
+    "landslide_affected_district_count": 10
+  },
+  "reviewed_normalization_anchors": {
+    "seasonal_rainfall_percent_above_normal": [
+      0,
+      20,
+      60,
+      100
+    ],
+    "damage_and_loss_usd_billions": [
+      0,
+      0.01,
+      0.1,
+      1
+    ],
+    "inclusive_event_day_count": [
+      0,
+      7,
+      30,
+      90
+    ],
+    "affected_district_share_percent": [
+      0,
+      10,
+      50,
+      90
+    ]
+  },
+  "uncertainty": "The 42 percent value covers June 1-August 19 rather than the full June-September season, while 164 percent is a shorter August anomaly retained as context. Flood severity was compounded by saturated catchments, reservoir operations, channel capacity and landslides, so the receipt does not assign every loss solely to rainfall volatility. The USD 3.8 billion figure is approximate and method-specific. District share describes flooding, not uniform severity. Onset timing is unavailable and is not imputed."
+}

@@ -1,0 +1,123 @@
+{
+  "updated_at": "2026-07-18",
+  "version": "2026-07-18T12:50:55.085Z",
+  "snapshot_family": "forest_change_operational",
+  "source": {
+    "id": "global_forest_watch",
+    "name": "Global Forest Watch",
+    "url": "https://www.globalforestwatch.org/",
+    "publisher": "World Resources Institute",
+    "access": "open"
+  },
+  "refresh_policy": {
+    "default_days": 14,
+    "notes": "Treat as an operational forest-change and alert snapshot. Refresh on alert and annual-loss update cycles rather than as a direct browser-side live feed."
+  },
+  "use_guidance": {
+    "primary_role": "Use for forest-loss, deforestation-alert, and burned-area operational context on land-system nodes.",
+    "caution": "This payload surfaces discovery and operational entry points; it is not a substitute for direct geospatial joins or area-specific alert queries."
+  },
+  "overview": {
+    "title": "Global Forest Watch",
+    "subtitle": "Forest monitoring, loss alerts, and land-change context from the GFW platform.",
+    "dataset_count": 376,
+    "curated_dataset_count": 5
+  },
+  "tools": [
+    {
+      "id": "gfw_map",
+      "label": "Global Forest Watch Map",
+      "url": "https://www.globalforestwatch.org/map/",
+      "type": "map",
+      "access": "open"
+    },
+    {
+      "id": "gfw_dashboard",
+      "label": "Global Forest Watch Dashboard",
+      "url": "https://www.globalforestwatch.org/dashboards/global/",
+      "type": "dashboard",
+      "access": "open"
+    },
+    {
+      "id": "gfw_open_data",
+      "label": "Global Forest Watch Open Data Portal",
+      "url": "https://data.globalforestwatch.org/",
+      "type": "portal",
+      "access": "open"
+    },
+    {
+      "id": "gfw_dataset_api",
+      "label": "Global Forest Watch Dataset API",
+      "url": "https://data-api.globalforestwatch.org/datasets",
+      "type": "api",
+      "access": "open"
+    }
+  ],
+  "curated_datasets": [
+    {
+      "dataset": "gfw_integrated_alerts",
+      "label": "Integrated deforestation alerts",
+      "role": "daily alerts",
+      "notes": "Merged GLAD-L, GLAD-S2, and RADD alert family used for near-real-time deforestation detection.",
+      "title": "Integrated deforestation alerts",
+      "source": "**GLAD-L Alerts**: Hansen, M.C., A. Krylov, A. Tyukavina, P.V. Potapov, S. Turubanova, B. Zutta, S. Ifo, B. Margono, F. Stolle, and R. Moore. 2016. Humid tropical forest disturbance alerts using Landsat data. Environmental Research Letters, 11 (3). https://dx.doi.org/10.1088/1748-9326/11/3/034008 **GLAD-S2 Alerts**: Pickens, A.H., Hansen, M.C., Adusei, B., and Potapov P. 2020. Sentinel-2 Forest Loss Alert. Global Land Analysis and Discovery (GLAD), University of Maryland. **RADD Alerts**: Reiche, J., Mullissa, A., Slagter, B., Gou, Y., Tsendbazar, N.E., Braun, C., Vollrath, A., Weisse, M.J., Stolle, F., Pickens, A., Donchyts, G., Clinton, N., Gorelick, N., Herold, M. 2021. Forest disturbance alerts for the Congo Basin using Sentinel-1. Environmental Research Letters. [https://doi.org/10.1088/1748-9326/abd0a8](https://doi.org/10.1088/1748-9326/abd0a8)",
+      "update_frequency": "Daily",
+      "geographic_coverage": "30°N to 30°S",
+      "is_downloadable": true,
+      "landing_page": "https://data.globalforestwatch.org/datasets/gfw::gfw_integrated_alerts"
+    },
+    {
+      "dataset": "geostore__glad__summary",
+      "label": "GLAD alert summary",
+      "role": "summary",
+      "notes": "Administrative summary surface for GLAD forest disturbance alerts.",
+      "title": "GLAD alert summary",
+      "source": "Global Forest Watch",
+      "update_frequency": "",
+      "geographic_coverage": "",
+      "is_downloadable": true,
+      "landing_page": "https://data.globalforestwatch.org/datasets/gfw::geostore__glad__summary"
+    },
+    {
+      "dataset": "geostore__burned_areas__daily_alerts",
+      "label": "Burned areas daily alerts",
+      "role": "daily fire alerts",
+      "notes": "Daily burned-area alert surface for wildfire context.",
+      "title": "Burned areas daily alerts",
+      "source": "Global Forest Watch",
+      "update_frequency": "",
+      "geographic_coverage": "",
+      "is_downloadable": true,
+      "landing_page": "https://data.globalforestwatch.org/datasets/gfw::geostore__burned_areas__daily_alerts"
+    },
+    {
+      "dataset": "umd_tree_cover_loss",
+      "label": "UMD tree cover loss",
+      "role": "annual baseline",
+      "notes": "Global annual tree-cover-loss layer commonly surfaced through Global Forest Watch.",
+      "title": "Tree cover loss",
+      "source": "Hansen, M. C., P. V. Potapov, R. Moore, M. Hancher, S. A. Turubanova, A. Tyukavina, D. Thau, S. V. Stehman, S. J. Goetz, T. R. Loveland, A. Kommareddy, A. Egorov, L. Chini, C. O. Justice, and J. R. G. Townshend. 2013. “High-Resolution Global Maps of 21st-Century Forest Cover Change.” _Science_ 342 (15 November): 850–53. [doi: 10.1126/science.1244693](https://doi.org/10.1126/science.1244693). Data available from: [https://glad.earthengine.app/view/global-forest-change](https://glad.earthengine.app/view/global-forest-change).",
+      "update_frequency": "Annual",
+      "geographic_coverage": "Global land area (excluding Antarctica and other Arctic islands).",
+      "is_downloadable": true,
+      "landing_page": "https://data.globalforestwatch.org/datasets/gfw::umd_tree_cover_loss"
+    },
+    {
+      "dataset": "tsc_tree_cover_loss_drivers",
+      "label": "Tree cover loss by dominant driver",
+      "role": "annual attribution",
+      "notes": "Attribution layer that helps distinguish commodity, forestry, wildfire, and shifting-cultivation drivers.",
+      "title": "Tree cover loss by dominant driver",
+      "source": "Curtis, P.G., C.M. Slay, N.L. Harris, A. Tyukavina, and M.C. Hansen. 2018. “Classifying Drivers of Global Forest Loss.” Science. [https://science.sciencemag.org/content/361/6407/1108](https://science.sciencemag.org/content/361/6407/1108)",
+      "update_frequency": "Annual",
+      "geographic_coverage": "Global",
+      "is_downloadable": true,
+      "landing_page": "https://data.globalforestwatch.org/datasets/gfw::tsc_tree_cover_loss_drivers"
+    }
+  ],
+  "supported_questions": [
+    "Which nodes should inherit current deforestation and forest-loss alert coverage?",
+    "Which bundle should support wildfire and canopy-loss context without pretending it is a single global truth feed?",
+    "Which GFW surfaces belong in operational evidence bundles versus slower anchor-note support?"
+  ]
+}

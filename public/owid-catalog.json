@@ -1,0 +1,290 @@
+{
+  "updated_at": "2026-07-18",
+  "version": "2026-07-18T12:51:22.642Z",
+  "source": {
+    "id": "owid_co2_data",
+    "name": "Our World in Data CO2 and Greenhouse Gas Data",
+    "access": "open_dataset",
+    "website_url": "https://ourworldindata.org/co2-and-greenhouse-gas-emissions",
+    "data_repo_url": "https://github.com/owid/co2-data",
+    "data_url": "https://owid-public.owid.io/data/co2/owid-co2-data.json",
+    "grapher_base_url": "https://ourworldindata.org/grapher/"
+  },
+  "refresh_policy": {
+    "default_days": 42,
+    "notes": "OWID works best here as a long-run annual baseline layer. It complements NASA and NOAA operational sensing, but it is not a high-frequency hazard feed."
+  },
+  "learnings": [
+    "OWID is strongest for long-run global comparisons and annual baselines rather than rapid operational monitoring.",
+    "The World series is a reliable bridge between climate, energy, agriculture, transport, and land-use nodes because it keeps a shared temporal frame.",
+    "OWID pairs well with NASA and NOAA in TULIP: OWID explains structural trend direction, while NASA and NOAA provide more physical and observational context."
+  ],
+  "coverage": {
+    "entity": "World",
+    "record_count": 275,
+    "start_year": 1750,
+    "end_year": 2024
+  },
+  "indicator_summaries": [
+    {
+      "key": "co2",
+      "title": "Annual Global CO2 (excluding Land-Use)",
+      "unit": "million tonnes (Mt)",
+      "grapher_path": "annual-co2-emissions-per-country",
+      "themes": [
+        "climate",
+        "energy"
+      ],
+      "years": {
+        "start": 1750,
+        "end": 2024
+      },
+      "latest": {
+        "year": 2024,
+        "value": 38598.578
+      },
+      "ten_year_change_pct": 8.834,
+      "ourworldindata_url": "https://ourworldindata.org/grapher/annual-co2-emissions-per-country?tab=chart&country=~OWID_WRL"
+    },
+    {
+      "key": "total_ghg",
+      "title": "Global Greenhouse Gas Emissions",
+      "unit": "million tonnes CO2e",
+      "grapher_path": "total-ghg-emissions",
+      "themes": [
+        "climate",
+        "sociopolitical"
+      ],
+      "years": {
+        "start": 1850,
+        "end": 2024
+      },
+      "latest": {
+        "year": 2024,
+        "value": 54433.398
+      },
+      "ten_year_change_pct": 4.506,
+      "ourworldindata_url": "https://ourworldindata.org/grapher/total-ghg-emissions?tab=chart&country=~OWID_WRL"
+    },
+    {
+      "key": "methane",
+      "title": "Global Methane Emissions",
+      "unit": "million tonnes CO2e",
+      "grapher_path": "methane-emissions",
+      "themes": [
+        "climate",
+        "agriculture"
+      ],
+      "years": {
+        "start": 1850,
+        "end": 2024
+      },
+      "latest": {
+        "year": 2024,
+        "value": 9498.914
+      },
+      "ten_year_change_pct": 10.43,
+      "ourworldindata_url": "https://ourworldindata.org/grapher/methane-emissions?tab=chart&country=~OWID_WRL"
+    },
+    {
+      "key": "nitrous_oxide",
+      "title": "Global Nitrous Oxide Emissions",
+      "unit": "million tonnes CO2e",
+      "grapher_path": "nitrous-oxide-emissions",
+      "themes": [
+        "agriculture",
+        "climate"
+      ],
+      "years": {
+        "start": 1850,
+        "end": 2024
+      },
+      "latest": {
+        "year": 2024,
+        "value": 2935.779
+      },
+      "ten_year_change_pct": 7.382,
+      "ourworldindata_url": "https://ourworldindata.org/grapher/nitrous-oxide-emissions?tab=chart&country=~OWID_WRL"
+    },
+    {
+      "key": "land_use_change_co2",
+      "title": "Global CO2 from Land-Use Change",
+      "unit": "million tonnes (Mt)",
+      "grapher_path": "annual-co2-emissions-from-land-use-change",
+      "themes": [
+        "biosphere",
+        "climate"
+      ],
+      "years": {
+        "start": 1850,
+        "end": 2024
+      },
+      "latest": {
+        "year": 2024,
+        "value": 4585.508
+      },
+      "ten_year_change_pct": -28.462,
+      "ourworldindata_url": "https://ourworldindata.org/grapher/annual-co2-emissions-from-land-use-change?tab=chart&country=~OWID_WRL"
+    },
+    {
+      "key": "coal_co2",
+      "title": "Global CO2 Emissions from Coal",
+      "unit": "million tonnes (Mt)",
+      "grapher_path": "annual-co-emissions-by-fuel-line",
+      "themes": [
+        "energy",
+        "climate"
+      ],
+      "years": {
+        "start": 1750,
+        "end": 2024
+      },
+      "latest": {
+        "year": 2024,
+        "value": 15805.254
+      },
+      "ten_year_change_pct": 5.264,
+      "ourworldindata_url": "https://ourworldindata.org/grapher/annual-co-emissions-by-fuel-line?tab=chart&country=~OWID_WRL"
+    },
+    {
+      "key": "oil_co2",
+      "title": "Global CO2 Emissions from Oil",
+      "unit": "million tonnes (Mt)",
+      "grapher_path": "annual-co-emissions-by-fuel-line",
+      "themes": [
+        "transport",
+        "energy"
+      ],
+      "years": {
+        "start": 1855,
+        "end": 2024
+      },
+      "latest": {
+        "year": 2024,
+        "value": 12470.596
+      },
+      "ten_year_change_pct": 7.86,
+      "ourworldindata_url": "https://ourworldindata.org/grapher/annual-co-emissions-by-fuel-line?tab=chart&country=~OWID_WRL"
+    },
+    {
+      "key": "gas_co2",
+      "title": "Global CO2 Emissions from Gas",
+      "unit": "million tonnes (Mt)",
+      "grapher_path": "annual-co-emissions-by-fuel-line",
+      "themes": [
+        "energy",
+        "climate"
+      ],
+      "years": {
+        "start": 1882,
+        "end": 2024
+      },
+      "latest": {
+        "year": 2024,
+        "value": 8009.828
+      },
+      "ten_year_change_pct": 21.27,
+      "ourworldindata_url": "https://ourworldindata.org/grapher/annual-co-emissions-by-fuel-line?tab=chart&country=~OWID_WRL"
+    },
+    {
+      "key": "cement_co2",
+      "title": "Global CO2 Emissions from Cement",
+      "unit": "million tonnes (Mt)",
+      "grapher_path": "annual-co-emissions-by-fuel-line",
+      "themes": [
+        "urbanization",
+        "energy"
+      ],
+      "years": {
+        "start": 1880,
+        "end": 2024
+      },
+      "latest": {
+        "year": 2024,
+        "value": 1472.818
+      },
+      "ten_year_change_pct": -1.316,
+      "ourworldindata_url": "https://ourworldindata.org/grapher/annual-co-emissions-by-fuel-line?tab=chart&country=~OWID_WRL"
+    },
+    {
+      "key": "primary_energy_consumption",
+      "title": "Global Primary Energy Consumption",
+      "unit": "TWh",
+      "grapher_path": "primary-energy-cons",
+      "themes": [
+        "energy",
+        "economy"
+      ],
+      "years": {
+        "start": 1965,
+        "end": 2024
+      },
+      "latest": {
+        "year": 2024,
+        "value": 176737.094
+      },
+      "ten_year_change_pct": 16.859,
+      "ourworldindata_url": "https://ourworldindata.org/grapher/primary-energy-cons?tab=chart&country=~OWID_WRL"
+    },
+    {
+      "key": "energy_per_capita",
+      "title": "Energy Consumption per Capita",
+      "unit": "kWh",
+      "grapher_path": "primary-energy-cons-per-capita",
+      "themes": [
+        "energy",
+        "society"
+      ],
+      "years": {
+        "start": 1965,
+        "end": 2024
+      },
+      "latest": {
+        "year": 2024,
+        "value": 21653.723
+      },
+      "ten_year_change_pct": 5.687,
+      "ourworldindata_url": "https://ourworldindata.org/grapher/primary-energy-cons-per-capita?tab=chart&country=~OWID_WRL"
+    },
+    {
+      "key": "co2_per_capita",
+      "title": "Global CO2 Emissions per Capita",
+      "unit": "tonnes per person",
+      "grapher_path": "co-emissions-per-capita",
+      "themes": [
+        "climate",
+        "society"
+      ],
+      "years": {
+        "start": 1750,
+        "end": 2024
+      },
+      "latest": {
+        "year": 2024,
+        "value": 4.729
+      },
+      "ten_year_change_pct": -1.572,
+      "ourworldindata_url": "https://ourworldindata.org/grapher/co-emissions-per-capita?tab=chart&country=~OWID_WRL"
+    },
+    {
+      "key": "temperature_change_from_ghg",
+      "title": "Temperature Change Attributed to Greenhouse Gases",
+      "unit": "degrees C",
+      "grapher_path": "temperature-change-from-ghg",
+      "themes": [
+        "climate",
+        "atmosphere"
+      ],
+      "years": {
+        "start": 1851,
+        "end": 2024
+      },
+      "latest": {
+        "year": 2024,
+        "value": 1.678
+      },
+      "ten_year_change_pct": 16.331,
+      "ourworldindata_url": "https://ourworldindata.org/grapher/temperature-change-from-ghg?tab=chart&country=~OWID_WRL"
+    }
+  ]
+}

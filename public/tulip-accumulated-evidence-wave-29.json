@@ -1,0 +1,206 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_29_unep_unwater_surface_water",
+  "generated_at": "2026-07-31T21:47:06.897Z",
+  "source_snapshot": "public/unep-unwater-freshwater-impact-snapshot.json",
+  "source_id": "unep_un_water_progress_on_water_related_ecosystems_2024",
+  "promoted_node_count": 2,
+  "receipts": [
+    {
+      "node_id": "surface_water_inflow_deficit",
+      "value": 7,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "biophysical_burden": 0.7525,
+        "human_economic_burden": 0.764875,
+        "persistence": 0.835,
+        "extent": 0.031976
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "affected_basins": 402,
+          "increase_multiple": 5,
+          "anchors_multiple": [
+            1,
+            2,
+            4,
+            8
+          ],
+          "boundary": "Significantly decreased-flow basin inventory; no cause or storage response is assigned."
+        },
+        "human_economic_burden": {
+          "people_in_affected_basins_million": 107.5,
+          "anchors_million_people": [
+            0,
+            10,
+            50,
+            250
+          ],
+          "boundary": "Resident exposure, not a count of measured household shortages or economic losses."
+        },
+        "persistence": {
+          "comparison_years": 15,
+          "anchors_years": [
+            0,
+            5,
+            10,
+            20
+          ]
+        },
+        "extent": {
+          "affected_basins": 402,
+          "assessed_basins": 12572,
+          "normalized_value": 0.031976
+        },
+        "source_snapshot": {
+          "path": "public/unep-unwater-freshwater-impact-snapshot.json",
+          "version": "unep_unwater_sdg_6_6_1_freshwater_2024_v1",
+          "captured_at": "2026-07-31T21:47:06.642Z",
+          "source_locators": [
+            "UN-Water 2024 update: one or more water-related ecosystem types are degraded in 50 percent of countries, more than 90 of 185 reporting countries.",
+            "UN-Water 2024 report: freshwater species populations have declined globally by 83 percent since 1970.",
+            "UN-Water 2024 update: river flow significantly decreased in 402 of 12,572 basins, a fivefold increase from 15 years earlier, with 107.5 million people living in those basins.",
+            "UN-Water 2024 update: permanent surface water receded in 364 of 13,894 basins, where 93.1 million people live."
+          ],
+          "excluded_from_scoring": [
+            "2030 targets and acceleration needs",
+            "the sum of potentially overlapping reduced-flow and receding-water populations",
+            "regional case studies",
+            "unreported ecosystems treated as stable or degraded"
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "source_reported_basin_growth_ratio",
+          "formula": "Normalize the source-reported fivefold increase in significantly decreased-flow basins."
+        },
+        {
+          "type": "fixed_population_range",
+          "formula": "Normalize resident population in affected basins without relabeling exposure as shortage."
+        },
+        {
+          "type": "assessed_basin_extent",
+          "formula": "Divide affected basins by assessed basins; do not treat unassessed basins as unaffected."
+        }
+      ],
+      "source_ids": [
+        "unep_un_water_progress_on_water_related_ecosystems_2024"
+      ],
+      "uncertainty": "Country reporting, satellite coverage, basin delineation, trend significance, observation epochs, monitoring density and national indicator composition vary. A country is counted degraded when at least one included ecosystem type is degraded; this does not mean every freshwater ecosystem in that country is degraded.",
+      "freshness": "UNEP and UN-Water SDG 6.6.1 assessment 2024; snapshot captured 2026-07-31T21:47:06.642Z.",
+      "selection_reason": {
+        "selected_method_passed": "UN-Water quantifies the accumulated global reduced-inflow basin inventory, exposed population, 15-year comparison and assessed-basin extent.",
+        "higher_priority_failures": [
+          "The USGS operational source is station- and US-bounded and cannot provide a current global aggregation.",
+          "The global assessment does not provide a complete 20-year annual observation panel, so it remains accumulated impact."
+        ]
+      },
+      "input_hash": "fnv1a32:01513047"
+    },
+    {
+      "node_id": "surface_water_storage_instability",
+      "value": 7.2,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "biophysical_burden": 0.82048,
+        "human_economic_burden": 0.741115,
+        "persistence": 0.868,
+        "extent": 0.026198
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "receding_permanent_water_basins": 364,
+          "anchors_basin_count": [
+            0,
+            100,
+            250,
+            500
+          ],
+          "boundary": "Basins with source-identified permanent surface-water loss; basin count is not converted to lost area or volume."
+        },
+        "human_economic_burden": {
+          "people_in_receding_water_basins_million": 93.1,
+          "anchors_million_people": [
+            0,
+            10,
+            50,
+            250
+          ],
+          "boundary": "Resident exposure, not realized household or economic loss."
+        },
+        "persistence": {
+          "baseline_period": "2000-2019",
+          "observation_period": "2017-2021",
+          "evidence_span_years": 21,
+          "anchors_years": [
+            0,
+            5,
+            15,
+            25
+          ]
+        },
+        "extent": {
+          "affected_basins": 364,
+          "assessed_basins": 13894,
+          "normalized_value": 0.026198
+        },
+        "source_snapshot": {
+          "path": "public/unep-unwater-freshwater-impact-snapshot.json",
+          "version": "unep_unwater_sdg_6_6_1_freshwater_2024_v1",
+          "captured_at": "2026-07-31T21:47:06.642Z",
+          "source_locators": [
+            "UN-Water 2024 update: one or more water-related ecosystem types are degraded in 50 percent of countries, more than 90 of 185 reporting countries.",
+            "UN-Water 2024 report: freshwater species populations have declined globally by 83 percent since 1970.",
+            "UN-Water 2024 update: river flow significantly decreased in 402 of 12,572 basins, a fivefold increase from 15 years earlier, with 107.5 million people living in those basins.",
+            "UN-Water 2024 update: permanent surface water receded in 364 of 13,894 basins, where 93.1 million people live."
+          ],
+          "excluded_from_scoring": [
+            "2030 targets and acceleration needs",
+            "the sum of potentially overlapping reduced-flow and receding-water populations",
+            "regional case studies",
+            "unreported ecosystems treated as stable or degraded"
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "bounded_permanent_water_loss_inventory",
+          "formula": "Normalize the affected-basin count without converting basin count to area or volume."
+        },
+        {
+          "type": "fixed_population_range",
+          "formula": "Normalize resident population in affected basins without treating exposure as shortage."
+        },
+        {
+          "type": "source_period_span",
+          "formula": "Retain the 2000-2019 reference and 2017-2021 observation periods as a 21-year evidence span."
+        },
+        {
+          "type": "assessed_basin_extent",
+          "formula": "Divide affected basins by assessed basins; do not fill unassessed basins with zero."
+        }
+      ],
+      "source_ids": [
+        "unep_un_water_progress_on_water_related_ecosystems_2024"
+      ],
+      "uncertainty": "Country reporting, satellite coverage, basin delineation, trend significance, observation epochs, monitoring density and national indicator composition vary. A country is counted degraded when at least one included ecosystem type is degraded; this does not mean every freshwater ecosystem in that country is degraded.",
+      "freshness": "UNEP and UN-Water SDG 6.6.1 assessment 2024; snapshot captured 2026-07-31T21:47:06.642Z.",
+      "selection_reason": {
+        "selected_method_passed": "UN-Water quantifies permanent surface-water recession in 364 basins, exposed population, a fixed satellite comparison boundary and global assessed-basin extent.",
+        "higher_priority_failures": [
+          "No current global annual storage panel supplies magnitude plus threshold or momentum.",
+          "The assessment reports basin recession rather than a comparable annual global storage series, so it remains accumulated impact."
+        ]
+      },
+      "input_hash": "fnv1a32:f78c2b29"
+    }
+  ]
+}

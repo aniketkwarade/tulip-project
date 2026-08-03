@@ -1,0 +1,1042 @@
+{
+  "version": "northstar_graph_contract_v1",
+  "generated_at": "2026-07-31T22:56:30.097Z",
+  "source": "src/data.js live export",
+  "node_classes": [
+    "phenomenon",
+    "operational_indicator",
+    "response",
+    "authored_root_driver"
+  ],
+  "policies": {
+    "phenomenon_driver_gate": 3,
+    "operational_indicator_driver_gate": 1,
+    "response_driver_gate": 0,
+    "authored_root_driver_gate": 0,
+    "promotion_boundary": "Only relationship-specific, bounded evidence contracts are promoted into the live graph. Candidate phenomena remain outside NODES and EDGES until separately approved.",
+    "composite_label_policy": "Reject labels that blend pressure, state, and impact unless every component is independently measurable and the combined construct has a defensible common unit."
+  },
+  "summary": {
+    "nodes": 381,
+    "edges": 1290,
+    "first_anchor_repair_batch": 50,
+    "cascade_anchor_dossier_batch": 8,
+    "promoted_cascade_edge_dossiers": 24,
+    "promoted_outcome_system_anchors": 4,
+    "promoted_outcome_system_edge_dossiers": 16,
+    "rehabilitated_generated_nodes": 9,
+    "nodes_by_class": {
+      "authored_root_driver": 76,
+      "operational_indicator": 129,
+      "phenomenon": 148,
+      "response": 28
+    },
+    "driver_gate_status": {
+      "exempt": 116,
+      "pass": 265
+    }
+  },
+  "first_anchor_repair_batch": [
+    {
+      "id": "atlantic_ni_o_ni_a",
+      "name": "Atlantic Niño/Niña",
+      "sphere": "oceans",
+      "driver_gate": {
+        "applicable": false,
+        "required_incoming_drivers": 0,
+        "observed_incoming_drivers": 1,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "exempt"
+      }
+    },
+    {
+      "id": "atlantic_multidecadal_oscillation",
+      "name": "Atlantic Multidecadal Oscillation",
+      "sphere": "oceans",
+      "driver_gate": {
+        "applicable": false,
+        "required_incoming_drivers": 0,
+        "observed_incoming_drivers": 1,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "exempt"
+      }
+    },
+    {
+      "id": "pacific_decadal_oscillation",
+      "name": "Pacific Decadal Oscillation",
+      "sphere": "oceans",
+      "driver_gate": {
+        "applicable": false,
+        "required_incoming_drivers": 0,
+        "observed_incoming_drivers": 2,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "exempt"
+      }
+    },
+    {
+      "id": "indian_ocean_dipole",
+      "name": "Indian Ocean Dipole",
+      "sphere": "oceans",
+      "driver_gate": {
+        "applicable": false,
+        "required_incoming_drivers": 0,
+        "observed_incoming_drivers": 1,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "exempt"
+      }
+    },
+    {
+      "id": "north_atlantic_oscillation",
+      "name": "North Atlantic Oscillation",
+      "sphere": "atmosphere",
+      "driver_gate": {
+        "applicable": false,
+        "required_incoming_drivers": 0,
+        "observed_incoming_drivers": 0,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "exempt"
+      }
+    },
+    {
+      "id": "air_pollution_health_burden",
+      "name": "Air Pollution Health Burden",
+      "sphere": "health",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 1,
+        "observed_incoming_drivers": 15,
+        "qualified_incoming_drivers": 12,
+        "qualification_basis": "complete_promoted_edge_dossiers",
+        "status": "pass"
+      }
+    },
+    {
+      "id": "pacific_north_american_pattern",
+      "name": "Pacific-North American Pattern",
+      "sphere": "atmosphere",
+      "driver_gate": {
+        "applicable": false,
+        "required_incoming_drivers": 0,
+        "observed_incoming_drivers": 2,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "exempt"
+      }
+    },
+    {
+      "id": "southern_annular_mode",
+      "name": "Southern Annular Mode",
+      "sphere": "atmosphere",
+      "driver_gate": {
+        "applicable": false,
+        "required_incoming_drivers": 0,
+        "observed_incoming_drivers": 1,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "exempt"
+      }
+    },
+    {
+      "id": "quasi_biennial_oscillation",
+      "name": "Quasi-Biennial Oscillation",
+      "sphere": "atmosphere",
+      "driver_gate": {
+        "applicable": false,
+        "required_incoming_drivers": 0,
+        "observed_incoming_drivers": 0,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "exempt"
+      }
+    },
+    {
+      "id": "rossby_wave_stalling",
+      "name": "Persistent Rossby Wave Patterns",
+      "sphere": "atmosphere",
+      "driver_gate": {
+        "applicable": false,
+        "required_incoming_drivers": 0,
+        "observed_incoming_drivers": 0,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "exempt"
+      }
+    },
+    {
+      "id": "amoc",
+      "name": "AMOC Slowdown",
+      "sphere": "oceans",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 3,
+        "observed_incoming_drivers": 4,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      }
+    },
+    {
+      "id": "livestock_disease_pressure",
+      "name": "Livestock Disease Pressure",
+      "sphere": "agriculture",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 1,
+        "observed_incoming_drivers": 4,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      }
+    },
+    {
+      "id": "farm_heat_stress",
+      "name": "Farm Heat Stress",
+      "sphere": "agriculture",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 1,
+        "observed_incoming_drivers": 4,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      }
+    },
+    {
+      "id": "feed_crop_dependency",
+      "name": "Feed Crop Dependency",
+      "sphere": "agriculture",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 1,
+        "observed_incoming_drivers": 1,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      }
+    },
+    {
+      "id": "irrigation_water_inefficiency",
+      "name": "Irrigation Water Inefficiency",
+      "sphere": "agriculture",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 1,
+        "observed_incoming_drivers": 1,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      }
+    },
+    {
+      "id": "soil_moisture_collapse",
+      "name": "Soil Moisture Collapse",
+      "sphere": "agriculture",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 3,
+        "observed_incoming_drivers": 4,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      }
+    },
+    {
+      "id": "semiconductor_fabrication_footprint",
+      "name": "Semiconductor Fabrication Footprint",
+      "sphere": "energy",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 1,
+        "observed_incoming_drivers": 2,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      }
+    },
+    {
+      "id": "mangrove_buffer_loss",
+      "name": "Mangrove Buffer Loss",
+      "sphere": "biosphere",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 1,
+        "observed_incoming_drivers": 2,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      }
+    },
+    {
+      "id": "fertilizer_production",
+      "name": "Fertilizer Production",
+      "sphere": "agriculture",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 1,
+        "observed_incoming_drivers": 1,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      }
+    },
+    {
+      "id": "wildfire_regime_shift",
+      "name": "Wildfire Regime Shift",
+      "sphere": "biosphere",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 3,
+        "observed_incoming_drivers": 7,
+        "qualified_incoming_drivers": 3,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      }
+    },
+    {
+      "id": "insurance_retreat",
+      "name": "Insurance Retreat",
+      "sphere": "economy",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 1,
+        "observed_incoming_drivers": 3,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      }
+    },
+    {
+      "id": "watershed_forest_loss",
+      "name": "Watershed Forest Loss",
+      "sphere": "biosphere",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 1,
+        "observed_incoming_drivers": 3,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      }
+    },
+    {
+      "id": "adaptation_capital_shortfall",
+      "name": "Adaptation Capital Shortfall",
+      "sphere": "economy",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 1,
+        "observed_incoming_drivers": 3,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      }
+    },
+    {
+      "id": "arctic_shipping_expansion",
+      "name": "Arctic Shipping Expansion",
+      "sphere": "transport",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 1,
+        "observed_incoming_drivers": 2,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      }
+    },
+    {
+      "id": "shipping_lane_disruption",
+      "name": "Shipping Lane Disruption",
+      "sphere": "transport",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 1,
+        "observed_incoming_drivers": 4,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      }
+    },
+    {
+      "id": "airport_operational_disruption",
+      "name": "Airport Operational Disruption",
+      "sphere": "transport",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 1,
+        "observed_incoming_drivers": 3,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      }
+    },
+    {
+      "id": "snowmelt_timing_shift",
+      "name": "Shift in Snowmelt Timing",
+      "sphere": "cryosphere",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 3,
+        "observed_incoming_drivers": 5,
+        "qualified_incoming_drivers": 1,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      }
+    },
+    {
+      "id": "sea_ice_season_loss",
+      "name": "Sea Ice Season Loss",
+      "sphere": "cryosphere",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 1,
+        "observed_incoming_drivers": 4,
+        "qualified_incoming_drivers": 1,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      }
+    },
+    {
+      "id": "thermokarst_expansion",
+      "name": "Thermokarst Expansion",
+      "sphere": "cryosphere",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 3,
+        "observed_incoming_drivers": 3,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      }
+    },
+    {
+      "id": "ocean_salinity_stratification",
+      "name": "Ocean Salinity Stratification",
+      "sphere": "oceans",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 3,
+        "observed_incoming_drivers": 4,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      }
+    },
+    {
+      "id": "aviation_demand_growth",
+      "name": "Aviation Demand Growth",
+      "sphere": "transport",
+      "driver_gate": {
+        "applicable": false,
+        "required_incoming_drivers": 0,
+        "observed_incoming_drivers": 1,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "exempt"
+      }
+    },
+    {
+      "id": "freight_electrification_gap",
+      "name": "Freight Electrification Gap",
+      "sphere": "transport",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 1,
+        "observed_incoming_drivers": 3,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      }
+    },
+    {
+      "id": "port_heat_vulnerability",
+      "name": "Port Heat-Related Operational Vulnerability",
+      "sphere": "transport",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 1,
+        "observed_incoming_drivers": 2,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      }
+    },
+    {
+      "id": "rail_heat_buckling",
+      "name": "Rail Heat Buckling",
+      "sphere": "transport",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 1,
+        "observed_incoming_drivers": 2,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      }
+    },
+    {
+      "id": "glacial_lake_failure_risk",
+      "name": "Glacial Lake Outburst Flood Risk",
+      "sphere": "cryosphere",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 1,
+        "observed_incoming_drivers": 3,
+        "qualified_incoming_drivers": 1,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      }
+    },
+    {
+      "id": "snow_drought",
+      "name": "Snow Drought",
+      "sphere": "cryosphere",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 1,
+        "observed_incoming_drivers": 2,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      }
+    },
+    {
+      "id": "ocean_acidification",
+      "name": "Ocean Acidification",
+      "sphere": "oceans",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 3,
+        "observed_incoming_drivers": 27,
+        "qualified_incoming_drivers": 25,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      }
+    },
+    {
+      "id": "ice_sheet_mass_loss",
+      "name": "Ice Sheet Mass Loss",
+      "sphere": "cryosphere",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 1,
+        "observed_incoming_drivers": 4,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      }
+    },
+    {
+      "id": "ozone_formation_pressure",
+      "name": "Climate Penalty on Surface Ozone",
+      "sphere": "atmosphere",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 3,
+        "observed_incoming_drivers": 4,
+        "qualified_incoming_drivers": 3,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      }
+    },
+    {
+      "id": "permafrost_thaw",
+      "name": "Permafrost Thaw",
+      "sphere": "cryosphere",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 3,
+        "observed_incoming_drivers": 3,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      }
+    },
+    {
+      "id": "groundwater_depletion",
+      "name": "Groundwater Depletion",
+      "sphere": "freshwater",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 3,
+        "observed_incoming_drivers": 8,
+        "qualified_incoming_drivers": 5,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      }
+    },
+    {
+      "id": "food_waste",
+      "name": "Food Waste",
+      "sphere": "agriculture",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 3,
+        "observed_incoming_drivers": 3,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      }
+    },
+    {
+      "id": "low_cloud_deck_retreat",
+      "name": "Marine Low-Cloud Decline",
+      "sphere": "atmosphere",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 1,
+        "observed_incoming_drivers": 1,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      }
+    },
+    {
+      "id": "aerosol_cooling_loss",
+      "name": "Aerosol Cooling Loss",
+      "sphere": "atmosphere",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 1,
+        "observed_incoming_drivers": 3,
+        "qualified_incoming_drivers": 3,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      }
+    },
+    {
+      "id": "water_stress",
+      "name": "Baseline Water Stress",
+      "sphere": "freshwater",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 1,
+        "observed_incoming_drivers": 18,
+        "qualified_incoming_drivers": 14,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      }
+    },
+    {
+      "id": "hail_hazard_shift",
+      "name": "Hail Hazard Shift",
+      "sphere": "atmosphere",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 3,
+        "observed_incoming_drivers": 3,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      }
+    },
+    {
+      "id": "madden_julian_oscillation",
+      "name": "Madden-Julian Oscillation",
+      "sphere": "atmosphere",
+      "driver_gate": {
+        "applicable": false,
+        "required_incoming_drivers": 0,
+        "observed_incoming_drivers": 3,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "exempt"
+      }
+    },
+    {
+      "id": "humidity_amplification",
+      "name": "Atmospheric Moisture Amplification",
+      "sphere": "atmosphere",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 1,
+        "observed_incoming_drivers": 2,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      }
+    },
+    {
+      "id": "atmospheric_dryness",
+      "name": "Atmospheric Evaporative Demand",
+      "sphere": "atmosphere",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 3,
+        "observed_incoming_drivers": 3,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      }
+    },
+    {
+      "id": "air_conditioning_refrigerants",
+      "name": "Air Conditioning / Refrigerants",
+      "sphere": "energy",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 3,
+        "observed_incoming_drivers": 3,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      }
+    }
+  ],
+  "cascade_anchor_dossier_batch": [
+    {
+      "id": "extreme_precipitation_intensity",
+      "name": "Extreme Precipitation Intensity",
+      "sphere": "atmosphere",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 3,
+        "observed_incoming_drivers": 8,
+        "qualified_incoming_drivers": 7,
+        "qualification_basis": "complete_promoted_edge_dossiers",
+        "status": "pass"
+      },
+      "promoted_driver_edge_keys": [
+        "temp->extreme_precipitation_intensity",
+        "humidity_amplification->extreme_precipitation_intensity",
+        "monsoon_volatility->extreme_precipitation_intensity",
+        "carbon_emission->extreme_precipitation_intensity",
+        "atmospheric_river_intensification->extreme_precipitation_intensity",
+        "convective_instability_shift->extreme_precipitation_intensity",
+        "environ_anomalies->extreme_precipitation_intensity"
+      ]
+    },
+    {
+      "id": "tropical_cyclone_rapid_intensification",
+      "name": "Tropical Cyclone Rapid Intensification",
+      "sphere": "atmosphere",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 3,
+        "observed_incoming_drivers": 6,
+        "qualified_incoming_drivers": 4,
+        "qualification_basis": "complete_promoted_edge_dossiers",
+        "status": "pass"
+      },
+      "promoted_driver_edge_keys": [
+        "temp->tropical_cyclone_rapid_intensification",
+        "ocean_heat_content->tropical_cyclone_rapid_intensification",
+        "humidity_amplification->tropical_cyclone_rapid_intensification",
+        "environ_anomalies->tropical_cyclone_rapid_intensification"
+      ]
+    },
+    {
+      "id": "el_nino",
+      "name": "El Niño",
+      "sphere": "oceans",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 3,
+        "observed_incoming_drivers": 3,
+        "qualified_incoming_drivers": 3,
+        "qualification_basis": "complete_promoted_edge_dossiers",
+        "status": "pass"
+      },
+      "promoted_driver_edge_keys": [
+        "trade_wind_weakening->el_nino",
+        "ocean_heat_content->el_nino",
+        "madden_julian_oscillation->el_nino"
+      ]
+    },
+    {
+      "id": "la_nina",
+      "name": "La Niña",
+      "sphere": "oceans",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 3,
+        "observed_incoming_drivers": 3,
+        "qualified_incoming_drivers": 3,
+        "qualification_basis": "complete_promoted_edge_dossiers",
+        "status": "pass"
+      },
+      "promoted_driver_edge_keys": [
+        "trade_wind_weakening->la_nina",
+        "ocean_heat_content->la_nina",
+        "el_nino->la_nina"
+      ]
+    },
+    {
+      "id": "deforestation",
+      "name": "Deforestation",
+      "sphere": "biosphere",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 3,
+        "observed_incoming_drivers": 6,
+        "qualified_incoming_drivers": 3,
+        "qualification_basis": "complete_promoted_edge_dossiers",
+        "status": "pass"
+      },
+      "promoted_driver_edge_keys": [
+        "palm_oil_canopy_clearance->deforestation",
+        "industry_farming->deforestation",
+        "mining_critical_minerals->deforestation"
+      ]
+    },
+    {
+      "id": "industry_farming",
+      "name": "Industry Farming",
+      "sphere": "agriculture",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 3,
+        "observed_incoming_drivers": 3,
+        "qualified_incoming_drivers": 3,
+        "qualification_basis": "complete_promoted_edge_dossiers",
+        "status": "pass"
+      },
+      "promoted_driver_edge_keys": [
+        "food->industry_farming",
+        "feed_crop_dependency->industry_farming",
+        "fertilizer_production->industry_farming"
+      ]
+    },
+    {
+      "id": "vector_borne_disease_expansion",
+      "name": "Vector-Borne Disease Expansion",
+      "sphere": "health",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 3,
+        "observed_incoming_drivers": 5,
+        "qualified_incoming_drivers": 3,
+        "qualification_basis": "complete_promoted_edge_dossiers",
+        "status": "pass"
+      },
+      "promoted_driver_edge_keys": [
+        "temp->vector_borne_disease_expansion",
+        "flash_flood_regime->vector_borne_disease_expansion",
+        "urbanization->vector_borne_disease_expansion"
+      ]
+    },
+    {
+      "id": "ocean_carbon_uptake_weakening",
+      "name": "Ocean Carbon Uptake Weakening",
+      "sphere": "oceans",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 3,
+        "observed_incoming_drivers": 4,
+        "qualified_incoming_drivers": 3,
+        "qualification_basis": "complete_promoted_edge_dossiers",
+        "status": "pass"
+      },
+      "promoted_driver_edge_keys": [
+        "temp->ocean_carbon_uptake_weakening",
+        "ocean_salinity_stratification->ocean_carbon_uptake_weakening",
+        "thermal_stratification_intensification->ocean_carbon_uptake_weakening"
+      ]
+    }
+  ],
+  "rehabilitated_generated_nodes": [
+    {
+      "id": "tundra_methane_outgassing",
+      "name": "Tundra Methane Outgassing",
+      "sphere": "cryosphere",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 3,
+        "observed_incoming_drivers": 3,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      },
+      "outgoing_effects": 1,
+      "authenticity": {
+        "status": "rehabilitated_source_backed_phenomenon",
+        "label": "Rehabilitated source-backed phenomenon",
+        "exact_label_validated": true,
+        "source_scope": "node_specific",
+        "anchor_id": null,
+        "note": "This previously generated node now has a reviewed multi-driver contract, a bounded downstream effect, and node-specific assessment sources."
+      }
+    },
+    {
+      "id": "mountain_pass_avalanches",
+      "name": "Mountain Pass Avalanches",
+      "sphere": "cryosphere",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 3,
+        "observed_incoming_drivers": 3,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      },
+      "outgoing_effects": 1,
+      "authenticity": {
+        "status": "rehabilitated_source_backed_phenomenon",
+        "label": "Rehabilitated source-backed phenomenon",
+        "exact_label_validated": true,
+        "source_scope": "node_specific",
+        "anchor_id": null,
+        "note": "This previously generated node now has a reviewed multi-driver contract, a bounded downstream effect, and node-specific assessment sources."
+      }
+    },
+    {
+      "id": "ice_shelf_grounding_line_retreat",
+      "name": "Ice Shelf Grounding Line Retreat",
+      "sphere": "cryosphere",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 3,
+        "observed_incoming_drivers": 3,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      },
+      "outgoing_effects": 2,
+      "authenticity": {
+        "status": "rehabilitated_source_backed_phenomenon",
+        "label": "Rehabilitated source-backed phenomenon",
+        "exact_label_validated": true,
+        "source_scope": "node_specific",
+        "anchor_id": null,
+        "note": "This previously generated node now has a reviewed multi-driver contract, a bounded downstream effect, and node-specific assessment sources."
+      }
+    },
+    {
+      "id": "arctic_pack_ice_drift",
+      "name": "Arctic Pack Ice Drift",
+      "sphere": "cryosphere",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 3,
+        "observed_incoming_drivers": 3,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      },
+      "outgoing_effects": 1,
+      "authenticity": {
+        "status": "rehabilitated_source_backed_phenomenon",
+        "label": "Rehabilitated source-backed phenomenon",
+        "exact_label_validated": true,
+        "source_scope": "node_specific",
+        "anchor_id": null,
+        "note": "This previously generated node now has a reviewed multi-driver contract, a bounded downstream effect, and node-specific assessment sources."
+      }
+    },
+    {
+      "id": "cryoconite_hole_expansion",
+      "name": "Cryoconite Hole Expansion",
+      "sphere": "cryosphere",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 3,
+        "observed_incoming_drivers": 3,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      },
+      "outgoing_effects": 1,
+      "authenticity": {
+        "status": "rehabilitated_source_backed_phenomenon",
+        "label": "Rehabilitated source-backed phenomenon",
+        "exact_label_validated": true,
+        "source_scope": "node_specific",
+        "anchor_id": null,
+        "note": "This previously generated node now has a reviewed multi-driver contract, a bounded downstream effect, and node-specific assessment sources."
+      }
+    },
+    {
+      "id": "ice_algae_pigmentation",
+      "name": "Ice Algae Pigmentation",
+      "sphere": "cryosphere",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 1,
+        "observed_incoming_drivers": 2,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      },
+      "outgoing_effects": 1,
+      "authenticity": {
+        "status": "rehabilitated_source_backed_indicator",
+        "label": "Rehabilitated source-backed indicator",
+        "exact_label_validated": true,
+        "source_scope": "node_specific",
+        "anchor_id": null,
+        "note": "This previously generated indicator now has a reviewed measurement contract, at least three bounded relationships, and node-specific authoritative sources."
+      }
+    },
+    {
+      "id": "glacier_hydrologic_system_floods",
+      "name": "Glacier Hydrologic System Floods",
+      "sphere": "cryosphere",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 3,
+        "observed_incoming_drivers": 4,
+        "qualified_incoming_drivers": 1,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      },
+      "outgoing_effects": 2,
+      "authenticity": {
+        "status": "rehabilitated_source_backed_phenomenon",
+        "label": "Rehabilitated source-backed phenomenon",
+        "exact_label_validated": true,
+        "source_scope": "node_specific",
+        "anchor_id": null,
+        "note": "This previously generated node now has a reviewed multi-driver contract, a bounded downstream effect, and node-specific assessment sources."
+      }
+    },
+    {
+      "id": "ice_cap_decapitation",
+      "name": "Ice Cap Decapitation",
+      "sphere": "cryosphere",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 3,
+        "observed_incoming_drivers": 3,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      },
+      "outgoing_effects": 1,
+      "authenticity": {
+        "status": "rehabilitated_source_backed_phenomenon",
+        "label": "Rehabilitated source-backed phenomenon",
+        "exact_label_validated": true,
+        "source_scope": "node_specific",
+        "anchor_id": null,
+        "note": "This previously generated node now has a reviewed multi-driver contract, a bounded downstream effect, and node-specific assessment sources."
+      }
+    },
+    {
+      "id": "nunatak_habitat_shrinkage",
+      "name": "Nunatak Habitat Shrinkage",
+      "sphere": "cryosphere",
+      "driver_gate": {
+        "applicable": true,
+        "required_incoming_drivers": 3,
+        "observed_incoming_drivers": 3,
+        "qualified_incoming_drivers": 0,
+        "qualification_basis": "topology_with_relationship_contract",
+        "status": "pass"
+      },
+      "outgoing_effects": 1,
+      "authenticity": {
+        "status": "rehabilitated_source_backed_phenomenon",
+        "label": "Rehabilitated source-backed phenomenon",
+        "exact_label_validated": true,
+        "source_scope": "node_specific",
+        "anchor_id": null,
+        "note": "This previously generated node now has a reviewed multi-driver contract, a bounded downstream effect, and node-specific assessment sources."
+      }
+    }
+  ]
+}

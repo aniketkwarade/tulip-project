@@ -1,0 +1,300 @@
+{
+  "version": "analytical_label_review_v1",
+  "generated_at": "2026-08-02T00:46:44.995Z",
+  "summary": {
+    "reviewed": 16,
+    "canonical": 7,
+    "operational": 8,
+    "retained_analytical": 1
+  },
+  "decisions": [
+    {
+      "node_id": "marine_heatwaves",
+      "canonical_name": "Marine Heatwaves",
+      "disposition": "canonical_term_confirmed",
+      "canonical_class": "phenomenon",
+      "rationale": "Marine heatwave is an established event term with duration and threshold-based definitions.",
+      "source_locators": [
+        {
+          "url": "https://www.ipcc.ch/srocc/chapter/chapter-5/",
+          "locator": "IPCC SROCC Chapter 5 assessment of marine heatwaves"
+        },
+        {
+          "url": "https://www.noaa.gov/education/resource-collections/ocean-coasts/ocean-heat",
+          "locator": "NOAA ocean heat and marine heatwave context"
+        }
+      ],
+      "reviewed_at": "2026-07-18"
+    },
+    {
+      "node_id": "sea_level_rise",
+      "canonical_name": "Sea-Level Rise",
+      "disposition": "canonical_term_confirmed",
+      "canonical_class": "phenomenon",
+      "rationale": "Sea-level rise is a canonical physical climate term; the hyphenated compound is used for display consistency.",
+      "source_locators": [
+        {
+          "url": "https://sealevel.nasa.gov/",
+          "locator": "NASA Sea Level Change science and observations"
+        },
+        {
+          "url": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-9/",
+          "locator": "IPCC AR6 WGI Chapter 9 sea-level change assessment"
+        }
+      ],
+      "reviewed_at": "2026-07-18"
+    },
+    {
+      "node_id": "humanitarian_resource_gaps",
+      "canonical_name": "Humanitarian Response Capacity Gap",
+      "disposition": "normalized_operational_term",
+      "canonical_class": "operational_indicator",
+      "rationale": "The original label mixed funding, personnel, logistics, and access. Capacity gap keeps the construct operational and explicitly multidimensional.",
+      "source_locators": [
+        {
+          "url": "https://humanitarianaction.info/",
+          "locator": "UN OCHA humanitarian needs and response planning"
+        },
+        {
+          "url": "https://www.undrr.org/",
+          "locator": "UNDRR response capacity and disaster-risk governance context"
+        }
+      ],
+      "reviewed_at": "2026-07-18"
+    },
+    {
+      "node_id": "hydrological_runoff_surges",
+      "canonical_name": "Rapid Runoff Response",
+      "disposition": "normalized_operational_term",
+      "canonical_class": "operational_indicator",
+      "rationale": "The revised term describes a measurable hydrograph response without implying that all runoff increases share one causal mechanism.",
+      "source_locators": [
+        {
+          "url": "https://www.usgs.gov/mission-areas/water-resources",
+          "locator": "USGS streamflow and watershed response observations"
+        },
+        {
+          "url": "https://www.ipcc.ch/report/ar6/wg2/chapter/chapter-4/",
+          "locator": "IPCC water-cycle extremes and runoff assessment"
+        }
+      ],
+      "reviewed_at": "2026-07-18"
+    },
+    {
+      "node_id": "floodplain_exposure",
+      "canonical_name": "Population and Asset Exposure in Floodplains",
+      "disposition": "normalized_operational_term",
+      "canonical_class": "operational_indicator",
+      "rationale": "Exposure is a measurable property of people and assets within a mapped hazard footprint, not a freestanding hazard.",
+      "source_locators": [
+        {
+          "url": "https://www.wri.org/aqueduct",
+          "locator": "Aqueduct flood-risk exposure indicators"
+        },
+        {
+          "url": "https://www.ipcc.ch/report/ar6/wg2/chapter/chapter-6/",
+          "locator": "IPCC cities, settlements, infrastructure, and flood exposure"
+        }
+      ],
+      "reviewed_at": "2026-07-18"
+    },
+    {
+      "node_id": "emergency_response_overload",
+      "canonical_name": "Emergency Response Capacity Exceedance",
+      "disposition": "normalized_operational_term",
+      "canonical_class": "operational_indicator",
+      "rationale": "Capacity exceedance is a bounded comparison between incident demand and available response resources.",
+      "source_locators": [
+        {
+          "url": "https://www.who.int/emergencies",
+          "locator": "WHO emergency preparedness and response capacity"
+        },
+        {
+          "url": "https://www.undrr.org/",
+          "locator": "UNDRR disaster preparedness and response capacity"
+        }
+      ],
+      "reviewed_at": "2026-07-18"
+    },
+    {
+      "node_id": "coastal_erosion",
+      "canonical_name": "Coastal Erosion",
+      "disposition": "canonical_term_confirmed",
+      "canonical_class": "phenomenon",
+      "rationale": "Coastal erosion is an established geomorphic process term.",
+      "source_locators": [
+        {
+          "url": "https://www.usgs.gov/programs/cmhrp/science/coastal-change-hazards",
+          "locator": "USGS Coastal Change Hazards science"
+        },
+        {
+          "url": "https://www.ipcc.ch/report/ar6/wg2/chapter/ccp2/",
+          "locator": "IPCC coastal erosion and sea-level risk assessment"
+        }
+      ],
+      "reviewed_at": "2026-07-18"
+    },
+    {
+      "node_id": "managed_retreat_pressure",
+      "canonical_name": "Managed-Retreat Decision Pressure",
+      "disposition": "retained_analytical_concept",
+      "canonical_class": "analytical_concept",
+      "rationale": "No single canonical observable captures the combined social, fiscal, and hazard pressure to consider retreat. The label is retained with an explicit analytical disclosure.",
+      "source_locators": [
+        {
+          "url": "https://www.ipcc.ch/report/ar6/wg2/chapter/ccp2/",
+          "locator": "IPCC managed retreat and planned relocation pathways"
+        },
+        {
+          "url": "https://www.ipcc.ch/report/ar6/wg2/chapter/chapter-17/",
+          "locator": "IPCC adaptation decision-making options"
+        }
+      ],
+      "reviewed_at": "2026-07-18"
+    },
+    {
+      "node_id": "arctic_amplification_rates",
+      "canonical_name": "Arctic Amplification",
+      "disposition": "canonical_term_normalized",
+      "canonical_class": "phenomenon",
+      "rationale": "Rate was removed because amplification is the phenomenon; rates or ratios belong in the metric contract.",
+      "source_locators": [
+        {
+          "url": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-10/",
+          "locator": "IPCC regional climate change and Arctic amplification"
+        },
+        {
+          "url": "https://www.noaa.gov/education/resource-collections/climate/climate-change-impacts",
+          "locator": "NOAA Arctic warming context"
+        }
+      ],
+      "reviewed_at": "2026-07-18"
+    },
+    {
+      "node_id": "asphalt_pavement_heat_absorbers",
+      "canonical_name": "Asphalt Surface Heat Storage",
+      "disposition": "normalized_operational_term",
+      "canonical_class": "operational_indicator",
+      "rationale": "The original agent noun sounded synthetic. Surface heat storage is measurable through temperature, albedo, and heat flux.",
+      "source_locators": [
+        {
+          "url": "https://www.epa.gov/heatislands/using-cool-pavements-reduce-heat-islands",
+          "locator": "EPA pavement thermal and albedo mechanisms"
+        },
+        {
+          "url": "https://www.epa.gov/heatislands",
+          "locator": "EPA urban heat-island measurement and mitigation"
+        }
+      ],
+      "reviewed_at": "2026-07-18"
+    },
+    {
+      "node_id": "heatwave_excess_mortality_rates",
+      "canonical_name": "Heat-Attributable Excess Mortality",
+      "disposition": "normalized_operational_term",
+      "canonical_class": "operational_indicator",
+      "rationale": "Mortality rate is a metric; the node represents the attributable health burden estimated against an expected baseline.",
+      "source_locators": [
+        {
+          "url": "https://www.who.int/news-room/fact-sheets/detail/climate-change-heat-and-health",
+          "locator": "WHO heat-related morbidity and mortality"
+        },
+        {
+          "url": "https://www.who.int/europe/publications/i/item/9789289062930",
+          "locator": "WHO heat-health action plan surveillance and evaluation"
+        }
+      ],
+      "reviewed_at": "2026-07-18"
+    },
+    {
+      "node_id": "ambient_air_quality_deficit",
+      "canonical_name": "Ambient Air-Quality Standard Exceedance",
+      "disposition": "normalized_operational_term",
+      "canonical_class": "operational_indicator",
+      "rationale": "Deficit was ambiguous. Exceedance can be evaluated pollutant-by-pollutant against a named guideline or legal standard.",
+      "source_locators": [
+        {
+          "url": "https://www.who.int/publications/i/item/9789240034228",
+          "locator": "WHO global air-quality guidelines"
+        },
+        {
+          "url": "https://www.who.int/data/gho/data/themes/air-pollution",
+          "locator": "WHO ambient air-pollution observations"
+        }
+      ],
+      "reviewed_at": "2026-07-18"
+    },
+    {
+      "node_id": "early_warning_coverage_gaps",
+      "canonical_name": "Early-Warning Coverage Gap",
+      "disposition": "normalized_operational_term",
+      "canonical_class": "operational_indicator",
+      "rationale": "The singular construct measures the gap between at-risk populations and effective end-to-end warning coverage.",
+      "source_locators": [
+        {
+          "url": "https://wmo.int/activities/early-warnings-all",
+          "locator": "WMO Early Warnings for All coverage framework"
+        },
+        {
+          "url": "https://www.undrr.org/early-warning-for-all",
+          "locator": "UNDRR end-to-end multi-hazard early-warning framework"
+        }
+      ],
+      "reviewed_at": "2026-07-18"
+    },
+    {
+      "node_id": "coastal_saltwater_intrusion",
+      "canonical_name": "Coastal Saltwater Intrusion",
+      "disposition": "canonical_term_confirmed",
+      "canonical_class": "phenomenon",
+      "rationale": "Saltwater intrusion is an established coastal-groundwater process term.",
+      "source_locators": [
+        {
+          "url": "https://www.usgs.gov/mission-areas/water-resources/science/saltwater-intrusion",
+          "locator": "USGS saltwater intrusion science"
+        },
+        {
+          "url": "https://www.ipcc.ch/report/ar6/wg2/chapter/ccp2/",
+          "locator": "IPCC coastal groundwater and salinization risk"
+        }
+      ],
+      "reviewed_at": "2026-07-18"
+    },
+    {
+      "node_id": "riverine_habitat_fragmentation",
+      "canonical_name": "River Network Fragmentation",
+      "disposition": "canonical_term_normalized",
+      "canonical_class": "phenomenon",
+      "rationale": "River network fragmentation is the broader canonical construct; habitat and connectivity effects remain in edge mechanisms and indicators.",
+      "source_locators": [
+        {
+          "url": "https://www.usgs.gov/publications/fish-guidance-and-passage-barriers",
+          "locator": "USGS barrier, passage, and aquatic connectivity evidence"
+        },
+        {
+          "url": "https://www.nature.com/articles/s41586-019-1111-9",
+          "locator": "Global river connectivity and fragmentation assessment"
+        }
+      ],
+      "reviewed_at": "2026-07-18"
+    },
+    {
+      "node_id": "compound_coastal_flooding",
+      "canonical_name": "Compound Coastal Flooding",
+      "disposition": "canonical_term_confirmed",
+      "canonical_class": "phenomenon",
+      "rationale": "Compound coastal flooding is an established term for interacting coastal, fluvial, pluvial, and surge drivers.",
+      "source_locators": [
+        {
+          "url": "https://oceanservice.noaa.gov/facts/nuisance-flooding.html",
+          "locator": "NOAA coastal flooding context"
+        },
+        {
+          "url": "https://www.ipcc.ch/report/ar6/wg2/chapter/ccp2/",
+          "locator": "IPCC compound coastal risk assessment"
+        }
+      ],
+      "reviewed_at": "2026-07-18"
+    }
+  ]
+}

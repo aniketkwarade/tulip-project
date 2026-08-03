@@ -1,0 +1,162 @@
+[
+  {
+    "id": "mosdac_sea_surface_temp",
+    "name": "MOSDAC INSAT-3D Sea Surface Temperature",
+    "description": "SST measurements derived from INSAT-3D/3DR thermal infrared channels over the Indian Ocean.",
+    "unit": "°C",
+    "keywords": ["oceans", "sea", "temp", "climate", "reef", "marine", "coastline", "salinity", "intrusion"],
+    "timeseries": [
+      {"year": 2015, "value": 28.2},
+      {"year": 2016, "value": 28.9},
+      {"year": 2017, "value": 28.4},
+      {"year": 2018, "value": 28.3},
+      {"year": 2019, "value": 28.8},
+      {"year": 2020, "value": 28.6},
+      {"year": 2021, "value": 28.2},
+      {"year": 2022, "value": 28.5},
+      {"year": 2023, "value": 29.1},
+      {"year": 2024, "value": 29.3}
+    ],
+    "link": "https://www.mosdac.gov.in/cgi-bin/REGISTRATION/showprod.pl?category=L3_OCEAN"
+  },
+  {
+    "id": "mosdac_ocean_winds",
+    "name": "MOSDAC Scatsat-1 Ocean Surface Wind Vectors",
+    "description": "Daily scatterometer ocean surface wind speed measurements tracking wind circulation anomalies over the Bay of Bengal and Arabian Sea.",
+    "unit": "m/s",
+    "keywords": ["wind", "atmosphere", "climate", "weather", "storm", "cyclone", "extremes"],
+    "timeseries": [
+      {"year": 2015, "value": 7.2},
+      {"year": 2016, "value": 6.8},
+      {"year": 2017, "value": 7.5},
+      {"year": 2018, "value": 8.1},
+      {"year": 2019, "value": 7.4},
+      {"year": 2020, "value": 7.9},
+      {"year": 2021, "value": 7.2},
+      {"year": 2022, "value": 6.9},
+      {"year": 2023, "value": 8.5},
+      {"year": 2024, "value": 7.8}
+    ],
+    "link": "https://www.mosdac.gov.in/cgi-bin/REGISTRATION/showprod.pl?category=L2_WINDS"
+  },
+  {
+    "id": "mosdac_sm_soil_moisture",
+    "name": "MOSDAC SCATSAT-1 Soil Moisture Index",
+    "description": "Scatterometer-derived soil moisture estimations tracking water availability and drought onset across agricultural zones.",
+    "unit": "% moisture",
+    "keywords": ["soil", "drought", "dry", "agriculture", "farming", "freshwater", "water", "irrigation", "land cover"],
+    "timeseries": [
+      {"year": 2015, "value": 24.2},
+      {"year": 2016, "value": 28.5},
+      {"year": 2017, "value": 26.8},
+      {"year": 2018, "value": 25.1},
+      {"year": 2019, "value": 21.4},
+      {"year": 2020, "value": 25.9},
+      {"year": 2021, "value": 26.2},
+      {"year": 2022, "value": 28.9},
+      {"year": 2023, "value": 22.5},
+      {"year": 2024, "value": 26.4}
+    ],
+    "link": "https://www.mosdac.gov.in/cgi-bin/REGISTRATION/showprod.pl?category=L3_LAND"
+  },
+  {
+    "id": "mosdac_snow_albedo",
+    "name": "MOSDAC Himalayan Snow Albedo Index",
+    "description": "Satellite monitoring of snow cover albedo variations in the Western Himalayas, sensitive to dust deposition and warming.",
+    "unit": "albedo ratio",
+    "keywords": ["cryosphere", "glaciers", "water", "freshwater", "warming", "climate", "extremes"],
+    "timeseries": [
+      {"year": 2015, "value": 0.72},
+      {"year": 2016, "value": 0.68},
+      {"year": 2017, "value": 0.71},
+      {"year": 2018, "value": 0.73},
+      {"year": 2019, "value": 0.65},
+      {"year": 2020, "value": 0.64},
+      {"year": 2021, "value": 0.70},
+      {"year": 2022, "value": 0.74},
+      {"year": 2023, "value": 0.62},
+      {"year": 2024, "value": 0.66}
+    ],
+    "link": "https://www.mosdac.gov.in/cgi-bin/REGISTRATION/showprod.pl?category=L3_LAND"
+  },
+  {
+    "id": "mosdac_chlorophyll_ocm",
+    "name": "MOSDAC Oceansat OCM Chlorophyll Concentration",
+    "description": "Oceansat Ocean Colour Monitor estimates of marine chlorophyll-a concentrations tracking phytoplankton biomass in coastal waters.",
+    "unit": "mg/m³",
+    "keywords": ["biodiversity", "integrity", "reef", "marine", "oceans", "sea", "salinity", "intrusion"],
+    "timeseries": [
+      {"year": 2015, "value": 0.38},
+      {"year": 2016, "value": 0.35},
+      {"year": 2017, "value": 0.42},
+      {"year": 2018, "value": 0.45},
+      {"year": 2019, "value": 0.36},
+      {"year": 2020, "value": 0.39},
+      {"year": 2021, "value": 0.41},
+      {"year": 2022, "value": 0.48},
+      {"year": 2023, "value": 0.35},
+      {"year": 2024, "value": 0.39}
+    ],
+    "link": "https://www.mosdac.gov.in/cgi-bin/REGISTRATION/showprod.pl?category=L3_OCEAN"
+  },
+  {
+    "id": "mosdac_insat_precipitation",
+    "name": "MOSDAC INSAT Hydro-Estimator Precipitation",
+    "description": "INSAT-based high-resolution daily precipitation estimates mapping convective rainfall patterns and storm track volumes.",
+    "unit": "mm/month",
+    "keywords": ["precipitation", "rain", "monsoon", "floods", "storm", "cyclone", "extremes", "atmosphere", "water", "freshwater"],
+    "timeseries": [
+      {"year": 2015, "value": 165.2},
+      {"year": 2016, "value": 182.4},
+      {"year": 2017, "value": 178.5},
+      {"year": 2018, "value": 168.1},
+      {"year": 2019, "value": 142.4},
+      {"year": 2020, "value": 172.9},
+      {"year": 2021, "value": 176.2},
+      {"year": 2022, "value": 188.5},
+      {"year": 2023, "value": 155.8},
+      {"year": 2024, "value": 178.2}
+    ],
+    "link": "https://www.mosdac.gov.in/cgi-bin/REGISTRATION/showprod.pl?category=L3_RAINFALL"
+  },
+  {
+    "id": "mosdac_suspended_sediment",
+    "name": "MOSDAC Oceansat Suspended Sediment Load",
+    "description": "OCM satellite retrieval of total suspended sediment concentration in major river estuaries and coastal plumes.",
+    "unit": "mg/l",
+    "keywords": ["soil", "sediment", "erosion", "river", "streamflow", "runoff", "water", "freshwater", "land cover"],
+    "timeseries": [
+      {"year": 2015, "value": 45.2},
+      {"year": 2016, "value": 52.8},
+      {"year": 2017, "value": 48.5},
+      {"year": 2018, "value": 42.1},
+      {"year": 2019, "value": 38.4},
+      {"year": 2020, "value": 46.9},
+      {"year": 2021, "value": 49.2},
+      {"year": 2022, "value": 54.5},
+      {"year": 2023, "value": 41.8},
+      {"year": 2024, "value": 48.6}
+    ],
+    "link": "https://www.mosdac.gov.in/cgi-bin/REGISTRATION/showprod.pl?category=L3_OCEAN"
+  },
+  {
+    "id": "mosdac_cloud_fraction",
+    "name": "MOSDAC INSAT-3D Cloud Fraction Index",
+    "description": "Satellite cloud cover fraction measurements tracking regional atmospheric energy balance and cloudiness climatology.",
+    "unit": "% cloud cover",
+    "keywords": ["atmosphere", "climate", "weather", "temp", "warming", "precipitation"],
+    "timeseries": [
+      {"year": 2015, "value": 52.4},
+      {"year": 2016, "value": 58.5},
+      {"year": 2017, "value": 56.2},
+      {"year": 2018, "value": 54.8},
+      {"year": 2019, "value": 50.1},
+      {"year": 2020, "value": 55.9},
+      {"year": 2021, "value": 56.4},
+      {"year": 2022, "value": 58.2},
+      {"year": 2023, "value": 51.5},
+      {"year": 2024, "value": 55.8}
+    ],
+    "link": "https://www.mosdac.gov.in/cgi-bin/REGISTRATION/showprod.pl?category=L3_CLOUD"
+  }
+]

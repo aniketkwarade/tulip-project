@@ -1,0 +1,710 @@
+{
+  "version": "2026-07-31T20:40:51.223Z",
+  "updated_at": "2026-07-31",
+  "captured_at": "2026-07-31T20:40:51.223Z",
+  "snapshot_family": "northstar_contract_bound_ingestion",
+  "ingestion_job_id": "fetch_world_bank_wdi_global_pm2_5_exposure",
+  "source": {
+    "id": "world_bank_wdi_global_pm2_5_exposure",
+    "name": "World Bank WDI Global PM2.5 Exposure",
+    "publisher": "World Bank, sourced from Global Burden of Disease 2023",
+    "url": "https://data.worldbank.org/indicator/EN.ATM.PM25.MC.M3",
+    "api_url": "https://api.worldbank.org/v2/country/WLD/indicator/EN.ATM.PM25.MC.M3?format=json&per_page=100",
+    "licence": "Creative Commons Attribution 4.0",
+    "access": "open_api"
+  },
+  "request": {
+    "url": "https://api.worldbank.org/v2/country/WLD/indicator/EN.ATM.PM25.MC.M3?format=json&per_page=100",
+    "country_code": "WLD",
+    "indicator_id": "EN.ATM.PM25.MC.M3",
+    "format": "json",
+    "per_page": 100
+  },
+  "metric_contract_ids": [
+    "ambient_pm25_concentration"
+  ],
+  "contract_bindings": [
+    {
+      "node_id": "pm2_5_particulates",
+      "metric_contract_id": "ambient_pm25_concentration",
+      "measurement_role": "global_population_weighted_mean_annual_pm2_5_exposure"
+    }
+  ],
+  "cadence": "Annual after the World Bank updates the World Development Indicators PM2.5 exposure series; check source metadata monthly.",
+  "provenance": "Official World Bank API World aggregate for EN.ATM.PM25.MC.M3. The retained annual values are population-weighted mean ambient PM2.5 exposure estimates sourced from Global Burden of Disease 2023; no country rows are manually reaggregated.",
+  "uncertainty": "The indicator is a model-based population-exposure estimate informed by satellite retrievals, chemical transport models and monitoring data rather than a direct worldwide instrument average. Exposure surfaces, population weights, calibration, source revisions and the GBD estimation framework affect comparisons.",
+  "source_summary": {
+    "source_last_updated": "2026-07-13",
+    "source_id": "2",
+    "complete_annual_observations": 34,
+    "first_complete_year": 1990,
+    "latest_complete_year": 2023,
+    "latest_world_population_weighted_mean_pm2_5_ug_m3": 32.872382373,
+    "indicator_id": "EN.ATM.PM25.MC.M3",
+    "indicator_name": "PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)",
+    "geography_code": "WLD",
+    "who_2021_annual_pm2_5_anchor_ug_m3": {
+      "reference_aqg": 5,
+      "concerning_interim_target_3": 15,
+      "critical_interim_target_2": 25,
+      "extreme_interim_target_1": 35
+    },
+    "who_guideline_url": "https://www.who.int/publications/i/item/9789240034228"
+  },
+  "record_count": 34,
+  "records": [
+    {
+      "record_id": "world_bank_wdi_pm25_world_1990",
+      "node_id": "pm2_5_particulates",
+      "metric_id": "ambient_pm25_concentration",
+      "measurement_role": "global_population_weighted_mean_annual_pm2_5_exposure",
+      "geography_code": "WLD",
+      "geography_name": "World",
+      "observation_year": 1990,
+      "mean_annual_pm2_5_exposure_ug_m3": 36.669999886,
+      "unit": "micrograms per cubic metre",
+      "source_indicator_id": "EN.ATM.PM25.MC.M3",
+      "source_indicator_name": "PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)",
+      "source_locator": {
+        "api_url": "https://api.worldbank.org/v2/country/WLD/indicator/EN.ATM.PM25.MC.M3?format=json&per_page=100",
+        "indicator_url": "https://data.worldbank.org/indicator/EN.ATM.PM25.MC.M3",
+        "geography": "WLD",
+        "indicator": "EN.ATM.PM25.MC.M3"
+      }
+    },
+    {
+      "record_id": "world_bank_wdi_pm25_world_1991",
+      "node_id": "pm2_5_particulates",
+      "metric_id": "ambient_pm25_concentration",
+      "measurement_role": "global_population_weighted_mean_annual_pm2_5_exposure",
+      "geography_code": "WLD",
+      "geography_name": "World",
+      "observation_year": 1991,
+      "mean_annual_pm2_5_exposure_ug_m3": 36.27980352,
+      "unit": "micrograms per cubic metre",
+      "source_indicator_id": "EN.ATM.PM25.MC.M3",
+      "source_indicator_name": "PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)",
+      "source_locator": {
+        "api_url": "https://api.worldbank.org/v2/country/WLD/indicator/EN.ATM.PM25.MC.M3?format=json&per_page=100",
+        "indicator_url": "https://data.worldbank.org/indicator/EN.ATM.PM25.MC.M3",
+        "geography": "WLD",
+        "indicator": "EN.ATM.PM25.MC.M3"
+      }
+    },
+    {
+      "record_id": "world_bank_wdi_pm25_world_1992",
+      "node_id": "pm2_5_particulates",
+      "metric_id": "ambient_pm25_concentration",
+      "measurement_role": "global_population_weighted_mean_annual_pm2_5_exposure",
+      "geography_code": "WLD",
+      "geography_name": "World",
+      "observation_year": 1992,
+      "mean_annual_pm2_5_exposure_ug_m3": 36.291430224,
+      "unit": "micrograms per cubic metre",
+      "source_indicator_id": "EN.ATM.PM25.MC.M3",
+      "source_indicator_name": "PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)",
+      "source_locator": {
+        "api_url": "https://api.worldbank.org/v2/country/WLD/indicator/EN.ATM.PM25.MC.M3?format=json&per_page=100",
+        "indicator_url": "https://data.worldbank.org/indicator/EN.ATM.PM25.MC.M3",
+        "geography": "WLD",
+        "indicator": "EN.ATM.PM25.MC.M3"
+      }
+    },
+    {
+      "record_id": "world_bank_wdi_pm25_world_1993",
+      "node_id": "pm2_5_particulates",
+      "metric_id": "ambient_pm25_concentration",
+      "measurement_role": "global_population_weighted_mean_annual_pm2_5_exposure",
+      "geography_code": "WLD",
+      "geography_name": "World",
+      "observation_year": 1993,
+      "mean_annual_pm2_5_exposure_ug_m3": 36.304341257,
+      "unit": "micrograms per cubic metre",
+      "source_indicator_id": "EN.ATM.PM25.MC.M3",
+      "source_indicator_name": "PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)",
+      "source_locator": {
+        "api_url": "https://api.worldbank.org/v2/country/WLD/indicator/EN.ATM.PM25.MC.M3?format=json&per_page=100",
+        "indicator_url": "https://data.worldbank.org/indicator/EN.ATM.PM25.MC.M3",
+        "geography": "WLD",
+        "indicator": "EN.ATM.PM25.MC.M3"
+      }
+    },
+    {
+      "record_id": "world_bank_wdi_pm25_world_1994",
+      "node_id": "pm2_5_particulates",
+      "metric_id": "ambient_pm25_concentration",
+      "measurement_role": "global_population_weighted_mean_annual_pm2_5_exposure",
+      "geography_code": "WLD",
+      "geography_name": "World",
+      "observation_year": 1994,
+      "mean_annual_pm2_5_exposure_ug_m3": 36.317308319,
+      "unit": "micrograms per cubic metre",
+      "source_indicator_id": "EN.ATM.PM25.MC.M3",
+      "source_indicator_name": "PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)",
+      "source_locator": {
+        "api_url": "https://api.worldbank.org/v2/country/WLD/indicator/EN.ATM.PM25.MC.M3?format=json&per_page=100",
+        "indicator_url": "https://data.worldbank.org/indicator/EN.ATM.PM25.MC.M3",
+        "geography": "WLD",
+        "indicator": "EN.ATM.PM25.MC.M3"
+      }
+    },
+    {
+      "record_id": "world_bank_wdi_pm25_world_1995",
+      "node_id": "pm2_5_particulates",
+      "metric_id": "ambient_pm25_concentration",
+      "measurement_role": "global_population_weighted_mean_annual_pm2_5_exposure",
+      "geography_code": "WLD",
+      "geography_name": "World",
+      "observation_year": 1995,
+      "mean_annual_pm2_5_exposure_ug_m3": 35.508452754,
+      "unit": "micrograms per cubic metre",
+      "source_indicator_id": "EN.ATM.PM25.MC.M3",
+      "source_indicator_name": "PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)",
+      "source_locator": {
+        "api_url": "https://api.worldbank.org/v2/country/WLD/indicator/EN.ATM.PM25.MC.M3?format=json&per_page=100",
+        "indicator_url": "https://data.worldbank.org/indicator/EN.ATM.PM25.MC.M3",
+        "geography": "WLD",
+        "indicator": "EN.ATM.PM25.MC.M3"
+      }
+    },
+    {
+      "record_id": "world_bank_wdi_pm25_world_1996",
+      "node_id": "pm2_5_particulates",
+      "metric_id": "ambient_pm25_concentration",
+      "measurement_role": "global_population_weighted_mean_annual_pm2_5_exposure",
+      "geography_code": "WLD",
+      "geography_name": "World",
+      "observation_year": 1996,
+      "mean_annual_pm2_5_exposure_ug_m3": 36.348804779,
+      "unit": "micrograms per cubic metre",
+      "source_indicator_id": "EN.ATM.PM25.MC.M3",
+      "source_indicator_name": "PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)",
+      "source_locator": {
+        "api_url": "https://api.worldbank.org/v2/country/WLD/indicator/EN.ATM.PM25.MC.M3?format=json&per_page=100",
+        "indicator_url": "https://data.worldbank.org/indicator/EN.ATM.PM25.MC.M3",
+        "geography": "WLD",
+        "indicator": "EN.ATM.PM25.MC.M3"
+      }
+    },
+    {
+      "record_id": "world_bank_wdi_pm25_world_1997",
+      "node_id": "pm2_5_particulates",
+      "metric_id": "ambient_pm25_concentration",
+      "measurement_role": "global_population_weighted_mean_annual_pm2_5_exposure",
+      "geography_code": "WLD",
+      "geography_name": "World",
+      "observation_year": 1997,
+      "mean_annual_pm2_5_exposure_ug_m3": 36.366552816,
+      "unit": "micrograms per cubic metre",
+      "source_indicator_id": "EN.ATM.PM25.MC.M3",
+      "source_indicator_name": "PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)",
+      "source_locator": {
+        "api_url": "https://api.worldbank.org/v2/country/WLD/indicator/EN.ATM.PM25.MC.M3?format=json&per_page=100",
+        "indicator_url": "https://data.worldbank.org/indicator/EN.ATM.PM25.MC.M3",
+        "geography": "WLD",
+        "indicator": "EN.ATM.PM25.MC.M3"
+      }
+    },
+    {
+      "record_id": "world_bank_wdi_pm25_world_1998",
+      "node_id": "pm2_5_particulates",
+      "metric_id": "ambient_pm25_concentration",
+      "measurement_role": "global_population_weighted_mean_annual_pm2_5_exposure",
+      "geography_code": "WLD",
+      "geography_name": "World",
+      "observation_year": 1998,
+      "mean_annual_pm2_5_exposure_ug_m3": 36.38524637,
+      "unit": "micrograms per cubic metre",
+      "source_indicator_id": "EN.ATM.PM25.MC.M3",
+      "source_indicator_name": "PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)",
+      "source_locator": {
+        "api_url": "https://api.worldbank.org/v2/country/WLD/indicator/EN.ATM.PM25.MC.M3?format=json&per_page=100",
+        "indicator_url": "https://data.worldbank.org/indicator/EN.ATM.PM25.MC.M3",
+        "geography": "WLD",
+        "indicator": "EN.ATM.PM25.MC.M3"
+      }
+    },
+    {
+      "record_id": "world_bank_wdi_pm25_world_1999",
+      "node_id": "pm2_5_particulates",
+      "metric_id": "ambient_pm25_concentration",
+      "measurement_role": "global_population_weighted_mean_annual_pm2_5_exposure",
+      "geography_code": "WLD",
+      "geography_name": "World",
+      "observation_year": 1999,
+      "mean_annual_pm2_5_exposure_ug_m3": 36.405140805,
+      "unit": "micrograms per cubic metre",
+      "source_indicator_id": "EN.ATM.PM25.MC.M3",
+      "source_indicator_name": "PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)",
+      "source_locator": {
+        "api_url": "https://api.worldbank.org/v2/country/WLD/indicator/EN.ATM.PM25.MC.M3?format=json&per_page=100",
+        "indicator_url": "https://data.worldbank.org/indicator/EN.ATM.PM25.MC.M3",
+        "geography": "WLD",
+        "indicator": "EN.ATM.PM25.MC.M3"
+      }
+    },
+    {
+      "record_id": "world_bank_wdi_pm25_world_2000",
+      "node_id": "pm2_5_particulates",
+      "metric_id": "ambient_pm25_concentration",
+      "measurement_role": "global_population_weighted_mean_annual_pm2_5_exposure",
+      "geography_code": "WLD",
+      "geography_name": "World",
+      "observation_year": 2000,
+      "mean_annual_pm2_5_exposure_ug_m3": 36.849157099,
+      "unit": "micrograms per cubic metre",
+      "source_indicator_id": "EN.ATM.PM25.MC.M3",
+      "source_indicator_name": "PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)",
+      "source_locator": {
+        "api_url": "https://api.worldbank.org/v2/country/WLD/indicator/EN.ATM.PM25.MC.M3?format=json&per_page=100",
+        "indicator_url": "https://data.worldbank.org/indicator/EN.ATM.PM25.MC.M3",
+        "geography": "WLD",
+        "indicator": "EN.ATM.PM25.MC.M3"
+      }
+    },
+    {
+      "record_id": "world_bank_wdi_pm25_world_2001",
+      "node_id": "pm2_5_particulates",
+      "metric_id": "ambient_pm25_concentration",
+      "measurement_role": "global_population_weighted_mean_annual_pm2_5_exposure",
+      "geography_code": "WLD",
+      "geography_name": "World",
+      "observation_year": 2001,
+      "mean_annual_pm2_5_exposure_ug_m3": 36.21648068,
+      "unit": "micrograms per cubic metre",
+      "source_indicator_id": "EN.ATM.PM25.MC.M3",
+      "source_indicator_name": "PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)",
+      "source_locator": {
+        "api_url": "https://api.worldbank.org/v2/country/WLD/indicator/EN.ATM.PM25.MC.M3?format=json&per_page=100",
+        "indicator_url": "https://data.worldbank.org/indicator/EN.ATM.PM25.MC.M3",
+        "geography": "WLD",
+        "indicator": "EN.ATM.PM25.MC.M3"
+      }
+    },
+    {
+      "record_id": "world_bank_wdi_pm25_world_2002",
+      "node_id": "pm2_5_particulates",
+      "metric_id": "ambient_pm25_concentration",
+      "measurement_role": "global_population_weighted_mean_annual_pm2_5_exposure",
+      "geography_code": "WLD",
+      "geography_name": "World",
+      "observation_year": 2002,
+      "mean_annual_pm2_5_exposure_ug_m3": 36.813453174,
+      "unit": "micrograms per cubic metre",
+      "source_indicator_id": "EN.ATM.PM25.MC.M3",
+      "source_indicator_name": "PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)",
+      "source_locator": {
+        "api_url": "https://api.worldbank.org/v2/country/WLD/indicator/EN.ATM.PM25.MC.M3?format=json&per_page=100",
+        "indicator_url": "https://data.worldbank.org/indicator/EN.ATM.PM25.MC.M3",
+        "geography": "WLD",
+        "indicator": "EN.ATM.PM25.MC.M3"
+      }
+    },
+    {
+      "record_id": "world_bank_wdi_pm25_world_2003",
+      "node_id": "pm2_5_particulates",
+      "metric_id": "ambient_pm25_concentration",
+      "measurement_role": "global_population_weighted_mean_annual_pm2_5_exposure",
+      "geography_code": "WLD",
+      "geography_name": "World",
+      "observation_year": 2003,
+      "mean_annual_pm2_5_exposure_ug_m3": 36.7067476,
+      "unit": "micrograms per cubic metre",
+      "source_indicator_id": "EN.ATM.PM25.MC.M3",
+      "source_indicator_name": "PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)",
+      "source_locator": {
+        "api_url": "https://api.worldbank.org/v2/country/WLD/indicator/EN.ATM.PM25.MC.M3?format=json&per_page=100",
+        "indicator_url": "https://data.worldbank.org/indicator/EN.ATM.PM25.MC.M3",
+        "geography": "WLD",
+        "indicator": "EN.ATM.PM25.MC.M3"
+      }
+    },
+    {
+      "record_id": "world_bank_wdi_pm25_world_2004",
+      "node_id": "pm2_5_particulates",
+      "metric_id": "ambient_pm25_concentration",
+      "measurement_role": "global_population_weighted_mean_annual_pm2_5_exposure",
+      "geography_code": "WLD",
+      "geography_name": "World",
+      "observation_year": 2004,
+      "mean_annual_pm2_5_exposure_ug_m3": 36.392977801,
+      "unit": "micrograms per cubic metre",
+      "source_indicator_id": "EN.ATM.PM25.MC.M3",
+      "source_indicator_name": "PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)",
+      "source_locator": {
+        "api_url": "https://api.worldbank.org/v2/country/WLD/indicator/EN.ATM.PM25.MC.M3?format=json&per_page=100",
+        "indicator_url": "https://data.worldbank.org/indicator/EN.ATM.PM25.MC.M3",
+        "geography": "WLD",
+        "indicator": "EN.ATM.PM25.MC.M3"
+      }
+    },
+    {
+      "record_id": "world_bank_wdi_pm25_world_2005",
+      "node_id": "pm2_5_particulates",
+      "metric_id": "ambient_pm25_concentration",
+      "measurement_role": "global_population_weighted_mean_annual_pm2_5_exposure",
+      "geography_code": "WLD",
+      "geography_name": "World",
+      "observation_year": 2005,
+      "mean_annual_pm2_5_exposure_ug_m3": 36.38498132,
+      "unit": "micrograms per cubic metre",
+      "source_indicator_id": "EN.ATM.PM25.MC.M3",
+      "source_indicator_name": "PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)",
+      "source_locator": {
+        "api_url": "https://api.worldbank.org/v2/country/WLD/indicator/EN.ATM.PM25.MC.M3?format=json&per_page=100",
+        "indicator_url": "https://data.worldbank.org/indicator/EN.ATM.PM25.MC.M3",
+        "geography": "WLD",
+        "indicator": "EN.ATM.PM25.MC.M3"
+      }
+    },
+    {
+      "record_id": "world_bank_wdi_pm25_world_2006",
+      "node_id": "pm2_5_particulates",
+      "metric_id": "ambient_pm25_concentration",
+      "measurement_role": "global_population_weighted_mean_annual_pm2_5_exposure",
+      "geography_code": "WLD",
+      "geography_name": "World",
+      "observation_year": 2006,
+      "mean_annual_pm2_5_exposure_ug_m3": 35.946835679,
+      "unit": "micrograms per cubic metre",
+      "source_indicator_id": "EN.ATM.PM25.MC.M3",
+      "source_indicator_name": "PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)",
+      "source_locator": {
+        "api_url": "https://api.worldbank.org/v2/country/WLD/indicator/EN.ATM.PM25.MC.M3?format=json&per_page=100",
+        "indicator_url": "https://data.worldbank.org/indicator/EN.ATM.PM25.MC.M3",
+        "geography": "WLD",
+        "indicator": "EN.ATM.PM25.MC.M3"
+      }
+    },
+    {
+      "record_id": "world_bank_wdi_pm25_world_2007",
+      "node_id": "pm2_5_particulates",
+      "metric_id": "ambient_pm25_concentration",
+      "measurement_role": "global_population_weighted_mean_annual_pm2_5_exposure",
+      "geography_code": "WLD",
+      "geography_name": "World",
+      "observation_year": 2007,
+      "mean_annual_pm2_5_exposure_ug_m3": 35.995009295,
+      "unit": "micrograms per cubic metre",
+      "source_indicator_id": "EN.ATM.PM25.MC.M3",
+      "source_indicator_name": "PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)",
+      "source_locator": {
+        "api_url": "https://api.worldbank.org/v2/country/WLD/indicator/EN.ATM.PM25.MC.M3?format=json&per_page=100",
+        "indicator_url": "https://data.worldbank.org/indicator/EN.ATM.PM25.MC.M3",
+        "geography": "WLD",
+        "indicator": "EN.ATM.PM25.MC.M3"
+      }
+    },
+    {
+      "record_id": "world_bank_wdi_pm25_world_2008",
+      "node_id": "pm2_5_particulates",
+      "metric_id": "ambient_pm25_concentration",
+      "measurement_role": "global_population_weighted_mean_annual_pm2_5_exposure",
+      "geography_code": "WLD",
+      "geography_name": "World",
+      "observation_year": 2008,
+      "mean_annual_pm2_5_exposure_ug_m3": 36.276346414,
+      "unit": "micrograms per cubic metre",
+      "source_indicator_id": "EN.ATM.PM25.MC.M3",
+      "source_indicator_name": "PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)",
+      "source_locator": {
+        "api_url": "https://api.worldbank.org/v2/country/WLD/indicator/EN.ATM.PM25.MC.M3?format=json&per_page=100",
+        "indicator_url": "https://data.worldbank.org/indicator/EN.ATM.PM25.MC.M3",
+        "geography": "WLD",
+        "indicator": "EN.ATM.PM25.MC.M3"
+      }
+    },
+    {
+      "record_id": "world_bank_wdi_pm25_world_2009",
+      "node_id": "pm2_5_particulates",
+      "metric_id": "ambient_pm25_concentration",
+      "measurement_role": "global_population_weighted_mean_annual_pm2_5_exposure",
+      "geography_code": "WLD",
+      "geography_name": "World",
+      "observation_year": 2009,
+      "mean_annual_pm2_5_exposure_ug_m3": 36.092170732,
+      "unit": "micrograms per cubic metre",
+      "source_indicator_id": "EN.ATM.PM25.MC.M3",
+      "source_indicator_name": "PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)",
+      "source_locator": {
+        "api_url": "https://api.worldbank.org/v2/country/WLD/indicator/EN.ATM.PM25.MC.M3?format=json&per_page=100",
+        "indicator_url": "https://data.worldbank.org/indicator/EN.ATM.PM25.MC.M3",
+        "geography": "WLD",
+        "indicator": "EN.ATM.PM25.MC.M3"
+      }
+    },
+    {
+      "record_id": "world_bank_wdi_pm25_world_2010",
+      "node_id": "pm2_5_particulates",
+      "metric_id": "ambient_pm25_concentration",
+      "measurement_role": "global_population_weighted_mean_annual_pm2_5_exposure",
+      "geography_code": "WLD",
+      "geography_name": "World",
+      "observation_year": 2010,
+      "mean_annual_pm2_5_exposure_ug_m3": 36.030336403,
+      "unit": "micrograms per cubic metre",
+      "source_indicator_id": "EN.ATM.PM25.MC.M3",
+      "source_indicator_name": "PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)",
+      "source_locator": {
+        "api_url": "https://api.worldbank.org/v2/country/WLD/indicator/EN.ATM.PM25.MC.M3?format=json&per_page=100",
+        "indicator_url": "https://data.worldbank.org/indicator/EN.ATM.PM25.MC.M3",
+        "geography": "WLD",
+        "indicator": "EN.ATM.PM25.MC.M3"
+      }
+    },
+    {
+      "record_id": "world_bank_wdi_pm25_world_2011",
+      "node_id": "pm2_5_particulates",
+      "metric_id": "ambient_pm25_concentration",
+      "measurement_role": "global_population_weighted_mean_annual_pm2_5_exposure",
+      "geography_code": "WLD",
+      "geography_name": "World",
+      "observation_year": 2011,
+      "mean_annual_pm2_5_exposure_ug_m3": 37.36317633,
+      "unit": "micrograms per cubic metre",
+      "source_indicator_id": "EN.ATM.PM25.MC.M3",
+      "source_indicator_name": "PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)",
+      "source_locator": {
+        "api_url": "https://api.worldbank.org/v2/country/WLD/indicator/EN.ATM.PM25.MC.M3?format=json&per_page=100",
+        "indicator_url": "https://data.worldbank.org/indicator/EN.ATM.PM25.MC.M3",
+        "geography": "WLD",
+        "indicator": "EN.ATM.PM25.MC.M3"
+      }
+    },
+    {
+      "record_id": "world_bank_wdi_pm25_world_2012",
+      "node_id": "pm2_5_particulates",
+      "metric_id": "ambient_pm25_concentration",
+      "measurement_role": "global_population_weighted_mean_annual_pm2_5_exposure",
+      "geography_code": "WLD",
+      "geography_name": "World",
+      "observation_year": 2012,
+      "mean_annual_pm2_5_exposure_ug_m3": 35.99854534,
+      "unit": "micrograms per cubic metre",
+      "source_indicator_id": "EN.ATM.PM25.MC.M3",
+      "source_indicator_name": "PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)",
+      "source_locator": {
+        "api_url": "https://api.worldbank.org/v2/country/WLD/indicator/EN.ATM.PM25.MC.M3?format=json&per_page=100",
+        "indicator_url": "https://data.worldbank.org/indicator/EN.ATM.PM25.MC.M3",
+        "geography": "WLD",
+        "indicator": "EN.ATM.PM25.MC.M3"
+      }
+    },
+    {
+      "record_id": "world_bank_wdi_pm25_world_2013",
+      "node_id": "pm2_5_particulates",
+      "metric_id": "ambient_pm25_concentration",
+      "measurement_role": "global_population_weighted_mean_annual_pm2_5_exposure",
+      "geography_code": "WLD",
+      "geography_name": "World",
+      "observation_year": 2013,
+      "mean_annual_pm2_5_exposure_ug_m3": 36.004640315,
+      "unit": "micrograms per cubic metre",
+      "source_indicator_id": "EN.ATM.PM25.MC.M3",
+      "source_indicator_name": "PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)",
+      "source_locator": {
+        "api_url": "https://api.worldbank.org/v2/country/WLD/indicator/EN.ATM.PM25.MC.M3?format=json&per_page=100",
+        "indicator_url": "https://data.worldbank.org/indicator/EN.ATM.PM25.MC.M3",
+        "geography": "WLD",
+        "indicator": "EN.ATM.PM25.MC.M3"
+      }
+    },
+    {
+      "record_id": "world_bank_wdi_pm25_world_2014",
+      "node_id": "pm2_5_particulates",
+      "metric_id": "ambient_pm25_concentration",
+      "measurement_role": "global_population_weighted_mean_annual_pm2_5_exposure",
+      "geography_code": "WLD",
+      "geography_name": "World",
+      "observation_year": 2014,
+      "mean_annual_pm2_5_exposure_ug_m3": 35.895126518,
+      "unit": "micrograms per cubic metre",
+      "source_indicator_id": "EN.ATM.PM25.MC.M3",
+      "source_indicator_name": "PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)",
+      "source_locator": {
+        "api_url": "https://api.worldbank.org/v2/country/WLD/indicator/EN.ATM.PM25.MC.M3?format=json&per_page=100",
+        "indicator_url": "https://data.worldbank.org/indicator/EN.ATM.PM25.MC.M3",
+        "geography": "WLD",
+        "indicator": "EN.ATM.PM25.MC.M3"
+      }
+    },
+    {
+      "record_id": "world_bank_wdi_pm25_world_2015",
+      "node_id": "pm2_5_particulates",
+      "metric_id": "ambient_pm25_concentration",
+      "measurement_role": "global_population_weighted_mean_annual_pm2_5_exposure",
+      "geography_code": "WLD",
+      "geography_name": "World",
+      "observation_year": 2015,
+      "mean_annual_pm2_5_exposure_ug_m3": 36.535892092,
+      "unit": "micrograms per cubic metre",
+      "source_indicator_id": "EN.ATM.PM25.MC.M3",
+      "source_indicator_name": "PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)",
+      "source_locator": {
+        "api_url": "https://api.worldbank.org/v2/country/WLD/indicator/EN.ATM.PM25.MC.M3?format=json&per_page=100",
+        "indicator_url": "https://data.worldbank.org/indicator/EN.ATM.PM25.MC.M3",
+        "geography": "WLD",
+        "indicator": "EN.ATM.PM25.MC.M3"
+      }
+    },
+    {
+      "record_id": "world_bank_wdi_pm25_world_2016",
+      "node_id": "pm2_5_particulates",
+      "metric_id": "ambient_pm25_concentration",
+      "measurement_role": "global_population_weighted_mean_annual_pm2_5_exposure",
+      "geography_code": "WLD",
+      "geography_name": "World",
+      "observation_year": 2016,
+      "mean_annual_pm2_5_exposure_ug_m3": 35.477192193,
+      "unit": "micrograms per cubic metre",
+      "source_indicator_id": "EN.ATM.PM25.MC.M3",
+      "source_indicator_name": "PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)",
+      "source_locator": {
+        "api_url": "https://api.worldbank.org/v2/country/WLD/indicator/EN.ATM.PM25.MC.M3?format=json&per_page=100",
+        "indicator_url": "https://data.worldbank.org/indicator/EN.ATM.PM25.MC.M3",
+        "geography": "WLD",
+        "indicator": "EN.ATM.PM25.MC.M3"
+      }
+    },
+    {
+      "record_id": "world_bank_wdi_pm25_world_2017",
+      "node_id": "pm2_5_particulates",
+      "metric_id": "ambient_pm25_concentration",
+      "measurement_role": "global_population_weighted_mean_annual_pm2_5_exposure",
+      "geography_code": "WLD",
+      "geography_name": "World",
+      "observation_year": 2017,
+      "mean_annual_pm2_5_exposure_ug_m3": 35.014493966,
+      "unit": "micrograms per cubic metre",
+      "source_indicator_id": "EN.ATM.PM25.MC.M3",
+      "source_indicator_name": "PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)",
+      "source_locator": {
+        "api_url": "https://api.worldbank.org/v2/country/WLD/indicator/EN.ATM.PM25.MC.M3?format=json&per_page=100",
+        "indicator_url": "https://data.worldbank.org/indicator/EN.ATM.PM25.MC.M3",
+        "geography": "WLD",
+        "indicator": "EN.ATM.PM25.MC.M3"
+      }
+    },
+    {
+      "record_id": "world_bank_wdi_pm25_world_2018",
+      "node_id": "pm2_5_particulates",
+      "metric_id": "ambient_pm25_concentration",
+      "measurement_role": "global_population_weighted_mean_annual_pm2_5_exposure",
+      "geography_code": "WLD",
+      "geography_name": "World",
+      "observation_year": 2018,
+      "mean_annual_pm2_5_exposure_ug_m3": 34.742619176,
+      "unit": "micrograms per cubic metre",
+      "source_indicator_id": "EN.ATM.PM25.MC.M3",
+      "source_indicator_name": "PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)",
+      "source_locator": {
+        "api_url": "https://api.worldbank.org/v2/country/WLD/indicator/EN.ATM.PM25.MC.M3?format=json&per_page=100",
+        "indicator_url": "https://data.worldbank.org/indicator/EN.ATM.PM25.MC.M3",
+        "geography": "WLD",
+        "indicator": "EN.ATM.PM25.MC.M3"
+      }
+    },
+    {
+      "record_id": "world_bank_wdi_pm25_world_2019",
+      "node_id": "pm2_5_particulates",
+      "metric_id": "ambient_pm25_concentration",
+      "measurement_role": "global_population_weighted_mean_annual_pm2_5_exposure",
+      "geography_code": "WLD",
+      "geography_name": "World",
+      "observation_year": 2019,
+      "mean_annual_pm2_5_exposure_ug_m3": 33.384508319,
+      "unit": "micrograms per cubic metre",
+      "source_indicator_id": "EN.ATM.PM25.MC.M3",
+      "source_indicator_name": "PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)",
+      "source_locator": {
+        "api_url": "https://api.worldbank.org/v2/country/WLD/indicator/EN.ATM.PM25.MC.M3?format=json&per_page=100",
+        "indicator_url": "https://data.worldbank.org/indicator/EN.ATM.PM25.MC.M3",
+        "geography": "WLD",
+        "indicator": "EN.ATM.PM25.MC.M3"
+      }
+    },
+    {
+      "record_id": "world_bank_wdi_pm25_world_2020",
+      "node_id": "pm2_5_particulates",
+      "metric_id": "ambient_pm25_concentration",
+      "measurement_role": "global_population_weighted_mean_annual_pm2_5_exposure",
+      "geography_code": "WLD",
+      "geography_name": "World",
+      "observation_year": 2020,
+      "mean_annual_pm2_5_exposure_ug_m3": 32.501843041,
+      "unit": "micrograms per cubic metre",
+      "source_indicator_id": "EN.ATM.PM25.MC.M3",
+      "source_indicator_name": "PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)",
+      "source_locator": {
+        "api_url": "https://api.worldbank.org/v2/country/WLD/indicator/EN.ATM.PM25.MC.M3?format=json&per_page=100",
+        "indicator_url": "https://data.worldbank.org/indicator/EN.ATM.PM25.MC.M3",
+        "geography": "WLD",
+        "indicator": "EN.ATM.PM25.MC.M3"
+      }
+    },
+    {
+      "record_id": "world_bank_wdi_pm25_world_2021",
+      "node_id": "pm2_5_particulates",
+      "metric_id": "ambient_pm25_concentration",
+      "measurement_role": "global_population_weighted_mean_annual_pm2_5_exposure",
+      "geography_code": "WLD",
+      "geography_name": "World",
+      "observation_year": 2021,
+      "mean_annual_pm2_5_exposure_ug_m3": 33.198827018,
+      "unit": "micrograms per cubic metre",
+      "source_indicator_id": "EN.ATM.PM25.MC.M3",
+      "source_indicator_name": "PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)",
+      "source_locator": {
+        "api_url": "https://api.worldbank.org/v2/country/WLD/indicator/EN.ATM.PM25.MC.M3?format=json&per_page=100",
+        "indicator_url": "https://data.worldbank.org/indicator/EN.ATM.PM25.MC.M3",
+        "geography": "WLD",
+        "indicator": "EN.ATM.PM25.MC.M3"
+      }
+    },
+    {
+      "record_id": "world_bank_wdi_pm25_world_2022",
+      "node_id": "pm2_5_particulates",
+      "metric_id": "ambient_pm25_concentration",
+      "measurement_role": "global_population_weighted_mean_annual_pm2_5_exposure",
+      "geography_code": "WLD",
+      "geography_name": "World",
+      "observation_year": 2022,
+      "mean_annual_pm2_5_exposure_ug_m3": 32.732143388,
+      "unit": "micrograms per cubic metre",
+      "source_indicator_id": "EN.ATM.PM25.MC.M3",
+      "source_indicator_name": "PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)",
+      "source_locator": {
+        "api_url": "https://api.worldbank.org/v2/country/WLD/indicator/EN.ATM.PM25.MC.M3?format=json&per_page=100",
+        "indicator_url": "https://data.worldbank.org/indicator/EN.ATM.PM25.MC.M3",
+        "geography": "WLD",
+        "indicator": "EN.ATM.PM25.MC.M3"
+      }
+    },
+    {
+      "record_id": "world_bank_wdi_pm25_world_2023",
+      "node_id": "pm2_5_particulates",
+      "metric_id": "ambient_pm25_concentration",
+      "measurement_role": "global_population_weighted_mean_annual_pm2_5_exposure",
+      "geography_code": "WLD",
+      "geography_name": "World",
+      "observation_year": 2023,
+      "mean_annual_pm2_5_exposure_ug_m3": 32.872382373,
+      "unit": "micrograms per cubic metre",
+      "source_indicator_id": "EN.ATM.PM25.MC.M3",
+      "source_indicator_name": "PM2.5 air pollution, mean annual exposure (micrograms per cubic meter)",
+      "source_locator": {
+        "api_url": "https://api.worldbank.org/v2/country/WLD/indicator/EN.ATM.PM25.MC.M3?format=json&per_page=100",
+        "indicator_url": "https://data.worldbank.org/indicator/EN.ATM.PM25.MC.M3",
+        "geography": "WLD",
+        "indicator": "EN.ATM.PM25.MC.M3"
+      }
+    }
+  ],
+  "caveats": [
+    "The World aggregate is population-weighted exposure, not a land-area mean, a city-monitor mean or an unweighted country average.",
+    "The source values are model estimates and may be revised across GBD and World Bank releases; this is retained as internal uncertainty, not treated as missing current evidence.",
+    "WHO interim targets are health-protection milestones and the AQG is the recommended level; the four TULIP anchors omit interim target 4 solely to preserve the required four-anchor normalization.",
+    "Missing World Bank years and null values are excluded and never converted to zero."
+  ],
+  "failure_behavior": "Retain the last validated snapshot and mark stale; reject changed indicator, geography, units, non-positive values, internal missing years, fewer than 20 complete annual observations or absent update metadata; never fill missing exposure with zero or substitute country values for the World aggregate."
+}

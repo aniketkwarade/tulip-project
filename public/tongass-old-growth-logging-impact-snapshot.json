@@ -1,0 +1,78 @@
+{
+  "version": "tongass_old_growth_logging_1909_2014_v1",
+  "captured_at": "2026-08-01T00:00:00.000Z",
+  "sources": [
+    {
+      "id": "usfs_tongass_goshawk_conservation_assessment_1996",
+      "name": "Conservation Assessment for the Northern Goshawk in Southeast Alaska",
+      "publisher": "USDA Forest Service, Pacific Northwest Research Station",
+      "publication_date": "1996-11",
+      "url": "https://research.fs.usda.gov/download/treesearch/3053.pdf",
+      "source_locators": [
+        "The assessment defines Tongass old-growth sawtimber as over 150 years old while noting that the full complement of old-growth features may not occur until about 250 years.",
+        "It reports 405,000 acres of productive old growth harvested from 1954–1995 and estimates another 45,000 acres from 1909–1954, for 450,000 acres total.",
+        "The assessment reports about 5.6 million acres of productive forest and states that clearcut even-aged management was the predominant harvest method."
+      ]
+    },
+    {
+      "id": "gao_tongass_timber_program_transition_2016",
+      "name": "Tongass National Forest: Forest Service’s Actions Related to Its Planned Timber Program Transition",
+      "publisher": "U.S. Government Accountability Office",
+      "publication_date": "2016-04-25",
+      "url": "https://www.gao.gov/assets/680/676905.pdf",
+      "source_locators": [
+        "GAO states that the Tongass timber program had been based on harvesting old-growth trees since the early twentieth century and that the transition to young growth was announced in 2010.",
+        "Forest Service data reviewed by GAO show average annual timber-related expenditures of $12.5 million and revenues of $1.1 million from fiscal years 2005–2014.",
+        "The expenditure figure excludes road construction and maintenance; the receipt therefore does not add an estimated road cost."
+      ]
+    }
+  ],
+  "metric_contract": {
+    "node_id": "old_growth_forest_logging",
+    "metric_id": "old_growth_forest_harvest_area",
+    "unit": "productive old-growth acres harvested, explicit age definition, accumulated duration, forest share and realized timber-program fiscal burden",
+    "geography": "Tongass National Forest, southeast Alaska, United States",
+    "assessment_period": "cumulative old-growth harvest from 1909–1995 and federal timber-program expenditures and revenues from fiscal years 2005–2014",
+    "boundary": "The Forest Service old-growth and productive-forest definitions are retained. The receipt does not label all mature forest as old growth, add conveyed non-federal lands, infer carbon emissions, or include unreported road costs."
+  },
+  "accumulated_impact": {
+    "productive_old_growth_harvested_acres_estimated": 450000,
+    "productive_forest_acres": 5600000,
+    "productive_forest_share_harvested_percent_derived": 8.035714,
+    "old_growth_sawtimber_minimum_age_years": 150,
+    "full_old_growth_features_age_years_approximate": 250,
+    "first_harvest_year": 1909,
+    "cumulative_assessment_year": 1995,
+    "documented_harvest_span_years_derived": 86,
+    "average_annual_timber_program_expenditures_million_usd_fy2005_2014": 12.5,
+    "average_annual_timber_program_revenue_million_usd_fy2005_2014": 1.1,
+    "average_annual_net_public_cost_million_usd_derived": 11.4
+  },
+  "reviewed_normalization_anchors": {
+    "harvested_old_growth_acres": [
+      0,
+      1000,
+      100000,
+      500000
+    ],
+    "average_annual_net_public_cost_million_usd": [
+      0,
+      1,
+      10,
+      25
+    ],
+    "documented_harvest_span_years": [
+      0,
+      1,
+      25,
+      100
+    ],
+    "productive_forest_share_harvested_percent": [
+      0,
+      1,
+      5,
+      20
+    ]
+  },
+  "uncertainty": "The 45,000-acre 1909–1954 quantity is estimated from reported saw-log volume and an assumed per-acre harvest volume, while the 405,000-acre 1954–1995 quantity is inventory-based. Productive forest is a timber-capability class and is not identical to the old-growth denominator in every ecological interpretation. The 2005–2014 fiscal figures cover the Tongass timber program during a period when GAO describes the program as historically old-growth-based, but the figures are not allocated sale-by-sale between old and young growth. Net public cost excludes road construction and maintenance and is an administrative fiscal burden, not an ecological valuation."
+}

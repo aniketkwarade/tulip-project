@@ -1,0 +1,200 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_15_climate_trace_land_co2",
+  "generated_at": "2026-07-31T22:57:31.984Z",
+  "promoted_node_count": 2,
+  "receipts": [
+    {
+      "node_id": "deforestation_co2_release",
+      "value": 3,
+      "band": "Elevated",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024-12",
+      "components": {
+        "magnitude": 0,
+        "threshold": 0,
+        "momentum": 0.282325,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_trailing_12_month_co2_tonnes": 5796327297.8,
+          "reference_trailing_period_end": "2015-12",
+          "reference_trailing_12_month_co2_tonnes": 5973887760.21,
+          "latest_change_against_reference_tonnes": -177560462.41,
+          "source_monthly_observations": 120,
+          "complete_trailing_12_month_observations": 109,
+          "anchors": [
+            350867592.31,
+            1176918673.51,
+            1786122660.05,
+            2063963145.21
+          ],
+          "source_locator": "https://api.climatetrace.org/v7/sources/emissions?year=2024&gas=co2&subsectors=forest-land-clearing,forest-land-fires,shrubgrass-fires,wetland-fires,cropland-fires; response=subsectors.timeseries; subsector=forest-land-clearing; year=2024; month=12"
+        },
+        "threshold": {
+          "latest_trailing_12_month_co2_tonnes": 5796327297.8,
+          "threshold_basis": "historical_distribution_fallback",
+          "anchors": [
+            6324755352.52,
+            7150806433.71,
+            7760010420.25,
+            8037850905.42
+          ],
+          "source_locator": "https://api.climatetrace.org/v7/sources/emissions?year=2024&gas=co2&subsectors=forest-land-clearing,forest-land-fires,shrubgrass-fires,wetland-fires,cropland-fires; response=subsectors.timeseries; subsector=forest-land-clearing; year=2024; month=12"
+        },
+        "momentum": {
+          "latest_month_over_month_change_in_trailing_12_month_co2_tonnes": 88882956.49,
+          "complete_monthly_change_observations": 108,
+          "anchors": [
+            -45542857.01,
+            111582994.1,
+            182244071.59,
+            227766676.31
+          ],
+          "source_locator": "https://api.climatetrace.org/v7/sources/emissions?year=2024&gas=co2&subsectors=forest-land-clearing,forest-land-fires,shrubgrass-fires,wetland-fires,cropland-fires; response=subsectors.timeseries; subsector=forest-land-clearing; year=2024; month=12"
+        },
+        "extent": {
+          "geography": "Global",
+          "normalized_value": 1,
+          "definition": "Climate TRACE returns the source-reported Global aggregate when no location filter is supplied.",
+          "source_locator": "https://api.climatetrace.org/v7/sources/emissions?year=2024&gas=co2&subsectors=forest-land-clearing,forest-land-fires,shrubgrass-fires,wetland-fires,cropland-fires; response=subsectors.timeseries; subsector=forest-land-clearing; year=2024; month=12"
+        },
+        "source_snapshot": {
+          "path": "public/climate-trace-land-emissions-snapshot.json",
+          "version": "climate_trace_global_land_co2_2015_2024_2026-07-31_v1",
+          "captured_at": "2026-07-31T16:10:57.861Z",
+          "temporal_boundary": "Complete calendar years 2015–2024 only; current partial or projected years are excluded.",
+          "source_subsectors": [
+            "forest-land-clearing"
+          ],
+          "source_history_start": "2015-01",
+          "source_history_end": "2024-12"
+        }
+      },
+      "transformations": [
+        {
+          "type": "complete_trailing_12_month_sum",
+          "formula": "For every complete source month after the first eleven, sum that month and the preceding eleven global monthly CO2 observations; do not annualize partial years."
+        },
+        {
+          "type": "fixed_reference_magnitude",
+          "formula": "Subtract the first complete trailing-12-month total ending 2015-12 from every retained trailing total."
+        },
+        {
+          "type": "historical_distribution_normalization",
+          "formula": "Map trailing-12-month magnitude, level and month-over-month change through median / p75 / p90 / p97.5 anchors from 109 complete monthly rolling observations."
+        }
+      ],
+      "source_ids": [
+        "climate_trace_global_emissions_api"
+      ],
+      "uncertainty": "Climate TRACE combines remote sensing, inventories and modeled estimation, and explicitly revises historical values as methods and inputs improve. Forestry and fire estimates have material classification, burned-area, carbon-stock and emissions-factor uncertainty. API aggregate responses do not include uncertainty intervals; the source guide says intervals are available on request.",
+      "freshness": "Climate TRACE complete-calendar-year global monthly history through 2024-12; snapshot captured 2026-07-31T16:10:57.861Z.",
+      "selection_reason": {
+        "selected_method_passed": "The exact node-bound Climate TRACE categories supply 120 complete global monthly observations and 109 complete trailing-12-month values, exceeding the 60-month historical gate for magnitude, threshold, momentum and extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:7ddaad58"
+    },
+    {
+      "node_id": "land_use_fire_co2",
+      "value": 2.3,
+      "band": "Low",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024-12",
+      "components": {
+        "magnitude": 0,
+        "threshold": 0,
+        "momentum": 0,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_trailing_12_month_co2_tonnes": 7989631315.25,
+          "reference_trailing_period_end": "2015-12",
+          "reference_trailing_12_month_co2_tonnes": 8243207492.16,
+          "latest_change_against_reference_tonnes": -253576176.9,
+          "source_monthly_observations": 120,
+          "complete_trailing_12_month_observations": 109,
+          "anchors": [
+            402616734.86,
+            650589765.16,
+            1003871257.45,
+            1446493053.55
+          ],
+          "source_locator": "https://api.climatetrace.org/v7/sources/emissions?year=2024&gas=co2&subsectors=forest-land-clearing,forest-land-fires,shrubgrass-fires,wetland-fires,cropland-fires; response=subsectors.timeseries; subsectors=forest-land-fires+shrubgrass-fires+wetland-fires+cropland-fires; year=2024; month=12"
+        },
+        "threshold": {
+          "latest_trailing_12_month_co2_tonnes": 7989631315.25,
+          "threshold_basis": "historical_distribution_fallback",
+          "anchors": [
+            8645824227.02,
+            8893797257.32,
+            9247078749.61,
+            9689700545.71
+          ],
+          "source_locator": "https://api.climatetrace.org/v7/sources/emissions?year=2024&gas=co2&subsectors=forest-land-clearing,forest-land-fires,shrubgrass-fires,wetland-fires,cropland-fires; response=subsectors.timeseries; subsectors=forest-land-fires+shrubgrass-fires+wetland-fires+cropland-fires; year=2024; month=12"
+        },
+        "momentum": {
+          "latest_month_over_month_change_in_trailing_12_month_co2_tonnes": -279873960.33,
+          "complete_monthly_change_observations": 108,
+          "anchors": [
+            -33770068.37,
+            59633717.77,
+            219107286.66,
+            329761890.56
+          ],
+          "source_locator": "https://api.climatetrace.org/v7/sources/emissions?year=2024&gas=co2&subsectors=forest-land-clearing,forest-land-fires,shrubgrass-fires,wetland-fires,cropland-fires; response=subsectors.timeseries; subsectors=forest-land-fires+shrubgrass-fires+wetland-fires+cropland-fires; year=2024; month=12"
+        },
+        "extent": {
+          "geography": "Global",
+          "normalized_value": 1,
+          "definition": "Climate TRACE returns the source-reported Global aggregate when no location filter is supplied.",
+          "source_locator": "https://api.climatetrace.org/v7/sources/emissions?year=2024&gas=co2&subsectors=forest-land-clearing,forest-land-fires,shrubgrass-fires,wetland-fires,cropland-fires; response=subsectors.timeseries; subsectors=forest-land-fires+shrubgrass-fires+wetland-fires+cropland-fires; year=2024; month=12"
+        },
+        "source_snapshot": {
+          "path": "public/climate-trace-land-emissions-snapshot.json",
+          "version": "climate_trace_global_land_co2_2015_2024_2026-07-31_v1",
+          "captured_at": "2026-07-31T16:10:57.861Z",
+          "temporal_boundary": "Complete calendar years 2015–2024 only; current partial or projected years are excluded.",
+          "source_subsectors": [
+            "forest-land-fires",
+            "shrubgrass-fires",
+            "wetland-fires",
+            "cropland-fires"
+          ],
+          "source_history_start": "2015-01",
+          "source_history_end": "2024-12"
+        }
+      },
+      "transformations": [
+        {
+          "type": "complete_trailing_12_month_sum",
+          "formula": "For every complete source month after the first eleven, sum that month and the preceding eleven global monthly CO2 observations; do not annualize partial years."
+        },
+        {
+          "type": "fixed_reference_magnitude",
+          "formula": "Subtract the first complete trailing-12-month total ending 2015-12 from every retained trailing total."
+        },
+        {
+          "type": "historical_distribution_normalization",
+          "formula": "Map trailing-12-month magnitude, level and month-over-month change through median / p75 / p90 / p97.5 anchors from 109 complete monthly rolling observations."
+        }
+      ],
+      "source_ids": [
+        "climate_trace_global_emissions_api"
+      ],
+      "uncertainty": "Climate TRACE combines remote sensing, inventories and modeled estimation, and explicitly revises historical values as methods and inputs improve. Forestry and fire estimates have material classification, burned-area, carbon-stock and emissions-factor uncertainty. API aggregate responses do not include uncertainty intervals; the source guide says intervals are available on request.",
+      "freshness": "Climate TRACE complete-calendar-year global monthly history through 2024-12; snapshot captured 2026-07-31T16:10:57.861Z.",
+      "selection_reason": {
+        "selected_method_passed": "The exact node-bound Climate TRACE categories supply 120 complete global monthly observations and 109 complete trailing-12-month values, exceeding the 60-month historical gate for magnitude, threshold, momentum and extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:a564556e"
+    }
+  ]
+}

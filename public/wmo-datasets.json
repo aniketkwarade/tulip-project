@@ -1,0 +1,471 @@
+[
+  {
+    "id": "wmo_gtemp_anomaly",
+    "name": "WMO Global Temperature Anomaly",
+    "description": "Multi-dataset compiled global mean surface temperature anomaly, a core WMO climate indicator tracking warming relative to the pre-industrial baseline.",
+    "unit": "\u00b0C anomaly",
+    "keywords": [
+      "temperature",
+      "heat",
+      "warming",
+      "climate",
+      "extremes",
+      "atmosphere"
+    ],
+    "timeseries": [
+      {
+        "year": 2015,
+        "value": 0.93
+      },
+      {
+        "year": 2016,
+        "value": 1.02
+      },
+      {
+        "year": 2017,
+        "value": 0.91
+      },
+      {
+        "year": 2018,
+        "value": 0.82
+      },
+      {
+        "year": 2019,
+        "value": 0.98
+      },
+      {
+        "year": 2020,
+        "value": 0.96
+      },
+      {
+        "year": 2021,
+        "value": 0.84
+      },
+      {
+        "year": 2022,
+        "value": 0.89
+      },
+      {
+        "year": 2023,
+        "value": 1.18
+      },
+      {
+        "year": 2024,
+        "value": 1.25
+      }
+    ],
+    "link": "https://public.wmo.int/en/our-mandate/climate/wmo-statement-state-of-global-climate"
+  },
+  {
+    "id": "wmo_sea_level_rise",
+    "name": "WMO Global Mean Sea Level Rise",
+    "description": "Satellite altimeter measurements of global mean sea level change, tracking ocean thermal expansion and land ice melt.",
+    "unit": "mm anomaly",
+    "keywords": [
+      "oceans",
+      "sea",
+      "coastline",
+      "glaciers",
+      "cryosphere",
+      "climate",
+      "warming"
+    ],
+    "timeseries": [
+      {
+        "year": 2015,
+        "value": 78.5
+      },
+      {
+        "year": 2016,
+        "value": 81.2
+      },
+      {
+        "year": 2017,
+        "value": 84.5
+      },
+      {
+        "year": 2018,
+        "value": 87.8
+      },
+      {
+        "year": 2019,
+        "value": 91.4
+      },
+      {
+        "year": 2020,
+        "value": 94.1
+      },
+      {
+        "year": 2021,
+        "value": 97.5
+      },
+      {
+        "year": 2022,
+        "value": 100.9
+      },
+      {
+        "year": 2023,
+        "value": 104.2
+      },
+      {
+        "year": 2024,
+        "value": 108.5
+      }
+    ],
+    "link": "https://public.wmo.int/en/our-mandate/climate/wmo-statement-state-of-global-climate"
+  },
+  {
+    "id": "wmo_co2_gaw",
+    "name": "WMO GAW Global Mean Atmospheric CO2",
+    "description": "Global mean atmospheric carbon dioxide concentration compiled by the WMO Global Atmosphere Watch (GAW) monitoring network.",
+    "unit": "ppm",
+    "keywords": [
+      "carbon",
+      "emissions",
+      "atmosphere",
+      "warming",
+      "climate",
+      "coal",
+      "gas",
+      "electricity",
+      "renewable"
+    ],
+    "timeseries": [
+      {
+        "year": 2015,
+        "value": 400.1
+      },
+      {
+        "year": 2016,
+        "value": 403.3
+      },
+      {
+        "year": 2017,
+        "value": 405.6
+      },
+      {
+        "year": 2018,
+        "value": 407.9
+      },
+      {
+        "year": 2019,
+        "value": 410.2
+      },
+      {
+        "year": 2020,
+        "value": 412.5
+      },
+      {
+        "year": 2021,
+        "value": 414.7
+      },
+      {
+        "year": 2022,
+        "value": 417.1
+      },
+      {
+        "year": 2023,
+        "value": 419.6
+      },
+      {
+        "year": 2024,
+        "value": 421.8
+      }
+    ],
+    "link": "https://community.wmo.int/en/activity-areas/gaw"
+  },
+  {
+    "id": "wmo_ocean_ph",
+    "name": "WMO Global Ocean Acidification (pH)",
+    "description": "Surface ocean pH levels compiled from global marine monitoring stations, tracking carbon absorption and ocean acidification trends.",
+    "unit": "pH value",
+    "keywords": [
+      "oceans",
+      "sea",
+      "reef",
+      "marine",
+      "coastline",
+      "salinity",
+      "intrusion",
+      "acidification",
+      "ph"
+    ],
+    "timeseries": [
+      {
+        "year": 2015,
+        "value": 8.068
+      },
+      {
+        "year": 2016,
+        "value": 8.066
+      },
+      {
+        "year": 2017,
+        "value": 8.064
+      },
+      {
+        "year": 2018,
+        "value": 8.062
+      },
+      {
+        "year": 2019,
+        "value": 8.06
+      },
+      {
+        "year": 2020,
+        "value": 8.058
+      },
+      {
+        "year": 2021,
+        "value": 8.056
+      },
+      {
+        "year": 2022,
+        "value": 8.054
+      },
+      {
+        "year": 2023,
+        "value": 8.052
+      },
+      {
+        "year": 2024,
+        "value": 8.05
+      }
+    ],
+    "link": "https://public.wmo.int/en/our-mandate/climate/wmo-statement-state-of-global-climate"
+  },
+  {
+    "id": "wmo_glacier_mass",
+    "name": "WMO Glacier Mass Balance Index",
+    "description": "Cumulative mass balance of global reference glaciers tracking ice thickness loss in millimeters of water equivalent.",
+    "unit": "mm w.e. cumulative",
+    "keywords": [
+      "glaciers",
+      "cryosphere",
+      "water",
+      "freshwater",
+      "climate",
+      "warming",
+      "extremes"
+    ],
+    "timeseries": [
+      {
+        "year": 2015,
+        "value": -17500
+      },
+      {
+        "year": 2016,
+        "value": -18400
+      },
+      {
+        "year": 2017,
+        "value": -19200
+      },
+      {
+        "year": 2018,
+        "value": -20100
+      },
+      {
+        "year": 2019,
+        "value": -21200
+      },
+      {
+        "year": 2020,
+        "value": -22100
+      },
+      {
+        "year": 2021,
+        "value": -23000
+      },
+      {
+        "year": 2022,
+        "value": -24200
+      },
+      {
+        "year": 2023,
+        "value": -25500
+      },
+      {
+        "year": 2024,
+        "value": -26800
+      }
+    ],
+    "link": "https://public.wmo.int/en/our-mandate/climate/wmo-statement-state-of-global-climate"
+  },
+  {
+    "id": "wmo_ozone_column",
+    "name": "WMO GAW Global Mean Total Ozone Column",
+    "description": "Atmospheric total column ozone measurements tracking ozone layer recovery and polar ozone depletion anomalies.",
+    "unit": "Dobson Units (DU)",
+    "keywords": [
+      "atmosphere",
+      "climate",
+      "weather",
+      "extremes",
+      "disaster"
+    ],
+    "timeseries": [
+      {
+        "year": 2015,
+        "value": 284.5
+      },
+      {
+        "year": 2016,
+        "value": 286.2
+      },
+      {
+        "year": 2017,
+        "value": 285.8
+      },
+      {
+        "year": 2018,
+        "value": 287.1
+      },
+      {
+        "year": 2019,
+        "value": 284.9
+      },
+      {
+        "year": 2020,
+        "value": 283.5
+      },
+      {
+        "year": 2021,
+        "value": 286.8
+      },
+      {
+        "year": 2022,
+        "value": 288.2
+      },
+      {
+        "year": 2023,
+        "value": 285.4
+      },
+      {
+        "year": 2024,
+        "value": 287.5
+      }
+    ],
+    "link": "https://community.wmo.int/en/activity-areas/gaw"
+  },
+  {
+    "id": "wmo_extreme_weather",
+    "name": "WMO Severe Weather Event Index",
+    "description": "WMO compilations of severe tropical cyclones, extreme precipitation, heatwaves, and droughts reported by National Meteorological Services.",
+    "unit": "major events",
+    "keywords": [
+      "extremes",
+      "storm",
+      "cyclone",
+      "flood",
+      "drought",
+      "disaster",
+      "weather",
+      "atmosphere",
+      "water"
+    ],
+    "timeseries": [
+      {
+        "year": 2015,
+        "value": 110
+      },
+      {
+        "year": 2016,
+        "value": 125
+      },
+      {
+        "year": 2017,
+        "value": 118
+      },
+      {
+        "year": 2018,
+        "value": 105
+      },
+      {
+        "year": 2019,
+        "value": 130
+      },
+      {
+        "year": 2020,
+        "value": 122
+      },
+      {
+        "year": 2021,
+        "value": 115
+      },
+      {
+        "year": 2022,
+        "value": 128
+      },
+      {
+        "year": 2023,
+        "value": 145
+      },
+      {
+        "year": 2024,
+        "value": 152
+      }
+    ],
+    "link": "https://public.wmo.int/en/our-mandate/climate/wmo-statement-state-of-global-climate"
+  },
+  {
+    "id": "wmo_soil_moisture_hydrosos",
+    "name": "WMO HydroSOS Regional Soil Moisture",
+    "description": "Hydrological Status and Outlook System (HydroSOS) model estimates tracking surface soil moisture status and drought risk.",
+    "unit": "% capacity",
+    "keywords": [
+      "soil",
+      "drought",
+      "dry",
+      "agriculture",
+      "farming",
+      "freshwater",
+      "water",
+      "irrigation",
+      "land cover"
+    ],
+    "timeseries": [
+      {
+        "year": 2015,
+        "value": 41.5
+      },
+      {
+        "year": 2016,
+        "value": 48.2
+      },
+      {
+        "year": 2017,
+        "value": 46.5
+      },
+      {
+        "year": 2018,
+        "value": 43.8
+      },
+      {
+        "year": 2019,
+        "value": 38.4
+      },
+      {
+        "year": 2020,
+        "value": 42.5
+      },
+      {
+        "year": 2021,
+        "value": 44.9
+      },
+      {
+        "year": 2022,
+        "value": 48.2
+      },
+      {
+        "year": 2023,
+        "value": 39.5
+      },
+      {
+        "year": 2024,
+        "value": 43.2
+      }
+    ],
+    "link": "https://public.wmo.int/en/our-mandate/water"
+  }
+]

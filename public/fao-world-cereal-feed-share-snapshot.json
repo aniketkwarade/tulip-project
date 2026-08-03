@@ -1,0 +1,881 @@
+{
+  "version": "faostat_world_cereal_feed_share_v1",
+  "captured_at": "2026-07-31T19:41:41.663Z",
+  "source": {
+    "id": "faostat_world_cereal_feed_share",
+    "name": "FAOSTAT Food Balance Sheets: World cereals excluding beer",
+    "publisher": "Food and Agriculture Organization of the United Nations",
+    "landing_url": "https://www.fao.org/faostat/en/#data/FBS",
+    "current_bulk_url": "https://bulks-faostat.fao.org/production/FoodBalanceSheets_E_All_Data_(Normalized).zip",
+    "current_bulk_sha256": "26200855ed5da3d0805e34219124e241d0e0bc6959d0995ebc77a10dd84cbaf1",
+    "current_release_file_timestamp": "2025-10-14T12:03:00Z",
+    "historic_bulk_url": "https://bulks-faostat.fao.org/production/FoodBalanceSheetsHistoric_E_All_Data_(Normalized).zip",
+    "historic_bulk_sha256": "925bac969ea3904eca1a33f0b3d7ea4416bbac79d14db50b0db43cd2a77a3adb",
+    "historic_release_file_timestamp": "2024-02-05T11:00:00Z"
+  },
+  "ingestion_job_id": "export_fao_world_cereal_feed_share_snapshot",
+  "metric_contract_ids": [
+    "livestock_feed_crop_use_share"
+  ],
+  "contract_bindings": [
+    {
+      "node_id": "feed_crop_dependency",
+      "metric_id": "livestock_feed_crop_use_share",
+      "measurement_role": "global_cereal_feed_mass_and_share_of_domestic_supply"
+    }
+  ],
+  "cadence": "Annual FAOSTAT Food Balance Sheets release.",
+  "provenance": "Exact World aggregate rows for item 2905, Cereals - Excluding Beer, retain source elements Feed and Domestic supply quantity in 1,000 tonnes. Current-basis 2010-2023 values are primary. The 1961-2013 historical edition is crosswalked only for historical normalization using the mean share offset and mean feed-mass ratio observed across the four overlapping years 2010-2013.",
+  "uncertainty": "Food balance sheets synthesize production, trade, stocks and utilization estimates. Commodity moisture and composition differ, feed can include processing by-products, and revisions or methodological editions change values. The overlap crosswalk assumes a stable mean edition difference and is used only for historical normalization, not to alter current observations.",
+  "failure_behavior": "Retain the last checksum-validated current series and mark stale. Reject changed World, item, element, unit, year or checksum definitions. Never combine commodity masses outside the declared Cereals - Excluding Beer basket, fill missing utilization with zero, call feed use livestock intake or splice editions without an overlap crosswalk.",
+  "assessment": {
+    "geography": "World",
+    "item_code": 2905,
+    "item": "Cereals - Excluding Beer",
+    "feed_element_code": 5521,
+    "supply_element_code": 5301,
+    "unit": "1,000 tonnes",
+    "overlap_calibration": {
+      "years": [
+        2010,
+        2011,
+        2012,
+        2013
+      ],
+      "mean_feed_share_offset_percentage_points": -2.956209812918095,
+      "mean_feed_mass_ratio": 1.0323720760903425,
+      "comparisons": [
+        {
+          "year": 2010,
+          "feed_share_offset_percentage_points": -2.262075287995028,
+          "feed_mass_ratio": 1.0595319233644145
+        },
+        {
+          "year": 2011,
+          "feed_share_offset_percentage_points": -3.0682774534321844,
+          "feed_mass_ratio": 1.0277415098833649
+        },
+        {
+          "year": 2012,
+          "feed_share_offset_percentage_points": -2.6431995307809757,
+          "feed_mass_ratio": 1.0456354043870917
+        },
+        {
+          "year": 2013,
+          "feed_share_offset_percentage_points": -3.8512869794641915,
+          "feed_mass_ratio": 0.9965794667264993
+        }
+      ]
+    },
+    "historic_raw": [
+      {
+        "year": 1961,
+        "supply_1000_t": 802836,
+        "feed_1000_t": 289169,
+        "feed_share_pct": 36.01843963150631
+      },
+      {
+        "year": 1962,
+        "supply_1000_t": 838637,
+        "feed_1000_t": 302537,
+        "feed_share_pct": 36.074845254859966
+      },
+      {
+        "year": 1963,
+        "supply_1000_t": 860654,
+        "feed_1000_t": 310569,
+        "feed_share_pct": 36.08523285780348
+      },
+      {
+        "year": 1964,
+        "supply_1000_t": 897718,
+        "feed_1000_t": 324437,
+        "feed_share_pct": 36.140191017669245
+      },
+      {
+        "year": 1965,
+        "supply_1000_t": 948255,
+        "feed_1000_t": 360874,
+        "feed_share_pct": 38.05664088246305
+      },
+      {
+        "year": 1966,
+        "supply_1000_t": 970684,
+        "feed_1000_t": 376605,
+        "feed_share_pct": 38.797899213338226
+      },
+      {
+        "year": 1967,
+        "supply_1000_t": 996643,
+        "feed_1000_t": 390737,
+        "feed_share_pct": 39.205312233166744
+      },
+      {
+        "year": 1968,
+        "supply_1000_t": 1028379,
+        "feed_1000_t": 412502,
+        "feed_share_pct": 40.11186537259123
+      },
+      {
+        "year": 1969,
+        "supply_1000_t": 1071445,
+        "feed_1000_t": 439890,
+        "feed_share_pct": 41.055770478186
+      },
+      {
+        "year": 1970,
+        "supply_1000_t": 1114780,
+        "feed_1000_t": 456030,
+        "feed_share_pct": 40.90762302875904
+      },
+      {
+        "year": 1971,
+        "supply_1000_t": 1141194,
+        "feed_1000_t": 484065,
+        "feed_share_pct": 42.41741544382462
+      },
+      {
+        "year": 1972,
+        "supply_1000_t": 1175184,
+        "feed_1000_t": 503643,
+        "feed_share_pct": 42.856522893436264
+      },
+      {
+        "year": 1973,
+        "supply_1000_t": 1219272,
+        "feed_1000_t": 515910,
+        "feed_share_pct": 42.31295395941184
+      },
+      {
+        "year": 1974,
+        "supply_1000_t": 1196459,
+        "feed_1000_t": 489711,
+        "feed_share_pct": 40.93002769004203
+      },
+      {
+        "year": 1975,
+        "supply_1000_t": 1225983,
+        "feed_1000_t": 497769,
+        "feed_share_pct": 40.60162335040535
+      },
+      {
+        "year": 1976,
+        "supply_1000_t": 1257597,
+        "feed_1000_t": 517365,
+        "feed_share_pct": 41.13917256482005
+      },
+      {
+        "year": 1977,
+        "supply_1000_t": 1310383,
+        "feed_1000_t": 548903,
+        "feed_share_pct": 41.888745504177024
+      },
+      {
+        "year": 1978,
+        "supply_1000_t": 1374715,
+        "feed_1000_t": 579852,
+        "feed_share_pct": 42.1797972670699
+      },
+      {
+        "year": 1979,
+        "supply_1000_t": 1406731,
+        "feed_1000_t": 600680,
+        "feed_share_pct": 42.70041678188652
+      },
+      {
+        "year": 1980,
+        "supply_1000_t": 1424034,
+        "feed_1000_t": 594020,
+        "feed_share_pct": 41.71389166269906
+      },
+      {
+        "year": 1981,
+        "supply_1000_t": 1446125,
+        "feed_1000_t": 601061,
+        "feed_share_pct": 41.563557783732385
+      },
+      {
+        "year": 1982,
+        "supply_1000_t": 1489792,
+        "feed_1000_t": 616256,
+        "feed_share_pct": 41.36523756336455
+      },
+      {
+        "year": 1983,
+        "supply_1000_t": 1521218,
+        "feed_1000_t": 607157,
+        "feed_share_pct": 39.91255691163265
+      },
+      {
+        "year": 1984,
+        "supply_1000_t": 1564427,
+        "feed_1000_t": 636623,
+        "feed_share_pct": 40.69368529180333
+      },
+      {
+        "year": 1985,
+        "supply_1000_t": 1576409,
+        "feed_1000_t": 631350,
+        "feed_share_pct": 40.04988553097578
+      },
+      {
+        "year": 1986,
+        "supply_1000_t": 1617625,
+        "feed_1000_t": 658580,
+        "feed_share_pct": 40.71277335600031
+      },
+      {
+        "year": 1987,
+        "supply_1000_t": 1646565,
+        "feed_1000_t": 655469,
+        "feed_share_pct": 39.80826751449229
+      },
+      {
+        "year": 1988,
+        "supply_1000_t": 1629106,
+        "feed_1000_t": 617466,
+        "feed_share_pct": 37.902137736893735
+      },
+      {
+        "year": 1989,
+        "supply_1000_t": 1679623,
+        "feed_1000_t": 635839,
+        "feed_share_pct": 37.8560546027293
+      },
+      {
+        "year": 1990,
+        "supply_1000_t": 1710957,
+        "feed_1000_t": 654603,
+        "feed_share_pct": 38.25946531677886
+      },
+      {
+        "year": 1991,
+        "supply_1000_t": 1704686,
+        "feed_1000_t": 642564,
+        "feed_share_pct": 37.69398000570193
+      },
+      {
+        "year": 1992,
+        "supply_1000_t": 1727700,
+        "feed_1000_t": 661221,
+        "feed_share_pct": 38.27174856745963
+      },
+      {
+        "year": 1993,
+        "supply_1000_t": 1728077,
+        "feed_1000_t": 650463,
+        "feed_share_pct": 37.640857438644225
+      },
+      {
+        "year": 1994,
+        "supply_1000_t": 1754266,
+        "feed_1000_t": 664244,
+        "feed_share_pct": 37.86449717431678
+      },
+      {
+        "year": 1995,
+        "supply_1000_t": 1763908,
+        "feed_1000_t": 645462,
+        "feed_share_pct": 36.59272479063534
+      },
+      {
+        "year": 1996,
+        "supply_1000_t": 1815613,
+        "feed_1000_t": 674382,
+        "feed_share_pct": 37.14348817727126
+      },
+      {
+        "year": 1997,
+        "supply_1000_t": 1823562,
+        "feed_1000_t": 681465,
+        "feed_share_pct": 37.36999345237508
+      },
+      {
+        "year": 1998,
+        "supply_1000_t": 1833561,
+        "feed_1000_t": 676135,
+        "feed_share_pct": 36.87551164100894
+      },
+      {
+        "year": 1999,
+        "supply_1000_t": 1847916,
+        "feed_1000_t": 676883,
+        "feed_share_pct": 36.629532944138155
+      },
+      {
+        "year": 2000,
+        "supply_1000_t": 1878205,
+        "feed_1000_t": 698891,
+        "feed_share_pct": 37.210581379561866
+      },
+      {
+        "year": 2001,
+        "supply_1000_t": 1914466,
+        "feed_1000_t": 723054,
+        "feed_share_pct": 37.76792066299428
+      },
+      {
+        "year": 2002,
+        "supply_1000_t": 1918685,
+        "feed_1000_t": 713899,
+        "feed_share_pct": 37.207722997782334
+      },
+      {
+        "year": 2003,
+        "supply_1000_t": 1942169,
+        "feed_1000_t": 716065,
+        "feed_share_pct": 36.869345561586044
+      },
+      {
+        "year": 2004,
+        "supply_1000_t": 2008645,
+        "feed_1000_t": 757630,
+        "feed_share_pct": 37.71846194822878
+      },
+      {
+        "year": 2005,
+        "supply_1000_t": 2025602,
+        "feed_1000_t": 752183,
+        "feed_share_pct": 37.13380022334101
+      },
+      {
+        "year": 2006,
+        "supply_1000_t": 2046267,
+        "feed_1000_t": 736850,
+        "feed_share_pct": 36.009474814381505
+      },
+      {
+        "year": 2007,
+        "supply_1000_t": 2107877,
+        "feed_1000_t": 754416,
+        "feed_share_pct": 35.7903236289404
+      },
+      {
+        "year": 2008,
+        "supply_1000_t": 2207228,
+        "feed_1000_t": 811819,
+        "feed_share_pct": 36.78002453756476
+      },
+      {
+        "year": 2009,
+        "supply_1000_t": 2196861,
+        "feed_1000_t": 764443,
+        "feed_share_pct": 34.797058166174374
+      },
+      {
+        "year": 2010,
+        "supply_1000_t": 2231395,
+        "feed_1000_t": 758551,
+        "feed_share_pct": 33.99447430867238
+      },
+      {
+        "year": 2011,
+        "supply_1000_t": 2295173,
+        "feed_1000_t": 801903,
+        "feed_share_pct": 34.93867346818737
+      },
+      {
+        "year": 2012,
+        "supply_1000_t": 2291574,
+        "feed_1000_t": 795698,
+        "feed_share_pct": 34.72277133533545
+      },
+      {
+        "year": 2013,
+        "supply_1000_t": 2407008,
+        "feed_1000_t": 873548,
+        "feed_share_pct": 36.29186109892447
+      }
+    ],
+    "current_raw": [
+      {
+        "year": 2010,
+        "supply_1000_t": 2532771,
+        "feed_1000_t": 803709,
+        "feed_share_pct": 31.732399020677352
+      },
+      {
+        "year": 2011,
+        "supply_1000_t": 2585939,
+        "feed_1000_t": 824149,
+        "feed_share_pct": 31.870396014755183
+      },
+      {
+        "year": 2012,
+        "supply_1000_t": 2593582,
+        "feed_1000_t": 832010,
+        "feed_share_pct": 32.079571804554476
+      },
+      {
+        "year": 2013,
+        "supply_1000_t": 2683553,
+        "feed_1000_t": 870560,
+        "feed_share_pct": 32.44057411946028
+      },
+      {
+        "year": 2014,
+        "supply_1000_t": 2713355,
+        "feed_1000_t": 889635,
+        "feed_share_pct": 32.78726889772993
+      },
+      {
+        "year": 2015,
+        "supply_1000_t": 2805230,
+        "feed_1000_t": 931301,
+        "feed_share_pct": 33.198739497296124
+      },
+      {
+        "year": 2016,
+        "supply_1000_t": 2899135,
+        "feed_1000_t": 958917,
+        "feed_share_pct": 33.07596921150619
+      },
+      {
+        "year": 2017,
+        "supply_1000_t": 2942693,
+        "feed_1000_t": 995444,
+        "feed_share_pct": 33.8276537851553
+      },
+      {
+        "year": 2018,
+        "supply_1000_t": 2934619,
+        "feed_1000_t": 1001859,
+        "feed_share_pct": 34.139320981701545
+      },
+      {
+        "year": 2019,
+        "supply_1000_t": 3001137,
+        "feed_1000_t": 1054678,
+        "feed_share_pct": 35.142614282520256
+      },
+      {
+        "year": 2020,
+        "supply_1000_t": 3056866,
+        "feed_1000_t": 1074100,
+        "feed_share_pct": 35.137294209167166
+      },
+      {
+        "year": 2021,
+        "supply_1000_t": 3117304,
+        "feed_1000_t": 1112306,
+        "feed_share_pct": 35.68166595237423
+      },
+      {
+        "year": 2022,
+        "supply_1000_t": 3131399,
+        "feed_1000_t": 1134954,
+        "feed_share_pct": 36.24431124874218
+      },
+      {
+        "year": 2023,
+        "supply_1000_t": 3171519,
+        "feed_1000_t": 1122217,
+        "feed_share_pct": 35.38421179251961
+      }
+    ],
+    "harmonized_values": [
+      {
+        "year": 1961,
+        "feed_share_pct": 33.062229818588214,
+        "feed_1000_t": 298530.0008709683,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 1962,
+        "feed_share_pct": 33.11863544194187,
+        "feed_1000_t": 312330.750784144,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 1963,
+        "feed_share_pct": 33.129023044885386,
+        "feed_1000_t": 320622.7632993016,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 1964,
+        "feed_share_pct": 33.18398120475115,
+        "feed_1000_t": 334939.6992505225,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 1965,
+        "feed_share_pct": 35.10043106954495,
+        "feed_1000_t": 372556.2405870263,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 1966,
+        "feed_share_pct": 35.84168940042013,
+        "feed_1000_t": 388796.48571600346,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 1967,
+        "feed_share_pct": 36.24910242024865,
+        "feed_1000_t": 403385.9678953122,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 1968,
+        "feed_share_pct": 37.155655559673136,
+        "feed_1000_t": 425855.5461314185,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 1969,
+        "feed_share_pct": 38.0995606652679,
+        "feed_1000_t": 454130.1525513808,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 1970,
+        "feed_share_pct": 37.951413215840944,
+        "feed_1000_t": 470792.6378594789,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 1971,
+        "feed_share_pct": 39.46120563090653,
+        "feed_1000_t": 499735.18901267165,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 1972,
+        "feed_share_pct": 39.90031308051817,
+        "feed_1000_t": 519946.96951836837,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 1973,
+        "feed_share_pct": 39.356744146493746,
+        "feed_1000_t": 532611.0777757686,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 1974,
+        "feed_share_pct": 37.973817877123935,
+        "feed_1000_t": 505563.96175427776,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 1975,
+        "feed_share_pct": 37.64541353748725,
+        "feed_1000_t": 513882.8159434137,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 1976,
+        "feed_share_pct": 38.182962751901954,
+        "feed_1000_t": 534113.17914648,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 1977,
+        "feed_share_pct": 38.93253569125893,
+        "feed_1000_t": 566672.1296822173,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 1978,
+        "feed_share_pct": 39.223587454151804,
+        "feed_1000_t": 598623.0130651373,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 1979,
+        "feed_share_pct": 39.74420696896842,
+        "feed_1000_t": 620125.258665947,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 1980,
+        "feed_share_pct": 38.757681849780965,
+        "feed_1000_t": 613249.6606391852,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 1981,
+        "feed_share_pct": 38.60734797081429,
+        "feed_1000_t": 620518.5924269374,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 1982,
+        "feed_share_pct": 38.409027750446455,
+        "feed_1000_t": 636205.4861231301,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 1983,
+        "feed_share_pct": 36.95634709871455,
+        "feed_1000_t": 626811.9326027841,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 1984,
+        "feed_share_pct": 37.73747547888523,
+        "feed_1000_t": 657231.8081968621,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 1985,
+        "feed_share_pct": 37.09367571805768,
+        "feed_1000_t": 651788.1102396378,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 1986,
+        "feed_share_pct": 37.756563543082216,
+        "feed_1000_t": 679899.6018715778,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 1987,
+        "feed_share_pct": 36.852057701574196,
+        "feed_1000_t": 676687.8923428607,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 1988,
+        "feed_share_pct": 34.94592792397564,
+        "feed_1000_t": 637454.6563351995,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 1989,
+        "feed_share_pct": 34.899844789811205,
+        "feed_1000_t": 656422.4284892073,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 1990,
+        "feed_share_pct": 35.30325550386076,
+        "feed_1000_t": 675793.8581249665,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 1991,
+        "feed_share_pct": 34.737770192783834,
+        "feed_1000_t": 663365.1307009149,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 1992,
+        "feed_share_pct": 35.315538754541535,
+        "feed_1000_t": 682626.0965245324,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 1993,
+        "feed_share_pct": 34.68464762572613,
+        "feed_1000_t": 671519.8377299525,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 1994,
+        "feed_share_pct": 34.908287361398685,
+        "feed_1000_t": 685746.9573105535,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 1995,
+        "feed_share_pct": 33.63651497771724,
+        "feed_1000_t": 666356.9449774247,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 1996,
+        "feed_share_pct": 34.18727836435316,
+        "feed_1000_t": 696213.1454179573,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 1997,
+        "feed_share_pct": 34.41378363945698,
+        "feed_1000_t": 703525.4368329053,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 1998,
+        "feed_share_pct": 33.919301828090845,
+        "feed_1000_t": 698022.8936673438,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 1999,
+        "feed_share_pct": 33.67332313122006,
+        "feed_1000_t": 698795.1079802593,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 2000,
+        "feed_share_pct": 34.25437156664377,
+        "feed_1000_t": 721515.5526308556,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 2001,
+        "feed_share_pct": 34.81171085007618,
+        "feed_1000_t": 746460.7591054265,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 2002,
+        "feed_share_pct": 34.25151318486424,
+        "feed_1000_t": 737009.3927488194,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 2003,
+        "feed_share_pct": 33.91313574866795,
+        "feed_1000_t": 739245.5106656312,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 2004,
+        "feed_share_pct": 34.76225213531068,
+        "feed_1000_t": 782156.0560083262,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 2005,
+        "feed_share_pct": 34.177590410422916,
+        "feed_1000_t": 776532.7253098622,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 2006,
+        "feed_share_pct": 33.05326500146341,
+        "feed_1000_t": 760703.3642671689,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 2007,
+        "feed_share_pct": 32.8341138160223,
+        "feed_1000_t": 778838.0121557718,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 2008,
+        "feed_share_pct": 33.82381472464667,
+        "feed_1000_t": 838099.2664395858,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 2009,
+        "feed_share_pct": 31.840848353256277,
+        "feed_1000_t": 789189.6069627297,
+        "basis": "historic_overlap_crosswalk"
+      },
+      {
+        "year": 2010,
+        "supply_1000_t": 2532771,
+        "feed_1000_t": 803709,
+        "feed_share_pct": 31.732399020677352,
+        "basis": "current_food_balance_sheet"
+      },
+      {
+        "year": 2011,
+        "supply_1000_t": 2585939,
+        "feed_1000_t": 824149,
+        "feed_share_pct": 31.870396014755183,
+        "basis": "current_food_balance_sheet"
+      },
+      {
+        "year": 2012,
+        "supply_1000_t": 2593582,
+        "feed_1000_t": 832010,
+        "feed_share_pct": 32.079571804554476,
+        "basis": "current_food_balance_sheet"
+      },
+      {
+        "year": 2013,
+        "supply_1000_t": 2683553,
+        "feed_1000_t": 870560,
+        "feed_share_pct": 32.44057411946028,
+        "basis": "current_food_balance_sheet"
+      },
+      {
+        "year": 2014,
+        "supply_1000_t": 2713355,
+        "feed_1000_t": 889635,
+        "feed_share_pct": 32.78726889772993,
+        "basis": "current_food_balance_sheet"
+      },
+      {
+        "year": 2015,
+        "supply_1000_t": 2805230,
+        "feed_1000_t": 931301,
+        "feed_share_pct": 33.198739497296124,
+        "basis": "current_food_balance_sheet"
+      },
+      {
+        "year": 2016,
+        "supply_1000_t": 2899135,
+        "feed_1000_t": 958917,
+        "feed_share_pct": 33.07596921150619,
+        "basis": "current_food_balance_sheet"
+      },
+      {
+        "year": 2017,
+        "supply_1000_t": 2942693,
+        "feed_1000_t": 995444,
+        "feed_share_pct": 33.8276537851553,
+        "basis": "current_food_balance_sheet"
+      },
+      {
+        "year": 2018,
+        "supply_1000_t": 2934619,
+        "feed_1000_t": 1001859,
+        "feed_share_pct": 34.139320981701545,
+        "basis": "current_food_balance_sheet"
+      },
+      {
+        "year": 2019,
+        "supply_1000_t": 3001137,
+        "feed_1000_t": 1054678,
+        "feed_share_pct": 35.142614282520256,
+        "basis": "current_food_balance_sheet"
+      },
+      {
+        "year": 2020,
+        "supply_1000_t": 3056866,
+        "feed_1000_t": 1074100,
+        "feed_share_pct": 35.137294209167166,
+        "basis": "current_food_balance_sheet"
+      },
+      {
+        "year": 2021,
+        "supply_1000_t": 3117304,
+        "feed_1000_t": 1112306,
+        "feed_share_pct": 35.68166595237423,
+        "basis": "current_food_balance_sheet"
+      },
+      {
+        "year": 2022,
+        "supply_1000_t": 3131399,
+        "feed_1000_t": 1134954,
+        "feed_share_pct": 36.24431124874218,
+        "basis": "current_food_balance_sheet"
+      },
+      {
+        "year": 2023,
+        "supply_1000_t": 3171519,
+        "feed_1000_t": 1122217,
+        "feed_share_pct": 35.38421179251961,
+        "basis": "current_food_balance_sheet"
+      }
+    ],
+    "global_extent_normalized": 1
+  },
+  "excluded_from_scoring": [
+    "non-cereal crops",
+    "beer",
+    "feed conversion efficiency",
+    "animal intake or waste inference",
+    "food-security outcome inference",
+    "commodity aggregation outside the source-defined basket",
+    "missing observations as zero"
+  ]
+}

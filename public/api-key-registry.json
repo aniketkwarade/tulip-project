@@ -1,0 +1,66 @@
+{
+  "version": "2026-06-27",
+  "updated_at": "2026-06-27",
+  "core_scoring_policy": {
+    "notes": "Only core server-side keys are allowed to support operational scoring inputs. Optional exploratory keys may unlock UI lookups but must not directly drive TULIP scoring."
+  },
+  "keys": [
+    {
+      "id": "eia_api_key",
+      "name": "EIA API Key",
+      "storage": "server_env",
+      "env_var": "EIA_API_KEY",
+      "status": "active_core",
+      "required_for": ["data_center_backend", "data_center_summary_refresh"],
+      "drives_core_scoring": true,
+      "notes": "Used to collect U.S. electricity-system baselines and annual operational context."
+    },
+    {
+      "id": "electricity_maps_api_key",
+      "name": "Electricity Maps API Key",
+      "storage": "server_env",
+      "env_var": "ELECTRICITY_MAPS_API_KEY",
+      "status": "active_core_snapshot_only",
+      "required_for": ["data_center_snapshot_freeze"],
+      "drives_core_scoring": true,
+      "notes": "Used only to freeze snapshot data into static annualized context; not used as a live short-cycle feed."
+    },
+    {
+      "id": "openaq_api_key",
+      "name": "OpenAQ API Key",
+      "storage": "browser_localstorage",
+      "local_key": "openaq_api_key",
+      "status": "optional_exploration",
+      "required_for": ["air_quality_station_lookup"],
+      "drives_core_scoring": false,
+      "notes": "Optional convenience key for station lookups in the UI. It does not drive anchor calibration or TULIP scoring."
+    },
+    {
+      "id": "ecmwf_cds_key",
+      "name": "ECMWF/CDS Key",
+      "storage": "browser_localstorage",
+      "local_key": "ecmwf_key",
+      "status": "optional_exploration",
+      "required_for": ["ecmwf_code_snippets"],
+      "drives_core_scoring": false,
+      "notes": "Optional browser-stored key for generating dataset snippets only; it is not part of the scoring pipeline."
+    },
+    {
+      "id": "usgs_water_api_key",
+      "name": "USGS Water Data API Key",
+      "storage": "server_env",
+      "env_var": "USGS_WATER_API_KEY",
+      "status": "optional_higher_rate_limit",
+      "required_for": ["usgs_water_snapshot_high_volume_refresh"],
+      "drives_core_scoring": false,
+      "notes": "Optional server-side key for higher USGS OGC API rate limits. Snapshot observations remain evidence inputs until station and basin baselines are approved."
+    }
+  ],
+  "retired_or_excluded": [
+    {
+      "id": "watttime_api",
+      "status": "excluded",
+      "reason": "Removed from the current audited stack because the product decision is to avoid short-cycle marginal-emissions feeds and 30-minute credential refresh workflows."
+    }
+  ]
+}

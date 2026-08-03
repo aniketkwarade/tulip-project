@@ -1,0 +1,79 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const snapshot = {
+  version: 'london_urban_heat_island_mortality_2018_2022_v1',
+  captured_at: '2026-08-01T00:00:00.000Z',
+  sources: [
+    {
+      id: 'simpson_london_urban_heat_island_mortality_2022',
+      name: 'Estimated mortality attributable to the urban heat island during the record-breaking 2022 heatwave in London',
+      publisher: 'Environmental Research Letters',
+      publication_date: '2024-08-20',
+      url: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC11334115/',
+      source_locators: [
+        'The urban climate model was run at one-kilometre resolution and evaluated against official and personal weather-station observations.',
+        'The population-weighted urban-minus-non-urban temperature difference during the study period averaged 2.3 degrees Celsius and reached 7.2 degrees Celsius; differences were greatest from 20:00 to 08:00.',
+        'For 10–25 July 2022, the study estimated 370 heat-attributable deaths and 141 deaths attributable to the urban heat-island increment, with explicit confidence intervals.'
+      ]
+    },
+    {
+      id: 'simpson_london_summer_uhi_economic_burden_2018',
+      name: "The mortality and associated economic burden of London's summer urban heat island effect",
+      publisher: 'The Lancet Planetary Health',
+      publication_date: '2025-03-01',
+      url: 'https://www.sciencedirect.com/science/article/pii/S2542519625000257',
+      source_locators: [
+        'The summer-2018 analysis estimated 785 heat-attributable deaths in Greater London, including 399 attributable to the urban heat-island effect.',
+        'The estimated social cost of heat was £1.94 billion using value of statistical life, including £987 million attributable to the urban heat-island effect.',
+        'The UHI-attributable mortality estimate was 3.6 percent of all summer deaths; valuation and mortality confidence intervals are retained in the study.'
+      ]
+    },
+    {
+      id: 'gla_london_census_population_2021',
+      name: '2021 Census: First release',
+      publisher: 'Greater London Authority using Office for National Statistics Census 2021',
+      publication_date: '2022-06-28',
+      url: 'https://data.london.gov.uk/dataset/2021-census-first-release-2n1y8/',
+      source_locators: [
+        'The 2021 Census reported a London population of 8.8 million.',
+        'The mortality analyses use population counts within the Greater London regional boundary and population-weighted exposure.'
+      ]
+    }
+  ],
+  metric_contract: {
+    node_id: 'nighttime_heat_retention',
+    metric_id: 'nighttime_urban_rural_air_temperature_difference',
+    unit: 'degrees Celsius urban-versus-non-urban air-temperature increment, attributable mortality and monetized social burden retained separately',
+    geography: 'Greater London regional boundary at one-kilometre model resolution with official and personal weather-station evaluation',
+    assessment_period: 'summer 2018 accumulated burden and the 10–25 July 2022 extreme-heat episode',
+    boundary: 'The receipt uses a modeled non-urban counterfactual rather than claiming a direct rural-station pair. It preserves daily-mean mortality attribution, notes that the modeled urban increment was greatest at night, and does not assign all heat mortality to nighttime temperature alone.'
+  },
+  accumulated_impact: {
+    london_2022_mean_urban_nonurban_temperature_difference_celsius: 2.3,
+    london_2022_maximum_urban_nonurban_temperature_difference_celsius: 7.2,
+    london_2022_analysis_days: 16,
+    london_2022_total_deaths: 1773,
+    london_2022_heat_attributable_deaths_estimate: 370,
+    london_2022_uhi_attributable_deaths_estimate: 141,
+    london_2022_uhi_share_of_heat_deaths_percent: 38,
+    london_2018_heat_attributable_deaths_estimate: 785,
+    london_2018_uhi_attributable_deaths_estimate: 399,
+    london_2018_uhi_attributable_social_cost_gbp_millions: 987,
+    london_2018_total_heat_social_cost_gbp_millions_unscored: 1940,
+    london_census_population_millions_2021: 8.8,
+    independently_assessed_summer_or_heatwave_period_count: 2
+  },
+  reviewed_normalization_anchors: {
+    urban_nonurban_temperature_difference_celsius: [0, 0.5, 2, 5],
+    uhi_attributable_social_cost_gbp_millions: [0, 100, 500, 1500],
+    independently_assessed_period_count: [0, 1, 2, 4],
+    population_millions: [0, 0.1, 1, 10]
+  },
+  uncertainty: 'Both impact studies use an urban climate model and counterfactual non-urban land cover, not a single paired urban-rural thermometer series. The 2022 mortality response uses lagged daily mean temperature, so daytime and nighttime contributions are not separately identified even though the modeled urban increment was largest at night. Attributable deaths and value-of-statistical-life estimates have substantial model and confidence intervals. The 2018 and 2022 values are separate assessments and are not added together.'
+};
+
+await fs.writeFile(path.join(ROOT, 'public/london-nighttime-heat-retention-impact-snapshot.json'), `${JSON.stringify(snapshot, null, 2)}\n`);
+console.log(JSON.stringify({ output: 'public/london-nighttime-heat-retention-impact-snapshot.json', version: snapshot.version, accumulated: snapshot.accumulated_impact }, null, 2));

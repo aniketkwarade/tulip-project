@@ -1,0 +1,110 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_12_iea_battery_supply_chain",
+  "generated_at": "2026-07-31T22:57:24.680Z",
+  "source_snapshot": "public/iea-battery-supply-chain-impact-snapshot.json",
+  "source_id": "iea_global_critical_minerals_outlook_2025",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "battery_supply_chain_pressure",
+      "value": 8.5,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "biophysical_burden": 0.835,
+        "human_economic_burden": 0.8,
+        "persistence": 0.89,
+        "extent": 0.85
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "global_energy_sector_battery_demand_twh": 1,
+          "global_ev_battery_demand_gwh_lower_bound": 950,
+          "global_ev_battery_demand_annual_growth_pct": 25,
+          "anchors_twh": [
+            0,
+            0.25,
+            0.5,
+            1.5
+          ],
+          "boundary": "Installed battery demand in EV and stationary energy applications; not mineral mass, manufacturing capacity or announced projects."
+        },
+        "human_economic_burden": {
+          "china_share_global_battery_cell_production_pct": 80,
+          "china_share_global_battery_manufacturing_capacity_pct_context_only": 85,
+          "china_share_lfp_cathode_material_and_cell_production_pct_lower_bound_context_only": 98,
+          "anchors_global_production_share_pct": [
+            0,
+            33,
+            67,
+            100
+          ],
+          "boundary": "Observed geographic concentration as economic disruption exposure; not a realized shortage or loss estimate."
+        },
+        "persistence": {
+          "lithium_demand_multiple_vs_2015": 6,
+          "comparison_start_year": 2015,
+          "comparison_years": 9,
+          "anchors_years": [
+            0,
+            3,
+            7,
+            10
+          ]
+        },
+        "extent": {
+          "energy_sector_share_battery_metal_demand_growth_2021_2024_pct": 85,
+          "normalized_value": 0.85,
+          "global_scope": true
+        },
+        "source_snapshot": {
+          "path": "public/iea-battery-supply-chain-impact-snapshot.json",
+          "version": "iea_battery_supply_chain_2024_assessment_v1",
+          "captured_at": "2026-07-31T17:07:31.792Z",
+          "source_locators": [
+            "IEA Global EV Outlook 2025, Electric vehicle batteries: global energy-sector battery demand reached 1 TWh in 2024 and EV battery demand exceeded 950 GWh, 25 percent above 2023.",
+            "IEA Global EV Outlook 2025: lithium demand in 2024 was about six times its 2015 level; China produced 80 percent of global battery cells and held 85 percent of manufacturing capacity.",
+            "IEA Global Critical Minerals Outlook 2025: the energy sector accounted for 85 percent of 2021-2024 demand growth for lithium, nickel, cobalt and graphite.",
+            "IEA Global Critical Minerals Outlook 2025: over 98 percent of LFP cathode material and LFP cells were produced in China."
+          ],
+          "excluded_from_scoring": [
+            "2030 and 2035 demand, supply and capacity scenarios",
+            "announced but not operating projects",
+            "projected recycling contribution and projected supply shortfalls"
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "fixed_global_demand_range",
+          "formula": "Normalize the source-reported 2024 global battery demand through a named TWh burden range without substituting manufacturing capacity."
+        },
+        {
+          "type": "observed_supply_concentration",
+          "formula": "Normalize the source-reported share of global battery-cell production located in China through the bounded 0-100 percent range."
+        },
+        {
+          "type": "source_reported_demand_persistence",
+          "formula": "Use the source comparison from 2015 to 2024, during which lithium demand rose sixfold; no future scenario enters the component."
+        }
+      ],
+      "source_ids": [
+        "iea_global_critical_minerals_outlook_2025"
+      ],
+      "uncertainty": "IEA battery demand combines estimated installed battery sizes with vehicle sales and storage applications. Capacity is not production; supply-chain shares vary by chemistry and stage; proprietary market inputs, stockpiling exclusions, ownership, trade, technology change and revisions affect estimates.",
+      "freshness": "IEA 2025 assessments of 2024 conditions; snapshot captured 2026-07-31T17:07:31.792Z.",
+      "selection_reason": {
+        "selected_method_passed": "IEA quantifies global battery demand and growth, observed supply-chain concentration, multi-year demand persistence and the energy sector share of battery-metal demand growth.",
+        "higher_priority_failures": [
+          "The public assessment supplies only seven annual EV battery-demand observations from 2018-2024, below the 20-year historical-distribution gate.",
+          "No recognized global threshold series supplies current magnitude plus threshold proximity or momentum at the current-data coverage gate."
+        ]
+      },
+      "input_hash": "fnv1a32:18685b4c"
+    }
+  ]
+}

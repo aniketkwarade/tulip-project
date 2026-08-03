@@ -1,0 +1,105 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_47_arctic_shipping_expansion",
+  "generated_at": "2026-08-01T15:38:10.884Z",
+  "source_snapshot": "public/global-infrastructure-pressure-snapshot.json",
+  "source_id": "arctic_council_shipping_update_2026",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "arctic_shipping_expansion",
+      "value": 9,
+      "band": "Critical",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "magnitude": 0.91728,
+        "threshold": 0.9934,
+        "momentum": 0.802,
+        "extent": 0.8
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "unique_ships": 1812,
+          "anchors": [
+            0,
+            500,
+            1250,
+            2000
+          ],
+          "geography": "IMO Polar Code area"
+        },
+        "threshold": {
+          "accumulated_impact_fill": true,
+          "crude_oil_tanker_increase_since_2013_pct": 396,
+          "anchors": [
+            0,
+            50,
+            200,
+            400
+          ],
+          "boundary": "This is a source-backed structural pressure indicator, not a recognized ecological threshold."
+        },
+        "momentum": {
+          "distance_sailed_2013_million_nautical_miles": 6.1,
+          "distance_sailed_2025_million_nautical_miles": 11.9,
+          "increase_pct": 95,
+          "anchors": [
+            0,
+            25,
+            75,
+            125
+          ]
+        },
+        "extent": {
+          "normalized_value": 0.8,
+          "boundary": "Circumpolar shipping extent within the IMO Polar Code area, not the full world ocean."
+        },
+        "coverage_gate": {
+          "direct_components": [
+            "magnitude",
+            "momentum",
+            "extent"
+          ],
+          "global_scope": true,
+          "current_observation": true
+        },
+        "source_snapshot": {
+          "path": "public/global-infrastructure-pressure-snapshot.json",
+          "version": "global_infrastructure_pressure_2026_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "current_fleet_magnitude",
+          "formula": "Normalize the 2025 unique-ship count without double-counting repeat entries."
+        },
+        {
+          "type": "source_backed_remainder_fill",
+          "formula": "Use the documented crude-oil-tanker growth only for the non-direct threshold component; do not describe it as a recognized threshold."
+        },
+        {
+          "type": "distance_momentum",
+          "formula": "Normalize the source-reported 2013–2025 increase in aggregate nautical miles sailed."
+        },
+        {
+          "type": "circumpolar_extent",
+          "formula": "Retain a bounded circumpolar extent for the IMO Polar Code area."
+        }
+      ],
+      "source_ids": [
+        "arctic_council_shipping_update_2026"
+      ],
+      "uncertainty": "Cable-system and fault totals are rounded global infrastructure statistics, and a cable fault is not necessarily a service outage at a landing point. Arctic ship counts cover the IMO Polar Code area; unique ships, aggregate distance and ship-type growth are retained as separate measures.",
+      "freshness": "Arctic Council PAME observation through 2025; snapshot captured 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "Current 2025 ship magnitude, source-reported 12-year distance momentum and circumpolar extent provide 70% direct component coverage; a quantitative structural pressure indicator fills the remainder.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:4172ea09"
+    }
+  ]
+}

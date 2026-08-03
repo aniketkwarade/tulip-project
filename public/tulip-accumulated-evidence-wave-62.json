@@ -1,0 +1,124 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_62_eia112_utility_disconnections",
+  "generated_at": "2026-08-01T16:07:40.598Z",
+  "source_snapshots": [
+    "public/eia112-utility-disconnection-impact-snapshot.json"
+  ],
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "utility_disconnection_risk",
+      "value": 7,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "biophysical_burden": 0.836624,
+        "human_economic_burden": 0.866096,
+        "persistence": 0.33,
+        "extent": 0.33
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "electricity_disconnections": 13447934.8,
+          "natural_gas_disconnections": 1650511.03,
+          "combined_disconnections": 15098445.83,
+          "normalization_anchors_events": [
+            0,
+            100000,
+            5000000,
+            25000000
+          ]
+        },
+        "human_economic_burden": {
+          "combined_average_monthly_service_accounts": 217034087.083334,
+          "disconnections_per_1000_service_accounts": 69.567164,
+          "normalization_anchors_per_1000": [
+            0,
+            1,
+            25,
+            100
+          ]
+        },
+        "persistence": {
+          "complete_calendar_years": 1,
+          "normalization_anchors_years": [
+            0,
+            1,
+            6,
+            30
+          ]
+        },
+        "extent": {
+          "directly_assessed_countries": [
+            "United States"
+          ],
+          "directly_assessed_country_count": 1,
+          "normalization_anchors_countries": [
+            0,
+            1,
+            5,
+            25
+          ]
+        },
+        "unscored_context": {
+          "combined_final_notices": 121949622.89,
+          "combined_reconnections": 12541985.63,
+          "repeated_account_events_possible": true,
+          "electricity_and_gas_household_overlap_possible": true
+        },
+        "source_snapshot": {
+          "path": "public/eia112-utility-disconnection-impact-snapshot.json",
+          "version": "eia112_residential_utility_disconnections_2024_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z",
+          "electricity_workbook_sha256": "96188f7b68946e68fba917e140c01fae9d081d5aba54734bc003dc5c2d60fe0a",
+          "natural_gas_workbook_sha256": "82aa53e574cdf1fd42bb3059681765ef958fb49cf7fc0a129e4320b1eb2d9a10",
+          "report_sha256": "1d5b3a7dc4550fd056f0960cf055cd04ce57b52aca4b4ce8c56f22b1a1f4ea36"
+        }
+      },
+      "transformations": [
+        {
+          "type": "state_total_extraction",
+          "formula": "For each fuel, sum the 51 State Total rows across all 12 months; do not add utility rows to state totals."
+        },
+        {
+          "type": "exact_nonpayment_filter",
+          "formula": "Use only EIA-112 involuntary residential service disconnections due to bill nonpayment; voluntary terminations are outside the source definition."
+        },
+        {
+          "type": "service_account_rate",
+          "formula": "Divide combined electricity-plus-gas disconnection events by combined average monthly electricity-plus-gas service accounts and multiply by 1,000."
+        },
+        {
+          "type": "deduplication_boundary",
+          "formula": "Do not treat service events as unique households or people and do not subtract reconnections to infer accounts remaining disconnected."
+        },
+        {
+          "type": "bounded_country_extent",
+          "formula": "Normalize the one directly assessed country; 51 state and district totals do not become global coverage."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "eia112_residential_utility_disconnection_microdata_2024",
+        "eia112_residential_utility_disconnections_report_2024"
+      ],
+      "uncertainty": "The EIA-112 estimates cover the United States and District of Columbia, not the world. Weighted response rates were 93.5% for electricity and 96.1% for natural gas; state adjustments include imputation. Counts are service events rather than deduplicated households, and a service account can experience multiple events. Electricity and gas accounts overlap at the household level. One calendar year quantifies accumulated burden but cannot establish a historical trend or current 2026 magnitude.",
+      "freshness": "Complete calendar year 2024; EIA report released 2026-04-14; snapshot reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "EIA-112 directly quantifies residential electricity and natural-gas disconnections for nonpayment, service-account exposure, a complete calendar year and one-country extent under the exact node contract.",
+        "higher_priority_failures": [
+          "The survey supplies one U.S. calendar year rather than a defensible current global aggregation.",
+          "One year cannot meet the 20-annual- or 60-month-observation historical-distribution gate for current_data."
+        ]
+      },
+      "input_hash": "fnv1a32:25089dc9"
+    }
+  ]
+}

@@ -1,0 +1,599 @@
+{
+  "version": "northstar_phenomenon_promotion_v2",
+  "generated_at": "2026-07-31T22:56:30.097Z",
+  "research_artifact": "deep-research-report (12).md",
+  "policy": "Research-ready is not graph-ready. Staged candidates require explicit one-by-one approval after live duplicate review, source readback, relationship contracts, and a metric decision.",
+  "summary": {
+    "source_candidates": 10,
+    "approved_and_promoted": 4,
+    "staged_new": 0,
+    "metric_merges": 1,
+    "deferred": 4,
+    "rejected": 1
+  },
+  "candidates": [
+    {
+      "original_id": "food_insecurity_undernutrition",
+      "original_name": "Food Insecurity and Undernutrition",
+      "canonical_id": "food_insecurity",
+      "canonical_name": "Food Insecurity",
+      "decision_type": "stage_new_after_split",
+      "priority": 1,
+      "sphere": "health",
+      "evidence_strength": "verified_bounded",
+      "ontology_reason": "Food insecurity is an access-and-experience construct; undernutrition is a separate biological health outcome and must not be collapsed into the same node.",
+      "repository_readback": "Neither food_insecurity nor undernutrition_burden exists in the live export. The report assumption that food_insecurity already exists was rejected after live readback.",
+      "proposed_driver_ids": [
+        "crop_yield_volatility",
+        "food_import_exposure",
+        "staple_food_price_volatility",
+        "conflict_risk_escalation",
+        "drought_persistence"
+      ],
+      "proposed_effect_ids": [
+        "migration",
+        "public_health_heat_burden",
+        "agricultural_labor_exposure"
+      ],
+      "official_sources": [
+        "https://www.who.int/en/news-room/fact-sheets/detail/climate-change-and-health",
+        "https://www.who.int/publications/m/item/the-state-of-food-security-and-nutrition-in-the-world-2024"
+      ],
+      "largest_uncertainty": "Conflict, affordability, climate hazards, public support, and household vulnerability make attribution strongly context dependent.",
+      "staged_metric_contract": {
+        "metric_id": "food_insecurity_prevalence_fies",
+        "metric_name": "Prevalence of moderate or severe food insecurity",
+        "unit": "percent of population",
+        "geography": "country, region, and global",
+        "cadence": "annual",
+        "observation_time_field": "year",
+        "source_id": "unsd_sdg_api",
+        "ingestion_job_id": "fetch_food_insecurity_fies",
+        "snapshot_file": "food-security-snapshot.json",
+        "transformation": "Retain provider estimates and uncertainty; do not combine food insecurity with biological undernutrition outcomes.",
+        "uncertainty": "Survey and model uncertainty varies by country and release; the provider may revise historical estimates.",
+        "threshold_provenance": "FAO SDG 2.1.2 reporting and SDG target framing; no ad hoc percentile threshold.",
+        "failure_behavior": "Freeze the last reviewed release, mark stale, and never interpret a missing country-year as zero."
+      },
+      "follow_up": "Stage food_insecurity only. Keep undernutrition_burden deferred until its distinct health-state edges and double-counting rules are approved.",
+      "research_artifact": "deep-research-report (12).md",
+      "research_access_date": "2026-07-17",
+      "id": "food_insecurity",
+      "name": "Food Insecurity",
+      "status": "approved_and_promoted",
+      "promotion_requirements": [
+        "node-specific primary or official sources",
+        "at least three bounded incoming relationship contracts unless classified as an authored root",
+        "at least one meaningful downstream effect where appropriate",
+        "a complete metric contract or an explicit non-measurable rationale",
+        "manual duplicate and overlap review"
+      ],
+      "gap_type": "missing_first_class_anchor",
+      "rationale": "The graph contains agricultural demand, crop-yield volatility, food-import exposure, price volatility, and migration, but no first-class food-insecurity or undernutrition outcome.",
+      "approval": {
+        "status": "approved_and_promoted",
+        "approved_at": "2026-07-17",
+        "approved_by": "northstar_review_sequence",
+        "sequence": 1,
+        "boundary": "Food insecurity only; undernutrition remains separate."
+      }
+    },
+    {
+      "original_id": "climate_mental_health_burden",
+      "original_name": "Climate-Related Mental Health Burden",
+      "canonical_id": "climate_related_mental_health_burden",
+      "canonical_name": "Climate-Related Mental Health Burden",
+      "decision_type": "defer_measurement_gap",
+      "priority": 6,
+      "sphere": "health",
+      "evidence_strength": "supported_but_bounded",
+      "ontology_reason": "The phenomenon is credible, but a broad global node blends acute disaster outcomes, chronic stress, displacement, and policy-capacity indicators.",
+      "repository_readback": "No exact live node exists; overlap remains with disaster, displacement, heat-health, and health-system pathways.",
+      "proposed_driver_ids": [
+        "migration",
+        "disaster_recovery_inequality",
+        "heat_related_mortality_burden",
+        "wildfire_regime_shift",
+        "insurance_retreat"
+      ],
+      "proposed_effect_ids": [
+        "health_system_climate_resilience_gap",
+        "conflict_risk_escalation",
+        "agricultural_labor_exposure"
+      ],
+      "official_sources": [
+        "https://www.who.int/en/news-room/fact-sheets/detail/climate-change-and-health",
+        "https://www.who.int/news/item/03-06-2022-why-mental-health-is-a-priority-for-action-on-climate-change"
+      ],
+      "largest_uncertainty": "No standardized global climate-attributable mental-health burden series or production-grade observation API.",
+      "staged_metric_contract": null,
+      "follow_up": "Revisit narrower disaster-related or heat-related mental-health outcome nodes.",
+      "research_artifact": "deep-research-report (12).md",
+      "research_access_date": "2026-07-17",
+      "id": "climate_related_mental_health_burden",
+      "name": "Climate-Related Mental Health Burden",
+      "status": "deferred_research_track",
+      "promotion_requirements": [
+        "node-specific primary or official sources",
+        "at least three bounded incoming relationship contracts unless classified as an authored root",
+        "at least one meaningful downstream effect where appropriate",
+        "a complete metric contract or an explicit non-measurable rationale",
+        "manual duplicate and overlap review"
+      ],
+      "gap_type": "missing_first_class_anchor",
+      "rationale": "The graph models heat, disasters, displacement, migration, insurance retreat, and recovery inequality without a mental-health or psychosocial outcome node.",
+      "approval": {
+        "status": "not_applicable_deferred",
+        "approved_at": null,
+        "approved_by": null,
+        "sequence": null,
+        "boundary": null
+      }
+    },
+    {
+      "original_id": "heat_labor_productivity_loss",
+      "original_name": "Heat-Related Labor Productivity Loss",
+      "canonical_id": "occupational_heat_exposure",
+      "canonical_name": "Occupational Heat Exposure",
+      "decision_type": "merge_metric_into_existing",
+      "priority": 2,
+      "sphere": "health",
+      "evidence_strength": "verified_bounded",
+      "ontology_reason": "Working-hour and earnings loss are operational consequences of occupational heat exposure, not a distinct phenomenon anchor.",
+      "repository_readback": "occupational_heat_exposure exists in the live export and already represents reduced safe work capacity.",
+      "proposed_driver_ids": [
+        "occupational_heat_exposure",
+        "wet_bulb_heat",
+        "compound_day_night_heat_extremes",
+        "cooling_equity_gaps"
+      ],
+      "proposed_effect_ids": [
+        "crop_yield_volatility",
+        "food_import_exposure",
+        "adaptation_capital_shortfall",
+        "disaster_recovery_inequality"
+      ],
+      "official_sources": [
+        "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-12/",
+        "https://www.who.int/news-room/fact-sheets/detail/climate-change-heat-and-health"
+      ],
+      "largest_uncertainty": "The strongest global series is modeled and sensitive to labor-sector and work-rest assumptions.",
+      "staged_metric_contract": {
+        "metric_id": "heat_related_working_hour_loss",
+        "metric_name": "Potential working hours lost due to heat exposure",
+        "unit": "hours or percent of potential working hours",
+        "geography": "country",
+        "cadence": "annual",
+        "observation_time_field": "year",
+        "source_id": "lancet_countdown_data_explorer",
+        "transformation": "Retain modeled meteorology, labor-sector composition, work intensity, and revision version; do not treat modeled capacity loss as observed absence from work.",
+        "uncertainty": "Highly dependent on exposure assumptions, sector mix, work-rest behavior, acclimatization, and model version.",
+        "threshold_provenance": "Provider method and ILO occupational-heat framing; descriptive trend only until a universal threshold is justified.",
+        "failure_behavior": "Keep the last reviewed series and mark a methodology break instead of silently recalculating graph history."
+      },
+      "follow_up": "Implement the metric contract on occupational_heat_exposure without adding a second node.",
+      "research_artifact": "deep-research-report (12).md",
+      "research_access_date": "2026-07-17",
+      "id": "occupational_heat_exposure",
+      "name": "Occupational Heat Exposure",
+      "status": "merged_metric_only",
+      "promotion_requirements": [
+        "node-specific primary or official sources",
+        "at least three bounded incoming relationship contracts unless classified as an authored root",
+        "at least one meaningful downstream effect where appropriate",
+        "a complete metric contract or an explicit non-measurable rationale",
+        "manual duplicate and overlap review"
+      ],
+      "gap_type": "missing_first_class_anchor",
+      "rationale": "Occupational heat exposure and wet-bulb heat exist, but their productivity and income pathway is not represented as an outcome.",
+      "approval": {
+        "status": "not_applicable_metric_merge",
+        "approved_at": null,
+        "approved_by": null,
+        "sequence": null,
+        "boundary": null
+      }
+    },
+    {
+      "original_id": "nutrient_pollution_biogeochemical_disruption",
+      "original_name": "Nutrient Pollution and Biogeochemical Flow Disruption",
+      "canonical_id": "nutrient_pollution",
+      "canonical_name": "Nutrient Pollution",
+      "decision_type": "stage_new_after_narrowing",
+      "priority": 3,
+      "sphere": "freshwater",
+      "evidence_strength": "supported_but_bounded",
+      "ontology_reason": "Nutrient pollution is a measurable environmental state; biogeochemical-flow disruption is an umbrella framework spanning pressures, transport, state, and boundary exceedance.",
+      "repository_readback": "No exact live node exists. Runoff, wastewater, eutrophication, algal-bloom, and hypoxia endpoints already provide a clean graph neighborhood.",
+      "proposed_driver_ids": [
+        "fertilizer_production",
+        "nitrogen_fertilizer_runoff",
+        "wastewater_bypass_discharge",
+        "industry_farming"
+      ],
+      "proposed_effect_ids": [
+        "estuary_eutrophication",
+        "harmful_algal_blooms",
+        "coastal_hypoxia",
+        "freshwater_ecosystem_collapse"
+      ],
+      "official_sources": [
+        "https://www.unep.org/topics/ocean-seas-and-coasts/ecosystem-degradation-pollution/nutrient-management/nutrients/uneps",
+        "https://www.unep.org/indicator-1411a",
+        "https://www.stockholmresilience.org/research/planetary-boundaries.html"
+      ],
+      "largest_uncertainty": "No single globally harmonized nutrient-observation API; methods and site coverage vary strongly.",
+      "staged_metric_contract": {
+        "metric_id": "surface_water_total_nutrient_concentration",
+        "metric_name": "Surface-water total nitrogen or total phosphorus concentration",
+        "unit": "milligrams per liter, tonnes per year, annual resource cost, and affected-system count reported separately",
+        "geography": "monitoring site or watershed for concentrations; worldwide UNEP assessment boundary for accumulated impact",
+        "cadence": "monthly monitoring snapshot with annual summaries and global assessment reviews",
+        "observation_time_field": "sampleDate",
+        "source_id": "unep_global_nutrient_pollution_impact",
+        "ingestion_job_id": "fetch_nutrient_pollution_samples",
+        "snapshot_file": "nutrient-pollution-snapshot.json",
+        "transformation": "Normalize analyte, fraction, method, units, and QA flags before watershed aggregation; for global impact retain reactive-nitrogen loss, cost, eutrophication inventories and time boundaries separately.",
+        "uncertainty": "Site coverage, method changes, detection limits and sampling frequency affect concentration trends; global nitrogen budgets combine multiple pathways and coastal inventories are monitoring-dependent lower bounds.",
+        "threshold_provenance": "Jurisdiction-specific nutrient criteria for local observations and UNEP Global Partnership on Nutrient Management assessments for global accumulated impact.",
+        "failure_behavior": "Withhold local aggregation when method or site coverage is insufficient; retain the last reviewed global assessment and never extrapolate a US concentration, convert site count to area, or allocate a global cost to one watershed."
+      },
+      "follow_up": "Stage with US-only measurement scope first; require separate relationship dossiers before live promotion.",
+      "research_artifact": "deep-research-report (12).md",
+      "research_access_date": "2026-07-17",
+      "id": "nutrient_pollution",
+      "name": "Nutrient Pollution",
+      "status": "approved_and_promoted",
+      "promotion_requirements": [
+        "node-specific primary or official sources",
+        "at least three bounded incoming relationship contracts unless classified as an authored root",
+        "at least one meaningful downstream effect where appropriate",
+        "a complete metric contract or an explicit non-measurable rationale",
+        "manual duplicate and overlap review"
+      ],
+      "gap_type": "missing_system_anchor",
+      "rationale": "Fertilizer runoff, manure, wastewater, eutrophication, harmful algal blooms, hypoxia, and fishery impacts exist as fragments without a nitrogen-phosphorus system anchor.",
+      "approval": {
+        "status": "approved_and_promoted",
+        "approved_at": "2026-07-17",
+        "approved_by": "northstar_review_sequence",
+        "sequence": 2,
+        "boundary": "Nutrient state only; not an umbrella biogeochemical-flow score."
+      }
+    },
+    {
+      "original_id": "toxic_chemical_novel_entity_pressure",
+      "original_name": "Toxic Chemical Pressure and Novel Entities",
+      "canonical_id": null,
+      "canonical_name": null,
+      "decision_type": "reject_composite",
+      "priority": 10,
+      "sphere": "biosphere",
+      "evidence_strength": "data_limited",
+      "ontology_reason": "The label combines releases, occurrence, exposure, hazard, persistence, and regulatory status without a defensible common unit or weighting rule.",
+      "repository_readback": "Several narrower chemical, plastics, pesticide, and contamination nodes exist; the umbrella would obscure rather than repair those pathways.",
+      "proposed_driver_ids": [
+        "plastics_petrochemicals",
+        "pesticide_bioaccumulation_chains",
+        "e_waste_lead_soil_bleeding",
+        "industrial_solvent_vapors"
+      ],
+      "proposed_effect_ids": [
+        "freshwater_ecosystem_collapse",
+        "marine_food_web_simplification",
+        "air_pollution_health_burden",
+        "biodiversity_intactness_loss"
+      ],
+      "official_sources": [
+        "https://www.unep.org/interactives/wwqa/",
+        "https://www.stockholmresilience.org/research/planetary-boundaries.html"
+      ],
+      "largest_uncertainty": "No scientifically stable aggregate metric across heterogeneous substances and hazard dimensions.",
+      "staged_metric_contract": null,
+      "follow_up": "Research narrower daughters such as toxic_chemical_releases, PFAS contamination, or plastic pollution.",
+      "research_artifact": "deep-research-report (12).md",
+      "research_access_date": "2026-07-17",
+      "id": "toxic_chemical_novel_entity_pressure",
+      "name": "Toxic Chemical Pressure and Novel Entities",
+      "status": "rejected_ontology",
+      "promotion_requirements": [
+        "node-specific primary or official sources",
+        "at least three bounded incoming relationship contracts unless classified as an authored root",
+        "at least one meaningful downstream effect where appropriate",
+        "a complete metric contract or an explicit non-measurable rationale",
+        "manual duplicate and overlap review"
+      ],
+      "gap_type": "missing_system_anchor",
+      "rationale": "The graph has plastics, pesticides, solvents, e-waste, and industrial waste nodes, but no cross-system chemical-pollution anchor or cumulative toxic-pressure pathway.",
+      "approval": {
+        "status": "not_applicable_rejected",
+        "approved_at": null,
+        "approved_by": null,
+        "sequence": null,
+        "boundary": null
+      }
+    },
+    {
+      "original_id": "seagrass_meadow_decline",
+      "original_name": "Seagrass Meadow Decline",
+      "canonical_id": "seagrass_meadow_decline",
+      "canonical_name": "Seagrass Meadow Decline",
+      "decision_type": "stage_new",
+      "priority": 4,
+      "sphere": "oceans",
+      "evidence_strength": "supported_but_bounded",
+      "ontology_reason": "Seagrass is a distinct habitat state with specific carbon, nursery, water-quality, and shoreline functions.",
+      "repository_readback": "No exact live node exists. It is distinct from coral, mangrove, saltmarsh, kelp, and generic blue-carbon loss nodes.",
+      "proposed_driver_ids": [
+        "marine_heatwaves",
+        "estuary_eutrophication",
+        "coastal_erosion",
+        "ocean_acidification"
+      ],
+      "proposed_effect_ids": [
+        "blue_carbon_habitat_loss",
+        "marine_food_web_simplification",
+        "fish_landing_supply_disruption",
+        "coastal_hypoxia"
+      ],
+      "official_sources": [
+        "https://coast.noaa.gov/states/fast-facts/blue-carbon.html",
+        "https://sanctuaries.noaa.gov/visit/ecosystems/seagrass.html"
+      ],
+      "largest_uncertainty": "Comparable global area-change baselines are episodic and sensitive to mapping era and method.",
+      "staged_metric_contract": {
+        "metric_id": "seagrass_meadow_area_change",
+        "metric_name": "Mapped seagrass meadow area change from baseline",
+        "unit": "square kilometers or percent change",
+        "geography": "mapped meadow, coast, or country",
+        "cadence": "episodic authoritative snapshot",
+        "observation_time_field": "mapping_period_end",
+        "source_id": "obis_api_v3",
+        "ingestion_job_id": "fetch_seagrass_support",
+        "snapshot_file": "seagrass-support-snapshot.json",
+        "measurement_role": "supporting_occurrence_evidence_only",
+        "transformation": "Use curated habitat polygons for area change; use OBIS occurrences only for supporting QA and never as evidence of absence.",
+        "uncertainty": "Mapping era, classification method, seasonal cover, and incomplete remapping limit comparability.",
+        "threshold_provenance": "Persistent decline across at least two comparable mapping periods; no occurrence-only threshold.",
+        "failure_behavior": "Do not update area change from raw occurrences; retain the prior polygon snapshot with its mapping uncertainty."
+      },
+      "follow_up": "Stage snapshot-first. OBIS may support QA but must not drive area-loss scoring from presence-only records.",
+      "research_artifact": "deep-research-report (12).md",
+      "research_access_date": "2026-07-17",
+      "id": "seagrass_meadow_decline",
+      "name": "Seagrass Meadow Decline",
+      "status": "approved_and_promoted",
+      "promotion_requirements": [
+        "node-specific primary or official sources",
+        "at least three bounded incoming relationship contracts unless classified as an authored root",
+        "at least one meaningful downstream effect where appropriate",
+        "a complete metric contract or an explicit non-measurable rationale",
+        "manual duplicate and overlap review"
+      ],
+      "gap_type": "missing_ecosystem_anchor",
+      "rationale": "Mangroves, coral reefs, kelp, and generic blue-carbon habitat loss are present, but seagrass is absent despite distinct drivers and ecosystem functions.",
+      "approval": {
+        "status": "approved_and_promoted",
+        "approved_at": "2026-07-17",
+        "approved_by": "northstar_review_sequence",
+        "sequence": 3,
+        "boundary": "Mapped habitat decline; occurrences are supporting evidence only."
+      }
+    },
+    {
+      "original_id": "freshwater_biodiversity_decline",
+      "original_name": "Freshwater Biodiversity Decline",
+      "canonical_id": "freshwater_biodiversity_decline",
+      "canonical_name": "Freshwater Biodiversity Decline",
+      "decision_type": "defer_measurement_gap",
+      "priority": 7,
+      "sphere": "freshwater",
+      "evidence_strength": "supported_but_bounded",
+      "ontology_reason": "The state is distinct and important, but occurrence records alone cannot establish absence or decline.",
+      "repository_readback": "No exact live node exists; the graph already contains several drivers and broader biodiversity outcomes.",
+      "proposed_driver_ids": [
+        "river_flow_regime_shift",
+        "riverine_habitat_fragmentation",
+        "water_stress",
+        "invasive_species_encroachment",
+        "wastewater_bypass_discharge"
+      ],
+      "proposed_effect_ids": [
+        "freshwater_ecosystem_collapse",
+        "fishery_protein_dependence",
+        "biodiversity_intactness_loss"
+      ],
+      "official_sources": [
+        "https://www.unep.org/interactives/wwqa/",
+        "https://ict.ipbes.net/ipbes-ict-guide/data-and-knowledge-management/citations-of-ipbes-assessments/nexus-assessment"
+      ],
+      "largest_uncertainty": "No stable, open, freshwater-specific global decline metric with adequate historical and taxonomic coverage.",
+      "staged_metric_contract": null,
+      "follow_up": "Require a population, occupancy, or extinction-risk backbone rather than raw presence records.",
+      "research_artifact": "deep-research-report (12).md",
+      "research_access_date": "2026-07-17",
+      "id": "freshwater_biodiversity_decline",
+      "name": "Freshwater Biodiversity Decline",
+      "status": "deferred_research_track",
+      "promotion_requirements": [
+        "node-specific primary or official sources",
+        "at least three bounded incoming relationship contracts unless classified as an authored root",
+        "at least one meaningful downstream effect where appropriate",
+        "a complete metric contract or an explicit non-measurable rationale",
+        "manual duplicate and overlap review"
+      ],
+      "gap_type": "missing_ecosystem_anchor",
+      "rationale": "Freshwater ecosystem collapse is present, but the graph lacks a measurable biodiversity-state node linking flow alteration, warming, pollution, fragmentation, and invasive species.",
+      "approval": {
+        "status": "not_applicable_deferred",
+        "approved_at": null,
+        "approved_by": null,
+        "sequence": null,
+        "boundary": null
+      }
+    },
+    {
+      "original_id": "urban_heat_island_intensity",
+      "original_name": "Urban Heat Island Intensity",
+      "canonical_id": "urban_heat_island",
+      "canonical_name": "Urban Heat Island",
+      "decision_type": "stage_new_after_metric_normalization",
+      "priority": 5,
+      "sphere": "atmosphere",
+      "evidence_strength": "verified_bounded",
+      "ontology_reason": "Urban heat island is the phenomenon; intensity in degrees Celsius is its primary metric, not a second node.",
+      "repository_readback": "urban_heat_island does not exist in the live export. urban_heat_dome_stagnation is not an ontology duplicate, so the report merge assumption was rejected.",
+      "proposed_driver_ids": [
+        "urban_tree_canopy_loss",
+        "urban_sprawl_housing",
+        "asphalt_pavement_heat_absorbers",
+        "urbanization"
+      ],
+      "proposed_effect_ids": [
+        "public_health_heat_burden",
+        "heat_related_mortality_burden",
+        "grid_peak_load_stress",
+        "cooling_equity_gaps"
+      ],
+      "official_sources": [
+        "https://www.who.int/news-room/fact-sheets/detail/climate-change-heat-and-health",
+        "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-12/"
+      ],
+      "largest_uncertainty": "A globally comparable series requires a fixed urban footprint, rural reference, retrieval method, and day/night definition.",
+      "staged_metric_contract": {
+        "metric_id": "urban_heat_island_intensity_degC",
+        "metric_name": "Urban heat island intensity",
+        "unit": "degrees Celsius urban-minus-reference temperature",
+        "geography": "city or harmonized raster footprint",
+        "cadence": "seasonal or annual derived snapshot",
+        "observation_time_field": "observation_period_end",
+        "source_id": "eea_urban_heat_island_arcgis",
+        "ingestion_job_id": "fetch_urban_heat_island_eea",
+        "snapshot_file": "urban-heat-island-snapshot.json",
+        "transformation": "Keep surface and canopy-layer UHI separate; retain urban footprint, rural reference, day/night, season, and sensor or model version.",
+        "uncertainty": "Urban-boundary choice, elevation, morphology, weather, land-cover change, and retrieval method affect comparability.",
+        "threshold_provenance": "Provider-defined urban-minus-reference method and health-relevance literature; no arbitrary global percentile.",
+        "failure_behavior": "Freeze the prior value when footprint or processing changes cannot be back-cast."
+      },
+      "follow_up": "Stage the phenomenon with intensity as its metric; do not conflate it with urban heat dome stagnation.",
+      "research_artifact": "deep-research-report (12).md",
+      "research_access_date": "2026-07-17",
+      "id": "urban_heat_island",
+      "name": "Urban Heat Island",
+      "status": "approved_and_promoted",
+      "promotion_requirements": [
+        "node-specific primary or official sources",
+        "at least three bounded incoming relationship contracts unless classified as an authored root",
+        "at least one meaningful downstream effect where appropriate",
+        "a complete metric contract or an explicit non-measurable rationale",
+        "manual duplicate and overlap review"
+      ],
+      "gap_type": "missing_physical_exposure_anchor",
+      "rationale": "Urban heat action, cooling inequity, parking expansion, canopy loss, and heat-health burden exist, but the physical urban heat-island exposure is not a reviewed anchor.",
+      "approval": {
+        "status": "approved_and_promoted",
+        "approved_at": "2026-07-17",
+        "approved_by": "northstar_review_sequence",
+        "sequence": 4,
+        "boundary": "Phenomenon node; intensity is its metric."
+      }
+    },
+    {
+      "original_id": "crop_nutrient_density_decline",
+      "original_name": "Crop Nutrient-Density Decline",
+      "canonical_id": "co2_related_crop_nutrient_dilution",
+      "canonical_name": "CO2-Related Crop Nutrient Dilution",
+      "decision_type": "defer_and_narrow",
+      "priority": 9,
+      "sphere": "agriculture",
+      "evidence_strength": "supported_but_bounded",
+      "ontology_reason": "The strongest evidence is specific to elevated-CO2 effects on particular nutrients and crop groups, not a universal historical crop-quality decline.",
+      "repository_readback": "No exact live node exists; broader food, soil, yield, and nutrition pathways would create double-counting risk.",
+      "proposed_driver_ids": [
+        "carbon_emission",
+        "temp",
+        "soil_humus_decline"
+      ],
+      "proposed_effect_ids": [
+        "food_import_exposure",
+        "public_health_heat_burden"
+      ],
+      "official_sources": [
+        "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-12/"
+      ],
+      "largest_uncertainty": "Cultivar, soil, management, assay method, and food-composition database structure confound historical trend inference.",
+      "staged_metric_contract": null,
+      "follow_up": "Keep research-only until a crop-specific, method-harmonized observation contract exists.",
+      "research_artifact": "deep-research-report (12).md",
+      "research_access_date": "2026-07-17",
+      "id": "co2_related_crop_nutrient_dilution",
+      "name": "CO2-Related Crop Nutrient Dilution",
+      "status": "deferred_research_track",
+      "promotion_requirements": [
+        "node-specific primary or official sources",
+        "at least three bounded incoming relationship contracts unless classified as an authored root",
+        "at least one meaningful downstream effect where appropriate",
+        "a complete metric contract or an explicit non-measurable rationale",
+        "manual duplicate and overlap review"
+      ],
+      "gap_type": "missing_food_quality_outcome",
+      "rationale": "The graph models yield volatility but not the distinct decline in crop nutritional quality associated with higher carbon dioxide and climate stress.",
+      "approval": {
+        "status": "not_applicable_deferred",
+        "approved_at": null,
+        "approved_by": null,
+        "sequence": null,
+        "boundary": null
+      }
+    },
+    {
+      "original_id": "climate_aeroallergen_burden",
+      "original_name": "Climate-Sensitive Aeroallergen Burden",
+      "canonical_id": "climate_sensitive_aeroallergen_burden",
+      "canonical_name": "Climate-Sensitive Aeroallergen Burden",
+      "decision_type": "defer_regional_monitoring_only",
+      "priority": 8,
+      "sphere": "health",
+      "evidence_strength": "supported_but_bounded",
+      "ontology_reason": "The phenomenon is real, but current open machine-readable coverage supports selected regional monitoring rather than a global burden anchor.",
+      "repository_readback": "No exact live node exists; overlap with pollen exposure, asthma, and air-pollution burden requires a narrower boundary.",
+      "proposed_driver_ids": [
+        "temp",
+        "carbon_emission",
+        "humidity_amplification"
+      ],
+      "proposed_effect_ids": [
+        "air_pollution_health_burden",
+        "health_system_climate_resilience_gap"
+      ],
+      "official_sources": [
+        "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-12/",
+        "https://www.who.int/en/news-room/fact-sheets/detail/climate-change-and-health"
+      ],
+      "largest_uncertainty": "Global observation coverage, taxon comparability, and open station access remain weak.",
+      "staged_metric_contract": null,
+      "follow_up": "Allow bounded regional monitoring contracts but no global graph score.",
+      "research_artifact": "deep-research-report (12).md",
+      "research_access_date": "2026-07-17",
+      "id": "climate_sensitive_aeroallergen_burden",
+      "name": "Climate-Sensitive Aeroallergen Burden",
+      "status": "deferred_research_track",
+      "promotion_requirements": [
+        "node-specific primary or official sources",
+        "at least three bounded incoming relationship contracts unless classified as an authored root",
+        "at least one meaningful downstream effect where appropriate",
+        "a complete metric contract or an explicit non-measurable rationale",
+        "manual duplicate and overlap review"
+      ],
+      "gap_type": "missing_health_outcome",
+      "rationale": "The graph covers ozone, particulate pollution, and heat but not changing pollen seasons and aeroallergen exposure as a distinct climate-sensitive pathway.",
+      "approval": {
+        "status": "not_applicable_deferred",
+        "approved_at": null,
+        "approved_by": null,
+        "sequence": null,
+        "boundary": null
+      }
+    }
+  ]
+}

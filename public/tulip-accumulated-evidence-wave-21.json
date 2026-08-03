@@ -1,0 +1,112 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_21_undrr_critical_infrastructure",
+  "generated_at": "2026-07-31T22:57:27.084Z",
+  "source_snapshot": "public/undrr-critical-infrastructure-impact-snapshot.json",
+  "source_id": "undrr_sendai_midterm_critical_infrastructure_impacts",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "critical_infrastructure_fragility",
+      "value": 7.6,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2023",
+      "components": {
+        "biophysical_burden": 0.764274,
+        "human_economic_burden": 0.887127,
+        "persistence": 0.802,
+        "extent": 0.227979
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "average_critical_infrastructure_units_damaged_or_destroyed_per_year": 142852,
+          "period": [
+            2015,
+            2021
+          ],
+          "anchors_units_per_year": [
+            0,
+            10000,
+            100000,
+            250000
+          ]
+        },
+        "human_economic_burden": {
+          "basic_service_disruptions_lower_bound": 363184,
+          "period": [
+            2020,
+            2021
+          ],
+          "reporting_countries": 44,
+          "anchors_disruptions": [
+            0,
+            10000,
+            100000,
+            500000
+          ],
+          "boundary": "Reported service disruption events, not people or service-hours lost; includes pandemic-period disruptions."
+        },
+        "persistence": {
+          "facility_damage_period_years": 7,
+          "anchors_years": [
+            0,
+            2,
+            5,
+            10
+          ]
+        },
+        "extent": {
+          "reporting_countries": 44,
+          "denominator_un_member_states": 193,
+          "normalized_value": 0.227979,
+          "boundary": "Reporting coverage only; unreported countries are missing, not zero."
+        },
+        "source_snapshot": {
+          "path": "public/undrr-critical-infrastructure-impact-snapshot.json",
+          "version": "undrr_sendai_midterm_critical_infrastructure_impact_v1",
+          "captured_at": "2026-07-31T18:31:20.931Z",
+          "source_locators": [
+            "UNDRR Sendai midterm review Target D: average 142,852 critical infrastructure units and facilities destroyed or damaged per year between 2015 and 2021.",
+            "UNDRR Sendai midterm review Target D: over 363,184 basic-service disruptions in 44 reporting countries during 2020 and 2021.",
+            "UNDRR resilient infrastructure focus: modeled global annual infrastructure losses exceed US$700 billion (context only)."
+          ],
+          "excluded_from_scoring": [
+            "modeled global annual infrastructure loss",
+            "unreported-country zeros",
+            "facility-plus-service count addition",
+            "physical-damage attribution for all pandemic-period disruptions"
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "annual_average_facility_damage",
+          "formula": "Normalize the source-reported annual-average damaged-or-destroyed critical-infrastructure unit count; do not multiply by seven without annual records."
+        },
+        {
+          "type": "fixed_period_service_disruption",
+          "formula": "Normalize the lower-bound two-year service-disruption count without converting events to people, duration or physical damage."
+        },
+        {
+          "type": "reported_country_extent",
+          "formula": "Divide reporting countries by the UN Member State denominator; leave unreported countries missing."
+        }
+      ],
+      "source_ids": [
+        "undrr_sendai_midterm_critical_infrastructure_impacts"
+      ],
+      "uncertainty": "Country reporting is incomplete and definitions of facility, damage and service disruption differ. The 2020-2021 service total includes pandemic-related disruptions and cannot be attributed only to physical asset damage. Global annual infrastructure loss is modeled.",
+      "freshness": "UNDRR Sendai midterm Target D assessment, 2023; snapshot captured 2026-07-31T18:31:20.931Z.",
+      "selection_reason": {
+        "selected_method_passed": "UNDRR quantifies recurring critical-infrastructure damage, basic-service disruptions, a seven-year observation window and an explicit reporting-country denominator.",
+        "higher_priority_failures": [
+          "The operational US DOE OE-417 snapshot is a national electricity-disturbance feed and cannot supply a current global multi-infrastructure aggregation."
+        ]
+      },
+      "input_hash": "fnv1a32:6b70ce25"
+    }
+  ]
+}

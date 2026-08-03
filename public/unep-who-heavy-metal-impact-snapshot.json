@@ -1,0 +1,57 @@
+{
+  "version": "unep_who_heavy_metal_burden_2026_v1",
+  "captured_at": "2026-08-01T00:00:00.000Z",
+  "sources": [
+    {
+      "id": "unep_global_mercury_monitoring_biota",
+      "name": "Global mercury monitoring in biota",
+      "publisher": "United Nations Environment Programme Global Mercury Partnership",
+      "url": "https://www.unep.org/globalmercurypartnership/resources/report/global-mercury-monitoring-biota"
+    },
+    {
+      "id": "unep_global_mercury_assessment_2018",
+      "name": "Global Mercury Assessment 2018",
+      "publisher": "United Nations Environment Programme",
+      "url": "https://wedocs.unep.org/bitstream/handle/20.500.11822/27579/GMA2018.pdf?sequence=1"
+    },
+    {
+      "id": "unep_mercury_global_concern",
+      "name": "Mercury general information",
+      "publisher": "United Nations Environment Programme",
+      "url": "https://www.unep.org/topics/chemicals-and-pollution-action/pollution-and-health/heavy-metals/mercury/mercury-general"
+    },
+    {
+      "id": "who_lead_poisoning_health_2026",
+      "name": "Lead poisoning and health",
+      "publisher": "World Health Organization",
+      "url": "https://www.who.int/news-room/fact-sheets/detail/lead-poisoning-and-health"
+    }
+  ],
+  "assessment": {
+    "node_boundary": "The generic heavy-metal node is quantified with two explicit sentinel metals: mercury for environmental persistence, global transport and food-web bioaccumulation; lead for the measured global human-health burden. The receipt is not a complete inventory of all heavy metals.",
+    "mercury": {
+      "assessment_year": 2015,
+      "environmental_concentration_multiple_of_preindustrial": 3,
+      "quantified_anthropogenic_release_to_water_and_land_tonnes_excluding_asgm": 580,
+      "quantified_asgm_release_to_water_and_land_tonnes": 1220,
+      "combined_quantified_release_tonnes": 1800,
+      "asgm_miners_exposed_million": 15,
+      "asgm_countries": 70,
+      "atmospheric_emissions_change_2010_2015_pct": 20,
+      "persistence_class": "elemental_global_pollutant_that_cycles_between_air_water_sediment_soil_and_biota",
+      "bioaccumulation_pathway": "methylmercury_accumulates_in_fish_wildlife_and_humans_and_concentrates_up_food_chains"
+    },
+    "lead": {
+      "assessment_year": 2023,
+      "attributable_deaths_million": 3.5,
+      "attributable_dalys_million": 71.5,
+      "safe_blood_lead_concentration_exists": false,
+      "storage_pathway": "lead_is_stored_in_teeth_and_bones_and_can_accumulate_over_time"
+    },
+    "global_extent": {
+      "normalized_value": 1,
+      "basis": "UNEP identifies mercury as a global concern because of long-range atmospheric transport, persistence and bioaccumulation; WHO describes widespread lead contamination and exposure globally."
+    }
+  },
+  "uncertainty": "The environmental and health indicators describe different sentinel metals and assessment years. They establish a quantitative global accumulated burden for the broad heavy-metal node but must not be interpreted as a combined-metal incidence estimate or as causal attribution of the WHO lead burden to mercury."
+}

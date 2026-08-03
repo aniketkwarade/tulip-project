@@ -1,0 +1,634 @@
+{
+  "version": "copernicus_gdo_era5_spi6_2025_v1",
+  "captured_at": "2026-07-18T22:53:55.507Z",
+  "source": {
+    "id": "copernicus_european_and_global_drought_observatories",
+    "name": "Copernicus Global Drought Observatory ERA5 SPI-6",
+    "url": "https://drought.emergency.copernicus.eu/data/Drought_Observatories_datasets/GDO_ERA5_Standardized_Precipitation_Index_SPI6/ver2-0-0/spa06_m_gdo_20250101_20251201_m.nc",
+    "documentation_url": "https://joint-research-centre.ec.europa.eu/european-and-global-drought-observatories/drought-indicators_en",
+    "access": "open_download"
+  },
+  "ingestion_job_id": "fetch_copernicus_drought_persistence",
+  "metric_contract_ids": [
+    "drought_event_duration_spi6"
+  ],
+  "cadence": "Monthly source check with annual finalized-file refresh; consolidated ERA5-derived data may lag real time by several months.",
+  "provenance": "Copernicus Global Drought Observatory ERA5 Standardized Precipitation Index at a six-month accumulation window, Version 2.0.0, monthly 2025 values extracted from the source NetCDF at the nearest 0.25-degree grid cell.",
+  "uncertainty": "SPI measures precipitation anomaly, not soil moisture, streamflow, groundwater, agricultural damage, or water shortage. ERA5 inputs, distribution fitting, 1991-2020 reference climatology, grid resolution, accumulation window, threshold choice, and dataset revisions affect event classification.",
+  "failure_behavior": "Retain the last validated complete-year snapshot and mark stale. Withhold a location unless all twelve source months are finite; never treat a missing month as drought-free or interpolate across a missing interval.",
+  "measurement_boundary": "A drought month is declared only when source SPI-6 is at or below -1.0. Persistence is the longest consecutive qualifying run within the observation year. Runs crossing year boundaries are truncated by this annual pilot and must not be interpreted as full event duration without adjacent-year data.",
+  "observation_period": {
+    "start": "2025-01-01",
+    "end": "2025-12-01"
+  },
+  "location_count": 6,
+  "record_count": 6,
+  "records": [
+    {
+      "record_id": "copernicus_spi6_kolkata_2025",
+      "location_id": "kolkata",
+      "location_name": "Kolkata, India",
+      "requested_latitude": 22.5726,
+      "requested_longitude": 88.3639,
+      "grid_latitude": 22.625,
+      "grid_longitude": 88.375,
+      "observation_year": 2025,
+      "index": "SPI-6",
+      "accumulation_months": 6,
+      "drought_threshold_spi": -1,
+      "valid_months": 12,
+      "completeness_pct": 100,
+      "drought_months": 0,
+      "longest_consecutive_drought_months": 0,
+      "longest_drought_run_start": null,
+      "longest_drought_run_end": null,
+      "cumulative_spi_deficit_below_threshold": 0,
+      "minimum_spi6": -0.195,
+      "minimum_spi6_month": "2025-03-01",
+      "monthly_values": [
+        {
+          "month": "2025-01-01",
+          "spi6": 1.787,
+          "qualifies": false
+        },
+        {
+          "month": "2025-02-01",
+          "spi6": 1.114,
+          "qualifies": false
+        },
+        {
+          "month": "2025-03-01",
+          "spi6": -0.195,
+          "qualifies": false
+        },
+        {
+          "month": "2025-04-01",
+          "spi6": -0.116,
+          "qualifies": false
+        },
+        {
+          "month": "2025-05-01",
+          "spi6": 0.015,
+          "qualifies": false
+        },
+        {
+          "month": "2025-06-01",
+          "spi6": 1.035,
+          "qualifies": false
+        },
+        {
+          "month": "2025-07-01",
+          "spi6": 1.724,
+          "qualifies": false
+        },
+        {
+          "month": "2025-08-01",
+          "spi6": 1.517,
+          "qualifies": false
+        },
+        {
+          "month": "2025-09-01",
+          "spi6": 1.704,
+          "qualifies": false
+        },
+        {
+          "month": "2025-10-01",
+          "spi6": 1.86,
+          "qualifies": false
+        },
+        {
+          "month": "2025-11-01",
+          "spi6": 1.633,
+          "qualifies": false
+        },
+        {
+          "month": "2025-12-01",
+          "spi6": 1.032,
+          "qualifies": false
+        }
+      ],
+      "source_locator": {
+        "dataset_url": "https://drought.emergency.copernicus.eu/data/Drought_Observatories_datasets/GDO_ERA5_Standardized_Precipitation_Index_SPI6/ver2-0-0/spa06_m_gdo_20250101_20251201_m.nc",
+        "documentation_url": "https://joint-research-centre.ec.europa.eu/european-and-global-drought-observatories/drought-indicators_en",
+        "factsheet_url": "https://drought.emergency.copernicus.eu/data/factsheets/factsheet_spi.pdf",
+        "wcs_documentation_url": "https://drought.emergency.copernicus.eu/data/wcs-service",
+        "variable": "spa06",
+        "source_grid_shape": [
+          12,
+          1,
+          720,
+          1440
+        ],
+        "nearest_grid_indices": {
+          "latitude": 269,
+          "longitude": 1073
+        }
+      }
+    },
+    {
+      "record_id": "copernicus_spi6_lagos_2025",
+      "location_id": "lagos",
+      "location_name": "Lagos, Nigeria",
+      "requested_latitude": 6.5244,
+      "requested_longitude": 3.3792,
+      "grid_latitude": 6.625,
+      "grid_longitude": 3.375,
+      "observation_year": 2025,
+      "index": "SPI-6",
+      "accumulation_months": 6,
+      "drought_threshold_spi": -1,
+      "valid_months": 12,
+      "completeness_pct": 100,
+      "drought_months": 12,
+      "longest_consecutive_drought_months": 12,
+      "longest_drought_run_start": "2025-01-01",
+      "longest_drought_run_end": "2025-12-01",
+      "cumulative_spi_deficit_below_threshold": 18.007,
+      "minimum_spi6": -2.475,
+      "minimum_spi6_month": "2025-04-01",
+      "monthly_values": [
+        {
+          "month": "2025-01-01",
+          "spi6": -1.539,
+          "qualifies": true
+        },
+        {
+          "month": "2025-02-01",
+          "spi6": -1.178,
+          "qualifies": true
+        },
+        {
+          "month": "2025-03-01",
+          "spi6": -1.213,
+          "qualifies": true
+        },
+        {
+          "month": "2025-04-01",
+          "spi6": -2.475,
+          "qualifies": true
+        },
+        {
+          "month": "2025-05-01",
+          "spi6": -1.726,
+          "qualifies": true
+        },
+        {
+          "month": "2025-06-01",
+          "spi6": -1.398,
+          "qualifies": true
+        },
+        {
+          "month": "2025-07-01",
+          "spi6": -1.759,
+          "qualifies": true
+        },
+        {
+          "month": "2025-08-01",
+          "spi6": -1.593,
+          "qualifies": true
+        },
+        {
+          "month": "2025-09-01",
+          "spi6": -1.604,
+          "qualifies": true
+        },
+        {
+          "month": "2025-10-01",
+          "spi6": -1.28,
+          "qualifies": true
+        },
+        {
+          "month": "2025-11-01",
+          "spi6": -1.231,
+          "qualifies": true
+        },
+        {
+          "month": "2025-12-01",
+          "spi6": -1.011,
+          "qualifies": true
+        }
+      ],
+      "source_locator": {
+        "dataset_url": "https://drought.emergency.copernicus.eu/data/Drought_Observatories_datasets/GDO_ERA5_Standardized_Precipitation_Index_SPI6/ver2-0-0/spa06_m_gdo_20250101_20251201_m.nc",
+        "documentation_url": "https://joint-research-centre.ec.europa.eu/european-and-global-drought-observatories/drought-indicators_en",
+        "factsheet_url": "https://drought.emergency.copernicus.eu/data/factsheets/factsheet_spi.pdf",
+        "wcs_documentation_url": "https://drought.emergency.copernicus.eu/data/wcs-service",
+        "variable": "spa06",
+        "source_grid_shape": [
+          12,
+          1,
+          720,
+          1440
+        ],
+        "nearest_grid_indices": {
+          "latitude": 333,
+          "longitude": 733
+        }
+      }
+    },
+    {
+      "record_id": "copernicus_spi6_singapore_2025",
+      "location_id": "singapore",
+      "location_name": "Singapore",
+      "requested_latitude": 1.3521,
+      "requested_longitude": 103.8198,
+      "grid_latitude": 1.375,
+      "grid_longitude": 103.875,
+      "observation_year": 2025,
+      "index": "SPI-6",
+      "accumulation_months": 6,
+      "drought_threshold_spi": -1,
+      "valid_months": 12,
+      "completeness_pct": 100,
+      "drought_months": 2,
+      "longest_consecutive_drought_months": 2,
+      "longest_drought_run_start": "2025-10-01",
+      "longest_drought_run_end": "2025-11-01",
+      "cumulative_spi_deficit_below_threshold": 2.601,
+      "minimum_spi6": -1.363,
+      "minimum_spi6_month": "2025-11-01",
+      "monthly_values": [
+        {
+          "month": "2025-01-01",
+          "spi6": 2.782,
+          "qualifies": false
+        },
+        {
+          "month": "2025-02-01",
+          "spi6": 2.419,
+          "qualifies": false
+        },
+        {
+          "month": "2025-03-01",
+          "spi6": 2.698,
+          "qualifies": false
+        },
+        {
+          "month": "2025-04-01",
+          "spi6": 2.713,
+          "qualifies": false
+        },
+        {
+          "month": "2025-05-01",
+          "spi6": 1.781,
+          "qualifies": false
+        },
+        {
+          "month": "2025-06-01",
+          "spi6": 1.983,
+          "qualifies": false
+        },
+        {
+          "month": "2025-07-01",
+          "spi6": 0.239,
+          "qualifies": false
+        },
+        {
+          "month": "2025-08-01",
+          "spi6": 0.394,
+          "qualifies": false
+        },
+        {
+          "month": "2025-09-01",
+          "spi6": -0.597,
+          "qualifies": false
+        },
+        {
+          "month": "2025-10-01",
+          "spi6": -1.238,
+          "qualifies": true
+        },
+        {
+          "month": "2025-11-01",
+          "spi6": -1.363,
+          "qualifies": true
+        },
+        {
+          "month": "2025-12-01",
+          "spi6": -0.588,
+          "qualifies": false
+        }
+      ],
+      "source_locator": {
+        "dataset_url": "https://drought.emergency.copernicus.eu/data/Drought_Observatories_datasets/GDO_ERA5_Standardized_Precipitation_Index_SPI6/ver2-0-0/spa06_m_gdo_20250101_20251201_m.nc",
+        "documentation_url": "https://joint-research-centre.ec.europa.eu/european-and-global-drought-observatories/drought-indicators_en",
+        "factsheet_url": "https://drought.emergency.copernicus.eu/data/factsheets/factsheet_spi.pdf",
+        "wcs_documentation_url": "https://drought.emergency.copernicus.eu/data/wcs-service",
+        "variable": "spa06",
+        "source_grid_shape": [
+          12,
+          1,
+          720,
+          1440
+        ],
+        "nearest_grid_indices": {
+          "latitude": 354,
+          "longitude": 1135
+        }
+      }
+    },
+    {
+      "record_id": "copernicus_spi6_houston_2025",
+      "location_id": "houston",
+      "location_name": "Houston, United States",
+      "requested_latitude": 29.7604,
+      "requested_longitude": -95.3698,
+      "grid_latitude": 29.875,
+      "grid_longitude": -95.375,
+      "observation_year": 2025,
+      "index": "SPI-6",
+      "accumulation_months": 6,
+      "drought_threshold_spi": -1,
+      "valid_months": 12,
+      "completeness_pct": 100,
+      "drought_months": 0,
+      "longest_consecutive_drought_months": 0,
+      "longest_drought_run_start": null,
+      "longest_drought_run_end": null,
+      "cumulative_spi_deficit_below_threshold": 0,
+      "minimum_spi6": -0.737,
+      "minimum_spi6_month": "2025-12-01",
+      "monthly_values": [
+        {
+          "month": "2025-01-01",
+          "spi6": -0.59,
+          "qualifies": false
+        },
+        {
+          "month": "2025-02-01",
+          "spi6": -0.516,
+          "qualifies": false
+        },
+        {
+          "month": "2025-03-01",
+          "spi6": -0.54,
+          "qualifies": false
+        },
+        {
+          "month": "2025-04-01",
+          "spi6": -0.252,
+          "qualifies": false
+        },
+        {
+          "month": "2025-05-01",
+          "spi6": 0.456,
+          "qualifies": false
+        },
+        {
+          "month": "2025-06-01",
+          "spi6": 0.706,
+          "qualifies": false
+        },
+        {
+          "month": "2025-07-01",
+          "spi6": 0.663,
+          "qualifies": false
+        },
+        {
+          "month": "2025-08-01",
+          "spi6": 0.825,
+          "qualifies": false
+        },
+        {
+          "month": "2025-09-01",
+          "spi6": 0.837,
+          "qualifies": false
+        },
+        {
+          "month": "2025-10-01",
+          "spi6": 0.712,
+          "qualifies": false
+        },
+        {
+          "month": "2025-11-01",
+          "spi6": 0.276,
+          "qualifies": false
+        },
+        {
+          "month": "2025-12-01",
+          "spi6": -0.737,
+          "qualifies": false
+        }
+      ],
+      "source_locator": {
+        "dataset_url": "https://drought.emergency.copernicus.eu/data/Drought_Observatories_datasets/GDO_ERA5_Standardized_Precipitation_Index_SPI6/ver2-0-0/spa06_m_gdo_20250101_20251201_m.nc",
+        "documentation_url": "https://joint-research-centre.ec.europa.eu/european-and-global-drought-observatories/drought-indicators_en",
+        "factsheet_url": "https://drought.emergency.copernicus.eu/data/factsheets/factsheet_spi.pdf",
+        "wcs_documentation_url": "https://drought.emergency.copernicus.eu/data/wcs-service",
+        "variable": "spa06",
+        "source_grid_shape": [
+          12,
+          1,
+          720,
+          1440
+        ],
+        "nearest_grid_indices": {
+          "latitude": 240,
+          "longitude": 338
+        }
+      }
+    },
+    {
+      "record_id": "copernicus_spi6_madrid_2025",
+      "location_id": "madrid",
+      "location_name": "Madrid, Spain",
+      "requested_latitude": 40.4168,
+      "requested_longitude": -3.7038,
+      "grid_latitude": 40.375,
+      "grid_longitude": -3.625,
+      "observation_year": 2025,
+      "index": "SPI-6",
+      "accumulation_months": 6,
+      "drought_threshold_spi": -1,
+      "valid_months": 12,
+      "completeness_pct": 100,
+      "drought_months": 0,
+      "longest_consecutive_drought_months": 0,
+      "longest_drought_run_start": null,
+      "longest_drought_run_end": null,
+      "cumulative_spi_deficit_below_threshold": 0,
+      "minimum_spi6": -0.902,
+      "minimum_spi6_month": "2025-11-01",
+      "monthly_values": [
+        {
+          "month": "2025-01-01",
+          "spi6": 0.214,
+          "qualifies": false
+        },
+        {
+          "month": "2025-02-01",
+          "spi6": 0.009,
+          "qualifies": false
+        },
+        {
+          "month": "2025-03-01",
+          "spi6": 1.6,
+          "qualifies": false
+        },
+        {
+          "month": "2025-04-01",
+          "spi6": 1.188,
+          "qualifies": false
+        },
+        {
+          "month": "2025-05-01",
+          "spi6": 1.583,
+          "qualifies": false
+        },
+        {
+          "month": "2025-06-01",
+          "spi6": 2.403,
+          "qualifies": false
+        },
+        {
+          "month": "2025-07-01",
+          "spi6": 2.545,
+          "qualifies": false
+        },
+        {
+          "month": "2025-08-01",
+          "spi6": 2.686,
+          "qualifies": false
+        },
+        {
+          "month": "2025-09-01",
+          "spi6": 0.547,
+          "qualifies": false
+        },
+        {
+          "month": "2025-10-01",
+          "spi6": -0.831,
+          "qualifies": false
+        },
+        {
+          "month": "2025-11-01",
+          "spi6": -0.902,
+          "qualifies": false
+        },
+        {
+          "month": "2025-12-01",
+          "spi6": -0.58,
+          "qualifies": false
+        }
+      ],
+      "source_locator": {
+        "dataset_url": "https://drought.emergency.copernicus.eu/data/Drought_Observatories_datasets/GDO_ERA5_Standardized_Precipitation_Index_SPI6/ver2-0-0/spa06_m_gdo_20250101_20251201_m.nc",
+        "documentation_url": "https://joint-research-centre.ec.europa.eu/european-and-global-drought-observatories/drought-indicators_en",
+        "factsheet_url": "https://drought.emergency.copernicus.eu/data/factsheets/factsheet_spi.pdf",
+        "wcs_documentation_url": "https://drought.emergency.copernicus.eu/data/wcs-service",
+        "variable": "spa06",
+        "source_grid_shape": [
+          12,
+          1,
+          720,
+          1440
+        ],
+        "nearest_grid_indices": {
+          "latitude": 198,
+          "longitude": 705
+        }
+      }
+    },
+    {
+      "record_id": "copernicus_spi6_cape_town_2025",
+      "location_id": "cape_town",
+      "location_name": "Cape Town, South Africa",
+      "requested_latitude": -33.9249,
+      "requested_longitude": 18.4241,
+      "grid_latitude": -33.875,
+      "grid_longitude": 18.375,
+      "observation_year": 2025,
+      "index": "SPI-6",
+      "accumulation_months": 6,
+      "drought_threshold_spi": -1,
+      "valid_months": 12,
+      "completeness_pct": 100,
+      "drought_months": 4,
+      "longest_consecutive_drought_months": 3,
+      "longest_drought_run_start": "2025-02-01",
+      "longest_drought_run_end": "2025-04-01",
+      "cumulative_spi_deficit_below_threshold": 4.841,
+      "minimum_spi6": -1.377,
+      "minimum_spi6_month": "2025-02-01",
+      "monthly_values": [
+        {
+          "month": "2025-01-01",
+          "spi6": -0.235,
+          "qualifies": false
+        },
+        {
+          "month": "2025-02-01",
+          "spi6": -1.377,
+          "qualifies": true
+        },
+        {
+          "month": "2025-03-01",
+          "spi6": -1.283,
+          "qualifies": true
+        },
+        {
+          "month": "2025-04-01",
+          "spi6": -1.053,
+          "qualifies": true
+        },
+        {
+          "month": "2025-05-01",
+          "spi6": -0.718,
+          "qualifies": false
+        },
+        {
+          "month": "2025-06-01",
+          "spi6": -0.451,
+          "qualifies": false
+        },
+        {
+          "month": "2025-07-01",
+          "spi6": -0.168,
+          "qualifies": false
+        },
+        {
+          "month": "2025-08-01",
+          "spi6": -0.253,
+          "qualifies": false
+        },
+        {
+          "month": "2025-09-01",
+          "spi6": -0.526,
+          "qualifies": false
+        },
+        {
+          "month": "2025-10-01",
+          "spi6": -0.633,
+          "qualifies": false
+        },
+        {
+          "month": "2025-11-01",
+          "spi6": -0.702,
+          "qualifies": false
+        },
+        {
+          "month": "2025-12-01",
+          "spi6": -1.128,
+          "qualifies": true
+        }
+      ],
+      "source_locator": {
+        "dataset_url": "https://drought.emergency.copernicus.eu/data/Drought_Observatories_datasets/GDO_ERA5_Standardized_Precipitation_Index_SPI6/ver2-0-0/spa06_m_gdo_20250101_20251201_m.nc",
+        "documentation_url": "https://joint-research-centre.ec.europa.eu/european-and-global-drought-observatories/drought-indicators_en",
+        "factsheet_url": "https://drought.emergency.copernicus.eu/data/factsheets/factsheet_spi.pdf",
+        "wcs_documentation_url": "https://drought.emergency.copernicus.eu/data/wcs-service",
+        "variable": "spa06",
+        "source_grid_shape": [
+          12,
+          1,
+          720,
+          1440
+        ],
+        "nearest_grid_indices": {
+          "latitude": 495,
+          "longitude": 793
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+eia_required_fields:
+  - record_id
+  - respondent_id
+  - window_start_utc
+  - window_end_utc
+  - observed_demand_intervals
+  - demand_completeness_pct
+  - peak_demand_mwh_per_hour
+  - gas_generation_share_pct
+
+adoption_gate:
+  minimum_records: 1
+  minimum_completeness_pct: 95
+  expected_ingestion_job_id: fetch_eia_hourly_grid_metrics
+  expected_snapshot_family: northstar_contract_bound_ingestion

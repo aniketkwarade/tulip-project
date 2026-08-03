@@ -1,0 +1,118 @@
+{
+  "updated_at": "2026-07-31",
+  "version": "2026-07-31T17:39:13.247Z",
+  "snapshot_family": "reef_and_ocean_heat_operational",
+  "source": {
+    "id": "noaa_coral_reef_watch",
+    "name": "NOAA Coral Reef Watch",
+    "url": "https://coralreefwatch.noaa.gov/",
+    "publisher": "NOAA NESDIS",
+    "access": "open"
+  },
+  "refresh_policy": {
+    "default_days": 7,
+    "notes": "Treat as a short-cycle operational ocean-heat and coral-stress surface. Refresh frequently, but use as monitoring support rather than as the sole basis for broader ocean chemistry claims."
+  },
+  "use_guidance": {
+    "primary_role": "Use for operational reef and marine-heat support on ocean nodes where thermal stress and bleaching risk matter.",
+    "caution": "Coral Reef Watch is strongest for ocean thermal stress, bleaching, and marine heatwave context. It complements but does not replace ocean acidification chemistry support."
+  },
+  "overview": {
+    "title": "NOAA Coral Reef Watch Homepage and Near Real-Time Products Portal",
+    "five_km_title": "NOAA Coral Reef Watch Daily 5km Satellite Coral Bleaching Heat Stress Monitoring Products (Version 3.1)",
+    "marine_heatwave_title": "NOAA Coral Reef Watch Daily Global 5km Satellite Marine Heatwave Watch Product (Version 1.0.1)",
+    "keywords": "Oceanography, Marine, Satellite,Remote Sensing,Coral Reef,Coral Bleaching,Marine Biology,Marine Ecology, Physical Oceanography, Environment, Publication,in situ, observation, CREWS, CRW, NOAA, Government"
+  },
+  "current_global_bleaching_event": {
+    "status": "likely_ended",
+    "source_updated_at": "June 2, 2026",
+    "observation_start": "2023-01-01",
+    "observation_end": "2025-09-30",
+    "reef_area_with_bleaching_level_heat_stress_pct": 84.4,
+    "jurisdictions_with_documented_mass_bleaching_lower_bound": 83,
+    "previous_global_event_start_year": 2014,
+    "previous_global_event_end_year": 2017,
+    "previous_record_reef_area_pct": 68.2,
+    "tropical_ocean_basins_affected": 3,
+    "tropical_ocean_basin_count": 3,
+    "measurement_boundary": "Satellite-observed bleaching-level heat stress across reef pixels, accompanied by field-documented mass bleaching; not a direct census of every coral colony bleached or killed."
+  },
+  "global_bleaching_stress_extent_contract": {
+    "product_version": "3.1",
+    "history_start_year": 1986,
+    "rolling_window_days": 365,
+    "global_event_threshold_pct": 20,
+    "basin_event_threshold_pct": 12,
+    "minimum_concurrent_duration_days": 154,
+    "update_cadence": "daily",
+    "source_url": "https://coralreefwatch.noaa.gov/product/5km/index_5km_bse-365d.php"
+  },
+  "products": [
+    {
+      "id": "bleaching_stress_extent_365d",
+      "label": "Daily 365-day Bleaching Stress Extent",
+      "url": "https://coralreefwatch.noaa.gov/product/5km/index_5km_bse-365d.php",
+      "type": "daily_global_5km_rolling_365_day",
+      "access": "open",
+      "notes": "Global and basin reef-pixel share exposed to Alert Level 1 or higher, with a retained history beginning in 1986 and a documented global-event threshold."
+    },
+    {
+      "id": "bleaching_alert_area",
+      "label": "Bleaching Alert Area",
+      "url": "https://coralreefwatch.noaa.gov/product/5km/index_5km_baa-max-7d.php",
+      "type": "daily_5km",
+      "access": "open",
+      "current_image_url": "https://coralreefwatch.noaa.gov/data_current/5km/v3.1_op/daily/png/ct5km_baa5-max-7d_v3.1_tropics_nogrid_current_cropped.png",
+      "notes": "Daily 5km coral bleaching heat-stress alert surface."
+    },
+    {
+      "id": "degree_heating_week",
+      "label": "Degree Heating Week",
+      "url": "https://coralreefwatch.noaa.gov/product/5km/index_5km_dhw.php",
+      "type": "daily_5km",
+      "access": "open",
+      "notes": "Accumulated thermal stress product widely used for bleaching context."
+    },
+    {
+      "id": "hotspot",
+      "label": "HotSpot",
+      "url": "https://coralreefwatch.noaa.gov/product/5km/index_5km_hs.php",
+      "type": "daily_5km",
+      "access": "open",
+      "notes": "Near-real-time heat-stress anomaly product."
+    },
+    {
+      "id": "marine_heatwave_watch",
+      "label": "Marine Heatwave Watch",
+      "url": "https://coralreefwatch.noaa.gov/product/marine_heatwave/",
+      "type": "daily_5km",
+      "access": "open",
+      "current_image_url": null,
+      "notes": "Daily global 5km marine heatwave category product derived from CoralTemp SST."
+    },
+    {
+      "id": "five_km_methodology",
+      "label": "5km Products Methodology",
+      "url": "https://coralreefwatch.noaa.gov/product/5km/methodology.php",
+      "type": "methodology",
+      "access": "open",
+      "notes": "Canonical methodology reference for Coral Reef Watch 5km products."
+    },
+    {
+      "id": "five_km_tutorial",
+      "label": "5km Products Tutorial",
+      "url": "https://coralreefwatch.noaa.gov/product/5km/tutorial/welcome.php",
+      "type": "tutorial",
+      "access": "open",
+      "notes": "User-facing onboarding for interpreting CRW products."
+    }
+  ],
+  "supported_questions": [
+    "Which ocean nodes should inherit operational reef and marine-heat support rather than only report-style references?",
+    "Which coral bleaching and marine heatwave surfaces should appear as evidence bundles on reef-sensitive nodes?",
+    "Which ocean support layers are operational versus methodology or tutorial references?"
+  ],
+  "provenance": "Official NOAA Coral Reef Watch operational products and status statements. Event-wide satellite heat-stress exposure and field-documented mass bleaching are retained separately from colony mortality or structural reef loss.",
+  "uncertainty": "Satellite reef masks, climatology, product versions, heat-stress thresholds, field-report coverage and event start/end adjudication affect estimates. Heat stress indicates bleaching risk and documented mass bleaching confirms the event, but 84.4 percent is not a direct colony-level bleaching or mortality fraction.",
+  "failure_behavior": "Retain the last validated snapshot and mark stale; reject missing global-event criteria, changed units, invalid percentages, a truncated history or a basin denominator other than three. Never treat heat-stress area as coral mortality, infer reef structural collapse, or fill missing reef pixels with zero."
+}

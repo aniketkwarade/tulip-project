@@ -1,0 +1,120 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_30_global_groundwater_trends",
+  "generated_at": "2026-07-31T22:57:35.943Z",
+  "source_snapshot": "public/global-groundwater-level-trends-snapshot.json",
+  "source_id": "global_in_situ_groundwater_level_trends_study",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "groundwater_depletion",
+      "value": 7.8,
+      "band": "Critical",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "magnitude": 0.8152,
+        "threshold": 0.78,
+        "momentum": 0.67,
+        "extent": 0.75
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "aquifer_systems_deepening_over_0_1_m_per_year": 617,
+          "denominator": 1693,
+          "published_share_pct": 36,
+          "anchors_pct": [
+            0,
+            10,
+            25,
+            50
+          ]
+        },
+        "threshold": {
+          "aquifer_systems_deepening_over_0_5_m_per_year": 210,
+          "denominator": 1693,
+          "published_share_pct": 12,
+          "analysis_threshold_m_per_year": 0.5,
+          "anchors_pct": [
+            0,
+            2,
+            8,
+            20
+          ]
+        },
+        "momentum": {
+          "accelerated_decline_share_pct": 30,
+          "comparison_aquifer_systems": 542,
+          "null_expectation_pct": 12.5,
+          "anchors_pct": [
+            12.5,
+            20,
+            30,
+            50
+          ],
+          "counterevidence": {
+            "decelerated_pct": 20,
+            "reversed_pct": 16,
+            "continued_rise_pct": 13
+          }
+        },
+        "extent": {
+          "global_groundwater_withdrawal_coverage_pct_approx": 75,
+          "countries_count_lower_bound": 40,
+          "normalized_value": 0.75,
+          "boundary": "Withdrawal coverage, not aquifer-count, land-area or population coverage."
+        },
+        "source_snapshot": {
+          "path": "public/global-groundwater-level-trends-snapshot.json",
+          "version": "global_in_situ_groundwater_level_trends_v2",
+          "captured_at": "2026-07-31T19:03:44.479Z",
+          "source_locators": [
+            "Nature abstract: around 170,000 monitoring wells and 1,693 aquifer systems in countries encompassing approximately 75% of global groundwater withdrawals.",
+            "Nature Figure 1 source data: 169,717 well-level twenty-first-century Theil-Sen slopes; checksum-bound threshold counts are derived without aquifer aggregation.",
+            "Nature results: 617 of 1,693 systems (36%) deepened faster than 0.1 m/year and 210 (12%) faster than 0.5 m/year.",
+            "Nature comparison: declines accelerated in 30% of the 542 systems with late-twentieth- and early-twenty-first-century histories, versus a 12.5% null expectation.",
+            "Nature counterevidence: 20% decelerated, 16% reversed and 13% continued to rise in the long-history comparison subset."
+          ],
+          "excluded_from_scoring": [
+            "global storage-volume inference",
+            "unmonitored-aquifer or unmonitored-well zeros",
+            "causal attribution to pumping alone",
+            "remaining groundwater fraction",
+            "regional well-depth extrapolation",
+            "claim that the monitoring-well sample is randomized or spatially representative"
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "published_aquifer_prevalence",
+          "formula": "Normalize the published share of aquifer systems above the study-defined 0.1 m/year decline bin."
+        },
+        {
+          "type": "rapid_decline_prevalence",
+          "formula": "Normalize the published share above 0.5 m/year; retain level-change units and do not infer storage volume."
+        },
+        {
+          "type": "long_history_acceleration",
+          "formula": "Normalize the published acceleration share against the study null expectation, retaining the 542-system comparison denominator and recovery counterevidence."
+        },
+        {
+          "type": "withdrawal_weighted_scope",
+          "formula": "Use the study-reported approximate share of global withdrawals represented by countries in scope; do not relabel it as complete world coverage."
+        }
+      ],
+      "source_ids": [
+        "global_in_situ_groundwater_level_trends_study"
+      ],
+      "uncertainty": "Well density, monitoring duration, aquifer delineation, datum, screen depth, withdrawals, recharge and national coverage vary. Countries in scope represent about 75% of global groundwater withdrawals but not 75% of aquifers or land. Level decline is not storage volume, depletion attribution or remaining-resource fraction.",
+      "freshness": "Primary global in-situ groundwater trend study published 2024; snapshot captured 2026-07-31T19:03:44.479Z.",
+      "selection_reason": {
+        "selected_method_passed": "The global in-situ synthesis directly supplies current decline prevalence, a documented rapid-decline bin, multi-decadal acceleration and withdrawal-weighted global extent; all four current components are observation-derived.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:547cc424"
+    }
+  ]
+}

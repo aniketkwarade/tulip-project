@@ -1,0 +1,121 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_45_edgar_icao_global_aviation",
+  "generated_at": "2026-07-31T22:57:37.401Z",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "aviation",
+      "value": 9.4,
+      "band": "Critical",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "magnitude": 1,
+        "threshold": 1,
+        "momentum": 0.751929,
+        "extent": 0.99
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "baseline_year": 1990,
+          "baseline_gg_co2": 542694.867738,
+          "latest_year": 2024,
+          "latest_gg_co2": 1032632.156165,
+          "anomaly_gg_co2": 489937.28842700005,
+          "anchors_gg_co2": [
+            54131.988529,
+            210595.766886,
+            318926.733865,
+            455631.564373
+          ],
+          "complete_annual_observations": 55
+        },
+        "threshold": {
+          "basis": "historical_distribution_no_recognized_global_aviation_co2_threshold",
+          "latest_gg_co2": 1032632.156165,
+          "anchors_gg_co2": [
+            596826.856266,
+            753290.634624,
+            861621.601603,
+            998326.432111
+          ],
+          "prior_annual_observations": 54
+        },
+        "momentum": {
+          "prior_year": 2023,
+          "latest_year": 2024,
+          "annual_change_gg_co2": 63777.75873,
+          "anchors_gg_co2_change": [
+            15907.067002,
+            25875.138527,
+            42852.925361,
+            127135.854336
+          ],
+          "prior_annual_changes": 53
+        },
+        "extent": {
+          "icao_reported_global_coverage_pct": 99,
+          "normalized_value": 0.99
+        },
+        "source_snapshots": [
+          {
+            "path": "public/edgar-snapshot.json",
+            "version": "edgar_2025_ghg_contract_bound_v1",
+            "captured_at": "2026-07-31T14:58:58.195Z"
+          },
+          {
+            "path": "public/icao-global-aviation-impact-snapshot.json",
+            "version": "icao_annual_report_2024_global_activity_snapshot_v1",
+            "captured_at": "2026-07-31T22:05:44.934Z"
+          }
+        ],
+        "coverage_gate": {
+          "direct_components": [
+            "magnitude",
+            "threshold",
+            "momentum",
+            "extent"
+          ],
+          "global_scope": true,
+          "current_observation": true
+        }
+      },
+      "transformations": [
+        {
+          "type": "fixed_1990_baseline_anomaly",
+          "formula": "Subtract EDGAR 1990 global civil-aviation fossil CO2 from every annual value."
+        },
+        {
+          "type": "historical_distribution_magnitude",
+          "formula": "Map the latest anomaly through prior annual median, p75, p90 and p97.5 anchors."
+        },
+        {
+          "type": "historical_distribution_threshold_fallback",
+          "formula": "Because no recognized global aviation-emissions danger threshold exists, map the latest annual CO2 value through the prior annual distribution."
+        },
+        {
+          "type": "annual_momentum",
+          "formula": "Map the latest year-over-year EDGAR change through the prior annual-change distribution."
+        },
+        {
+          "type": "global_reporting_extent",
+          "formula": "Use ICAO reported 99% global statistical coverage."
+        }
+      ],
+      "source_ids": [
+        "edgar_global_emissions_database",
+        "icao_environmental_reports"
+      ],
+      "uncertainty": "The workbooks do not report observation-level numeric uncertainty. Activity data, emission factors, country allocation, sector classification, international bunker treatment, revisions and category coverage affect values. Air-pollutant emissions are inventories, not ambient concentrations or attributable health burdens. ICAO labels 2024 statistics preliminary. Scheduled-service coverage, revisions, traffic definitions and freight/passenger aggregation affect values. Passenger, RPK, freight and capacity measures are not additive.",
+      "freshness": "EDGAR aviation observation through 2024; ICAO activity coverage 2024; snapshots captured 2026-07-31T14:58:58.195Z and 2026-07-31T22:05:44.934Z.",
+      "selection_reason": {
+        "selected_method_passed": "EDGAR supplies 55 complete global annual civil-aviation CO2 observations including magnitude and momentum, while ICAO reports 99% global activity coverage.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:1e652f21"
+    }
+  ]
+}

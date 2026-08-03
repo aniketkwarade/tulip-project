@@ -1,0 +1,716 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_36_ipcc_global_cryosphere",
+  "generated_at": "2026-08-01T15:38:02.956Z",
+  "promoted_node_count": 8,
+  "receipts": [
+    {
+      "node_id": "permafrost_thaw",
+      "value": 8.8,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2016",
+      "components": {
+        "biophysical_burden": 0.8185,
+        "human_economic_burden": 0.9175,
+        "persistence": 0.858571,
+        "extent": 0.901
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "observed_global_permafrost_temperature_change_c": 0.29,
+          "uncertainty_c": 0.12,
+          "anchors_c": [
+            0,
+            0.1,
+            0.2,
+            0.4
+          ]
+        },
+        "human_economic_burden": {
+          "arctic_and_high_mountain_population_million_approx": 700,
+          "anchors_million_people": [
+            0,
+            100,
+            400,
+            800
+          ]
+        },
+        "persistence": {
+          "start_year": 2007,
+          "end_year": 2016,
+          "anchors_years": [
+            0,
+            2,
+            5,
+            12
+          ]
+        },
+        "extent": {
+          "northern_permafrost_share_of_global_soil_area_pct": 15,
+          "anchors_pct": [
+            0,
+            3,
+            8,
+            18
+          ]
+        },
+        "source_snapshots": [
+          {
+            "path": "public/ipcc-global-cryosphere-impact-snapshot.json",
+            "version": "ipcc_srocc_ar6_cryosphere_observed_impacts_v1",
+            "captured_at": "2026-08-01T15:38:02.901Z"
+          }
+        ]
+      },
+      "transformations": [
+        {
+          "type": "observed_permafrost_warming",
+          "formula": "Normalize the assessed global polar and high-mountain permafrost temperature increase without subtracting its uncertainty bound."
+        },
+        {
+          "type": "exposed_cryosphere_population_scope",
+          "formula": "Use the IPCC Arctic and high-mountain population only as exposed scope."
+        },
+        {
+          "type": "observed_period",
+          "formula": "Use the source 2007-2016 interval."
+        },
+        {
+          "type": "permafrost_area_extent",
+          "formula": "Normalize the source-reported share of global soil area in the northern circumpolar permafrost region."
+        }
+      ],
+      "source_ids": [
+        "ipcc_srocc_ar6_global_cryosphere_assessment"
+      ],
+      "uncertainty": "The assessment synthesizes heterogeneous in-situ, satellite and modeled products. Mountain trends vary by elevation and region; permafrost networks are sparse; aerosol forcing depends on snow state, deposition, albedo feedback and model representation.",
+      "freshness": "Reviewed global assessment snapshot; latest quantitative observation period ends 2016.",
+      "selection_reason": {
+        "selected_method_passed": "IPCC quantifies observed global permafrost warming, its period, exposed cryosphere population and circumpolar area.",
+        "higher_priority_failures": [
+          "No current global active-layer series supplies all current-data components under one method-comparable annual product."
+        ]
+      },
+      "input_hash": "fnv1a32:b4416f26"
+    },
+    {
+      "node_id": "snowmelt_timing_shift",
+      "value": 9.2,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2018",
+      "components": {
+        "biophysical_burden": 0.835,
+        "human_economic_burden": 0.9175,
+        "persistence": 0.9835,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "observed_mountain_snow_cover_duration_decline_days_per_decade": 5,
+          "likely_range": [
+            0,
+            10
+          ],
+          "anchors_days_per_decade": [
+            0,
+            1,
+            3,
+            7
+          ]
+        },
+        "human_economic_burden": {
+          "arctic_and_high_mountain_population_million_approx": 700,
+          "anchors_million_people": [
+            0,
+            100,
+            400,
+            800
+          ]
+        },
+        "persistence": {
+          "approximate_start_year": 1950,
+          "assessment_end_year": 2018,
+          "anchors_years": [
+            0,
+            10,
+            30,
+            70
+          ]
+        },
+        "extent": {
+          "geography": "IPCC global high-mountain synthesis across assessed mountain regions",
+          "normalized_value": 1
+        },
+        "source_snapshots": [
+          {
+            "path": "public/ipcc-global-cryosphere-impact-snapshot.json",
+            "version": "ipcc_srocc_ar6_cryosphere_observed_impacts_v1",
+            "captured_at": "2026-08-01T15:38:02.901Z"
+          }
+        ]
+      },
+      "transformations": [
+        {
+          "type": "observed_snow_duration_loss",
+          "formula": "Normalize the IPCC source-reported average lower-elevation mountain snow-cover duration decline; preserve the 0-10 day likely range."
+        },
+        {
+          "type": "cryosphere_population_scope",
+          "formula": "Normalize the approximate population living in the Arctic and high mountains without treating every person as directly harmed."
+        },
+        {
+          "type": "minimum_observed_persistence",
+          "formula": "Use the interval from the approximate mid-century observation start through the IPCC Arctic snow assessment end."
+        },
+        {
+          "type": "global_assessment_extent",
+          "formula": "Assign full assessment extent for the IPCC global high-mountain synthesis, not for every grid cell."
+        }
+      ],
+      "source_ids": [
+        "ipcc_srocc_ar6_global_cryosphere_assessment"
+      ],
+      "uncertainty": "The assessment synthesizes heterogeneous in-situ, satellite and modeled products. Mountain trends vary by elevation and region; permafrost networks are sparse; aerosol forcing depends on snow state, deposition, albedo feedback and model representation.",
+      "freshness": "Reviewed global assessment snapshot; latest quantitative observation period ends 2018.",
+      "selection_reason": {
+        "selected_method_passed": "IPCC quantifies persistent observed mountain snow-duration loss, a global cryosphere-dependent population and multi-region extent.",
+        "higher_priority_failures": [
+          "The assessment does not provide a complete current global annual series for node-specific snowmelt timing or snow-water-equivalent deficit."
+        ]
+      },
+      "input_hash": "fnv1a32:0cf54703"
+    },
+    {
+      "node_id": "alpine_snowpack_declines",
+      "value": 9.2,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2018",
+      "components": {
+        "biophysical_burden": 0.835,
+        "human_economic_burden": 0.9175,
+        "persistence": 0.9835,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "observed_mountain_snow_cover_duration_decline_days_per_decade": 5,
+          "likely_range": [
+            0,
+            10
+          ],
+          "anchors_days_per_decade": [
+            0,
+            1,
+            3,
+            7
+          ]
+        },
+        "human_economic_burden": {
+          "arctic_and_high_mountain_population_million_approx": 700,
+          "anchors_million_people": [
+            0,
+            100,
+            400,
+            800
+          ]
+        },
+        "persistence": {
+          "approximate_start_year": 1950,
+          "assessment_end_year": 2018,
+          "anchors_years": [
+            0,
+            10,
+            30,
+            70
+          ]
+        },
+        "extent": {
+          "geography": "IPCC global high-mountain synthesis across assessed mountain regions",
+          "normalized_value": 1
+        },
+        "source_snapshots": [
+          {
+            "path": "public/ipcc-global-cryosphere-impact-snapshot.json",
+            "version": "ipcc_srocc_ar6_cryosphere_observed_impacts_v1",
+            "captured_at": "2026-08-01T15:38:02.901Z"
+          }
+        ]
+      },
+      "transformations": [
+        {
+          "type": "observed_snow_duration_loss",
+          "formula": "Normalize the IPCC source-reported average lower-elevation mountain snow-cover duration decline; preserve the 0-10 day likely range."
+        },
+        {
+          "type": "cryosphere_population_scope",
+          "formula": "Normalize the approximate population living in the Arctic and high mountains without treating every person as directly harmed."
+        },
+        {
+          "type": "minimum_observed_persistence",
+          "formula": "Use the interval from the approximate mid-century observation start through the IPCC Arctic snow assessment end."
+        },
+        {
+          "type": "global_assessment_extent",
+          "formula": "Assign full assessment extent for the IPCC global high-mountain synthesis, not for every grid cell."
+        }
+      ],
+      "source_ids": [
+        "ipcc_srocc_ar6_global_cryosphere_assessment"
+      ],
+      "uncertainty": "The assessment synthesizes heterogeneous in-situ, satellite and modeled products. Mountain trends vary by elevation and region; permafrost networks are sparse; aerosol forcing depends on snow state, deposition, albedo feedback and model representation.",
+      "freshness": "Reviewed global assessment snapshot; latest quantitative observation period ends 2018.",
+      "selection_reason": {
+        "selected_method_passed": "IPCC quantifies persistent observed mountain snow-duration loss, a global cryosphere-dependent population and multi-region extent.",
+        "higher_priority_failures": [
+          "The assessment does not provide a complete current global annual series for node-specific snowmelt timing or snow-water-equivalent deficit."
+        ]
+      },
+      "input_hash": "fnv1a32:0cf54703"
+    },
+    {
+      "node_id": "snow_drought",
+      "value": 9.2,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2018",
+      "components": {
+        "biophysical_burden": 0.835,
+        "human_economic_burden": 0.9175,
+        "persistence": 0.9835,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "observed_mountain_snow_cover_duration_decline_days_per_decade": 5,
+          "likely_range": [
+            0,
+            10
+          ],
+          "anchors_days_per_decade": [
+            0,
+            1,
+            3,
+            7
+          ]
+        },
+        "human_economic_burden": {
+          "arctic_and_high_mountain_population_million_approx": 700,
+          "anchors_million_people": [
+            0,
+            100,
+            400,
+            800
+          ]
+        },
+        "persistence": {
+          "approximate_start_year": 1950,
+          "assessment_end_year": 2018,
+          "anchors_years": [
+            0,
+            10,
+            30,
+            70
+          ]
+        },
+        "extent": {
+          "geography": "IPCC global high-mountain synthesis across assessed mountain regions",
+          "normalized_value": 1
+        },
+        "source_snapshots": [
+          {
+            "path": "public/ipcc-global-cryosphere-impact-snapshot.json",
+            "version": "ipcc_srocc_ar6_cryosphere_observed_impacts_v1",
+            "captured_at": "2026-08-01T15:38:02.901Z"
+          }
+        ]
+      },
+      "transformations": [
+        {
+          "type": "observed_snow_duration_loss",
+          "formula": "Normalize the IPCC source-reported average lower-elevation mountain snow-cover duration decline; preserve the 0-10 day likely range."
+        },
+        {
+          "type": "cryosphere_population_scope",
+          "formula": "Normalize the approximate population living in the Arctic and high mountains without treating every person as directly harmed."
+        },
+        {
+          "type": "minimum_observed_persistence",
+          "formula": "Use the interval from the approximate mid-century observation start through the IPCC Arctic snow assessment end."
+        },
+        {
+          "type": "global_assessment_extent",
+          "formula": "Assign full assessment extent for the IPCC global high-mountain synthesis, not for every grid cell."
+        }
+      ],
+      "source_ids": [
+        "ipcc_srocc_ar6_global_cryosphere_assessment"
+      ],
+      "uncertainty": "The assessment synthesizes heterogeneous in-situ, satellite and modeled products. Mountain trends vary by elevation and region; permafrost networks are sparse; aerosol forcing depends on snow state, deposition, albedo feedback and model representation.",
+      "freshness": "Reviewed global assessment snapshot; latest quantitative observation period ends 2018.",
+      "selection_reason": {
+        "selected_method_passed": "IPCC quantifies persistent observed mountain snow-duration loss, a global cryosphere-dependent population and multi-region extent.",
+        "higher_priority_failures": [
+          "The assessment does not provide a complete current global annual series for node-specific snowmelt timing or snow-water-equivalent deficit."
+        ]
+      },
+      "input_hash": "fnv1a32:0cf54703"
+    },
+    {
+      "node_id": "peak_glacier_runoff_passage",
+      "value": 8.9,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "biophysical_burden": 0.835,
+        "human_economic_burden": 0.89,
+        "persistence": 0.835,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "global_glacier_mass_loss_gt": 450,
+          "small_glacier_region_peak_water_status": "most have likely passed peak water",
+          "anchors_gt": [
+            0,
+            100,
+            300,
+            600
+          ]
+        },
+        "human_economic_burden": {
+          "people_relying_on_glacier_and_snow_melt_billion_lower_bound": 2,
+          "anchors_billion_people": [
+            0,
+            0.25,
+            1,
+            2.5
+          ]
+        },
+        "persistence": {
+          "consecutive_all_region_loss_years": 3,
+          "anchors_years": [
+            0,
+            1,
+            2,
+            4
+          ]
+        },
+        "extent": {
+          "glaciated_regions_with_loss": 19,
+          "glaciated_regions_assessed": 19
+        },
+        "source_snapshots": [
+          {
+            "path": "public/wmo-unesco-glacier-water-impact-snapshot.json",
+            "version": "wmo_sgwr_2024_unesco_wwdr_2025_glacier_water_v1",
+            "captured_at": "2026-07-31T18:12:40.094Z"
+          }
+        ]
+      },
+      "transformations": [
+        {
+          "type": "global_glacier_loss_burden",
+          "formula": "Normalize WMO global glacier mass loss while retaining the separate assessment that most smaller-glacier regions likely passed peak water."
+        },
+        {
+          "type": "meltwater_dependence_scope",
+          "formula": "Normalize the lower-bound population relying on glacier and snow melt; do not relabel it as observed shortage."
+        },
+        {
+          "type": "consecutive_loss_persistence",
+          "formula": "Use the source-reported consecutive years in which all assessed glaciated regions lost mass."
+        },
+        {
+          "type": "regional_extent",
+          "formula": "Divide glaciated regions with loss by all assessed glaciated regions."
+        }
+      ],
+      "source_ids": [
+        "wmo_unesco_global_glacier_water_assessments"
+      ],
+      "uncertainty": "The WMO global mass estimate combines about 500 field-monitored glaciers and geodetic measurements covering more than 200,000 glaciers. Preliminary 2024 observations, regional scaling and mass-balance methods affect the estimate. The human figure covers melt from glaciers and snow and must not be interpreted as glacier-only volume share or observed shortage.",
+      "freshness": "Reviewed global assessment snapshot; latest quantitative observation period ends 2024.",
+      "selection_reason": {
+        "selected_method_passed": "WMO and UNESCO quantify global glacier loss, all-region persistence, meltwater-dependent population and the current assessment that most smaller-glacier regions likely passed peak water.",
+        "higher_priority_failures": [
+          "No basin-complete annual global runoff series supports a current-data score."
+        ]
+      },
+      "input_hash": "fnv1a32:2b90bbae"
+    },
+    {
+      "node_id": "soot_deposition_on_snow",
+      "value": 9.3,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2021",
+      "components": {
+        "biophysical_burden": 0.8878,
+        "human_economic_burden": 0.9175,
+        "persistence": 0.9043,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "present_land_snow_black_carbon_and_dust_radiative_effect_w_m2": 0.083,
+          "seasonal_snow_and_sea_ice_black_carbon_direct_forcing_w_m2": 0.04,
+          "anchors_w_m2": [
+            0,
+            0.02,
+            0.05,
+            0.1
+          ]
+        },
+        "human_economic_burden": {
+          "arctic_and_high_mountain_population_million_approx": 700,
+          "anchors_million_people": [
+            0,
+            100,
+            400,
+            800
+          ]
+        },
+        "persistence": {
+          "reference_year": 1850,
+          "assessment_year": 2021,
+          "anchors_years": [
+            0,
+            25,
+            100,
+            200
+          ]
+        },
+        "extent": {
+          "geography": "IPCC global forcing assessment for seasonal snow and sea ice",
+          "normalized_value": 1
+        },
+        "source_snapshots": [
+          {
+            "path": "public/ipcc-global-cryosphere-impact-snapshot.json",
+            "version": "ipcc_srocc_ar6_cryosphere_observed_impacts_v1",
+            "captured_at": "2026-08-01T15:38:02.901Z"
+          }
+        ]
+      },
+      "transformations": [
+        {
+          "type": "snow_darkening_radiative_effect",
+          "formula": "Normalize the combined present-day black-carbon and dust land-snow radiative effect; retain the black-carbon-only forcing separately and do not add them."
+        },
+        {
+          "type": "cryosphere_population_scope",
+          "formula": "Normalize population living in close contact with Arctic and high-mountain cryosphere."
+        },
+        {
+          "type": "industrial_era_persistence",
+          "formula": "Use the assessment span from the stated 1850 comparison to the latest IPCC assessment year."
+        },
+        {
+          "type": "global_forcing_extent",
+          "formula": "Assign full extent only to the source global seasonal-snow and sea-ice forcing assessment."
+        }
+      ],
+      "source_ids": [
+        "ipcc_srocc_ar6_global_cryosphere_assessment"
+      ],
+      "uncertainty": "The assessment synthesizes heterogeneous in-situ, satellite and modeled products. Mountain trends vary by elevation and region; permafrost networks are sparse; aerosol forcing depends on snow state, deposition, albedo feedback and model representation.",
+      "freshness": "Reviewed global assessment snapshot; latest quantitative observation period ends 2021.",
+      "selection_reason": {
+        "selected_method_passed": "IPCC quantifies present-day snow-darkening radiative effects, global seasonal-snow and sea-ice scope, persistence and cryosphere-dependent population.",
+        "higher_priority_failures": [
+          "No 20-year globally complete deposition-flux or snow-cover-fraction series is bound to this node."
+        ]
+      },
+      "input_hash": "fnv1a32:1fa9afee"
+    },
+    {
+      "node_id": "snowpack_dust_soot_coverage",
+      "value": 9.3,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2021",
+      "components": {
+        "biophysical_burden": 0.8878,
+        "human_economic_burden": 0.9175,
+        "persistence": 0.9043,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "present_land_snow_black_carbon_and_dust_radiative_effect_w_m2": 0.083,
+          "seasonal_snow_and_sea_ice_black_carbon_direct_forcing_w_m2": 0.04,
+          "anchors_w_m2": [
+            0,
+            0.02,
+            0.05,
+            0.1
+          ]
+        },
+        "human_economic_burden": {
+          "arctic_and_high_mountain_population_million_approx": 700,
+          "anchors_million_people": [
+            0,
+            100,
+            400,
+            800
+          ]
+        },
+        "persistence": {
+          "reference_year": 1850,
+          "assessment_year": 2021,
+          "anchors_years": [
+            0,
+            25,
+            100,
+            200
+          ]
+        },
+        "extent": {
+          "geography": "IPCC global forcing assessment for seasonal snow and sea ice",
+          "normalized_value": 1
+        },
+        "source_snapshots": [
+          {
+            "path": "public/ipcc-global-cryosphere-impact-snapshot.json",
+            "version": "ipcc_srocc_ar6_cryosphere_observed_impacts_v1",
+            "captured_at": "2026-08-01T15:38:02.901Z"
+          }
+        ]
+      },
+      "transformations": [
+        {
+          "type": "snow_darkening_radiative_effect",
+          "formula": "Normalize the combined present-day black-carbon and dust land-snow radiative effect; retain the black-carbon-only forcing separately and do not add them."
+        },
+        {
+          "type": "cryosphere_population_scope",
+          "formula": "Normalize population living in close contact with Arctic and high-mountain cryosphere."
+        },
+        {
+          "type": "industrial_era_persistence",
+          "formula": "Use the assessment span from the stated 1850 comparison to the latest IPCC assessment year."
+        },
+        {
+          "type": "global_forcing_extent",
+          "formula": "Assign full extent only to the source global seasonal-snow and sea-ice forcing assessment."
+        }
+      ],
+      "source_ids": [
+        "ipcc_srocc_ar6_global_cryosphere_assessment"
+      ],
+      "uncertainty": "The assessment synthesizes heterogeneous in-situ, satellite and modeled products. Mountain trends vary by elevation and region; permafrost networks are sparse; aerosol forcing depends on snow state, deposition, albedo feedback and model representation.",
+      "freshness": "Reviewed global assessment snapshot; latest quantitative observation period ends 2021.",
+      "selection_reason": {
+        "selected_method_passed": "IPCC quantifies present-day snow-darkening radiative effects, global seasonal-snow and sea-ice scope, persistence and cryosphere-dependent population.",
+        "higher_priority_failures": [
+          "No 20-year globally complete deposition-flux or snow-cover-fraction series is bound to this node."
+        ]
+      },
+      "input_hash": "fnv1a32:1fa9afee"
+    },
+    {
+      "node_id": "ice_albedo_feedback_loops",
+      "value": 9.3,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2018",
+      "components": {
+        "biophysical_burden": 0.934,
+        "human_economic_burden": 0.9175,
+        "persistence": 0.901,
+        "extent": 0.901
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "arctic_june_snow_cover_decline_pct_per_decade": 13.4,
+          "uncertainty_pct_per_decade": 5.4,
+          "snow_and_sea_ice_black_carbon_forcing_w_m2": 0.04,
+          "anchors_pct_per_decade": [
+            0,
+            2,
+            7,
+            15
+          ]
+        },
+        "human_economic_burden": {
+          "arctic_and_high_mountain_population_million_approx": 700,
+          "anchors_million_people": [
+            0,
+            100,
+            400,
+            800
+          ]
+        },
+        "persistence": {
+          "start_year": 1967,
+          "end_year": 2018,
+          "anchors_years": [
+            0,
+            10,
+            30,
+            60
+          ]
+        },
+        "extent": {
+          "northern_permafrost_global_soil_area_share_pct_as_bounded_arctic_land_scope": 15,
+          "anchors_pct": [
+            0,
+            3,
+            8,
+            18
+          ]
+        },
+        "source_snapshots": [
+          {
+            "path": "public/ipcc-global-cryosphere-impact-snapshot.json",
+            "version": "ipcc_srocc_ar6_cryosphere_observed_impacts_v1",
+            "captured_at": "2026-08-01T15:38:02.901Z"
+          }
+        ]
+      },
+      "transformations": [
+        {
+          "type": "observed_arctic_snow_loss",
+          "formula": "Normalize the observed June Arctic snow-cover decline and retain its uncertainty."
+        },
+        {
+          "type": "feedback_support",
+          "formula": "Retain the separately assessed snow-and-sea-ice black-carbon forcing as quantitative support; do not add it to the snow-loss rate."
+        },
+        {
+          "type": "observed_persistence",
+          "formula": "Use the source 1967-2018 Arctic snow-cover interval."
+        },
+        {
+          "type": "bounded_arctic_extent",
+          "formula": "Normalize the northern permafrost soil-area share as a conservative Arctic land scope, not as global ice area."
+        }
+      ],
+      "source_ids": [
+        "ipcc_srocc_ar6_global_cryosphere_assessment"
+      ],
+      "uncertainty": "The assessment synthesizes heterogeneous in-situ, satellite and modeled products. Mountain trends vary by elevation and region; permafrost networks are sparse; aerosol forcing depends on snow state, deposition, albedo feedback and model representation.",
+      "freshness": "Reviewed global assessment snapshot; latest quantitative observation period ends 2018.",
+      "selection_reason": {
+        "selected_method_passed": "IPCC quantifies persistent Arctic snow-cover loss, a separately assessed light-absorbing-particle forcing, cryosphere-dependent population and bounded Arctic extent.",
+        "higher_priority_failures": [
+          "No complete global annual albedo-and-absorbed-shortwave series supplies the current-data coverage gate."
+        ]
+      },
+      "input_hash": "fnv1a32:4b632c1c"
+    }
+  ]
+}

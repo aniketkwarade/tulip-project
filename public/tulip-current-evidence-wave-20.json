@@ -1,0 +1,110 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_20_noaa_global_coral_bleaching",
+  "generated_at": "2026-07-31T22:57:33.425Z",
+  "source_snapshot": "public/coral-reef-watch-snapshot.json",
+  "source_id": "noaa_coral_reef_watch",
+  "promoted_node_count": 1,
+  "rejected_candidates": [
+    {
+      "node_id": "reef_structural_collapse",
+      "reason": "Bleaching-level heat stress and documented mass bleaching do not quantify loss of reef rugosity, carbonate accretion balance or structural collapse."
+    }
+  ],
+  "receipts": [
+    {
+      "node_id": "coral_bleaching",
+      "value": 8.5,
+      "band": "Critical",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "June 2, 2026",
+      "components": {
+        "magnitude": 0.838113,
+        "threshold": 1,
+        "momentum": 0.509434,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_global_event_reef_area_with_bleaching_level_heat_stress_pct": 84.4,
+          "previous_record_reef_area_pct": 68.2,
+          "anchors_pct": [
+            0,
+            20,
+            68.2,
+            100
+          ],
+          "observation_start": "2023-01-01",
+          "observation_end": "2025-09-30",
+          "measurement_boundary": "Satellite-observed bleaching-level heat stress across reef pixels, accompanied by field-documented mass bleaching; not a direct census of every coral colony bleached or killed."
+        },
+        "threshold": {
+          "latest_global_event_reef_area_pct": 84.4,
+          "recognized_global_event_threshold_pct": 20,
+          "recognized_basin_event_threshold_pct": 12,
+          "minimum_concurrent_duration_days": 154,
+          "threshold_multiple": 4.22,
+          "anchors_pct": [
+            0,
+            10,
+            20,
+            40
+          ]
+        },
+        "momentum": {
+          "latest_global_event_reef_area_pct": 84.4,
+          "previous_record_reef_area_pct": 68.2,
+          "previous_event_period": "2014-2017",
+          "record_increase_pct": 23.753666,
+          "share_of_remaining_physical_headroom_captured": 0.509434,
+          "formula": "(latest event area - previous record area) / (100 - previous record area)"
+        },
+        "extent": {
+          "affected_tropical_ocean_basins": 3,
+          "tropical_ocean_basin_count": 3,
+          "normalized_value": 1,
+          "jurisdictions_with_documented_mass_bleaching_lower_bound": 83
+        },
+        "source_snapshot": {
+          "path": "public/coral-reef-watch-snapshot.json",
+          "version": "2026-07-31T17:39:13.247Z",
+          "updated_at": "2026-07-31",
+          "source_updated_at": "June 2, 2026",
+          "product_version": "3.1",
+          "history_start_year": 1986,
+          "rolling_window_days": 365
+        }
+      },
+      "transformations": [
+        {
+          "type": "recognized_threshold_and_record_anchors",
+          "formula": "Normalize global reef-area heat-stress extent using zero, the NOAA global-event threshold, the previous global-event record and the physical 100-percent ceiling."
+        },
+        {
+          "type": "recognized_threshold_exceedance",
+          "formula": "Normalize current extent against zero, half the NOAA global-event threshold, the threshold and twice the threshold; cap exceedance at one."
+        },
+        {
+          "type": "record_headroom_momentum",
+          "formula": "Express the new record increment as the share of physical headroom remaining above the previous record."
+        },
+        {
+          "type": "global_basin_extent",
+          "formula": "Divide tropical reef-containing ocean basins affected by the fixed three-basin denominator."
+        }
+      ],
+      "source_ids": [
+        "noaa_coral_reef_watch"
+      ],
+      "uncertainty": "Satellite reef masks, climatology, product versions, heat-stress thresholds, field-report coverage and event start/end adjudication affect estimates. Heat stress indicates bleaching risk and documented mass bleaching confirms the event, but 84.4 percent is not a direct colony-level bleaching or mortality fraction.",
+      "freshness": "NOAA status updated June 2, 2026; operational daily 365-day product v3.1; snapshot refreshed 2026-07-31.",
+      "selection_reason": {
+        "selected_method_passed": "NOAA supplies an operational daily global 5 km bleaching-stress product with history since 1986, a documented 20% global-event threshold, 84.4% latest-event reef-area exposure, a 68.2% previous-event record and coverage of all 3 tropical reef-containing basins.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:d73ad78b"
+    }
+  ]
+}

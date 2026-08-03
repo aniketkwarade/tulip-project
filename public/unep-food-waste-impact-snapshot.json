@@ -1,0 +1,64 @@
+{
+  "version": "unep_food_waste_index_2024_report_snapshot_v1",
+  "captured_at": "2026-07-31T16:28:18.932Z",
+  "source": {
+    "id": "unep_food_waste_index",
+    "name": "UNEP Food Waste Index Report 2024",
+    "publisher": "United Nations Environment Programme and WRAP",
+    "report_year": 2024,
+    "observation_year": 2022,
+    "source_page_url": "https://www.unep.org/resources/publication/food-waste-index-report-2024",
+    "report_url": "https://wedocs.unep.org/bitstream/handle/20.500.11822/45230/food_waste_index_report_2024.pdf",
+    "key_messages_url": "https://wedocs.unep.org/bitstream/handle/20.500.11822/45275/Food-Waste-Index-2024-key-messages.pdf"
+  },
+  "ingestion_job_id": "export_unep_food_waste_impact_snapshot",
+  "metric_contract_ids": [
+    "food_waste_mass_by_supply_stage"
+  ],
+  "contract_bindings": [
+    {
+      "node_id": "food_waste",
+      "metric_id": "food_waste_mass_by_supply_stage",
+      "measurement_role": "global_assessment_accumulated_impact_primary"
+    }
+  ],
+  "cadence": "Refresh when UNEP publishes a new Food Waste Index global assessment.",
+  "provenance": "Source-reported global estimates from the UNEP Food Waste Index Report 2024 and its official key messages. Sector totals and shares retain the report boundary: household, food service and retail food waste, including inedible parts.",
+  "uncertainty": "UNEP estimates every country using observed per-capita studies and United Nations population statistics, including extrapolation where primary data are absent. Retail and food-service uncertainty is substantial; 2019 and 2022 global estimates are not treated as a measured trend because coverage and methods changed. Manufacturing food waste is omitted for insufficient evidence.",
+  "failure_behavior": "Retain the last reviewed report snapshot and mark stale; never treat an unmeasured country or sector as zero, compare assessment editions as a trend without harmonization, or extend the consumer-and-retail estimate to manufacturing.",
+  "assessment": {
+    "observation_year": 2022,
+    "global_food_waste_million_tonnes": 1052,
+    "global_food_waste_kg_per_capita_year": 132,
+    "share_of_food_available_to_consumers_pct": 19,
+    "household": {
+      "million_tonnes": 631,
+      "kg_per_capita_year": 79,
+      "share_pct": 60
+    },
+    "food_service": {
+      "million_tonnes": 290,
+      "kg_per_capita_year": 36,
+      "share_pct": 28
+    },
+    "retail": {
+      "million_tonnes": 131,
+      "kg_per_capita_year": 17,
+      "share_pct": 12
+    },
+    "estimated_annual_economic_cost_usd_trillion_lower_bound": 1,
+    "global_ghg_emissions_share_range_pct": [
+      8,
+      10
+    ],
+    "global_agricultural_land_squandered_pct": 28,
+    "agriculture_freshwater_squandered_pct": 25,
+    "household_meals_wasted_per_day_lower_bound_billion": 1,
+    "geography_boundary": "Global estimate constructed for every country in the world",
+    "source_locators": [
+      "Food Waste Index Report 2024, Table 23 and global-estimates discussion",
+      "UNEP Food Waste Index Report 2024 Key Messages",
+      "UNEP official report publication and press release"
+    ]
+  }
+}

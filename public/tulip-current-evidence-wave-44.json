@@ -1,0 +1,126 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_44_nasa_ceres_global_shortwave_cloud_radiative_effect",
+  "generated_at": "2026-07-31T22:57:37.323Z",
+  "source_snapshot": "public/nasa-ceres-global-cloud-radiative-effect-snapshot.json",
+  "source_id": "nasa_ceres_ebaf_toa_ed4_2_1_global_monthly",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "cloud_albedo_shift",
+      "value": 8,
+      "band": "Critical",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "magnitude": 0.917549,
+        "threshold": 0.917549,
+        "momentum": 0.304985,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_complete_calendar_year": 2025,
+          "latest_global_mean_shortwave_cloud_radiative_effect_w_m2": -44.846292,
+          "baseline_period": "2001-2010 complete calendar years",
+          "baseline_global_mean_shortwave_cloud_radiative_effect_w_m2": -45.876963,
+          "latest_shortwave_cooling_loss_from_baseline_w_m2": 1.030671,
+          "historical_distribution_anchors_w_m2": [
+            0.234129,
+            0.506253,
+            0.752047,
+            1.123473
+          ],
+          "direction": "higher_is_worse"
+        },
+        "threshold": {
+          "latest_global_mean_shortwave_cloud_radiative_effect_w_m2": -44.846292,
+          "threshold_basis": "historical_distribution_no_recognized_global_shortwave_cloud_radiative_effect_threshold",
+          "historical_distribution_anchors_w_m2": [
+            -45.642834,
+            -45.37071,
+            -45.124916,
+            -44.75349
+          ],
+          "complete_prior_annual_observations": 24,
+          "direction": "higher_is_worse_less_negative_means_weaker_shortwave_cloud_cooling"
+        },
+        "momentum": {
+          "latest_complete_calendar_year": 2025,
+          "prior_complete_calendar_year": 2024,
+          "latest_year_over_year_shortwave_cooling_weakening_w_m2": 0.312241,
+          "historical_distribution_anchors_annual_weakening_w_m2": [
+            0.03065,
+            0.335337,
+            0.465439,
+            0.620187
+          ],
+          "complete_prior_annual_change_observations": 23,
+          "direction": "higher_is_worse"
+        },
+        "extent": {
+          "normalized_value": 1,
+          "geography": "Global mean",
+          "aggregation": "NASA CERES source-native global monthly means aggregated to complete calendar years"
+        },
+        "source_snapshot": {
+          "path": "public/nasa-ceres-global-cloud-radiative-effect-snapshot.json",
+          "version": "2026-07-31T21:00:35.323Z",
+          "captured_at": "2026-07-31T21:00:35.323Z",
+          "product_id": "EBAFTOA421",
+          "product_version": "CERES_EBAF-TOA_Ed4.2.1",
+          "latest_source_observation_period": "2026-05",
+          "complete_calendar_years": 25
+        },
+        "coverage_gate": {
+          "direct_components": [
+            "magnitude",
+            "threshold",
+            "momentum",
+            "extent"
+          ],
+          "global_scope": true,
+          "current_observation": true
+        }
+      },
+      "transformations": [
+        {
+          "type": "signed_shortwave_cloud_radiative_effect",
+          "formula": "For every month, subtract outgoing all-sky shortwave flux from outgoing clear-sky shortwave flux. Negative values denote cloud shortwave cooling."
+        },
+        {
+          "type": "complete_calendar_year_mean",
+          "formula": "Average exactly 12 source-native global monthly shortwave cloud-radiative-effect observations; exclude partial 2000 and 2026 calendar years."
+        },
+        {
+          "type": "historical_distribution_magnitude",
+          "formula": "Subtract the fixed 2001-2010 annual mean from each annual value and map the latest cooling loss through prior annual median, p75, p90 and p97.5 anchors."
+        },
+        {
+          "type": "historical_distribution_threshold",
+          "formula": "Because no recognized global threshold exists, map the latest signed annual effect through prior annual median, p75, p90 and p97.5 anchors, with higher/less-negative values worse."
+        },
+        {
+          "type": "annual_weakening_momentum",
+          "formula": "Subtract the preceding complete-year signed effect from the latest complete year and normalize through the prior annual-change distribution."
+        },
+        {
+          "type": "global_extent",
+          "formula": "Assign full extent because the observations are NASA CERES source-native global means."
+        }
+      ],
+      "source_ids": [
+        "nasa_ceres_ebaf_toa_ed4_2_1_global_monthly"
+      ],
+      "uncertainty": "Clear-sky sampling, scene classification, cloud masking, diurnal sampling, instrument calibration, aerosol above clouds, surface albedo, product revisions and changing cloud regimes affect the inferred cloud radiative effect and its trend. The score is a condition-and-trend index, not an attribution of the observed change to cloud feedback, aerosols or a particular cloud regime.",
+      "freshness": "NASA CERES source available through 2026-05; latest complete calendar year 2025; snapshot captured 2026-07-31T21:00:35.323Z.",
+      "selection_reason": {
+        "selected_method_passed": "NASA CERES supplies 315 consecutive source-native global monthly observations and 25 complete calendar years, covering signed magnitude, historical threshold position, momentum and global extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:445513d1"
+    }
+  ]
+}

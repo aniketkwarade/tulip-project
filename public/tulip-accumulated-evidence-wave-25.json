@@ -1,0 +1,102 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_25_fao_global_topsoil_erosion",
+  "generated_at": "2026-07-31T19:09:58.355Z",
+  "source_snapshot": "public/fao-global-topsoil-erosion-impact-snapshot.json",
+  "source_id": "fao_global_topsoil_erosion_burden",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "topsoil_erosion_acceleration",
+      "value": 9.7,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2017",
+      "components": {
+        "biophysical_burden": 1,
+        "human_economic_burden": 0.89,
+        "persistence": 1,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "global_arable_soil_lost_billion_tonnes_per_year": 75,
+          "anchors_billion_tonnes_per_year": [
+            0,
+            10,
+            30,
+            75
+          ],
+          "boundary": "Annual global burden estimate, not current acceleration, net soil balance, remaining soil depth or a country panel."
+        },
+        "human_economic_burden": {
+          "global_agricultural_production_lost_usd_billion_per_year": 400,
+          "anchors_usd_billion_per_year": [
+            0,
+            50,
+            200,
+            500
+          ],
+          "boundary": "Source-attributed agricultural production loss; no broader land-degradation cost is added."
+        },
+        "persistence": {
+          "recurrence_days_per_year": 365,
+          "reference_days_per_year": 365,
+          "normalized_value": 1,
+          "boundary": "The source reports an annual recurring global burden; no multi-year trend is inferred."
+        },
+        "extent": {
+          "geographic_scope": "Global arable land",
+          "normalized_value": 1,
+          "boundary": "Global arable-land aggregate, not uniform local erosion."
+        },
+        "source_snapshot": {
+          "path": "public/fao-global-topsoil-erosion-impact-snapshot.json",
+          "version": "fao_global_topsoil_erosion_impact_v1",
+          "captured_at": "2026-07-31T19:09:58.309Z",
+          "source_locator": "FAO newsroom statement: globally 75 billion tonnes of soil are lost from arable land each year and an estimated US$400 billion in agricultural production is lost.",
+          "excluded_from_scoring": [
+            "Malawi case-study rates",
+            "2050 projected production loss",
+            "remaining topsoil stock",
+            "local rate inference",
+            "unreported uncertainty as zero"
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "fixed_global_annual_soil_loss",
+          "formula": "Normalize the FAO global annual arable-soil loss estimate through named mass ranges."
+        },
+        {
+          "type": "source_attributed_production_loss",
+          "formula": "Normalize only the FAO agricultural-production-loss estimate; exclude broader land-degradation costs."
+        },
+        {
+          "type": "source_reported_annual_recurrence",
+          "formula": "365 recurring days / 365 calendar days; do not infer a current acceleration rate."
+        },
+        {
+          "type": "global_arable_extent",
+          "formula": "Score the source-declared global arable-land scope while retaining spatial heterogeneity."
+        }
+      ],
+      "source_ids": [
+        "fao_global_topsoil_erosion_burden"
+      ],
+      "uncertainty": "The summary provides point estimates without observation-level uncertainty. Global aggregation combines heterogeneous climates, soils, land uses and methods; erosion, deposition and soil formation vary. Agricultural-production loss depends on valuation and attribution assumptions.",
+      "freshness": "FAO Global Soil Partnership global burden statement 2017; snapshot captured 2026-07-31T19:09:58.309Z.",
+      "selection_reason": {
+        "selected_method_passed": "FAO quantifies a recurring global annual arable-soil burden and associated agricultural-production loss, providing biophysical, economic, recurrence and global-extent evidence.",
+        "higher_priority_failures": [
+          "The existing SoilGrids snapshot estimates soil properties, not erosion flux.",
+          "No source-consistent current 20-year annual or 60-month global erosion-rate panel supplies magnitude plus threshold or momentum, so the annual burden is not mislabeled current data."
+        ]
+      },
+      "input_hash": "fnv1a32:2fa12c44"
+    }
+  ]
+}

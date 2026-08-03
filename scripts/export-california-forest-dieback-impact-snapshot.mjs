@@ -1,0 +1,71 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const snapshot = {
+  version: 'california_sierra_nevada_forest_dieback_2010_2021_v1',
+  captured_at: '2026-08-01T00:00:00.000Z',
+  sources: [
+    {
+      id: 'usfs_california_tree_mortality_data_network_2019',
+      name: 'The California Tree Mortality Data Collection Network',
+      publisher: 'U.S. Forest Service Research and Development',
+      publication_date: '2019-01-01',
+      url: 'https://research.fs.usda.gov/treesearch/58215',
+      source_locators: [
+        'USFS Aerial Detection Survey detected more than 147 million dead trees in the Sierra Nevada from 2010 through 2018.',
+        'The mass mortality was mostly attributed to the 2012-2016 drought; consequences were expected to last for years as trees fell and surface fuels accumulated.',
+        'The source identifies aerial detection, tree die-off and drought as the assessment boundary rather than treating generic canopy change as mortality.'
+      ]
+    },
+    {
+      id: 'cpuc_pge_tree_mortality_cost_history_2016_2021',
+      name: 'CPUC A.22-12-009 Tree Mortality Cost History',
+      publisher: 'California Public Utilities Commission',
+      publication_date: '2023-01-01',
+      url: 'https://docs.cpuc.ca.gov/PublishedDocs/SupDoc/A2212009/6686/520107338.pdf',
+      source_locators: [
+        'PG&E tree-mortality program costs were USD 183.6 million in 2016, 194.8 million in 2017, 69.0 million in 2018, 73.3 million in 2019, 93.1 million in 2020 and 87.0 million in 2021.',
+        'The filing reports corresponding dead and dying tree work units and keeps routine vegetation management and enhanced vegetation management as separate programs.',
+        'CAL FIRE identified ten high-priority counties for addressing the mortality emergency, all partly or wholly within PG&E service territory.'
+      ]
+    }
+  ],
+  metric_contract: {
+    node_id: 'forest_dieback_areas',
+    metric_id: 'forest_dieback_area_and_mortality',
+    unit: 'aerially detected dead trees, bounded mitigation cost, accumulation duration and declared high-priority counties',
+    geography: 'Sierra Nevada mortality footprint and PG&E-served California high-priority counties',
+    assessment_period: '2010-01-01 to 2021-12-31',
+    boundary: 'The mortality count is the USFS Sierra Nevada aerial-detection inventory. The cost is the separately bounded PG&E tree-mortality program, not a statewide damage estimate. The receipt does not classify generic canopy loss, harvest or fire as dieback.'
+  },
+  accumulated_impact: {
+    aerially_detected_dead_trees_more_than: 147000000,
+    mortality_inventory_start_year: 2010,
+    mortality_inventory_end_year: 2018,
+    mortality_accumulation_years_inclusive: 9,
+    pge_tree_mortality_cost_usd_by_year: {
+      '2016': 183600000,
+      '2017': 194800000,
+      '2018': 69000000,
+      '2019': 73300000,
+      '2020': 93100000,
+      '2021': 87000000
+    },
+    pge_tree_mortality_cost_usd_2016_2021: 700800000,
+    represented_high_priority_county_count: 10,
+    represented_state: 'California',
+    cost_record_end_date: '2021-12-31'
+  },
+  reviewed_normalization_anchors: {
+    dead_tree_count: [0, 1000000, 25000000, 100000000],
+    bounded_tree_mortality_program_cost_usd: [0, 10000000, 100000000, 1000000000],
+    mortality_accumulation_years: [0, 1, 3, 10],
+    represented_high_priority_county_count: [0, 1, 5, 20]
+  },
+  uncertainty: 'Aerial detection is a broad mortality estimate and may omit or misclassify individual trees; the more-than-147-million count is a lower bound. Drought was the dominant but not sole causal agent. PG&E costs are regulator-filed program expenditures within its service territory and are not total statewide damages, public spending or ecosystem-service losses. Cost years extend beyond the 2010-2018 mortality inventory because mitigation continued. The ten counties are CAL FIRE operational priorities, not the full spatial extent of mortality.'
+};
+
+await fs.writeFile(path.join(ROOT, 'public/california-forest-dieback-impact-snapshot.json'), `${JSON.stringify(snapshot, null, 2)}\n`);
+console.log(JSON.stringify({ output: 'public/california-forest-dieback-impact-snapshot.json', version: snapshot.version, accumulated: snapshot.accumulated_impact }, null, 2));

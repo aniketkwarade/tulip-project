@@ -1,0 +1,118 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_59_bts_airport_weather_disruption",
+  "generated_at": "2026-08-01T15:52:05.616Z",
+  "source_snapshots": [
+    "public/bts-airport-weather-disruption-impact-snapshot.json"
+  ],
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "airport_operational_disruption",
+      "value": 6.2,
+      "band": "Rising",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "biophysical_burden": 0.699852,
+        "human_economic_burden": 0.720242,
+        "persistence": 0.33,
+        "extent": 0.33
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "weather_attributed_delayed_flight_equivalents": 68092.05,
+          "normalization_anchors_flight_equivalents": [
+            0,
+            1000,
+            50000,
+            250000
+          ]
+        },
+        "human_economic_burden": {
+          "weather_delay_minutes": 8044943,
+          "normalization_anchors_delay_minutes": [
+            0,
+            100000,
+            5000000,
+            25000000
+          ]
+        },
+        "persistence": {
+          "complete_calendar_years": 1,
+          "normalization_anchors_years": [
+            0,
+            1,
+            6,
+            30
+          ]
+        },
+        "extent": {
+          "distinct_airports": 364,
+          "distinct_reporting_carriers": 21,
+          "directly_assessed_countries": [
+            "United States"
+          ],
+          "directly_assessed_country_count": 1,
+          "normalization_anchors_countries": [
+            0,
+            1,
+            5,
+            25
+          ]
+        },
+        "unscored_context": {
+          "arrival_flights": 7736770,
+          "arrivals_delayed_at_least_15_minutes": 1685334,
+          "cancellations_excluded_because_weather_cause_not_allocated": true
+        },
+        "source_snapshot": {
+          "path": "public/bts-airport-weather-disruption-impact-snapshot.json",
+          "version": "bts_airline_weather_delay_2025_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z",
+          "archive_sha256": "43b4c3a1fbce4dd2c7b5e776e616765fc45178c5169318bec2324aa9c04a98c1",
+          "extracted_csv_sha256": "8b9379ac15e5b381991bae8330882f6615aba2a3c3e4ca39b0dd9df697b4aa77",
+          "csv_rows": 22687
+        }
+      },
+      "transformations": [
+        {
+          "type": "complete_year_filter",
+          "formula": "Retain carrier-airport-month rows for all 12 months of calendar year 2025."
+        },
+        {
+          "type": "weather_cause_aggregation",
+          "formula": "Sum BTS weather_ct prorated delayed-flight equivalents and weather_delay minutes across all reporting carrier-airport rows."
+        },
+        {
+          "type": "cancellation_exclusion",
+          "formula": "Do not score arr_cancelled because the downloaded table does not allocate each cancellation to weather."
+        },
+        {
+          "type": "bounded_network_extent",
+          "formula": "Retain 364 airports and 21 carriers as U.S. network coverage; normalize only the one directly assessed country."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "bts_airline_delay_cause_2025",
+        "bts_airline_delay_cause_definitions"
+      ],
+      "uncertainty": "The assessment covers reporting U.S. scheduled carriers and airports for 2025, not global aviation. Weather-attributed counts are prorated flight equivalents, and delay minutes apply only to delayed flights. This source does not allocate cancellations to weather, so cancellations are not scored. One complete year quantifies burden but provides limited persistence evidence and cannot establish a long-run weather-disruption trend.",
+      "freshness": "Complete calendar year 2025; raw table downloaded 2026-08-01; snapshot reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "BTS administrative records quantify weather-attributed delayed-flight equivalents, delay minutes, one complete year of burden and one-country network extent without inferring cancellation cause.",
+        "higher_priority_failures": [
+          "The dataset covers the United States scheduled airline network rather than a defensible current global airport aggregation.",
+          "One year of U.S. carrier-airport data does not provide the global historical distribution required for a current magnitude, threshold and momentum score."
+        ]
+      },
+      "input_hash": "fnv1a32:4b6421ee"
+    }
+  ]
+}

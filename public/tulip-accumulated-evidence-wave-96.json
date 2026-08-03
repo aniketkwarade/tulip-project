@@ -1,0 +1,125 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_96_china_acid_deposition",
+  "generated_at": "2026-08-01T18:11:47.335Z",
+  "source_snapshots": [
+    "public/china-acid-deposition-impact-snapshot.json"
+  ],
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "acid_rain_deposition",
+      "value": 6.9,
+      "band": "Rising",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2020",
+      "components": {
+        "biophysical_burden": 0.4201,
+        "human_economic_burden": 0.852861,
+        "persistence": 0.7855,
+        "extent": 0.653
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "latest_mean_acid_rain_frequency_percent": 10.3,
+          "latest_monitored_cities_districts_counties": 465,
+          "precipitation_ph_threshold": 5.6,
+          "normalization_anchors_percent": [
+            0,
+            5,
+            25,
+            75
+          ]
+        },
+        "human_economic_burden": {
+          "modeled_material_loss_rmb_billions_2013": 32.165,
+          "modeled_material_loss_gdp_share_percent_2013": 0.057,
+          "modeled_material_loss_pollution_control_investment_share_percent_2013": 3.4,
+          "normalization_anchors_rmb_billions": [
+            0,
+            1,
+            10,
+            50
+          ]
+        },
+        "persistence": {
+          "first_documented_national_monitoring_year": 2003,
+          "latest_documented_national_monitoring_year": 2020,
+          "documented_monitoring_span_years_derived": 17,
+          "normalization_anchors_years": [
+            0,
+            1,
+            10,
+            30
+          ]
+        },
+        "extent": {
+          "latest_acid_rain_area_square_kilometres": 466000,
+          "latest_acid_rain_area_share_percent": 4.8,
+          "latest_year_over_year_area_change_percentage_points": -0.2,
+          "normalization_anchors_percent": [
+            0,
+            1,
+            5,
+            20
+          ]
+        },
+        "source_snapshot": {
+          "path": "public/china-acid-deposition-impact-snapshot.json",
+          "version": "china_acid_deposition_2003_2020_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z",
+          "source_locators": [
+            "Across 465 cities, districts or counties monitoring precipitation, mean acid-rain frequency was 10.3% in 2020.",
+            "The official thresholds are annual precipitation pH below 5.6 for acid rain, below 5.0 for relatively serious acid rain and below 4.5 for serious acid rain.",
+            "The acid-rain area was approximately 466,000 square kilometres, or 4.8% of China’s land area, 0.2 percentage point below 2019.",
+            "The assessment uses annual precipitation pH and ambient SO2 from the China National Environmental Monitoring Network for 338 municipalities and prefecture-level cities and 1,436 air-quality stations.",
+            "Dose-response functions, material exposure inventories and maintenance or replacement prices produce an estimated RMB 32.165 billion in acid-deposition material loss for 2013.",
+            "The estimate equals 0.057% of GDP and 3.4% of national environmental-pollution-control investment in 2013; it is a modeled loss rather than audited expenditure.",
+            "The 2003 national bulletin reports acid-rain monitoring across 487 cities and counties.",
+            "Acid rain occurred in 265 monitored jurisdictions, while 182 had annual mean precipitation pH at or below 5.6.",
+            "The bulletin provides the first year used in this receipt’s documented national monitoring span; the span is not interpreted as continuous station-level completeness."
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "official_acid_rain_frequency",
+          "formula": "Normalize the official 10.3% mean acid-rain frequency across 465 monitored jurisdictions using the pH < 5.6 threshold."
+        },
+        {
+          "type": "modeled_material_loss",
+          "formula": "Normalize the study-estimated RMB 32.165-billion 2013 material loss; do not treat it as audited expenditure or add GDP and pollution-control-investment shares as separate burden."
+        },
+        {
+          "type": "documented_monitoring_span",
+          "formula": "Calculate 2020 - 2003 = 17 years between official national monitoring bulletins; do not assert a complete unchanged station panel."
+        },
+        {
+          "type": "official_affected_area",
+          "formula": "Normalize the official 4.8% national land-area share affected by acid rain in 2020 and retain the 466,000-square-kilometre area separately."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "china_mee_ecology_environment_report_2020_acid_rain",
+        "zhang_china_acid_deposition_material_loss_2017",
+        "china_mee_environment_quality_2003_acid_rain"
+      ],
+      "uncertainty": "The 2013 monetary burden is a study estimate derived from precipitation pH, SO2, exposure-response functions, per-capita material inventories and maintenance or replacement prices; it is not an audited realized expenditure, and the authors identify limited city-level inventory cases and price uncertainty. The 2003 and 2020 bulletins document national monitoring in both endpoint years but do not prove a complete, unchanged station panel across all intervening years. China’s acid-rain area and severe-city shares improved substantially by 2020, and the receipt does not imply worsening momentum or global extent.",
+      "freshness": "Official 2020 deposition condition and 2013 national material-loss assessment reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "Official precipitation-pH monitoring quantifies frequency, duration and affected area, while a national monitoring-network study quantifies material corrosion loss.",
+        "higher_priority_failures": [
+          "The assessment boundary is China rather than a defensible global current aggregation.",
+          "The endpoint bulletins do not establish at least 20 complete annual observations for a stable national station panel, and the monetary burden refers to 2013 rather than the latest condition year."
+        ]
+      },
+      "input_hash": "fnv1a32:3ee6e748"
+    }
+  ]
+}

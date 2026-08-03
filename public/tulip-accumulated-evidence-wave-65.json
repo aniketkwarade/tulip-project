@@ -1,0 +1,148 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_65_cdc_atlanta_pollen",
+  "generated_at": "2026-08-01T16:20:02.522Z",
+  "source_snapshots": [
+    "public/cdc-atlanta-pollen-impact-snapshot.json"
+  ],
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "pollen_allergen_spikes",
+      "value": 7.5,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2018",
+      "components": {
+        "biophysical_burden": 0.71125,
+        "human_economic_burden": 0.79705,
+        "persistence": 0.9505,
+        "extent": 0.33
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "significant_peak_concentration_trends": [
+            {
+              "taxon": "oak",
+              "annual_peak_concentration_change_pct": 4.9
+            },
+            {
+              "taxon": "juniper",
+              "annual_peak_concentration_change_pct": 5.8
+            },
+            {
+              "taxon": "sycamore",
+              "annual_peak_concentration_change_pct": 7.9
+            },
+            {
+              "taxon": "birch",
+              "annual_peak_concentration_change_pct": 6.7
+            },
+            {
+              "taxon": "mulberry",
+              "annual_peak_concentration_change_pct": 12.8
+            },
+            {
+              "taxon": "willow",
+              "annual_peak_concentration_change_pct": 5.6
+            }
+          ],
+          "median_significant_annual_peak_concentration_change_pct": 6.25,
+          "normalization_anchors_pct_per_year": [
+            0,
+            1,
+            5,
+            15
+          ]
+        },
+        "human_economic_burden": {
+          "adult_allergic_rhinitis_cases_us_context_only": 19800000,
+          "child_allergic_rhinitis_cases_us_context_only": 5600000,
+          "combined_allergic_rhinitis_cases_us_context_only": 25400000,
+          "normalization_anchors_cases": [
+            0,
+            100000,
+            10000000,
+            50000000
+          ],
+          "boundary": "Associated national allergic-rhinitis burden; not an Atlanta trend-attributable count."
+        },
+        "persistence": {
+          "start_year": 1992,
+          "end_year": 2018,
+          "observation_years": 27,
+          "normalization_anchors_years": [
+            0,
+            1,
+            10,
+            30
+          ]
+        },
+        "extent": {
+          "monitored_metro_areas": 1,
+          "stated_station_representativeness_radius_miles": 25,
+          "normalization_anchors_metro_areas": [
+            0,
+            1,
+            10,
+            100
+          ]
+        },
+        "unscored_context": {
+          "sampled_taxa": 13,
+          "taxa_with_significant_increasing_peak_concentration": 6,
+          "spring_grouped_tree_average_daily_concentration_change_pct_per_year": 3.9,
+          "fall_grouped_tree_average_daily_concentration_change_pct_per_year": 10.4,
+          "historical_annual_treatment_cost_usd": 11200000000
+        },
+        "source_snapshot": {
+          "path": "public/cdc-atlanta-pollen-impact-snapshot.json",
+          "version": "cdc_atlanta_allergenic_pollen_1992_2018_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z",
+          "report_sha256": "eea0b6053d1929c3fc2329f42b9217f319b7bdf5403b8099c488b297ffcaffbf"
+        }
+      },
+      "transformations": [
+        {
+          "type": "peak_trend_filter",
+          "formula": "Retain only taxon-specific seasonal peak-concentration trends reported as statistically significant increases."
+        },
+        {
+          "type": "median_taxon_summary",
+          "formula": "Sort the six significant annual peak-concentration changes and average the third and fourth values; do not use the largest taxon trend as the station-wide burden."
+        },
+        {
+          "type": "health_burden_boundary",
+          "formula": "Normalize the source-cited national allergic-rhinitis population as associated burden; do not label it attributable to Atlanta or to the measured trend."
+        },
+        {
+          "type": "station_extent_boundary",
+          "formula": "Normalize one monitored metropolitan area and retain the stated 25-mile station representativeness radius; do not convert it to national coverage."
+        },
+        {
+          "type": "season_length_exclusion",
+          "formula": "Do not use season-length changes as pollen-concentration intensity."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "cdc_atlanta_allergenic_pollen_trends_1992_2018"
+      ],
+      "uncertainty": "The concentration series represents one Atlanta-area station and cannot establish national or global pollen conditions. Sampling was typically five days per week, later expanding during peak periods; the station moved within a nine-mile radius, though the study found no significant discontinuity. Peak trends differ by taxon, and only statistically significant increasing peak trends are summarized. The national allergic-rhinitis total includes causes beyond outdoor pollen and is retained as bounded associated health burden rather than an Atlanta-attributable case count.",
+      "freshness": "Station observations cover 1992-2018; peer-reviewed study published 2021; snapshot reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "A 27-year standardized station study quantifies taxon-specific peak allergenic-pollen concentration trends, associated health burden, persistence and bounded metropolitan extent under the exact exposure contract.",
+        "higher_priority_failures": [
+          "The concentration series ends in 2018 and represents one station rather than a current global aggregation.",
+          "Sampler cadence and station scope prevent use as a current worldwide magnitude, threshold and momentum score."
+        ]
+      },
+      "input_hash": "fnv1a32:9d0c1512"
+    }
+  ]
+}

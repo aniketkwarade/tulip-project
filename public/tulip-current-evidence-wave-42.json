@@ -1,0 +1,118 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_42_rapid_amoc_26n_transport",
+  "generated_at": "2026-07-31T22:57:36.783Z",
+  "source_snapshot": "public/rapid-amoc-snapshot.json",
+  "source_id": "rapid_amoc_26n_transport_time_series",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "amoc",
+      "value": 8,
+      "band": "Critical",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024-02",
+      "components": {
+        "magnitude": 0.798908,
+        "threshold": 0.798908,
+        "momentum": 0.608539,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_complete_month": "2024-02",
+          "latest_monthly_mean_transport_sverdrups": 11.895844,
+          "documented_long_term_mean_transport_sverdrups": 16.9,
+          "latest_shortfall_from_long_term_mean_sverdrups": 5.004156,
+          "complete_prior_monthly_observations": 238,
+          "historical_distribution_anchors_shortfall_sverdrups": [
+            -0.313754,
+            1.752697,
+            3.43708,
+            7.448738
+          ]
+        },
+        "threshold": {
+          "latest_monthly_mean_transport_sverdrups": 11.895844,
+          "threshold_basis": "historical_distribution_fallback",
+          "direction": "lower_is_worse",
+          "historical_distribution_anchors_transport_sverdrups_in_worsening_order": [
+            17.213753,
+            15.147302,
+            13.462919,
+            9.451262
+          ]
+        },
+        "momentum": {
+          "prior_complete_month": "2024-01",
+          "latest_month_over_month_decline_sverdrups": 3.996005,
+          "complete_prior_monthly_change_observations": 237,
+          "historical_distribution_anchors_monthly_decline_sverdrups": [
+            -0.102781,
+            1.89325,
+            4.459984,
+            7.252553
+          ]
+        },
+        "extent": {
+          "normalized_value": 1,
+          "definition": "Complete coverage of the reviewed node contract at the declared 26.5N full-basin-width Atlantic section; this does not imply direct observation at every latitude."
+        },
+        "source_snapshot": {
+          "path": "public/rapid-amoc-snapshot.json",
+          "version": "2026-07-31T20:30:17.460Z",
+          "captured_at": "2026-07-31T20:30:17.460Z",
+          "source_publication_date": "2026-01-27",
+          "source_end_date": "2024-03-27",
+          "source_sha256": "ba135d9447a87c2bf5dcc8870e2cb73ff348c412fa1bc3501145e01c79788eed",
+          "valid_half_daily_observations": 58,
+          "coverage_fraction": 1
+        },
+        "coverage_gate": {
+          "direct_components": [
+            "magnitude",
+            "threshold",
+            "momentum",
+            "extent"
+          ],
+          "global_scope": true,
+          "current_observation": true
+        }
+      },
+      "transformations": [
+        {
+          "type": "coverage_qualified_monthly_aggregation",
+          "formula": "Average only finite RAPID moc_mar_hc10 half-daily values; require at least 80 percent of expected twice-daily observations for a calendar month and never impute missing values."
+        },
+        {
+          "type": "long_term_mean_shortfall",
+          "formula": "Subtract monthly mean AMOC transport from RAPID’s documented 16.9 Sv long-term mean so larger shortfall maps upward."
+        },
+        {
+          "type": "reverse_direction_historical_distribution",
+          "formula": "Map monthly transport through prior-month median / p25 / p10 / p2.5 anchors expressed in worsening order because lower transport is worse."
+        },
+        {
+          "type": "monthly_decline_momentum",
+          "formula": "Subtract the latest complete monthly mean from the preceding complete monthly mean and normalize the decline through prior complete monthly changes."
+        },
+        {
+          "type": "contract_domain_extent",
+          "formula": "Assign full extent only for the full-basin-width 26.5N section declared in the reviewed AMOC metric contract."
+        }
+      ],
+      "source_ids": [
+        "rapid_amoc_26n_transport_time_series"
+      ],
+      "uncertainty": "Sparse sampling, platform changes, mapping, depth selection, seasonal aliasing, and model-data blending affect the estimate. Sub-annual variability is large, and a low monthly value is not evidence of collapse or a persistent secular decline.",
+      "freshness": "Latest authoritative RAPID release published 2026-01-27, with the latest coverage-qualified observation month 2024-02; snapshot captured 2026-07-31T20:30:17.460Z. The mooring-recovery and quality-control lag is explicit internal metadata.",
+      "selection_reason": {
+        "selected_method_passed": "RAPID supplies 239 coverage-qualified monthly observations of full-basin-width AMOC transport at the contract’s declared 26.5N section, directly supporting current magnitude, historical position, monthly momentum and node-domain extent.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:68955aa9"
+    }
+  ]
+}

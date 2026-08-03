@@ -1,0 +1,288 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_32_cooling_water_governance_aviation_growth",
+  "generated_at": "2026-07-31T22:05:45.020Z",
+  "promoted_node_count": 3,
+  "receipts": [
+    {
+      "node_id": "air_conditioning_refrigerants",
+      "value": 7.9,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2022",
+      "components": {
+        "biophysical_burden": 0.791,
+        "human_economic_burden": 0.835,
+        "persistence": 0.67,
+        "extent": 0.694301
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "current_cooling_emissions_gt_co2e": 4.1,
+          "current_cooling_capacity_tw": 22,
+          "anchors_gt_co2e": [
+            0,
+            1,
+            3,
+            6
+          ]
+        },
+        "human_economic_burden": {
+          "people_lacking_adequate_cooling_lower_bound_billion": 1,
+          "anchors_billion_people": [
+            0,
+            0.1,
+            0.5,
+            1.5
+          ],
+          "boundary": "Access gap is retained as exposed need, not mortality attributed to cooling."
+        },
+        "persistence": {
+          "baseline_year": 2022,
+          "assessment_year": 2025,
+          "years": 3,
+          "anchors_years": [
+            0,
+            1,
+            3,
+            10
+          ]
+        },
+        "extent": {
+          "countries_referencing_cooling_in_plans": 134,
+          "denominator": 193
+        },
+        "source_snapshots": [
+          {
+            "path": "public/unep-cooling-equity-impact-snapshot.json",
+            "version": "unep_global_cooling_watch_2025_equity_snapshot_v1",
+            "captured_at": "2026-07-31T22:05:44.851Z"
+          }
+        ]
+      },
+      "transformations": [
+        {
+          "type": "source_reported_cooling_emissions",
+          "formula": "Normalize the UNEP 2022 global cooling-emissions estimate without adding projected 2050 emissions."
+        },
+        {
+          "type": "bounded_access_gap",
+          "formula": "Normalize UNEP lower-bound population lacking adequate cooling as exposure, not realized harm."
+        },
+        {
+          "type": "assessment_span",
+          "formula": "Retain the elapsed interval between the 2022 baseline and 2025 report."
+        },
+        {
+          "type": "country_policy_extent",
+          "formula": "Divide countries referencing cooling in climate or energy plans by 193 UN Member States."
+        }
+      ],
+      "source_ids": [
+        "unep_global_cooling_watch_2025"
+      ],
+      "uncertainty": "Cooling-access definitions combine mechanical, passive and service-quality dimensions and vary by assessment. Current emissions are modeled sector estimates. The report does not attribute all heat deaths to absent cooling, provide a country-level access denominator, or supply an annual observation series.",
+      "freshness": "UNEP Global Cooling Watch 2025 baseline year 2022; snapshot captured 2026-07-31T22:05:44.851Z.",
+      "selection_reason": {
+        "selected_method_passed": "UNEP quantifies global cooling emissions, capacity, unmet cooling need, assessment persistence and country-policy extent.",
+        "higher_priority_failures": [
+          "No complete annual global equipment-and-refrigerant-bank series supplies the current-data magnitude and trend gate.",
+          "Projected 2050 demand and emissions are excluded from current scoring."
+        ]
+      },
+      "input_hash": "fnv1a32:de745081"
+    },
+    {
+      "node_id": "basin_treaty_breakdown",
+      "value": 8.8,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2023",
+      "components": {
+        "biophysical_burden": 0.8812,
+        "human_economic_burden": 0.89,
+        "persistence": 0.835,
+        "extent": 0.792746
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "global_indicator_average_pct": 59,
+          "operational_coverage_gap_pct": 41,
+          "anchors_gap_pct": [
+            0,
+            10,
+            25,
+            50
+          ],
+          "boundary": "Cooperation coverage gap, not treaty breach or conflict incidence."
+        },
+        "human_economic_burden": {
+          "global_freshwater_crossing_borders_pct": 60,
+          "anchors_pct": [
+            0,
+            15,
+            40,
+            70
+          ],
+          "boundary": "Shared-water exposure scope, not a population or monetary loss estimate."
+        },
+        "persistence": {
+          "baseline_reporting_year": 2017,
+          "monitoring_year": 2023,
+          "years": 6,
+          "anchors_years": [
+            0,
+            2,
+            4,
+            8
+          ]
+        },
+        "extent": {
+          "countries_sharing_transboundary_waters": 153,
+          "denominator": 193,
+          "countries_with_full_coverage": 26
+        },
+        "source_snapshots": [
+          {
+            "path": "public/unece-transboundary-water-cooperation-impact-snapshot.json",
+            "version": "unece_unesco_sdg_6_5_2_2024_global_snapshot_v1",
+            "captured_at": "2026-07-31T22:05:44.892Z"
+          }
+        ]
+      },
+      "transformations": [
+        {
+          "type": "operational_arrangement_gap",
+          "formula": "Subtract the official global SDG 6.5.2 average from 100 percent."
+        },
+        {
+          "type": "shared_freshwater_scope",
+          "formula": "Retain the report-wide share of freshwater crossing borders as exposed governance scope."
+        },
+        {
+          "type": "reporting_cycle_duration",
+          "formula": "Use the 2017 baseline to 2023 monitoring interval."
+        },
+        {
+          "type": "country_extent",
+          "formula": "Divide countries sharing transboundary waters by 193 UN Member States."
+        }
+      ],
+      "source_ids": [
+        "unece_progress_on_transboundary_water_cooperation_sdg_6_5_2"
+      ],
+      "uncertainty": "National reports vary in completeness, aquifer delineation and interpretation of operationality. The coverage gap measures absent or incomplete operational arrangements; it does not prove treaty breach, conflict or service failure.",
+      "freshness": "UNECE-UNESCO 2023 monitoring cycle published 2024; snapshot captured 2026-07-31T22:05:44.892Z.",
+      "selection_reason": {
+        "selected_method_passed": "UNECE-UNESCO quantifies the global operational-cooperation gap, shared-water scope, repeated monitoring span and worldwide country extent.",
+        "higher_priority_failures": [
+          "The three global monitoring cycles do not meet the 20-annual-observation historical-percentile gate.",
+          "The assessment does not provide a current global treaty-breach incident series."
+        ]
+      },
+      "input_hash": "fnv1a32:d00f3170"
+    },
+    {
+      "node_id": "aviation_demand_growth",
+      "value": 8.7,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "biophysical_burden": 0.800778,
+        "human_economic_burden": 0.923,
+        "persistence": 0.736,
+        "extent": 0.99
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "edgar_aviation_co2_2023_mt": 968.854397,
+          "edgar_aviation_co2_2024_mt": 1032.632156,
+          "annual_increase_mt": 63.777759,
+          "anchors_mt": [
+            0,
+            10,
+            40,
+            100
+          ],
+          "boundary": "Observed aviation-category CO2 increase; no direct conversion from ICAO activity."
+        },
+        "human_economic_burden": {
+          "scheduled_rpk_billion": 9098,
+          "scheduled_rpk_growth_pct": 10.6,
+          "freight_tonnes_million": 60.8,
+          "scheduled_freight_tonne_km_growth_pct": 11,
+          "anchors_rpk_growth_pct": [
+            0,
+            2,
+            6,
+            12
+          ]
+        },
+        "persistence": {
+          "rebound_start_year": 2020,
+          "observation_year": 2024,
+          "years": 4,
+          "anchors_years": [
+            0,
+            1,
+            3,
+            8
+          ]
+        },
+        "extent": {
+          "icao_reported_global_coverage_pct": 99,
+          "normalized_value": 0.99
+        },
+        "source_snapshots": [
+          {
+            "path": "public/icao-global-aviation-impact-snapshot.json",
+            "version": "icao_annual_report_2024_global_activity_snapshot_v1",
+            "captured_at": "2026-07-31T22:05:44.934Z"
+          },
+          {
+            "path": "public/edgar-snapshot.json",
+            "version": "edgar_2025_ghg_contract_bound_v1",
+            "captured_at": "2026-07-31T14:58:58.195Z"
+          }
+        ]
+      },
+      "transformations": [
+        {
+          "type": "observed_co2_increment",
+          "formula": "Subtract EDGAR 2023 global civil-aviation fossil CO2 from the 2024 value; keep ICAO activity separate."
+        },
+        {
+          "type": "source_reported_activity_growth",
+          "formula": "Normalize ICAO scheduled RPK growth without adding freight growth or projected traffic."
+        },
+        {
+          "type": "post_2020_rebound_duration",
+          "formula": "Retain the four-year observed recovery interval as persistence context."
+        },
+        {
+          "type": "reporting_coverage_extent",
+          "formula": "Use ICAO reported global statistical coverage directly."
+        }
+      ],
+      "source_ids": [
+        "icao_environmental_reports",
+        "edgar_global_emissions_database"
+      ],
+      "uncertainty": "ICAO labels 2024 statistics preliminary. Scheduled-service coverage, revisions, traffic definitions and freight/passenger aggregation affect values. Passenger, RPK, freight and capacity measures are not additive. The workbooks do not report observation-level numeric uncertainty. Activity data, emission factors, country allocation, sector classification, international bunker treatment, revisions and category coverage affect values. Air-pollutant emissions are inventories, not ambient concentrations or attributable health burdens.",
+      "freshness": "ICAO and EDGAR 2024 global observations; snapshots captured 2026-07-31T22:05:44.934Z and 2026-07-31T14:58:58.195Z.",
+      "selection_reason": {
+        "selected_method_passed": "ICAO quantifies global passenger and freight growth while EDGAR independently quantifies the corresponding aviation-category CO2 increase and long-lived global pressure.",
+        "higher_priority_failures": [
+          "ICAO activity histories are not yet ingested as a complete 20-year global annual panel.",
+          "Activity growth is not converted to emissions; the independently observed EDGAR increment makes this an impact fallback."
+        ]
+      },
+      "input_hash": "fnv1a32:0fa2ecc2"
+    }
+  ]
+}

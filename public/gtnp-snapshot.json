@@ -1,0 +1,65 @@
+{
+  "updated_at": "2026-07-18",
+  "version": "2026-07-18T12:50:56.379Z",
+  "snapshot_family": "permafrost_monitoring_support",
+  "source": {
+    "id": "gtnp",
+    "name": "Global Terrestrial Network for Permafrost",
+    "url": "https://gtnp.arcticportal.org/",
+    "publisher": "GTN-P / Arctic Portal / AWI",
+    "access": "open_site_plus_external_database"
+  },
+  "refresh_policy": {
+    "default_days": 28,
+    "notes": "Treat GTN-P as the operational discovery and standards layer for permafrost monitoring support, not as a browser-safe live sensor stream."
+  },
+  "use_guidance": {
+    "primary_role": "Use for direct permafrost monitoring support, active-layer and ground-temperature context, data discovery, and methods support.",
+    "caution": "GTN-P points to monitoring systems, downloads, and an external database. This payload should support defensible attachment and anchor-note strengthening rather than claim a unified live API."
+  },
+  "overview": {
+    "title": "Global Terrestrial Network for Permafrost (GTN-P)",
+    "description": "The Global Terrestrial Network for Permafrost (GTN-P) was initiated to organize and manage permafrost metadata and data.",
+    "keywords": "permafrost, permafrost network, ground temperature, active layer thawing, Scientific Data Management System",
+    "recent_news_titles": [
+      "GTN-P Workshop Report - EUCOP 2023...",
+      "GTN-P Strategy and Implementation...",
+      "Measurement Recommendations and..."
+    ]
+  },
+  "tools": [
+    {
+      "id": "gtnp_data_download",
+      "label": "GTN-P Data Download",
+      "url": "https://gtnp.arcticportal.org/data/data-download",
+      "type": "download_hub",
+      "access": "open"
+    },
+    {
+      "id": "gtnp_database",
+      "label": "GTN-P Database",
+      "url": "http://gtnpdatabase.org/",
+      "type": "database",
+      "access": "open"
+    },
+    {
+      "id": "gtnp_maps",
+      "label": "GTN-P Maps and Graphics",
+      "url": "https://gtnp.arcticportal.org/resources/maps",
+      "type": "maps",
+      "access": "open"
+    },
+    {
+      "id": "gtnp_guidelines",
+      "label": "Measurement Standards and Monitoring Guidelines",
+      "url": "https://gtnp.arcticportal.org/data/measurement-standards-and-monitoring-guidelines",
+      "type": "guidance",
+      "access": "open"
+    }
+  ],
+  "supported_questions": [
+    "Which node should carry direct permafrost monitoring support instead of relying mostly on carbon-budget context?",
+    "Where should GTN-P data-discovery and methods links appear in the evidence bundles?",
+    "Which permafrost claims should be supported by monitoring systems versus broader cryosphere summaries?"
+  ]
+}

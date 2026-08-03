@@ -1,0 +1,93 @@
+{
+  "version": "2026-07-16",
+  "updated_at": "2026-07-16",
+  "category": "health",
+  "refresh_policy": {
+    "default_days": 45,
+    "notes": "Health source packs should be refreshed when WHO or ILO framing changes, or when newer indicator packs are attached."
+  },
+  "priority_nodes": [
+    {
+      "id": "heat_related_mortality_burden",
+      "label": "Heat-Related Mortality Burden",
+      "sources": [
+        "who_heat_health",
+        "who_climate_health"
+      ]
+    },
+    {
+      "id": "air_pollution_health_burden",
+      "label": "Air Pollution Health Burden",
+      "sources": [
+        "who_air_quality_health",
+        "epa_ozone_basics"
+      ]
+    },
+    {
+      "id": "occupational_heat_exposure",
+      "label": "Occupational Heat Exposure",
+      "sources": [
+        "ilo_working_warmer_planet",
+        "who_heat_health"
+      ]
+    },
+    {
+      "id": "vector_borne_disease_expansion",
+      "label": "Vector-Borne Disease Expansion",
+      "sources": [
+        "who_vector_borne_diseases",
+        "who_climate_health"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "who_climate_health",
+      "label": "WHO Climate Change and Health",
+      "url": "https://www.who.int/health-topics/climate-change",
+      "type": "topic_page",
+      "applies_to": ["heat_related_mortality_burden", "vector_borne_disease_expansion"],
+      "notes": "WHO climate-health framing across heat, disease, vulnerability, and health-system stress."
+    },
+    {
+      "id": "who_heat_health",
+      "label": "WHO Heat and Health",
+      "url": "https://www.who.int/news-room/fact-sheets/detail/climate-change-heat-and-health",
+      "type": "fact_sheet",
+      "applies_to": ["heat_related_mortality_burden", "occupational_heat_exposure"],
+      "notes": "Official heat-health framing for mortality, illness, and population vulnerability."
+    },
+    {
+      "id": "who_air_quality_health",
+      "label": "WHO Ambient Air Quality and Health",
+      "url": "https://www.who.int/news-room/fact-sheets/detail/ambient-(outdoor)-air-quality-and-health",
+      "type": "fact_sheet",
+      "applies_to": ["air_pollution_health_burden"],
+      "notes": "Official public-health framing for outdoor air pollution burden."
+    },
+    {
+      "id": "epa_ozone_basics",
+      "label": "EPA Ground-Level Ozone Basics",
+      "url": "https://www.epa.gov/ground-level-ozone-pollution/ground-level-ozone-basics",
+      "type": "science_page",
+      "applies_to": ["air_pollution_health_burden"],
+      "notes": "Exposure chemistry and health implications for ozone episodes."
+    },
+    {
+      "id": "ilo_working_warmer_planet",
+      "label": "ILO Working on a Warmer Planet",
+      "url": "https://www.ilo.org/publications/working-warmer-planet-impact-heat-stress-labour-productivity-and-decent-work",
+      "type": "report",
+      "applies_to": ["occupational_heat_exposure"],
+      "notes": "Occupational heat stress, labor capacity loss, and work-safety evidence."
+    },
+    {
+      "id": "who_vector_borne_diseases",
+      "label": "WHO Vector-Borne Diseases",
+      "url": "https://www.who.int/news-room/fact-sheets/detail/vector-borne-diseases",
+      "type": "fact_sheet",
+      "applies_to": ["vector_borne_disease_expansion"],
+      "notes": "Official framing for disease burden and climate-sensitive vector exposure pathways."
+    }
+  ]
+}

@@ -1,0 +1,126 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_76_northeast_1996_rain_on_snow_flood",
+  "generated_at": "2026-08-01T16:59:33.430Z",
+  "source_snapshots": [
+    "public/northeast-1996-rain-on-snow-impact-snapshot.json"
+  ],
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "rain_on_snow_flood_risk",
+      "value": 8.5,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "1996-01-21",
+      "components": {
+        "biophysical_burden": 1,
+        "human_economic_burden": 0.816667,
+        "persistence": 0.67,
+        "extent": 0.67
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "maximum_crest_above_flood_stage_feet": 20,
+          "potomac_point_of_rocks_peak_cfs": 312000,
+          "susquehanna_harrisburg_peak_cfs": 570000,
+          "rainfall_local_maximum_inches": 3,
+          "snowpack_water_equivalent_range_inches": [
+            3,
+            5.5
+          ],
+          "normalization_anchors_feet": [
+            0,
+            1,
+            5,
+            20
+          ]
+        },
+        "human_economic_burden": {
+          "road_and_bridge_damage_usd_more_than": 500000000,
+          "deaths": 33,
+          "people_forced_from_homes_more_than": 200000,
+          "normalization_anchors_usd": [
+            0,
+            10000000,
+            100000000,
+            1000000000
+          ],
+          "boundary": "Infrastructure damage is the scored lower bound; deaths and displacement remain unscored context."
+        },
+        "persistence": {
+          "peak_start_date": "1996-01-19",
+          "peak_end_date": "1996-01-21",
+          "peak_duration_days": 3,
+          "normalization_anchors_days": [
+            0,
+            1,
+            3,
+            10
+          ]
+        },
+        "extent": {
+          "represented_major_river_basin_count": 5,
+          "represented_country": "United States",
+          "normalization_anchors_basins": [
+            0,
+            1,
+            5,
+            20
+          ]
+        },
+        "source_snapshot": {
+          "path": "public/northeast-1996-rain-on-snow-impact-snapshot.json",
+          "version": "northeast_us_rain_on_snow_flood_january_1996_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z",
+          "source_locators": [
+            "Flood summary: moderate-to-heavy rain and rapid snowmelt produced serious flooding in the Delaware, Susquehanna, upper Ohio, Potomac and James basins, with crests as much as 20 feet above flood stage.",
+            "Impact summary: 33 deaths, more than 200,000 people forced from homes, and more than USD 500 million damage to state and local highways and bridges.",
+            "Hydrology examples: Potomac River flow reached 312,000 cfs at Point of Rocks and the Susquehanna reached 570,000 cfs at Harrisburg.",
+            "Meteorological sequence: rainfall locally above 3 inches combined with rapid melt of snowpack holding 3 to 5.5 inches water equivalent.",
+            "Event timing and observed confirmation: stream stages and discharges peaked January 19-21 at 189 monitored streamflow-gaging stations; major flooding affected all three major Pennsylvania drainage basins.",
+            "Impact boundary: 20 Pennsylvania deaths and about 50 localities affected by ice-jam amplification."
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "confirmed_flood_threshold",
+          "formula": "Normalize the source-reported maximum crest of 20 feet above named flood stage; retain two measured peak-streamflow examples and the rain/snow sequence without averaging unlike gauges."
+        },
+        {
+          "type": "infrastructure_damage_lower_bound",
+          "formula": "Use USD 500 million as the conservative numeric value for more-than-USD-500-million highway and bridge damage; do not label it total regional damage."
+        },
+        {
+          "type": "observed_peak_duration",
+          "formula": "Count three calendar days from January 19 through January 21, when monitored stages and discharges peaked."
+        },
+        {
+          "type": "bounded_basin_extent",
+          "formula": "Normalize the five named major river basins; do not interpret them as global coverage."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "noaa_ncei_january_1996_blizzard_flood_report",
+        "usgs_pennsylvania_statewide_floods_january_1996"
+      ],
+      "uncertainty": "The 20-foot value is the maximum among reported basin crests, not a uniform regional stage departure. The USD 500 million figure covers state and local highway and bridge damage and is a lower bound, not total flood damage. More than 200,000 displaced people is retained as context and does not add separate points. Ice jams amplified flooding in some localities, so not all observed damage is attributable to snowmelt volume alone. Coverage is one multi-basin United States event.",
+      "freshness": "Historical confirmed flood ending 1996-01-21; federal reports reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "NOAA and USGS jointly document the snowpack, rain and thaw sequence, observed flood-stage exceedance and streamflow, impacts, duration and named multi-basin extent.",
+        "higher_priority_failures": [
+          "This is a historical regional accumulated-impact event, not a current global rain-on-snow flood aggregation.",
+          "No method-comparable global annual or monthly series supplies current magnitude plus threshold or momentum coverage."
+        ]
+      },
+      "input_hash": "fnv1a32:3ef5fa3c"
+    }
+  ]
+}

@@ -1,0 +1,2123 @@
+{
+  "version": "northstar_ingestion_job_registry_v1",
+  "generated_at": "2026-07-31T22:56:30.097Z",
+  "policy": "Every job names the metric or edge-evidence contract it serves and declares cadence, provenance, uncertainty, and failure behavior.",
+  "summary": {
+    "jobs": 99,
+    "contract_bindings": 186
+  },
+  "jobs": [
+    {
+      "ingestion_job_id": "export_unesco_fao_global_groundwater_irrigation_impact_snapshot",
+      "source_id": "unesco_fao_global_groundwater_irrigation_impact",
+      "snapshot_file": "unesco-fao-global-groundwater-irrigation-impact-snapshot.json",
+      "api_route": "https://www.unesco.org/reports/wwdr/2022/en",
+      "contract_bindings": [
+        {
+          "node_id": "aquifer_overdraft",
+          "metric_contract_id": "groundwater_storage_and_withdrawal_imbalance",
+          "measurement_role": "global_aggregated_groundwater_storage_depletion_rate_dependency_duration_and_extent"
+        },
+        {
+          "node_id": "agricultural_groundwater_withdrawal",
+          "metric_contract_id": "agricultural_groundwater_withdrawal_aquifer_balance",
+          "measurement_role": "global_agricultural_groundwater_abstraction_share_irrigated_land_dependency_and_duration"
+        },
+        {
+          "node_id": "municipal_groundwater_withdrawal",
+          "metric_contract_id": "municipal_groundwater_withdrawal_aquifer_balance",
+          "measurement_role": "global_domestic_groundwater_abstraction_share_urban_dependency_and_demand_duration"
+        },
+        {
+          "node_id": "irrigation_water_inefficiency",
+          "metric_contract_id": "irrigation_conveyance_and_application_efficiency",
+          "measurement_role": "global_irrigation_withdrawal_loss_food_dependency_recurrence_and_country_extent"
+        }
+      ],
+      "cadence": "Refresh with each UN World Water Development Report and major FAO AQUASTAT irrigation assessment.",
+      "provenance": "Official UNESCO/UN-Water and FAO assessments retaining global groundwater depletion range, sector abstraction shares, domestic and irrigation dependence, irrigated-land coverage, irrigation withdrawal losses and reporting-country denominators separately.",
+      "uncertainty": "Global depletion estimates vary by method and period; sector shares do not allocate depletion, dependence is exposure rather than shortage, and some apparent irrigation loss is recoverable downstream.",
+      "failure_behavior": "Retain the last reviewed assessment and mark stale; never allocate aggregate depletion to a sector, treat dependence as shortage, count recoverable return flow as destroyed water, or fill missing countries with zero."
+    },
+    {
+      "ingestion_job_id": "export_fao_global_soil_salinity_impact_snapshot",
+      "source_id": "fao_global_soil_salinity_impact",
+      "snapshot_file": "fao-global-soil-salinity-impact-snapshot.json",
+      "api_route": "https://www.fao.org/newsroom/detail/fao-launches-first-major-global-assessment-of-salt-affected-soils-in-50-years/",
+      "contract_bindings": [
+        {
+          "node_id": "topsoil_salinization_fields",
+          "metric_contract_id": "root_zone_soil_electrical_conductivity_and_salt_affected_area",
+          "measurement_role": "global_accumulated_salt_affected_area_crop_loss_annual_land_loss_and_extent"
+        }
+      ],
+      "cadence": "Refresh when FAO publishes a successor global salt-affected-soils assessment or salinity map.",
+      "provenance": "Official FAO global assessment retaining currently affected area, land share, annual crop-production loss, annual farmland loss and population context as separate quantities.",
+      "uncertainty": "Mapping, natural-versus-human salinity, older burden syntheses, cropland definitions and uneven national data affect estimates.",
+      "failure_behavior": "Retain the last reviewed assessment and mark stale; never score area at risk as affected, treat all salinity as human-caused, distribute the burden uniformly or fill missing uncertainty with zero."
+    },
+    {
+      "ingestion_job_id": "export_unep_global_nutrient_pollution_impact_snapshot",
+      "source_id": "unep_global_nutrient_pollution_impact",
+      "snapshot_file": "unep-global-nutrient-pollution-impact-snapshot.json",
+      "api_route": "https://www.unep.org/facts-about-nitrogen-pollution",
+      "contract_bindings": [
+        {
+          "node_id": "nutrient_pollution",
+          "metric_contract_id": "surface_water_total_nutrient_concentration",
+          "measurement_role": "global_accumulated_reactive_nitrogen_loss_cost_persistence_and_extent"
+        },
+        {
+          "node_id": "nitrogen_fertilizer_runoff",
+          "metric_contract_id": "riverine_dissolved_inorganic_nitrogen_load",
+          "measurement_role": "global_accumulated_fertilizer_nitrogen_escape_cost_persistence_and_extent"
+        },
+        {
+          "node_id": "estuary_eutrophication",
+          "metric_contract_id": "estuary_nutrient_eutrophication_condition",
+          "measurement_role": "global_accumulated_coastal_eutrophication_inventory_fisheries_exposure_and_persistence"
+        },
+        {
+          "node_id": "anoxic_dead_zones",
+          "metric_contract_id": "coastal_dissolved_oxygen",
+          "measurement_role": "global_accumulated_dead_zone_inventory_fisheries_exposure_and_persistence"
+        },
+        {
+          "node_id": "shelf_sea_hypoxia",
+          "metric_contract_id": "continental_shelf_bottom_water_hypoxia",
+          "measurement_role": "global_accumulated_coastal_shelf_hypoxia_inventory_fisheries_exposure_and_persistence"
+        }
+      ],
+      "cadence": "Annual review of UNEP nitrogen and Global Partnership on Nutrient Management assessments.",
+      "provenance": "Official UNEP findings retaining reactive-nitrogen loss, fertilizer escape, resource cost, eutrophication inventories, dead-zone accumulation and fisheries dependence separately.",
+      "uncertainty": "Nitrogen budgets combine multiple environmental pathways; site inventories are monitoring-dependent lower bounds and fisheries dependence is exposure rather than realized loss.",
+      "failure_behavior": "Retain the last reviewed assessment and mark stale; never convert site counts to area, allocate the global cost to a locality, classify unmonitored coasts, add overlapping budgets or fill missing values with zero."
+    },
+    {
+      "ingestion_job_id": "export_fao_unccd_global_dryland_degradation_impact_snapshot",
+      "source_id": "fao_unccd_global_dryland_degradation_impact",
+      "snapshot_file": "fao-unccd-global-dryland-degradation-impact-snapshot.json",
+      "api_route": "https://www.fao.org/4/y5738e/y5738e06.htm",
+      "contract_bindings": [
+        {
+          "node_id": "desertification_frontiers",
+          "metric_contract_id": "dryland_land_degradation_extent_and_condition",
+          "measurement_role": "global_accumulated_desertification_area_human_burden_annual_recurrence_and_extent"
+        }
+      ],
+      "cadence": "Annual review of FAO and UNCCD global dryland and desertification assessments.",
+      "provenance": "Official FAO synthesis of GLASOD/UNEP desertification estimates and official UNCCD land-and-health synthesis, retaining assessment years, direct-versus-at-risk population labels, dryland boundaries and source locators.",
+      "uncertainty": "The global area and annual-rate estimates synthesize older assessments with differing definitions and methods; population figures are order-of-magnitude estimates rather than a household census.",
+      "failure_behavior": "Retain the last reviewed assessment and mark stale; reject changed dryland definitions, units, population labels, annual-rate boundaries or locators; never infer a current-data trend, convert drought alone into persistent degradation or fill unreported uncertainty with zero."
+    },
+    {
+      "ingestion_job_id": "fetch_nasa_ceres_global_cloud_radiative_effect",
+      "source_id": "nasa_ceres_ebaf_toa_ed4_2_1_global_monthly",
+      "snapshot_file": "nasa-ceres-global-cloud-radiative-effect-snapshot.json",
+      "api_route": "https://ceres-tool.larc.nasa.gov/ord-tool/jsp/EBAFTOA421Selection.jsp",
+      "contract_bindings": [
+        {
+          "node_id": "cloud_albedo_shift",
+          "metric_contract_id": "satellite_cloud_radiative_effect_change",
+          "measurement_role": "global_monthly_top_of_atmosphere_shortwave_cloud_radiative_effect"
+        }
+      ],
+      "cadence": "Monthly after NASA CERES extends or revises EBAF-TOA Ed4.2.1; validate the product version and available range before every refresh.",
+      "provenance": "Official NASA CERES EBAF-TOA Ed4.2.1 source-native global monthly outgoing shortwave all-sky and clear-sky flux arrays, retaining the exact product, variables, sign convention and available time range.",
+      "uncertainty": "Clear-sky sampling, scene classification, cloud masking, diurnal sampling, instrument calibration, aerosol above clouds, surface albedo, product revisions and changing cloud regimes affect the inferred cloud radiative effect and its trend.",
+      "failure_behavior": "Retain the last validated snapshot and mark stale; reject a changed product version, variable identity, time range, missing month, non-finite flux, sign-convention violation or fewer than 20 complete calendar years; never fill missing flux with zero or substitute total cloud fraction for radiative effect."
+    },
+    {
+      "ingestion_job_id": "fetch_world_bank_wdi_global_pm2_5_exposure",
+      "source_id": "world_bank_wdi_global_pm2_5_exposure",
+      "snapshot_file": "world-bank-global-air-quality-snapshot.json",
+      "api_route": "https://api.worldbank.org/v2/country/WLD/indicator/EN.ATM.PM25.MC.M3?format=json&per_page=100",
+      "contract_bindings": [
+        {
+          "node_id": "pm2_5_particulates",
+          "metric_contract_id": "ambient_pm25_concentration",
+          "measurement_role": "global_population_weighted_mean_annual_pm2_5_exposure"
+        }
+      ],
+      "cadence": "Annual after the World Bank updates the WDI PM2.5 exposure series; check source metadata monthly.",
+      "provenance": "Official World Bank API World aggregate for EN.ATM.PM25.MC.M3, retaining the consecutive population-weighted annual exposure series sourced from Global Burden of Disease 2023.",
+      "uncertainty": "This is a model-based population-exposure estimate informed by satellite retrievals, chemical transport models and monitoring data; exposure surfaces, population weights, calibration and source revisions affect comparisons.",
+      "failure_behavior": "Retain the last validated snapshot and mark stale; reject changed indicator, geography, units, non-positive values, internal missing years or fewer than 20 complete annual observations; never fill missing exposure with zero or substitute country values for the World aggregate."
+    },
+    {
+      "ingestion_job_id": "fetch_noaa_florida_current_transport",
+      "source_id": "noaa_florida_current_transport_time_series_data_products",
+      "snapshot_file": "noaa-florida-current-snapshot.json",
+      "api_route": "https://www.aoml.noaa.gov/phod/floridacurrent/data_access.php",
+      "contract_bindings": [
+        {
+          "node_id": "gulf_stream_slowdown",
+          "metric_contract_id": "gulf_stream_section_transport_and_path_position",
+          "measurement_role": "florida_straits_27n_daily_transport_primary"
+        }
+      ],
+      "cadence": "Annual complete-year refresh from NOAA daily v3 files.",
+      "provenance": "Official NOAA/AOML Western Boundary Time Series daily Florida Current transport at 27N, retaining valid cable and pressure-gauge replacement flags, source-year locators and the secular geomagnetic-field correction.",
+      "uncertainty": "Transport at one section includes wind-driven and overturning contributions; instrumentation, cable calibration, pressure-gauge substitution, geomagnetic correction, missing days and annual aggregation affect comparison.",
+      "failure_behavior": "Retain the last validated complete-year snapshot and mark stale; reject missing annual files, fewer than 300 valid days, schema drift or invalid quality flags; never fill missing days with zero or infer the full Gulf Stream or AMOC from this section."
+    },
+    {
+      "ingestion_job_id": "fetch_rapid_amoc_26n_transport",
+      "source_id": "rapid_amoc_26n_transport_time_series",
+      "snapshot_file": "rapid-amoc-snapshot.json",
+      "api_route": "https://rapid.ac.uk/data/integrated-transports",
+      "contract_bindings": [
+        {
+          "node_id": "amoc",
+          "metric_contract_id": "amoc_overturning_transport",
+          "measurement_role": "monthly_mean_full_basin_width_26_5n_overturning_transport"
+        }
+      ],
+      "cadence": "Release-triggered refresh with a monthly source and DOI metadata check.",
+      "provenance": "Official RAPID-MOCHA-WBTS half-daily, 10-day-low-pass-filtered full-basin-width AMOC transport at 26.5N, aggregated only into coverage-qualified monthly observations and bound to the source NetCDF checksum.",
+      "uncertainty": "Mooring recovery and quality-control create a publication lag; sub-annual AMOC variability is large and one latitude does not directly observe every global overturning cell.",
+      "failure_behavior": "Retain the last checksum-validated snapshot and mark stale; reject changed variables, units, epoch, fill value or fewer than 60 complete months; never fill missing transports with zero or infer AMOC collapse from a single month."
+    },
+    {
+      "ingestion_job_id": "export_fao_world_cereal_feed_share_snapshot",
+      "source_id": "faostat_world_cereal_feed_share",
+      "snapshot_file": "fao-world-cereal-feed-share-snapshot.json",
+      "api_route": "https://www.fao.org/faostat/en/#data/FBS",
+      "contract_bindings": [
+        {
+          "node_id": "feed_crop_dependency",
+          "metric_contract_id": "livestock_feed_crop_use_share",
+          "measurement_role": "global_cereal_feed_mass_and_share_of_domestic_supply"
+        }
+      ],
+      "cadence": "Annual FAOSTAT Food Balance Sheets release.",
+      "provenance": "Checksum-bound World aggregate feed and domestic-supply rows for the source-defined Cereals - Excluding Beer basket, with a quantified four-year overlap crosswalk between official historical and current editions.",
+      "uncertainty": "Food-balance synthesis, commodity composition, feed by-products, revisions and edition changes affect values; the historical crosswalk is used only for normalization and does not alter current observations.",
+      "failure_behavior": "Retain the last checksum-validated current series and mark stale; reject changed World, item, element, unit, year or checksum definitions; never combine undeclared commodity masses, fill missing utilization with zero, call feed use livestock intake or splice editions without overlap calibration."
+    },
+    {
+      "ingestion_job_id": "export_fao_food_import_exposure_snapshot",
+      "source_id": "faostat_cereal_import_dependency_and_population_2026",
+      "snapshot_file": "fao-food-import-exposure-snapshot.json",
+      "api_route": "https://www.fao.org/faostat/en/#data/FS",
+      "contract_bindings": [
+        {
+          "node_id": "food_import_exposure",
+          "metric_contract_id": "food_import_dependency_ratio",
+          "measurement_role": "population_weighted_global_distribution_of_country_cereal_import_dependency"
+        }
+      ],
+      "cadence": "Annual FAOSTAT Food Security and Population release.",
+      "provenance": "Checksum-bound FAOSTAT country and territory cereal import-dependency ratios joined to middle-year total population, retaining signed ratios and high-dependency population exposure across 22 complete three-year periods.",
+      "uncertainty": "Food-balance uncertainty, informal trade, stock changes, re-exports, food aid, population estimates and overlapping three-year periods affect values; country dependency is not household insecurity or supplier concentration.",
+      "failure_behavior": "Retain the last checksum-validated source pair and mark stale; reject item, unit, population element, area-code, period or checksum changes; never clip net exporters, fill missing ratios with zero, use the World net-trade ratio as exposure or infer insecurity from dependency alone."
+    },
+    {
+      "ingestion_job_id": "export_fao_fertilizer_product_output_snapshot",
+      "source_id": "faostat_fertilizer_product_output_2026",
+      "snapshot_file": "fao-fertilizer-product-output-snapshot.json",
+      "api_route": "https://www.fao.org/faostat/en/#data/RFB",
+      "contract_bindings": [
+        {
+          "node_id": "fertilizer_production",
+          "metric_contract_id": "fertilizer_product_output",
+          "measurement_role": "global_annual_product_class_output_from_disjoint_country_rows"
+        }
+      ],
+      "cadence": "Annual FAOSTAT fertilizer-product release.",
+      "provenance": "Checksum-bound FAOSTAT Fertilizers by Product rows filtered to production in tonnes and disjoint country or territory area codes, retaining 15 complete 2002-2023 product-class series separately.",
+      "uncertainty": "Official, estimated and imputed flags, confidential output, country reporting gaps, revisions, secondary production and product composition affect totals; the 2024 country panel is incomplete.",
+      "failure_behavior": "Retain the last checksum-validated complete product panel and mark stale; reject schema, element, unit, code or checksum changes; never fill missing output with zero, mix country and aggregate rows, sum product classes or convert product mass to nutrient mass without composition factors."
+    },
+    {
+      "ingestion_job_id": "export_ipcc_aerosol_cooling_loss_snapshot",
+      "source_id": "ipcc_ar6_global_aerosol_erf_time_series",
+      "snapshot_file": "ipcc-aerosol-cooling-loss-snapshot.json",
+      "api_route": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-7/",
+      "contract_bindings": [
+        {
+          "node_id": "aerosol_cooling_loss",
+          "metric_contract_id": "anthropogenic_aerosol_effective_radiative_forcing",
+          "measurement_role": "global_annual_assessment_constrained_aerosol_erf_cooling_loss"
+        }
+      ],
+      "cadence": "IPCC physical-science assessment release review.",
+      "provenance": "Checksum-bound IPCC AR6 Chapter 7 author output retaining the exact 1990-2019 global annual aerosol-radiation, aerosol-cloud and total aerosol effective-radiative-forcing values needed for current loss and momentum.",
+      "uncertainty": "Aerosol forcing is assessment-constrained rather than directly observed, aerosol-cloud interactions dominate uncertainty, and IPCC has low confidence in the magnitude of post-2014 change.",
+      "failure_behavior": "Retain the last checksum-validated assessment series and mark stale; reject changed columns, units, years or checksum; never substitute emissions, optical depth, projections or regional trends for global total aerosol forcing or fill missing years with zero."
+    },
+    {
+      "ingestion_job_id": "export_global_ocean_stratification_snapshot",
+      "source_id": "global_ocean_stratification_observation_assessment",
+      "snapshot_file": "global-ocean-stratification-snapshot.json",
+      "api_route": "https://www.nature.com/articles/s41558-020-00918-2",
+      "contract_bindings": [
+        {
+          "node_id": "thermal_stratification_intensification",
+          "metric_contract_id": "upper_ocean_density_stratification",
+          "measurement_role": "global_annual_observed_0_2000m_density_stratification_and_upper_ocean_update"
+        }
+      ],
+      "cadence": "Annual primary-study and assessment-update review.",
+      "provenance": "Peer-reviewed global ocean temperature and salinity synthesis retaining checksum-bound 1960-2018 annual N-squared anomalies, source uncertainty bounds and an independent 1960-2024 multi-dataset review update.",
+      "uncertainty": "Historical profile density, vertical resolution, interpolation, horizontal sampling, instrument bias, dataset construction and depth-layer selection affect estimates. The annual source workbook ends in 2018; the 2025 review supplies updated trend summaries rather than a replacement annual series.",
+      "failure_behavior": "Retain the last validated source workbook and mark stale; reject checksum, units, years, depths or uncertainty-column changes; never fill missing profiles with zero, combine projections with observations or infer local stratification from the global mean."
+    },
+    {
+      "ingestion_job_id": "export_fao_global_topsoil_erosion_impact_snapshot",
+      "source_id": "fao_global_topsoil_erosion_burden",
+      "snapshot_file": "fao-global-topsoil-erosion-impact-snapshot.json",
+      "api_route": "https://www.fao.org/newsroom/detail/Global-Soil-Partnership-endorses-guidelines-on-sustainable-soil-management/en",
+      "contract_bindings": [
+        {
+          "node_id": "topsoil_erosion_acceleration",
+          "metric_contract_id": "soil_erosion_rate",
+          "measurement_role": "global_annual_arable_soil_loss_and_agricultural_production_burden"
+        }
+      ],
+      "cadence": "Annual FAO Global Soil Partnership assessment review.",
+      "provenance": "Official FAO global annual arable-soil erosion and agricultural-production-loss estimates, retained in their source units and boundary.",
+      "uncertainty": "Global estimates synthesize heterogeneous methods and landscapes; erosion, deposition, soil formation, wind and water processes and valuation assumptions vary. The summary provides no observation-level uncertainty interval or globally comparable annual trend.",
+      "failure_behavior": "Retain the last reviewed estimate and mark stale; reject changed units or boundaries; never infer remaining topsoil stock, apply a world average to a locality, fill missing uncertainty with zero or call the burden estimate a measured acceleration series."
+    },
+    {
+      "ingestion_job_id": "export_global_flood_exposure_impact_snapshot",
+      "source_id": "global_flood_exposure_observation_and_poverty_studies",
+      "snapshot_file": "global-flood-exposure-impact-snapshot.json",
+      "api_route": "https://www.nature.com/articles/s41586-021-03695-w",
+      "contract_bindings": [
+        {
+          "node_id": "floodplain_exposure",
+          "metric_contract_id": "population_and_assets_in_floodplain",
+          "measurement_role": "global_observed_inundation_and_declared_probability_zone_population_exposure"
+        }
+      ],
+      "cadence": "Annual review for a comparable global flood-observation or exposure assessment.",
+      "provenance": "Peer-reviewed global satellite observation of 913 large flood events during 2000-2018 paired with a World Bank-led 188-country, 1-in-100-year flood-zone population and poverty exposure assessment.",
+      "uncertainty": "The observed event catalogue omits small, cloud-obscured and quality-control-failing floods; affected-population estimates are a range. The probability-zone assessment is modeled and protection, terrain, population and poverty inputs affect results. Neither source reports global asset value.",
+      "failure_behavior": "Retain the last reviewed pair and mark stale; reject changed event, country, time or hazard thresholds; never add observed affected people to modeled exposed people, treat exposure as annual victims, infer missing asset value or score future projections."
+    },
+    {
+      "ingestion_job_id": "export_undrr_ldc_disaster_inequality_snapshot",
+      "source_id": "undrr_disaster_risk_reduction_in_least_developed_countries",
+      "snapshot_file": "undrr-ldc-disaster-inequality-snapshot.json",
+      "api_route": "https://www.undrr.org/implementing-sendai-framework/sendai-framework-action/disaster-risk-reduction-least-developed-countries",
+      "contract_bindings": [
+        {
+          "node_id": "disaster_recovery_inequality",
+          "metric_contract_id": "openfema_geographic_ihp_assistance_gap",
+          "measurement_role": "global_companion_cross_income_disaster_burden_inequality_assessment"
+        }
+      ],
+      "cadence": "Annual Sendai Framework Monitor review.",
+      "provenance": "Official UNDRR LDC status summary retaining the 2015-2024 period, mortality-rate and direct-loss-to-GDP comparisons, and reporting denominator.",
+      "uncertainty": "Reporting definitions, valuation, national capacity and completeness vary; group comparisons do not measure household recovery, aid awards or causal discrimination.",
+      "failure_behavior": "Retain the last reviewed assessment and mark stale; reject changed periods or missing denominators; never infer non-reporting as zero, apply group averages to households or combine rates into counts."
+    },
+    {
+      "ingestion_job_id": "export_fao_fishstat_marine_capture_snapshot",
+      "source_id": "fao_fishstat_global_marine_capture_2026",
+      "snapshot_file": "fao-fishstat-marine-capture-snapshot.json",
+      "api_route": "https://www.fao.org/fishery/static/FishStatJ/FAO_FI_Global_Production_2026.1.0.fws",
+      "contract_bindings": [
+        {
+          "node_id": "fish_landing_supply_disruption",
+          "metric_contract_id": "marine_fish_landings_shortfall",
+          "measurement_role": "global_annual_marine_capture_production_primary"
+        }
+      ],
+      "cadence": "Annual after the FAO FishStat Global Production release.",
+      "provenance": "Checksum-bound FAO FishStat capture quantities filtered to tonnes live weight, marine fishing areas and the SOFIA Fish, crustaceans and molluscs category.",
+      "uncertainty": "National submissions and flags, unreported catch, area and species assignment, revisions and live-weight conversion affect totals; global stability can mask regional disruption.",
+      "failure_behavior": "Retain the last checksum-validated complete series and mark stale; reject changed filters or fewer than 20 baseline years; never combine inland capture or aquaculture, fill missing years with zero or infer local landings."
+    },
+    {
+      "ingestion_job_id": "export_groundwater_level_trends_snapshot",
+      "source_id": "global_in_situ_groundwater_level_trends_study",
+      "snapshot_file": "global-groundwater-level-trends-snapshot.json",
+      "api_route": "https://www.nature.com/articles/s41586-023-06879-8",
+      "contract_bindings": [
+        {
+          "node_id": "groundwater_depletion",
+          "metric_contract_id": "usgs_groundwater_level_observation",
+          "measurement_role": "global_companion_in_situ_aquifer_level_trend_aggregation"
+        },
+        {
+          "node_id": "groundwater_depletion_wells",
+          "metric_contract_id": "wells_with_declining_groundwater_level",
+          "measurement_role": "global_source_data_well_level_decline_threshold_prevalence"
+        }
+      ],
+      "cadence": "Annual primary-study and source-data release review; replace only with a comparable global in-situ aggregation.",
+      "provenance": "Peer-reviewed annual-median groundwater-level analysis retaining about 170,000 wells, 1,693 aquifer systems, published trend bins, well-level Figure 1 source data and comparison subsets.",
+      "uncertainty": "Monitoring density, record length, aquifer delineation and national coverage vary; wells are not a randomized global sample, withdrawal coverage is not land or aquifer coverage and level change is not storage volume.",
+      "failure_behavior": "Retain the last reviewed study and mark stale; reject changed denominators or source-data checksums; never infer volume, attribute all decline to pumping or treat unmonitored aquifers or wells as stable."
+    },
+    {
+      "ingestion_job_id": "export_pollinator_service_impact_snapshot",
+      "source_id": "global_pollinator_deficits_and_health_burden_study",
+      "snapshot_file": "pollinator-service-impact-snapshot.json",
+      "api_route": "https://pubmed.ncbi.nlm.nih.gov/36515549/",
+      "contract_bindings": [
+        {
+          "node_id": "pollinator_service_decline",
+          "metric_contract_id": "crop_pollination_service_deficit",
+          "measurement_role": "global_current_pollination_deficit_crop_and_health_burden_assessment"
+        }
+      ],
+      "cadence": "Annual literature and IPBES assessment review; replace only with a globally comparable updated burden study.",
+      "provenance": "Peer-reviewed global crop-yield-gap, pollination-attribution, trade and comparative-risk assessment retaining estimates and uncertainty intervals separately.",
+      "uncertainty": "Crop loss and mortality are modeled estimates; yield-gap attribution, trade, food waste, diet, risk functions and country data affect results, and no complete global pollinator trend is established.",
+      "failure_behavior": "Retain the last reviewed assessment and mark stale; reject non-global studies; never score total pollination-dependent production as realized loss, treat uncertainty bounds as observations or infer global colony collapse."
+    },
+    {
+      "ingestion_job_id": "export_undrr_critical_infrastructure_impact_snapshot",
+      "source_id": "undrr_sendai_midterm_critical_infrastructure_impacts",
+      "snapshot_file": "undrr-critical-infrastructure-impact-snapshot.json",
+      "api_route": "https://www.undrr.org/publication/report-midterm-review-implementation-sendai-framework-disaster-risk-reduction-2015-2030",
+      "contract_bindings": [
+        {
+          "node_id": "critical_infrastructure_fragility",
+          "metric_contract_id": "eia_oe417_reported_customer_interruption_burden",
+          "measurement_role": "multi_country_accumulated_facility_damage_and_basic_service_disruption_assessment"
+        }
+      ],
+      "cadence": "Sendai Framework Monitor and Target D assessment release review.",
+      "provenance": "Official UNDRR Target D assessment retaining annual-average damaged facilities, fixed-period service disruptions, reporting-country denominator and modeled losses separately.",
+      "uncertainty": "Country reporting and definitions vary; pandemic-period service disruptions cannot all be attributed to physical damage and global annual loss is modeled.",
+      "failure_behavior": "Retain the last reviewed Target D assessment and mark stale; reject missing denominators; never infer unreported countries as zero, add facility and service counts or score modeled annual loss as observed."
+    },
+    {
+      "ingestion_job_id": "export_wmo_unep_coastal_inundation_impact_snapshot",
+      "source_id": "wmo_unep_global_coastal_inundation_assessments",
+      "snapshot_file": "wmo-unep-coastal-inundation-impact-snapshot.json",
+      "api_route": "https://public.wmo.int/sites/default/files/2025-11/State%20of%20the%20Climate%202025%20Update%20COP30%20%2831%20oct%29.pdf",
+      "contract_bindings": [
+        {
+          "node_id": "coastal_inundation_risk",
+          "metric_contract_id": "storm_surge_threshold_exposure",
+          "measurement_role": "global_accumulated_coastal_hazard_and_population_exposure_assessment"
+        }
+      ],
+      "cadence": "Annual WMO global-climate update and UNEP coastal-exposure assessment review.",
+      "provenance": "Official WMO observed global mean sea-level rates and current low-lying-coast exposure paired with UNEP current additional 1-in-20 annual coastal-flood exposure.",
+      "uncertainty": "Exposure depends on elevation, population, protection and hazard models; preliminary sea-level data include natural variability and exposure is not realized loss.",
+      "failure_behavior": "Retain the last reviewed assessment pair and mark stale; reject changed periods or probability boundaries; never add overlapping exposure, treat exposure as annual victims or score future projections as current impact."
+    },
+    {
+      "ingestion_job_id": "export_ioc_global_ocean_oxygen_impact_snapshot",
+      "source_id": "ioc_unesco_global_ocean_oxygen_network",
+      "snapshot_file": "ioc-global-ocean-oxygen-impact-snapshot.json",
+      "api_route": "https://www.ioc.unesco.org/en/go2ne",
+      "contract_bindings": [
+        {
+          "node_id": "coastal_hypoxia",
+          "metric_contract_id": "noaa_gulf_midsummer_hypoxic_zone_area",
+          "measurement_role": "global_accumulated_coastal_hypoxia_extent_companion"
+        },
+        {
+          "node_id": "oceanic_deoxygenation",
+          "metric_contract_id": "dissolved_oxygen_inventory_and_deficit",
+          "measurement_role": "global_ocean_deoxygenation_assessment_context"
+        }
+      ],
+      "cadence": "IOC-UNESCO GO2NE assessment release review.",
+      "provenance": "Official IOC-UNESCO synthesis retaining open-ocean low-oxygen area growth and inventoried coastal low-oxygen sites separately.",
+      "uncertainty": "Coastal monitoring is geographically uneven; site inventories lack consistent area, duration, severity and cadence and cannot be summed into global area.",
+      "failure_behavior": "Retain the last reviewed assessment and mark stale; reject changed dates or units; never convert sites to area, infer unmonitored coasts as oxygenated or combine open-ocean and coastal extents."
+    },
+    {
+      "ingestion_job_id": "export_ramsar_global_wetland_impact_snapshot",
+      "source_id": "ramsar_global_wetland_outlook_2025",
+      "snapshot_file": "ramsar-global-wetland-impact-snapshot.json",
+      "api_route": "https://www.global-wetland-outlook.ramsar.org/",
+      "contract_bindings": [
+        {
+          "node_id": "wetlands_drainage_scales",
+          "metric_contract_id": "wetland_area_drained_or_converted",
+          "measurement_role": "global_accumulated_wetland_loss_degradation_and_service_loss_assessment"
+        }
+      ],
+      "cadence": "Global Wetland Outlook release review with annual Convention status check.",
+      "provenance": "Official Convention on Wetlands global assessment retaining historical area loss, ongoing decline, remaining-condition share and accumulated service-value loss separately.",
+      "uncertainty": "Wetland definitions, historical mapping, reporting coverage and economic valuation methods vary by type and region; valuation is not a market transaction.",
+      "failure_behavior": "Retain the last reviewed assessment and mark stale; reject changed area or price-year boundaries; never relabel all wetland loss as agricultural drainage, add degraded and lost area or score projected loss as realized impact."
+    },
+    {
+      "ingestion_job_id": "export_undrr_global_drought_impact_snapshot",
+      "source_id": "undrr_gar_2025_global_drought_impacts",
+      "snapshot_file": "undrr-global-drought-impact-snapshot.json",
+      "api_route": "https://www.undrr.org/gar/gar2025/hazard-exploration/droughts",
+      "contract_bindings": [
+        {
+          "node_id": "drought_persistence",
+          "metric_contract_id": "drought_event_duration_spi6",
+          "measurement_role": "global_accumulated_drought_frequency_human_loss_and_persistence_assessment"
+        }
+      ],
+      "cadence": "UNDRR GAR release review with annual drought-terminology and loss-estimate checks.",
+      "provenance": "Official UNDRR global drought hazard assessment retaining recorded occurrence change, fixed-decade affected population and cost, modeled present annual loss and global-region scope separately.",
+      "uncertainty": "Drought onset, duration, loss and affected-population reporting are incomplete and definition-sensitive; present annual loss is modeled rather than a reconciled observation inventory.",
+      "failure_behavior": "Retain the last reviewed GAR assessment and mark stale; reject changed periods or loss boundaries; never add overlapping affected populations, infer local SPI or score modeled annual loss as observed damage."
+    },
+    {
+      "ingestion_job_id": "export_wmo_unesco_glacier_water_impact_snapshot",
+      "source_id": "wmo_unesco_global_glacier_water_assessments",
+      "snapshot_file": "wmo-unesco-glacier-water-impact-snapshot.json",
+      "api_route": "https://wmo.int/resources/publication-series/state-of-global-water-resources/state-of-global-water-resources-2024",
+      "contract_bindings": [
+        {
+          "node_id": "glacier_meltwater_dependency",
+          "metric_contract_id": "glacier_runoff_share_of_water_supply",
+          "measurement_role": "global_glacier_mass_loss_and_glacier_snow_melt_dependence_assessment"
+        }
+      ],
+      "cadence": "Annual WMO water-resource report and UN World Water Development Report release review.",
+      "provenance": "Official WMO global glacier mass-balance assessment paired with the official UNESCO/UN-Water glacier-and-snow melt dependence assessment, retaining all measurement boundaries separately.",
+      "uncertainty": "Mass-balance scaling, preliminary observations, regional coverage and human-dependence definitions affect estimates; the population figure includes snow melt and is not glacier-only supply share.",
+      "failure_behavior": "Retain the last reviewed assessment pair and mark stale; reject missing mass units or region denominators; never relabel glacier-plus-snow dependence as glacier-only supply or realized shortage."
+    },
+    {
+      "ingestion_job_id": "export_copernicus_global_ocean_ph_snapshot",
+      "source_id": "copernicus_marine_global_ocean_ph",
+      "snapshot_file": "copernicus-global-ocean-ph-snapshot.json",
+      "api_route": "https://data.marine.copernicus.eu/product/GLOBAL_OMI_HEALTH_carbon_ph_area_averaged/services",
+      "contract_bindings": [
+        {
+          "node_id": "ocean_acidification",
+          "metric_contract_id": "surface_ocean_ph_and_aragonite_state",
+          "measurement_role": "global_area_averaged_annual_surface_ocean_ph_primary"
+        }
+      ],
+      "cadence": "Annual Copernicus Marine OMI release check with full native-file checksum and series replacement.",
+      "provenance": "Official Copernicus Marine global annual surface-ocean pH indicator, retaining the dataset release, complete time series, source uncertainty and native NetCDF checksum.",
+      "uncertainty": "The series is a multi-observation reprocessing product; carbonate inputs, sampling sparsity, reconstruction, weighting, pH scale, coverage and revisions affect estimates.",
+      "failure_behavior": "Retain the last checksum-validated complete series and mark stale; reject schema changes, missing or duplicate years, implausible pH or fewer than 20 annual observations; never fill missing years with zero or infer aragonite saturation from pH."
+    },
+    {
+      "ingestion_job_id": "export_unctad_maritime_bottleneck_impact_snapshot",
+      "source_id": "unctad_review_of_maritime_transport_2024",
+      "snapshot_file": "unctad-maritime-bottleneck-impact-snapshot.json",
+      "api_route": "https://unctad.org/publication/review-maritime-transport-2025",
+      "contract_bindings": [
+        {
+          "node_id": "supply_chain_port_bottlenecks",
+          "metric_contract_id": "port_dwell_time_and_queue",
+          "measurement_role": "global_maritime_chokepoint_port_and_rerouting_burden_primary"
+        },
+        {
+          "node_id": "shipping",
+          "metric_contract_id": "seaborne_trade_and_ship_fuel_use",
+          "measurement_role": "global_current_shipping_activity_fuel_transition_and_emissions_primary"
+        },
+        {
+          "node_id": "shipping_lane_disruption",
+          "metric_contract_id": "shipping_route_delay_and_diversion",
+          "measurement_role": "global_accumulated_rerouting_ton_mile_freight_cost_persistence_and_trade_extent"
+        }
+      ],
+      "cadence": "Annual Review of Maritime Transport release with quarterly UNCTAD freight and chokepoint checks.",
+      "provenance": "Official UNCTAD maritime-transport reviews retaining seaborne-trade exposure, rerouting ton-mile effects, port congestion context and freight-rate comparisons separately.",
+      "uncertainty": "Freight indices cover selected routes; port calls are activity rather than congestion duration; routing, cargo mix, contracts, fuel, insurance and timing affect comparison.",
+      "failure_behavior": "Retain the last reviewed report pair and mark stale; never convert port calls to delay, attribute all freight inflation to ports or score projected consumer-price effects as realized losses."
+    },
+    {
+      "ingestion_job_id": "export_who_cholera_emergency_snapshot",
+      "source_id": "who_global_cholera_emergency_updates",
+      "snapshot_file": "who-cholera-emergency-snapshot.json",
+      "api_route": "https://www.who.int/emergencies/situations/cholera-upsurge/",
+      "contract_bindings": [
+        {
+          "node_id": "waterborne_pathogen_outbreaks",
+          "metric_contract_id": "waterborne_outbreak_signal",
+          "measurement_role": "global_cholera_awd_complete_reporting_period_primary"
+        }
+      ],
+      "cadence": "Monthly WHO emergency-update check with complete-period replacement after the final epidemiological report.",
+      "provenance": "Official WHO multi-country cholera emergency updates for near-complete reporting periods and WHO surveillance case-fatality benchmark.",
+      "uncertainty": "Case definitions, surveillance, underreporting, verification, reporting delays, laboratory confirmation, community deaths and observation cutoffs affect comparison.",
+      "failure_behavior": "Retain the last reconciled complete-period pair and mark stale; never infer absence from missing reports, relabel cholera/AWD as all waterborne disease or compare incomplete periods as full years."
+    },
+    {
+      "ingestion_job_id": "fetch_aqueduct_snapshot",
+      "source_id": "wri_aqueduct",
+      "snapshot_file": "aqueduct-snapshot.json",
+      "api_route": "/api/aqueduct/snapshot",
+      "contract_bindings": [
+        {
+          "node_id": "water_stress",
+          "metric_contract_id": "baseline_water_withdrawal_to_supply_ratio",
+          "measurement_role": "global_baseline_water_stress_threshold_and_population_exposure_primary"
+        }
+      ],
+      "cadence": "Refresh on Aqueduct model releases and revalidate the global assessment page monthly.",
+      "provenance": "WRI Aqueduct 4.0 global baseline-water-stress assessment retaining threshold definitions, country counts, population exposure, demand-change baseline and irrigated-agriculture exposure separately.",
+      "uncertainty": "Modeled renewable supply, withdrawals, population allocation, return flows and country aggregation affect results; exposure is not realized household shortage.",
+      "failure_behavior": "Retain the last validated assessment and mark stale; reject changed thresholds or missing denominators; never treat exposure as observed shortage, classify missing places as zero stress or score future projections as current."
+    },
+    {
+      "ingestion_job_id": "fetch_coral_reef_watch_snapshot",
+      "source_id": "noaa_coral_reef_watch",
+      "snapshot_file": "coral-reef-watch-snapshot.json",
+      "api_route": "/api/coral-reef-watch/snapshot",
+      "contract_bindings": [
+        {
+          "node_id": "coral_bleaching",
+          "metric_contract_id": "coral_bleaching_severity",
+          "measurement_role": "operational_global_reef_area_bleaching_stress_extent_primary"
+        }
+      ],
+      "cadence": "Daily source check with weekly validated snapshot replacement and event-status reconciliation.",
+      "provenance": "Official NOAA Coral Reef Watch daily global 5 km bleaching-stress extent, documented global-event criteria, event-wide reef-area exposure and field-confirmed mass-bleaching jurisdiction count.",
+      "uncertainty": "Satellite reef masks, climatology, product versions, heat-stress thresholds, field-report coverage and event start/end adjudication affect estimates; heat-stress extent is not colony mortality.",
+      "failure_behavior": "Retain the last validated snapshot and mark stale; reject missing criteria, invalid percentages, truncated history or changed basin denominator; never infer reef structural collapse or fill missing reef pixels with zero."
+    },
+    {
+      "ingestion_job_id": "export_unep_unwater_freshwater_impact_snapshot",
+      "source_id": "unep_un_water_progress_on_water_related_ecosystems_2024",
+      "snapshot_file": "unep-unwater-freshwater-impact-snapshot.json",
+      "api_route": "https://www.unwater.org/publications/progress-water-related-ecosystems-2024-update",
+      "contract_bindings": [
+        {
+          "node_id": "freshwater_ecosystem_collapse",
+          "metric_contract_id": "epa_nrsa_poor_biological_condition",
+          "measurement_role": "global_assessment_accumulated_freshwater_ecosystem_degradation_primary"
+        },
+        {
+          "node_id": "river_flow_regime_shift",
+          "metric_contract_id": "usgs_daily_discharge_regime",
+          "measurement_role": "global_assessment_accumulated_reduced_river_flow_basin_inventory_primary"
+        },
+        {
+          "node_id": "surface_water_inflow_deficit",
+          "metric_contract_id": "surface_water_inflow_deficit",
+          "measurement_role": "global_assessment_accumulated_significantly_reduced_inflow_basin_inventory_primary"
+        },
+        {
+          "node_id": "surface_water_storage_instability",
+          "metric_contract_id": "surface_water_storage_instability",
+          "measurement_role": "global_assessment_accumulated_permanent_surface_water_recession_primary"
+        }
+      ],
+      "cadence": "Refresh with each UNEP and UN-Water SDG 6.6.1 progress assessment.",
+      "provenance": "Reviewed global SDG 6.6.1 findings for freshwater status, basin flow trends and exposed population, retaining country and basin denominators.",
+      "uncertainty": "Country reporting, satellite coverage, basin delineation, trend significance, observation epochs and national indicator composition vary.",
+      "failure_behavior": "Retain the last reviewed assessment and mark stale; never add overlapping populations, turn one degraded type into total national collapse, infer causes from flow change or fill unreported ecosystems with zero."
+    },
+    {
+      "ingestion_job_id": "export_ipbes_biodiversity_invasive_impact_snapshot",
+      "source_id": "ipbes_global_biodiversity_and_invasive_species_assessments",
+      "snapshot_file": "ipbes-biodiversity-invasive-impact-snapshot.json",
+      "api_route": "https://ict.ipbes.net/ipbes-ict-guide/data-and-knowledge-management/citations-of-ipbes-assessments",
+      "contract_bindings": [
+        {
+          "node_id": "biodiversity_intactness_loss",
+          "metric_contract_id": "gbif_species_occurrence_coverage",
+          "measurement_role": "global_assessment_accumulated_native_biodiversity_loss_primary"
+        },
+        {
+          "node_id": "invasive_species_encroachment",
+          "metric_contract_id": "gbif_non_native_occurrence_expansion",
+          "measurement_role": "global_assessment_accumulated_invasive_species_impact_primary"
+        }
+      ],
+      "cadence": "Refresh when IPBES publishes a successor global biodiversity or invasive-alien-species assessment.",
+      "provenance": "Reviewed IPBES Summary for Policymakers values, preserving assessment year, lower bounds, price year and attribution language. These are assessment syntheses, not occurrence-record trends.",
+      "uncertainty": "Monitoring, models, red lists, economic studies, taxonomic and geographic coverage, extinction attribution and benefit valuation affect estimates; several findings are established but incomplete.",
+      "failure_behavior": "Retain the last reviewed assessment and mark stale; never derive intactness or invasion trends from raw occurrences, add overlapping extinction categories, turn contribution into sole causation or treat risk ranges as realized losses."
+    },
+    {
+      "ingestion_job_id": "export_who_air_pollution_impact_snapshot",
+      "source_id": "who_global_air_pollution_data_portal",
+      "snapshot_file": "who-air-pollution-impact-snapshot.json",
+      "api_route": "https://www.who.int/data/gho/data/themes/air-pollution",
+      "contract_bindings": [
+        {
+          "node_id": "air_pollution_health_burden",
+          "metric_contract_id": "air_pollution_attributable_health_burden",
+          "measurement_role": "global_assessment_accumulated_exposure_and_mortality_primary"
+        },
+        {
+          "node_id": "ambient_air_quality_deficit",
+          "metric_contract_id": "air_quality_standard_exceedance_days",
+          "measurement_role": "global_assessment_population_above_who_guidelines_mortality_persistence_and_extent"
+        }
+      ],
+      "cadence": "Refresh when WHO updates its global comparative-risk assessment, exposure estimate or air-quality guideline.",
+      "provenance": "Reviewed WHO global exposure and attributable-burden statements. Ambient-only country rates remain in the separate operational GHO snapshot and are not summed without population weights.",
+      "uncertainty": "Comparative-risk estimates combine modeled exposure, exposure-response functions, background burden and population data; ambient and household exposure overlap.",
+      "failure_behavior": "Retain the last reviewed assessment and mark stale; reject incompatible exposure or mortality boundaries; never add ambient and household deaths, average country rates without population weights or fill missing estimates with zero."
+    },
+    {
+      "ingestion_job_id": "export_unep_blue_ecosystems_impact_snapshot",
+      "source_id": "unep_blue_ecosystems_global_assessments",
+      "snapshot_file": "unep-blue-ecosystems-impact-snapshot.json",
+      "api_route": "https://www.unep.org/topics/ocean-seas-and-coasts/blue-ecosystems",
+      "contract_bindings": [
+        {
+          "node_id": "mangrove_buffer_loss",
+          "metric_contract_id": "mangrove_extent_and_shoreline_buffer_change",
+          "measurement_role": "global_assessment_accumulated_extent_carbon_and_human_exposure_primary"
+        },
+        {
+          "node_id": "seagrass_meadow_decline",
+          "metric_contract_id": "seagrass_meadow_area_change",
+          "measurement_role": "global_assessment_accumulated_extent_and_human_dependence_primary"
+        },
+        {
+          "node_id": "blue_carbon_habitat_loss",
+          "metric_contract_id": "coastal_blue_carbon_habitat_area_and_stock_loss",
+          "measurement_role": "global_assessment_mangrove_subset_area_carbon_damage_persistence_and_extent"
+        },
+        {
+          "node_id": "estuarine_nursery_loss",
+          "metric_contract_id": "estuarine_nursery_habitat_extent_and_recruitment",
+          "measurement_role": "global_assessment_seagrass_nursery_subset_area_fisheries_dependence_persistence_and_extent"
+        },
+        {
+          "node_id": "tidal_wetland_carbon_reversal",
+          "metric_contract_id": "tidal_wetland_net_greenhouse_gas_balance",
+          "measurement_role": "global_assessment_mangrove_subset_carbon_stock_reduction_damage_persistence_and_extent"
+        }
+      ],
+      "cadence": "Refresh when UNEP or UNEP-WCMC publishes a harmonized global blue-ecosystem assessment.",
+      "provenance": "Reviewed UNEP global status values, including Global Mangrove Watch-derived change and separately bounded seagrass assessment evidence.",
+      "uncertainty": "Historical baselines, habitat definitions, mapping, natural gains and losses, carbon methods, valuation and proximity-based population exposure affect estimates.",
+      "failure_behavior": "Retain the last reviewed assessment and mark stale; never derive area loss from occurrence records, add habitat areas, equate proximity with individual dependence or score future risk as observed loss."
+    },
+    {
+      "ingestion_job_id": "fetch_nasa_ozone_watch_annual_history",
+      "source_id": "nasa_ozone_watch",
+      "snapshot_file": "nasa-ozone-watch-annual-snapshot.json",
+      "api_route": "https://ozonewatch.gsfc.nasa.gov/statistics/annual_data.txt",
+      "contract_bindings": [
+        {
+          "node_id": "stratospheric_chlorine_sinks",
+          "metric_contract_id": "stratospheric_ozone_column_depletion_and_recovery",
+          "measurement_role": "antarctic_fixed_window_annual_ozone_depletion_indicator"
+        }
+      ],
+      "cadence": "Annual refresh after NASA finalizes the Antarctic ozone-hole season.",
+      "provenance": "Official NASA Ozone Watch TOMS, OMI and OMPS annual records with fixed seasonal windows, area below 220 DU and minimum mean ozone retained separately; the missing 1995 year remains absent.",
+      "uncertainty": "Polar-vortex dynamics, temperature, aerosols, sunlight, transport, sensor transitions, missing-orbit assimilation and fixed seasonal windows affect annual values.",
+      "failure_behavior": "Retain the last validated complete season and mark stale; reject schema changes, duplicates or histories below 20 years. Never fill 1995, count an incomplete season or interpret a polar season as uniform global recovery."
+    },
+    {
+      "ingestion_job_id": "export_iea_battery_supply_chain_impact_snapshot",
+      "source_id": "iea_global_critical_minerals_outlook_2025",
+      "snapshot_file": "iea-battery-supply-chain-impact-snapshot.json",
+      "api_route": "https://www.iea.org/reports/global-critical-minerals-outlook-2025/executive-summary",
+      "contract_bindings": [
+        {
+          "node_id": "battery_supply_chain_pressure",
+          "metric_contract_id": "battery_demand_growth_and_supply_concentration",
+          "measurement_role": "global_assessment_accumulated_supply_pressure_primary"
+        }
+      ],
+      "cadence": "Refresh with each annual IEA Global Critical Minerals Outlook and Global EV Outlook.",
+      "provenance": "Reviewed IEA current-period global battery demand, demand growth, manufacturing capacity and production-concentration values; future scenarios are excluded from scoring.",
+      "uncertainty": "Estimated battery size, sales, storage applications, proprietary inputs, stockpiling exclusions, trade, ownership and chemistry changes affect estimates. Capacity is not production.",
+      "failure_behavior": "Retain the last reviewed assessment and mark stale; reject mixed units or boundaries; never count announced capacity as operating supply, treat projections as current or equate concentration with realized disruption."
+    },
+    {
+      "ingestion_job_id": "export_fao_sofi_food_insecurity_impact_snapshot",
+      "source_id": "fao_state_of_food_security_and_nutrition_2025",
+      "snapshot_file": "fao-sofi-food-insecurity-impact-snapshot.json",
+      "api_route": "https://www.fao.org/publications/fao-flagship-publications/the-state-of-food-security-and-nutrition-in-the-world/2025/en",
+      "contract_bindings": [
+        {
+          "node_id": "food_insecurity",
+          "metric_contract_id": "food_insecurity_prevalence_fies",
+          "measurement_role": "global_assessment_accumulated_human_burden_primary"
+        }
+      ],
+      "cadence": "Refresh with each annual SOFI release after reconciling revised historical estimates.",
+      "provenance": "Reviewed SOFI 2025 estimates for 2024 global hunger, moderate or severe food insecurity and healthy-diet affordability, retaining reported uncertainty and comparison intervals.",
+      "uncertainty": "SOFI combines surveys, models, population estimates and affordability calculations. Rounded people counts, revisions and different indicator definitions affect comparison.",
+      "failure_behavior": "Retain the last reviewed assessment and mark stale; reject changed definitions or years; never add overlapping populations, replace missing regions with zero or count projections as current."
+    },
+    {
+      "ingestion_job_id": "export_world_bank_desalination_impact_snapshot",
+      "source_id": "world_bank_the_role_of_desalination_in_an_increasingly_water_scarce_world",
+      "snapshot_file": "world-bank-desalination-impact-snapshot.json",
+      "api_route": "https://documents.worldbank.org/en/publication/documents-reports/documentdetail/476041552622967264",
+      "contract_bindings": [
+        {
+          "node_id": "desalination_dependence",
+          "metric_contract_id": "desalinated_water_share_of_supply",
+          "measurement_role": "global_assessment_accumulated_dependence_primary"
+        }
+      ],
+      "cadence": "Refresh when the World Bank publishes a new global desalination assessment.",
+      "provenance": "Reviewed World Bank global plant, country, population and installed-capacity assessment values, retaining the rounded regional share behind the derived global capacity.",
+      "uncertainty": "Plant databases change rapidly; the capacity total is derived from rounded values and people supplied is approximate rather than a utility-level denominator.",
+      "failure_behavior": "Retain the last reviewed assessment and mark stale; never infer country supply share, treat installed capacity as production, transfer case-study energy intensity globally, or replace absent country data with zero."
+    },
+    {
+      "ingestion_job_id": "export_iea_data_centre_impact_snapshot",
+      "source_id": "iea_energy_and_ai",
+      "snapshot_file": "iea-data-centre-impact-snapshot.json",
+      "api_route": "https://www.iea.org/reports/energy-and-ai/energy-demand-from-ai",
+      "contract_bindings": [
+        {
+          "node_id": "data_centers",
+          "metric_contract_id": "data_center_electricity_consumption",
+          "measurement_role": "global_assessment_accumulated_pressure_primary"
+        }
+      ],
+      "cadence": "Refresh when IEA updates Energy and AI or its Energy and AI Observatory.",
+      "provenance": "Reviewed IEA current global data-centre electricity, electricity share, five-year growth, indirect power emissions and investment; scenarios remain labeled projections.",
+      "uncertainty": "IEA reports substantial uncertainty around current and future demand; facility coverage, utilization, electricity mix, investment accounting and rapid technology change affect estimates.",
+      "failure_behavior": "Retain the last reviewed assessment and mark stale; never count projections as current, infer AI-only electricity from the total, add backup-generator emissions, or treat missing facilities as zero."
+    },
+    {
+      "ingestion_job_id": "export_fao_fishery_protein_impact_snapshot",
+      "source_id": "fao_the_state_of_world_fisheries_and_aquaculture_2024",
+      "snapshot_file": "fao-fishery-protein-impact-snapshot.json",
+      "api_route": "https://www.fao.org/publications/fao-flagship-publications/the-state-of-world-fisheries-and-aquaculture/2024/en",
+      "contract_bindings": [
+        {
+          "node_id": "fishery_protein_dependence",
+          "metric_contract_id": "aquatic_food_share_of_animal_protein",
+          "measurement_role": "global_assessment_accumulated_dependence_primary"
+        }
+      ],
+      "cadence": "Refresh with each FAO State of World Fisheries and Aquaculture release.",
+      "provenance": "Reviewed FAO global production, consumption, nutrition, employment and regional-distribution values, retaining aquatic animals and algae separately where reported.",
+      "uncertainty": "Informal production, trade allocation, apparent-consumption accounting, population denominators and revisions affect values; reliance is not itself evidence of ecological damage.",
+      "failure_behavior": "Retain the last reviewed assessment and mark stale; never infer household intake from apparent consumption, treat aquaculture as capture fisheries, merge algae into aquatic-animal consumption, or convert missing regions to zero."
+    },
+    {
+      "ingestion_job_id": "export_unep_cooling_equity_impact_snapshot",
+      "source_id": "unep_global_cooling_watch_2025",
+      "snapshot_file": "unep-cooling-equity-impact-snapshot.json",
+      "api_route": "https://www.unep.org/resources/global-cooling-watch-2025",
+      "contract_bindings": [
+        {
+          "node_id": "cooling_equity_gaps",
+          "metric_contract_id": "heat_exposure_without_safe_affordable_cooling",
+          "measurement_role": "global_assessment_accumulated_impact_primary"
+        },
+        {
+          "node_id": "air_conditioning_refrigerants",
+          "metric_contract_id": "cooling_system_capacity_emissions_and_refrigerant_transition",
+          "measurement_role": "global_assessment_accumulated_cooling_pressure_primary"
+        }
+      ],
+      "cadence": "Refresh with each UNEP Global Cooling Watch release.",
+      "provenance": "Reviewed UNEP current baseline and access-gap values for global cooling capacity, emissions and people lacking adequate cooling; future pathways remain labeled projections.",
+      "uncertainty": "Cooling-access definitions vary and current emissions are modeled sector estimates; the report does not attribute all heat deaths to absent cooling or supply a country-level access denominator.",
+      "failure_behavior": "Retain the last reviewed assessment and mark stale; never count projected outcomes as current, infer protection from equipment ownership, attribute all heat deaths to cooling access, or convert missing countries to zero."
+    },
+    {
+      "ingestion_job_id": "export_unece_transboundary_water_cooperation_impact_snapshot",
+      "source_id": "unece_progress_on_transboundary_water_cooperation_sdg_6_5_2",
+      "snapshot_file": "unece-transboundary-water-cooperation-impact-snapshot.json",
+      "api_route": "https://unece.org/info/Environment-Policy/pub/395013",
+      "contract_bindings": [
+        {
+          "node_id": "basin_treaty_breakdown",
+          "metric_contract_id": "transboundary_water_cooperation_coverage_gap",
+          "measurement_role": "global_assessment_operational_arrangement_gap_primary"
+        }
+      ],
+      "cadence": "Refresh with each UNECE-UNESCO SDG indicator 6.5.2 reporting cycle.",
+      "provenance": "Reviewed official 2023 monitoring-cycle country counts, global indicator average and transboundary-water share, retaining each measure separately.",
+      "uncertainty": "National reports vary in completeness, aquifer delineation and interpretation of operationality; the metric measures cooperation coverage rather than conflict.",
+      "failure_behavior": "Retain the last reviewed cycle and mark stale; never convert non-reporting countries to zero, infer conflict from a cooperation gap or treat basin-area coverage as population exposure."
+    },
+    {
+      "ingestion_job_id": "export_icao_global_aviation_impact_snapshot",
+      "source_id": "icao_environmental_reports",
+      "snapshot_file": "icao-global-aviation-impact-snapshot.json",
+      "api_route": "https://www.icao.int/about-icao/AnnualReport2024/world-air-transport-2024",
+      "contract_bindings": [
+        {
+          "node_id": "aviation",
+          "metric_contract_id": "aviation_revenue_activity_and_fuel",
+          "measurement_role": "global_aviation_activity_assessment_primary"
+        },
+        {
+          "node_id": "aviation_demand_growth",
+          "metric_contract_id": "aviation_activity_growth",
+          "measurement_role": "global_aviation_activity_growth_primary"
+        }
+      ],
+      "cadence": "Annual after ICAO publishes the World of Air Transport results.",
+      "provenance": "Reviewed ICAO preliminary global passenger, departure, RPK and freight statistics for 2024; environmental burden remains in the separate EDGAR aviation series.",
+      "uncertainty": "ICAO labels 2024 statistics preliminary; scheduled-service coverage, revisions and traffic definitions affect values.",
+      "failure_behavior": "Retain the last reviewed report and mark stale; never treat forecasts as observations, convert activity directly to fuel or CO2, add passenger and freight quantities or replace missing reporting with zero."
+    },
+    {
+      "ingestion_job_id": "export_iea_global_industry_transition_impact_snapshot",
+      "source_id": "iea_global_industry_transition_assessments",
+      "snapshot_file": "iea-global-industry-transition-impact-snapshot.json",
+      "api_route": "https://www.iea.org/reports/breakthrough-agenda-report-2025",
+      "contract_bindings": [
+        {
+          "node_id": "steel",
+          "metric_contract_id": "steel_conventional_route_and_near_zero_gap",
+          "measurement_role": "global_industry_transition_assessment_primary"
+        },
+        {
+          "node_id": "steel_decarbonization_gap",
+          "metric_contract_id": "steel_conventional_route_and_near_zero_gap",
+          "measurement_role": "global_near_zero_transition_gap_primary"
+        },
+        {
+          "node_id": "cement_concrete",
+          "metric_contract_id": "cement_near_zero_transition_gap",
+          "measurement_role": "global_cement_transition_assessment_primary"
+        },
+        {
+          "node_id": "industrial_heat_decarbonization_gap",
+          "metric_contract_id": "industrial_renewable_heat_share_gap",
+          "measurement_role": "global_industrial_heat_transition_gap_primary"
+        }
+      ],
+      "cadence": "Annual after IEA Breakthrough Agenda and Renewables reports are published.",
+      "provenance": "Reviewed global steel-route, near-zero capacity, cement-transition and industrial renewable-heat values; announced and scenario quantities stay labeled.",
+      "uncertainty": "Route definitions, project maturity, cost assumptions and heat accounting vary; announced capacity can be delayed or cancelled.",
+      "failure_behavior": "Retain the last reviewed assessment and mark stale; never treat announced capacity, targets or forecasts as current production, infer plant performance or add incompatible sector quantities."
+    },
+    {
+      "ingestion_job_id": "export_iea_critical_minerals_pressure_impact_snapshot",
+      "source_id": "iea_global_critical_minerals_outlook_2025",
+      "snapshot_file": "iea-critical-minerals-pressure-impact-snapshot.json",
+      "api_route": "https://www.iea.org/reports/global-critical-minerals-outlook-2025/executive-summary",
+      "contract_bindings": [
+        {
+          "node_id": "mining_critical_minerals",
+          "metric_contract_id": "critical_mineral_demand_growth_and_supply_concentration",
+          "measurement_role": "global_critical_mineral_pressure_primary"
+        },
+        {
+          "node_id": "critical_mineral_extraction_pressure",
+          "metric_contract_id": "critical_mineral_demand_growth_and_supply_concentration",
+          "measurement_role": "global_critical_mineral_pressure_primary"
+        }
+      ],
+      "cadence": "Annual after IEA Global Critical Minerals Outlook publication.",
+      "provenance": "Reviewed IEA current 2024 demand-growth and supply-concentration findings; forecasts remain excluded from current burden components.",
+      "uncertainty": "Mineral definitions, mined/refined boundaries, stock changes and project timing affect values; concentration is vulnerability, not realized disruption.",
+      "failure_behavior": "Retain the last reviewed report and mark stale; never count forecasts as current, add mineral growth rates, infer site-level harm or convert missing mineral series to zero."
+    },
+    {
+      "ingestion_job_id": "export_global_habitat_connectivity_impact_snapshot",
+      "source_id": "unep_wcmc_global_ecological_connectivity_assessment",
+      "snapshot_file": "global-habitat-connectivity-impact-snapshot.json",
+      "api_route": "https://www.unep-wcmc.org/en/news/life-on-a-connected-planet",
+      "contract_bindings": [
+        {
+          "node_id": "forest_fragmentation",
+          "metric_contract_id": "global_terrestrial_habitat_connectivity_gap",
+          "measurement_role": "global_structural_connectivity_assessment_primary"
+        },
+        {
+          "node_id": "wildlife_habitat_patches",
+          "metric_contract_id": "global_terrestrial_habitat_connectivity_gap",
+          "measurement_role": "global_structural_connectivity_assessment_primary"
+        },
+        {
+          "node_id": "biodiversity_corridors_disruption",
+          "metric_contract_id": "global_terrestrial_habitat_connectivity_gap",
+          "measurement_role": "global_structural_connectivity_assessment_primary"
+        }
+      ],
+      "cadence": "Refresh with new UNEP-WCMC connectivity or FAO FRA releases.",
+      "provenance": "Reviewed global structural-connectivity shares joined to FAO forest-loss history only as persistence and service-scope context.",
+      "uncertainty": "Structural connectivity does not prove functional movement, occupancy, gene flow or population benefit; FAO forest designations are not fragmentation observations.",
+      "failure_behavior": "Retain the last reviewed assessment and mark stale; never infer species-specific movement, add overlapping designations, attribute all forest loss to fragmentation or treat unreported areas as zero."
+    },
+    {
+      "ingestion_job_id": "export_global_river_connectivity_impact_snapshot",
+      "source_id": "global_free_flowing_rivers_assessment_2019",
+      "snapshot_file": "global-river-connectivity-impact-snapshot.json",
+      "api_route": "https://pubmed.ncbi.nlm.nih.gov/31068722/",
+      "contract_bindings": [
+        {
+          "node_id": "riverine_habitat_fragmentation",
+          "metric_contract_id": "global_long_river_connectivity_loss",
+          "measurement_role": "global_river_connectivity_assessment_primary"
+        },
+        {
+          "node_id": "dam_and_diversion_infrastructure",
+          "metric_contract_id": "global_long_river_connectivity_loss",
+          "measurement_role": "global_river_connectivity_assessment_primary"
+        }
+      ],
+      "cadence": "Refresh when a method-comparable global free-flowing-river assessment is published.",
+      "provenance": "Reviewed primary global assessment values; inland-fisheries population is retained only as exposed service scope.",
+      "uncertainty": "Barrier inventories, river resolution, index thresholds, natural barriers and tributary treatment affect classification.",
+      "failure_behavior": "Retain the last reviewed assessment and mark stale; never infer barrier counts, local passability, focal-species loss or household harm from the global share."
+    },
+    {
+      "ingestion_job_id": "export_global_drinking_water_service_impact_snapshot",
+      "source_id": "who_unicef_jmp_2025",
+      "snapshot_file": "global-drinking-water-service-impact-snapshot.json",
+      "api_route": "https://www.who.int/publications/b/80981",
+      "contract_bindings": [
+        {
+          "node_id": "urban_hydrologic_supply_shortfall",
+          "metric_contract_id": "global_safely_managed_drinking_water_service_gap",
+          "measurement_role": "global_service_gap_primary"
+        },
+        {
+          "node_id": "drinking_water_treatment_stress",
+          "metric_contract_id": "global_safely_managed_drinking_water_service_gap",
+          "measurement_role": "global_service_gap_primary"
+        },
+        {
+          "node_id": "urban_source_water_treatment_constraint",
+          "metric_contract_id": "global_safely_managed_drinking_water_service_gap",
+          "measurement_role": "global_service_gap_primary"
+        }
+      ],
+      "cadence": "Annual after WHO/UNICEF JMP release.",
+      "provenance": "Reviewed JMP global 2024 service estimates and 2000-2024 trend interval; service ladder categories remain separate.",
+      "uncertainty": "The safely managed gap combines accessibility, availability and quality dimensions and does not isolate hydrologic supply or treatment capacity.",
+      "failure_behavior": "Retain the last reviewed release and mark stale; never add nested service categories, infer rationing or treatment failure, or replace missing countries with zero."
+    },
+    {
+      "ingestion_job_id": "export_world_bank_global_non_revenue_water_impact_snapshot",
+      "source_id": "world_bank_global_non_revenue_water_assessment",
+      "snapshot_file": "world-bank-global-non-revenue-water-impact-snapshot.json",
+      "api_route": "https://blogs.worldbank.org/en/ppps/what-do-private-companies-look-performance-based-non-revenue-water-project",
+      "contract_bindings": [
+        {
+          "node_id": "urban_distribution_water_loss",
+          "metric_contract_id": "global_non_revenue_water_volume",
+          "measurement_role": "global_non_revenue_water_assessment_primary"
+        }
+      ],
+      "cadence": "Refresh when a method-comparable authoritative global estimate is published.",
+      "provenance": "Reviewed World Bank global annual non-revenue-water volume and economic loss; components are not reclassified as physical leakage.",
+      "uncertainty": "The estimate is older and combines physical and commercial losses; utility coverage and valuation vary.",
+      "failure_behavior": "Retain the last reviewed assessment and mark stale; never treat all non-revenue water as leakage, infer city performance or convert missing utilities to zero."
+    },
+    {
+      "ingestion_job_id": "export_unep_fao_cold_chain_impact_snapshot",
+      "source_id": "unep_and_fao_sustainable_food_cold_chains",
+      "snapshot_file": "unep-fao-cold-chain-impact-snapshot.json",
+      "api_route": "https://www.unep.org/resources/report/sustainable-food-cold-chains-opportunities-challenges-and-way-forward",
+      "contract_bindings": [
+        {
+          "node_id": "cold_chain_failure_risk",
+          "metric_contract_id": "cold_chain_attributable_food_loss_burden",
+          "measurement_role": "global_assessment_accumulated_impact_primary"
+        }
+      ],
+      "cadence": "Refresh when UNEP or FAO publishes a new global sustainable food cold-chain assessment.",
+      "provenance": "Reviewed joint UNEP-FAO global values for food loss attributable to inadequate refrigeration, associated emissions, farmer income impact and developing-country savings potential.",
+      "uncertainty": "The report synthesizes estimates with differing methods and years; values are assessment quantities rather than monitored global incidents or consignment excursions.",
+      "failure_behavior": "Retain the last reviewed assessment and mark stale; never infer a monthly trend, affected consignments, temperature-excursion duration, country allocation or food-safety illness count."
+    },
+    {
+      "ingestion_job_id": "export_unep_peatlands_impact_snapshot",
+      "source_id": "unep_global_peatlands_assessment_2022",
+      "snapshot_file": "unep-peatlands-impact-snapshot.json",
+      "api_route": "https://www.unep.org/resources/global-peatlands-assessment-2022",
+      "contract_bindings": [
+        {
+          "node_id": "peatland_degradations",
+          "metric_contract_id": "peatland_condition_and_drained_area",
+          "measurement_role": "global_assessment_accumulated_impact_primary"
+        }
+      ],
+      "cadence": "Refresh when UNEP publishes a new global peatland assessment or hotspot atlas.",
+      "provenance": "Reviewed UNEP global assessment, hotspot-atlas and economics values for damaged share, annual loss, emissions contribution, remediation financing and country extent.",
+      "uncertainty": "Global mapping and condition inventories remain incomplete; assessment years and methods differ; required investment is remediation financing rather than observed economic damage.",
+      "failure_behavior": "Retain the last reviewed assessment and mark stale; reject changed units or unreconciled geography counts; never infer burned area, affected population, realized monetary damage or a continuous annual history."
+    },
+    {
+      "ingestion_job_id": "export_unep_food_waste_impact_snapshot",
+      "source_id": "unep_food_waste_index",
+      "snapshot_file": "unep-food-waste-impact-snapshot.json",
+      "api_route": "https://www.unep.org/resources/publication/food-waste-index-report-2024",
+      "contract_bindings": [
+        {
+          "node_id": "food_waste",
+          "metric_contract_id": "food_waste_mass_by_supply_stage",
+          "measurement_role": "global_assessment_accumulated_impact_primary"
+        }
+      ],
+      "cadence": "Refresh when UNEP publishes a new Food Waste Index global assessment.",
+      "provenance": "Reviewed UNEP Food Waste Index Report 2024 global assessment values for household, food-service and retail waste, including mass, per-capita burden, food-availability share, environmental burden and economic cost.",
+      "uncertainty": "Country estimates include extrapolation where primary studies are absent; retail and food-service uncertainty is substantial; manufacturing is omitted; assessment editions are not interpreted as a measured trend.",
+      "failure_behavior": "Retain the last reviewed report snapshot and mark stale; never treat unmeasured countries or sectors as zero, compare editions as a trend without harmonization, or extend consumer-facing estimates to manufacturing."
+    },
+    {
+      "ingestion_job_id": "fetch_ember_global_power_snapshot",
+      "source_id": "ember_global_electricity_data",
+      "snapshot_file": "ember-global-power-snapshot.json",
+      "api_route": "https://storage.googleapis.com/emb-prod-bkt-publicdata/public-downloads/yearly_full_release_long_format.csv",
+      "contract_bindings": [
+        {
+          "node_id": "coal_power_co2_output",
+          "metric_contract_id": "carbon_pathway_coal_power_co2_output",
+          "measurement_role": "source_reported_world_coal_power_lifecycle_emissions"
+        },
+        {
+          "node_id": "gas_power_co2_output",
+          "metric_contract_id": "carbon_pathway_gas_power_co2_output",
+          "measurement_role": "source_reported_world_gas_power_lifecycle_emissions"
+        },
+        {
+          "node_id": "gas_power_dependence",
+          "metric_contract_id": "gas_fired_generation_share",
+          "measurement_role": "source_reported_world_gas_generation_share"
+        },
+        {
+          "node_id": "hydropower_reliability_decline",
+          "metric_contract_id": "hydropower_availability_and_generation_shortfall",
+          "measurement_role": "source_reported_world_hydropower_generation_for_transparent_trend_shortfall"
+        }
+      ],
+      "cadence": "Annual complete-release refresh after Ember updates its Yearly Electricity Data file.",
+      "provenance": "Official source-native Ember World yearly rows retained separately for coal power lifecycle CO2, gas power lifecycle CO2, gas generation share and hydropower generation.",
+      "uncertainty": "National-source reconciliation, latest-year estimates, fuel classification, lifecycle factors, imports, captive power and revisions affect the World series. A historical trend residual does not isolate hydrology or dispatch.",
+      "failure_behavior": "Retain the last validated snapshot and mark stale; reject missing exact World variables, duplicate years, unit changes or histories below twenty years; never relabel Other Fossil as oil-only or interpret below-trend hydropower generation as a causal climate attribution."
+    },
+    {
+      "ingestion_job_id": "fetch_climate_trace_land_emissions_snapshot",
+      "source_id": "climate_trace_global_emissions_api",
+      "snapshot_file": "climate-trace-land-emissions-snapshot.json",
+      "api_route": "https://api.climatetrace.org/v7/sources/emissions",
+      "contract_bindings": [
+        {
+          "node_id": "deforestation_co2_release",
+          "metric_contract_id": "carbon_pathway_deforestation_co2_release",
+          "measurement_role": "source_reported_global_forest_land_clearing_co2"
+        },
+        {
+          "node_id": "land_use_fire_co2",
+          "metric_contract_id": "carbon_pathway_land_use_fire_co2",
+          "measurement_role": "derived_global_land_fire_co2_sum"
+        }
+      ],
+      "cadence": "Monthly source release with scoring refresh after a complete calendar year.",
+      "provenance": "Official Climate TRACE Global monthly CO2 estimates; forest-land clearing is retained directly and land-use fire sums the four explicit land-fire subsectors for the same period.",
+      "uncertainty": "Remote sensing, modeled estimation, land classification, burned area, carbon stocks, emissions factors and historical revisions affect estimates; aggregate API responses omit uncertainty intervals.",
+      "failure_behavior": "Retain the last validated snapshot and mark stale; reject unsupported subsectors, incomplete years, duplicate periods or null quantities; official zeros remain observations and missing values never become zero."
+    },
+    {
+      "ingestion_job_id": "fetch_fao_fra_global_deforestation_rate",
+      "source_id": "fao_global_forest_resources_assessment",
+      "snapshot_file": "fra-snapshot.json",
+      "api_route": "/api/fra/snapshot",
+      "contract_bindings": [
+        {
+          "node_id": "deforestation",
+          "metric_contract_id": "fao_fra_forest_conversion_rate",
+          "measurement_role": "source_reported_global_period_average_primary"
+        }
+      ],
+      "cadence": "five-year FRA assessment release with annual source-page monitoring",
+      "provenance": "FAO Global Forest Resources Assessment source-reported global gross-deforestation and net forest-area loss period rates, retaining gross versus net accounting and the assessment period.",
+      "uncertainty": "FRA compiles official national data. Definitions, national inventories, reporting capacity, forest thresholds, plantation treatment, revisions and gross-versus-net accounting affect comparison; the source summary provides no statistical interval.",
+      "failure_behavior": "Retain the last validated FRA assessment and mark stale; reject missing periods, changed units or irreconcilable gross and net measures; never interpolate annual observations or treat net forest-area loss as gross deforestation."
+    },
+    {
+      "ingestion_job_id": "fetch_noaa_psl_marine_heatwave_coverage",
+      "source_id": "noaa_marine_heatwaves",
+      "snapshot_file": "noaa-marine-heatwave-snapshot.json",
+      "api_route": "/api/marine-heatwaves/snapshot",
+      "contract_bindings": [
+        {
+          "node_id": "marine_heatwaves",
+          "metric_contract_id": "marine_heatwave_days_and_intensity",
+          "measurement_role": "source_reported_monthly_global_ocean_area_component"
+        }
+      ],
+      "cadence": "monthly NOAA PSL forecast-discussion refresh with daily portal monitoring",
+      "provenance": "NOAA PSL source-reported monthly global-ocean marine-heatwave area share, with trend-preserved and detrended values and historical ranks kept separate.",
+      "uncertainty": "OISST retrieval, interpolation, percentile baseline, trend treatment, ocean mask and aggregation affect the metric; no source statistical interval is reported.",
+      "failure_behavior": "Retain the last validated paired observation and mark stale; reject invalid percentages or stale reports; never infer grid-cell event duration, cumulative intensity or ecosystem damage from area coverage alone."
+    },
+    {
+      "ingestion_job_id": "fetch_noaa_cpc_oni",
+      "source_id": "noaa_physical_sciences_laboratory_enso",
+      "snapshot_file": "enso-monitoring-snapshot.json",
+      "api_route": "/api/enso/snapshot",
+      "contract_bindings": [
+        {
+          "node_id": "el_nino",
+          "metric_contract_id": "noaa_oni_warm_phase",
+          "measurement_role": "source_native_rolling_three_month_warm_phase_index"
+        },
+        {
+          "node_id": "la_nina",
+          "metric_contract_id": "noaa_oni_cool_phase",
+          "measurement_role": "source_native_rolling_three_month_cool_phase_index"
+        }
+      ],
+      "cadence": "monthly NOAA CPC table refresh",
+      "provenance": "Official NOAA Climate Prediction Center ONI table retaining each overlapping three-month season, total Niño 3.4 SST, anomaly and the five-season episode criterion separately.",
+      "uncertainty": "ERSST input, climatology updates and revisions affect ONI; the source table does not publish observation-level statistical uncertainty.",
+      "failure_behavior": "Retain the last validated complete snapshot and mark stale; reject truncation, malformed seasons or stale latest observations; never infer a missing value as neutral or call one threshold crossing an episode."
+    },
+    {
+      "ingestion_job_id": "fetch_world_bank_fertilizer_price_index",
+      "source_id": "world_bank_commodity_price_data_the_pink_sheet",
+      "snapshot_file": "world-bank-fertilizer-price-snapshot.json",
+      "api_route": "/api/world-bank/fertilizer-prices",
+      "contract_bindings": [
+        {
+          "node_id": "fertilizer_price_shock",
+          "metric_contract_id": "world_bank_fertilizer_price_index_change",
+          "measurement_role": "global_nominal_usd_commodity_group_index_primary"
+        }
+      ],
+      "cadence": "monthly World Bank Pink Sheet workbook check with complete retained-series replacement",
+      "provenance": "Official World Bank Monthly Indices worksheet, Fertilizers column N, nominal US-dollar index with 2010=100; source values and transparent one-, three- and twelve-month percentage changes are retained.",
+      "uncertainty": "The workbook does not publish observation-level uncertainty intervals. Commodity composition and weights, quoted-market coverage, nominal-dollar conditions, estimated components, revisions and product substitutions affect comparison.",
+      "failure_behavior": "Retain the last validated complete monthly series and mark stale; reject missing months, changed workbook schema, non-positive values or an unexpectedly old latest period; never infer local farm-gate prices, affordability, physical scarcity or downstream food effects from the global index alone."
+    },
+    {
+      "ingestion_job_id": "fetch_noaa_gulf_coastal_hypoxia",
+      "source_id": "noaa_dynamics_and_distribution_of_natural_and_human_caused_coastal_hypoxia",
+      "snapshot_file": "noaa-coastal-hypoxia-snapshot.json",
+      "api_route": "/api/noaa/coastal-hypoxia",
+      "contract_bindings": [
+        {
+          "node_id": "coastal_hypoxia",
+          "metric_contract_id": "noaa_gulf_midsummer_hypoxic_zone_area",
+          "measurement_role": "bounded_annual_shelf_wide_cruise_primary"
+        }
+      ],
+      "cadence": "annual refresh after the NOAA-supported midsummer shelf-wide monitoring cruise",
+      "provenance": "NOAA Ocean Service source-reported annual northern Gulf hypoxic-zone area from the long-running shelf-wide ship survey, retaining the reported square-mile area, explicit square-kilometre conversion, cruise window, threshold and geography.",
+      "uncertainty": "The annual status page does not publish an uncertainty interval. Cruise timing, station spacing, contour interpolation, storms, mixing, river discharge, nutrient load and transient oxygen conditions affect mapped extent.",
+      "failure_behavior": "Retain the last validated annual survey and mark stale; reject missing or changed year, size, threshold or survey window; never interpret a missing survey as zero hypoxia, add event duration that the source does not report, or extrapolate this Gulf metric to another coast."
+    },
+    {
+      "ingestion_job_id": "fetch_noaa_climate_indices",
+      "source_id": "noaa_cpc_psl_climate_indices",
+      "snapshot_file": "noaa-climate-indices-snapshot.json",
+      "api_route": "/api/noaa/climate-indices",
+      "contract_bindings": [
+        {
+          "node_id": "pacific_decadal_oscillation",
+          "metric_contract_id": "pacific_decadal_oscillation_index",
+          "measurement_role": "source_native_climate_index_primary"
+        },
+        {
+          "node_id": "pacific_north_american_pattern",
+          "metric_contract_id": "pacific_north_american_index",
+          "measurement_role": "source_native_climate_index_primary"
+        },
+        {
+          "node_id": "north_atlantic_oscillation",
+          "metric_contract_id": "north_atlantic_oscillation_index",
+          "measurement_role": "source_native_climate_index_primary"
+        },
+        {
+          "node_id": "arctic_oscillation",
+          "metric_contract_id": "arctic_oscillation_index",
+          "measurement_role": "source_native_climate_index_primary"
+        },
+        {
+          "node_id": "indian_ocean_dipole",
+          "metric_contract_id": "dipole_mode_index",
+          "measurement_role": "source_native_sst_gradient_index_primary"
+        },
+        {
+          "node_id": "madden_julian_oscillation",
+          "metric_contract_id": "noaa_psl_realtime_olr_mjo_index",
+          "measurement_role": "source_native_daily_mjo_index_primary"
+        },
+        {
+          "node_id": "southern_annular_mode",
+          "metric_contract_id": "southern_annular_mode_index",
+          "measurement_role": "source_native_monthly_aao_index_primary"
+        },
+        {
+          "node_id": "quasi_biennial_oscillation",
+          "metric_contract_id": "equatorial_stratospheric_zonal_wind",
+          "measurement_role": "source_native_monthly_30hpa_zonal_wind_primary"
+        },
+        {
+          "node_id": "atlantic_multidecadal_oscillation",
+          "metric_contract_id": "atlantic_multidecadal_variability_index",
+          "measurement_role": "source_native_monthly_north_atlantic_sst_anomaly_primary"
+        }
+      ],
+      "cadence": "daily source check for CPC PNA, NAO and AO and PSL ROMI; monthly source check for PSL and NCEI PDO, DMI, AAO, QBO and AMO; complete validated snapshot replacement",
+      "provenance": "Official NOAA Physical Sciences Laboratory and NCEI monthly PDO, Dipole Mode, Antarctic Oscillation, Quasi-Biennial Oscillation and ERSSTv5 Atlantic Multidecadal Oscillation tables, daily Real-time OLR MJO Index, and NOAA Climate Prediction Center daily PNA, NAO and AO tables, retaining source-native values, units, components, frequency, observation period, endpoint and missing-value handling.",
+      "uncertainty": "Index construction, base period, spatial loading, reanalysis, OLR, wind or SST input, source revision and provisional recent observations affect comparison. The nine indices are not interchangeable; DMI and AMO are SST anomalies, QBO is 30 hPa zonal wind, and ROMI is distinct from Wheeler-Hendon RMM.",
+      "failure_behavior": "Retain the last validated complete snapshot and mark stale; reject source truncation, duplicate index-periods, invalid dates, inconsistent ROMI amplitude, unexpected missing-value codes, missing freshness metadata or daily observations older than ten days; disclose monthly source lag and never fill a missing period with zero or infer a regional impact from index amplitude alone."
+    },
+    {
+      "ingestion_job_id": "fetch_noaa_ratpac_temperature_metrics",
+      "source_id": "noaa_ratpac",
+      "snapshot_file": "noaa-ratpac-snapshot.json",
+      "api_route": "/api/noaa/ratpac",
+      "contract_bindings": [
+        {
+          "node_id": "tropospheric_warming_speeds",
+          "metric_contract_id": "tropospheric_temperature_anomaly_trend",
+          "measurement_role": "global_850_300_hpa_layer_anomaly_and_derived_trend"
+        },
+        {
+          "node_id": "thermal_air_column_shifts",
+          "metric_contract_id": "radiosonde_layer_temperature_anomaly",
+          "measurement_role": "source_native_global_annual_pressure_level_anomaly"
+        },
+        {
+          "node_id": "stratospheric_cooling",
+          "metric_contract_id": "lower_stratospheric_temperature_anomaly",
+          "measurement_role": "derived_global_annual_100_70_50_hpa_mean_anomaly"
+        }
+      ],
+      "cadence": "monthly source check with complete-year trend replacement after all four seasons are available",
+      "provenance": "Official NOAA NCEI RATPAC-A adjusted large-area radiosonde temperature anomalies. Pressure-level anomalies are retained source-native. Global 850-300 hPa annual anomalies are arithmetic means of four source seasons; trends and intervals are transparent derived OLS summaries.",
+      "uncertainty": "Radiosonde coverage, instrument changes, homogenization, pressure-level and layer weighting, baseline, missingness, trend window and residual autocorrelation affect estimates. OLS intervals are derived by this job and are not NOAA-reported uncertainty.",
+      "failure_behavior": "Retain the last validated complete snapshot and mark stale; reject changed archives or schemas, fewer than sixty complete years, missing seasons, a missing expected complete year or missing metric contracts; never treat 999 as a measurement or include the partial current year in a trend."
+    },
+    {
+      "ingestion_job_id": "fetch_acaps_humanitarian_access",
+      "source_id": "acaps_humanitarian_access",
+      "snapshot_file": "acaps-humanitarian-access-snapshot.json",
+      "api_route": "/api/acaps/humanitarian-access",
+      "contract_bindings": [
+        {
+          "node_id": "humanitarian_access_constraints",
+          "metric_contract_id": "acaps_humanitarian_access_severity_distribution",
+          "measurement_role": "global_country_access_severity_distribution_authoritative_assessment"
+        }
+      ],
+      "cadence": "twice-yearly assessment release with weekly page-change monitoring",
+      "provenance": "ACAPS published Humanitarian Access Overview retaining the assessment period, source-reported country counts and shares, high-to-extreme score threshold, and nine-indicator, three-pillar methodology.",
+      "uncertainty": "The source synthesizes analyst-reviewed secondary information. Country aggregation can hide subnational variation; crisis definitions, information access, source availability, conflict dynamics and revisions affect comparison. The panel denominator is derived from the mutually exclusive source trend-category counts.",
+      "failure_behavior": "Retain the last validated assessment and mark stale; reject missing claims, changed method, invalid percentages or unreconciled counts. Never infer people reached, incident counts, aid delivered, country-specific severity or causal effects from the global distribution."
+    },
+    {
+      "ingestion_job_id": "fetch_atcems_response_compliance",
+      "source_id": "austin_travis_county_ems_incidents_by_month",
+      "snapshot_file": "atcems-response-compliance-snapshot.json",
+      "api_route": "/api/atcems/response-compliance",
+      "contract_bindings": [
+        {
+          "node_id": "emergency_response_overload",
+          "metric_contract_id": "atcems_response_goal_miss_rate",
+          "measurement_role": "local_monthly_response_goal_miss_operational_proxy"
+        }
+      ],
+      "cadence": "monthly source refresh with a rolling 36-month snapshot",
+      "provenance": "Official Austin-Travis County EMS Incidents by Month open-data table derived from department CAD records, retaining source-reported incident counts, on-time compliance, service area, priority class, monthly target and source update metadata.",
+      "uncertainty": "The source reports aggregate rounded percentages. Priority assignment, response-goal definitions, dispatch practices, mutual aid, service-area boundaries, traffic, revisions and partial periods affect values. Missing a response goal is an operational performance signal, not proof of capacity exceedance or patient harm.",
+      "failure_behavior": "Retain the last validated snapshot and mark stale; reject duplicate months, missing targets or counts, invalid percentages or fewer than 24 months; never infer dispatch saturation, treatment capacity, causal overload or national performance from the bounded local proxy."
+    },
+    {
+      "ingestion_job_id": "fetch_openfema_geographic_ihp_assistance_gap",
+      "source_id": "openfema_registration_intake_individuals_household_program_v2",
+      "snapshot_file": "openfema-ihp-geographic-gap-snapshot.json",
+      "api_route": "/api/openfema/ihp-geographic-gap",
+      "contract_bindings": [
+        {
+          "node_id": "disaster_recovery_inequality",
+          "metric_contract_id": "openfema_geographic_ihp_assistance_gap",
+          "measurement_role": "within_declaration_geographic_administrative_outcome_gap"
+        }
+      ],
+      "cadence": "weekly OpenFEMA source refresh with complete snapshot replacement",
+      "provenance": "Official OpenFEMA Registration Intake and Individuals Household Program v2 aggregated non-PII city-ZIP records, joined to official disaster declaration summaries. Valid registrations, IHP eligible registrations, IHP award amounts, declaration scope and every comparison denominator are retained.",
+      "uncertainty": "OpenFEMA identifies the records as raw NEMIS administrative data with possible human error and warns that financial figures are not official federal financial reporting. Damage, eligibility, application, documentation, housing, timing, prices and reporting affect geographic differences; no protected-class or causal attribution is available.",
+      "failure_behavior": "Retain the last validated snapshot and mark stale; reject schema changes, duplicates, invalid counts or amounts, fewer than six qualifying declarations, or missing declaration metadata; never infer demographic disparity, individual receipt, recovery time, unmet need, or zero incidence from absent rows."
+    },
+    {
+      "ingestion_job_id": "build_sabin_climate_litigation_counts_assessment",
+      "source_id": "sabin_center_unep_global_climate_litigation_report_2025",
+      "snapshot_file": "sabin-climate-litigation-counts-snapshot.json",
+      "api_route": "/api/sabin/climate-litigation-counts",
+      "contract_bindings": [
+        {
+          "node_id": "climate_litigation_pressure",
+          "metric_contract_id": "climate_litigation_cases",
+          "measurement_role": "global_database_cumulative_case_count_primary"
+        }
+      ],
+      "cadence": "semiannual report or database-release check",
+      "provenance": "Sabin Center and UNEP source-reported cumulative climate-related case counts at four observation labels, retaining the exact 30 June 2025 date for the latest point and the report database boundary.",
+      "uncertainty": "Database discovery, jurisdiction coverage, retrospective additions, removals, duplicate reconciliation and methodology changes affect the time series. The source does not provide a statistical uncertainty interval, and retrospective database growth is not identical to new filings.",
+      "failure_behavior": "Retain the last validated report vintage; reject decreasing cumulative counts without a documented methodology revision; never infer outcomes, damages, annual filings, legal effectiveness or jurisdiction-normalized pressure from the cumulative series."
+    },
+    {
+      "ingestion_job_id": "build_unep_adaptation_finance_gap_assessment",
+      "source_id": "unep_adaptation_gap_report_2025",
+      "snapshot_file": "unep-adaptation-finance-gap-snapshot.json",
+      "api_route": "/api/unep/adaptation-finance-gap",
+      "contract_bindings": [
+        {
+          "node_id": "adaptation_capital_shortfall",
+          "metric_contract_id": "adaptation_finance_gap",
+          "measurement_role": "developing_country_annual_assessment_range_primary"
+        }
+      ],
+      "cadence": "annual report-release check",
+      "provenance": "UNEP Adaptation Gap Report 2025 developing-country adaptation-finance assessment, retaining the two need-estimation methods, 2035 need horizon, 2023 international public flow year and 2023-price boundary.",
+      "uncertainty": "The US$284-339 billion gap range combines modelled-cost and NDC/NAP-extrapolated need methods rather than a statistical confidence interval. Domestic, private and developing-country contributions outside the report flow boundary are not interchangeable with tracked international public flows.",
+      "failure_behavior": "Retain the last validated report vintage; reject changed price years, horizons or finance boundaries; never combine mismatched years, call the methodological range a confidence interval, or infer project-level capital availability."
+    },
+    {
+      "ingestion_job_id": "build_undrr_mhews_status_assessment",
+      "source_id": "undrr_global_status_multi_hazard_early_warning_systems_2024",
+      "snapshot_file": "undrr-mhews-status-snapshot.json",
+      "api_route": "/api/undrr/mhews-status",
+      "contract_bindings": [
+        {
+          "node_id": "multi_hazard_early_warning",
+          "metric_contract_id": "countries_reporting_multi_hazard_early_warning_systems",
+          "measurement_role": "global_country_reporting_status_primary"
+        },
+        {
+          "node_id": "early_warning_coverage_gaps",
+          "metric_contract_id": "countries_not_reporting_multi_hazard_early_warning_systems_pct",
+          "measurement_role": "derived_complement_of_global_country_reporting_share"
+        }
+      ],
+      "cadence": "annual assessment-release check",
+      "provenance": "Official UNDRR and WMO Global Status of Multi-Hazard Early Warning Systems 2024 assessment, retaining the end-March-2024 reporting date, 108-country count, source-reported 55 percent country share and 2005-2023 mortality and affected-people rates by system comprehensiveness.",
+      "uncertainty": "Some countries may have MHEWS capabilities that are not reported. The source measure is country reporting of system existence, not at-risk population coverage, warning receipt, timeliness or effectiveness. Outcome ratios are descriptive country-group comparisons and do not isolate causality.",
+      "failure_behavior": "Retain the last validated assessment and mark its vintage; reject a release whose denominator, reporting date, outcome period or Target G definition cannot be reconciled; never interpret non-reporting as system absence, convert the country share to population coverage or treat outcome ratios as randomized causal effects."
+    },
+    {
+      "ingestion_job_id": "fetch_ocha_humanitarian_funding_shortfall",
+      "source_id": "ocha_humanitarian_programme_cycle_public_api",
+      "snapshot_file": "ocha-humanitarian-funding-shortfall-snapshot.json",
+      "api_route": "/api/ocha/humanitarian-funding-shortfall",
+      "contract_bindings": [
+        {
+          "node_id": "humanitarian_response_funding_shortfall",
+          "metric_contract_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+          "measurement_role": "named_released_plan_reported_funding_gap_primary"
+        },
+        {
+          "node_id": "humanitarian_resource_gaps",
+          "metric_contract_id": "humanitarian_plan_reported_resource_gap",
+          "measurement_role": "named_released_plan_reported_financial_resource_gap_primary"
+        },
+        {
+          "node_id": "humanitarian_surge_demand",
+          "metric_contract_id": "humanitarian_plan_positive_requirement_revision",
+          "measurement_role": "named_released_plan_positive_financial_requirement_revision_proxy"
+        }
+      ],
+      "cadence": "monthly during the plan year with completed-year revision checks",
+      "provenance": "Official OCHA Humanitarian Programme Cycle released-plan requirements joined by plan ID to Financial Tracking Service incoming funding grouped by destination plan; original and revised requirements, positive revisions, reported funding, pledges, coverage, locations and plan boundaries are retained.",
+      "uncertainty": "FTS measures reported plan-linked flows, not all available resources or aid delivered. Requirement revisions can reflect changed needs, prices, scope, method, coverage or corrections. Reporting lag, exchange rates, unlinked and multi-plan flows, and off-FTS resources affect the results; pledges are excluded from funding.",
+      "failure_behavior": "Retain the last validated snapshot and mark stale; reject missing reports, duplicate IDs, invalid monetary values or a materially empty join; never convert pledges to funding, cap overfunding coverage, infer people newly in need from a requirement revision, or infer operational sufficiency."
+    },
+    {
+      "ingestion_job_id": "fetch_ocha_humanitarian_global_history",
+      "source_id": "ocha_humanitarian_programme_cycle_public_api",
+      "snapshot_file": "ocha-humanitarian-history-snapshot.json",
+      "api_route": "/api/ocha/humanitarian-history",
+      "contract_bindings": [
+        {
+          "node_id": "humanitarian_response_funding_shortfall",
+          "metric_contract_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+          "measurement_role": "global_annual_complete_plan_panel_shortfall_ratio"
+        },
+        {
+          "node_id": "emergency_response_overload",
+          "metric_contract_id": "humanitarian_response_funding_shortfall_operation_bound_metric",
+          "measurement_role": "global_humanitarian_response_capacity_pressure_companion"
+        },
+        {
+          "node_id": "humanitarian_resource_gaps",
+          "metric_contract_id": "humanitarian_plan_reported_resource_gap",
+          "measurement_role": "global_annual_complete_plan_panel_resource_gap_ratio"
+        },
+        {
+          "node_id": "humanitarian_surge_demand",
+          "metric_contract_id": "humanitarian_plan_positive_requirement_revision",
+          "measurement_role": "global_annual_positive_requirement_revision_ratio"
+        }
+      ],
+      "cadence": "annual completed-plan-year refresh with monthly checks on the latest completed year",
+      "provenance": "Official OCHA plan-year requirements joined by plan ID to FTS incoming funding grouped by destination plan for 2000 onward. Annual scoring ratios use only explicit reported values, preserve join coverage and retain historical migrated plan records with positive requirements.",
+      "uncertainty": "Plan scope, needs assessment, exchange rates, requirement revisions, reporting practices, unlinked or shared flows, off-FTS funding and changes in the planning system affect comparison. Nominal dollars remain context only.",
+      "failure_behavior": "Retain the last validated history and mark stale; reject missing annual endpoints, invalid ratios, duplicates or fewer than 20 complete years. Never convert an absent grouped funding result into zero funding or zero shortfall."
+    },
+    {
+      "ingestion_job_id": "fetch_noaa_ocads_surface_acidification_climatology",
+      "source_id": "noaa_ocean_carbon_and_acidification_data_system",
+      "snapshot_file": "ocads-acidification-snapshot.json",
+      "api_route": "/api/ocads/acidification-snapshot",
+      "contract_bindings": [
+        {
+          "node_id": "ocean_acidification",
+          "metric_contract_id": "surface_ocean_ph_and_aragonite_state",
+          "measurement_role": "north_american_coastal_surface_climatology_primary"
+        }
+      ],
+      "cadence": "annual source metadata check with release-triggered full NetCDF replacement",
+      "provenance": "Official NOAA NCEI OCADS accession 0270962 pH-total-scale and omega-aragonite NetCDF fields paired at the surface on their identical one-degree North American coastal grid, with observation counts and objective-analysis support retained.",
+      "uncertainty": "The product combines observations adjusted to 2010 and World Ocean Atlas interpolation. Direct observations are sparse relative to analyzed cells; pH scale, carbonate-system constants, depth, freshwater mixing, sampling, reference-year adjustment and objective analysis affect values. Source error fields are retained without inventing confidence intervals.",
+      "failure_behavior": "Retain the last validated snapshot and mark stale; reject non-HDF5 files, changed field or coordinate schemas, mismatched variable grids, implausible values, duplicates or truncation; never fill missing cells with zero or infer a time trend from the climatology."
+    },
+    {
+      "ingestion_job_id": "fetch_lancet_countdown_heat_health_metrics",
+      "source_id": "lancet_countdown_data_explorer",
+      "snapshot_file": "heat-health-snapshot.json",
+      "api_route": "/api/heat-health/snapshot",
+      "contract_bindings": [
+        {
+          "node_id": "public_health_heat_burden",
+          "metric_contract_id": "heat_attributable_mortality_rate",
+          "measurement_role": "global_and_who_region_modelled_heat_attributable_mortality"
+        },
+        {
+          "node_id": "heatwave_excess_mortality_rates",
+          "metric_contract_id": "heat_attributable_mortality_rate",
+          "measurement_role": "global_and_who_region_modelled_heat_attributable_mortality"
+        },
+        {
+          "node_id": "heat_related_mortality_burden",
+          "metric_contract_id": "heat_attributable_deaths",
+          "measurement_role": "global_and_who_region_modelled_heat_attributable_mortality"
+        },
+        {
+          "node_id": "occupational_heat_exposure",
+          "metric_contract_id": "heat_related_working_hour_loss",
+          "measurement_role": "global_time_series_and_latest_country_modelled_potential_work_hours_lost"
+        },
+        {
+          "node_id": "farm_heat_stress",
+          "metric_contract_id": "agricultural_potential_work_hours_lost_to_heat",
+          "measurement_role": "global_time_series_and_latest_country_agricultural_potential_work_hours_lost"
+        },
+        {
+          "node_id": "vector_borne_disease_expansion",
+          "metric_contract_id": "vbd_climate_suitability_and_transmission_season",
+          "measurement_role": "disease_specific_global_time_series_and_latest_who_region_modelled_climate_suitability"
+        }
+      ],
+      "cadence": "annual release check with full workbook replacement",
+      "provenance": "Source-native Lancet Countdown 2025 indicator workbooks for heat-attributable mortality, potential work hours lost, dengue climate-defined R0 and malaria climate-suitable transmission-season length, retaining geography, year, component, disease or sector boundary, model definition and exact workbook locator.",
+      "uncertainty": "The downloads provide modelled point estimates without observation-level intervals. Mortality meta-prediction, WBGT and employment assumptions, country-average sector allocation, disease-model omissions, reanalysis input, population data and revisions affect estimates. CC BY-NC-SA 4.0 prohibits commercial use without separate permission.",
+      "failure_behavior": "Retain the last validated release and mark stale; reject missing workbooks, sheets, columns, duplicates, invalid values, truncated panels or failed source-value checks; never infer deaths from heat exposure alone, cases from climate suitability, or agricultural exposure from all outdoor workers."
+    },
+    {
+      "ingestion_job_id": "fetch_unsd_unep_material_pressure",
+      "source_id": "unsd_sdg_api_unep_material_flows",
+      "snapshot_file": "unsd-material-pressure-snapshot.json",
+      "api_route": "/api/unsd/material-pressure",
+      "contract_bindings": [
+        {
+          "node_id": "resource_depletion",
+          "metric_contract_id": "material_extraction_and_footprint_by_resource",
+          "measurement_role": "country_and_region_material_pressure_indicator"
+        }
+      ],
+      "cadence": "annual release check with full selected-year replacement",
+      "provenance": "Official UNSD SDG 12.2.1 and 12.2.2 observations from UNEP WESR / Global Material Flows Database, retaining material footprint and domestic material consumption separately in absolute and per-capita form by raw-material class.",
+      "uncertainty": "MRIO allocation, raw-material-equivalent coefficients, trade attribution, informal extraction, modeled values, conversion coefficients, population denominators and revisions affect estimates; the indicators do not measure remaining reserves.",
+      "failure_behavior": "Retain the last validated selected-year snapshot and mark stale; reject pagination, missing series, material classes, World records, duplicates or a small panel; never fill missing data with zero or infer scarcity."
+    },
+    {
+      "ingestion_job_id": "fetch_power_indian_monsoon_rainfall",
+      "source_id": "nasa_power_monsoon_rainfall_pilot",
+      "snapshot_file": "power-monsoon-snapshot.json",
+      "api_route": "/api/power/monsoon-rainfall",
+      "contract_bindings": [
+        {
+          "node_id": "monsoon_volatility",
+          "metric_contract_id": "monsoon_onset_and_seasonal_rainfall_variability",
+          "measurement_role": "bounded_gridded_rainfall_gate_and_seasonal_anomaly_primary"
+        }
+      ],
+      "cadence": "annual complete-season refresh after source replacement lag with monthly metadata check",
+      "provenance": "NASA POWER daily PRECTOTCORR values requested at the 14 locations named in the IMD Kerala-onset rainfall criterion; the rainfall gate and June-September panel anomaly retain the fixed 1991-2020 baseline and exact definition boundary.",
+      "uncertainty": "NASA POWER is gridded and reanalysis-derived rather than the IMD station network. Grid assignment, precipitation bias, requested coordinates, missingness, station-mean aggregation, baseline and revisions affect results.",
+      "failure_behavior": "Retain the last validated complete-season snapshot and mark stale; reject fewer than 27 baseline years, an incomplete observation panel or absent rainfall-gate date; never fill missing rainfall with zero or call the rainfall gate official onset."
+    },
+    {
+      "ingestion_job_id": "fetch_owid_ember_clean_electricity",
+      "source_id": "our_world_in_data_energy_data",
+      "snapshot_file": "owid-clean-electricity-snapshot.json",
+      "api_route": "/api/owid/clean-electricity",
+      "contract_bindings": [
+        {
+          "node_id": "clean_electricity",
+          "metric_contract_id": "low_emissions_electricity_generation_share",
+          "measurement_role": "country_and_global_harmonized_clean_electricity_generation_and_share"
+        }
+      ],
+      "cadence": "monthly source check with full-series replacement after upstream revision",
+      "provenance": "OWID public energy CSV and codebook, retaining clean-electricity generation, share, total generation, country, year, exact unit conversion, and the documented mixed Ember and Energy Institute upstream boundary.",
+      "uncertainty": "The CSV supplies no observation-level uncertainty interval. National reporting, harmonization, estimates, generation boundary, imports, revisions, and renewables-plus-nuclear classification affect comparison.",
+      "failure_behavior": "Retain the last validated full-series snapshot and mark stale; reject missing columns, invalid shares, small panels, or a missing latest-year World record; never fill missing values with zero."
+    },
+    {
+      "ingestion_job_id": "fetch_edgar_2025_sector_country_ghg",
+      "source_id": "edgar_global_emissions_database",
+      "snapshot_file": "edgar-snapshot.json",
+      "api_route": "/api/edgar/snapshot",
+      "contract_bindings": [
+        {
+          "node_id": "carbon_emission",
+          "metric_contract_id": "territorial_fossil_and_industrial_co2_emissions",
+          "measurement_role": "country_total_derived_from_disjoint_ipcc_2006_categories"
+        },
+        {
+          "node_id": "methane",
+          "metric_contract_id": "anthropogenic_methane_emissions",
+          "measurement_role": "country_total_derived_from_disjoint_edgar_ch4_ipcc_2006_categories"
+        },
+        {
+          "node_id": "nitrous_oxide",
+          "metric_contract_id": "anthropogenic_nitrous_oxide_emissions",
+          "measurement_role": "country_total_derived_from_disjoint_edgar_n2o_ipcc_2006_categories"
+        },
+        {
+          "node_id": "cement_process_emissions",
+          "metric_contract_id": "cement_calcination_co2_emissions",
+          "measurement_role": "direct_edgar_cement_production_process_co2_category"
+        },
+        {
+          "node_id": "aviation_jet_fuel_co2",
+          "metric_contract_id": "carbon_pathway_aviation_jet_fuel_co2",
+          "measurement_role": "direct_edgar_civil_aviation_fossil_co2_category"
+        },
+        {
+          "node_id": "refinery_combustion_co2",
+          "metric_contract_id": "carbon_pathway_refinery_combustion_co2",
+          "measurement_role": "direct_edgar_refining_and_energy_industries_fossil_co2_category"
+        },
+        {
+          "node_id": "chemical_process_co2",
+          "metric_contract_id": "carbon_pathway_chemical_process_co2",
+          "measurement_role": "direct_edgar_chemical_industry_fossil_co2_category"
+        },
+        {
+          "node_id": "waste_incineration_co2",
+          "metric_contract_id": "carbon_pathway_waste_incineration_co2",
+          "measurement_role": "direct_edgar_waste_incineration_and_open_burning_fossil_co2_category"
+        },
+        {
+          "node_id": "shipping_bunker_fuel_co2",
+          "metric_contract_id": "carbon_pathway_shipping_bunker_fuel_co2",
+          "measurement_role": "direct_edgar_water_borne_navigation_fossil_co2_category"
+        },
+        {
+          "node_id": "rail_diesel_co2",
+          "metric_contract_id": "carbon_pathway_rail_diesel_co2",
+          "measurement_role": "direct_edgar_railway_fossil_co2_category"
+        },
+        {
+          "node_id": "iron_steel_process_co2",
+          "metric_contract_id": "carbon_pathway_iron_steel_process_co2",
+          "measurement_role": "direct_edgar_metal_industry_fossil_co2_category"
+        },
+        {
+          "node_id": "oil_gas_flaring_co2",
+          "metric_contract_id": "carbon_pathway_oil_gas_flaring_co2",
+          "measurement_role": "direct_edgar_oil_and_natural_gas_fossil_co2_category"
+        }
+      ],
+      "cadence": "annual release check with full workbook replacement",
+      "provenance": "Official EDGAR_2025_GHG IEA-EDGAR fossil CO2, EDGAR CH4 and EDGAR N2O workbooks, IPCC 2006 sector-country tables, source-reported 2024 substance values and transparent country sums.",
+      "uncertainty": "The workbooks supply no observation-level numeric uncertainty. Activity data, emission factors, allocation, category breadth, revisions and international-bunker treatment affect values. Node display labels are normalized to the source categories while stable legacy IDs remain for compatibility.",
+      "failure_behavior": "Retain the last validated complete workbook snapshot and mark stale; reject missing headers, substances, categories or an implausibly small country panel; never infer fuel, facility, freight/passenger or land-use detail that the source category does not report."
+    },
+    {
+      "ingestion_job_id": "fetch_fao_sdg_14_4_1_fish_stock_status",
+      "source_id": "unsd_sdg_api_fao_fish_stock_status",
+      "snapshot_file": "fao-fish-stock-sustainability-snapshot.json",
+      "api_route": "/api/fao/fish-stock-sustainability",
+      "contract_bindings": [
+        {
+          "node_id": "marine_fisheries_collapse",
+          "metric_contract_id": "marine_fish_stocks_biologically_unsustainable",
+          "measurement_role": "country_and_reported_area_stock_assessment_primary"
+        }
+      ],
+      "cadence": "annual source check with release-triggered full-series replacement",
+      "provenance": "Official UN SDG indicator 14.4.1 observations disseminated by UNSD and reported or validated through FAO, retaining the source sustainable-stock share, geography, year, status, source statement and footnotes.",
+      "uncertainty": "The API provides no observation-level numeric uncertainty bounds. Stock coverage, unknown-status shares, national methods, assessment quality, reporting status and footnotes affect comparability. The unsustainable share is an arithmetic complement.",
+      "failure_behavior": "Retain the last validated complete series and mark stale; reject pagination or schema changes; never convert NaN, missing countries, unknown stock status or absent uncertainty bounds to zero."
+    },
+    {
+      "ingestion_job_id": "fetch_eurostat_fish_landings_shortfall",
+      "source_id": "eurostat_fisheries_landings",
+      "snapshot_file": "eurostat-fish-landings-snapshot.json",
+      "api_route": "/api/eurostat/fish-landings",
+      "contract_bindings": [
+        {
+          "node_id": "fish_landing_supply_disruption",
+          "metric_contract_id": "marine_fish_landings_shortfall",
+          "measurement_role": "annual_total_fishery_product_landings_shortfall_from_fixed_geography_baseline"
+        }
+      ],
+      "cadence": "annual release check with complete 2015-forward series replacement",
+      "provenance": "Official Eurostat fish_ld_main JSON-stat observations for total fishery products landed in EEA reporting geographies, all presentation forms, total vessel-registration scope, total destination use and tonnes product weight. Shortfalls are arithmetic comparisons with the fixed 2015-2019 geography mean.",
+      "uncertainty": "The API provides no observation-level numeric uncertainty interval. Administrative coverage, confidentiality, national collection systems, revisions, product classification, landing-port geography, vessel scope, source status flags and the analytical baseline affect comparison.",
+      "failure_behavior": "Retain the last validated complete snapshot and mark stale; reject changed dimensions, an implausibly small panel, invalid negative landings or insufficient baselines; never impute missing cells or infer disruption attribution from a landings decline."
+    },
+    {
+      "ingestion_job_id": "fetch_noaa_global_mean_sea_level",
+      "source_id": "noaa_laboratory_for_satellite_altimetry",
+      "snapshot_file": "noaa-global-mean-sea-level-snapshot.json",
+      "api_route": "/api/noaa/global-mean-sea-level",
+      "contract_bindings": [
+        {
+          "node_id": "sea_level_rise",
+          "metric_contract_id": "global_and_regional_mean_sea_level_change",
+          "measurement_role": "bounded_global_satellite_altimetry_primary"
+        }
+      ],
+      "cadence": "monthly source check with full-series replacement when NOAA updates the altimetry record",
+      "provenance": "Official NOAA Laboratory for Satellite Altimetry same-ground-track global mean sea-level anomaly series, retaining mission overlap, spatial coverage and correction choices.",
+      "uncertainty": "The source does not provide observation-level confidence intervals. Mission calibration, orbit and instrument correction, spatial coverage, reference choice, inverse-barometer treatment and GIA omission affect estimates.",
+      "failure_behavior": "Retain the last validated series and mark stale; reject schema changes or truncation; never extrapolate local relative sea level from the global series."
+    },
+    {
+      "ingestion_job_id": "fetch_noaa_ibtracs_rapid_intensification",
+      "source_id": "noaa_ibtracs",
+      "snapshot_file": "noaa-ibtracs-rapid-intensification-snapshot.json",
+      "api_route": "/api/noaa/ibtracs-rapid-intensification",
+      "contract_bindings": [
+        {
+          "node_id": "tropical_cyclone_rapid_intensification",
+          "metric_contract_id": "ibtracs_24h_maximum_wind_change",
+          "measurement_role": "rolling_three_year_usa_wind_operational_primary"
+        }
+      ],
+      "cadence": "weekly complete-file replacement after the NOAA IBTrACS v04r01 update",
+      "provenance": "Official NOAA NCEI IBTrACS v04r01 main tracks, using source-native USA_WIND at exact 24-hour-separated timestamps and retaining agency and provisional status.",
+      "uncertainty": "Agency practices, observing systems, best-track revisions, wind averaging periods, provisional tracks and missing exact 24-hour pairs affect results. The rolling subset is not a climate-trend record.",
+      "failure_behavior": "Retain the last validated snapshot and mark stale; reject changed columns or an implausibly short panel; never classify missing wind pairs as zero intensification."
+    },
+    {
+      "ingestion_job_id": "fetch_noaa_global_ocean_heat_content",
+      "source_id": "noaa_global_ocean_heat_content_cdr",
+      "snapshot_file": "noaa-ocean-heat-content-snapshot.json",
+      "api_route": "/api/noaa/ocean-heat-content",
+      "contract_bindings": [
+        {
+          "node_id": "ocean_heat_content",
+          "metric_contract_id": "upper_ocean_heat_content_anomaly",
+          "measurement_role": "global_annual_0_2000m_primary"
+        }
+      ],
+      "cadence": "quarterly source check with annual-series replacement when NOAA updates the record",
+      "provenance": "Official NOAA NCEI World Ocean annual 0-2000 m heat-content anomaly and standard-error series, with the source unit converted from 10^22 joules to zettajoules.",
+      "uncertainty": "Sparse historical sampling, XBT bias correction, Argo coverage, objective mapping, depth-layer choice, and baseline choice affect the series. Derived 95 percent intervals are labeled derived rather than source-reported.",
+      "failure_behavior": "Retain the last validated series and mark stale; reject schema changes or truncated series; never fill missing years with zero or extrapolate the latest anomaly."
+    },
+    {
+      "ingestion_job_id": "fetch_imbie_mass_balance_assessment",
+      "source_id": "ice_sheet_mass_balance_inter_comparison_exercise",
+      "snapshot_file": "imbie-snapshot.json",
+      "api_route": "/api/imbie/snapshot",
+      "contract_bindings": [
+        {
+          "node_id": "ice_sheet_mass_loss",
+          "metric_contract_id": "ice_sheet_mass_balance",
+          "measurement_role": "reconciled_assessment_primary"
+        }
+      ],
+      "cadence": "annual source check and assessment-release refresh",
+      "provenance": "IMBIE 1992-2020 reconciliation of 50 satellite-derived estimates, with source-reported cumulative mass change, annual rate where reported, and uncertainty.",
+      "uncertainty": "Method covariance, glacial-isostatic adjustment, firn and density corrections, peripheral glacier inclusion, and assessment period affect estimates.",
+      "failure_behavior": "Retain the last validated assessment, mark stale, expose source-text or schema failure, and never replace a missing uncertainty with zero."
+    },
+    {
+      "ingestion_job_id": "fetch_eia_hourly_grid_metrics",
+      "source_id": "eia_hourly_electric_grid_monitor",
+      "snapshot_file": "eia-hourly-grid-snapshot.json",
+      "api_route": "/api/eia/grid-snapshot",
+      "contract_bindings": [
+        {
+          "node_id": "grid_peak_load_stress",
+          "metric_contract_id": "grid_peak_demand_and_forecast_stress",
+          "measurement_role": "bounded_operational_primary"
+        },
+        {
+          "node_id": "gas_power_dependence",
+          "metric_contract_id": "gas_fired_generation_share",
+          "measurement_role": "bounded_operational_primary"
+        }
+      ],
+      "cadence": "daily refresh of a rolling 30-day hourly window",
+      "provenance": "Official EIA API v2 Form EIA-930 demand, day-ahead forecast, and generation-by-fuel observations for a declared balancing-authority panel.",
+      "uncertainty": "Revisions, missing intervals, balancing-area accounting, storage signs, behind-the-meter resources, and the rolling-window boundary affect summaries.",
+      "failure_behavior": "Retain the last validated snapshot, mark stale, expose the failed endpoint and affected balancing authorities, and never fill missing hours with zero."
+    },
+    {
+      "ingestion_job_id": "fetch_ghsl_country_urbanization_metrics",
+      "source_id": "global_human_settlement_layer",
+      "snapshot_file": "ghsl-country-urbanization-snapshot.json",
+      "api_route": "/api/ghsl/snapshot",
+      "contract_bindings": [
+        {
+          "node_id": "urbanization",
+          "metric_contract_id": "built_up_surface_expansion",
+          "measurement_role": "harmonized_country_primary"
+        },
+        {
+          "node_id": "urban_sprawl_housing",
+          "metric_contract_id": "built_up_area_per_resident",
+          "measurement_role": "harmonized_country_primary"
+        }
+      ],
+      "cadence": "annual source check and release-triggered refresh",
+      "provenance": "European Commission JRC GHSL country-statistics workbook using harmonized 2015 and 2020 built-up and population epochs.",
+      "uncertainty": "Remote-sensing classification, population downscaling, boundary adaptation, settlement-class transition, and release revision affect comparison.",
+      "failure_behavior": "Retain the last validated release, mark stale, expose archive or schema failure, and never mix releases or fill missing countries with zero."
+    },
+    {
+      "ingestion_job_id": "fetch_gbif_occurrences",
+      "source_id": "gbif_occurrence_api",
+      "snapshot_file": "gbif-occurrence-snapshot.json",
+      "api_route": "/api/gbif/snapshot",
+      "contract_bindings": [
+        {
+          "node_id": "biodiversity_intactness_loss",
+          "metric_contract_id": "gbif_species_occurrence_coverage"
+        },
+        {
+          "node_id": "invasive_species_encroachment",
+          "metric_contract_id": "gbif_non_native_occurrence_expansion"
+        }
+      ],
+      "cadence": "monthly",
+      "provenance": "GBIF occurrence search with bounded query and retained quality fields.",
+      "uncertainty": "Presence-only coverage and observer effort vary.",
+      "failure_behavior": "Keep the last reviewed snapshot and mark stale."
+    },
+    {
+      "ingestion_job_id": "fetch_obis_occurrences",
+      "source_id": "obis_api_v3",
+      "snapshot_file": "obis-occurrence-snapshot.json",
+      "api_route": "/api/obis/snapshot",
+      "contract_bindings": [
+        {
+          "node_id": "pelagic_species_redistribution",
+          "metric_contract_id": "obis_marine_occurrence_centroid_shift"
+        },
+        {
+          "node_id": "marine_food_web_simplification",
+          "metric_contract_id": "obis_taxonomic_richness_balance"
+        }
+      ],
+      "cadence": "quarterly",
+      "provenance": "OBIS bounded occurrence query with dataset and QC context.",
+      "uncertainty": "Presence-only data and uneven sampling can mimic change.",
+      "failure_behavior": "Withhold trend metrics when coverage fails."
+    },
+    {
+      "ingestion_job_id": "fetch_usgs_water_observations",
+      "source_id": "usgs_water_data_ogc_api",
+      "snapshot_file": "usgs-water-snapshot.json",
+      "api_route": "/api/usgs-water/snapshot",
+      "contract_bindings": [
+        {
+          "node_id": "river_flow_regime_shift",
+          "metric_contract_id": "usgs_daily_discharge_regime"
+        },
+        {
+          "node_id": "groundwater_depletion",
+          "metric_contract_id": "usgs_groundwater_level_observation"
+        }
+      ],
+      "cadence": "daily or weekly by binding",
+      "provenance": "USGS Water Data OGC observations with station, unit, and provisional status.",
+      "uncertainty": "US coverage and provisional revisions.",
+      "failure_behavior": "Preserve approved station values and expose missingness."
+    },
+    {
+      "ingestion_job_id": "fetch_food_insecurity_fies",
+      "source_id": "unsd_sdg_api",
+      "snapshot_file": "food-security-snapshot.json",
+      "api_route": "/api/food-security/snapshot",
+      "contract_bindings": [
+        {
+          "node_id": "food_insecurity",
+          "metric_contract_id": "food_insecurity_prevalence_fies",
+          "measurement_role": "primary"
+        }
+      ],
+      "cadence": "annual",
+      "provenance": "UNSD SDG 2.1.2 observations reported by FAO with bounds and footnotes retained.",
+      "uncertainty": "Survey and model uncertainty varies by country and release.",
+      "failure_behavior": "Freeze the last reviewed release; missing is never zero."
+    },
+    {
+      "ingestion_job_id": "fetch_world_bank_idmc_disaster_displacement",
+      "source_id": "idmc",
+      "snapshot_file": "disaster-displacement-snapshot.json",
+      "api_route": "/api/disaster-displacement/snapshot",
+      "contract_bindings": [
+        {
+          "node_id": "migration",
+          "metric_contract_id": "hazard_related_internal_displacements",
+          "measurement_role": "bounded_country_annual_disaster_displacement_flow"
+        }
+      ],
+      "cadence": "annual World Bank indicator release check with release-triggered refresh",
+      "provenance": "IDMC annual new-displacement estimates for disasters redistributed through World Bank indicator VC.IDP.NWDS, retaining country, year, movement count and stock-versus-flow boundary.",
+      "uncertainty": "Figures count displacement movements rather than unique people; rapid estimates, repeat displacement, event coverage, revisions, evacuation classification and reporting access affect totals. The country-year API omits event-level confidence and hazard details.",
+      "failure_behavior": "Retain the last validated country-year snapshot and mark stale; reject empty or structurally changed responses; never fill missing country-years with zero or label the figures as climate-attributed migration."
+    },
+    {
+      "ingestion_job_id": "fetch_faostat_agriculture_metrics",
+      "source_id": "faostat",
+      "snapshot_file": "faostat-agriculture-snapshot.json",
+      "api_route": "/api/faostat/agriculture-snapshot",
+      "contract_bindings": [
+        {
+          "node_id": "industry_farming",
+          "metric_contract_id": "faostat_input_intensity_profile",
+          "measurement_role": "partial_global_profile_feed_component_unavailable"
+        },
+        {
+          "node_id": "crop_yield_volatility",
+          "metric_contract_id": "crop_yield_interannual_variability",
+          "measurement_role": "bounded_global_descriptive_primary"
+        },
+        {
+          "node_id": "food",
+          "metric_contract_id": "apparent_agricultural_commodity_demand",
+          "measurement_role": "bounded_global_food_balance_primary"
+        },
+        {
+          "node_id": "food_import_exposure",
+          "metric_contract_id": "food_import_dependency_ratio",
+          "measurement_role": "mass_based_selected_commodity_source_reported_geography_primary"
+        },
+        {
+          "node_id": "fertilizer_production",
+          "metric_contract_id": "fertilizer_product_output",
+          "measurement_role": "source_reported_country_region_product_mass_primary"
+        },
+        {
+          "node_id": "feed_crop_dependency",
+          "metric_contract_id": "livestock_feed_crop_use_share",
+          "measurement_role": "source_reported_cereal_feed_share_of_domestic_supply_primary"
+        },
+        {
+          "node_id": "wetlands_drainage_scales",
+          "metric_contract_id": "wetland_area_drained_or_converted",
+          "measurement_role": "annual_faostat_agricultural_drained_organic_soil_area_primary_proxy"
+        },
+        {
+          "node_id": "peat_oxidation_pulse",
+          "metric_contract_id": "drained_peat_co2_flux",
+          "measurement_role": "annual_faostat_agricultural_drained_organic_soil_total_and_derived_intensity_primary"
+        },
+        {
+          "node_id": "peatland_drainage_co2",
+          "metric_contract_id": "drained_peat_co2_flux",
+          "measurement_role": "global_annual_agricultural_drained_organic_soil_co2_inventory_primary"
+        }
+      ],
+      "cadence": "annual release check with release-triggered snapshot refresh",
+      "provenance": "Official FAOSTAT QCL crops and livestock production, RFN fertilizer-by-nutrient use, FBS Food Balance Sheet, RFB Fertilizers by Product, and GV Emissions from Drained Organic Soils normalized bulk releases; source-reported M49 geographies, product, land-use, gas, units, and flags are retained. Cereal feed dependency and drained-organic-soil intensity are derived only from matching source components.",
+      "uncertainty": "Country reporting, regional aggregation, imputation flags, selected commodity coverage, stock variation, re-exports, food-balance conventions, product-mass versus nutrient-content boundaries, detrending choice, histosol maps, annual land cover, and Tier 1 emission factors affect the snapshot. The drained-organic-soil records cover agricultural cropland and grassland rather than all wetlands.",
+      "failure_behavior": "Retain the last validated release, mark stale, expose the failed dataset code, and never fill missing inputs, commodities, geographies, trade, feed, land-use classes, products, or years with zero; reject derived feed shares or drained-organic-soil intensity unless source components share geography, item, year, unit boundary and release."
+    },
+    {
+      "ingestion_job_id": "fetch_power_heat_hazard_metrics",
+      "source_id": "nasa_power_open_api",
+      "snapshot_file": "power-heat-hazard-snapshot.json",
+      "api_route": "/api/power/heat-hazards",
+      "contract_bindings": [
+        {
+          "node_id": "wet_bulb_heat",
+          "metric_contract_id": "wet_bulb_temperature_exceedance_hours",
+          "measurement_role": "bounded_gridded_hourly_primary"
+        },
+        {
+          "node_id": "atmospheric_dryness",
+          "metric_contract_id": "vapour_pressure_deficit",
+          "measurement_role": "bounded_gridded_hourly_derived_primary"
+        },
+        {
+          "node_id": "humidity_amplification",
+          "metric_contract_id": "column_water_vapour_anomaly",
+          "measurement_role": "bounded_gridded_daily_primary"
+        },
+        {
+          "node_id": "environ_anomalies",
+          "metric_contract_id": "compound_climate_hazard_days",
+          "measurement_role": "bounded_declared_pair_daily_primary"
+        },
+        {
+          "node_id": "extreme_precipitation_intensity",
+          "metric_contract_id": "power_annual_max_daily_precipitation_anomaly",
+          "measurement_role": "bounded_gridded_daily_extreme_primary"
+        },
+        {
+          "node_id": "nocturnal_heat_stress",
+          "metric_contract_id": "warm_night_threshold_exceedance",
+          "measurement_role": "bounded_gridded_daily_minimum_temperature_primary"
+        },
+        {
+          "node_id": "compound_day_night_heat_extremes",
+          "metric_contract_id": "compound_hot_day_night_events",
+          "measurement_role": "bounded_gridded_consecutive_daily_temperature_primary"
+        }
+      ],
+      "cadence": "annual complete-year refresh after source replacement lag, with monthly source-metadata check",
+      "provenance": "NASA POWER source-native hourly T2MWET, T2M and RH2M plus daily T2M_MAX, PRECTOTCORR and PW point products for a declared low-elevation city panel, UTC, with VPD derived from co-timed temperature and humidity, total-column PW converted from centimetres water equivalent to kilograms per square metre, and a fixed 1991-2020 local baseline for moisture and daily hazards.",
+      "uncertainty": "NASA POWER is a gridded reanalysis-derived product. Grid resolution, point assignment, retrospective source replacement, local representativeness, formula propagation, column definition, selected thresholds, and the single heat-plus-heavy-precipitation pair affect interpretation.",
+      "failure_behavior": "Retain the last validated complete-year snapshot and mark stale; withhold any location below 95 percent applicable hourly or daily completeness, and never treat missing observations as non-events, zero VPD, or zero column water vapour."
+    },
+    {
+      "ingestion_job_id": "fetch_noaa_coops_high_tide_flood_metrics",
+      "source_id": "noaa_co_ops_derived_product_api",
+      "snapshot_file": "noaa-coops-high-tide-flood-snapshot.json",
+      "api_route": "/api/noaa-coops/high-tide-floods",
+      "contract_bindings": [
+        {
+          "node_id": "coastal_inundation_risk",
+          "metric_contract_id": "coastal_high_water_exposure_days",
+          "measurement_role": "bounded_gauge_threshold_exceedance_primary"
+        }
+      ],
+      "cadence": "annual complete-year refresh after daily verification, with monthly source check",
+      "provenance": "Official NOAA CO-OPS High Tide Flooding daily records and station flood-level metadata for a declared four-gauge United States panel, MHHW datum, metric units, and calendar year 2025.",
+      "uncertainty": "Gauge coverage is local; datum, station threshold, verification lag, vertical land motion, missing days, and defenses affect interpretation. Daily flags do not measure inundated area or damage.",
+      "failure_behavior": "Retain the last validated complete-year snapshot and mark stale; withhold stations below 95 percent daily completeness, and never treat missing days as non-flood events."
+    },
+    {
+      "ingestion_job_id": "fetch_who_air_pollution_health_burden",
+      "source_id": "who_gho_odata_api",
+      "snapshot_file": "who-air-pollution-burden-snapshot.json",
+      "api_route": "/api/who/air-pollution-burden",
+      "contract_bindings": [
+        {
+          "node_id": "air_pollution_health_burden",
+          "metric_contract_id": "air_pollution_attributable_health_burden",
+          "measurement_role": "country_age_standardized_comparative_risk_assessment_primary"
+        }
+      ],
+      "cadence": "monthly source check with release-triggered refresh every two to four years",
+      "provenance": "WHO GHO AIR_42 ambient-air-pollution attributable mortality estimates for 2021, both sexes and all included causes, with country and source-reported 95 percent uncertainty bounds retained.",
+      "uncertainty": "WHO comparative risk assessment depends on exposure estimates, epidemiological evidence, background disease burden, population data, and assessment release; it is not a death-registration count.",
+      "failure_behavior": "Retain the last validated release, mark stale, expose missing countries or schema changes, and never replace missing estimates or uncertainty bounds with zero."
+    },
+    {
+      "ingestion_job_id": "fetch_copernicus_drought_persistence",
+      "source_id": "copernicus_european_and_global_drought_observatories",
+      "snapshot_file": "copernicus-drought-persistence-snapshot.json",
+      "api_route": "/api/copernicus/drought-persistence",
+      "contract_bindings": [
+        {
+          "node_id": "drought_persistence",
+          "metric_contract_id": "drought_event_duration_spi6",
+          "measurement_role": "bounded_global_grid_meteorological_drought_primary"
+        }
+      ],
+      "cadence": "monthly source check with annual finalized-file refresh",
+      "provenance": "Copernicus GDO ERA5 SPI-6 Version 2.0.0 monthly 2025 source values extracted at the nearest 0.25-degree grid cell for a declared six-location panel.",
+      "uncertainty": "SPI measures precipitation anomaly only. ERA5 inputs, fitting, reference climatology, grid assignment, accumulation window, threshold, annual truncation, and revisions affect classification.",
+      "failure_behavior": "Retain the last validated complete-year file and mark stale; withhold incomplete locations and never fill missing months or infer agricultural or hydrological impacts."
+    },
+    {
+      "ingestion_job_id": "fetch_gwis_wildfire_regime_metrics",
+      "source_id": "ec_jrc_global_wildfire_information_system_mcd64a1_burned_area",
+      "snapshot_file": "gwis-wildfire-regime-snapshot.json",
+      "api_route": "/api/gwis/wildfire-regime",
+      "contract_bindings": [
+        {
+          "node_id": "wildfire_regime_shift",
+          "metric_contract_id": "gwis_non_cropland_burned_area_and_season_span",
+          "measurement_role": "bounded_country_burned_area_regime_indicator"
+        }
+      ],
+      "cadence": "annual complete-year refresh after the GWIS country dataset release",
+      "provenance": "Official European Commission JRC GWIS country-profile CSV derived from NASA MCD64A1 monthly 500 m burned-area pixels; 2023 country totals aggregate source GADM level 1 rows and use a fixed 2003-2022 comparison baseline. The all-zero 2024 source partition is explicitly withheld.",
+      "uncertainty": "MCD64A1 cloud and observation gaps, 500 m resolution, small-fire omission, land-cover classification, GADM boundaries, managed burning, fire-type attribution, dataset revisions, and monthly temporal grain affect the metric.",
+      "failure_behavior": "Retain the last validated complete-year snapshot and mark stale; reject schema or country/month coverage changes; never convert hotspot counts to hectares or label all mapped burning as wildfire."
+    },
+    {
+      "ingestion_job_id": "fetch_epa_nrsa_freshwater_condition",
+      "source_id": "u_s_epa_national_rivers_and_streams_assessment_2018_2019",
+      "snapshot_file": "epa-nrsa-freshwater-condition-snapshot.json",
+      "api_route": "/api/epa/nrsa/freshwater-condition",
+      "contract_bindings": [
+        {
+          "node_id": "freshwater_ecosystem_collapse",
+          "metric_contract_id": "epa_nrsa_poor_biological_condition",
+          "measurement_role": "bounded_us_river_stream_biological_condition_indicator"
+        }
+      ],
+      "cadence": "release-triggered refresh for each completed NRSA survey cycle",
+      "provenance": "Official EPA probability-based NRSA 2018-2019 condition estimates used by the published report, retaining national and nine-ecoregion benthic and fish categories, sample counts, estimated river miles, and source 95 percent confidence bounds.",
+      "uncertainty": "Survey weights, site accessibility, reference-condition thresholds, index construction, fish nonresponse, temporal sampling, ecoregional calibration, and survey-design changes affect estimates.",
+      "failure_behavior": "Retain the last validated survey release and mark its period; reject missing category or uncertainty rows; never infer local, lake, global, unassessed-water, or collapse status from this survey."
+    },
+    {
+      "ingestion_job_id": "fetch_eia_oe417_disruption_metrics",
+      "source_id": "eia_major_disturbances_and_unusual_occurrences_doe_417",
+      "snapshot_file": "eia-oe417-disruption-snapshot.json",
+      "api_route": "/api/eia/oe417-disruptions",
+      "contract_bindings": [
+        {
+          "node_id": "critical_infrastructure_fragility",
+          "metric_contract_id": "eia_oe417_reported_customer_interruption_burden",
+          "measurement_role": "bounded_us_major_electric_disruption_indicator"
+        }
+      ],
+      "cadence": "monthly source check with release-triggered replacement of the completed annual table",
+      "provenance": "Official EIA Electric Power Monthly Table B.2 sourced from mandatory DOE-417 emergency reports, retaining source duration, customers affected, megawatts lost, utility, geography, and disturbance type for all twelve source months.",
+      "uncertainty": "Customer counts are preliminary; qualifying-event coverage excludes ordinary outages; overlapping events, staggered restoration, missing duration, revisions, time conventions, and reporting thresholds affect customer-hours.",
+      "failure_behavior": "Retain the last validated completed-year table and mark its year; reject schema drift, missing months, or empty event data; withhold customer-hours when customers or duration is missing; never use this as utility SAIDI/SAIFI or a cross-sector fragility index."
+    },
+    {
+      "ingestion_job_id": "fetch_nutrient_pollution_samples",
+      "source_id": "usgs_samples_data_api",
+      "snapshot_file": "nutrient-pollution-snapshot.json",
+      "api_route": "/api/nutrient-pollution/snapshot",
+      "contract_bindings": [
+        {
+          "node_id": "nutrient_pollution",
+          "metric_contract_id": "surface_water_total_nutrient_concentration",
+          "measurement_role": "bounded_regional_primary"
+        }
+      ],
+      "cadence": "monthly snapshot",
+      "provenance": "USGS Samples API narrow profile with methods and detection limits retained.",
+      "uncertainty": "Sampling coverage, method, and detection limits vary.",
+      "failure_behavior": "Withhold aggregation when method or site coverage is insufficient."
+    },
+    {
+      "ingestion_job_id": "fetch_seagrass_support",
+      "source_id": "obis_api_v3",
+      "snapshot_file": "seagrass-support-snapshot.json",
+      "api_route": "/api/seagrass/snapshot",
+      "contract_bindings": [
+        {
+          "node_id": "seagrass_meadow_decline",
+          "metric_contract_id": "seagrass_meadow_area_change",
+          "measurement_role": "supporting_occurrence_evidence_only"
+        }
+      ],
+      "cadence": "episodic",
+      "provenance": "Taxon-bounded OBIS occurrences used for supporting QA only.",
+      "uncertainty": "Observer effort and mobilization vary; absence is not observed.",
+      "failure_behavior": "Never calculate area decline from raw occurrences."
+    },
+    {
+      "ingestion_job_id": "fetch_urban_heat_island_eea",
+      "source_id": "eea_urban_heat_island_arcgis",
+      "snapshot_file": "urban-heat-island-snapshot.json",
+      "api_route": "/api/urban-heat-island/snapshot",
+      "contract_bindings": [
+        {
+          "node_id": "urban_heat_island",
+          "metric_contract_id": "urban_heat_island_intensity_degC",
+          "measurement_role": "bounded_regional_primary"
+        }
+      ],
+      "cadence": "episodic authoritative snapshot",
+      "provenance": "EEA ArcGIS modeled UHI layer with feature IDs and coordinates retained.",
+      "uncertainty": "European city coverage and model-period limitations.",
+      "failure_behavior": "Freeze the previous value across incompatible processing changes."
+    }
+  ]
+}

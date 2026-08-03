@@ -1,0 +1,793 @@
+{
+  "updated_at": "2026-07-31",
+  "version": "2026-07-31T14:55:33.922Z",
+  "snapshot_family": "global_carbon_budget",
+  "source": {
+    "id": "global_carbon_budget_data_hub",
+    "name": "Global Carbon Budget Data Hub",
+    "title": "The Latest GCB Data (2025)",
+    "url": "https://globalcarbonbudget.org/datahub/the-latest-gcb-data-2025/",
+    "publisher": "Global Carbon Project",
+    "access": "open_download"
+  },
+  "refresh_policy": {
+    "default_days": 56,
+    "notes": "Treat Global Carbon Budget as a periodic scientific snapshot. Refresh when a new budget release is published rather than presenting it as a live feed."
+  },
+  "use_guidance": {
+    "primary_role": "Use as a defensible carbon-budget snapshot and download registry for TULIP anchors and curated evidence.",
+    "caution": "This payload inventories the current official release assets. It does not invent a pseudo-live remaining-budget metric."
+  },
+  "release": {
+    "release_year": "2025",
+    "landing_page": "https://globalcarbonbudget.org/datahub/the-latest-gcb-data-2025/",
+    "data_browser_url": "https://mdosullivan.github.io/GraphicalCarbonBudget/",
+    "citation_note": "Cite Global Carbon Budget 2025 (Friedlingstein et al., 2025, ESSD) for all data.",
+    "fair_use_note": "The data and model output are described by the publisher as freely available and subject to source-specific acknowledgement and citation guidance.",
+    "download_resolution_note": "The static release page exposed direct download URLs for the core spreadsheet package and dataset descriptions PDF. Additional netCDF and linked assets are advertised on the release page but were not all exposed as direct download links in the fetched HTML."
+  },
+  "downloads": [
+    {
+      "label": "Dataset descriptions v2025",
+      "url": "https://globalcarbonbudget.org/download/2454/?tmstv=1762956990",
+      "format": "pdf",
+      "access": "open_download"
+    },
+    {
+      "label": "Global Carbon Budget v2025",
+      "url": "https://globalcarbonbudget.org/download/2341/?tmstv=1762815901",
+      "format": "xlsx",
+      "access": "open_download"
+    },
+    {
+      "label": "National fossil carbon emissions v2025",
+      "url": "https://globalcarbonbudget.org/download/2345/?tmstv=1762815968",
+      "format": "xlsx",
+      "access": "open_download"
+    },
+    {
+      "label": "National land use change carbon emissions v2025",
+      "url": "https://globalcarbonbudget.org/download/2348/?tmstv=1762816074",
+      "format": "xlsx",
+      "access": "open_download"
+    }
+  ],
+  "advertised_assets": [
+    {
+      "label": "Dataset descriptions v2025",
+      "format": "pdf",
+      "status": "resolved_download_url",
+      "url": "https://globalcarbonbudget.org/download/2454/?tmstv=1762956990"
+    },
+    {
+      "label": "Global Carbon Budget v2025",
+      "format": "xlsx",
+      "status": "resolved_download_url",
+      "url": "https://globalcarbonbudget.org/download/2341/?tmstv=1762815901"
+    },
+    {
+      "label": "National fossil carbon emissions v2025",
+      "format": "xlsx",
+      "status": "resolved_download_url",
+      "url": "https://globalcarbonbudget.org/download/2345/?tmstv=1762815968"
+    },
+    {
+      "label": "National land use change carbon emissions v2025",
+      "format": "xlsx",
+      "status": "resolved_download_url",
+      "url": "https://globalcarbonbudget.org/download/2348/?tmstv=1762816074"
+    },
+    {
+      "label": "Fossil CO2 emissions",
+      "format": "netcdf",
+      "status": "advertised_on_release_page",
+      "url": null
+    },
+    {
+      "label": "Land use change carbon emissions",
+      "format": "netcdf",
+      "status": "advertised_on_release_page",
+      "url": null
+    },
+    {
+      "label": "Ocean carbon flux and response to drivers: atmospheric CO2 and changes to climate",
+      "format": "netcdf",
+      "status": "advertised_on_release_page",
+      "url": null
+    },
+    {
+      "label": "Ocean carbon flux",
+      "format": "netcdf",
+      "status": "advertised_on_release_page",
+      "url": null
+    },
+    {
+      "label": "Land carbon flux",
+      "format": "netcdf",
+      "status": "advertised_on_release_page",
+      "url": null
+    },
+    {
+      "label": "Land carbon flux response to drivers: rising atmospheric CO2 and changes to climate",
+      "format": "netcdf",
+      "status": "advertised_on_release_page",
+      "url": null
+    },
+    {
+      "label": "Surface fCO2 and air-sea CO2 3D flux data (longitude, latitude, time)",
+      "format": "zenodo",
+      "status": "advertised_on_release_page",
+      "url": null
+    }
+  ],
+  "record_count": 66,
+  "annual_global_budget": [
+    {
+      "year": 1959,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 2.41678824533062,
+      "land_use_change_emissions_gtc_yr": 2.37248,
+      "atmospheric_growth_gtc_yr": 2.03904,
+      "ocean_sink_gtc_yr": 1.11508070269876,
+      "land_sink_gtc_yr": 0.453344829624502,
+      "cement_carbonation_sink_gtc_yr": 0.0134227952138527,
+      "budget_imbalance_gtc_yr": 1.1683799177935
+    },
+    {
+      "year": 1960,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 2.56194087824161,
+      "land_use_change_emissions_gtc_yr": 2.07712,
+      "atmospheric_growth_gtc_yr": 1.50804,
+      "ocean_sink_gtc_yr": 1.08368602196766,
+      "land_sink_gtc_yr": 0.733534084300578,
+      "cement_carbonation_sink_gtc_yr": 0.0146426370822483,
+      "budget_imbalance_gtc_yr": 1.29915813489113
+    },
+    {
+      "year": 1961,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 2.5695934742663,
+      "land_use_change_emissions_gtc_yr": 2.08246666666667,
+      "atmospheric_growth_gtc_yr": 1.65672,
+      "ocean_sink_gtc_yr": 1.02492870186467,
+      "land_sink_gtc_yr": 0.682194717898086,
+      "cement_carbonation_sink_gtc_yr": 0.0156153596040533,
+      "budget_imbalance_gtc_yr": 1.27260136156616
+    },
+    {
+      "year": 1962,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 2.66027313874287,
+      "land_use_change_emissions_gtc_yr": 1.94825333333333,
+      "atmospheric_growth_gtc_yr": 1.18944,
+      "ocean_sink_gtc_yr": 1.06926834483989,
+      "land_sink_gtc_yr": 1.13320924266558,
+      "cement_carbonation_sink_gtc_yr": 0.0167470095827085,
+      "budget_imbalance_gtc_yr": 1.19986187498804
+    },
+    {
+      "year": 1963,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 2.80206813999081,
+      "land_use_change_emissions_gtc_yr": 1.89774333333333,
+      "atmospheric_growth_gtc_yr": 1.21068,
+      "ocean_sink_gtc_yr": 1.26652315846873,
+      "land_sink_gtc_yr": 0.773127182753466,
+      "cement_carbonation_sink_gtc_yr": 0.017818609427555,
+      "budget_imbalance_gtc_yr": 1.43166252267439
+    },
+    {
+      "year": 1964,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 2.95427665161876,
+      "land_use_change_emissions_gtc_yr": 1.81766333333333,
+      "atmospheric_growth_gtc_yr": 1.04076,
+      "ocean_sink_gtc_yr": 1.36621767561798,
+      "land_sink_gtc_yr": 0.986012346438706,
+      "cement_carbonation_sink_gtc_yr": 0.019487750019652,
+      "budget_imbalance_gtc_yr": 1.35946221287575
+    },
+    {
+      "year": 1965,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 3.08695493416446,
+      "land_use_change_emissions_gtc_yr": 1.74274666666667,
+      "atmospheric_growth_gtc_yr": 2.3364,
+      "ocean_sink_gtc_yr": 1.45562448514609,
+      "land_sink_gtc_yr": 0.349777999112832,
+      "cement_carbonation_sink_gtc_yr": 0.0205321039667194,
+      "budget_imbalance_gtc_yr": 0.667367012605485
+    },
+    {
+      "year": 1966,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 3.23761605363027,
+      "land_use_change_emissions_gtc_yr": 1.61494,
+      "atmospheric_growth_gtc_yr": 2.3364,
+      "ocean_sink_gtc_yr": 1.37564430202541,
+      "land_sink_gtc_yr": 1.12998958488267,
+      "cement_carbonation_sink_gtc_yr": 0.0220351979434291,
+      "budget_imbalance_gtc_yr": -0.011513031221239
+    },
+    {
+      "year": 1967,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 3.33989376007824,
+      "land_use_change_emissions_gtc_yr": 1.70593,
+      "atmospheric_growth_gtc_yr": 1.29564,
+      "ocean_sink_gtc_yr": 1.22106671819661,
+      "land_sink_gtc_yr": 1.33575791876102,
+      "cement_carbonation_sink_gtc_yr": 0.0231138548418766,
+      "budget_imbalance_gtc_yr": 1.17024526827874
+    },
+    {
+      "year": 1968,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 3.5221816761647,
+      "land_use_change_emissions_gtc_yr": 1.72683666666667,
+      "atmospheric_growth_gtc_yr": 2.10276,
+      "ocean_sink_gtc_yr": 1.35779538915996,
+      "land_sink_gtc_yr": 1.60211703941645,
+      "cement_carbonation_sink_gtc_yr": 0.0247122189932593,
+      "budget_imbalance_gtc_yr": 0.161633695261698
+    },
+    {
+      "year": 1969,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 3.75594906885503,
+      "land_use_change_emissions_gtc_yr": 1.89425333333333,
+      "atmospheric_growth_gtc_yr": 2.80368,
+      "ocean_sink_gtc_yr": 1.46998245208838,
+      "land_sink_gtc_yr": 0.587492738064448,
+      "cement_carbonation_sink_gtc_yr": 0.0261693459280906,
+      "budget_imbalance_gtc_yr": 0.762877866107441
+    },
+    {
+      "year": 1970,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 4.06635873653196,
+      "land_use_change_emissions_gtc_yr": 1.82578333333333,
+      "atmospheric_growth_gtc_yr": 2.40012,
+      "ocean_sink_gtc_yr": 1.34739071712832,
+      "land_sink_gtc_yr": 0.730587062035082,
+      "cement_carbonation_sink_gtc_yr": 0.0277334529663209,
+      "budget_imbalance_gtc_yr": 1.38631083773558
+    },
+    {
+      "year": 1971,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 4.23140383577221,
+      "land_use_change_emissions_gtc_yr": 1.6756,
+      "atmospheric_growth_gtc_yr": 1.55052,
+      "ocean_sink_gtc_yr": 1.43617516369666,
+      "land_sink_gtc_yr": 1.65207005646128,
+      "cement_carbonation_sink_gtc_yr": 0.0294422994228992,
+      "budget_imbalance_gtc_yr": 1.23879631619137
+    },
+    {
+      "year": 1972,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 4.42810604935451,
+      "land_use_change_emissions_gtc_yr": 1.75712,
+      "atmospheric_growth_gtc_yr": 3.12228,
+      "ocean_sink_gtc_yr": 1.64302574193225,
+      "land_sink_gtc_yr": 0.808476157546628,
+      "cement_carbonation_sink_gtc_yr": 0.031215899775234,
+      "budget_imbalance_gtc_yr": 0.580228250100398
+    },
+    {
+      "year": 1973,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 4.66083134434986,
+      "land_use_change_emissions_gtc_yr": 1.70695,
+      "atmospheric_growth_gtc_yr": 3.10104,
+      "ocean_sink_gtc_yr": 1.59349179781696,
+      "land_sink_gtc_yr": 1.14414004644052,
+      "cement_carbonation_sink_gtc_yr": 0.0335935115033677,
+      "budget_imbalance_gtc_yr": 0.495515988589013
+    },
+    {
+      "year": 1974,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 4.63916801333499,
+      "land_use_change_emissions_gtc_yr": 1.72298,
+      "atmospheric_growth_gtc_yr": 1.44432,
+      "ocean_sink_gtc_yr": 1.53498634187164,
+      "land_sink_gtc_yr": 2.94527020301577,
+      "cement_carbonation_sink_gtc_yr": 0.0343120486337546,
+      "budget_imbalance_gtc_yr": 0.403259419813825
+    },
+    {
+      "year": 1975,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 4.63659299855599,
+      "land_use_change_emissions_gtc_yr": 1.67126,
+      "atmospheric_growth_gtc_yr": 2.61252,
+      "ocean_sink_gtc_yr": 1.52288586121911,
+      "land_sink_gtc_yr": 2.09459003425971,
+      "cement_carbonation_sink_gtc_yr": 0.0346252227970249,
+      "budget_imbalance_gtc_yr": 0.0432318802801535
+    },
+    {
+      "year": 1976,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 4.87513420083682,
+      "land_use_change_emissions_gtc_yr": 1.65400666666667,
+      "atmospheric_growth_gtc_yr": 2.06028,
+      "ocean_sink_gtc_yr": 1.64169696098276,
+      "land_sink_gtc_yr": 2.16596237061818,
+      "cement_carbonation_sink_gtc_yr": 0.0369934704351083,
+      "budget_imbalance_gtc_yr": 0.624208065467433
+    },
+    {
+      "year": 1977,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 5.0103817337093,
+      "land_use_change_emissions_gtc_yr": 1.80679333333333,
+      "atmospheric_growth_gtc_yr": 4.07808,
+      "ocean_sink_gtc_yr": 1.71068713200791,
+      "land_sink_gtc_yr": 1.1448208933186,
+      "cement_carbonation_sink_gtc_yr": 0.0388224755930924,
+      "budget_imbalance_gtc_yr": -0.15523543387697
+    },
+    {
+      "year": 1978,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 5.1923420657277,
+      "land_use_change_emissions_gtc_yr": 1.79145666666667,
+      "atmospheric_growth_gtc_yr": 2.73996,
+      "ocean_sink_gtc_yr": 1.70386251573051,
+      "land_sink_gtc_yr": 2.11214814734769,
+      "cement_carbonation_sink_gtc_yr": 0.0413637395886865,
+      "budget_imbalance_gtc_yr": 0.386464329727485
+    },
+    {
+      "year": 1979,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 5.32439696375329,
+      "land_use_change_emissions_gtc_yr": 1.59820666666667,
+      "atmospheric_growth_gtc_yr": 4.54536,
+      "ocean_sink_gtc_yr": 1.65611384791479,
+      "land_sink_gtc_yr": 1.08359074777903,
+      "cement_carbonation_sink_gtc_yr": 0.0426671375349834,
+      "budget_imbalance_gtc_yr": -0.405128102808857
+    },
+    {
+      "year": 1980,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 5.29743259626933,
+      "land_use_change_emissions_gtc_yr": 1.63791333333333,
+      "atmospheric_growth_gtc_yr": 3.56832,
+      "ocean_sink_gtc_yr": 2.01193726605731,
+      "land_sink_gtc_yr": 0.248003946412886,
+      "cement_carbonation_sink_gtc_yr": 0.0437165654711647,
+      "budget_imbalance_gtc_yr": 1.06336815166131
+    },
+    {
+      "year": 1981,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 5.15277201013526,
+      "land_use_change_emissions_gtc_yr": 1.59295333333333,
+      "atmospheric_growth_gtc_yr": 2.4426,
+      "ocean_sink_gtc_yr": 1.94005851027159,
+      "land_sink_gtc_yr": 1.61447923414297,
+      "cement_carbonation_sink_gtc_yr": 0.0443749743529743,
+      "budget_imbalance_gtc_yr": 0.704212624701059
+    },
+    {
+      "year": 1982,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 5.11182925000872,
+      "land_use_change_emissions_gtc_yr": 1.50970333333333,
+      "atmospheric_growth_gtc_yr": 2.10276,
+      "ocean_sink_gtc_yr": 2.02656358684737,
+      "land_sink_gtc_yr": 1.32721862940328,
+      "cement_carbonation_sink_gtc_yr": 0.0449107093375584,
+      "budget_imbalance_gtc_yr": 1.12007965775385
+    },
+    {
+      "year": 1983,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 5.1587813982997,
+      "land_use_change_emissions_gtc_yr": 1.59384666666667,
+      "atmospheric_growth_gtc_yr": 3.90816,
+      "ocean_sink_gtc_yr": 2.21370321077533,
+      "land_sink_gtc_yr": 0.208065986174985,
+      "cement_carbonation_sink_gtc_yr": 0.0461060530839672,
+      "budget_imbalance_gtc_yr": 0.376592814932082
+    },
+    {
+      "year": 1984,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 5.31038475612004,
+      "land_use_change_emissions_gtc_yr": 1.75349333333333,
+      "atmospheric_growth_gtc_yr": 2.61252,
+      "ocean_sink_gtc_yr": 2.08312625461884,
+      "land_sink_gtc_yr": 1.88332051008408,
+      "cement_carbonation_sink_gtc_yr": 0.0474162427612065,
+      "budget_imbalance_gtc_yr": 0.437495081989249
+    },
+    {
+      "year": 1985,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 5.49805212257387,
+      "land_use_change_emissions_gtc_yr": 1.85255,
+      "atmospheric_growth_gtc_yr": 3.5046,
+      "ocean_sink_gtc_yr": 2.02806959252954,
+      "land_sink_gtc_yr": 2.04022238591348,
+      "cement_carbonation_sink_gtc_yr": 0.0485175184859058,
+      "budget_imbalance_gtc_yr": -0.270807374355055
+    },
+    {
+      "year": 1986,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 5.57806900576505,
+      "land_use_change_emissions_gtc_yr": 1.89501,
+      "atmospheric_growth_gtc_yr": 2.16648,
+      "ocean_sink_gtc_yr": 2.04590671828329,
+      "land_sink_gtc_yr": 1.95314615615967,
+      "cement_carbonation_sink_gtc_yr": 0.0503025492648079,
+      "budget_imbalance_gtc_yr": 1.25724358205729
+    },
+    {
+      "year": 1987,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 5.76042310650434,
+      "land_use_change_emissions_gtc_yr": 1.77345666666667,
+      "atmospheric_growth_gtc_yr": 5.6286,
+      "ocean_sink_gtc_yr": 2.11023411589562,
+      "land_sink_gtc_yr": 0.609053027323608,
+      "cement_carbonation_sink_gtc_yr": 0.0523509599828031,
+      "budget_imbalance_gtc_yr": -0.866358330031029
+    },
+    {
+      "year": 1988,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 5.98219322538387,
+      "land_use_change_emissions_gtc_yr": 1.68031666666667,
+      "atmospheric_growth_gtc_yr": 4.60908,
+      "ocean_sink_gtc_yr": 2.07096606407595,
+      "land_sink_gtc_yr": 1.36033466506197,
+      "cement_carbonation_sink_gtc_yr": 0.0549507583818493,
+      "budget_imbalance_gtc_yr": -0.43282159546924
+    },
+    {
+      "year": 1989,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 6.05900994335255,
+      "land_use_change_emissions_gtc_yr": 1.63232,
+      "atmospheric_growth_gtc_yr": 3.10104,
+      "ocean_sink_gtc_yr": 2.11622099657883,
+      "land_sink_gtc_yr": 2.68630946723706,
+      "cement_carbonation_sink_gtc_yr": 0.0567756033582637,
+      "budget_imbalance_gtc_yr": -0.269016123821598
+    },
+    {
+      "year": 1990,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 6.20418768518683,
+      "land_use_change_emissions_gtc_yr": 1.59090333333333,
+      "atmospheric_growth_gtc_yr": 2.59128,
+      "ocean_sink_gtc_yr": 2.20334156257454,
+      "land_sink_gtc_yr": 1.84766135368803,
+      "cement_carbonation_sink_gtc_yr": 0.0576451243499258,
+      "budget_imbalance_gtc_yr": 1.09516297790767
+    },
+    {
+      "year": 1991,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 6.33340364503931,
+      "land_use_change_emissions_gtc_yr": 1.56121666666667,
+      "atmospheric_growth_gtc_yr": 1.593,
+      "ocean_sink_gtc_yr": 2.35629247151321,
+      "land_sink_gtc_yr": 1.76230919287666,
+      "cement_carbonation_sink_gtc_yr": 0.0592862506334148,
+      "budget_imbalance_gtc_yr": 2.12373239668269
+    },
+    {
+      "year": 1992,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 6.14640394823527,
+      "land_use_change_emissions_gtc_yr": 1.62879333333333,
+      "atmospheric_growth_gtc_yr": 1.52928,
+      "ocean_sink_gtc_yr": 2.49561163386897,
+      "land_sink_gtc_yr": 1.68289247238115,
+      "cement_carbonation_sink_gtc_yr": 0.0619804312737822,
+      "budget_imbalance_gtc_yr": 2.0054327440447
+    },
+    {
+      "year": 1993,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 6.20902622299677,
+      "land_use_change_emissions_gtc_yr": 1.56476333333333,
+      "atmospheric_growth_gtc_yr": 2.61252,
+      "ocean_sink_gtc_yr": 2.44703121403096,
+      "land_sink_gtc_yr": 2.23436913722524,
+      "cement_carbonation_sink_gtc_yr": 0.0647625116091895,
+      "budget_imbalance_gtc_yr": 0.415106693464718
+    },
+    {
+      "year": 1994,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 6.27035980857432,
+      "land_use_change_emissions_gtc_yr": 1.82011666666667,
+      "atmospheric_growth_gtc_yr": 3.52584,
+      "ocean_sink_gtc_yr": 2.29526830507929,
+      "land_sink_gtc_yr": 1.24423334295867,
+      "cement_carbonation_sink_gtc_yr": 0.0681386024837209,
+      "budget_imbalance_gtc_yr": 0.956996224719312
+    },
+    {
+      "year": 1995,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 6.41829636749816,
+      "land_use_change_emissions_gtc_yr": 1.71345,
+      "atmospheric_growth_gtc_yr": 4.248,
+      "ocean_sink_gtc_yr": 2.28271771312072,
+      "land_sink_gtc_yr": 1.49748838125701,
+      "cement_carbonation_sink_gtc_yr": 0.0713235987424677,
+      "budget_imbalance_gtc_yr": 0.0322166743779562
+    },
+    {
+      "year": 1996,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 6.61394015575572,
+      "land_use_change_emissions_gtc_yr": 1.78543333333333,
+      "atmospheric_growth_gtc_yr": 2.2302,
+      "ocean_sink_gtc_yr": 2.27331851137296,
+      "land_sink_gtc_yr": 2.50232577530518,
+      "cement_carbonation_sink_gtc_yr": 0.0742916464252266,
+      "budget_imbalance_gtc_yr": 1.31923755598569
+    },
+    {
+      "year": 1997,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 6.65401782970953,
+      "land_use_change_emissions_gtc_yr": 2.18876,
+      "atmospheric_growth_gtc_yr": 4.18428,
+      "ocean_sink_gtc_yr": 2.38195853336847,
+      "land_sink_gtc_yr": 2.54649283804233,
+      "cement_carbonation_sink_gtc_yr": 0.0770531523043852,
+      "budget_imbalance_gtc_yr": -0.347006694005651
+    },
+    {
+      "year": 1998,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 6.63092603682912,
+      "land_use_change_emissions_gtc_yr": 1.85377666666667,
+      "atmospheric_growth_gtc_yr": 6.03216,
+      "ocean_sink_gtc_yr": 2.44160773402976,
+      "land_sink_gtc_yr": 1.38560007953065,
+      "cement_carbonation_sink_gtc_yr": 0.0780401848825254,
+      "budget_imbalance_gtc_yr": -1.45270529494715
+    },
+    {
+      "year": 1999,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 6.77886754069088,
+      "land_use_change_emissions_gtc_yr": 1.7909,
+      "atmospheric_growth_gtc_yr": 2.84616,
+      "ocean_sink_gtc_yr": 2.23425946856316,
+      "land_sink_gtc_yr": 2.84029286780451,
+      "cement_carbonation_sink_gtc_yr": 0.0807230305980209,
+      "budget_imbalance_gtc_yr": 0.56833217372519
+    },
+    {
+      "year": 2000,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 6.96274112281506,
+      "land_use_change_emissions_gtc_yr": 1.67733666666667,
+      "atmospheric_growth_gtc_yr": 2.655,
+      "ocean_sink_gtc_yr": 2.19114786399707,
+      "land_sink_gtc_yr": 2.72018345982583,
+      "cement_carbonation_sink_gtc_yr": 0.0834387382988439,
+      "budget_imbalance_gtc_yr": 0.990307727359992
+    },
+    {
+      "year": 2001,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 7.012279911753,
+      "land_use_change_emissions_gtc_yr": 1.49036666666667,
+      "atmospheric_growth_gtc_yr": 3.9294,
+      "ocean_sink_gtc_yr": 2.10160761349522,
+      "land_sink_gtc_yr": 2.01531118742938,
+      "cement_carbonation_sink_gtc_yr": 0.0863157114017232,
+      "budget_imbalance_gtc_yr": 0.370012066093345
+    },
+    {
+      "year": 2002,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 7.1684856830625,
+      "land_use_change_emissions_gtc_yr": 1.66312666666667,
+      "atmospheric_growth_gtc_yr": 5.01264,
+      "ocean_sink_gtc_yr": 2.48996478111516,
+      "land_sink_gtc_yr": 1.08326999467067,
+      "cement_carbonation_sink_gtc_yr": 0.0908836039554897,
+      "budget_imbalance_gtc_yr": 0.154853969987848
+    },
+    {
+      "year": 2003,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 7.54713168213208,
+      "land_use_change_emissions_gtc_yr": 1.99814666666667,
+      "atmospheric_growth_gtc_yr": 4.86396,
+      "ocean_sink_gtc_yr": 2.59154156846924,
+      "land_sink_gtc_yr": 1.98779938383743,
+      "cement_carbonation_sink_gtc_yr": 0.0976292243883578,
+      "budget_imbalance_gtc_yr": 0.00434817210371907
+    },
+    {
+      "year": 2004,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 7.80841266116004,
+      "land_use_change_emissions_gtc_yr": 1.75869666666667,
+      "atmospheric_growth_gtc_yr": 3.31344,
+      "ocean_sink_gtc_yr": 2.57472395694262,
+      "land_sink_gtc_yr": 2.51745321335263,
+      "cement_carbonation_sink_gtc_yr": 0.104102809775788,
+      "budget_imbalance_gtc_yr": 1.05738934775567
+    },
+    {
+      "year": 2005,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 8.07831617024202,
+      "land_use_change_emissions_gtc_yr": 1.61875333333333,
+      "atmospheric_growth_gtc_yr": 5.24628,
+      "ocean_sink_gtc_yr": 2.62333357627565,
+      "land_sink_gtc_yr": 1.58563259713982,
+      "cement_carbonation_sink_gtc_yr": 0.111207969419295,
+      "budget_imbalance_gtc_yr": 0.130615360740586
+    },
+    {
+      "year": 2006,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 8.34993223420098,
+      "land_use_change_emissions_gtc_yr": 1.64676333333333,
+      "atmospheric_growth_gtc_yr": 3.78072,
+      "ocean_sink_gtc_yr": 2.72117171890448,
+      "land_sink_gtc_yr": 2.53775349801549,
+      "cement_carbonation_sink_gtc_yr": 0.120674473108946,
+      "budget_imbalance_gtc_yr": 0.836375877505394
+    },
+    {
+      "year": 2007,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 8.5969583848849,
+      "land_use_change_emissions_gtc_yr": 1.52653,
+      "atmospheric_growth_gtc_yr": 4.52412,
+      "ocean_sink_gtc_yr": 2.69646691793461,
+      "land_sink_gtc_yr": 2.35230286282001,
+      "cement_carbonation_sink_gtc_yr": 0.129992476652618,
+      "budget_imbalance_gtc_yr": 0.420606127477666
+    },
+    {
+      "year": 2008,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 8.74717802596211,
+      "land_use_change_emissions_gtc_yr": 1.62418666666667,
+      "atmospheric_growth_gtc_yr": 3.75948,
+      "ocean_sink_gtc_yr": 2.71492692728134,
+      "land_sink_gtc_yr": 2.61581251859609,
+      "cement_carbonation_sink_gtc_yr": 0.135391435194431,
+      "budget_imbalance_gtc_yr": 1.14575381155692
+    },
+    {
+      "year": 2009,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 8.60071331414666,
+      "land_use_change_emissions_gtc_yr": 1.78352,
+      "atmospheric_growth_gtc_yr": 3.35592,
+      "ocean_sink_gtc_yr": 2.83379991196591,
+      "land_sink_gtc_yr": 2.37705859590689,
+      "cement_carbonation_sink_gtc_yr": 0.142564445812949,
+      "budget_imbalance_gtc_yr": 1.67489036046091
+    },
+    {
+      "year": 2010,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 9.09325146604024,
+      "land_use_change_emissions_gtc_yr": 1.77888333333333,
+      "atmospheric_growth_gtc_yr": 5.01264,
+      "ocean_sink_gtc_yr": 2.83318588895024,
+      "land_sink_gtc_yr": 2.67666789314495,
+      "cement_carbonation_sink_gtc_yr": 0.152219570610857,
+      "budget_imbalance_gtc_yr": 0.197421446667525
+    },
+    {
+      "year": 2011,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 9.41047748013145,
+      "land_use_change_emissions_gtc_yr": 1.74469333333333,
+      "atmospheric_growth_gtc_yr": 3.69576,
+      "ocean_sink_gtc_yr": 2.86719774860979,
+      "land_sink_gtc_yr": 3.29277732563259,
+      "cement_carbonation_sink_gtc_yr": 0.163509471918568,
+      "budget_imbalance_gtc_yr": 1.13592626730383
+    },
+    {
+      "year": 2012,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 9.54004782179978,
+      "land_use_change_emissions_gtc_yr": 1.82372333333333,
+      "atmospheric_growth_gtc_yr": 5.11884,
+      "ocean_sink_gtc_yr": 2.90632461484905,
+      "land_sink_gtc_yr": 1.84564469092019,
+      "cement_carbonation_sink_gtc_yr": 0.171370723394961,
+      "budget_imbalance_gtc_yr": 1.3215911259689
+    },
+    {
+      "year": 2013,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 9.62768004294181,
+      "land_use_change_emissions_gtc_yr": 1.72476,
+      "atmospheric_growth_gtc_yr": 5.2038,
+      "ocean_sink_gtc_yr": 2.95490455956417,
+      "land_sink_gtc_yr": 2.71513570160663,
+      "cement_carbonation_sink_gtc_yr": 0.181213319986965,
+      "budget_imbalance_gtc_yr": 0.297386461784044
+    },
+    {
+      "year": 2014,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 9.67950161099288,
+      "land_use_change_emissions_gtc_yr": 1.74943,
+      "atmospheric_growth_gtc_yr": 4.31172,
+      "ocean_sink_gtc_yr": 3.08205368930925,
+      "land_sink_gtc_yr": 3.03860075250083,
+      "cement_carbonation_sink_gtc_yr": 0.187245879124683,
+      "budget_imbalance_gtc_yr": 0.809311290058115
+    },
+    {
+      "year": 2015,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 9.66253480164719,
+      "land_use_change_emissions_gtc_yr": 1.77746333333333,
+      "atmospheric_growth_gtc_yr": 6.2658,
+      "ocean_sink_gtc_yr": 3.16826797016791,
+      "land_sink_gtc_yr": 1.77528492572452,
+      "cement_carbonation_sink_gtc_yr": 0.189520788947975,
+      "budget_imbalance_gtc_yr": 0.0411244501401207
+    },
+    {
+      "year": 2016,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 9.65961527277387,
+      "land_use_change_emissions_gtc_yr": 1.4674,
+      "atmospheric_growth_gtc_yr": 6.03216,
+      "ocean_sink_gtc_yr": 3.28760153339864,
+      "land_sink_gtc_yr": 1.98374500744933,
+      "cement_carbonation_sink_gtc_yr": 0.19217370866932,
+      "budget_imbalance_gtc_yr": -0.368664976743417
+    },
+    {
+      "year": 2017,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 9.8183979030965,
+      "land_use_change_emissions_gtc_yr": 1.44862666666667,
+      "atmospheric_growth_gtc_yr": 4.54536,
+      "ocean_sink_gtc_yr": 3.12332524846552,
+      "land_sink_gtc_yr": 2.84957903286799,
+      "cement_carbonation_sink_gtc_yr": 0.19518034045182,
+      "budget_imbalance_gtc_yr": 0.553579947977839
+    },
+    {
+      "year": 2018,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 10.0256558220444,
+      "land_use_change_emissions_gtc_yr": 1.33243,
+      "atmospheric_growth_gtc_yr": 5.07636,
+      "ocean_sink_gtc_yr": 3.21472337164517,
+      "land_sink_gtc_yr": 2.87823598244018,
+      "cement_carbonation_sink_gtc_yr": 0.199661237134128,
+      "budget_imbalance_gtc_yr": -0.0108947691750529
+    },
+    {
+      "year": 2019,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 10.1218795542907,
+      "land_use_change_emissions_gtc_yr": 1.33383666666667,
+      "atmospheric_growth_gtc_yr": 5.31,
+      "ocean_sink_gtc_yr": 3.24225224255876,
+      "land_sink_gtc_yr": 2.38393017747699,
+      "cement_carbonation_sink_gtc_yr": 0.209573858737466,
+      "budget_imbalance_gtc_yr": 0.309959942184177
+    },
+    {
+      "year": 2020,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 9.59558674360229,
+      "land_use_change_emissions_gtc_yr": 1.23268,
+      "atmospheric_growth_gtc_yr": 4.94892,
+      "ocean_sink_gtc_yr": 3.24330205902182,
+      "land_sink_gtc_yr": 2.10097442061803,
+      "cement_carbonation_sink_gtc_yr": 0.213648250163809,
+      "budget_imbalance_gtc_yr": 0.321422013798631
+    },
+    {
+      "year": 2021,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 10.061916972685,
+      "land_use_change_emissions_gtc_yr": 1.27104333333333,
+      "atmospheric_growth_gtc_yr": 5.03388,
+      "ocean_sink_gtc_yr": 3.14461483961061,
+      "land_sink_gtc_yr": 2.59562956218391,
+      "cement_carbonation_sink_gtc_yr": 0.224417152051185,
+      "budget_imbalance_gtc_yr": 0.334418752172629
+    },
+    {
+      "year": 2022,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 10.2422957637073,
+      "land_use_change_emissions_gtc_yr": 1.30605666666667,
+      "atmospheric_growth_gtc_yr": 4.86396,
+      "ocean_sink_gtc_yr": 3.12045088068765,
+      "land_sink_gtc_yr": 3.1061842407254,
+      "cement_carbonation_sink_gtc_yr": 0.220895925296486,
+      "budget_imbalance_gtc_yr": 0.23686138366444
+    },
+    {
+      "year": 2023,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 10.3968461161941,
+      "land_use_change_emissions_gtc_yr": 1.29518333333333,
+      "atmospheric_growth_gtc_yr": 5.7348,
+      "ocean_sink_gtc_yr": 3.27543128208379,
+      "land_sink_gtc_yr": 2.01670466921629,
+      "cement_carbonation_sink_gtc_yr": 0.227370672565843,
+      "budget_imbalance_gtc_yr": 0.437722825661481
+    },
+    {
+      "year": 2024,
+      "fossil_emissions_excluding_carbonation_gtc_yr": 10.5345464062896,
+      "land_use_change_emissions_gtc_yr": 1.25150333333333,
+      "atmospheric_growth_gtc_yr": 7.92252,
+      "ocean_sink_gtc_yr": 3.38894731727194,
+      "land_sink_gtc_yr": 1.94215497985298,
+      "cement_carbonation_sink_gtc_yr": 0.224290502914317,
+      "budget_imbalance_gtc_yr": -1.69186306041634
+    }
+  ],
+  "annual_global_budget_boundary": {
+    "unit": "billion tonnes of carbon per year (GtC/yr)",
+    "start_year": 1959,
+    "end_year": 2024,
+    "source_sheet": "Global Carbon Budget",
+    "uncertainty": "The workbook states average ±1σ uncertainty of ±0.4 GtC/yr for the ocean sink and ±0.5 GtC/yr for the land sink; year-specific model and product spread is retained in the source workbook."
+  }
+}

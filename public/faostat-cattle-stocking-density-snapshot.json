@@ -1,0 +1,542 @@
+{
+  "version": "faostat_world_cattle_stocking_density_1961_2024_v1",
+  "captured_at": "2026-08-01T00:00:00.000Z",
+  "source": {
+    "id": "faostat_land_use_and_livestock_stock_density",
+    "name": "FAOSTAT Production: Crops and livestock products + Land Use",
+    "publisher": "Food and Agriculture Organization of the United Nations",
+    "manifest_url": "https://bulks-faostat.fao.org/production/datasets_E.json",
+    "cattle_archive_url": "https://bulks-faostat.fao.org/production/Production_Crops_Livestock_E_All_Data_(Normalized).zip",
+    "cattle_release_date": "2025-12-31T00:00:00",
+    "land_use_archive_url": "https://bulks-faostat.fao.org/production/Inputs_LandUse_E_All_Data_(Normalized).zip",
+    "land_use_release_date": "2026-07-17T00:00:00",
+    "land_use_archive_sha256": "a74c87b4c5faf2d9d755ef6ff202bd06cf05e52a7385ae288dc5e188f12dfb0c",
+    "upstream_agriculture_snapshot": "public/faostat-agriculture-snapshot.json",
+    "upstream_agriculture_snapshot_version": "faostat_agriculture_metrics_v4"
+  },
+  "metric_contract": {
+    "node_id": "cattle_stocking_density",
+    "metric_id": "world_cattle_head_per_permanent_meadow_and_pasture_hectare",
+    "aggregation": "Divide each FAOSTAT World cattle Stocks observation by the same-year World Permanent meadows and pastures Area observation after converting 1000 ha to hectares.",
+    "coverage": "FAOSTAT source-native World aggregates, 1961–2024.",
+    "direction": "higher_is_worse",
+    "cadence": "Annual after both FAOSTAT source releases are available"
+  },
+  "records": [
+    {
+      "year": 1961,
+      "cattle_head": 942122097,
+      "permanent_meadows_and_pastures_thousand_ha": 3178767.03,
+      "cattle_per_permanent_meadow_pasture_ha": 0.296379725,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 1962,
+      "cattle_head": 957121229,
+      "permanent_meadows_and_pastures_thousand_ha": 3182070.8,
+      "cattle_per_permanent_meadow_pasture_ha": 0.300785648,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 1963,
+      "cattle_head": 970331395,
+      "permanent_meadows_and_pastures_thousand_ha": 3181453.62,
+      "cattle_per_permanent_meadow_pasture_ha": 0.304996241,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 1964,
+      "cattle_head": 987525060,
+      "permanent_meadows_and_pastures_thousand_ha": 3184926.09,
+      "cattle_per_permanent_meadow_pasture_ha": 0.310062159,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 1965,
+      "cattle_head": 1008857195,
+      "permanent_meadows_and_pastures_thousand_ha": 3191078.37,
+      "cattle_per_permanent_meadow_pasture_ha": 0.316149301,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 1966,
+      "cattle_head": 1027693877,
+      "permanent_meadows_and_pastures_thousand_ha": 3192351.57,
+      "cattle_per_permanent_meadow_pasture_ha": 0.321923778,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 1967,
+      "cattle_head": 1049721175,
+      "permanent_meadows_and_pastures_thousand_ha": 3195430.13,
+      "cattle_per_permanent_meadow_pasture_ha": 0.328507003,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 1968,
+      "cattle_head": 1064606627,
+      "permanent_meadows_and_pastures_thousand_ha": 3217754.12,
+      "cattle_per_permanent_meadow_pasture_ha": 0.33085394,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 1969,
+      "cattle_head": 1069826761,
+      "permanent_meadows_and_pastures_thousand_ha": 3218093.51,
+      "cattle_per_permanent_meadow_pasture_ha": 0.332441167,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 1970,
+      "cattle_head": 1081581057,
+      "permanent_meadows_and_pastures_thousand_ha": 3202595.28,
+      "cattle_per_permanent_meadow_pasture_ha": 0.337720181,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 1971,
+      "cattle_head": 1096587746,
+      "permanent_meadows_and_pastures_thousand_ha": 3215053.83,
+      "cattle_per_permanent_meadow_pasture_ha": 0.341079125,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 1972,
+      "cattle_head": 1119270076,
+      "permanent_meadows_and_pastures_thousand_ha": 3219061.09,
+      "cattle_per_permanent_meadow_pasture_ha": 0.347700787,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 1973,
+      "cattle_head": 1138667102,
+      "permanent_meadows_and_pastures_thousand_ha": 3222094.46,
+      "cattle_per_permanent_meadow_pasture_ha": 0.353393458,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 1974,
+      "cattle_head": 1166714169,
+      "permanent_meadows_and_pastures_thousand_ha": 3226630.13,
+      "cattle_per_permanent_meadow_pasture_ha": 0.361589064,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 1975,
+      "cattle_head": 1187875123,
+      "permanent_meadows_and_pastures_thousand_ha": 3227567.4,
+      "cattle_per_permanent_meadow_pasture_ha": 0.368040377,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 1976,
+      "cattle_head": 1199300412,
+      "permanent_meadows_and_pastures_thousand_ha": 3217001.11,
+      "cattle_per_permanent_meadow_pasture_ha": 0.372800745,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 1977,
+      "cattle_head": 1204063622,
+      "permanent_meadows_and_pastures_thousand_ha": 3211247.48,
+      "cattle_per_permanent_meadow_pasture_ha": 0.374951987,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 1978,
+      "cattle_head": 1205679621,
+      "permanent_meadows_and_pastures_thousand_ha": 3211161.42,
+      "cattle_per_permanent_meadow_pasture_ha": 0.37546528,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 1979,
+      "cattle_head": 1210627837,
+      "permanent_meadows_and_pastures_thousand_ha": 3207618.92,
+      "cattle_per_permanent_meadow_pasture_ha": 0.377422589,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 1980,
+      "cattle_head": 1216682145,
+      "permanent_meadows_and_pastures_thousand_ha": 3212440.1,
+      "cattle_per_permanent_meadow_pasture_ha": 0.378740804,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 1981,
+      "cattle_head": 1228366016,
+      "permanent_meadows_and_pastures_thousand_ha": 3208732.63,
+      "cattle_per_permanent_meadow_pasture_ha": 0.382819685,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 1982,
+      "cattle_head": 1242183541,
+      "permanent_meadows_and_pastures_thousand_ha": 3208925.32,
+      "cattle_per_permanent_meadow_pasture_ha": 0.387102664,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 1983,
+      "cattle_head": 1249448026,
+      "permanent_meadows_and_pastures_thousand_ha": 3205877.18,
+      "cattle_per_permanent_meadow_pasture_ha": 0.38973671,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 1984,
+      "cattle_head": 1256544676,
+      "permanent_meadows_and_pastures_thousand_ha": 3210782.66,
+      "cattle_per_permanent_meadow_pasture_ha": 0.391351521,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 1985,
+      "cattle_head": 1261444212,
+      "permanent_meadows_and_pastures_thousand_ha": 3220486.77,
+      "cattle_per_permanent_meadow_pasture_ha": 0.391693648,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 1986,
+      "cattle_head": 1268268786,
+      "permanent_meadows_and_pastures_thousand_ha": 3211495,
+      "cattle_per_permanent_meadow_pasture_ha": 0.394915386,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 1987,
+      "cattle_head": 1268378674,
+      "permanent_meadows_and_pastures_thousand_ha": 3218515.82,
+      "cattle_per_permanent_meadow_pasture_ha": 0.394088066,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 1988,
+      "cattle_head": 1274153574,
+      "permanent_meadows_and_pastures_thousand_ha": 3230720.31,
+      "cattle_per_permanent_meadow_pasture_ha": 0.39438684,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 1989,
+      "cattle_head": 1291426005,
+      "permanent_meadows_and_pastures_thousand_ha": 3236575.9,
+      "cattle_per_permanent_meadow_pasture_ha": 0.399009955,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 1990,
+      "cattle_head": 1299122399,
+      "permanent_meadows_and_pastures_thousand_ha": 3238643.73,
+      "cattle_per_permanent_meadow_pasture_ha": 0.401131618,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 1991,
+      "cattle_head": 1302206293,
+      "permanent_meadows_and_pastures_thousand_ha": 3234178.5,
+      "cattle_per_permanent_meadow_pasture_ha": 0.402638968,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 1992,
+      "cattle_head": 1309777478,
+      "permanent_meadows_and_pastures_thousand_ha": 3270649.39,
+      "cattle_per_permanent_meadow_pasture_ha": 0.400464043,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 1993,
+      "cattle_head": 1310377228,
+      "permanent_meadows_and_pastures_thousand_ha": 3247977.78,
+      "cattle_per_permanent_meadow_pasture_ha": 0.403444025,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 1994,
+      "cattle_head": 1321016835,
+      "permanent_meadows_and_pastures_thousand_ha": 3264500.88,
+      "cattle_per_permanent_meadow_pasture_ha": 0.404661197,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 1995,
+      "cattle_head": 1330057910,
+      "permanent_meadows_and_pastures_thousand_ha": 3262441.1,
+      "cattle_per_permanent_meadow_pasture_ha": 0.407687946,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 1996,
+      "cattle_head": 1332924534,
+      "permanent_meadows_and_pastures_thousand_ha": 3269742.42,
+      "cattle_per_permanent_meadow_pasture_ha": 0.407654293,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 1997,
+      "cattle_head": 1311768147,
+      "permanent_meadows_and_pastures_thousand_ha": 3283183.43,
+      "cattle_per_permanent_meadow_pasture_ha": 0.399541535,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 1998,
+      "cattle_head": 1313066905,
+      "permanent_meadows_and_pastures_thousand_ha": 3295561.18,
+      "cattle_per_permanent_meadow_pasture_ha": 0.398434996,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 1999,
+      "cattle_head": 1316521397,
+      "permanent_meadows_and_pastures_thousand_ha": 3292820.98,
+      "cattle_per_permanent_meadow_pasture_ha": 0.399815661,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 2000,
+      "cattle_head": 1319670536,
+      "permanent_meadows_and_pastures_thousand_ha": 3297896.79,
+      "cattle_per_permanent_meadow_pasture_ha": 0.400155196,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 2001,
+      "cattle_head": 1320641636,
+      "permanent_meadows_and_pastures_thousand_ha": 3296418.31,
+      "cattle_per_permanent_meadow_pasture_ha": 0.400629262,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 2002,
+      "cattle_head": 1332192713,
+      "permanent_meadows_and_pastures_thousand_ha": 3288596.21,
+      "cattle_per_permanent_meadow_pasture_ha": 0.405094645,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 2003,
+      "cattle_head": 1346073125,
+      "permanent_meadows_and_pastures_thousand_ha": 3264109.29,
+      "cattle_per_permanent_meadow_pasture_ha": 0.412386046,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 2004,
+      "cattle_head": 1360517521,
+      "permanent_meadows_and_pastures_thousand_ha": 3216169.13,
+      "cattle_per_permanent_meadow_pasture_ha": 0.423024246,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 2005,
+      "cattle_head": 1375682780,
+      "permanent_meadows_and_pastures_thousand_ha": 3217336.01,
+      "cattle_per_permanent_meadow_pasture_ha": 0.427584429,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 2006,
+      "cattle_head": 1392084959,
+      "permanent_meadows_and_pastures_thousand_ha": 3214875.18,
+      "cattle_per_permanent_meadow_pasture_ha": 0.433013688,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 2007,
+      "cattle_head": 1402871232,
+      "permanent_meadows_and_pastures_thousand_ha": 3202354.8,
+      "cattle_per_permanent_meadow_pasture_ha": 0.438074892,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 2008,
+      "cattle_head": 1415189980,
+      "permanent_meadows_and_pastures_thousand_ha": 3187207.72,
+      "cattle_per_permanent_meadow_pasture_ha": 0.444021885,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 2009,
+      "cattle_head": 1409791484,
+      "permanent_meadows_and_pastures_thousand_ha": 3175054.93,
+      "cattle_per_permanent_meadow_pasture_ha": 0.444021132,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 2010,
+      "cattle_head": 1412123996,
+      "permanent_meadows_and_pastures_thousand_ha": 3172424.47,
+      "cattle_per_permanent_meadow_pasture_ha": 0.445124544,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 2011,
+      "cattle_head": 1416742920,
+      "permanent_meadows_and_pastures_thousand_ha": 3182078.85,
+      "cattle_per_permanent_meadow_pasture_ha": 0.445225586,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 2012,
+      "cattle_head": 1428660570,
+      "permanent_meadows_and_pastures_thousand_ha": 3171900.9,
+      "cattle_per_permanent_meadow_pasture_ha": 0.450411477,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 2013,
+      "cattle_head": 1432327901,
+      "permanent_meadows_and_pastures_thousand_ha": 3155196.91,
+      "cattle_per_permanent_meadow_pasture_ha": 0.453958324,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 2014,
+      "cattle_head": 1439191732,
+      "permanent_meadows_and_pastures_thousand_ha": 3150035.84,
+      "cattle_per_permanent_meadow_pasture_ha": 0.456881066,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 2015,
+      "cattle_head": 1451329498,
+      "permanent_meadows_and_pastures_thousand_ha": 3120601.65,
+      "cattle_per_permanent_meadow_pasture_ha": 0.465080026,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 2016,
+      "cattle_head": 1470779878,
+      "permanent_meadows_and_pastures_thousand_ha": 3112020.1,
+      "cattle_per_permanent_meadow_pasture_ha": 0.472612589,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 2017,
+      "cattle_head": 1480255616,
+      "permanent_meadows_and_pastures_thousand_ha": 3136156.56,
+      "cattle_per_permanent_meadow_pasture_ha": 0.471996722,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 2018,
+      "cattle_head": 1488157584,
+      "permanent_meadows_and_pastures_thousand_ha": 3118119.19,
+      "cattle_per_permanent_meadow_pasture_ha": 0.477261289,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 2019,
+      "cattle_head": 1505102500,
+      "permanent_meadows_and_pastures_thousand_ha": 3103286.91,
+      "cattle_per_permanent_meadow_pasture_ha": 0.48500269,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 2020,
+      "cattle_head": 1526880528,
+      "permanent_meadows_and_pastures_thousand_ha": 3078359.59,
+      "cattle_per_permanent_meadow_pasture_ha": 0.496004604,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 2021,
+      "cattle_head": 1540784473,
+      "permanent_meadows_and_pastures_thousand_ha": 3068421.6,
+      "cattle_per_permanent_meadow_pasture_ha": 0.502142363,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 2022,
+      "cattle_head": 1555410381,
+      "permanent_meadows_and_pastures_thousand_ha": 3063089.8,
+      "cattle_per_permanent_meadow_pasture_ha": 0.50779131,
+      "cattle_source_flag": "A",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 2023,
+      "cattle_head": 1574141046,
+      "permanent_meadows_and_pastures_thousand_ha": 3059474.36,
+      "cattle_per_permanent_meadow_pasture_ha": 0.51451356,
+      "cattle_source_flag": "E",
+      "meadow_source_flag": "E"
+    },
+    {
+      "year": 2024,
+      "cattle_head": 1578614149,
+      "permanent_meadows_and_pastures_thousand_ha": 3058558.71,
+      "cattle_per_permanent_meadow_pasture_ha": 0.516130079,
+      "cattle_source_flag": "E",
+      "meadow_source_flag": "E"
+    }
+  ],
+  "record_count": 64,
+  "uncertainty": "This is a global system-density indicator, not a paddock stocking rate. The numerator includes cattle that are not grazing permanent pasture, while the denominator includes permanent meadow and pasture used by other livestock or not stocked in a given year. FAOSTAT marks the meadow-area series as estimated and the latest cattle values as estimated.",
+  "failure_behavior": "Retain the last complete same-year joined series and mark stale. Never divide by missing area, replace missing stock or area with zero, mix country rows with the World aggregate, or interpret this world ratio as a local carrying-capacity exceedance."
+}

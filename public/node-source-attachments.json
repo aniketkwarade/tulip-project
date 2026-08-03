@@ -1,0 +1,540 @@
+{
+  "updated_at": "2026-07-16",
+  "version": "2026-07-15",
+  "policy": {
+    "default_max_cards": 3,
+    "fallback_max_cards": 3
+  },
+  "bundles": {
+    "gbif_occurrence_api": { "role": "operational", "priority": 99.4 },
+    "obis_api_v3": { "role": "operational", "priority": 99.3 },
+    "usgs_water_data_ogc_api": { "role": "operational", "priority": 99.2 },
+    "noaa_gml_benchmarks": { "role": "operational", "priority": 100 },
+    "disaster_displacement_snapshot": { "role": "operational", "priority": 98.5 },
+    "grace_freshwater_snapshot": { "role": "operational", "priority": 97 },
+    "freshwater_sources_pack": { "role": "snapshot", "priority": 96.8 },
+    "heat_health_snapshot": { "role": "snapshot", "priority": 96.5 },
+    "health_sources_pack": { "role": "snapshot", "priority": 96.4 },
+    "food_security_snapshot": { "role": "snapshot", "priority": 96.2 },
+    "finance_governance_snapshot": { "role": "snapshot", "priority": 96.1 },
+    "argo_snapshot": { "role": "operational", "priority": 96 },
+    "aqueduct_snapshot": { "role": "operational", "priority": 95 },
+    "gfw_forest_snapshot": { "role": "operational", "priority": 94 },
+    "marine_heatwave_snapshot": { "role": "operational", "priority": 93.5 },
+    "coral_reef_watch_snapshot": { "role": "operational", "priority": 93 },
+    "gtnp_snapshot": { "role": "operational", "priority": 92 },
+    "nsidc_sea_ice_snapshot": { "role": "operational", "priority": 91 },
+    "firms_snapshot": { "role": "operational", "priority": 90 },
+    "temperature_benchmarks": { "role": "snapshot", "priority": 89 },
+    "gcb_snapshot": { "role": "snapshot", "priority": 88 },
+    "edgar_snapshot": { "role": "snapshot", "priority": 87.8 },
+    "wod_snapshot": { "role": "snapshot", "priority": 87 },
+    "fra_forest_snapshot": { "role": "snapshot", "priority": 86.8 },
+    "soilgrids_snapshot": { "role": "snapshot", "priority": 86.2 },
+    "edgar_food_snapshot": { "role": "snapshot", "priority": 85.8 },
+    "exiobase_snapshot": { "role": "snapshot", "priority": 85.3 },
+    "noaa_n2o_benchmarks": { "role": "operational", "priority": 84.9 },
+    "enso_monitoring_snapshot": { "role": "operational", "priority": 84.7 },
+    "imbie_assessment_snapshot": { "role": "operational", "priority": 91.5 },
+    "mangrove_watch_snapshot": { "role": "operational", "priority": 84.5 },
+    "socat_catalog": { "role": "snapshot", "priority": 84.4 },
+    "labor_heat_support": { "role": "anchor_support", "priority": 76 },
+    "conflict_governance_support": { "role": "anchor_support", "priority": 75.8 },
+    "climate_litigation_support": { "role": "anchor_support", "priority": 75.7 },
+    "displacement_anchor_support": { "role": "anchor_support", "priority": 75.5 },
+    "ocads_catalog": { "role": "anchor_support", "priority": 75 },
+    "water_footprint_snapshot": { "role": "anchor_support", "priority": 74.8 },
+    "aerosol_forcing_reasoning_support": { "role": "anchor_support", "priority": 74.6 },
+    "grid_reliability_reasoning_support": { "role": "anchor_support", "priority": 74.5 },
+    "shipping_disruption_reasoning_support": { "role": "anchor_support", "priority": 74.4 },
+    "freight_transition_reasoning_support": { "role": "anchor_support", "priority": 74.3 },
+    "crop_variability_reasoning_support": { "role": "anchor_support", "priority": 74.2 },
+    "mangrove_protection_support": { "role": "anchor_support", "priority": 74.1 },
+    "nitrous_oxide_budget_support": { "role": "anchor_support", "priority": 74 },
+    "transmission_buildout_reasoning_support": { "role": "anchor_support", "priority": 73.9 },
+    "semiconductor_fab_reasoning_support": { "role": "anchor_support", "priority": 73.8 },
+    "pollinator_reasoning_support": { "role": "anchor_support", "priority": 73.7 },
+    "peatland_reasoning_support": { "role": "anchor_support", "priority": 73.6 },
+    "thermal_inversion_reasoning_support": { "role": "anchor_support", "priority": 73.5 },
+    "cold_chain_reasoning_support": { "role": "anchor_support", "priority": 73.4 },
+    "enso_teleconnection_support": { "role": "anchor_support", "priority": 73.3 },
+    "heavy_industry_transition_support": { "role": "anchor_support", "priority": 73.2 },
+    "grid_equipment_supply_support": { "role": "anchor_support", "priority": 73.1 },
+    "soil_health_reasoning_support": { "role": "anchor_support", "priority": 73.0 },
+    "coastal_inundation_reasoning_support": { "role": "anchor_support", "priority": 72.9 },
+    "aviation_transition_support": { "role": "anchor_support", "priority": 72.8 },
+    "rail_climate_resilience_support": { "role": "anchor_support", "priority": 72.7 },
+    "atmospheric_pattern_reasoning_support": { "role": "anchor_support", "priority": 72.6 },
+    "smoke_ozone_health_support": { "role": "anchor_support", "priority": 72.5 },
+    "cryosphere_meltwater_support": { "role": "anchor_support", "priority": 72.4 },
+    "transport_exposure_support": { "role": "anchor_support", "priority": 72.3 },
+    "ocean_biosphere_tail_support": { "role": "anchor_support", "priority": 72.2 },
+    "water_operations_support": { "role": "anchor_support", "priority": 72.1 },
+    "energy_burden_support": { "role": "anchor_support", "priority": 72.0 },
+    "urban_canopy_heat_support": { "role": "anchor_support", "priority": 71.9 },
+    "fisheries_supply_support": { "role": "anchor_support", "priority": 71.8 }
+  },
+  "rules": [
+    {
+      "id": "gbif_biodiversity_metric_contracts",
+      "node_ids": ["biodiversity_intactness_loss", "invasive_species_encroachment", "species_range_compression", "pollinator_service_decline", "freshwater_ecosystem_collapse"],
+      "bundle_ids": ["gbif_occurrence_api"]
+    },
+    {
+      "id": "obis_marine_biodiversity_metric_contracts",
+      "node_ids": ["pelagic_species_redistribution", "marine_food_web_simplification", "marine_fisheries_collapse", "marine_pathogen_range_expansion", "reef_structural_collapse"],
+      "bundle_ids": ["obis_api_v3"]
+    },
+    {
+      "id": "usgs_water_metric_contracts",
+      "node_ids": ["river_flow_regime_shift", "groundwater_depletion", "aquifer_overdraft", "water_stress", "reservoir_storage_instability", "drought_persistence"],
+      "bundle_ids": ["usgs_water_data_ogc_api"]
+    },
+    {
+      "id": "temperature_anchor_support",
+      "node_ids": ["temp"],
+      "bundle_ids": ["temperature_benchmarks", "noaa_gml_benchmarks", "gcb_snapshot"]
+    },
+    {
+      "id": "carbon_forcing_support",
+      "node_ids": ["carbon_emission", "monsoon_volatility", "environ_anomalies"],
+      "bundle_ids": ["noaa_gml_benchmarks", "gcb_snapshot"]
+    },
+    {
+      "id": "edgar_carbon_support",
+      "node_ids": ["carbon_emission", "aviation", "shipping", "cement_concrete", "steel", "plastics_petrochemicals", "air_conditioning_refrigerants", "fertilizer_production"],
+      "bundle_ids": ["edgar_snapshot"]
+    },
+    {
+      "id": "wet_bulb_forcing_support",
+      "node_ids": ["wet_bulb_heat"],
+      "bundle_ids": ["noaa_gml_benchmarks"]
+    },
+    {
+      "id": "methane_support",
+      "node_ids": ["methane"],
+      "bundle_ids": ["noaa_gml_benchmarks"]
+    },
+    {
+      "id": "aerosol_forcing_support",
+      "node_ids": ["aerosol_cooling_loss"],
+      "bundle_ids": ["aerosol_forcing_reasoning_support", "noaa_gml_benchmarks"]
+    },
+    {
+      "id": "atmospheric_rehabilitation_support",
+      "node_ids": ["aerosol_scattering_index", "secondary_organic_aerosol_burden", "particulate_soot_levels", "pm2_5_particulates", "stratospheric_water_vapor", "stratospheric_cooling", "acid_rain_deposition", "aerosolized_microplastics"],
+      "bundle_ids": ["aerosol_forcing_reasoning_support", "noaa_gml_benchmarks", "thermal_inversion_reasoning_support"]
+    },
+    {
+      "id": "atmospheric_pattern_rehabilitation_support",
+      "node_ids": ["flash_flood_regime", "blocking_pattern_persistence", "humidity_amplification", "lightning_fire_weather", "atmospheric_dryness", "soot_deposition_on_snow", "rossby_wave_stalling", "low_cloud_deck_retreat", "extreme_precipitation_intensity", "tropical_cyclone_rapid_intensification"],
+      "bundle_ids": ["atmospheric_pattern_reasoning_support", "temperature_benchmarks", "noaa_gml_benchmarks"]
+    },
+    {
+      "id": "smoke_ozone_rehabilitation_support",
+      "node_ids": ["smoke_exposure_burden", "ozone_formation_pressure", "tropospheric_ozone", "ground_level_ozone_triggers", "pyrocumulonimbus_smoke_injection"],
+      "bundle_ids": ["smoke_ozone_health_support", "heat_health_snapshot", "firms_snapshot"]
+    },
+    {
+      "id": "ocean_acidification_support",
+      "node_ids": ["ocean_acidification"],
+      "bundle_ids": ["ocads_catalog", "gcb_snapshot"]
+    },
+    {
+      "id": "nitrous_oxide_support",
+      "node_ids": ["nitrous_oxide"],
+      "bundle_ids": ["noaa_n2o_benchmarks", "nitrous_oxide_budget_support"]
+    },
+    {
+      "id": "enso_phase_support",
+      "node_ids": ["el_nino", "la_nina"],
+      "bundle_ids": ["enso_monitoring_snapshot", "enso_teleconnection_support"]
+    },
+    {
+      "id": "ocean_oxygen_and_fisheries_support",
+      "node_ids": ["marine_fisheries_collapse", "coastal_hypoxia", "oceanic_deoxygenation", "harmful_algal_blooms", "marine_food_web_simplification", "pelagic_species_redistribution", "ocean_current_regime_shift", "fish_landing_supply_disruption", "thermal_stratification_intensification"],
+      "bundle_ids": ["argo_snapshot", "wod_snapshot"]
+    },
+    {
+      "id": "ocean_carbon_uptake_support",
+      "node_ids": ["ocean_carbon_uptake_weakening"],
+      "bundle_ids": ["argo_snapshot", "wod_snapshot", "gcb_snapshot"]
+    },
+    {
+      "id": "reef_and_ocean_heat_support",
+      "node_ids": ["ocean_acidification", "marine_fisheries_collapse", "marine_heatwaves", "reef_structural_collapse"],
+      "bundle_ids": ["coral_reef_watch_snapshot"]
+    },
+    {
+      "id": "marine_heatwave_support",
+      "node_ids": ["marine_heatwaves", "reef_structural_collapse", "harmful_algal_blooms", "marine_food_web_simplification", "pelagic_species_redistribution", "marine_pathogen_range_expansion"],
+      "bundle_ids": ["marine_heatwave_snapshot"]
+    },
+    {
+      "id": "ocean_tail_rehabilitation_support",
+      "node_ids": [
+        "marine_heatwaves",
+        "coral_bleaching",
+        "coral_larval_mortality",
+        "coral_reef_fragmentation",
+        "fisheries_range_redistribution",
+        "phytoplankton_decline",
+        "oceanic_upwelling_disruptions",
+        "shelf_sea_hypoxia",
+        "thermal_stratification_intensification",
+        "delta_salt_intrusion_fronts",
+        "estuarine_nursery_loss",
+        "mangrove_destruction"
+      ],
+      "bundle_ids": ["argo_snapshot", "wod_snapshot", "marine_heatwave_snapshot", "coral_reef_watch_snapshot", "mangrove_watch_snapshot"]
+    },
+    {
+      "id": "water_risk_registry",
+      "node_ids": ["resource_depletion", "cooling_water_competition", "data_centers", "ai_data_centers", "semiconductor_fabs", "industry_farming", "food", "aquifer_overdraft", "river_flow_regime_shift", "desalination_dependence", "freshwater_ecosystem_collapse", "basin_treaty_breakdown", "soil_moisture_collapse", "drought_persistence", "reservoir_storage_instability", "reservoir_operating_shortfall", "wastewater_infrastructure_overflow", "wastewater_bypass_discharge", "drinking_water_treatment_stress", "snow_drought", "freshwater_lens_compression", "glacier_meltwater_dependency", "delta_salt_intrusion_fronts", "coastal_aquifer_degradation"],
+      "bundle_ids": ["aqueduct_snapshot"]
+    },
+    {
+      "id": "freshwater_storage_support",
+      "node_ids": ["resource_depletion", "cooling_water_competition", "aquifer_overdraft", "river_flow_regime_shift", "desalination_dependence", "freshwater_ecosystem_collapse", "basin_treaty_breakdown", "soil_moisture_collapse", "drought_persistence", "reservoir_storage_instability", "reservoir_operating_shortfall", "wastewater_infrastructure_overflow", "wastewater_bypass_discharge", "drinking_water_treatment_stress", "snow_drought", "freshwater_lens_compression", "glacier_meltwater_dependency", "coastal_aquifer_degradation"],
+      "bundle_ids": ["grace_freshwater_snapshot"]
+    },
+    {
+      "id": "freshwater_category_source_pack",
+      "node_ids": ["water_stress", "groundwater_depletion", "aquifer_overdraft", "river_flow_regime_shift", "drinking_water_treatment_stress", "wastewater_infrastructure_overflow", "wastewater_bypass_discharge", "reservoir_storage_instability", "reservoir_operating_shortfall", "freshwater_lens_compression", "groundwater_depletion_wells", "deep_well_water_table_drops", "coastal_aquifer_degradation", "desalination_dependence"],
+      "bundle_ids": ["freshwater_sources_pack"]
+    },
+    {
+      "id": "permafrost_feedback_support",
+      "node_ids": ["permafrost_thaw"],
+      "bundle_ids": ["gtnp_snapshot", "gcb_snapshot"]
+    },
+    {
+      "id": "sea_ice_support",
+      "node_ids": ["ice_sheet_mass_loss", "sea_ice_season_loss", "glacial_lake_failure_risk"],
+      "bundle_ids": ["nsidc_sea_ice_snapshot", "gcb_snapshot"]
+    },
+    {
+      "id": "ice_sheet_mass_support",
+      "node_ids": ["ice_sheet_mass_loss"],
+      "bundle_ids": ["imbie_assessment_snapshot"]
+    },
+    {
+      "id": "cryosphere_tail_rehabilitation_support",
+      "node_ids": [
+        "arctic_sea_ice_thinning",
+        "sea_ice_extent_deficits",
+        "arctic_ice_retreat",
+        "greenland_glacier_melting",
+        "glacier_calving_events",
+        "ice_sheet_thinning_speeds",
+        "subglacial_lake_drainages",
+        "glacial_lake_outburst_floods",
+        "nunatak_habitat_shrinkage"
+      ],
+      "bundle_ids": ["nsidc_sea_ice_snapshot", "imbie_assessment_snapshot", "gcb_snapshot"]
+    },
+    {
+      "id": "cryosphere_frontier_rehabilitation_support",
+      "node_ids": [
+        "snowmelt_timing_shift",
+        "snow_drought",
+        "rain_on_snow_flood_risk",
+        "peak_glacier_runoff_passage",
+        "coastal_permafrost_erosion",
+        "thermokarst_expansion",
+        "firn_layer_depletion",
+        "glacial_lake_failure_risk",
+        "freshwater_lens_compression",
+        "glacier_meltwater_dependency"
+      ],
+      "bundle_ids": ["cryosphere_meltwater_support", "nsidc_sea_ice_snapshot", "gtnp_snapshot", "imbie_assessment_snapshot", "grace_freshwater_snapshot"]
+    },
+    {
+      "id": "transport_frontier_rehabilitation_support",
+      "node_ids": [
+        "freight_electrification_gap",
+        "port_heat_vulnerability",
+        "airport_climate_exposure",
+        "airport_operational_disruption",
+        "bridge_scour_exposure",
+        "arctic_shipping_expansion"
+      ],
+      "bundle_ids": ["transport_exposure_support", "freight_transition_reasoning_support", "aviation_transition_support", "shipping_disruption_reasoning_support"]
+    },
+    {
+      "id": "ocean_biosphere_frontier_rehabilitation_support",
+      "node_ids": [
+        "ocean_current_regime_shift",
+        "oceanic_upwelling_disruptions",
+        "marine_food_web_simplification",
+        "ocean_salinity_stratification",
+        "pelagic_species_redistribution",
+        "fish_landing_supply_disruption",
+        "littoral_surge_vulnerability",
+        "species_range_compression",
+        "biodiversity_intactness_loss"
+      ],
+      "bundle_ids": ["ocean_biosphere_tail_support", "argo_snapshot", "wod_snapshot", "coastal_inundation_reasoning_support"]
+    },
+    {
+      "id": "water_operations_rehabilitation_support",
+      "node_ids": ["reservoir_storage_instability", "reservoir_operating_shortfall", "wastewater_infrastructure_overflow", "wastewater_bypass_discharge"],
+      "bundle_ids": ["water_operations_support", "aqueduct_snapshot", "grace_freshwater_snapshot"]
+    },
+    {
+      "id": "energy_burden_rehabilitation_support",
+      "node_ids": ["energy_affordability_crisis", "utility_disconnection_risk"],
+      "bundle_ids": ["energy_burden_support", "heat_health_snapshot", "grid_reliability_reasoning_support"]
+    },
+    {
+      "id": "urban_canopy_rehabilitation_support",
+      "node_ids": ["urban_tree_canopy_loss"],
+      "bundle_ids": ["urban_canopy_heat_support", "heat_health_snapshot", "gfw_forest_snapshot"]
+    },
+    {
+      "id": "fisheries_supply_rehabilitation_support",
+      "node_ids": ["fishery_protein_dependence", "fish_landing_supply_disruption", "marine_food_web_simplification", "phytoplankton_decline", "estuarine_nursery_loss"],
+      "bundle_ids": ["fisheries_supply_support", "food_security_snapshot", "argo_snapshot", "wod_snapshot"]
+    },
+    {
+      "id": "climate_litigation_rehabilitation_support",
+      "node_ids": ["climate_litigation_pressure"],
+      "bundle_ids": ["climate_litigation_support", "finance_governance_snapshot"]
+    },
+    {
+      "id": "polar_infrastructure_rehabilitation_support",
+      "node_ids": ["polar_infrastructure_failure", "coastal_permafrost_erosion"],
+      "bundle_ids": ["cryosphere_meltwater_support", "gtnp_snapshot", "disaster_displacement_snapshot"]
+    },
+    {
+      "id": "mangrove_buffer_support",
+      "node_ids": ["mangrove_buffer_loss"],
+      "bundle_ids": ["mangrove_watch_snapshot", "mangrove_protection_support"]
+    },
+    {
+      "id": "ocean_carbon_sink_support",
+      "node_ids": ["oceanic_carbon_sink_saturation", "ocean_carbon_uptake_weakening"],
+      "bundle_ids": ["socat_catalog", "gcb_snapshot"]
+    },
+    {
+      "id": "forest_change_support",
+      "node_ids": ["deforestation", "forest_fragmentation", "biodiversity_intactness_loss", "land_carbon_sink_weakening", "peat_oxidation_pulse"],
+      "bundle_ids": ["gfw_forest_snapshot"]
+    },
+    {
+      "id": "fra_forest_baseline_support",
+      "node_ids": ["deforestation", "forest_fragmentation", "biodiversity_intactness_loss", "land_carbon_sink_weakening", "peat_oxidation_pulse"],
+      "bundle_ids": ["fra_forest_snapshot"]
+    },
+    {
+      "id": "reef_and_ocean_transition_support",
+      "node_ids": ["reef_structural_collapse"],
+      "bundle_ids": ["coral_reef_watch_snapshot", "ocads_catalog"]
+    },
+    {
+      "id": "forest_fire_support",
+      "node_ids": ["deforestation", "wildfire_regime_shift", "peat_oxidation_pulse"],
+      "bundle_ids": ["gfw_forest_snapshot", "firms_snapshot"]
+    },
+    {
+      "id": "disaster_registry_support",
+      "node_ids": ["migration", "relocation_governance_capacity", "disaster_recovery_inequality", "adaptation_capital_shortfall", "insurance_retreat", "mortgage_market_exposure", "coastal_property_insurance_redlines", "reinsurance_withdrawal"],
+      "bundle_ids": ["disaster_displacement_snapshot"]
+    },
+    {
+      "id": "displacement_context_support",
+      "node_ids": ["migration", "relocation_governance_capacity", "disaster_recovery_inequality"],
+      "bundle_ids": ["displacement_anchor_support"]
+    },
+    {
+      "id": "human_system_recovery_support",
+      "node_ids": ["critical_infrastructure_fragility"],
+      "bundle_ids": ["disaster_displacement_snapshot", "heat_health_snapshot"]
+    },
+    {
+      "id": "grid_peak_load_support",
+      "node_ids": ["grid_peak_load_stress"],
+      "bundle_ids": ["grid_reliability_reasoning_support"]
+    },
+    {
+      "id": "shipping_lane_support",
+      "node_ids": ["shipping_lane_disruption"],
+      "bundle_ids": ["shipping_disruption_reasoning_support"]
+    },
+    {
+      "id": "transport_infrastructure_rehabilitation_support",
+      "node_ids": ["supply_chain_port_bottlenecks", "commuter_rail_transit_gaps", "railroad_chemical_car_derailments", "aviation_condensation_trails", "aviation_jet_fuel_emissions", "transformer_heat_failure_risk", "gas_pipeline_leak_points", "shipping", "aviation"],
+      "bundle_ids": ["shipping_disruption_reasoning_support", "grid_reliability_reasoning_support", "edgar_snapshot"]
+    },
+    {
+      "id": "transport_tail_rehabilitation_support",
+      "node_ids": ["aviation_demand_growth", "rail_heat_buckling"],
+      "bundle_ids": ["aviation_transition_support", "rail_climate_resilience_support", "edgar_snapshot"]
+    },
+    {
+      "id": "energy_industrial_rehabilitation_support",
+      "node_ids": ["cement_process_emissions", "industrial_heat_decarbonization_gap", "steel_decarbonization_gap", "peaker_plant_lock_in", "transformer_supply_bottleneck", "gas_power_dependence", "backup_generator_dependence", "critical_mineral_extraction_pressure", "renewable_curtailment_losses", "battery_supply_chain_pressure"],
+      "bundle_ids": ["heavy_industry_transition_support", "grid_equipment_supply_support", "transmission_buildout_reasoning_support", "edgar_snapshot", "exiobase_snapshot"]
+    },
+    {
+      "id": "road_freight_support",
+      "node_ids": ["road_freight_diesel_lock_in"],
+      "bundle_ids": ["freight_transition_reasoning_support", "edgar_snapshot"]
+    },
+    {
+      "id": "crop_yield_support",
+      "node_ids": ["crop_yield_volatility"],
+      "bundle_ids": ["crop_variability_reasoning_support", "food_security_snapshot"]
+    },
+    {
+      "id": "heat_health_support",
+      "node_ids": ["public_health_heat_burden", "wet_bulb_heat", "nocturnal_heat_stress", "compound_day_night_heat_extremes", "farm_heat_stress", "vector_borne_disease_expansion"],
+      "bundle_ids": ["heat_health_snapshot"]
+    },
+    {
+      "id": "health_category_source_pack",
+      "node_ids": ["public_health_heat_burden", "heat_related_mortality_burden", "air_pollution_health_burden", "occupational_heat_exposure", "vector_borne_disease_expansion"],
+      "bundle_ids": ["health_sources_pack"]
+    },
+    {
+      "id": "labor_heat_anchor_support",
+      "node_ids": ["public_health_heat_burden", "nocturnal_heat_stress", "compound_day_night_heat_extremes", "farm_heat_stress", "vector_borne_disease_expansion"],
+      "bundle_ids": ["labor_heat_support"]
+    },
+    {
+      "id": "food_trade_security_support",
+      "node_ids": ["food_import_exposure"],
+      "bundle_ids": ["food_security_snapshot"]
+    },
+    {
+      "id": "societal_shock_support",
+      "node_ids": ["food_import_exposure", "conflict_risk_escalation"],
+      "bundle_ids": ["disaster_displacement_snapshot"]
+    },
+    {
+      "id": "finance_governance_support",
+      "node_ids": ["reinsurance_withdrawal", "adaptation_capital_shortfall", "insurance_retreat", "mortgage_market_exposure", "coastal_property_insurance_redlines", "climate_litigation_pressure", "energy_affordability_crisis", "utility_disconnection_risk"],
+      "bundle_ids": ["finance_governance_snapshot"]
+    },
+    {
+      "id": "humanitarian_recovery_support",
+      "node_ids": ["humanitarian_resource_gaps"],
+      "bundle_ids": ["disaster_displacement_snapshot", "conflict_governance_support"]
+    },
+    {
+      "id": "soil_baseline_support",
+      "node_ids": ["industry_farming", "soil_moisture_collapse", "soil_humus_decline"],
+      "bundle_ids": ["soilgrids_snapshot", "soil_health_reasoning_support"]
+    },
+    {
+      "id": "food_system_emissions_support",
+      "node_ids": ["industry_farming", "food", "food_waste", "fertilizer_production"],
+      "bundle_ids": ["edgar_food_snapshot"]
+    },
+    {
+      "id": "pollinator_support",
+      "node_ids": ["pollinator_service_decline"],
+      "bundle_ids": ["pollinator_reasoning_support"]
+    },
+    {
+      "id": "biodiversity_rehabilitation_support",
+      "node_ids": ["pollinator_colony_collapse", "seed_germination_drops", "wildlife_habitat_patches", "biodiversity_corridors_disruption", "invasive_species_encroachment", "monoculture_encroachments", "macrofungal_mycelium_decay", "lichen_layer_degradations", "top_predator_extinctions", "biodiversity_intactness_loss", "insect_biomass_decline"],
+      "bundle_ids": ["pollinator_reasoning_support", "gfw_forest_snapshot", "fra_forest_snapshot"]
+    },
+    {
+      "id": "watershed_forest_rehabilitation_support",
+      "node_ids": ["watershed_forest_loss"],
+      "bundle_ids": ["gfw_forest_snapshot", "fra_forest_snapshot", "aqueduct_snapshot"]
+    },
+    {
+      "id": "coastal_inundation_support",
+      "node_ids": ["coastal_inundation_risk", "delta_salt_intrusion_fronts", "coastal_aquifer_degradation", "drinking_water_treatment_stress"],
+      "bundle_ids": ["coastal_inundation_reasoning_support", "imbie_assessment_snapshot", "disaster_displacement_snapshot"]
+    },
+    {
+      "id": "harmful_algal_bloom_support",
+      "node_ids": ["harmful_algal_blooms"],
+      "bundle_ids": ["argo_snapshot", "wod_snapshot", "marine_heatwave_snapshot"]
+    },
+    {
+      "id": "peatland_support",
+      "node_ids": ["peatland_degradation", "peatland_degradations"],
+      "bundle_ids": ["peatland_reasoning_support"]
+    },
+    {
+      "id": "thermal_inversion_support",
+      "node_ids": ["thermal_inversion_events"],
+      "bundle_ids": ["thermal_inversion_reasoning_support"]
+    },
+    {
+      "id": "cold_chain_support",
+      "node_ids": ["cold_chain_failure_risk"],
+      "bundle_ids": ["cold_chain_reasoning_support", "food_security_snapshot"]
+    },
+    {
+      "id": "transmission_buildout_support",
+      "node_ids": ["transmission_buildout_lag"],
+      "bundle_ids": ["transmission_buildout_reasoning_support"]
+    },
+    {
+      "id": "industrial_emissions_surface_support",
+      "node_ids": ["steel", "cement_concrete", "plastics_petrochemicals", "fertilizer_production", "mining_critical_minerals", "air_conditioning_refrigerants"],
+      "bundle_ids": ["edgar_snapshot", "exiobase_snapshot"]
+    },
+    {
+      "id": "water_demand_context_support",
+      "node_ids": ["food", "cooling_water_competition"],
+      "bundle_ids": ["water_footprint_snapshot"]
+    },
+    {
+      "id": "supply_chain_footprint_support",
+      "node_ids": ["fast_fashion", "cement_concrete", "steel", "plastics_petrochemicals", "mining_critical_minerals", "data_centers", "ai_data_centers", "semiconductor_fabs"],
+      "bundle_ids": ["exiobase_snapshot"]
+    },
+    {
+      "id": "semiconductor_fabrication_support",
+      "node_ids": ["semiconductor_fabrication_footprint"],
+      "bundle_ids": ["semiconductor_fab_reasoning_support", "exiobase_snapshot"]
+    },
+    {
+      "id": "conflict_governance_support",
+      "node_ids": ["conflict_risk_escalation"],
+      "bundle_ids": ["conflict_governance_support"]
+    },
+    {
+      "id": "climate_litigation_report_support",
+      "node_ids": ["climate_litigation_pressure"],
+      "bundle_ids": ["climate_litigation_support"]
+    },
+    {
+      "id": "response_energy_system_support",
+      "node_ids": ["clean_electricity", "coal_retirement", "renewable_energy_deployment", "grid_scale_storage", "demand_response", "methane_leak_detection", "carbon_dioxide_removal"],
+      "bundle_ids": ["grid_reliability_reasoning_support", "transmission_buildout_reasoning_support", "edgar_snapshot", "exiobase_snapshot"]
+    },
+    {
+      "id": "response_building_support",
+      "node_ids": ["building_energy_efficiency", "heat_pump_electrification", "weatherization_retrofits", "passive_cooling_design", "building_performance_standards", "refrigerant_phase_down", "equitable_cooling_access"],
+      "bundle_ids": ["energy_burden_support", "heat_health_snapshot", "grid_reliability_reasoning_support", "edgar_snapshot"]
+    },
+    {
+      "id": "response_transport_industry_support",
+      "node_ids": ["public_transit_expansion", "active_mobility", "electric_vehicle_transition", "low_carbon_cement", "green_steel"],
+      "bundle_ids": ["freight_transition_reasoning_support", "heavy_industry_transition_support", "edgar_snapshot", "exiobase_snapshot"]
+    },
+    {
+      "id": "response_ecosystem_support",
+      "node_ids": ["ecosystem_restoration", "nature_based_adaptation"],
+      "bundle_ids": ["gfw_forest_snapshot", "fra_forest_snapshot", "mangrove_watch_snapshot", "mangrove_protection_support"]
+    },
+    {
+      "id": "response_heat_warning_support",
+      "node_ids": ["multi_hazard_early_warning", "urban_heat_action_plans", "equitable_cooling_access"],
+      "bundle_ids": ["heat_health_snapshot", "labor_heat_support", "disaster_displacement_snapshot", "finance_governance_snapshot"]
+    },
+    {
+      "id": "response_water_food_relocation_support",
+      "node_ids": ["flood_resilient_infrastructure", "water_reuse", "climate_resilient_agriculture", "planned_relocation"],
+      "bundle_ids": ["aqueduct_snapshot", "grace_freshwater_snapshot", "food_security_snapshot", "disaster_displacement_snapshot", "coastal_inundation_reasoning_support"]
+    }
+  ]
+}

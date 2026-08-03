@@ -1,0 +1,63 @@
+{
+  "version": "unep_wcmc_fao_global_habitat_connectivity_snapshot_v1",
+  "captured_at": "2026-07-31T22:14:42.743Z",
+  "source": {
+    "id": "unep_wcmc_global_ecological_connectivity_assessment",
+    "name": "UNEP-WCMC Global Ecological Connectivity and FAO FRA 2025",
+    "publishers": [
+      "UNEP World Conservation Monitoring Centre",
+      "Food and Agriculture Organization of the United Nations"
+    ],
+    "connectivity_url": "https://www.unep-wcmc.org/en/news/life-on-a-connected-planet",
+    "forest_assessment_url": "https://www.fao.org/interactive/2025/forest-resources-assessment/en/",
+    "forest_data_url": "https://fra-data.fao.org/assessments/fra/2025/WO/home/overview"
+  },
+  "ingestion_job_id": "export_global_habitat_connectivity_impact_snapshot",
+  "metric_contract_ids": [
+    "global_terrestrial_habitat_connectivity_gap"
+  ],
+  "contract_bindings": [
+    {
+      "node_id": "forest_fragmentation",
+      "metric_id": "global_terrestrial_habitat_connectivity_gap",
+      "measurement_role": "global_structural_connectivity_assessment_primary"
+    },
+    {
+      "node_id": "wildlife_habitat_patches",
+      "metric_id": "global_terrestrial_habitat_connectivity_gap",
+      "measurement_role": "global_structural_connectivity_assessment_primary"
+    },
+    {
+      "node_id": "biodiversity_corridors_disruption",
+      "metric_id": "global_terrestrial_habitat_connectivity_gap",
+      "measurement_role": "global_structural_connectivity_assessment_primary"
+    }
+  ],
+  "cadence": "Refresh with new UNEP-WCMC connectivity or FAO FRA releases.",
+  "provenance": "Reviewed source-reported global structural-connectivity shares joined to FAO country-reported forest extent and loss only for persistence and service-scope context.",
+  "uncertainty": "The connectivity values are rounded global shares. Structural connectivity does not prove functional movement, occupancy, gene flow or population benefit. FAO forest designations overlap in purpose and are not fragmentation observations.",
+  "failure_behavior": "Retain the last reviewed assessment and mark stale; never infer species-specific movement, add overlapping forest designations, attribute all forest loss to fragmentation or treat unreported areas as zero.",
+  "assessment": {
+    "connectivity_assessment_year": 2022,
+    "forests_in_fragments_with_little_or_no_connectivity_pct_lower_bound": 10,
+    "terrestrial_protected_area_network_structurally_connected_pct_upper_bound": 10,
+    "terrestrial_protected_area_network_connectivity_gap_pct_lower_bound": 90,
+    "forest_assessment_year": 2025,
+    "forest_area_billion_ha": 4.14,
+    "forest_area_share_land_pct": 32,
+    "cumulative_deforestation_since_1990_million_ha": 489,
+    "deforestation_rate_2015_2025_million_ha_per_year": 10.9,
+    "persistence_start_year": 1990,
+    "persistence_years": 35,
+    "forest_production_designation_pct": 29,
+    "forest_soil_water_protection_designation_pct": 9,
+    "bounded_service_scope_pct": 38,
+    "countries_and_areas_covered": 236,
+    "geography_boundary": "Global forests and terrestrial protected-area network",
+    "source_locators": [
+      "UNEP-WCMC: almost 10% of forests occur in fragments with little or no connectivity; less than 10% of the terrestrial protected-area network is structurally connected.",
+      "FAO FRA 2025: 489 million hectares deforested since 1990 across a 4.14 billion-hectare global forest estate.",
+      "FAO FRA 2025: 29% of forests are designated for production and 9% for soil and water protection."
+    ]
+  }
+}

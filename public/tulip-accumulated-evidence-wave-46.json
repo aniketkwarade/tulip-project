@@ -1,0 +1,114 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_46_global_harmful_algal_blooms",
+  "generated_at": "2026-08-01T15:38:06.612Z",
+  "source_snapshots": [
+    "public/global-hab-impact-snapshot.json"
+  ],
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "harmful_algal_blooms",
+      "value": 8.8,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2018",
+      "components": {
+        "biophysical_burden": 0.802,
+        "human_economic_burden": 0.815588,
+        "persistence": 0.978,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "mass_animal_or_plant_mortality_event_share_pct": 7,
+          "normalization_anchors_pct": [
+            0,
+            1,
+            5,
+            10
+          ],
+          "basis": "Use only the documented mass-mortality share as the conservative ecological-burden indicator; do not treat every recorded HAB event as a mortality event."
+        },
+        "human_economic_burden": {
+          "seafood_biotoxin_event_share_pct": 48,
+          "high_counts_or_discoloration_with_socioeconomic_impact_share_pct": 43,
+          "normalization_anchors_pct": [
+            0,
+            10,
+            33,
+            67
+          ],
+          "basis": "Normalize only the 48% seafood-biotoxin share. The separate 43% socioeconomic-impact share is retained as corroboration and is not added because event categories can overlap."
+        },
+        "persistence": {
+          "observation_start_year": 1985,
+          "observation_end_year": 2018,
+          "observation_years_inclusive": 34,
+          "normalization_anchors_years": [
+            0,
+            5,
+            20,
+            35
+          ]
+        },
+        "extent": {
+          "global_regions_assessed": 12,
+          "geographic_coverage": "all_12_assessed_global_marine_regions",
+          "normalization_anchors_regions": [
+            0,
+            3,
+            8,
+            12
+          ]
+        },
+        "supporting_inventory": {
+          "haedat_event_count": 9503,
+          "harmful_marine_phytoplankton_taxa_approximate": 200,
+          "ciguatera_people_affected_annually_range": {
+            "low": 10000,
+            "high": 50000
+          },
+          "records_with_multiple_event_types_pct": 11
+        },
+        "source_snapshot": {
+          "path": "public/global-hab-impact-snapshot.json",
+          "version": "global_hab_impact_2021_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "conservative_event_share_normalization",
+          "formula": "Normalize the rounded 7% mass-mortality share and 48% seafood-biotoxin share independently against declared four-point anchors."
+        },
+        {
+          "type": "overlap_guard",
+          "formula": "Do not add event-category percentages because 11% of HAEDAT records carry multiple event types."
+        },
+        {
+          "type": "persistence_and_extent_normalization",
+          "formula": "Normalize the inclusive 34-year observation period and coverage of all 12 assessed global marine regions."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1–10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "hallegraeff_global_hab_assessment_2021"
+      ],
+      "uncertainty": "HAEDAT coverage varies substantially among regions and records harmful events rather than complete bloom incidence. Event-type percentages are rounded and 11% of records have multiple types, so categories must not be summed. The assessment excludes freshwater harmful algae and macrophyte blooms and found no uniform global temporal increase after accounting for monitoring effort.",
+      "freshness": "Accumulated global marine HAB inventory covers 1985–2018; reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "The peer-reviewed global HAEDAT assessment quantifies ecological mortality events, seafood-toxin events, multi-decadal persistence, and coverage across all 12 assessed marine regions.",
+        "higher_priority_failures": [
+          "The study explicitly finds no uniform global trend after monitoring adjustment, and the retained inventory ends in 2018, so a current-data score would overstate freshness and momentum."
+        ]
+      },
+      "input_hash": "fnv1a32:56461264"
+    }
+  ]
+}

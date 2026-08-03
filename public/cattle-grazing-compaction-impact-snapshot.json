@@ -1,0 +1,82 @@
+{
+  "version": "usda_sruc_cattle_grazing_compaction_2002_2026_v1",
+  "captured_at": "2026-08-01T00:00:00.000Z",
+  "sources": [
+    {
+      "id": "usda_ars_long_term_grazing_density_soil_compaction_2002",
+      "name": "Long-Term Grazing Density Impacts on Soil Compaction",
+      "publisher": "U.S. Department of Agriculture Agricultural Research Service",
+      "publication_date": "2002-12-01",
+      "url": "https://www.ars.usda.gov/research/publications/publication/?seqNo115=126586",
+      "source_locators": [
+        "Six tall-grass prairie paddocks in Oklahoma were rotationally grazed for ten years at 12.5, 25 or 50 cows per hectare; two adjacent ungrazed sites were controls.",
+        "Penetration resistance and bulk density increased in the upper 10 centimetres, with significant impact in the high-density treatment.",
+        "Surface infiltration fell from 28.5 centimetres per day in ungrazed controls to 7, 5 and 5 centimetres per day under low, moderate and high stocking density."
+      ]
+    },
+    {
+      "id": "sruc_ahdb_dairy_cattle_trampling_soil_compaction",
+      "name": "Soil compaction: cattle trampling and grass-yield experiment",
+      "publisher": "Scotland's Rural College, funded by AHDB Dairy",
+      "publication_date": "2026-01-01",
+      "url": "https://www.sruc.ac.uk/research/research-facilities/dairy-research-facility/dairy-projects/soil-compaction/",
+      "source_locators": [
+        "The field experiment compared soil compaction caused by cattle trampling and tractor use with uncompacted grassland and evaluated grass yield and quality.",
+        "First-cut grass-silage yield loss reached 19.0 percent under cattle trampling; the larger 37.7-percent tractor result is excluded.",
+        "By the third year, the experiment measured a 14.3-percent annual loss of grass dry-matter yield."
+      ]
+    }
+  ],
+  "metric_contract": {
+    "node_id": "cattle_grazing_overcompaction",
+    "metric_id": "grazing_soil_compaction",
+    "unit": "infiltration change against local control, cattle stocking density, soil depth and grass-yield loss",
+    "geography": "six grazed Oklahoma tall-grass prairie paddocks with two adjacent controls; separate SRUC/AHDB grassland field experiment",
+    "assessment_period": "ten-year USDA grazing treatment and three-year SRUC/AHDB compaction response",
+    "boundary": "The receipt preserves cattle density, paddock count, control infiltration, soil depth and trial-specific yield results. It does not combine cattle and tractor compaction, infer global prevalence, or treat well-managed dry-soil grazing as overcompaction."
+  },
+  "accumulated_impact": {
+    "usda_grazed_paddock_count": 6,
+    "usda_ungrazed_control_site_count": 2,
+    "usda_grazing_treatment_years": 10,
+    "low_stocking_density_cows_per_hectare": 12.5,
+    "medium_stocking_density_cows_per_hectare": 25,
+    "high_stocking_density_cows_per_hectare": 50,
+    "measured_compaction_depth_centimetres": 10,
+    "ungrazed_infiltration_centimetres_per_day": 28.5,
+    "low_density_infiltration_centimetres_per_day": 7,
+    "medium_density_infiltration_centimetres_per_day": 5,
+    "high_density_infiltration_centimetres_per_day": 5,
+    "high_density_infiltration_loss_percent_derived": 82.45614,
+    "cattle_trampling_first_cut_grass_yield_loss_percent_up_to": 19,
+    "annual_grass_dry_matter_yield_loss_percent_year_three": 14.3,
+    "tractor_compaction_first_cut_yield_loss_percent_unscored": 37.7
+  },
+  "reviewed_normalization_anchors": {
+    "infiltration_loss_percent": [
+      0,
+      10,
+      30,
+      60
+    ],
+    "grass_yield_loss_percent": [
+      0,
+      2,
+      10,
+      25
+    ],
+    "treatment_duration_years": [
+      0,
+      1,
+      5,
+      10
+    ],
+    "grazed_paddock_count": [
+      0,
+      1,
+      3,
+      6
+    ]
+  },
+  "uncertainty": "The USDA experiment measures a specific Oklahoma tall-grass prairie system after ten years and the SRUC/AHDB result is a separate grassland trial; neither represents global pasture prevalence. Infiltration change is calculated from source-reported endpoints and is not converted to runoff, erosion or plant-available water volume. The 19-percent yield loss is a maximum first-cut result; tractor compaction and the year-three 14.3-percent annual dry-matter result remain unscored corroboration. Soil texture, moisture, grazing rotation and recovery can materially change outcomes."
+}

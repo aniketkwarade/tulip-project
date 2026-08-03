@@ -1,0 +1,127 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_38_faostat_food_import_exposure",
+  "generated_at": "2026-07-31T19:36:55.019Z",
+  "source_snapshot": "public/fao-food-import-exposure-snapshot.json",
+  "source_id": "faostat_cereal_import_dependency_and_population_2026",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "food_import_exposure",
+      "value": 5,
+      "band": "Rising",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2021-2023",
+      "components": {
+        "magnitude": 0,
+        "threshold": 0.763339,
+        "momentum": 0.307841,
+        "extent": 0.95582
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_period": "2021-2023",
+          "latest_population_weighted_signed_dependency_pct": 3.718192,
+          "complete_prior_three_year_periods": 21,
+          "historical_distribution_anchors_pct": [
+            5.135426,
+            5.632103,
+            5.687342,
+            5.728957
+          ],
+          "net_exporter_handling": "Signed negative country ratios retained."
+        },
+        "threshold": {
+          "high_dependency_boundary_pct": 50,
+          "latest_population_share_in_high_dependency_countries": 0.095829583,
+          "complete_prior_three_year_periods": 21,
+          "historical_distribution_anchors": [
+            0.087216,
+            0.087731,
+            0.09251,
+            0.104245
+          ],
+          "boundary_meaning": "Net cereal imports supply at least half of apparent domestic cereal supply; this is an arithmetic exposure boundary, not a universal food-security danger threshold."
+        },
+        "momentum": {
+          "latest_change_in_high_dependency_population_share": 0.003319,
+          "latest_comparison": [
+            "2020-2022",
+            "2021-2023"
+          ],
+          "complete_prior_overlapping_period_changes": 20,
+          "historical_distribution_anchors": [
+            -0.000217,
+            0.003574,
+            0.005862,
+            0.014411
+          ]
+        },
+        "extent": {
+          "latest_reporting_countries": 160,
+          "latest_population_year": 2022,
+          "latest_population_coverage": 0.955819803,
+          "denominator": "FAOSTAT World total population"
+        },
+        "source_snapshot": {
+          "path": "public/fao-food-import-exposure-snapshot.json",
+          "version": "faostat_food_import_exposure_2026_v1",
+          "captured_at": "2026-07-31T19:36:54.967Z",
+          "food_security_bulk_sha256": "1ccced40d8e228693c6fcc5d172de9bcaa3a1c6a1581ebde345d71c1dfa9b692",
+          "population_bulk_sha256": "e2781a554d4efb36f17999d031acc99f0a7d8bb25a1b4d55cc5d403ccfb6b694",
+          "excluded_from_scoring": [
+            "FAOSTAT World ratio, which nets international trade to approximately zero",
+            "household food insecurity inference",
+            "supplier concentration",
+            "commodity or calorie baskets other than cereals",
+            "missing country ratios as zero"
+          ]
+        },
+        "coverage_gate": {
+          "direct_components": [
+            "magnitude",
+            "threshold",
+            "momentum",
+            "extent"
+          ],
+          "global_scope": true,
+          "current_observation": true
+        }
+      },
+      "transformations": [
+        {
+          "type": "population_weighted_signed_country_distribution",
+          "formula": "Join country or territory cereal import-dependency ratios to middle-year total population by FAOSTAT area code; retain signed ratios and divide weighted sums by covered population."
+        },
+        {
+          "type": "historical_distribution_magnitude",
+          "formula": "Normalize the latest population-weighted signed dependency through 21 prior complete three-year-period values."
+        },
+        {
+          "type": "majority_supply_exposure_threshold",
+          "formula": "Calculate covered-population share in countries where net imports provide at least 50% of apparent cereal supply, then normalize the latest share through 21 prior values."
+        },
+        {
+          "type": "exposure_share_momentum",
+          "formula": "Normalize the latest change in high-dependency population share through 20 prior overlapping-period changes."
+        },
+        {
+          "type": "population_coverage_extent",
+          "formula": "Use covered population divided by the source World population; missing country ratios do not enter the numerator or denominator."
+        }
+      ],
+      "source_ids": [
+        "faostat_cereal_import_dependency_and_population_2026"
+      ],
+      "uncertainty": "The dependency ratio inherits food-balance uncertainty from informal trade, stocks, re-exports, food aid, production and reporting lag. Population weighting measures people living in country-level dependency contexts, not household diet, supplier concentration, affordability, insecurity or realized disruption. Three-year overlapping periods are not independent annual observations.",
+      "freshness": "FAOSTAT Food Security release 2026-07-10T16:53:00Z; latest complete period 2021-2023; population release 2026-03-04T15:56:00Z; snapshot captured 2026-07-31T19:36:54.967Z.",
+      "selection_reason": {
+        "selected_method_passed": "The paired FAOSTAT releases supply 22 complete globally aggregated three-year dependency distributions with roughly 96% population coverage. Current magnitude, high-dependency exposure, recent movement and extent are all directly quantified without allowing net-exporter and importer values to cancel at the World trade-balance row.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:41b82106"
+    }
+  ]
+}

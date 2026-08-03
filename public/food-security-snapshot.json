@@ -1,0 +1,668 @@
+{
+  "version": "2026-07-18T12:52:19.188Z",
+  "updated_at": "2026-07-18",
+  "captured_at": "2026-07-18T12:52:19.188Z",
+  "snapshot_family": "northstar_contract_bound_ingestion",
+  "ingestion_job_id": "fetch_food_insecurity_fies",
+  "source": {
+    "id": "unsd_sdg_api",
+    "name": "UNSD SDG API, indicator 2.1.2",
+    "publisher": "United Nations Statistics Division; observations reported by FAO",
+    "documentation_url": "https://unstats.un.org/sdgapi/swagger/",
+    "indicator_url": "https://www.fao.org/sustainable-development-goals-data-portal/data/indicators/212-prevalence-of-moderate-or-severe-food-insecurity-in-the-population-based-on-the-food-insecurity-experience-scale/en",
+    "access": "open_json_api"
+  },
+  "request": {
+    "url": "https://unstats.un.org/SDGAPI/v1/sdg/Indicator/Data?indicator=2.1.2&timePeriod=2024&pageSize=5000",
+    "bounded_limit": 5000,
+    "filters": {
+      "indicator": "2.1.2",
+      "series": "AG_PRD_FIESMS",
+      "observation_year": 2024,
+      "age": "ALLAGE",
+      "location": "ALLAREA",
+      "sex": "BOTHSEX",
+      "reporting_type": "G"
+    }
+  },
+  "metric_contract_ids": [
+    "food_insecurity_prevalence_fies"
+  ],
+  "contract_bindings": [
+    {
+      "node_id": "food_insecurity",
+      "metric_contract_id": "food_insecurity_prevalence_fies",
+      "measurement_role": "primary"
+    }
+  ],
+  "cadence": "annual",
+  "provenance": "Official SDG observations disseminated by UNSD and reported by FAO; country, year, uncertainty bounds, dimensions, status, and footnotes are retained.",
+  "uncertainty": "Survey and model uncertainty varies by country and release; the provider may revise historical estimates.",
+  "source_summary": {
+    "api_total_elements": 2884,
+    "api_total_pages": 1,
+    "requested_year": 2024,
+    "retained_all_age_all_area_both_sex_records": 36
+  },
+  "record_count": 36,
+  "records": [
+    {
+      "record_id": "AG_PRD_FIESMS:2:2024",
+      "series": "AG_PRD_FIESMS",
+      "series_description": "Prevalence of moderate or severe food insecurity in the population (%)",
+      "geo_area_code": "2",
+      "geo_area_name": "Africa",
+      "year": 2024,
+      "value_percent": 58.9,
+      "lower_bound_percent": 58.3,
+      "upper_bound_percent": 59.6,
+      "nature": "N",
+      "observation_status": "E",
+      "source": "Food and Agriculture Organization of the United Nations (FAO)",
+      "footnotes": [
+        "Annual value."
+      ]
+    },
+    {
+      "record_id": "AG_PRD_FIESMS:19:2024",
+      "series": "AG_PRD_FIESMS",
+      "series_description": "Prevalence of moderate or severe food insecurity in the population (%)",
+      "geo_area_code": "19",
+      "geo_area_name": "Americas",
+      "year": 2024,
+      "value_percent": 19.9,
+      "lower_bound_percent": 19.6,
+      "upper_bound_percent": 20.1,
+      "nature": "N",
+      "observation_status": "E",
+      "source": "Food and Agriculture Organization of the United Nations (FAO)",
+      "footnotes": [
+        "Annual value."
+      ]
+    },
+    {
+      "record_id": "AG_PRD_FIESMS:142:2024",
+      "series": "AG_PRD_FIESMS",
+      "series_description": "Prevalence of moderate or severe food insecurity in the population (%)",
+      "geo_area_code": "142",
+      "geo_area_name": "Asia",
+      "year": 2024,
+      "value_percent": 23.3,
+      "lower_bound_percent": 22.5,
+      "upper_bound_percent": 24.1,
+      "nature": "N",
+      "observation_status": "E",
+      "source": "Food and Agriculture Organization of the United Nations (FAO)",
+      "footnotes": [
+        "Annual value."
+      ]
+    },
+    {
+      "record_id": "AG_PRD_FIESMS:53:2024",
+      "series": "AG_PRD_FIESMS",
+      "series_description": "Prevalence of moderate or severe food insecurity in the population (%)",
+      "geo_area_code": "53",
+      "geo_area_name": "Australia and New Zealand",
+      "year": 2024,
+      "value_percent": 15,
+      "lower_bound_percent": 13.3,
+      "upper_bound_percent": 16.7,
+      "nature": "N",
+      "observation_status": "E",
+      "source": "Food and Agriculture Organization of the United Nations (FAO)",
+      "footnotes": [
+        "Annual value."
+      ]
+    },
+    {
+      "record_id": "AG_PRD_FIESMS:29:2024",
+      "series": "AG_PRD_FIESMS",
+      "series_description": "Prevalence of moderate or severe food insecurity in the population (%)",
+      "geo_area_code": "29",
+      "geo_area_name": "Caribbean",
+      "year": 2024,
+      "value_percent": 51.9,
+      "lower_bound_percent": 50.5,
+      "upper_bound_percent": 53.3,
+      "nature": "N",
+      "observation_status": "E",
+      "source": "Food and Agriculture Organization of the United Nations (FAO)",
+      "footnotes": [
+        "Annual value."
+      ]
+    },
+    {
+      "record_id": "AG_PRD_FIESMS:13:2024",
+      "series": "AG_PRD_FIESMS",
+      "series_description": "Prevalence of moderate or severe food insecurity in the population (%)",
+      "geo_area_code": "13",
+      "geo_area_name": "Central America",
+      "year": 2024,
+      "value_percent": 25.9,
+      "lower_bound_percent": 25.3,
+      "upper_bound_percent": 26.6,
+      "nature": "N",
+      "observation_status": "E",
+      "source": "Food and Agriculture Organization of the United Nations (FAO)",
+      "footnotes": [
+        "Annual value."
+      ]
+    },
+    {
+      "record_id": "AG_PRD_FIESMS:62:2024",
+      "series": "AG_PRD_FIESMS",
+      "series_description": "Prevalence of moderate or severe food insecurity in the population (%)",
+      "geo_area_code": "62",
+      "geo_area_name": "Central and Southern Asia",
+      "year": 2024,
+      "value_percent": 37.5,
+      "lower_bound_percent": 35.8,
+      "upper_bound_percent": 39.2,
+      "nature": "N",
+      "observation_status": "E",
+      "source": "Food and Agriculture Organization of the United Nations (FAO)",
+      "footnotes": [
+        "Annual value."
+      ]
+    },
+    {
+      "record_id": "AG_PRD_FIESMS:143:2024",
+      "series": "AG_PRD_FIESMS",
+      "series_description": "Prevalence of moderate or severe food insecurity in the population (%)",
+      "geo_area_code": "143",
+      "geo_area_name": "Central Asia",
+      "year": 2024,
+      "value_percent": 16.2,
+      "lower_bound_percent": 14.8,
+      "upper_bound_percent": 17.6,
+      "nature": "N",
+      "observation_status": "E",
+      "source": "Food and Agriculture Organization of the United Nations (FAO)",
+      "footnotes": [
+        "Annual value."
+      ]
+    },
+    {
+      "record_id": "AG_PRD_FIESMS:14:2024",
+      "series": "AG_PRD_FIESMS",
+      "series_description": "Prevalence of moderate or severe food insecurity in the population (%)",
+      "geo_area_code": "14",
+      "geo_area_name": "Eastern Africa",
+      "year": 2024,
+      "value_percent": 64.9,
+      "lower_bound_percent": 63.5,
+      "upper_bound_percent": 66.4,
+      "nature": "N",
+      "observation_status": "E",
+      "source": "Food and Agriculture Organization of the United Nations (FAO)",
+      "footnotes": [
+        "Annual value."
+      ]
+    },
+    {
+      "record_id": "AG_PRD_FIESMS:753:2024",
+      "series": "AG_PRD_FIESMS",
+      "series_description": "Prevalence of moderate or severe food insecurity in the population (%)",
+      "geo_area_code": "753",
+      "geo_area_name": "Eastern and South-Eastern Asia",
+      "year": 2024,
+      "value_percent": 8.5,
+      "lower_bound_percent": 7.9,
+      "upper_bound_percent": 9.1,
+      "nature": "N",
+      "observation_status": "E",
+      "source": "Food and Agriculture Organization of the United Nations (FAO)",
+      "footnotes": [
+        "Annual value."
+      ]
+    },
+    {
+      "record_id": "AG_PRD_FIESMS:30:2024",
+      "series": "AG_PRD_FIESMS",
+      "series_description": "Prevalence of moderate or severe food insecurity in the population (%)",
+      "geo_area_code": "30",
+      "geo_area_name": "Eastern Asia",
+      "year": 2024,
+      "value_percent": 6.2,
+      "lower_bound_percent": 5.4,
+      "upper_bound_percent": 7,
+      "nature": "N",
+      "observation_status": "E",
+      "source": "Food and Agriculture Organization of the United Nations (FAO)",
+      "footnotes": [
+        "Annual value."
+      ]
+    },
+    {
+      "record_id": "AG_PRD_FIESMS:151:2024",
+      "series": "AG_PRD_FIESMS",
+      "series_description": "Prevalence of moderate or severe food insecurity in the population (%)",
+      "geo_area_code": "151",
+      "geo_area_name": "Eastern Europe",
+      "year": 2024,
+      "value_percent": 7.9,
+      "lower_bound_percent": 7.3,
+      "upper_bound_percent": 8.6,
+      "nature": "N",
+      "observation_status": "E",
+      "source": "Food and Agriculture Organization of the United Nations (FAO)",
+      "footnotes": [
+        "Annual value."
+      ]
+    },
+    {
+      "record_id": "AG_PRD_FIESMS:150:2024",
+      "series": "AG_PRD_FIESMS",
+      "series_description": "Prevalence of moderate or severe food insecurity in the population (%)",
+      "geo_area_code": "150",
+      "geo_area_name": "Europe",
+      "year": 2024,
+      "value_percent": 6.8,
+      "lower_bound_percent": 6.5,
+      "upper_bound_percent": 7.2,
+      "nature": "N",
+      "observation_status": "E",
+      "source": "Food and Agriculture Organization of the United Nations (FAO)",
+      "footnotes": [
+        "Annual value."
+      ]
+    },
+    {
+      "record_id": "AG_PRD_FIESMS:513:2024",
+      "series": "AG_PRD_FIESMS",
+      "series_description": "Prevalence of moderate or severe food insecurity in the population (%)",
+      "geo_area_code": "513",
+      "geo_area_name": "Europe and Northern America",
+      "year": 2024,
+      "value_percent": 8.1,
+      "lower_bound_percent": 7.9,
+      "upper_bound_percent": 8.4,
+      "nature": "N",
+      "observation_status": "E",
+      "source": "Food and Agriculture Organization of the United Nations (FAO)",
+      "footnotes": [
+        "Annual value."
+      ]
+    },
+    {
+      "record_id": "AG_PRD_FIESMS:432:2024",
+      "series": "AG_PRD_FIESMS",
+      "series_description": "Prevalence of moderate or severe food insecurity in the population (%)",
+      "geo_area_code": "432",
+      "geo_area_name": "Landlocked developing countries (LLDCs)",
+      "year": 2024,
+      "value_percent": 50.5,
+      "lower_bound_percent": 49.2,
+      "upper_bound_percent": 51.9,
+      "nature": "N",
+      "observation_status": "E",
+      "source": "Food and Agriculture Organization of the United Nations (FAO)",
+      "footnotes": [
+        "Annual value."
+      ]
+    },
+    {
+      "record_id": "AG_PRD_FIESMS:419:2024",
+      "series": "AG_PRD_FIESMS",
+      "series_description": "Prevalence of moderate or severe food insecurity in the population (%)",
+      "geo_area_code": "419",
+      "geo_area_name": "Latin America and the Caribbean",
+      "year": 2024,
+      "value_percent": 25.2,
+      "lower_bound_percent": 24.8,
+      "upper_bound_percent": 25.6,
+      "nature": "N",
+      "observation_status": "E",
+      "source": "Food and Agriculture Organization of the United Nations (FAO)",
+      "footnotes": [
+        "Annual value."
+      ]
+    },
+    {
+      "record_id": "AG_PRD_FIESMS:199:2024",
+      "series": "AG_PRD_FIESMS",
+      "series_description": "Prevalence of moderate or severe food insecurity in the population (%)",
+      "geo_area_code": "199",
+      "geo_area_name": "Least Developed Countries (LDCs)",
+      "year": 2024,
+      "value_percent": 57.8,
+      "lower_bound_percent": 57,
+      "upper_bound_percent": 58.6,
+      "nature": "N",
+      "observation_status": "E",
+      "source": "Food and Agriculture Organization of the United Nations (FAO)",
+      "footnotes": [
+        "Annual value."
+      ]
+    },
+    {
+      "record_id": "AG_PRD_FIESMS:54:2024",
+      "series": "AG_PRD_FIESMS",
+      "series_description": "Prevalence of moderate or severe food insecurity in the population (%)",
+      "geo_area_code": "54",
+      "geo_area_name": "Melanesia",
+      "year": 2024,
+      "value_percent": 54.1,
+      "lower_bound_percent": 52.3,
+      "upper_bound_percent": 55.9,
+      "nature": "N",
+      "observation_status": "E",
+      "source": "Food and Agriculture Organization of the United Nations (FAO)",
+      "footnotes": [
+        "Annual value."
+      ]
+    },
+    {
+      "record_id": "AG_PRD_FIESMS:17:2024",
+      "series": "AG_PRD_FIESMS",
+      "series_description": "Prevalence of moderate or severe food insecurity in the population (%)",
+      "geo_area_code": "17",
+      "geo_area_name": "Middle Africa",
+      "year": 2024,
+      "value_percent": 77.3,
+      "lower_bound_percent": 76.2,
+      "upper_bound_percent": 78.4,
+      "nature": "N",
+      "observation_status": "E",
+      "source": "Food and Agriculture Organization of the United Nations (FAO)",
+      "footnotes": [
+        "Annual value."
+      ]
+    },
+    {
+      "record_id": "AG_PRD_FIESMS:15:2024",
+      "series": "AG_PRD_FIESMS",
+      "series_description": "Prevalence of moderate or severe food insecurity in the population (%)",
+      "geo_area_code": "15",
+      "geo_area_name": "Northern Africa",
+      "year": 2024,
+      "value_percent": 35.1,
+      "lower_bound_percent": 33.7,
+      "upper_bound_percent": 36.5,
+      "nature": "N",
+      "observation_status": "E",
+      "source": "Food and Agriculture Organization of the United Nations (FAO)",
+      "footnotes": [
+        "Annual value."
+      ]
+    },
+    {
+      "record_id": "AG_PRD_FIESMS:747:2024",
+      "series": "AG_PRD_FIESMS",
+      "series_description": "Prevalence of moderate or severe food insecurity in the population (%)",
+      "geo_area_code": "747",
+      "geo_area_name": "Northern Africa and Western Asia",
+      "year": 2024,
+      "value_percent": 36.5,
+      "lower_bound_percent": 35.5,
+      "upper_bound_percent": 37.5,
+      "nature": "N",
+      "observation_status": "E",
+      "source": "Food and Agriculture Organization of the United Nations (FAO)",
+      "footnotes": [
+        "Annual value."
+      ]
+    },
+    {
+      "record_id": "AG_PRD_FIESMS:21:2024",
+      "series": "AG_PRD_FIESMS",
+      "series_description": "Prevalence of moderate or severe food insecurity in the population (%)",
+      "geo_area_code": "21",
+      "geo_area_name": "Northern America",
+      "year": 2024,
+      "value_percent": 10.7,
+      "lower_bound_percent": 10.7,
+      "upper_bound_percent": 10.7,
+      "nature": "N",
+      "observation_status": "E",
+      "source": "Food and Agriculture Organization of the United Nations (FAO)",
+      "footnotes": [
+        "Annual value."
+      ]
+    },
+    {
+      "record_id": "AG_PRD_FIESMS:154:2024",
+      "series": "AG_PRD_FIESMS",
+      "series_description": "Prevalence of moderate or severe food insecurity in the population (%)",
+      "geo_area_code": "154",
+      "geo_area_name": "Northern Europe",
+      "year": 2024,
+      "value_percent": 7.5,
+      "lower_bound_percent": 6.5,
+      "upper_bound_percent": 8.5,
+      "nature": "N",
+      "observation_status": "E",
+      "source": "Food and Agriculture Organization of the United Nations (FAO)",
+      "footnotes": [
+        "Annual value."
+      ]
+    },
+    {
+      "record_id": "AG_PRD_FIESMS:9:2024",
+      "series": "AG_PRD_FIESMS",
+      "series_description": "Prevalence of moderate or severe food insecurity in the population (%)",
+      "geo_area_code": "9",
+      "geo_area_name": "Oceania",
+      "year": 2024,
+      "value_percent": 26.3,
+      "lower_bound_percent": 25,
+      "upper_bound_percent": 27.5,
+      "nature": "N",
+      "observation_status": "E",
+      "source": "Food and Agriculture Organization of the United Nations (FAO)",
+      "footnotes": [
+        "Annual value."
+      ]
+    },
+    {
+      "record_id": "AG_PRD_FIESMS:543:2024",
+      "series": "AG_PRD_FIESMS",
+      "series_description": "Prevalence of moderate or severe food insecurity in the population (%)",
+      "geo_area_code": "543",
+      "geo_area_name": "Oceania (exc. Australia and New Zealand)",
+      "year": 2024,
+      "value_percent": 51.7,
+      "lower_bound_percent": 50,
+      "upper_bound_percent": 53.3,
+      "nature": "N",
+      "observation_status": "E",
+      "source": "Food and Agriculture Organization of the United Nations (FAO)",
+      "footnotes": [
+        "Annual value."
+      ]
+    },
+    {
+      "record_id": "AG_PRD_FIESMS:722:2024",
+      "series": "AG_PRD_FIESMS",
+      "series_description": "Prevalence of moderate or severe food insecurity in the population (%)",
+      "geo_area_code": "722",
+      "geo_area_name": "Small island developing States (SIDS)",
+      "year": 2024,
+      "value_percent": 48.3,
+      "lower_bound_percent": 47.3,
+      "upper_bound_percent": 49.3,
+      "nature": "N",
+      "observation_status": "E",
+      "source": "Food and Agriculture Organization of the United Nations (FAO)",
+      "footnotes": [
+        "Annual value."
+      ]
+    },
+    {
+      "record_id": "AG_PRD_FIESMS:5:2024",
+      "series": "AG_PRD_FIESMS",
+      "series_description": "Prevalence of moderate or severe food insecurity in the population (%)",
+      "geo_area_code": "5",
+      "geo_area_name": "South America",
+      "year": 2024,
+      "value_percent": 22.2,
+      "lower_bound_percent": 21.6,
+      "upper_bound_percent": 22.7,
+      "nature": "N",
+      "observation_status": "E",
+      "source": "Food and Agriculture Organization of the United Nations (FAO)",
+      "footnotes": [
+        "Annual value."
+      ]
+    },
+    {
+      "record_id": "AG_PRD_FIESMS:35:2024",
+      "series": "AG_PRD_FIESMS",
+      "series_description": "Prevalence of moderate or severe food insecurity in the population (%)",
+      "geo_area_code": "35",
+      "geo_area_name": "South-Eastern Asia",
+      "year": 2024,
+      "value_percent": 14,
+      "lower_bound_percent": 13.5,
+      "upper_bound_percent": 14.4,
+      "nature": "N",
+      "observation_status": "E",
+      "source": "Food and Agriculture Organization of the United Nations (FAO)",
+      "footnotes": [
+        "Annual value."
+      ]
+    },
+    {
+      "record_id": "AG_PRD_FIESMS:18:2024",
+      "series": "AG_PRD_FIESMS",
+      "series_description": "Prevalence of moderate or severe food insecurity in the population (%)",
+      "geo_area_code": "18",
+      "geo_area_name": "Southern Africa",
+      "year": 2024,
+      "value_percent": 26.5,
+      "lower_bound_percent": 25.4,
+      "upper_bound_percent": 27.5,
+      "nature": "N",
+      "observation_status": "E",
+      "source": "Food and Agriculture Organization of the United Nations (FAO)",
+      "footnotes": [
+        "Annual value."
+      ]
+    },
+    {
+      "record_id": "AG_PRD_FIESMS:34:2024",
+      "series": "AG_PRD_FIESMS",
+      "series_description": "Prevalence of moderate or severe food insecurity in the population (%)",
+      "geo_area_code": "34",
+      "geo_area_name": "Southern Asia",
+      "year": 2024,
+      "value_percent": 38.3,
+      "lower_bound_percent": 36.5,
+      "upper_bound_percent": 40.1,
+      "nature": "N",
+      "observation_status": "E",
+      "source": "Food and Agriculture Organization of the United Nations (FAO)",
+      "footnotes": [
+        "Annual value."
+      ]
+    },
+    {
+      "record_id": "AG_PRD_FIESMS:39:2024",
+      "series": "AG_PRD_FIESMS",
+      "series_description": "Prevalence of moderate or severe food insecurity in the population (%)",
+      "geo_area_code": "39",
+      "geo_area_name": "Southern Europe",
+      "year": 2024,
+      "value_percent": 5.1,
+      "lower_bound_percent": 4.6,
+      "upper_bound_percent": 5.5,
+      "nature": "N",
+      "observation_status": "E",
+      "source": "Food and Agriculture Organization of the United Nations (FAO)",
+      "footnotes": [
+        "Annual value."
+      ]
+    },
+    {
+      "record_id": "AG_PRD_FIESMS:202:2024",
+      "series": "AG_PRD_FIESMS",
+      "series_description": "Prevalence of moderate or severe food insecurity in the population (%)",
+      "geo_area_code": "202",
+      "geo_area_name": "Sub-Saharan Africa",
+      "year": 2024,
+      "value_percent": 64.1,
+      "lower_bound_percent": 63.4,
+      "upper_bound_percent": 64.9,
+      "nature": "N",
+      "observation_status": "E",
+      "source": "Food and Agriculture Organization of the United Nations (FAO)",
+      "footnotes": [
+        "Annual value."
+      ]
+    },
+    {
+      "record_id": "AG_PRD_FIESMS:11:2024",
+      "series": "AG_PRD_FIESMS",
+      "series_description": "Prevalence of moderate or severe food insecurity in the population (%)",
+      "geo_area_code": "11",
+      "geo_area_name": "Western Africa",
+      "year": 2024,
+      "value_percent": 63.2,
+      "lower_bound_percent": 62.1,
+      "upper_bound_percent": 64.2,
+      "nature": "N",
+      "observation_status": "E",
+      "source": "Food and Agriculture Organization of the United Nations (FAO)",
+      "footnotes": [
+        "Annual value."
+      ]
+    },
+    {
+      "record_id": "AG_PRD_FIESMS:145:2024",
+      "series": "AG_PRD_FIESMS",
+      "series_description": "Prevalence of moderate or severe food insecurity in the population (%)",
+      "geo_area_code": "145",
+      "geo_area_name": "Western Asia",
+      "year": 2024,
+      "value_percent": 37.7,
+      "lower_bound_percent": 36.3,
+      "upper_bound_percent": 39.2,
+      "nature": "N",
+      "observation_status": "E",
+      "source": "Food and Agriculture Organization of the United Nations (FAO)",
+      "footnotes": [
+        "Annual value."
+      ]
+    },
+    {
+      "record_id": "AG_PRD_FIESMS:155:2024",
+      "series": "AG_PRD_FIESMS",
+      "series_description": "Prevalence of moderate or severe food insecurity in the population (%)",
+      "geo_area_code": "155",
+      "geo_area_name": "Western Europe",
+      "year": 2024,
+      "value_percent": 6.2,
+      "lower_bound_percent": 5.5,
+      "upper_bound_percent": 6.9,
+      "nature": "N",
+      "observation_status": "E",
+      "source": "Food and Agriculture Organization of the United Nations (FAO)",
+      "footnotes": [
+        "Annual value."
+      ]
+    },
+    {
+      "record_id": "AG_PRD_FIESMS:1:2024",
+      "series": "AG_PRD_FIESMS",
+      "series_description": "Prevalence of moderate or severe food insecurity in the population (%)",
+      "geo_area_code": "1",
+      "geo_area_name": "World",
+      "year": 2024,
+      "value_percent": 28,
+      "lower_bound_percent": 27.5,
+      "upper_bound_percent": 28.5,
+      "nature": "N",
+      "observation_status": "E",
+      "source": "Food and Agriculture Organization of the United Nations (FAO)",
+      "footnotes": [
+        "Annual value."
+      ]
+    }
+  ],
+  "caveats": [
+    "The selected series is FAO-reported prevalence of moderate or severe food insecurity, not undernutrition prevalence.",
+    "Many values are modeled three-year averages; uncertainty bounds and footnotes must remain attached.",
+    "NaN and missing observations are excluded and must never be interpreted as zero."
+  ],
+  "failure_behavior": "If refresh fails, retain the last reviewed snapshot, mark it stale, and never convert missing records to zero."
+}

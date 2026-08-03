@@ -1,0 +1,89 @@
+{
+  "updated_at": "2026-07-18",
+  "version": "2026-07-18T12:53:22.100Z",
+  "snapshot_family": "finance_governance_support",
+  "source": {
+    "id": "cpi_ngfs_unep_finance",
+    "name": "CPI + NGFS + UNEP adaptation finance support",
+    "publisher": "Climate Policy Initiative, Network for Greening the Financial System, United Nations Environment Programme",
+    "access": "mixed_open_plus_report"
+  },
+  "refresh_policy": {
+    "default_days": 45,
+    "notes": "CPI and NGFS public surfaces are refreshed as a compact finance-governance snapshot. UNEP remains a report-backed anchor link in this family rather than a scraped live source."
+  },
+  "use_guidance": {
+    "primary_role": "Use for reinsurance withdrawal, adaptation capital shortfall, insurance retreat, and governance-pressure nodes that need finance-specific support rather than displacement spillover.",
+    "caution": "CPI contributes climate-finance and adaptation-quality framing, NGFS contributes macro-financial risk and scenario infrastructure, and UNEP contributes report-backed adaptation-gap context."
+  },
+  "overview": {
+    "title": "Finance and governance support family",
+    "cpi_title": "Climate Policy Initiative - expertise in climate finance and policy analysis",
+    "cpi_modified_at": "2026-06-23T15:23:12+00:00",
+    "cpi_description": "Climate Policy Initiative helps governments, businesses, and financial institutions drive economic growth while addressing climate change.",
+    "ngfs_title": "NGFS Scenarios Portal",
+    "ngfs_updated_at": "2024-01-28T03:56:04.716Z",
+    "ngfs_description": "The NGFS scenarios and this portal have been jointly produced by the NGFS workstream on Scenario Design and Analysis and a consortium of leading academic climate institutions."
+  },
+  "tools": [
+    {
+      "id": "cpi_home",
+      "label": "Climate Policy Initiative",
+      "url": "https://www.climatepolicyinitiative.org/",
+      "type": "project_page",
+      "access": "open"
+    },
+    {
+      "id": "cpi_global_landscape",
+      "label": "Global Landscape of Climate Finance 2026",
+      "url": "https://www.climatepolicyinitiative.org/publication/global-landscape-of-climate-finance-2026/",
+      "type": "report",
+      "access": "open"
+    },
+    {
+      "id": "cpi_adaptation_finance",
+      "label": "Assessing the Quality of Adaptation Finance",
+      "url": "https://www.climatepolicyinitiative.org/publication/quality-of-adaptation-finance/",
+      "type": "report",
+      "access": "open"
+    },
+    {
+      "id": "ngfs_portal",
+      "label": "NGFS Scenarios Portal",
+      "url": "https://www.ngfs.net/ngfs-scenarios-portal/",
+      "type": "portal",
+      "access": "open"
+    },
+    {
+      "id": "ngfs_short_term",
+      "label": "NGFS short-term climate scenarios",
+      "url": "https://www.ngfs.net/en/publications-and-statistics/publications/ngfs-short-term-climate-scenarios-central-banks-and-supervisors-2",
+      "type": "publication",
+      "access": "open"
+    },
+    {
+      "id": "ngfs_long_term",
+      "label": "NGFS long-term climate scenarios",
+      "url": "https://www.ngfs.net/en/publications-and-statistics/publications/ngfs-climate-scenarios-central-banks-and-supervisors-phase-v",
+      "type": "publication",
+      "access": "open"
+    },
+    {
+      "id": "unep_adaptation_gap",
+      "label": "UNEP Adaptation Gap Report 2025",
+      "url": "https://www.unep.org/resources/adaptation-gap-report-2025",
+      "type": "report",
+      "access": "open"
+    }
+  ],
+  "service_caveats": [
+    "CPI and NGFS are authoritative finance and scenario surfaces, but this family should still be treated as a curated support snapshot rather than a single live market feed.",
+    "UNEP adaptation-gap support is carried as a report-backed anchor and should not be described as a live quantitative portal.",
+    "This family is intended to reduce overuse of displacement framing on finance and governance nodes, not replace hazard evidence entirely."
+  ],
+  "supported_questions": [
+    "Which nodes need finance and governance support instead of inheriting migration context by default?",
+    "Where should adaptation-capital and insurance stress be grounded in official finance and scenario institutions?",
+    "Which society nodes need macro-financial and adaptation-gap framing without implying live market telemetry?"
+  ]
+}

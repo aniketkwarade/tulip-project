@@ -1,0 +1,232 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_66_who_unicef_global_drinking_water_service_gap",
+  "generated_at": "2026-08-01T16:26:59.140Z",
+  "source_snapshots": [
+    "public/global-drinking-water-service-impact-snapshot.json"
+  ],
+  "promoted_node_count": 2,
+  "receipts": [
+    {
+      "node_id": "urban_hydrologic_supply_shortfall",
+      "value": 8.7,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "biophysical_burden": 0.8515,
+        "human_economic_burden": 0.8515,
+        "persistence": 0.868,
+        "extent": 0.829016
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "safely_managed_drinking_water_coverage_pct": 74,
+          "safely_managed_service_gap_pct": 26,
+          "normalization_anchors_pct": [
+            0,
+            5,
+            15,
+            35
+          ],
+          "boundary": "The global service gap combines source hydrology, accessibility, availability, distribution and quality; it is not attributed wholly to hydrologic supply failure or urban utilities."
+        },
+        "human_economic_burden": {
+          "people_lacking_safely_managed_drinking_water_billion": 2.1,
+          "people_drinking_surface_water_million": 106,
+          "normalization_anchors_billion_people": [
+            0,
+            0.25,
+            1,
+            3
+          ]
+        },
+        "persistence": {
+          "trend_start_year": 2000,
+          "observation_year": 2024,
+          "persistence_years": 24,
+          "normalization_anchors_years": [
+            0,
+            5,
+            15,
+            30
+          ]
+        },
+        "extent": {
+          "countries_with_safely_managed_estimates": 160,
+          "countries_areas_territories_covered": 235,
+          "denominator_un_member_states": 193,
+          "normalized_value": 0.829016
+        },
+        "unscored_context": {
+          "global_population_billion": 8.2,
+          "people_with_basic_service_billion": 1.5,
+          "people_with_limited_service_million": 287,
+          "people_using_unimproved_sources_million": 302,
+          "people_gaining_safely_managed_service_2015_2024_million": 961
+        },
+        "source_snapshot": {
+          "path": "public/global-drinking-water-service-impact-snapshot.json",
+          "version": "who_unicef_jmp_2025_drinking_water_snapshot_v1",
+          "captured_at": "2026-08-01T16:26:59.091Z",
+          "source_locators": [
+            "WHO/UNICEF JMP 2025: 2.1 billion people lacked safely managed drinking water in 2024.",
+            "UNICEF drinking-water update: global safely managed coverage rose from 68% in 2015 to 74% in 2024.",
+            "WHO report: global trend series spans 2000-2024 and population grew from 6.2 to 8.2 billion."
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "safely_managed_service_gap",
+          "formula": "Use the source-reported global gap from 100 percent safely managed coverage; retain availability, accessibility and water-quality dimensions as a combined service outcome."
+        },
+        {
+          "type": "nonoverlapping_population_total",
+          "formula": "Normalize only the top-level population lacking safely managed service; do not add nested service-ladder categories."
+        },
+        {
+          "type": "long_term_jmp_span",
+          "formula": "Use the source-consistent 2000-2024 global monitoring interval as persistence evidence."
+        },
+        {
+          "type": "reporting_extent",
+          "formula": "Divide countries with safely managed estimates by 193 UN Member States; retain the broader territories-covered count as context."
+        },
+        {
+          "type": "causal_boundary",
+          "formula": "The global service gap combines source hydrology, accessibility, availability, distribution and quality; it is not attributed wholly to hydrologic supply failure or urban utilities."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "who_unicef_jmp_2025"
+      ],
+      "uncertainty": "Safely managed service requires accessibility, availability and freedom from contamination; national monitoring coverage and modeled estimates vary. The gap does not isolate hydrologic supply, treatment plant capacity or raw-water quality.",
+      "freshness": "JMP observation year 2024; report published 2025; snapshot reviewed 2026-08-01T16:26:59.091Z.",
+      "selection_reason": {
+        "selected_method_passed": "WHO/UNICEF quantifies the global safely managed drinking-water service gap, affected population, 24-year persistence and country reporting extent under the node's reviewed global service-gap contract.",
+        "higher_priority_failures": [
+          "The JMP assessment does not isolate current hydrologic supply from accessibility, distribution or water-quality constraints.",
+          "No source-consistent current global utility supply-shortfall series covers magnitude, threshold and momentum."
+        ]
+      },
+      "input_hash": "fnv1a32:a1e65bc9"
+    },
+    {
+      "node_id": "urban_source_water_treatment_constraint",
+      "value": 8.7,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "biophysical_burden": 0.8515,
+        "human_economic_burden": 0.8515,
+        "persistence": 0.868,
+        "extent": 0.829016
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "safely_managed_drinking_water_coverage_pct": 74,
+          "safely_managed_service_gap_pct": 26,
+          "normalization_anchors_pct": [
+            0,
+            5,
+            15,
+            35
+          ],
+          "boundary": "The global service gap combines source, distribution, availability, accessibility and quality constraints; it is not attributed wholly to treatment capacity, raw-water quality or urban utilities."
+        },
+        "human_economic_burden": {
+          "people_lacking_safely_managed_drinking_water_billion": 2.1,
+          "people_drinking_surface_water_million": 106,
+          "normalization_anchors_billion_people": [
+            0,
+            0.25,
+            1,
+            3
+          ]
+        },
+        "persistence": {
+          "trend_start_year": 2000,
+          "observation_year": 2024,
+          "persistence_years": 24,
+          "normalization_anchors_years": [
+            0,
+            5,
+            15,
+            30
+          ]
+        },
+        "extent": {
+          "countries_with_safely_managed_estimates": 160,
+          "countries_areas_territories_covered": 235,
+          "denominator_un_member_states": 193,
+          "normalized_value": 0.829016
+        },
+        "unscored_context": {
+          "global_population_billion": 8.2,
+          "people_with_basic_service_billion": 1.5,
+          "people_with_limited_service_million": 287,
+          "people_using_unimproved_sources_million": 302,
+          "people_gaining_safely_managed_service_2015_2024_million": 961
+        },
+        "source_snapshot": {
+          "path": "public/global-drinking-water-service-impact-snapshot.json",
+          "version": "who_unicef_jmp_2025_drinking_water_snapshot_v1",
+          "captured_at": "2026-08-01T16:26:59.091Z",
+          "source_locators": [
+            "WHO/UNICEF JMP 2025: 2.1 billion people lacked safely managed drinking water in 2024.",
+            "UNICEF drinking-water update: global safely managed coverage rose from 68% in 2015 to 74% in 2024.",
+            "WHO report: global trend series spans 2000-2024 and population grew from 6.2 to 8.2 billion."
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "safely_managed_service_gap",
+          "formula": "Use the source-reported global gap from 100 percent safely managed coverage; retain availability, accessibility and water-quality dimensions as a combined service outcome."
+        },
+        {
+          "type": "nonoverlapping_population_total",
+          "formula": "Normalize only the top-level population lacking safely managed service; do not add nested service-ladder categories."
+        },
+        {
+          "type": "long_term_jmp_span",
+          "formula": "Use the source-consistent 2000-2024 global monitoring interval as persistence evidence."
+        },
+        {
+          "type": "reporting_extent",
+          "formula": "Divide countries with safely managed estimates by 193 UN Member States; retain the broader territories-covered count as context."
+        },
+        {
+          "type": "causal_boundary",
+          "formula": "The global service gap combines source, distribution, availability, accessibility and quality constraints; it is not attributed wholly to treatment capacity, raw-water quality or urban utilities."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "who_unicef_jmp_2025"
+      ],
+      "uncertainty": "Safely managed service requires accessibility, availability and freedom from contamination; national monitoring coverage and modeled estimates vary. The gap does not isolate hydrologic supply, treatment plant capacity or raw-water quality.",
+      "freshness": "JMP observation year 2024; report published 2025; snapshot reviewed 2026-08-01T16:26:59.091Z.",
+      "selection_reason": {
+        "selected_method_passed": "WHO/UNICEF quantifies the global safely managed drinking-water service gap, affected population, 24-year persistence and country reporting extent under the node's reviewed global service-gap contract.",
+        "higher_priority_failures": [
+          "The JMP assessment does not isolate current treatment-plant capacity, downtime or raw-water quality.",
+          "No source-consistent current global treatment-constraint series covers magnitude, threshold and momentum."
+        ]
+      },
+      "input_hash": "fnv1a32:c74e3b25"
+    }
+  ]
+}

@@ -1,0 +1,392 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_30_existing_global_assessment_extensions",
+  "generated_at": "2026-07-31T21:51:44.153Z",
+  "promoted_node_count": 4,
+  "receipts": [
+    {
+      "node_id": "shipping_lane_disruption",
+      "value": 9,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "biophysical_burden": 0.9835,
+        "human_economic_burden": 0.846,
+        "persistence": 0.835,
+        "extent": 0.8
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "ton_mile_growth_2024_pct": 5.9,
+          "trade_volume_growth_2024_pct": 2,
+          "growth_multiple": 2.95,
+          "anchors_multiple": [
+            1,
+            1.5,
+            2,
+            3
+          ],
+          "boundary": "Global rerouting burden; no route-level delay is invented."
+        },
+        "human_economic_burden": {
+          "scfi_above_pre_pandemic_average_pct": 115,
+          "anchors_pct": [
+            0,
+            25,
+            75,
+            150
+          ],
+          "boundary": "Selected global freight-index pressure, not a consumer-price or economy-wide loss estimate."
+        },
+        "persistence": {
+          "disruption_start_year": 2023,
+          "measured_burden_year": 2024,
+          "persistence_years": 2,
+          "anchors_years": [
+            0,
+            0.5,
+            1,
+            3
+          ]
+        },
+        "extent": {
+          "seaborne_share_world_trade_volume_pct": 80,
+          "normalized_value": 0.8
+        },
+        "source_snapshot": {
+          "path": "public/unctad-maritime-bottleneck-impact-snapshot.json",
+          "version": "unctad_review_maritime_transport_2024_2025_bottleneck_v1",
+          "captured_at": "2026-07-31T21:51:19.574Z",
+          "excluded_from_scoring": [
+            "projected 2025 consumer-price changes",
+            "route-specific spot rates",
+            "projected future trade growth",
+            "port-call count treated as dwell time"
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "rerouting_growth_multiple",
+          "formula": "Divide source-reported ton-mile growth by maritime-trade volume growth while retaining both values."
+        },
+        {
+          "type": "freight_index_pressure",
+          "formula": "Normalize the source-reported SCFI departure from its pre-pandemic average."
+        },
+        {
+          "type": "fixed_disruption_duration",
+          "formula": "Retain the reviewed 2023-2025 disruption interval."
+        },
+        {
+          "type": "global_trade_extent",
+          "formula": "Use the source-reported seaborne share of world trade volume."
+        }
+      ],
+      "source_ids": [
+        "unctad_review_of_maritime_transport_2024"
+      ],
+      "uncertainty": "Freight indices cover selected routes and prices; port calls are activity rather than congestion duration; rerouting attribution, vessel capacity, cargo mix, blank sailings, contracts, fuel, insurance and reporting timing affect comparisons.",
+      "freshness": "Reviewed global assessment snapshot captured 2026-07-31T21:51:19.574Z.",
+      "selection_reason": {
+        "selected_method_passed": "UNCTAD quantifies global rerouting ton-mile burden, freight-rate pressure, multi-year persistence and maritime trade exposure.",
+        "higher_priority_failures": [
+          "No complete 20-year globally comparable route-delay series supports historical-percentile current scoring.",
+          "Port-call activity is not converted into delay, so the assessment remains accumulated impact."
+        ]
+      },
+      "input_hash": "fnv1a32:a6652c7e"
+    },
+    {
+      "node_id": "blue_carbon_habitat_loss",
+      "value": 8.5,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2020",
+      "components": {
+        "biophysical_burden": 0.9516,
+        "human_economic_burden": 0.7888,
+        "persistence": 0.868,
+        "extent": 0.630769
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "mangrove_carbon_stock_reduction_megatonnes_carbon": 139,
+          "net_area_loss_km2": 5245,
+          "anchors_megatonnes_carbon": [
+            0,
+            25,
+            75,
+            150
+          ],
+          "boundary": "Observed mangrove subset only; seagrass and salt-marsh stocks are not added."
+        },
+        "human_economic_burden": {
+          "annual_damage_range_usd_billion": [
+            6,
+            42
+          ],
+          "midpoint_usd_billion": 24,
+          "anchors_usd_billion": [
+            0,
+            5,
+            15,
+            40
+          ]
+        },
+        "persistence": {
+          "baseline_year": 1996,
+          "latest_extent_year": 2020,
+          "persistence_years": 24,
+          "anchors_years": [
+            0,
+            5,
+            15,
+            30
+          ]
+        },
+        "extent": {
+          "countries_with_mangroves": 123,
+          "denominator": 195,
+          "normalized_value": 0.630769
+        },
+        "source_snapshot": {
+          "path": "public/unep-blue-ecosystems-impact-snapshot.json",
+          "version": "unep_blue_ecosystems_mangrove_seagrass_v1",
+          "captured_at": "2026-07-31T21:51:19.120Z",
+          "excluded_from_scoring": [
+            "2050 ecosystem-collapse risk",
+            "future restoration targets and restorable area",
+            "future-loss continuation scenarios",
+            "raw OBIS occurrence counts as habitat-area evidence"
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_mangrove_subset",
+          "formula": "Use the quantified mangrove carbon-stock reduction as a non-additive observed subset of blue-carbon habitat loss."
+        },
+        {
+          "type": "damage_range_midpoint",
+          "formula": "Normalize the midpoint of the source damage range while retaining both bounds."
+        },
+        {
+          "type": "fixed_assessment_duration",
+          "formula": "Use the 1996-2020 habitat-change interval."
+        },
+        {
+          "type": "country_extent",
+          "formula": "Divide countries with mangroves by the source denominator."
+        }
+      ],
+      "source_ids": [
+        "unep_blue_ecosystems_global_assessments"
+      ],
+      "uncertainty": "Historical baselines, habitat definitions, remote-sensing classification, unmapped small patches, natural gains and losses, carbon-stock methods, service valuation and proximity-based population exposure affect estimates. Proximity does not establish individual dependence.",
+      "freshness": "Reviewed global assessment snapshot captured 2026-07-31T21:51:19.120Z.",
+      "selection_reason": {
+        "selected_method_passed": "UNEP quantifies observed mangrove-area and carbon-stock loss, associated annual damage, persistence and global country extent as a bounded blue-carbon subset.",
+        "higher_priority_failures": [
+          "No current global annual harmonized inventory covers mangroves, seagrasses and salt marshes together.",
+          "Habitat areas and carbon stocks are not added across incompatible assessments."
+        ]
+      },
+      "input_hash": "fnv1a32:b75126c6"
+    },
+    {
+      "node_id": "estuarine_nursery_loss",
+      "value": 8.6,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "biophysical_burden": 0.835,
+        "human_economic_burden": 0.78,
+        "persistence": 0.967,
+        "extent": 0.815385
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "seagrass_historical_area_lost_pct": 30,
+          "anchors_pct": [
+            0,
+            5,
+            20,
+            40
+          ],
+          "boundary": "Seagrass nursery habitat is a quantified subset; the score does not claim equivalent loss in every estuary."
+        },
+        "human_economic_burden": {
+          "largest_fisheries_with_seagrass_nursery_dependence_pct": 20,
+          "anchors_pct": [
+            0,
+            5,
+            15,
+            30
+          ],
+          "boundary": "Nursery dependence is exposed fisheries scope, not realized catch loss."
+        },
+        "persistence": {
+          "observed_decline_start_year": 1930,
+          "assessment_year": 2025,
+          "persistence_years": 95,
+          "anchors_years": [
+            0,
+            20,
+            50,
+            100
+          ]
+        },
+        "extent": {
+          "countries_with_seagrass": 159,
+          "denominator": 195,
+          "normalized_value": 0.815385
+        },
+        "source_snapshot": {
+          "path": "public/unep-blue-ecosystems-impact-snapshot.json",
+          "version": "unep_blue_ecosystems_mangrove_seagrass_v1",
+          "captured_at": "2026-07-31T21:51:19.120Z",
+          "excluded_from_scoring": [
+            "2050 ecosystem-collapse risk",
+            "future restoration targets and restorable area",
+            "future-loss continuation scenarios",
+            "raw OBIS occurrence counts as habitat-area evidence"
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "documented_seagrass_nursery_subset",
+          "formula": "Use observed seagrass habitat loss as a bounded subset of estuarine and coastal nursery loss."
+        },
+        {
+          "type": "fisheries_dependence_exposure",
+          "formula": "Normalize the source-reported share of major fisheries supported by seagrass nurseries without relabeling it as realized loss."
+        },
+        {
+          "type": "source_reported_decline_duration",
+          "formula": "Use the 1930-2025 assessment interval."
+        },
+        {
+          "type": "country_extent",
+          "formula": "Divide countries with seagrass by the source denominator."
+        }
+      ],
+      "source_ids": [
+        "unep_blue_ecosystems_global_assessments"
+      ],
+      "uncertainty": "Historical baselines, habitat definitions, remote-sensing classification, unmapped small patches, natural gains and losses, carbon-stock methods, service valuation and proximity-based population exposure affect estimates. Proximity does not establish individual dependence.",
+      "freshness": "Reviewed global assessment snapshot captured 2026-07-31T21:51:19.120Z.",
+      "selection_reason": {
+        "selected_method_passed": "UNEP quantifies historical seagrass nursery-habitat loss, fisheries dependence, multi-decade persistence and country extent.",
+        "higher_priority_failures": [
+          "No current harmonized global annual estuary recruitment panel supplies magnitude plus threshold or momentum.",
+          "The evidence is explicitly a seagrass nursery subset rather than a total-estuary estimate."
+        ]
+      },
+      "input_hash": "fnv1a32:05cd2242"
+    },
+    {
+      "node_id": "shelf_sea_hypoxia",
+      "value": 9.2,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "biophysical_burden": 0.89,
+        "human_economic_burden": 0.9175,
+        "persistence": 0.868,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "coastal_eutrophication_areas_lower_bound": 500,
+          "dead_zone_sites_2008": 405,
+          "anchors_site_count": [
+            0,
+            100,
+            300,
+            600
+          ],
+          "boundary": "Global monitored coastal and shelf inventory lower bound; site count is not converted to area."
+        },
+        "human_economic_burden": {
+          "fisheries_nearshore_habitat_dependence_pct_lower_bound": 90,
+          "anchors_pct": [
+            0,
+            20,
+            60,
+            100
+          ],
+          "boundary": "Exposed fisheries-system dependence, not realized attributable loss."
+        },
+        "persistence": {
+          "comparison_start_year": 1960,
+          "comparison_end_year": 2008,
+          "comparison_years": 48,
+          "anchors_years": [
+            0,
+            10,
+            30,
+            60
+          ]
+        },
+        "extent": {
+          "geographic_scope": "Worldwide nutrient losses to air, soil, rivers, lakes, marine and coastal systems; coastal eutrophication and dead-zone inventories are global lower bounds",
+          "normalized_value": 1
+        },
+        "source_snapshot": {
+          "path": "public/unep-global-nutrient-pollution-impact-snapshot.json",
+          "version": "unep_global_nutrient_pollution_impact_v1",
+          "captured_at": "2026-07-31T21:51:19.347Z",
+          "excluded_from_scoring": [
+            "regional European nutrient-pollution cost ranges",
+            "United States-only eutrophication costs",
+            "dead-zone count converted to area or volume",
+            "fisheries dependence treated as realized loss",
+            "reactive-nitrogen pathways added across overlapping budgets",
+            "unreported uncertainty as zero"
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "global_site_inventory_lower_bound",
+          "formula": "Normalize the monitored coastal and shelf hypoxia inventory without converting sites to area."
+        },
+        {
+          "type": "fisheries_dependence_exposure",
+          "formula": "Normalize nearshore fisheries dependence without treating it as realized loss."
+        },
+        {
+          "type": "fixed_inventory_duration",
+          "formula": "Retain the 1960-2008 inventory comparison."
+        },
+        {
+          "type": "global_assessment_extent",
+          "formula": "Use the source-declared worldwide coastal-system scope."
+        }
+      ],
+      "source_ids": [
+        "unep_global_nutrient_pollution_impact"
+      ],
+      "uncertainty": "Reactive-nitrogen budgets combine air, soil, freshwater and marine pathways. The annual resource-cost estimate is global nitrogen loss, not an allocated water-pollution damage value. Coastal-system inventories depend on monitoring and definitions and therefore are lower bounds. Fisheries dependence is economic-system exposure, not realized attributable loss.",
+      "freshness": "Reviewed global assessment snapshot captured 2026-07-31T21:51:19.347Z.",
+      "selection_reason": {
+        "selected_method_passed": "UNEP quantifies a worldwide coastal and shelf low-oxygen inventory, fisheries-system exposure, multi-decade accumulation and global scope.",
+        "higher_priority_failures": [
+          "The operational NOAA survey is regional and cannot provide a current global shelf aggregation.",
+          "Monitoring-dependent site inventories do not form a complete 20-year annual global observation panel."
+        ]
+      },
+      "input_hash": "fnv1a32:d0d82b75"
+    }
+  ]
+}

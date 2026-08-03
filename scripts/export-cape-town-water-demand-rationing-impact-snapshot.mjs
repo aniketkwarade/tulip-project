@@ -1,0 +1,79 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const snapshot = {
+  version: 'cape_town_water_demand_and_level_6b_2015_2018_v1',
+  captured_at: '2026-08-01T00:00:00.000Z',
+  sources: [
+    {
+      id: 'city_cape_town_water_outlook_2018',
+      name: 'Water Outlook 2018, Version 30',
+      publisher: 'City of Cape Town Department of Water and Sanitation',
+      publication_date: '2018-12-31',
+      url: 'https://resource.capetown.gov.za/documentcentre/Documents/City%20research%20reports%20and%20review/Water%20Outlook%202018_Rev%2030_31%20December%202018.pdf',
+      source_locators: ['Demand-management section: peak summer consumption fell from about 1,200 MLD in 2015 to about 500 MLD in 2018 against a 450 MLD target.', 'Restriction chronology: Level 6B applied from 1 February through 30 September 2018 with a 50 litre-per-person daily limit and four million represented residents.', 'Drought-tariff annex: approximately ZAR 1.7 billion anticipated water-service revenue under-recovery in 2017/18.']
+    },
+    {
+      id: 'city_cape_town_level_3_restrictions_2018',
+      name: 'Level 3 Water Restrictions 2018',
+      publisher: 'City of Cape Town',
+      publication_date: '2018-12-01',
+      url: 'https://resource.capetown.gov.za/documentcentre/Documents/Procedures%2C%20guidelines%20and%20regulations/Water%20restrictions%20FAQs.pdf',
+      source_locators: ['Restriction transition summary: Level 5 began 1 October 2018 and Level 3 began 1 December 2018, confirming the end boundary of Level 6B.']
+    }
+  ],
+  metric_contracts: [
+    {
+      node_id: 'urban_water_demand_peak',
+      metric_id: 'utility_demand_peak',
+      unit: 'million litres per day by named public-water utility service area',
+      geography: 'City of Cape Town water-service area',
+      assessment_period: 'February 2015 to February 2018',
+      boundary: 'Uses utility-reported summer peak, actual demand and target. It does not substitute annual demand for the reported summer peak or extrapolate Cape Town to other utilities.'
+    },
+    {
+      node_id: 'urban_water_rationing_zones',
+      metric_id: 'urban_water_restriction_status',
+      unit: 'formal restriction stage, litres per person per day, represented people and duration',
+      geography: 'City of Cape Town water-service area',
+      assessment_period: '2018-02-01 to 2018-09-30',
+      boundary: 'Scores the formally documented Level 6B action and its stated service population. It does not infer rationing from drought conditions or the unrealized Day Zero contingency.'
+    }
+  ],
+  accumulated_impact: {
+    peak_demand: {
+      summer_peak_2015_mld: 1200,
+      actual_demand_2018_mld: 500,
+      restricted_target_mld: 450,
+      peak_reduction_mld: 700,
+      peak_reduction_pct: Number(((1200 - 500) / 1200 * 100).toFixed(6)),
+      target_exceedance_mld: 50,
+      demand_management_period_years: 3
+    },
+    level_6b_rationing: {
+      restriction_stage: 'Level 6B',
+      personal_limit_litres_per_day: 50,
+      represented_population: 4000000,
+      start_date: '2018-02-01',
+      end_date: '2018-09-30',
+      duration_months: 8
+    },
+    water_service_revenue_under_recovery_zar: 1700000000,
+    represented_country_count: 1,
+    represented_country: 'South Africa'
+  },
+  reviewed_normalization_anchors: {
+    peak_reduction_mld: [0, 50, 250, 1000],
+    peak_reduction_pct: [0, 10, 30, 60],
+    water_service_revenue_under_recovery_zar: [0, 100000000, 1000000000, 10000000000],
+    demand_management_period_years: [0, 0.5, 2, 5],
+    restriction_duration_months: [0, 1, 3, 12],
+    represented_population: [0, 100000, 1000000, 10000000]
+  },
+  uncertainty: 'The Outlook reports approximate peak-demand values and a municipal target, so the derived reduction and exceedance inherit rounding. The ZAR 1.7 billion value is anticipated water-service revenue under-recovery, not total drought damage. Four million is the City’s represented population calculation for the 50-litre limit, not a connection count. Level 6B was a formal restriction and conservation limit; Day Zero shutoff was a contingency that did not occur. Coverage is one metropolitan service area in one country.'
+};
+
+await fs.writeFile(path.join(ROOT, 'public/cape-town-water-demand-rationing-impact-snapshot.json'), `${JSON.stringify(snapshot, null, 2)}\n`);
+console.log(JSON.stringify({ output: 'public/cape-town-water-demand-rationing-impact-snapshot.json', version: snapshot.version, accumulated: snapshot.accumulated_impact }, null, 2));

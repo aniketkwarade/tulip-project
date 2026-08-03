@@ -1,0 +1,123 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_54_us_mortgage_climate_exposure",
+  "generated_at": "2026-08-01T15:38:09.442Z",
+  "source_snapshots": [
+    "public/us-mortgage-climate-exposure-impact-snapshot.json"
+  ],
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "mortgage_market_exposure",
+      "value": 7.3,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024-09",
+      "components": {
+        "biophysical_burden": 0.805403,
+        "human_economic_burden": 0.791611,
+        "persistence": 0.67,
+        "extent": 0.33
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "events": [
+            "Hurricane Helene",
+            "Hurricane Milton"
+          ],
+          "hazard_boundary": "Counties eligible for FEMA Individual Assistance following Hurricanes Helene and Milton",
+          "enterprise_backed_single_family_loan_count": 2641253,
+          "normalization_anchors_loans": [
+            0,
+            100000,
+            1000000,
+            5000000
+          ]
+        },
+        "human_economic_burden": {
+          "unpaid_principal_balance_millions_usd": 526388,
+          "mean_unpaid_principal_balance_usd": 199295,
+          "loans_in_special_flood_hazard_areas_at_origination_pct": 5.15,
+          "loans_60_plus_days_delinquent_before_events_pct": 0.88,
+          "normalization_anchors_millions_usd": [
+            0,
+            25000,
+            250000,
+            1000000
+          ],
+          "scoring_boundary": "The unpaid principal balance is mortgage exposure in disaster-affected counties, not an estimate of realized credit loss."
+        },
+        "persistence": {
+          "hurricane_event_count": 28,
+          "post_event_observation_months": 12,
+          "average_90_day_delinquency_increase_percentage_points": 0.025,
+          "additional_90_day_delinquency_increase_per_inch_rain_percentage_points": 0.013,
+          "delinquencies_modifications_and_foreclosures_increased": true,
+          "normalization_anchors_months": [
+            0,
+            3,
+            12,
+            24
+          ],
+          "scoring_boundary": "The working-paper estimates establish persistence and realized loan-performance effects across a separate multi-storm sample; they are not applied as a loss rate to the Helene/Milton balance."
+        },
+        "extent": {
+          "directly_assessed_countries": [
+            "United States"
+          ],
+          "directly_assessed_country_count": 1,
+          "normalization_anchors_countries": [
+            0,
+            1,
+            10,
+            50
+          ],
+          "scoring_boundary": "Both FHFA analyses are limited to United States Enterprise-backed mortgages and are not extrapolated to other mortgage markets."
+        },
+        "source_snapshot": {
+          "path": "public/us-mortgage-climate-exposure-impact-snapshot.json",
+          "version": "fhfa_hurricane_mortgage_exposure_2024_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "hazard_threshold_mortgage_count_normalization",
+          "formula": "Normalize Enterprise-backed loans in counties that crossed the declared FEMA Individual Assistance event threshold for Helene or Milton; do not treat every loan as physically damaged."
+        },
+        {
+          "type": "bounded_mortgage_balance_exposure_normalization",
+          "formula": "Normalize the reported unpaid principal balance in the declared disaster counties. Keep exposure distinct from realized credit loss and retain the source warning that only a small portion may become loss."
+        },
+        {
+          "type": "observed_post_hurricane_outcome_duration_normalization",
+          "formula": "Normalize the separate FHFA study’s twelve-month post-event observation window, which directly identified increases in delinquencies, modifications and foreclosures across 28 storms."
+        },
+        {
+          "type": "bounded_country_extent_normalization",
+          "formula": "Normalize only the one directly assessed country; Enterprise portfolio breadth does not become global mortgage-market coverage."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1–10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "fhfa_helene_milton_mortgage_exposure_2024",
+        "fhfa_hurricane_mortgage_performance_2024"
+      ],
+      "uncertainty": "The Helene/Milton estimates include active Fannie Mae and Freddie Mac single-family portfolio loans in FEMA Individual Assistance counties, not property-level damage determinations. Only a small portion of unpaid principal may become loss. Special Flood Hazard Area status is measured at origination and does not represent all voluntary flood-insurance coverage. The 28-storm working paper reports average associations across its sample and should not be mechanically applied to the event-specific balance. Both sources cover one country.",
+      "freshness": "Helene/Milton exposure uses the 2024-09 servicing cycle; both FHFA analyses were published in 2024 and reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "FHFA administrative records quantify an event-threshold mortgage count and balance, while a separate 28-storm FHFA study quantifies adverse mortgage outcomes through twelve months after hurricanes.",
+        "higher_priority_failures": [
+          "Both sources cover United States Enterprise-backed mortgages rather than a current global mortgage-market aggregation.",
+          "The event-specific exposure is one portfolio snapshot and does not satisfy the historical-distribution gate for current_data."
+        ]
+      },
+      "input_hash": "fnv1a32:4be43bdf"
+    }
+  ]
+}

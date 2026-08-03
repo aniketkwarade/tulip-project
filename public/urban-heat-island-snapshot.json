@@ -1,0 +1,1052 @@
+{
+  "version": "2026-07-18T12:52:44.236Z",
+  "updated_at": "2026-07-18",
+  "captured_at": "2026-07-18T12:52:44.236Z",
+  "snapshot_family": "northstar_contract_bound_ingestion",
+  "ingestion_job_id": "fetch_urban_heat_island_eea",
+  "source": {
+    "id": "eea_urban_heat_island_arcgis",
+    "name": "EEA Urban Heat Island Intensity ArcGIS layer",
+    "publisher": "European Environment Agency; Copernicus Climate Change Service; VITO",
+    "documentation_url": "https://climate.discomap.eea.europa.eu/arcgis/rest/services/UAMV/Urban_Heat_Island_Intensity/MapServer",
+    "metadata_url": "https://sdi.eea.europa.eu/catalogue/srv/api/records/8b6a3182-0889-4109-ad22-a021e3126b60",
+    "access": "open_arcgis_rest"
+  },
+  "request": {
+    "url": "https://climate.discomap.eea.europa.eu/arcgis/rest/services/UAMV/Urban_Heat_Island_Intensity/MapServer/0/query?where=1%3D1&outFields=*&returnGeometry=true&outSR=4326&f=geojson",
+    "bounded_limit": 1000,
+    "filters": {
+      "layer": 0,
+      "where": "1=1",
+      "spatial_reference": 4326
+    }
+  },
+  "metric_contract_ids": [
+    "urban_heat_island_intensity_degC"
+  ],
+  "contract_bindings": [
+    {
+      "node_id": "urban_heat_island",
+      "metric_contract_id": "urban_heat_island_intensity_degC",
+      "measurement_role": "bounded_regional_primary"
+    }
+  ],
+  "cadence": "seasonal or annual derived snapshot",
+  "provenance": "EEA modeled P90 urban heat-island intensity layer with provider object ID and point geometry retained.",
+  "uncertainty": "Urban-boundary choice, elevation, morphology, weather, land-cover change, and retrieval method affect comparability.",
+  "source_summary": {
+    "returned_features": 100,
+    "numeric_intensity_features": 100,
+    "geographic_scope": "100 European city features",
+    "model_period": "2008-2017"
+  },
+  "record_count": 100,
+  "records": [
+    {
+      "feature_id": "1",
+      "provider_object_id": 1,
+      "uhi_intensity_c": 1.07104,
+      "longitude": -0.4773370002085168,
+      "latitude": 38.3622439996856,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "2",
+      "provider_object_id": 2,
+      "uhi_intensity_c": 1.44617,
+      "longitude": 4.896727999881722,
+      "latitude": 52.36480500004852,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "3",
+      "provider_object_id": 3,
+      "uhi_intensity_c": 1.24322,
+      "longitude": 4.402000000251609,
+      "latitude": 51.24600000003032,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "4",
+      "provider_object_id": 4,
+      "uhi_intensity_c": 2.10118,
+      "longitude": 23.728055999692067,
+      "latitude": 37.98388899969656,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "5",
+      "provider_object_id": 5,
+      "uhi_intensity_c": 1.37022,
+      "longitude": 2.1326410003157,
+      "latitude": 41.38440399982595,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "6",
+      "provider_object_id": 6,
+      "uhi_intensity_c": 0.723279,
+      "longitude": 16.838011999900903,
+      "latitude": 41.12272399989657,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "7",
+      "provider_object_id": 7,
+      "uhi_intensity_c": 1.46109,
+      "longitude": 7.59311700023583,
+      "latitude": 47.56191200007887,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "8",
+      "provider_object_id": 8,
+      "uhi_intensity_c": 1.48133,
+      "longitude": 20.40260399966936,
+      "latitude": 44.813519999715204,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "9",
+      "provider_object_id": 9,
+      "uhi_intensity_c": 1.73047,
+      "longitude": 13.410962999933234,
+      "latitude": 52.51891800003258,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "10",
+      "provider_object_id": 10,
+      "uhi_intensity_c": 0.953347,
+      "longitude": -2.9351809999452767,
+      "latitude": 43.29057600003485,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "11",
+      "provider_object_id": 11,
+      "uhi_intensity_c": 1.17474,
+      "longitude": -1.8900529997098592,
+      "latitude": 52.48181600020975,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "12",
+      "provider_object_id": 12,
+      "uhi_intensity_c": 1.54349,
+      "longitude": 11.340000000038437,
+      "latitude": 44.50000000024477,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "13",
+      "provider_object_id": 13,
+      "uhi_intensity_c": 1.51933,
+      "longitude": -0.5892429998787294,
+      "latitude": 44.83290900005931,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "14",
+      "provider_object_id": 14,
+      "uhi_intensity_c": 2.13387,
+      "longitude": 25.599565999561626,
+      "latitude": 45.66251300029446,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "15",
+      "provider_object_id": 15,
+      "uhi_intensity_c": 1.39096,
+      "longitude": 17.107492999914726,
+      "latitude": 48.140666999877034,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "16",
+      "provider_object_id": 16,
+      "uhi_intensity_c": 1.49684,
+      "longitude": 4.372324000330487,
+      "latitude": 50.8433860000605,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "17",
+      "provider_object_id": 17,
+      "uhi_intensity_c": 2.21524,
+      "longitude": 26.094118000362975,
+      "latitude": 44.45146599988438,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "18",
+      "provider_object_id": 18,
+      "uhi_intensity_c": 1.99352,
+      "longitude": 19.130741999663194,
+      "latitude": 47.49551400011303,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "19",
+      "provider_object_id": 19,
+      "uhi_intensity_c": 1.16471,
+      "longitude": 4.438581000317114,
+      "latitude": 50.41750399971558,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "20",
+      "provider_object_id": 20,
+      "uhi_intensity_c": 2.10876,
+      "longitude": 23.61100300019353,
+      "latitude": 46.77758000022226,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "21",
+      "provider_object_id": 21,
+      "uhi_intensity_c": 1.4028,
+      "longitude": 6.960651999737871,
+      "latitude": 50.95494600019352,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "22",
+      "provider_object_id": 22,
+      "uhi_intensity_c": 0.812373,
+      "longitude": 12.548072000203616,
+      "latitude": 55.67371800000719,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "23",
+      "provider_object_id": 23,
+      "uhi_intensity_c": 1.49836,
+      "longitude": 21.624650000154837,
+      "latitude": 47.52355100024644,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "24",
+      "provider_object_id": 24,
+      "uhi_intensity_c": 0.990927,
+      "longitude": -6.255537000193307,
+      "latitude": 53.33227999980983,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "25",
+      "provider_object_id": 25,
+      "uhi_intensity_c": 1.2883,
+      "longitude": 6.813654999631313,
+      "latitude": 51.2309500000734,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "26",
+      "provider_object_id": 26,
+      "uhi_intensity_c": 0.765905,
+      "longitude": -3.207493999977718,
+      "latitude": 55.948433999865905,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "27",
+      "provider_object_id": 27,
+      "uhi_intensity_c": 1.45152,
+      "longitude": 8.66260600033457,
+      "latitude": 50.10809299988335,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "28",
+      "provider_object_id": 28,
+      "uhi_intensity_c": 0.87389,
+      "longitude": 18.62976800038787,
+      "latitude": 54.376375999995965,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "29",
+      "provider_object_id": 29,
+      "uhi_intensity_c": 1.33319,
+      "longitude": 6.131885999798741,
+      "latitude": 46.20680300026325,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "30",
+      "provider_object_id": 30,
+      "uhi_intensity_c": 0.865152,
+      "longitude": 8.892778000021327,
+      "latitude": 44.431110999802165,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "31",
+      "provider_object_id": 31,
+      "uhi_intensity_c": 1.04077,
+      "longitude": 3.7215339995521477,
+      "latitude": 51.078009000171015,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "32",
+      "provider_object_id": 32,
+      "uhi_intensity_c": 0.979117,
+      "longitude": -4.252269000035715,
+      "latitude": 55.84880999983863,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "33",
+      "provider_object_id": 33,
+      "uhi_intensity_c": 0.746155,
+      "longitude": 11.976238000188156,
+      "latitude": 57.70789799977818,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "34",
+      "provider_object_id": 34,
+      "uhi_intensity_c": 1.59989,
+      "longitude": 15.438699999909156,
+      "latitude": 47.05401600007467,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "35",
+      "provider_object_id": 35,
+      "uhi_intensity_c": 1.75342,
+      "longitude": 17.66348200021421,
+      "latitude": 47.685063999769234,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "36",
+      "provider_object_id": 36,
+      "uhi_intensity_c": 1.45935,
+      "longitude": 9.992416999694116,
+      "latitude": 53.5400179998245,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "37",
+      "provider_object_id": 37,
+      "uhi_intensity_c": 1.05165,
+      "longitude": 24.940881000398555,
+      "latitude": 60.213743000015455,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "38",
+      "provider_object_id": 38,
+      "uhi_intensity_c": 1.22034,
+      "longitude": 21.155161000272006,
+      "latitude": 55.709828000019115,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "39",
+      "provider_object_id": 39,
+      "uhi_intensity_c": 1.28503,
+      "longitude": 21.259438999724555,
+      "latitude": 48.7110159998738,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "40",
+      "provider_object_id": 40,
+      "uhi_intensity_c": 1.49094,
+      "longitude": 19.96231799987963,
+      "latitude": 50.05324499978857,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "41",
+      "provider_object_id": 41,
+      "uhi_intensity_c": 0.792376,
+      "longitude": -1.5465760000620004,
+      "latitude": 53.796119999985805,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "42",
+      "provider_object_id": 42,
+      "uhi_intensity_c": 1.41513,
+      "longitude": 12.362139999863835,
+      "latitude": 51.33697999973681,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "43",
+      "provider_object_id": 43,
+      "uhi_intensity_c": 1.19511,
+      "longitude": 5.5785240003767855,
+      "latitude": 50.63930699981031,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "44",
+      "provider_object_id": 44,
+      "uhi_intensity_c": 1.39654,
+      "longitude": 3.0593460001757244,
+      "latitude": 50.62811300018238,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "45",
+      "provider_object_id": 45,
+      "uhi_intensity_c": 1.11103,
+      "longitude": -9.139197000005257,
+      "latitude": 38.69517699990417,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "46",
+      "provider_object_id": 46,
+      "uhi_intensity_c": 1.47139,
+      "longitude": 14.507329000444749,
+      "latitude": 46.05600700023775,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "47",
+      "provider_object_id": 47,
+      "uhi_intensity_c": 1.20806,
+      "longitude": 19.456031000196308,
+      "latitude": 51.75771800006524,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "48",
+      "provider_object_id": 48,
+      "uhi_intensity_c": 1.47236,
+      "longitude": -0.1281119999594936,
+      "latitude": 51.508212999917966,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "49",
+      "provider_object_id": 49,
+      "uhi_intensity_c": 1.16523,
+      "longitude": 6.134812000427004,
+      "latitude": 49.60581799997,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "50",
+      "provider_object_id": 50,
+      "uhi_intensity_c": 2.18411,
+      "longitude": 4.8347769996493755,
+      "latitude": 45.75767300025866,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "51",
+      "provider_object_id": 51,
+      "uhi_intensity_c": 1.72486,
+      "longitude": -3.701233000294121,
+      "latitude": 40.413434000270776,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "52",
+      "provider_object_id": 52,
+      "uhi_intensity_c": 1.27134,
+      "longitude": -4.421466000181703,
+      "latitude": 36.71724699988842,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "53",
+      "provider_object_id": 53,
+      "uhi_intensity_c": 1.24266,
+      "longitude": 5.42848000016646,
+      "latitude": 43.30288499967325,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "54",
+      "provider_object_id": 54,
+      "uhi_intensity_c": 2.00832,
+      "longitude": 9.186553999776221,
+      "latitude": 45.460170000260256,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "55",
+      "provider_object_id": 55,
+      "uhi_intensity_c": 1.76625,
+      "longitude": 20.750072000325524,
+      "latitude": 48.10145200014757,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "56",
+      "provider_object_id": 56,
+      "uhi_intensity_c": 1.26564,
+      "longitude": 3.8755410002833868,
+      "latitude": 43.61519899980489,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "57",
+      "provider_object_id": 57,
+      "uhi_intensity_c": 1.80816,
+      "longitude": 11.54965100035911,
+      "latitude": 48.16327300018836,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "58",
+      "provider_object_id": 58,
+      "uhi_intensity_c": 1.31346,
+      "longitude": -1.129745999589141,
+      "latitude": 37.98931799993068,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "59",
+      "provider_object_id": 59,
+      "uhi_intensity_c": 1.21781,
+      "longitude": -1.5470279999736098,
+      "latitude": 47.23104200003529,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "60",
+      "provider_object_id": 60,
+      "uhi_intensity_c": 1.73924,
+      "longitude": 14.257146000131549,
+      "latitude": 40.84869100025193,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "61",
+      "provider_object_id": 61,
+      "uhi_intensity_c": 0.896379,
+      "longitude": -1.5974179996046465,
+      "latitude": 54.97367900014538,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "62",
+      "provider_object_id": 62,
+      "uhi_intensity_c": 1.45761,
+      "longitude": 7.261799999617356,
+      "latitude": 43.70752400024439,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "63",
+      "provider_object_id": 63,
+      "uhi_intensity_c": 2.13644,
+      "longitude": 19.838109000166583,
+      "latitude": 45.27191299997302,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "64",
+      "provider_object_id": 64,
+      "uhi_intensity_c": 0.734589,
+      "longitude": 10.751805999747885,
+      "latitude": 59.88990900012651,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "65",
+      "provider_object_id": 65,
+      "uhi_intensity_c": 2.13232,
+      "longitude": 11.88027599996811,
+      "latitude": 45.41502400023068,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "66",
+      "provider_object_id": 66,
+      "uhi_intensity_c": 0.975963,
+      "longitude": 13.351948000374875,
+      "latitude": 38.13229200011224,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "67",
+      "provider_object_id": 67,
+      "uhi_intensity_c": 0.717071,
+      "longitude": 2.648789000010569,
+      "latitude": 39.57407400002658,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "68",
+      "provider_object_id": 68,
+      "uhi_intensity_c": 2.11558,
+      "longitude": 2.354477999605049,
+      "latitude": 48.860505999714896,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "69",
+      "provider_object_id": 69,
+      "uhi_intensity_c": 1.20582,
+      "longitude": 18.241644999715536,
+      "latitude": 46.081935000098724,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "70",
+      "provider_object_id": 70,
+      "uhi_intensity_c": 2.16167,
+      "longitude": 19.260349000173058,
+      "latitude": 42.417784000141914,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "71",
+      "provider_object_id": 71,
+      "uhi_intensity_c": 1.25382,
+      "longitude": -8.564351999871041,
+      "latitude": 41.175309000226186,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "72",
+      "provider_object_id": 72,
+      "uhi_intensity_c": 1.70673,
+      "longitude": 14.41738500026427,
+      "latitude": 50.06197900004405,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "73",
+      "provider_object_id": 73,
+      "uhi_intensity_c": 0.983725,
+      "longitude": -21.82910299969527,
+      "latitude": 64.12233700013431,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "74",
+      "provider_object_id": 74,
+      "uhi_intensity_c": 1.06259,
+      "longitude": 24.122842999586013,
+      "latitude": 56.96939300020848,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "75",
+      "provider_object_id": 75,
+      "uhi_intensity_c": 1.88987,
+      "longitude": 12.478823000364809,
+      "latitude": 41.86160799993736,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "76",
+      "provider_object_id": 76,
+      "uhi_intensity_c": 1.66107,
+      "longitude": 4.448163999596011,
+      "latitude": 51.90439099987874,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "77",
+      "provider_object_id": 77,
+      "uhi_intensity_c": 1.32378,
+      "longitude": 18.3581299998498,
+      "latitude": 43.85199100020675,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "78",
+      "provider_object_id": 78,
+      "uhi_intensity_c": 1.46274,
+      "longitude": -5.981022000329082,
+      "latitude": 37.38722900021787,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "79",
+      "provider_object_id": 79,
+      "uhi_intensity_c": 1.75171,
+      "longitude": 21.427797000344636,
+      "latitude": 41.99587000030657,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "80",
+      "provider_object_id": 80,
+      "uhi_intensity_c": 2.22036,
+      "longitude": 23.325154000407032,
+      "latitude": 42.694572999887704,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "81",
+      "provider_object_id": 81,
+      "uhi_intensity_c": 1.40108,
+      "longitude": 16.46350100004896,
+      "latitude": 43.51496699971533,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "82",
+      "provider_object_id": 82,
+      "uhi_intensity_c": 0.568814,
+      "longitude": 18.066585000238987,
+      "latitude": 59.328983999986946,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "83",
+      "provider_object_id": 83,
+      "uhi_intensity_c": 1.83177,
+      "longitude": 7.739024999672889,
+      "latitude": 48.58069299996554,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "84",
+      "provider_object_id": 84,
+      "uhi_intensity_c": 1.60355,
+      "longitude": 20.147324999581482,
+      "latitude": 46.260719000181275,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "85",
+      "provider_object_id": 85,
+      "uhi_intensity_c": 1.0835,
+      "longitude": 24.757052000156367,
+      "latitude": 59.42811499989736,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "86",
+      "provider_object_id": 86,
+      "uhi_intensity_c": 1.14984,
+      "longitude": 26.73185700001251,
+      "latitude": 58.37349300021895,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "87",
+      "provider_object_id": 87,
+      "uhi_intensity_c": 1.68972,
+      "longitude": 22.952908000136045,
+      "latitude": 40.632613000325705,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "88",
+      "provider_object_id": 88,
+      "uhi_intensity_c": 2.53927,
+      "longitude": 19.794885999722414,
+      "latitude": 41.33737999986587,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "89",
+      "provider_object_id": 89,
+      "uhi_intensity_c": 1.35165,
+      "longitude": 1.426658999859504,
+      "latitude": 43.59446299974911,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "90",
+      "provider_object_id": 90,
+      "uhi_intensity_c": 1.14132,
+      "longitude": 13.789830999593075,
+      "latitude": 45.64363400017944,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "91",
+      "provider_object_id": 91,
+      "uhi_intensity_c": 2.42324,
+      "longitude": 7.676609999833341,
+      "latitude": 45.07375499969838,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "92",
+      "provider_object_id": 92,
+      "uhi_intensity_c": 1.44962,
+      "longitude": 5.081110000317911,
+      "latitude": 52.0854950001478,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "93",
+      "provider_object_id": 93,
+      "uhi_intensity_c": 1.34392,
+      "longitude": -0.39412999994294723,
+      "latitude": 39.47999999965964,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "94",
+      "provider_object_id": 94,
+      "uhi_intensity_c": 1.72599,
+      "longitude": 27.927432999791026,
+      "latitude": 43.213186000078885,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "95",
+      "provider_object_id": 95,
+      "uhi_intensity_c": 1.65995,
+      "longitude": 16.413869999577887,
+      "latitude": 48.20330999999916,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "96",
+      "provider_object_id": 96,
+      "uhi_intensity_c": 1.11847,
+      "longitude": 25.280165000270053,
+      "latitude": 54.67853600024026,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "97",
+      "provider_object_id": 97,
+      "uhi_intensity_c": 1.70108,
+      "longitude": 21.051725999645008,
+      "latitude": 52.22573600024916,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "98",
+      "provider_object_id": 98,
+      "uhi_intensity_c": 1.28608,
+      "longitude": 17.026311999753844,
+      "latitude": 51.09900499972085,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "99",
+      "provider_object_id": 99,
+      "uhi_intensity_c": 1.38168,
+      "longitude": 15.967959000108964,
+      "latitude": 45.830763999715316,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    },
+    {
+      "feature_id": "100",
+      "provider_object_id": 100,
+      "uhi_intensity_c": 1.45225,
+      "longitude": 8.533958999724451,
+      "latitude": 47.386668000123755,
+      "geometry_type": "Point",
+      "model_period": "2008-2017",
+      "statistic": "spatial P90 urban-minus-rural P10 height-corrected air temperature"
+    }
+  ],
+  "caveats": [
+    "This product covers 100 European city features and must not be treated as a global urban series.",
+    "The provider layer exposes object IDs and coordinates but not a stable city-name field; downstream joins require reviewed spatial matching.",
+    "Surface and canopy-layer UHI products must remain separate; this layer is a modeled air-temperature intensity product."
+  ],
+  "failure_behavior": "If refresh fails, retain the last reviewed snapshot, mark it stale, and never convert missing records to zero."
+}

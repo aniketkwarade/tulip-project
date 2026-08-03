@@ -1,0 +1,81 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+
+const OUTPUT_PATH = path.resolve('public/global-groundwater-level-trends-snapshot.json');
+const snapshot = {
+  version: 'global_in_situ_groundwater_level_trends_v2',
+  captured_at: new Date().toISOString(),
+  source: {
+    id: 'global_in_situ_groundwater_level_trends_study',
+    name: 'Rapid groundwater decline and some cases of recovery in aquifers globally',
+    publisher: 'Nature',
+    url: 'https://www.nature.com/articles/s41586-023-06879-8',
+    doi: '10.1038/s41586-023-06879-8'
+  },
+  ingestion_job_id: 'export_groundwater_level_trends_snapshot',
+  metric_contract_ids: ['usgs_groundwater_level_observation'],
+  contract_bindings: [
+    {
+      node_id: 'groundwater_depletion',
+      metric_id: 'usgs_groundwater_level_observation',
+      measurement_role: 'global_companion_in_situ_aquifer_level_trend_aggregation'
+    },
+    {
+      node_id: 'groundwater_depletion_wells',
+      metric_id: 'wells_with_declining_groundwater_level',
+      measurement_role: 'global_source_data_well_level_decline_threshold_prevalence'
+    }
+  ],
+  cadence: 'Annual primary-study and source-data release review; replace only with a comparable global in-situ aggregation.',
+  provenance: 'Peer-reviewed primary analysis of annual-median groundwater-level records from about 170,000 monitoring wells aggregated to 1,693 aquifer systems. Published threshold bins, denominators and comparison subsets are retained.',
+  uncertainty: 'Well density, monitoring duration, aquifer delineation, datum, screen depth, withdrawals, recharge and national coverage vary. Countries in scope represent about 75% of global groundwater withdrawals but not 75% of aquifers or land. Level decline is not storage volume, depletion attribution or remaining-resource fraction.',
+  failure_behavior: 'Retain the last reviewed study and mark stale. Reject records with changed denominators or direction conventions. Never convert groundwater-level rates to global storage volume, treat unmonitored aquifers as stable, or omit documented slowing and recovery cases.',
+  assessment: {
+    publication_year: 2024,
+    monitoring_wells_approx: 170000,
+    aquifer_systems_total: 1693,
+    countries_count_lower_bound: 40,
+    global_groundwater_withdrawal_coverage_pct_approx: 75,
+    minimum_well_record_years: 8,
+    source_data_figure_1: {
+      file: 'SourceDataFig1.csv',
+      url: 'https://media.springernature.com/original/springer-static/esm/art%3A10.1038%2Fs41586-023-06879-8/MediaObjects/41586_2023_6879_MOESM3_ESM.zip',
+      archive_sha256: '3954538c7a13c72725b900fc09f5a84951bb2a51a8d65757b27fa66d138af315',
+      csv_sha256: '0601fa864de4c2513d3d7df0f55d1c007508446a7d13e40b9a23633d98700dd2',
+      columns: ['Latitude', 'Longitude', '21stCenturyTheilSenSlope_m_per_year'],
+      well_trends_total: 169717,
+      wells_deepening_over_0_1_m_per_year: 49068,
+      wells_deepening_over_0_1_m_per_year_pct: 28.911659,
+      wells_deepening_over_0_5_m_per_year: 12874,
+      wells_deepening_over_0_5_m_per_year_pct: 7.585569,
+      wells_shallowing_over_0_1_m_per_year: 20081,
+      wells_shallowing_over_0_1_m_per_year_pct: 11.83205,
+      wells_shallowing_over_0_5_m_per_year: 3204,
+      wells_shallowing_over_0_5_m_per_year_pct: 1.887849,
+      arithmetic_mean_theil_sen_slope_m_per_year: 0.09878741,
+      derivation: 'Counts are deterministic filters of the checksum-bound Figure 1 CSV: slope > 0.1, > 0.5, < -0.1 and < -0.5 m/year. Positive slopes mean deepening.'
+    },
+    aquifer_systems_deepening_over_0_1_m_per_year: 617,
+    aquifer_systems_deepening_over_0_1_m_per_year_pct: 36,
+    aquifer_systems_deepening_over_0_5_m_per_year: 210,
+    aquifer_systems_deepening_over_0_5_m_per_year_pct: 12,
+    long_history_aquifer_systems: 542,
+    accelerated_decline_share_pct: 30,
+    random_acceleration_null_share_pct: 12.5,
+    decelerated_decline_share_pct: 20,
+    reversed_decline_share_pct: 16,
+    continued_rise_share_pct: 13,
+    geographic_scope: 'More than 40 countries encompassing approximately 75% of global groundwater withdrawals',
+    source_locators: [
+      'Nature abstract: around 170,000 monitoring wells and 1,693 aquifer systems in countries encompassing approximately 75% of global groundwater withdrawals.',
+      'Nature Figure 1 source data: 169,717 well-level twenty-first-century Theil-Sen slopes; checksum-bound threshold counts are derived without aquifer aggregation.',
+      'Nature results: 617 of 1,693 systems (36%) deepened faster than 0.1 m/year and 210 (12%) faster than 0.5 m/year.',
+      'Nature comparison: declines accelerated in 30% of the 542 systems with late-twentieth- and early-twenty-first-century histories, versus a 12.5% null expectation.',
+      'Nature counterevidence: 20% decelerated, 16% reversed and 13% continued to rise in the long-history comparison subset.'
+    ]
+  },
+  excluded_from_scoring: ['global storage-volume inference', 'unmonitored-aquifer or unmonitored-well zeros', 'causal attribution to pumping alone', 'remaining groundwater fraction', 'regional well-depth extrapolation', 'claim that the monitoring-well sample is randomized or spatially representative']
+};
+
+await fs.writeFile(OUTPUT_PATH, `${JSON.stringify(snapshot, null, 2)}\n`);
+console.log(JSON.stringify({ output: OUTPUT_PATH, aquifer_systems: snapshot.assessment.aquifer_systems_total }, null, 2));

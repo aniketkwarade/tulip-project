@@ -1,0 +1,124 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_67_gao_fish_passage_barrier_culverts",
+  "generated_at": "2026-08-01T16:30:40.884Z",
+  "source_snapshots": [
+    "public/gao-road-stream-crossing-impact-snapshot.json"
+  ],
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "road_stream_crossing_barriers",
+      "value": 7.6,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2001-08-01",
+      "components": {
+        "biophysical_burden": 0.835037,
+        "human_economic_burden": 0.771746,
+        "persistence": 0.79375,
+        "extent": 0.367778
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "combined_culverts_on_fish_bearing_streams": 10215,
+          "combined_culverts_assessed_for_fish_passage": 4138,
+          "combined_barrier_culverts_identified": 2574,
+          "combined_additional_barrier_culverts_estimated": 2927,
+          "combined_barrier_culverts_identified_and_estimated": 5501,
+          "normalization_anchors_barrier_culverts": [
+            0,
+            100,
+            1000,
+            10000
+          ]
+        },
+        "human_economic_burden": {
+          "blm_estimated_restoration_cost_usd": 46447000,
+          "forest_service_estimated_restoration_cost_usd": 331042000,
+          "combined_estimated_restoration_cost_usd": 377489000,
+          "normalization_anchors_usd": [
+            0,
+            10000000,
+            100000000,
+            1000000000
+          ],
+          "boundary": "Agency-estimated passage-restoration cost; not a valuation of all ecological or road-safety harm."
+        },
+        "persistence": {
+          "blm_estimated_backlog_clearance_years": 25,
+          "forest_service_estimated_backlog_clearance_years_lower_bound": 100,
+          "scored_conservative_persistence_years": 25,
+          "normalization_anchors_years": [
+            0,
+            2,
+            10,
+            50
+          ]
+        },
+        "extent": {
+          "represented_us_states": [
+            "Oregon",
+            "Washington"
+          ],
+          "represented_us_state_count": 2,
+          "directly_assessed_country_count": 1,
+          "normalization_anchors_states": [
+            0,
+            1,
+            10,
+            50
+          ]
+        },
+        "source_snapshot": {
+          "path": "public/gao-road-stream-crossing-impact-snapshot.json",
+          "version": "gao_02_136_road_stream_crossing_barriers_2001_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z",
+          "report_number": "GAO-02-136",
+          "source_locators": [
+            "Accessible text lines 325-365: assessed and identified/estimated BLM and Forest Service barrier culverts.",
+            "Accessible text lines 408-421: restoration cost and separate BLM and Forest Service backlog-duration estimates.",
+            "Accessible text appendix tables: BLM and Forest Service inventory and cost totals."
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "assessed_and_estimated_barrier_accounting",
+          "formula": "Add BLM and Forest Service identified barrier culverts to their separately labeled additional estimates; never classify the remaining unassessed inventory as barriers or clean crossings."
+        },
+        {
+          "type": "agency_cost_sum",
+          "formula": "Add the two source-reported agency restoration-cost estimates without inflation adjustment or conversion to ecological damage."
+        },
+        {
+          "type": "conservative_backlog_duration",
+          "formula": "Use the shorter 25-year BLM clearance estimate; retain the Forest Service estimate of more than 100 years as unscored context."
+        },
+        {
+          "type": "bounded_extent",
+          "formula": "Normalize the two directly assessed states; the federal-land inventory is not expanded to national or global coverage."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "gao_02_136_fish_passage_barrier_culverts"
+      ],
+      "uncertainty": "The inventory is a 2001 bounded federal-land assessment in Oregon and Washington, not a current national or global census. Estimated barriers are kept separate from field-identified barriers, the backlog cost is not inflation-adjusted, and the conservative duration component uses the shorter 25-year BLM estimate rather than the Forest Service estimate of more than 100 years. Passage depends on species, life stage, flow and structure condition.",
+      "freshness": "Inventory and cost assessment dated 2001-08-01; GAO report published 2001-11-23; snapshot reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "GAO quantifies assessed and separately estimated fish-passage barrier culverts, restoration cost, multi-decade backlog duration and bounded two-state extent under the exact road-stream crossing contract.",
+        "higher_priority_failures": [
+          "The assessment is historical and covers federal lands in two U.S. states rather than a current global crossing inventory.",
+          "No method-comparable 20-year annual or 60-month passage-impairment series supports a current-data score."
+        ]
+      },
+      "input_hash": "fnv1a32:a6fc9fdf"
+    }
+  ]
+}

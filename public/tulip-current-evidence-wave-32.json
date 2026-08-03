@@ -1,0 +1,111 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_32_ocha_emergency_response_capacity",
+  "generated_at": "2026-07-31T18:55:28.496Z",
+  "source_snapshot": "public/ocha-humanitarian-history-snapshot.json",
+  "source_id": "ocha_humanitarian_programme_cycle_public_api",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "emergency_response_overload",
+      "value": 8.4,
+      "band": "Critical",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "magnitude": 0.87847,
+        "threshold": 1,
+        "momentum": 0.807808,
+        "extent": 0.378238
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "reported_funding_shortfall_pct_complete_panel": 65.79317,
+          "reported_requirement_usd_context": 45473727648,
+          "reported_funding_usd_context": 15556798132,
+          "anchors_pct": [
+            0,
+            25,
+            50,
+            75
+          ]
+        },
+        "threshold": {
+          "latest_shortfall_pct": 65.79317,
+          "baseline_years": [
+            2000,
+            2019
+          ],
+          "complete_annual_observations": 20,
+          "historical_distribution_anchors_pct": [
+            41.186054,
+            43.751199,
+            47.537863,
+            48.140797
+          ],
+          "percentiles": [
+            "median",
+            "75th",
+            "90th",
+            "97.5th"
+          ]
+        },
+        "momentum": {
+          "latest_year": 2025,
+          "prior_year": 2024,
+          "latest_shortfall_pct": 65.79317,
+          "prior_shortfall_pct": 51.617171,
+          "deterioration_percentage_points": 14.175999,
+          "anchors_percentage_points": [
+            0,
+            5,
+            10,
+            20
+          ]
+        },
+        "extent": {
+          "countries_or_territories_in_funding_panel": 73,
+          "denominator_un_member_states": 193,
+          "normalized_value": 0.378238,
+          "boundary": "HPC/FTS plan-panel coverage, not every national or local emergency system."
+        },
+        "source_snapshot": {
+          "path": "public/ocha-humanitarian-history-snapshot.json",
+          "version": "ocha_hpc_fts_global_history_2000_2025_v1",
+          "captured_at": "2026-07-31T18:55:24.084Z",
+          "measurement_boundary": "The funding-gap measures are reported plan-linked financial gaps, not proof of aid delivery or operational sufficiency. Positive requirement revisions are bounded financial planning signals, not direct counts of people newly in need."
+        }
+      },
+      "transformations": [
+        {
+          "type": "complete_plan_panel_shortfall",
+          "formula": "Use only OCHA plan IDs with an explicit grouped FTS funding result; plans absent from that result remain missing rather than zero-funded."
+        },
+        {
+          "type": "historical_shortfall_distribution",
+          "formula": "Normalize 2025 against median, 75th, 90th and 97.5th percentiles from exactly 20 complete annual panels, 2000-2019."
+        },
+        {
+          "type": "year_over_year_gap_deterioration",
+          "formula": "Subtract the 2024 shortfall percentage from 2025; do not compare nominal dollar gaps across years."
+        },
+        {
+          "type": "bounded_humanitarian_extent",
+          "formula": "Divide countries or territories represented in the complete funding panel by 193 UN Member States; do not infer conditions outside the OCHA plan universe."
+        }
+      ],
+      "source_ids": [
+        "ocha_humanitarian_programme_cycle_public_api"
+      ],
+      "uncertainty": "Plan scope, needs assessment, exchange rates, requirement revisions, reporting practices, unlinked or shared flows, funding outside FTS, and changes in the humanitarian planning system affect cross-year comparison. Nominal dollars are retained as context only; scoring uses dimensionless funding-gap and positive-revision ratios.",
+      "freshness": "Official OCHA HPC/FTS global history through completed plan year 2025; snapshot captured 2026-07-31T18:55:24.084Z.",
+      "selection_reason": {
+        "selected_method_passed": "OCHA supplies a 26-year global plan-panel history, current reported response-resource shortfall, a valid 20-year historical distribution, year-over-year deterioration and explicit country coverage. It is scored only as humanitarian response-capacity pressure.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:de157708"
+    }
+  ]
+}

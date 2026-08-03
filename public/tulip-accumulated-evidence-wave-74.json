@@ -1,0 +1,121 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_74_helene_relocation_governance",
+  "generated_at": "2026-08-01T16:52:32.411Z",
+  "source_snapshots": [
+    "public/us-fema-managed-retreat-impact-snapshot.json"
+  ],
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "relocation_governance_capacity",
+      "value": 8.7,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2026-02",
+      "components": {
+        "biophysical_burden": 0.983626,
+        "human_economic_burden": 0.6997,
+        "persistence": 0.835,
+        "extent": 0.874233
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "approved_acquisitions": 82,
+          "additional_submitted_not_yet_approved_lower_bound": 575,
+          "approval_coverage_pct_upper_bound": 12.480974,
+          "approval_gap_pct_lower_bound": 87.519026,
+          "normalization_anchors_gap_pct": [
+            0,
+            10,
+            40,
+            90
+          ]
+        },
+        "human_economic_burden": {
+          "average_federal_cost_per_acquisition_usd_2008_2014": 136000,
+          "normalization_anchors_usd": [
+            0,
+            25000,
+            100000,
+            500000
+          ],
+          "boundary": "Historical audited average cost provides program burden context and is not multiplied by the Helene caseload."
+        },
+        "persistence": {
+          "average_state_application_submission_delay_months": 16,
+          "typical_acquisition_process_duration_years_lower_bound": 2,
+          "normalization_anchors_years": [
+            0,
+            0.25,
+            1,
+            3
+          ]
+        },
+        "extent": {
+          "event": "Hurricane Helene",
+          "jurisdiction": "North Carolina",
+          "identified_caseload_lower_bound": 657,
+          "normalization_anchors_properties": [
+            0,
+            10,
+            100,
+            1000
+          ]
+        },
+        "source_snapshot": {
+          "path": "public/us-fema-managed-retreat-impact-snapshot.json",
+          "version": "us_fema_flood_property_acquisitions_1989_2025_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z",
+          "source_locators": [
+            "Figure 2 discussion: 69,415 acquisitions, 72.5 percent of 95,762 FEMA-mitigated properties, fiscal years 1989-2025.",
+            "Cost discussion: average federal cost was USD 136,000 per acquisition in 2008-2014 FEMA data.",
+            "Acquisition definition and process discussion: willing-seller purchase and demolition; acquired land becomes open space in perpetuity; process typically takes at least two to three years.",
+            "Capacity discussion: as of February 2026, 82 North Carolina acquisitions for Hurricane Helene were approved and more than 575 additional acquisition applications had been submitted but not yet approved; FEMA analysis found an average 16-month state application-submission delay."
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "minimum_identified_caseload",
+          "formula": "Add 82 approved acquisitions to the source statement of more than 575 additional submitted applications using 575 as a conservative numeric lower bound, producing a minimum caseload of 657."
+        },
+        {
+          "type": "bounded_approval_gap",
+          "formula": "Calculate approval coverage as at most 82/657 and the unapproved gap as at least 575/657; do not classify pending applications as rejected."
+        },
+        {
+          "type": "period_matched_cost_context",
+          "formula": "Normalize the audited USD 136,000 average federal acquisition cost from 2008-2014 without multiplying it by the Helene caseload."
+        },
+        {
+          "type": "documented_process_duration",
+          "formula": "Use the lower bound of the GAO statement that acquisition typically takes at least two to three years; retain the separate 16-month average application-submission delay."
+        },
+        {
+          "type": "bounded_event_extent",
+          "formula": "Normalize the minimum identified North Carolina Helene caseload; do not generalize it to other disasters or countries."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "gao_26_109045_fema_flood_property_acquisitions"
+      ],
+      "uncertainty": "The more-than-575 pending figure is converted to a conservative lower bound of 575, so the 657-property caseload is a minimum, approval coverage is an upper bound, and the approval gap is a lower bound. Pending applications are not treated as rejected. The USD 136,000 average cost is from 2008-2014 FEMA data and is context rather than a Helene cost estimate. The case covers North Carolina after one disaster, not national or global relocation governance.",
+      "freshness": "Helene acquisition status as of 2026-02; GAO report published 2026-03-26.",
+      "selection_reason": {
+        "selected_method_passed": "GAO quantifies the disaster-specific submitted caseload, approved acquisitions, lower-bound gap, average application delay, typical acquisition duration and audited program cost within a named jurisdiction.",
+        "higher_priority_failures": [
+          "The case is a regional administrative snapshot, not a current global planned-relocation capacity aggregation.",
+          "No global denominator or method-comparable annual series supports current global magnitude, threshold and momentum components."
+        ]
+      },
+      "input_hash": "fnv1a32:7b37592e"
+    }
+  ]
+}

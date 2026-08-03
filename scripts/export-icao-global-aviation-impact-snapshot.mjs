@@ -1,0 +1,51 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+
+const OUTPUT_PATH = path.resolve('public/icao-global-aviation-impact-snapshot.json');
+const snapshot = {
+  version: 'icao_annual_report_2024_global_activity_snapshot_v1',
+  captured_at: new Date().toISOString(),
+  source: {
+    id: 'icao_environmental_reports',
+    name: 'ICAO Annual Report 2024 — World of Air Transport',
+    publisher: 'International Civil Aviation Organization',
+    report_year: 2024,
+    annual_report_url: 'https://www.icao.int/about-icao/AnnualReport2024/world-air-transport-2024',
+    statistical_tables_url: 'https://www.icao.int/sites/default/files/annual-report-2024/World%20of%20Air%20Transport/ARC_2024_Tables_final_EN.pdf',
+    environmental_report_url: 'https://www.icao.int/environmental-protection/envrep2025'
+  },
+  ingestion_job_id: 'export_icao_global_aviation_impact_snapshot',
+  metric_contract_ids: ['aviation_revenue_activity_and_fuel', 'aviation_activity_growth'],
+  contract_bindings: [
+    { node_id: 'aviation', metric_id: 'aviation_revenue_activity_and_fuel', measurement_role: 'global_aviation_activity_assessment_primary' },
+    { node_id: 'aviation_demand_growth', metric_id: 'aviation_activity_growth', measurement_role: 'global_aviation_activity_growth_primary' }
+  ],
+  cadence: 'Annual after ICAO publishes the World of Air Transport results.',
+  provenance: 'Reviewed ICAO preliminary global statistics for 2024. Environmental burden is joined only at receipt time to the independent EDGAR civil-aviation CO2 series; activity is not converted to emissions.',
+  uncertainty: 'ICAO labels 2024 statistics preliminary. Scheduled-service coverage, revisions, traffic definitions and freight/passenger aggregation affect values. Passenger, RPK, freight and capacity measures are not additive.',
+  failure_behavior: 'Retain the last reviewed report and mark stale; never treat forecasts as observations, convert activity directly to fuel or CO2, add passenger and freight quantities, or replace missing reporting with zero.',
+  assessment: {
+    observation_year: 2024,
+    reported_global_coverage_pct: 99,
+    scheduled_passengers_billion: 4.7,
+    scheduled_passenger_growth_pct: 7.9,
+    scheduled_departures_million: 37.4,
+    scheduled_departure_growth_pct: 5.1,
+    scheduled_rpk_billion: 9098,
+    scheduled_rpk_growth_pct: 10.6,
+    freight_tonnes_million: 60.8,
+    scheduled_freight_tonne_km_growth_pct: 11,
+    international_freight_capacity_billion_atk: 416,
+    international_freight_capacity_growth_pct: 7.9,
+    passenger_load_factor_pct: 83.2,
+    member_state_denominator: 193,
+    geography_boundary: 'Global scheduled civil aviation reported by ICAO Member States',
+    source_locators: [
+      'ICAO Annual Report 2024: 4.7 billion passengers, 37.4 million departures and 99% global reporting coverage.',
+      'ICAO Annual Report 2024: 9,098 billion RPK, 10.6% RPK growth, 60.8 million freight tonnes and 11% FTK growth.'
+    ]
+  }
+};
+
+await fs.writeFile(OUTPUT_PATH, `${JSON.stringify(snapshot, null, 2)}\n`);
+console.log(JSON.stringify({ output: OUTPUT_PATH, metric_contract_ids: snapshot.metric_contract_ids }, null, 2));

@@ -1,0 +1,49 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+
+const OUTPUT_PATH = path.resolve('public/unep-fao-cold-chain-impact-snapshot.json');
+const snapshot = {
+  version: 'unep_fao_sustainable_food_cold_chains_2022_snapshot_v1',
+  captured_at: new Date().toISOString(),
+  source: {
+    id: 'unep_and_fao_sustainable_food_cold_chains',
+    name: 'Sustainable Food Cold Chains: Opportunities, Challenges and the Way Forward',
+    publishers: ['United Nations Environment Programme', 'Food and Agriculture Organization of the United Nations'],
+    report_year: 2022,
+    observation_year: 2017,
+    report_page_url: 'https://www.unep.org/resources/report/sustainable-food-cold-chains-opportunities-challenges-and-way-forward',
+    report_url: 'https://wedocs.unep.org/bitstream/handle/20.500.11822/41240/sustainable_food_cold_chains.pdf',
+    press_release_url: 'https://www.unep.org/news-and-stories/press-release/amid-food-and-climate-crises-investing-sustainable-food-cold-chains'
+  },
+  ingestion_job_id: 'export_unep_fao_cold_chain_impact_snapshot',
+  metric_contract_ids: ['cold_chain_attributable_food_loss_burden'],
+  contract_bindings: [
+    { node_id: 'cold_chain_failure_risk', metric_id: 'cold_chain_attributable_food_loss_burden', measurement_role: 'global_assessment_accumulated_impact_primary' }
+  ],
+  cadence: 'Refresh when UNEP or FAO publishes a new global sustainable food cold-chain assessment.',
+  provenance: 'Reviewed source-reported global values from the joint UNEP-FAO 2022 assessment and official release. Lack-of-refrigeration food loss, emissions, farmer-income impact and developing-country savings potential are retained as separate quantities.',
+  uncertainty: 'The report synthesizes multiple global estimates with differing years and methods. Attribution to inadequate refrigeration, food-loss mass, emissions and farmer impacts are assessment estimates rather than a monitored global incident series. Values do not measure individual consignment excursions.',
+  failure_behavior: 'Retain the last reviewed assessment and mark stale; never infer a monthly trend, affected consignments, temperature-excursion duration, country allocation or food-safety illness count from the global assessment.',
+  assessment: {
+    report_year: 2022,
+    observation_year: 2017,
+    food_loss_due_to_lack_of_effective_refrigeration_million_tonnes: 526,
+    food_loss_due_to_lack_of_effective_refrigeration_share_global_production_pct: 12,
+    people_equivalent_food_supply_billion: 1,
+    attributable_emissions_gigatonnes_co2e: 1,
+    attributable_emissions_share_global_ghg_pct: 2,
+    total_food_cold_chain_emissions_share_global_ghg_pct: 4,
+    small_scale_farmers_with_income_impact_million: 470,
+    small_scale_farmer_income_loss_pct: 15,
+    developing_country_annual_food_savings_potential_million_tonnes: 144,
+    geography_boundary: 'Global food production and cold-chain assessment, with a separate developing-country savings estimate',
+    source_locators: [
+      'UNEP report publication summary',
+      'UNEP-FAO official COP27 report press release',
+      'Sustainable Food Cold Chains 2022 report'
+    ]
+  }
+};
+
+await fs.writeFile(OUTPUT_PATH, `${JSON.stringify(snapshot, null, 2)}\n`);
+console.log(JSON.stringify({ output: OUTPUT_PATH, observation_year: snapshot.assessment.observation_year, metric_contract_ids: snapshot.metric_contract_ids }, null, 2));

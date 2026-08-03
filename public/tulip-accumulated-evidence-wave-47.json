@@ -1,0 +1,107 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_47_global_amphibian_chytrid",
+  "generated_at": "2026-08-01T15:38:06.972Z",
+  "source_snapshots": [
+    "public/global-amphibian-chytrid-impact-snapshot.json"
+  ],
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "amphibian_chytrid_fungus_spreads",
+      "value": 9,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2020",
+      "components": {
+        "biophysical_burden": 0.883529,
+        "human_economic_burden": 0.78,
+        "persistence": 1,
+        "extent": 0.989
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "detected_species": 1375,
+          "sampled_species": 2525,
+          "detected_species_share_pct": 55,
+          "normalization_anchors_pct": [
+            0,
+            10,
+            33,
+            67
+          ]
+        },
+        "human_economic_burden": {
+          "geography": "Costa Rica and Panama",
+          "peak_additional_malaria_cases_per_1000_people_per_year": 1,
+          "elevated_incidence_duration_years": 8,
+          "normalization_anchors_cases_per_1000": [
+            0,
+            0.1,
+            0.5,
+            2
+          ],
+          "causal_boundary": "The event-study estimates the regional malaria effect after Bd-driven amphibian collapse; it is not a global malaria burden estimate."
+        },
+        "persistence": {
+          "oldest_detection_record_age_years_minimum": 80,
+          "normalization_anchors_years": [
+            0,
+            10,
+            40,
+            80
+          ]
+        },
+        "extent": {
+          "countries_with_occurrence": 93,
+          "sampled_countries": 134,
+          "countries_with_occurrence_share_pct": 69,
+          "normalization_anchors_pct": [
+            0,
+            10,
+            40,
+            70
+          ]
+        },
+        "source_snapshot": {
+          "path": "public/global-amphibian-chytrid-impact-snapshot.json",
+          "version": "global_amphibian_chytrid_impact_2022_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "global_detection_burden_normalization",
+          "formula": "Normalize the published share of sampled amphibian species with Bd detections; do not convert detections into deaths or infer prevalence among untested species."
+        },
+        {
+          "type": "regional_human_health_normalization",
+          "formula": "Normalize the causal peak additional malaria incidence measured in Costa Rica and Panama; retain its regional boundary and do not extrapolate a global case count."
+        },
+        {
+          "type": "documented_persistence_and_extent_normalization",
+          "formula": "Normalize the minimum age of the oldest detection records and the observed share of sampled countries with Bd occurrence."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1–10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "olson_global_bd_patterns_2021",
+        "springborn_amphibian_collapse_malaria_2022"
+      ],
+      "uncertainty": "The global infection compilation is surveillance-based: sampling is incomplete and uneven, a detection does not mean every infected host developed lethal disease, and growth in known records is not a measured temporal increase in prevalence. The human-health effect is causal but geographically limited to Costa Rica and Panama and must not be extrapolated worldwide.",
+      "freshness": "Global occurrence compilation through 2020; regional malaria records through 2016; reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "Peer-reviewed global surveillance quantifies host-species burden, multi-decadal persistence and country extent, while a separate causal study quantifies a bounded human-health burden after amphibian collapse.",
+        "higher_priority_failures": [
+          "The global source explicitly cautions that accumulated detections do not measure a temporal prevalence trend, so the current-data momentum gate does not pass."
+        ]
+      },
+      "input_hash": "fnv1a32:a6d77670"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "updated_at": "2026-07-15",
+  "version": "2026-07-15T23:59:00.000Z",
+  "catalog_family": "surface_ocean_carbon_support",
+  "source": {
+    "id": "surface_ocean_co2_atlas",
+    "name": "Surface Ocean CO2 Atlas",
+    "url": "https://www.socat.info/",
+    "publisher": "SOCAT",
+    "access": "open_download"
+  },
+  "refresh_policy": {
+    "default_days": 56,
+    "notes": "Treat SOCAT as an ocean-carbon observation catalog and download surface, not a single lightweight live API."
+  },
+  "use_guidance": {
+    "primary_role": "Support ocean carbon sink saturation with official surface-ocean fCO2 observation access and carbon-cycle context.",
+    "caution": "SOCAT is a curated observation program and download surface. It should strengthen ocean-carbon reasoning without implying one browser-live global sink metric."
+  },
+  "overview": {
+    "title": "Surface Ocean CO2 Atlas",
+    "description": "SOCAT provides curated surface-ocean carbon dioxide observations widely used for air-sea CO2 flux and ocean carbon sink analysis.",
+    "measurement_focus": "surface-ocean fCO2 observations",
+    "dataset_mode": "catalog + bulk observation access"
+  },
+  "tools": [
+    {
+      "id": "socat_home",
+      "label": "SOCAT home",
+      "url": "https://www.socat.info/",
+      "type": "portal",
+      "access": "open"
+    },
+    {
+      "id": "gcb_2025_faq",
+      "label": "Global Carbon Budget 2025 FAQ",
+      "url": "https://globalcarbonbudget.org/gcb-2025/the-global-carbon-budget-faqs-2025/",
+      "type": "context",
+      "access": "open"
+    }
+  ]
+}

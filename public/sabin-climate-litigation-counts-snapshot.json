@@ -1,0 +1,98 @@
+{
+  "version": "sabin_unep_climate_litigation_report_2025_v1",
+  "captured_at": "2026-07-19T02:49:28.044Z",
+  "source": {
+    "id": "sabin_center_unep_global_climate_litigation_report_2025",
+    "name": "Sabin Center and UNEP Global Climate Litigation Report 2025",
+    "url": "https://climate.law.columbia.edu/news/sabin-center-climate-change-law-unep-release-new-climate-litigation-report",
+    "access": "open_authoritative_database_assessment"
+  },
+  "ingestion_job_id": "build_sabin_climate_litigation_counts_assessment",
+  "metric_contract_ids": [
+    "climate_litigation_cases"
+  ],
+  "cadence": "Semiannual report or database-release check.",
+  "provenance": "Source-reported cumulative case counts at named observation labels from the Sabin Center and UNEP 2025 climate-litigation report release.",
+  "uncertainty": "No numeric uncertainty interval. Discovery, jurisdiction coverage, retrospective additions or removals, classification and methodology revisions affect counts.",
+  "failure_behavior": "Retain the last validated report vintage; reject unexplained decreases or boundary changes; never infer outcomes, annual filings or legal effectiveness.",
+  "measurement_boundary": "Cumulative database case coverage. It is not a case-win rate, damages total, annual filing flow, jurisdiction-normalized pressure score, policy effect or causal climate response.",
+  "record_count": 4,
+  "records": [
+    {
+      "record_id": "sabin_climate_litigation_cumulative_2017",
+      "metric_id": "climate_litigation_cases",
+      "measurement_role": "global_database_cumulative_case_count_primary",
+      "observation_year": 2017,
+      "source_time_label": "by 2017",
+      "cumulative_climate_related_cases": 884,
+      "national_jurisdictions_latest_point_only": null,
+      "international_or_regional_bodies_latest_point_only": null,
+      "database_scope": "Cases where climate change law, policy or science is a material issue, within the Sabin Center Climate Litigation Database methodology.",
+      "uncertainty_status": "No numeric uncertainty interval. Discovery, jurisdiction coverage, retrospective additions or removals, classification and methodology revisions affect counts.",
+      "source_locator": {
+        "report_release_url": "https://climate.law.columbia.edu/news/sabin-center-climate-change-law-unep-release-new-climate-litigation-report",
+        "database_url": "https://www.climatecasechart.com/",
+        "methodology_url": "https://www.climatecasechart.com/methodology",
+        "locator": "Report-release paragraph beginning As of 30 June 2025 and its comparison series",
+        "source_time_label": "by 2017"
+      }
+    },
+    {
+      "record_id": "sabin_climate_litigation_cumulative_2020",
+      "metric_id": "climate_litigation_cases",
+      "measurement_role": "global_database_cumulative_case_count_primary",
+      "observation_year": 2020,
+      "source_time_label": "by 2020",
+      "cumulative_climate_related_cases": 1550,
+      "national_jurisdictions_latest_point_only": null,
+      "international_or_regional_bodies_latest_point_only": null,
+      "database_scope": "Cases where climate change law, policy or science is a material issue, within the Sabin Center Climate Litigation Database methodology.",
+      "uncertainty_status": "No numeric uncertainty interval. Discovery, jurisdiction coverage, retrospective additions or removals, classification and methodology revisions affect counts.",
+      "source_locator": {
+        "report_release_url": "https://climate.law.columbia.edu/news/sabin-center-climate-change-law-unep-release-new-climate-litigation-report",
+        "database_url": "https://www.climatecasechart.com/",
+        "methodology_url": "https://www.climatecasechart.com/methodology",
+        "locator": "Report-release paragraph beginning As of 30 June 2025 and its comparison series",
+        "source_time_label": "by 2020"
+      }
+    },
+    {
+      "record_id": "sabin_climate_litigation_cumulative_2022",
+      "metric_id": "climate_litigation_cases",
+      "measurement_role": "global_database_cumulative_case_count_primary",
+      "observation_year": 2022,
+      "source_time_label": "by 2022",
+      "cumulative_climate_related_cases": 2180,
+      "national_jurisdictions_latest_point_only": null,
+      "international_or_regional_bodies_latest_point_only": null,
+      "database_scope": "Cases where climate change law, policy or science is a material issue, within the Sabin Center Climate Litigation Database methodology.",
+      "uncertainty_status": "No numeric uncertainty interval. Discovery, jurisdiction coverage, retrospective additions or removals, classification and methodology revisions affect counts.",
+      "source_locator": {
+        "report_release_url": "https://climate.law.columbia.edu/news/sabin-center-climate-change-law-unep-release-new-climate-litigation-report",
+        "database_url": "https://www.climatecasechart.com/",
+        "methodology_url": "https://www.climatecasechart.com/methodology",
+        "locator": "Report-release paragraph beginning As of 30 June 2025 and its comparison series",
+        "source_time_label": "by 2022"
+      }
+    },
+    {
+      "record_id": "sabin_climate_litigation_cumulative_2025",
+      "metric_id": "climate_litigation_cases",
+      "measurement_role": "global_database_cumulative_case_count_primary",
+      "observation_year": 2025,
+      "source_time_label": "as of 30 June 2025",
+      "cumulative_climate_related_cases": 3099,
+      "national_jurisdictions_latest_point_only": 55,
+      "international_or_regional_bodies_latest_point_only": 24,
+      "database_scope": "Cases where climate change law, policy or science is a material issue, within the Sabin Center Climate Litigation Database methodology.",
+      "uncertainty_status": "No numeric uncertainty interval. Discovery, jurisdiction coverage, retrospective additions or removals, classification and methodology revisions affect counts.",
+      "source_locator": {
+        "report_release_url": "https://climate.law.columbia.edu/news/sabin-center-climate-change-law-unep-release-new-climate-litigation-report",
+        "database_url": "https://www.climatecasechart.com/",
+        "methodology_url": "https://www.climatecasechart.com/methodology",
+        "locator": "Report-release paragraph beginning As of 30 June 2025 and its comparison series",
+        "source_time_label": "as of 30 June 2025"
+      }
+    }
+  ]
+}

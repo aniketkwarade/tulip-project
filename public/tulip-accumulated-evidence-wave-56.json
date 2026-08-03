@@ -1,0 +1,134 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_56_bsee_deepwater_petroleum",
+  "generated_at": "2026-08-01T15:38:10.131Z",
+  "source_snapshots": [
+    "public/bsee-deepwater-petroleum-impact-snapshot.json"
+  ],
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "deepwater_petroleum_spill_risk",
+      "value": 9.1,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "biophysical_burden": 1,
+        "human_economic_burden": 1,
+        "persistence": 1,
+        "extent": 0.33
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "deepwater_horizon_release_barrels": 3200000,
+          "pollution_or_spill_tagged_investigations": 186,
+          "normalization_anchors_barrels": [
+            0,
+            50,
+            1000,
+            3200000
+          ]
+        },
+        "human_economic_burden": {
+          "fatality_tagged_investigations": 11,
+          "injury_lost_time_or_restricted_work_tagged_investigations": 173,
+          "incident_or_collision_over_25000_usd_tagged_investigations": 101,
+          "deepwater_horizon_deaths": 11,
+          "deepwater_horizon_injuries": 17,
+          "natural_resource_restoration_settlement_usd": 8800000000,
+          "total_civil_resolution_usd": 20800000000,
+          "normalization_anchors_usd": [
+            0,
+            25000,
+            8800000000,
+            20800000000
+          ]
+        },
+        "persistence": {
+          "start_year": 1996,
+          "end_year": 2025,
+          "complete_calendar_years": 30,
+          "restoration_payment_period_years": 15,
+          "normalization_anchors_years": [
+            0,
+            1,
+            6,
+            15
+          ]
+        },
+        "extent": {
+          "directly_assessed_countries": [
+            "United States"
+          ],
+          "directly_assessed_country_count": 1,
+          "normalization_anchors_countries": [
+            0,
+            1,
+            5,
+            25
+          ]
+        },
+        "source_snapshot": {
+          "path": "public/bsee-deepwater-petroleum-impact-snapshot.json",
+          "version": "bsee_deepwater_petroleum_impact_1996_2025_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z",
+          "incident_archive_sha256": "0db2f8863eaa72b5d579a4ee050b8a156faf7255abaf2fc95f24329e1a9871ae",
+          "depth_archive_sha256": "82a6fb6cd2400f22d1d10a4f547ac3ebbdb9e52a788b7efa1624386add4d4f7f",
+          "raw_investigation_rows": 2014,
+          "rows_with_lease_depth_match": 1962
+        }
+      },
+      "transformations": [
+        {
+          "type": "lease_depth_join",
+          "formula": "Join formal investigation records to the BSEE offshore-depth table on trimmed lease number; exclude 52 unmatched investigations."
+        },
+        {
+          "type": "deepwater_filter",
+          "formula": "Retain joined leases whose maximum block water depth is at least 305 metres, corresponding to BSEE's greater-than-1,000-foot deepwater convention at whole-metre resolution."
+        },
+        {
+          "type": "complete_year_boundary",
+          "formula": "Aggregate 1996-2025; exclude one partial-year deepwater record in 1995 and 11 incomplete 2026 records."
+        },
+        {
+          "type": "bounded_category_counts",
+          "formula": "Count investigation records tagged pollution/spill, fatality, injury/lost-time/restricted-work, or incident/collision above $25,000 without treating tags as exact casualties, dollars or release volume."
+        },
+        {
+          "type": "landmark_assessed_burden",
+          "formula": "Use official Deepwater Horizon release, casualty, civil-resolution and restoration-period observations for quantitative burden; do not multiply burden by evidence volume."
+        },
+        {
+          "type": "bounded_country_extent",
+          "formula": "Normalize the one directly assessed country; 267 depth-qualified leases do not become global coverage."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "bsee_incident_investigations_raw_data",
+        "bsee_offshore_statistics_water_depth_raw_data",
+        "bsee_offshore_spill_occurrence_rates_2016",
+        "deepwater_horizon_trustee_council_2020_statement",
+        "deepwater_horizon_trustee_council_2023_restoration",
+        "usdoj_deepwater_horizon_civil_settlement"
+      ],
+      "uncertainty": "The assessment is bounded to the U.S. Outer Continental Shelf and is not extrapolated globally. Lease maximum water depth is a screening field rather than the exact incident-site depth. Investigation records provide category tags, not release volume or exact event-level casualties; therefore physical and monetary magnitude rely on the separately assessed Deepwater Horizon event. The 1995 partial year and incomplete 2026 records are excluded. Formal investigations are selected cases and cannot be interpreted as the incidence rate for all deepwater operations.",
+      "freshness": "BSEE raw files updated 2026-08-01; scored formal-investigation record ends with complete calendar year 2025; snapshot reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "Depth-qualified BSEE investigations and official Deepwater Horizon assessments quantify pollution burden, casualties and economic liability, persistent restoration obligations, and one-country extent under the exact deepwater petroleum contract.",
+        "higher_priority_failures": [
+          "The source is restricted to the United States Outer Continental Shelf rather than a defensible current global aggregation.",
+          "Formal investigations are selected cases and the lease-depth join does not provide a global current magnitude, threshold and momentum series."
+        ]
+      },
+      "input_hash": "fnv1a32:1143061f"
+    }
+  ]
+}

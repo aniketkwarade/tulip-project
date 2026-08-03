@@ -1,0 +1,103 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_2_imbie_ice_sheet_loss",
+  "generated_at": "2026-07-31T22:57:21.983Z",
+  "source_snapshot": "public/imbie-snapshot.json",
+  "source_id": "ice_sheet_mass_balance_inter_comparison_exercise",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "ice_sheet_mass_loss",
+      "value": 8.9,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2020",
+      "components": {
+        "biophysical_burden": 0.839158,
+        "human_economic_burden": 0.802,
+        "persistence": 0.966667,
+        "extent": 1
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "combined_cumulative_ice_sheet_mass_loss_gt": 7563,
+          "uncertainty_gt": 699,
+          "anchors_gt": [
+            0,
+            1000,
+            5000,
+            10000
+          ],
+          "normalization_basis": "Named global-assessment burden scale spanning no accumulated loss to ten thousand gigatonnes; retained as a fixed versioned impact range, not a recognized physical tipping threshold.",
+          "source_locator": "Results, paragraph following Figure 4: combined cumulative mass loss and sea-level contribution"
+        },
+        "human_economic_burden": {
+          "source_reported_sea_level_equivalent_mm": 21,
+          "uncertainty_mm": 2,
+          "anchors_mm": [
+            0,
+            5,
+            15,
+            30
+          ],
+          "normalization_basis": "Named assessment impact range in global mean sea-level equivalent; the component does not estimate damages or local relative sea level.",
+          "source_locator": "Results, paragraph following Figure 4: combined cumulative mass loss and sea-level contribution"
+        },
+        "persistence": {
+          "assessment_period_start": 1992,
+          "assessment_period_end": 2020,
+          "assessment_period_years": 29,
+          "reference_duration_years": 30,
+          "normalized_value": 0.966667,
+          "source_locator": "Results, paragraph following Figure 4: combined cumulative mass loss and sea-level contribution"
+        },
+        "extent": {
+          "assessed_major_ice_sheets": [
+            "Greenland Ice Sheet",
+            "Antarctic Ice Sheet"
+          ],
+          "assessed_count": 2,
+          "required_count": 2,
+          "normalized_value": 1,
+          "definition": "Both Greenland and Antarctic ice sheets are included in the reconciled combined assessment."
+        },
+        "source_snapshot": {
+          "path": "public/imbie-snapshot.json",
+          "version": "2026-07-18T21:35:00.588Z",
+          "captured_at": "2026-07-18T21:35:00.588Z",
+          "article_doi": "https://doi.org/10.5194/essd-15-1597-2023",
+          "dataset_doi": "https://doi.org/10.5285/77B64C55-7166-4A06-9DEF-2E400398E452"
+        }
+      },
+      "transformations": [
+        {
+          "type": "loss_sign_normalization",
+          "formula": "Take the absolute magnitude of source-reported negative cumulative mass change; retain the original sign and uncertainty in the snapshot."
+        },
+        {
+          "type": "fixed_assessment_impact_ranges",
+          "formula": "Normalize cumulative gigatonne loss and source-reported global mean sea-level equivalent through fixed named ranges; these ranges are calibration scales, not tipping-point claims."
+        },
+        {
+          "type": "quantitative_persistence_and_extent",
+          "formula": "Persistence is assessment years / 30 capped at one; extent is assessed major ice sheets / two."
+        }
+      ],
+      "source_ids": [
+        "ice_sheet_mass_balance_inter_comparison_exercise"
+      ],
+      "uncertainty": "Source-reported uncertainties are retained. Annualized Antarctic and combined rates divide cumulative uncertainty by the same 29-year span and are labeled derived rather than source-reported annual rates.",
+      "freshness": "Reconciled IMBIE assessment spans 1992–2020; snapshot captured 2026-07-18T21:35:00.588Z.",
+      "selection_reason": {
+        "selected_method_passed": "The reconciled assessment quantifies cumulative mass loss, sea-level-equivalent burden, a 29-year persistence interval, uncertainty, and both major ice sheets.",
+        "higher_priority_failures": [
+          "The operational snapshot contains assessment-period totals and average rates rather than at least 20 complete annual observations or 60 monthly observations.",
+          "No current source series with magnitude plus threshold or momentum is bound to this node."
+        ]
+      },
+      "input_hash": "fnv1a32:6b51185d"
+    }
+  ]
+}

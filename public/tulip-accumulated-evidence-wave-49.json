@@ -1,0 +1,120 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_49_indonesian_peat_fire_impact",
+  "generated_at": "2026-08-01T15:38:07.692Z",
+  "source_snapshots": [
+    "public/indonesian-peat-fire-impact-snapshot.json"
+  ],
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "wetland_peat_fires",
+      "value": 8.1,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2019",
+      "components": {
+        "biophysical_burden": 0.9142,
+        "human_economic_burden": 0.821716,
+        "persistence": 0.835,
+        "extent": 0.405556
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "city_mean_pm25_ug_m3": 137,
+          "contemporaneous_who_24h_guideline_ug_m3": 25,
+          "guideline_exceedance_ratio": 5.48,
+          "normalization_anchors_ratio": [
+            1,
+            2,
+            4,
+            6
+          ],
+          "observation_window": [
+            "2019-08-20",
+            "2019-10-24"
+          ],
+          "sensor_count": 10
+        },
+        "human_economic_burden": {
+          "assessed_geography": "Sumatra and Kalimantan",
+          "assessed_population": 74700000,
+          "attributable_deaths": 51377,
+          "normalization_anchors_deaths": [
+            0,
+            1000,
+            10000,
+            100000
+          ],
+          "scoring_boundary": "Use the directly reported Sumatra-and-Kalimantan estimate; retain the broader nationwide estimate only as context."
+        },
+        "persistence": {
+          "observation_record_start_year": 2003,
+          "observation_record_end_year": 2019,
+          "years_with_recurrent_fire_pm25_exposure_share_pct": 70,
+          "normalization_anchors_pct": [
+            0,
+            10,
+            50,
+            90
+          ]
+        },
+        "extent": {
+          "directly_assessed_country": "Indonesia",
+          "documented_downwind_countries": [
+            "Malaysia",
+            "Singapore"
+          ],
+          "documented_affected_country_count": 3,
+          "normalization_anchors_countries": [
+            0,
+            1,
+            10,
+            50
+          ]
+        },
+        "source_snapshot": {
+          "path": "public/indonesian-peat-fire-impact-snapshot.json",
+          "version": "indonesian_peat_fire_impact_2019_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z"
+        }
+      },
+      "transformations": [
+        {
+          "type": "observed_air_quality_burden_normalization",
+          "formula": "Divide the observed fire-season city mean PM2.5 by the contemporaneous WHO 24-hour guideline, then normalize the exceedance ratio."
+        },
+        {
+          "type": "bounded_health_burden_normalization",
+          "formula": "Normalize the study-reported attributable-death estimate for Sumatra and Kalimantan; do not substitute the broader nationwide estimate or extrapolate beyond the assessed population."
+        },
+        {
+          "type": "observed_recurrence_normalization",
+          "formula": "Normalize the reported share of years with recurrent peat-fire PM2.5 exposure in the 2003–2019 CAMS record."
+        },
+        {
+          "type": "documented_geographic_extent_normalization",
+          "formula": "Normalize only the three countries directly assessed or documented as downwind receptors; peatland presence elsewhere is not counted as fire impact."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1–10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "wooster_indonesian_peat_fire_air_quality_health_2024"
+      ],
+      "uncertainty": "The ground sensor network directly measures one severe urban peat-fire episode. Broader mortality is estimated from CAMS reanalysis, population, mortality and concentration-response functions rather than counted deaths. The authors describe landscape-fire PM2.5, while also documenting that the vast majority of the relevant burning is tropical peatland burning. Results are bounded to Indonesia, with documented downwind effects in Malaysia and Singapore, and are not extrapolated globally.",
+      "freshness": "Observed 2019 event with recurrence context through 2019; peer-reviewed in 2024 and reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "A peer-reviewed study combines direct in-situ PM2.5 observations from a severe peat-fire episode with bounded attributable-mortality estimates, a 17-year recurrence record and documented transboundary reach.",
+        "higher_priority_failures": [
+          "The evidence is a severe regional event and retrospective impact assessment, not a current global observation or defensible global time series, so current_data does not pass."
+        ]
+      },
+      "input_hash": "fnv1a32:77ddb5ef"
+    }
+  ]
+}

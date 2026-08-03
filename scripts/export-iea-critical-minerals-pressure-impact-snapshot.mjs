@@ -1,0 +1,46 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+
+const OUTPUT_PATH = path.resolve('public/iea-critical-minerals-pressure-impact-snapshot.json');
+const snapshot = {
+  version: 'iea_global_critical_minerals_outlook_2025_pressure_snapshot_v1',
+  captured_at: new Date().toISOString(),
+  source: {
+    id: 'iea_global_critical_minerals_outlook_2025',
+    name: 'IEA Global Critical Minerals Outlook 2025',
+    publisher: 'International Energy Agency',
+    report_year: 2025,
+    executive_summary_url: 'https://www.iea.org/reports/global-critical-minerals-outlook-2025/executive-summary',
+    outlook_url: 'https://www.iea.org/reports/global-critical-minerals-outlook-2025/overview-of-outlook-for-key-minerals'
+  },
+  ingestion_job_id: 'export_iea_critical_minerals_pressure_impact_snapshot',
+  metric_contract_ids: ['critical_mineral_demand_growth_and_supply_concentration'],
+  contract_bindings: [
+    { node_id: 'mining_critical_minerals', metric_id: 'critical_mineral_demand_growth_and_supply_concentration', measurement_role: 'global_critical_mineral_pressure_primary' },
+    { node_id: 'critical_mineral_extraction_pressure', metric_id: 'critical_mineral_demand_growth_and_supply_concentration', measurement_role: 'global_critical_mineral_pressure_primary' }
+  ],
+  cadence: 'Annual after IEA Global Critical Minerals Outlook publication.',
+  provenance: 'Reviewed IEA current 2024 demand-growth and supply-concentration findings. Forecast demand, deficits and capital needs are retained as projections and excluded from current burden components.',
+  uncertainty: 'Mineral definitions, refined versus mined boundaries, stock changes, artisanal supply, company reporting, price response and project timing affect estimates. Concentration is vulnerability, not a realized disruption.',
+  failure_behavior: 'Retain the last reviewed report and mark stale; never count forecast deficits or investment as current, add mineral growth rates, infer site-level land or water harm, or convert missing mineral series to zero.',
+  assessment: {
+    observation_year: 2024,
+    lithium_demand_growth_pct: 30,
+    nickel_cobalt_graphite_rare_earth_demand_growth_pct_low: 6,
+    nickel_cobalt_graphite_rare_earth_demand_growth_pct_high: 8,
+    battery_minerals_energy_share_demand_growth_pct: 85,
+    lithium_top_three_mining_share_pct_lower_bound: 75,
+    battery_metal_supply_growth_multiplier_vs_late_2010s: 2,
+    trend_start_year: 2020,
+    key_mineral_count: 6,
+    geography_boundary: 'Global mined and refined supply chains for copper, lithium, nickel, cobalt, graphite and magnet rare earths',
+    source_locators: [
+      'IEA 2025 executive summary: lithium demand rose nearly 30% in 2024; nickel, cobalt, graphite and rare-earth demand rose 6-8%.',
+      'IEA 2025 executive summary: energy applications supplied 85% of battery-mineral demand growth over the preceding two years.',
+      'IEA 2025 outlook: the top three lithium producers supplied over 75% in 2024.'
+    ]
+  }
+};
+
+await fs.writeFile(OUTPUT_PATH, `${JSON.stringify(snapshot, null, 2)}\n`);
+console.log(JSON.stringify({ output: OUTPUT_PATH, metric_contract_ids: snapshot.metric_contract_ids }, null, 2));

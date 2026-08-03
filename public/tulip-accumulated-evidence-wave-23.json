@@ -1,0 +1,115 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_23_undrr_ldc_disaster_inequality",
+  "generated_at": "2026-07-31T18:57:18.340Z",
+  "source_snapshot": "public/undrr-ldc-disaster-inequality-snapshot.json",
+  "source_id": "undrr_disaster_risk_reduction_in_least_developed_countries",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "disaster_recovery_inequality",
+      "value": 8.7,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "biophysical_burden": 0.8042,
+        "human_economic_burden": 0.7855,
+        "persistence": 1,
+        "extent": 0.954545
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "ldc_direct_economic_loss_pct_gdp": 3.22,
+          "global_direct_economic_loss_pct_gdp": 0.28,
+          "ldc_multiple_global_context": 11.5,
+          "anchors_pct_gdp": [
+            0,
+            0.5,
+            2,
+            5
+          ],
+          "boundary": "Direct disaster loss relative to group GDP; not household wealth or recovery aid."
+        },
+        "human_economic_burden": {
+          "ldc_disaster_mortality_per_100k": 1.76,
+          "global_disaster_mortality_per_100k_derived": 0.748936,
+          "ldc_mortality_multiple_global": 2.35,
+          "anchors_multiple": [
+            1,
+            1.5,
+            2,
+            3
+          ]
+        },
+        "persistence": {
+          "period_start_year": 2015,
+          "period_end_year": 2024,
+          "complete_period_years": 10,
+          "anchors_years": [
+            0,
+            3,
+            7,
+            10
+          ]
+        },
+        "extent": {
+          "ldc_reporting_total": 42,
+          "ldc_total": 44,
+          "source_reported_share_pct": 95,
+          "normalized_value": 0.954545,
+          "boundary": "Coverage of the LDC comparison group, not all countries or households."
+        },
+        "source_snapshot": {
+          "path": "public/undrr-ldc-disaster-inequality-snapshot.json",
+          "version": "undrr_ldc_disaster_inequality_2015_2024_v1",
+          "captured_at": "2026-07-31T18:57:18.060Z",
+          "source_locators": [
+            "UNDRR LDC status: 42 of 44 LDCs report through Sendai Framework Monitor or DesInventar.",
+            "UNDRR LDC status: 2015-2024 disaster mortality was 1.76 per 100,000, 2.35 times the global average.",
+            "UNDRR LDC status: direct economic loss was 3.22% of GDP versus 0.28% globally, more than eleven times higher."
+          ],
+          "excluded_from_scoring": [
+            "household recovery-time inference",
+            "protected-class attribution",
+            "non-reporting zeros",
+            "mortality-plus-economic composite count",
+            "older 1970-2019 EM-DAT contextual shares"
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "relative_asset_burden",
+          "formula": "Normalize the source-reported LDC direct-economic-loss share of GDP while retaining the global comparator separately."
+        },
+        {
+          "type": "mortality_disparity",
+          "formula": "Normalize the source-reported LDC-to-global mortality multiple; do not convert rates into deaths without population denominators."
+        },
+        {
+          "type": "fixed_monitoring_period",
+          "formula": "Normalize the complete 2015-2024 assessment window once; do not annualize or accumulate group rates."
+        },
+        {
+          "type": "reporting_group_extent",
+          "formula": "Divide reporting LDCs by all LDCs and leave the two non-reporting countries missing."
+        }
+      ],
+      "source_ids": [
+        "undrr_disaster_risk_reduction_in_least_developed_countries"
+      ],
+      "uncertainty": "Sendai reporting definitions, event attribution, valuation, national capacity and completeness vary. The summary compares LDC and global groups; it does not measure household aid eligibility, awards, recovery time, wealth, protected classes or causal discrimination.",
+      "freshness": "UNDRR Sendai monitoring data through 2024, status as of 2025-10; snapshot captured 2026-07-31T18:57:18.060Z.",
+      "selection_reason": {
+        "selected_method_passed": "UNDRR quantifies persistent cross-income disparity in direct loss relative to GDP and disaster mortality across a ten-year window with 95% LDC reporting coverage.",
+        "higher_priority_failures": [
+          "No current global household recovery-time or post-disaster aid-outcome series supplies magnitude plus threshold or momentum; the operational OpenFEMA comparison is United States-only."
+        ]
+      },
+      "input_hash": "fnv1a32:b117b458"
+    }
+  ]
+}

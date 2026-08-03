@@ -1,0 +1,44 @@
+{
+  "updated_at": "2026-07-18",
+  "version": "2026-07-18T12:56:28.528Z",
+  "snapshot_family": "water_footprint_support",
+  "source": {
+    "id": "water_footprint_network",
+    "name": "Water Footprint Network",
+    "publisher": "Water Footprint Network",
+    "url": "https://www.waterfootprint.org/",
+    "access": "open_web"
+  },
+  "refresh_policy": {
+    "default_days": 120,
+    "notes": "Treat Water Footprint Network as a lighter water-demand and footprint context layer. The intake-listed WaterStat path currently requires caution because the legacy URL is not stable."
+  },
+  "use_guidance": {
+    "primary_role": "Use for food and water-demand framing on resource, cooling-water, and food-system nodes.",
+    "caution": "This is a lighter support family than Aqueduct or GRACE and should be used as footprint context rather than as a high-frequency water-risk feed."
+  },
+  "overview": {
+    "title": "Water Footprint Network - Water Footprint Network",
+    "legacy_waterstat_status": 404,
+    "legacy_waterstat_note": "legacy WaterStat path returned an error during verification"
+  },
+  "tools": [
+    {
+      "id": "water_footprint_home",
+      "label": "Water Footprint Network",
+      "url": "https://www.waterfootprint.org/",
+      "type": "project_page",
+      "access": "open"
+    }
+  ],
+  "service_caveats": [
+    "The intake-listed WaterStat URL currently returned an error during verification, so this family should be carried as cautious support rather than as a clean dataset feed.",
+    "Best fit is contextual water-demand and footprint framing, not operational basin telemetry.",
+    "Use alongside Aqueduct and GRACE, not instead of them."
+  ],
+  "supported_questions": [
+    "Which nodes need water-demand and footprint context beyond basin stress and storage anomalies?",
+    "Where should food and cooling-water pressure be grounded in footprint language without overstating feed quality?",
+    "Which water-intensive nodes benefit from an explicit demand-side support layer?"
+  ]
+}

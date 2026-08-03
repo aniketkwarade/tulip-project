@@ -1,0 +1,130 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_91_london_nighttime_heat_retention",
+  "generated_at": "2026-08-01T17:53:53.861Z",
+  "source_snapshots": [
+    "public/london-nighttime-heat-retention-impact-snapshot.json"
+  ],
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "nighttime_heat_retention",
+      "value": 8,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2022",
+      "components": {
+        "biophysical_burden": 0.703,
+        "human_economic_burden": 0.83071,
+        "persistence": 0.67,
+        "extent": 0.956
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "mean_urban_nonurban_temperature_difference_celsius": 2.3,
+          "maximum_urban_nonurban_temperature_difference_celsius_unscored": 7.2,
+          "normalization_anchors_celsius": [
+            0,
+            0.5,
+            2,
+            5
+          ]
+        },
+        "human_economic_burden": {
+          "uhi_attributable_deaths_estimate_2018": 399,
+          "uhi_attributable_social_cost_gbp_millions_2018": 987,
+          "normalization_anchors_gbp_millions": [
+            0,
+            100,
+            500,
+            1500
+          ]
+        },
+        "persistence": {
+          "independently_assessed_period_count": 2,
+          "assessed_periods": [
+            "summer 2018",
+            "10–25 July 2022"
+          ],
+          "normalization_anchors_periods": [
+            0,
+            1,
+            2,
+            4
+          ]
+        },
+        "extent": {
+          "london_census_population_millions_2021": 8.8,
+          "normalization_anchors_population_millions": [
+            0,
+            0.1,
+            1,
+            10
+          ]
+        },
+        "unscored_context": {
+          "analysis_days_2022": 16,
+          "total_deaths_2022": 1773,
+          "heat_attributable_deaths_2022": 370,
+          "uhi_attributable_deaths_2022": 141,
+          "uhi_share_of_heat_deaths_percent_2022": 38,
+          "total_heat_social_cost_gbp_millions_2018": 1940
+        },
+        "source_snapshot": {
+          "path": "public/london-nighttime-heat-retention-impact-snapshot.json",
+          "version": "london_urban_heat_island_mortality_2018_2022_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z",
+          "source_locators": [
+            "The urban climate model was run at one-kilometre resolution and evaluated against official and personal weather-station observations.",
+            "The population-weighted urban-minus-non-urban temperature difference during the study period averaged 2.3 degrees Celsius and reached 7.2 degrees Celsius; differences were greatest from 20:00 to 08:00.",
+            "For 10–25 July 2022, the study estimated 370 heat-attributable deaths and 141 deaths attributable to the urban heat-island increment, with explicit confidence intervals.",
+            "The summer-2018 analysis estimated 785 heat-attributable deaths in Greater London, including 399 attributable to the urban heat-island effect.",
+            "The estimated social cost of heat was £1.94 billion using value of statistical life, including £987 million attributable to the urban heat-island effect.",
+            "The UHI-attributable mortality estimate was 3.6 percent of all summer deaths; valuation and mortality confidence intervals are retained in the study.",
+            "The 2021 Census reported a London population of 8.8 million.",
+            "The mortality analyses use population counts within the Greater London regional boundary and population-weighted exposure."
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "bounded_urban_temperature_increment",
+          "formula": "Normalize the population-weighted 2.3-degree-Celsius mean modeled urban-minus-non-urban increment; retain the 7.2-degree maximum as unscored context."
+        },
+        {
+          "type": "uhi_specific_social_burden",
+          "formula": "Normalize only the £987-million summer-2018 social cost attributed to the UHI; retain total heat cost and death estimates separately."
+        },
+        {
+          "type": "independent_period_persistence",
+          "formula": "Count the separately assessed summer-2018 and July-2022 periods without adding their mortality estimates."
+        },
+        {
+          "type": "bounded_population_extent",
+          "formula": "Normalize the 8.8-million 2021 Census population inside the Greater London analysis boundary; do not extrapolate to other cities."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "simpson_london_urban_heat_island_mortality_2022",
+        "simpson_london_summer_uhi_economic_burden_2018",
+        "gla_london_census_population_2021"
+      ],
+      "uncertainty": "Both impact studies use an urban climate model and counterfactual non-urban land cover, not a single paired urban-rural thermometer series. The 2022 mortality response uses lagged daily mean temperature, so daytime and nighttime contributions are not separately identified even though the modeled urban increment was largest at night. Attributable deaths and value-of-statistical-life estimates have substantial model and confidence intervals. The 2018 and 2022 values are separate assessments and are not added together.",
+      "freshness": "Historical summer-2018 and July-2022 London impact studies reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "Validated urban-climate counterfactual studies quantify the temperature increment, nighttime concentration of that increment, attributable mortality and monetized burden across the Greater London population.",
+        "higher_priority_failures": [
+          "The evidence is one metropolitan region rather than a defensible global aggregation.",
+          "The declared current-data contract requires comparable paired canopy-layer urban and reference observations; this evidence instead uses a validated model counterfactual and therefore remains accumulated-impact evidence."
+        ]
+      },
+      "input_hash": "fnv1a32:6286c7ed"
+    }
+  ]
+}

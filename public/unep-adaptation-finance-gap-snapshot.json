@@ -1,0 +1,52 @@
+{
+  "version": "unep_adaptation_gap_report_2025_finance_v1",
+  "captured_at": "2026-07-31T18:21:35.195Z",
+  "source": {
+    "id": "unep_adaptation_gap_report_2025",
+    "name": "UNEP Adaptation Gap Report 2025: Running on Empty",
+    "url": "https://www.unep.org/resources/adaptation-gap-report-2025",
+    "access": "open_authoritative_assessment"
+  },
+  "ingestion_job_id": "build_unep_adaptation_finance_gap_assessment",
+  "metric_contract_ids": [
+    "adaptation_finance_gap"
+  ],
+  "cadence": "Annual report-release check.",
+  "provenance": "UNEP source-reported developing-country adaptation needs and international public adaptation-finance flows, with need horizon, flow year, price year and method boundary retained.",
+  "uncertainty": "Methodological range between modelled adaptation costs and extrapolated NDC/NAP needs; not a statistical confidence interval.",
+  "failure_behavior": "Retain the last validated report vintage; never combine mismatched years or boundaries, label the range as a confidence interval, or infer project-level capital availability.",
+  "measurement_boundary": "Aggregate developing-country adaptation-finance assessment. It is not a country allocation, investment pipeline, total global adaptation spend, delivered adaptation outcome, or estimate of private and domestic resources.",
+  "record_count": 1,
+  "records": [
+    {
+      "record_id": "unep_agr_2025_adaptation_finance_gap_developing_countries",
+      "metric_id": "adaptation_finance_gap",
+      "measurement_role": "developing_country_annual_assessment_range_primary",
+      "geography": "developing countries, aggregate assessment boundary",
+      "need_horizon_year": 2035,
+      "flow_observation_year": 2023,
+      "price_year": 2023,
+      "modelled_need_billion_usd_per_year": 310,
+      "ndc_nap_extrapolated_need_billion_usd_per_year": 365,
+      "international_public_flow_billion_usd_per_year": 26,
+      "previous_flow_observation_year": 2022,
+      "previous_international_public_flow_billion_usd_per_year": 28,
+      "observed_flow_change_pct": -7.142857,
+      "finance_gap_lower_billion_usd_per_year": 284,
+      "finance_gap_upper_billion_usd_per_year": 339,
+      "flow_boundary": "international public adaptation finance from developed to developing countries",
+      "range_interpretation": "Methodological range between modelled adaptation costs and extrapolated NDC/NAP needs; not a statistical confidence interval.",
+      "inflation_boundary": "2023 US dollar values, not adjusted forward for inflation",
+      "source_locator": {
+        "report_page_url": "https://www.unep.org/resources/adaptation-gap-report-2025",
+        "press_release_url": "https://www.unep.org/news-and-stories/press-release/slow-climate-adaptation-threatening-lives-and-economies",
+        "locator": "What is new in this report and press-release section A worrying gap",
+        "source_reported_gap_range": "US$284-339 billion per year",
+        "source_reported_flow_comparison": "US$26 billion in 2023, down from US$28 billion in 2022",
+        "source_reported_need_multiple": "adaptation finance needs are 12-14 times current international public flows",
+        "target_status": "UNEP states the Glasgow Climate Pact doubling goal will not be achieved if current trends continue",
+        "derivation_check": "310 - 26 = 284; 365 - 26 = 339, all in billion 2023 USD per year"
+      }
+    }
+  ]
+}

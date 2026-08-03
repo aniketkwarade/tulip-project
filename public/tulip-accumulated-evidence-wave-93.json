@@ -1,0 +1,131 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_93_kissimmee_channelization",
+  "generated_at": "2026-08-01T17:57:50.503Z",
+  "source_snapshots": [
+    "public/kissimmee-channelization-impact-snapshot.json"
+  ],
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "levee_and_channelization_works",
+      "value": 9.8,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "FY2024",
+      "components": {
+        "biophysical_burden": 1,
+        "human_economic_burden": 0.942199,
+        "persistence": 1,
+        "extent": 0.956
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "lower_river_wetland_loss_square_kilometres_approximate": 120,
+          "lower_river_wetland_loss_share_approximate": 0.666667,
+          "normalization_anchors_square_kilometres": [
+            0,
+            5,
+            30,
+            120
+          ]
+        },
+        "human_economic_burden": {
+          "federal_allocation_through_fy2024_usd": 429938100,
+          "estimated_total_project_cost_usd_unscored": 869714000,
+          "normalization_anchors_usd": [
+            0,
+            25000000,
+            100000000,
+            500000000
+          ]
+        },
+        "persistence": {
+          "channelization_completion_year": 1971,
+          "canal_backfill_completion_year": 2022,
+          "persistence_years_to_backfill_milestone_derived": 51,
+          "normalization_anchors_years": [
+            0,
+            1,
+            10,
+            50
+          ]
+        },
+        "extent": {
+          "engineered_channel_length_kilometres": 90,
+          "engineered_channel_width_metres": 91,
+          "engineered_channel_depth_metres": 9.1,
+          "normalization_anchors_kilometres": [
+            0,
+            5,
+            25,
+            100
+          ]
+        },
+        "unscored_context": {
+          "restored_or_reconnected_wetland_hectares_more_than": 10000,
+          "naturalized_channel_kilometres": 70,
+          "completed_canal_backfill_miles_2022": 22,
+          "restored_continuous_river_miles_2022": 44,
+          "restored_monitoring_site_count": 87,
+          "unrestored_reference_site_count": 14
+        },
+        "source_snapshot": {
+          "path": "public/kissimmee-channelization-impact-snapshot.json",
+          "version": "kissimmee_channelization_restoration_1971_2024_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z",
+          "source_locators": [
+            "From 1962 to 1971, the lower Kissimmee River was transformed into a 90-kilometre-long, 91-metre-wide and 9.1-metre-deep C-38 canal.",
+            "About two-thirds of the lower-river wetland, approximately 120 square kilometres, disappeared after channelization.",
+            "The study treats channelization and restoration as a bounded fifty-year sociohydrologic transition rather than a generic levee-presence proxy.",
+            "USGS reports that channelization in the 1960s and 1970s drained the historically near-annually inundated riparian wetland.",
+            "The restoration reconnects more than 10,000 hectares of wetlands to 70 kilometres of naturalized channel.",
+            "Sediment monitoring used 87 sites in the restored reach and 14 sites in an unrestored reference reach from 2007 to 2010.",
+            "USACE reports that all 22 miles of C-38 canal backfill were completed by July 2022, restoring continuous flow to 44 miles of the historic river.",
+            "The project includes more than 100,000 acres of land acquisition, structure removal, flood proofing and restoration works.",
+            "Federal allocations through fiscal year 2024 were $429,938,100; the estimated $869,714,000 total project cost remains unscored."
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "mapped_floodplain_disconnection",
+          "formula": "Normalize the approximately 120-square-kilometre historical wetland loss within the mapped lower-Kissimmee channelization boundary."
+        },
+        {
+          "type": "realized_restoration_response_burden",
+          "formula": "Normalize $429,938,100 of federal allocations through FY2024; retain the $869,714,000 estimated total project cost as unscored context."
+        },
+        {
+          "type": "bounded_infrastructure_persistence",
+          "formula": "Calculate 2022 - 1971 = 51 years from channelization completion to the full 22-mile canal-backfill milestone."
+        },
+        {
+          "type": "mapped_engineered_extent",
+          "formula": "Normalize the source-reported 90-kilometre C-38 engineered channel length; retain width and depth without converting them to a volume."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "chen_kissimmee_channelization_wetland_loss_2016",
+        "usgs_kissimmee_restored_reach_wetlands_2011",
+        "usace_kissimmee_river_fact_sheet_2025"
+      ],
+      "uncertainty": "Wetland-loss area and share are historical reconstructions and approximate; pre-channel hydrology, land use and reference definitions affect estimates. Public allocation is a restoration-response burden and not a complete valuation of ecological or private losses. Restoration milestones do not mean every reach or ecological function recovered simultaneously. The receipt is confined to the Kissimmee system and does not generalize unit impacts to other engineered rivers.",
+      "freshness": "Historical 1971–2022 Kissimmee channelization record and FY2024 allocation reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "A named engineered reach has quantified channel geometry, mapped floodplain-wetland loss, multi-decadal persistence and a realized public restoration allocation.",
+        "higher_priority_failures": [
+          "This is a bounded river restoration case rather than a current global aggregation.",
+          "No universal channelization threshold or 20-year comparable global observation series is available for a current-data score."
+        ]
+      },
+      "input_hash": "fnv1a32:55ccc501"
+    }
+  ]
+}

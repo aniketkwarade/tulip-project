@@ -1,0 +1,118 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_49_ucdp_global_battle_related_deaths",
+  "generated_at": "2026-08-01T15:38:11.740Z",
+  "source_snapshot": "public/ucdp-global-conflict-snapshot.json",
+  "source_id": "ucdp_battle_related_deaths_25_1",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "conflict_risk_escalation",
+      "value": 5.8,
+      "band": "Rising",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "magnitude": 0.726371,
+        "threshold": 0.726371,
+        "momentum": 0,
+        "extent": 0.67
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "latest_year": 2024,
+          "latest_battle_deaths_best": 128439,
+          "latest_battle_deaths_low": 119160,
+          "latest_battle_deaths_high": 189525,
+          "historical_distribution_anchors_best_estimate": [
+            52610,
+            79484,
+            111357.2,
+            211354.6
+          ],
+          "direction": "higher_is_worse"
+        },
+        "threshold": {
+          "basis": "historical_distribution_fallback_no_recognized_global_battle_death_threshold",
+          "anchors_best_estimate": [
+            52610,
+            79484,
+            111357.2,
+            211354.6
+          ],
+          "complete_prior_annual_observations": 35
+        },
+        "momentum": {
+          "prior_year": 2023,
+          "prior_battle_deaths_best": 131061,
+          "latest_annual_change_best_estimate": -2622,
+          "historical_change_anchors": [
+            -2075.5,
+            10973,
+            36114.2,
+            85758.975
+          ]
+        },
+        "extent": {
+          "latest_unique_battle_locations": 41,
+          "latest_conflict_rows": 61,
+          "historical_location_count_anchors": [
+            34,
+            37,
+            41,
+            42.15
+          ],
+          "geography": "Global UCDP conflict-level aggregation"
+        },
+        "coverage_gate": {
+          "direct_components": [
+            "magnitude",
+            "threshold",
+            "momentum",
+            "extent"
+          ],
+          "global_scope": true,
+          "current_observation": true
+        },
+        "source_snapshot": {
+          "path": "public/ucdp-global-conflict-snapshot.json",
+          "version": "ucdp_battle_related_deaths_25_1_global_1989_2024_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z",
+          "archive_sha256": "1fd7dfbb182c13b88249a8cd3d2d3dce62e38631381d374dfa04958ba3a96bc4",
+          "csv_sha256": "a8e734c13bf62230b4b27f31804374823fe14573fb599a1e2c607a3bc661bf05",
+          "annual_observations": 36
+        }
+      },
+      "transformations": [
+        {
+          "type": "source_native_global_aggregation",
+          "formula": "For each year, sum UCDP conflict-level best estimates once; retain low and high totals as uncertainty metadata; never add estimate bands together."
+        },
+        {
+          "type": "historical_distribution_magnitude_and_threshold",
+          "formula": "Map the latest best-estimate total through prior annual median, p75, p90 and p97.5 anchors because no recognized global battle-death threshold exists."
+        },
+        {
+          "type": "annual_change_momentum",
+          "formula": "Subtract the prior complete year best estimate and normalize the latest annual change against preceding complete annual changes."
+        },
+        {
+          "type": "global_conflict_extent",
+          "formula": "Deduplicate source-native battle locations within each year and normalize the latest location count against the prior annual distribution."
+        }
+      ],
+      "source_ids": [
+        "ucdp_battle_related_deaths_25_1"
+      ],
+      "uncertainty": "UCDP provides best, low and high estimates because public reporting from conflict areas is incomplete and revised retroactively. This series measures state-based battle-related deaths, not all conflict deaths, non-state conflict, one-sided violence, displacement, criminal violence or a forecast of future conflict.",
+      "freshness": "UCDP version 25.1 covers 1989–2024; reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "UCDP supplies 36 complete global annual observations of state-based battle deaths and conflict extent, including latest magnitude, historical position and annual momentum.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:6cbc5922"
+    }
+  ]
+}

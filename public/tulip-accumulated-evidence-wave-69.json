@@ -1,0 +1,173 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_69_fws_four_mussel_recovery",
+  "generated_at": "2026-08-01T16:36:18.760Z",
+  "source_snapshots": [
+    "public/fws-four-mussel-recovery-impact-snapshot.json"
+  ],
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "freshwater_mussel_depletion",
+      "value": 8.1,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024",
+      "components": {
+        "biophysical_burden": 0.863696,
+        "human_economic_burden": 0.783949,
+        "persistence": 1,
+        "extent": 0.367778
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "species": [
+            {
+              "common_name": "Rayed bean",
+              "scientific_name": "Villosa fabalis",
+              "historical_streams_lakes_canals": 115,
+              "current_streams_lakes": 38,
+              "occurrence_decline_pct": 66.956522,
+              "estimated_recovery_cost_usd": 27535000
+            },
+            {
+              "common_name": "Sheepnose",
+              "scientific_name": "Plethobasus cyphyus",
+              "historical_streams": 79,
+              "current_streams": 22,
+              "occurrence_decline_pct": 72.151899,
+              "estimated_recovery_cost_usd": 31245000
+            },
+            {
+              "common_name": "Snuffbox",
+              "scientific_name": "Epioblasma triquetra",
+              "historical_streams_lakes": 211,
+              "current_streams": 85,
+              "occurrence_decline_pct": 59.71564,
+              "estimated_recovery_cost_usd": 27535000
+            },
+            {
+              "common_name": "Spectaclecase",
+              "scientific_name": "Cumberlandia monodonta",
+              "historical_watersheds": 61,
+              "current_watersheds": 40,
+              "source_reported_known_population_decline_pct": 60,
+              "occurrence_decline_pct": 60,
+              "estimated_recovery_cost_usd": 32745000
+            }
+          ],
+          "median_occurrence_or_population_decline_pct": 63.478261,
+          "normalization_anchors_pct": [
+            0,
+            10,
+            40,
+            80
+          ]
+        },
+        "human_economic_burden": {
+          "species_recovery_costs": [
+            {
+              "common_name": "Rayed bean",
+              "estimated_recovery_cost_usd": 27535000
+            },
+            {
+              "common_name": "Sheepnose",
+              "estimated_recovery_cost_usd": 31245000
+            },
+            {
+              "common_name": "Snuffbox",
+              "estimated_recovery_cost_usd": 27535000
+            },
+            {
+              "common_name": "Spectaclecase",
+              "estimated_recovery_cost_usd": 32745000
+            }
+          ],
+          "combined_estimated_recovery_cost_usd": 119060000,
+          "normalization_anchors_usd": [
+            0,
+            10000000,
+            50000000,
+            250000000
+          ],
+          "boundary": "Recovery-action planning cost for four species; not a valuation of total ecological-service or fishery loss."
+        },
+        "persistence": {
+          "estimated_time_to_recovery_years": 50,
+          "normalization_anchors_years": [
+            0,
+            5,
+            20,
+            50
+          ]
+        },
+        "extent": {
+          "represented_countries": [
+            "United States",
+            "Canada"
+          ],
+          "represented_country_count": 2,
+          "historical_us_state_count_maximum": 18,
+          "normalization_anchors_countries": [
+            0,
+            1,
+            10,
+            100
+          ]
+        },
+        "source_snapshot": {
+          "path": "public/fws-four-mussel-recovery-impact-snapshot.json",
+          "version": "fws_four_freshwater_mussel_recovery_plan_2024_v1",
+          "captured_at": "2026-08-01T00:00:00.000Z",
+          "report_sha256": "1f2bd63d21ee2398aed7303096c416cfea366991a145eb9c49c5e038be7d49ff",
+          "source_locators": [
+            "Background section pages 2-4: historical and current streams, lakes or watersheds for four species.",
+            "Table 2 page 14: species-specific recovery-action costs.",
+            "Estimated Time to Recovery page 14: 50-year anticipated delisting horizon."
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "species_specific_occurrence_decline",
+          "formula": "For rayed bean, sheepnose and snuffbox, calculate percent decline from source-reported historical and current occupied units; for spectaclecase, retain the source-reported 60 percent known-population decline."
+        },
+        {
+          "type": "median_four_species_burden",
+          "formula": "Sort the four decline percentages and average the middle two; do not pool unlike streams, lakes and watersheds into one count."
+        },
+        {
+          "type": "species_recovery_cost_sum",
+          "formula": "Add the four Table 2 total estimated recovery-action costs; retain the source warning that some costs are undetermined and shared actions may reduce totals."
+        },
+        {
+          "type": "recovery_horizon_persistence",
+          "formula": "Use the source-reported 50-year anticipated delisting horizon as persistence, not as an observed annual population series."
+        },
+        {
+          "type": "bounded_extent",
+          "formula": "Normalize the two directly represented countries; do not generalize four taxa to global freshwater mussels."
+        },
+        {
+          "type": "impact_composite",
+          "formula": "0.35B + 0.30H + 0.20P + 0.15E; convert to 1-10 with 1 + 9 × composite and round to one decimal."
+        }
+      ],
+      "source_ids": [
+        "fws_four_imperiled_freshwater_mussel_recovery_plan_2024"
+      ],
+      "uncertainty": "Occurrence units differ among species and do not measure density or recruitment directly. Current known occurrence can change with survey effort and detection. Recovery costs omit some undetermined land-acquisition and future-action costs, may overlap when actions benefit multiple species, and are planning estimates rather than realized damages. The assessment covers four imperiled North American taxa, not all freshwater mussels globally.",
+      "freshness": "Recovery plan published 2024-09-11; snapshot reviewed 2026-08-01T00:00:00.000Z.",
+      "selection_reason": {
+        "selected_method_passed": "The Fish & Wildlife Service recovery plan quantifies historical-to-current occurrence or population declines, species-specific recovery costs, a 50-year recovery horizon and bounded North American extent for four named endangered mussels.",
+        "higher_priority_failures": [
+          "Occurrence units differ among species and the plan is not a current global density or recruitment aggregation.",
+          "No method-comparable 20-year annual or 60-month global population series supports current magnitude, threshold and momentum."
+        ]
+      },
+      "input_hash": "fnv1a32:2e555e69"
+    }
+  ]
+}

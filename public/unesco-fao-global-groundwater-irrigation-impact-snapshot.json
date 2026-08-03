@@ -1,0 +1,106 @@
+{
+  "version": "unesco_fao_global_groundwater_irrigation_impact_v1",
+  "captured_at": "2026-07-31T21:39:34.563Z",
+  "source": {
+    "id": "unesco_fao_global_groundwater_irrigation_impact",
+    "name": "UNESCO and FAO Global Groundwater and Irrigation Assessments",
+    "publishers": [
+      "UNESCO World Water Assessment Programme on behalf of UN-Water",
+      "Food and Agriculture Organization of the United Nations"
+    ],
+    "assessment_year": 2024,
+    "groundwater_report_url": "https://www.unesco.org/reports/wwdr/2022/en",
+    "groundwater_report_pdf_url": "https://unesdoc.unesco.org/ark:/48223/pf0000380721",
+    "agriculture_url": "https://www.unesco.org/reports/wwdr/2022/en/agriculture",
+    "water_statistics_url": "https://www.unesco.org/reports/wwdr/en/2024/s",
+    "irrigation_withdrawal_url": "https://www.fao.org/aquastat/en/data-analysis/irrig-water-use/irrig-water-withdrawal/index.html",
+    "irrigation_efficiency_context_url": "https://www.fao.org/4/an913e/an913e02.pdf"
+  },
+  "ingestion_job_id": "export_unesco_fao_global_groundwater_irrigation_impact_snapshot",
+  "metric_contract_ids": [
+    "groundwater_storage_and_withdrawal_imbalance",
+    "agricultural_groundwater_withdrawal_aquifer_balance",
+    "municipal_groundwater_withdrawal_aquifer_balance",
+    "irrigation_conveyance_and_application_efficiency"
+  ],
+  "contract_bindings": [
+    {
+      "node_id": "aquifer_overdraft",
+      "metric_contract_id": "groundwater_storage_and_withdrawal_imbalance",
+      "measurement_role": "global_aggregated_groundwater_storage_depletion_rate_dependency_duration_and_extent"
+    },
+    {
+      "node_id": "agricultural_groundwater_withdrawal",
+      "metric_contract_id": "agricultural_groundwater_withdrawal_aquifer_balance",
+      "measurement_role": "global_agricultural_groundwater_abstraction_share_irrigated_land_dependency_and_duration"
+    },
+    {
+      "node_id": "municipal_groundwater_withdrawal",
+      "metric_contract_id": "municipal_groundwater_withdrawal_aquifer_balance",
+      "measurement_role": "global_domestic_groundwater_abstraction_share_urban_dependency_and_demand_duration"
+    },
+    {
+      "node_id": "irrigation_water_inefficiency",
+      "metric_contract_id": "irrigation_conveyance_and_application_efficiency",
+      "measurement_role": "global_irrigation_withdrawal_loss_food_dependency_recurrence_and_country_extent"
+    }
+  ],
+  "cadence": "Refresh with each UN World Water Development Report and major FAO AQUASTAT irrigation assessment.",
+  "provenance": "Official UNESCO/UN-Water and FAO assessments retaining global groundwater depletion range, sector abstraction shares, domestic and irrigation dependence, irrigated-land coverage, irrigation withdrawal losses and reporting-country denominators separately.",
+  "uncertainty": "Global groundwater depletion estimates vary by storage model, GRACE interpretation, groundwater budgets and period. Sector shares are global aggregates and do not allocate depletion causally. Groundwater dependence is exposure rather than realized shortage. Some irrigation water described as lost can return to rivers or aquifers downstream, so it is not universally consumptive waste.",
+  "failure_behavior": "Retain the last reviewed assessment and mark stale. Reject changed sector, withdrawal, recharge, loss, period or country definitions. Never allocate global depletion to a sector, treat groundwater dependence as observed shortage, count recoverable return flow as destroyed water, or fill missing countries with zero.",
+  "assessment": {
+    "assessment_year": 2024,
+    "depletion_period_start_year": 2000,
+    "depletion_assessment_year": 2022,
+    "global_groundwater_depletion_range_km3_per_year": [
+      100,
+      200
+    ],
+    "global_groundwater_depletion_midpoint_km3_per_year": 150,
+    "global_groundwater_depletion_share_of_withdrawals_range_pct": [
+      15,
+      25
+    ],
+    "groundwater_share_of_liquid_freshwater_pct": 99,
+    "groundwater_share_of_all_human_water_use_pct": 25,
+    "domestic_water_withdrawal_supplied_by_groundwater_pct": 50,
+    "global_urban_population_supplied_by_groundwater_pct": 50,
+    "groundwater_abstraction_by_sector_pct": {
+      "agriculture": 69,
+      "domestic": 22,
+      "industry": 9
+    },
+    "irrigation_water_supplied_by_groundwater_pct": 25,
+    "irrigated_land_serviced_by_groundwater_pct": 38,
+    "agricultural_groundwater_use_acceleration_start_year": 1970,
+    "global_freshwater_demand_growth_start_year": 1980,
+    "global_freshwater_demand_growth_pct_per_year": 1,
+    "agriculture_share_global_freshwater_withdrawals_pct": 70,
+    "irrigation_withdrawal_loss_lower_bound_pct": 40,
+    "irrigated_land_share_of_cultivated_land_pct": 20,
+    "irrigated_agriculture_share_of_global_food_production_pct": 40,
+    "irrigation_assessment_countries": 167,
+    "irrigation_country_values_from_national_sources": 118,
+    "reference_country_count": 193,
+    "irrigation_assessment_country_share_normalized": 0.865285,
+    "global_extent_normalized": 1,
+    "geographic_scope": "Global groundwater and irrigation assessments with country and regional heterogeneity retained",
+    "source_locators": {
+      "depletion": "UN World Water Development Report 2022 executive summary: global aggregated groundwater storage depletion at the beginning of this century is mostly estimated between 100 and 200 cubic kilometres per year, around 15 to 25 percent of withdrawals.",
+      "domestic_dependence": "UN World Water Development Report 2022: groundwater supplies half of domestic withdrawals and nearly half of the global urban population.",
+      "agricultural_dependence": "UN World Water Development Report 2022: agriculture accounts for about 69 to 70 percent of groundwater abstractions and groundwater serves 38 percent of irrigated land.",
+      "demand_duration": "UN World Water Development Report 2024 statistics: global freshwater demand has increased by just under one percent per year since the 1980s.",
+      "irrigation_loss": "FAO assessment: 40 percent or more of irrigation withdrawals are lost through conveyance leakage, deep percolation or surface runoff, while noting that some flows are recoverable.",
+      "irrigation_food_system": "FAO AQUASTAT: irrigated agriculture uses about 70 percent of freshwater withdrawals and produces about 40 percent of global food on 20 percent of cultivated land.",
+      "irrigation_extent": "FAO AQUASTAT irrigation-withdrawal assessment covers 167 countries and territories, including 118 with nationally sourced withdrawal information."
+    }
+  },
+  "excluded_from_scoring": [
+    "sector share treated as sector-attributed depletion volume",
+    "groundwater dependence treated as realized shortage",
+    "all irrigation conveyance and field loss treated as irrecoverable consumption",
+    "future water or food demand projections",
+    "unreported countries treated as zero"
+  ]
+}

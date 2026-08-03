@@ -1,0 +1,54 @@
+{
+  "version": "acaps_humanitarian_access_assessment_summary_v1",
+  "captured_at": "2026-07-19T03:44:58.900Z",
+  "source": {
+    "id": "acaps_humanitarian_access",
+    "name": "ACAPS Humanitarian Access",
+    "url": "https://www.acaps.org/en/thematics/all-topics/humanitarian-access-overview",
+    "data_url": "https://www.acaps.org/en/data",
+    "api_url": "https://api.acaps.org/",
+    "access": "open published assessment summary; country-level REST API requires free registration"
+  },
+  "ingestion_job_id": "fetch_acaps_humanitarian_access",
+  "metric_contract_ids": [
+    "acaps_humanitarian_access_severity_distribution"
+  ],
+  "cadence": "Twice-yearly assessment release with weekly page-change monitoring.",
+  "provenance": "ACAPS published Humanitarian Access Overview. The operational record retains the assessment period, source-reported country counts and shares, score threshold, and the nine-indicator, three-pillar methodology.",
+  "uncertainty": "The source synthesizes analyst-reviewed secondary information. Country aggregation can hide subnational variation; crisis definitions, information access, source availability, conflict dynamics and assessment revisions affect comparison. The assessed-country denominator is derived from the three source-reported trend-category counts because the page does not state that denominator directly.",
+  "failure_behavior": "Retain the last validated assessment and mark stale; reject missing claims, changed method or unreconciled counts. Never infer people reached, access incidents, causal drivers, aid delivered, or country-specific severity from the global distribution.",
+  "measurement_boundary": "This is a twice-yearly global distribution of assessed access severity, not a real-time incident feed, population estimate, country-specific score table, or causal effect estimate.",
+  "record_count": 1,
+  "records": [
+    {
+      "record_id": "acaps_humanitarian_access_2025_h2_global_distribution",
+      "metric_id": "acaps_humanitarian_access_severity_distribution",
+      "measurement_role": "global_country_access_severity_distribution_authoritative_assessment",
+      "geography": "crisis-affected countries assessed by ACAPS",
+      "observation_period_start": "2025-06-01",
+      "observation_period_end": "2025-11-30",
+      "observation_date": "2025-11-30",
+      "assessed_country_count_derived_from_trend_categories": 82,
+      "source_reported_high_to_extreme_country_count": 36,
+      "source_reported_high_to_extreme_country_share_pct": 44,
+      "high_to_extreme_threshold": "ACAPS overall access score 3-5",
+      "source_reported_deteriorated_country_count": 19,
+      "source_reported_deteriorated_country_share_pct": 23,
+      "source_reported_improved_country_count": 9,
+      "source_reported_improved_country_share_pct": 11,
+      "source_reported_stable_country_count": 54,
+      "source_reported_stable_country_share_pct": 66,
+      "methodology_indicator_count": 9,
+      "methodology_pillar_count": 3,
+      "source_score_scale_min": 0,
+      "source_score_scale_max": 5,
+      "source_locator": {
+        "url": "https://www.acaps.org/en/thematics/all-topics/humanitarian-access-overview",
+        "period_claim": "Between June 2025 and November 2025, crisis-affected populations in 36 countries experienced high to extreme humanitarian access constraints",
+        "distribution_claim": "deterioration in 23% of the crisis-affected countries (19 countries) and an improvement in 11% (nine countries), while the humanitarian access situation remained stable for 66% (54 countries)",
+        "severity_share_claim": "high to extreme levels of humanitarian constraints (3–5) in 44% of crisis-affected countries",
+        "methodology_claim": "methodology groups 9 indicators under 3 pillars: each indicator is given a score from 0–3 and X when there is an information gap. The model then combines the indicators in pillars, where they get a final score on a scale of 0–5"
+      }
+    }
+  ]
+}

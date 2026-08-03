@@ -1,0 +1,403 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "accumulated_evidence_wave_13_global_health_warning_and_blue_ecosystems",
+  "generated_at": "2026-07-31T22:57:24.943Z",
+  "source_snapshots": [
+    "public/unep-blue-ecosystems-impact-snapshot.json",
+    "public/who-air-pollution-impact-snapshot.json",
+    "public/undrr-mhews-status-snapshot.json"
+  ],
+  "source_ids": [
+    "unep_blue_ecosystems_global_assessments",
+    "who_global_air_pollution_data_portal",
+    "who_gho_odata_api",
+    "undrr_global_status_multi_hazard_early_warning_systems_2024"
+  ],
+  "promoted_node_count": 4,
+  "receipts": [
+    {
+      "node_id": "mangrove_buffer_loss",
+      "value": 6.7,
+      "band": "Rising",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2020",
+      "components": {
+        "biophysical_burden": 0.7558,
+        "human_economic_burden": 0.352667,
+        "persistence": 0.868,
+        "extent": 0.630769
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "carbon_stock_reduction_megatonnes_carbon": 139,
+          "net_area_loss_km2": 5245,
+          "net_area_loss_pct": 3.4,
+          "anchors_megatonnes_carbon": [
+            0,
+            25,
+            100,
+            250
+          ]
+        },
+        "human_economic_burden": {
+          "annual_economic_damage_usd_billion_range": [
+            6,
+            42
+          ],
+          "scored_lower_bound_usd_billion": 6,
+          "people_within_10km_mangrove_million_context_only": 100,
+          "anchors_usd_billion": [
+            0,
+            5,
+            20,
+            50
+          ],
+          "conservative_scoring_rule": "Normalize the lower end of the source-reported damage range while retaining the full range and its assessment uncertainty."
+        },
+        "persistence": {
+          "baseline_year": 1996,
+          "latest_extent_year": 2020,
+          "persistence_years": 24,
+          "anchors_years": [
+            0,
+            5,
+            15,
+            30
+          ]
+        },
+        "extent": {
+          "countries_with_mangroves": 123,
+          "global_country_denominator": 195,
+          "normalized_value": 0.630769,
+          "boundary": "Share of the fixed 195-country denominator with mapped mangrove habitat; not share of coast or people currently unprotected."
+        },
+        "source_snapshot": {
+          "path": "public/unep-blue-ecosystems-impact-snapshot.json",
+          "version": "unep_blue_ecosystems_mangrove_seagrass_v1",
+          "captured_at": "2026-07-31T21:56:51.757Z",
+          "source_locators": [
+            "UNEP Mangrove forests, ecological status: 147,359 square kilometres in 2020 and net loss of 5,245 square kilometres, or 3.4 percent, since 1996.",
+            "UNEP blue ecosystems assessment: mangroves occur in 123 countries and about 100 million people live within 10 kilometres of significant mangrove areas.",
+            "UNEP interactive blue-ecosystem synthesis: 1996-2020 mangrove loss reduced carbon stocks by 139 megatonnes of carbon.",
+            "UNEP mangrove assessment: emissions resulting from mangrove losses are associated with estimated annual economic damages of 6-42 billion US dollars."
+          ],
+          "excluded_from_scoring": [
+            "2050 ecosystem-collapse risk",
+            "future restoration targets and restorable area",
+            "future-loss continuation scenarios",
+            "raw OBIS occurrence counts as habitat-area evidence"
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "fixed_assessment_ranges",
+          "formula": "Normalize source-reported carbon-stock reduction and annual economic-damage range through named global assessment anchors."
+        },
+        {
+          "type": "observed_persistence_interval",
+          "formula": "Use the fixed 1996-2020 Global Mangrove Watch comparison interval; do not extrapolate the loss rate."
+        },
+        {
+          "type": "mapped_country_extent",
+          "formula": "Divide source-reported countries with mangroves by the fixed 195-country denominator."
+        }
+      ],
+      "source_ids": [
+        "unep_blue_ecosystems_global_assessments"
+      ],
+      "uncertainty": "Historical baselines, habitat definitions, remote-sensing classification, unmapped small patches, natural gains and losses, carbon-stock methods, service valuation and proximity-based population exposure affect estimates. Proximity does not establish individual dependence.",
+      "freshness": "UNEP assessment using Global Mangrove Watch extent through 2020; snapshot captured 2026-07-31T21:56:51.757Z.",
+      "selection_reason": {
+        "selected_method_passed": "UNEP quantifies accumulated mangrove area and carbon-stock loss, an annual economic-damage range, a 24-year observed comparison interval and mapped country extent.",
+        "higher_priority_failures": [
+          "Global Mangrove Watch v4 supplies fewer than 20 complete annual observations because extent maps are published at selected epochs, so the historical-percentile current-data gate is not met."
+        ]
+      },
+      "input_hash": "fnv1a32:e502ab78"
+    },
+    {
+      "node_id": "seagrass_meadow_decline",
+      "value": 8.3,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "biophysical_burden": 0.858571,
+        "human_economic_burden": 0.78,
+        "persistence": 0.758,
+        "extent": 0.815385
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "recent_global_habitat_loss_rate_pct_per_year_estimate": 7,
+          "historical_area_lost_pct_approx_context_only": 30,
+          "greenhouse_gas_release_gtco2e_per_year_upper_bound_context_only": 0.65,
+          "anchors_pct_per_year": [
+            0,
+            1,
+            3,
+            10
+          ]
+        },
+        "human_economic_burden": {
+          "largest_fisheries_with_nursery_dependence_pct": 20,
+          "people_within_100km_billion_lower_bound_context_only": 1,
+          "anchors_pct": [
+            0,
+            5,
+            15,
+            30
+          ],
+          "boundary": "Share of the world’s largest fisheries for which UNEP identifies seagrass nursery dependence; not a realized revenue-loss estimate."
+        },
+        "persistence": {
+          "observed_decline_start_year": 1930,
+          "assessment_year": 2025,
+          "persistence_years": 95,
+          "anchors_years": [
+            0,
+            25,
+            75,
+            150
+          ]
+        },
+        "extent": {
+          "countries_with_seagrass": 159,
+          "global_country_denominator": 195,
+          "normalized_value": 0.815385
+        },
+        "source_snapshot": {
+          "path": "public/unep-blue-ecosystems-impact-snapshot.json",
+          "version": "unep_blue_ecosystems_mangrove_seagrass_v1",
+          "captured_at": "2026-07-31T21:56:51.757Z",
+          "source_locators": [
+            "UNEP blue ecosystems assessment: seagrasses occur in 159 countries and cover more than 30 million hectares.",
+            "UNEP seagrass status assessment: seagrasses have declined globally since the 1930s and the latest cited census estimates annual global habitat loss at 7 percent.",
+            "UNEP blue ecosystems assessment: more than one billion people live within 100 kilometres of seagrass meadows.",
+            "UNEP blue ecosystems assessment: seagrass nursery habitat supports one fifth of the world’s largest fisheries.",
+            "UNEP blue ecosystems synthesis: destruction and degradation potentially release up to 0.65 gigatonnes of greenhouse gases per year."
+          ],
+          "excluded_from_scoring": [
+            "2050 ecosystem-collapse risk",
+            "future restoration targets and restorable area",
+            "future-loss continuation scenarios",
+            "raw OBIS occurrence counts as habitat-area evidence"
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "fixed_assessment_ranges",
+          "formula": "Normalize the source-reported global habitat-loss rate and share of major fisheries with nursery dependence through named ranges."
+        },
+        {
+          "type": "source_reported_decline_duration",
+          "formula": "Use the explicit UNEP statement that seagrasses have declined globally since the 1930s through the 2025 assessment year."
+        },
+        {
+          "type": "mapped_country_extent",
+          "formula": "Divide source-reported countries with seagrass by the fixed 195-country denominator."
+        }
+      ],
+      "source_ids": [
+        "unep_blue_ecosystems_global_assessments"
+      ],
+      "uncertainty": "Historical baselines, habitat definitions, remote-sensing classification, unmapped small patches, natural gains and losses, carbon-stock methods, service valuation and proximity-based population exposure affect estimates. Proximity does not establish individual dependence.",
+      "freshness": "UNEP global blue-ecosystem assessment reviewed in 2025; snapshot captured 2026-07-31T21:56:51.757Z.",
+      "selection_reason": {
+        "selected_method_passed": "UNEP quantifies a global habitat-loss rate, major-fishery nursery dependence, multi-decadal persistence and distribution across 159 countries.",
+        "higher_priority_failures": [
+          "The operational OBIS occurrence snapshot is supporting presence-only evidence and cannot measure habitat area or a source-consistent global trend."
+        ]
+      },
+      "input_hash": "fnv1a32:837dbd3a"
+    },
+    {
+      "node_id": "air_pollution_health_burden",
+      "value": 9.1,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025",
+      "components": {
+        "biophysical_burden": 0.9934,
+        "human_economic_burden": 0.839714,
+        "persistence": 0.736,
+        "extent": 0.99
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "global_population_above_who_guideline_pct": 99,
+          "guideline_basis": "WHO global air-quality guideline levels",
+          "anchors_pct": [
+            0,
+            25,
+            50,
+            100
+          ]
+        },
+        "human_economic_burden": {
+          "joint_ambient_and_household_air_pollution_deaths_million": 6.6,
+          "burden_year": 2021,
+          "anchors_million_deaths": [
+            0,
+            1,
+            3,
+            10
+          ],
+          "boundary": "WHO joint estimate already adjusts ambient-household overlap; ambient-only deaths are context and are not added."
+        },
+        "persistence": {
+          "persistence_reference_start_year": 2019,
+          "latest_portal_update_year": 2025,
+          "persistence_years": 6,
+          "anchors_years": [
+            0,
+            1,
+            5,
+            10
+          ],
+          "boundary": "Repeated WHO global exposure assessments, not an individual exposure-duration estimate."
+        },
+        "extent": {
+          "global_population_above_who_guideline_pct": 99,
+          "normalized_value": 0.99
+        },
+        "source_snapshot": {
+          "path": "public/who-air-pollution-impact-snapshot.json",
+          "version": "who_global_air_pollution_impact_2025_v1",
+          "captured_at": "2026-07-31T21:56:51.523Z",
+          "source_locators": [
+            "WHO Air Pollution Data Portal: 6.6 million deaths in 2021 from ambient and household air-pollution exposure.",
+            "WHO Air Pollution Data Portal and 2025 World Health Assembly update: 99 percent of the global population is exposed above WHO air-quality guideline levels.",
+            "WHO Air Pollution Data Portal: two billion people primarily relied on polluting cooking fuels and technologies in 2024.",
+            "WHO ambient air-pollution fact sheet: 4.2 million premature deaths in 2019, 89 percent in low- and middle-income countries."
+          ]
+        }
+      },
+      "transformations": [
+        {
+          "type": "recognized_guideline_exposure",
+          "formula": "Normalize the WHO-reported population share above WHO guideline levels; do not average unweighted country mortality rates."
+        },
+        {
+          "type": "joint_burden_boundary",
+          "formula": "Use only the WHO joint ambient-and-household mortality estimate, which adjusts overlap, and retain the assessment year."
+        },
+        {
+          "type": "repeated_assessment_persistence",
+          "formula": "Use the declared 2019-2025 interval over which WHO continued to report near-universal guideline exceedance."
+        }
+      ],
+      "source_ids": [
+        "who_global_air_pollution_data_portal",
+        "who_gho_odata_api"
+      ],
+      "uncertainty": "WHO comparative-risk estimates combine modeled population exposure, integrated exposure-response functions, background disease burden and population data. Ambient and household exposure overlap; global totals are statistically adjusted to avoid double counting.",
+      "freshness": "WHO portal burden year 2021, exposure statement reviewed 2025; snapshot captured 2026-07-31T21:56:51.523Z.",
+      "selection_reason": {
+        "selected_method_passed": "WHO quantifies global guideline exceedance, joint attributable mortality, repeated global persistence and population extent.",
+        "higher_priority_failures": [
+          "The operational country snapshot contains one assessment year and age-standardized rates without population weights; it cannot produce a defensible current global aggregate or a 20-year historical distribution."
+        ]
+      },
+      "input_hash": "fnv1a32:db0b2dde"
+    },
+    {
+      "node_id": "early_warning_coverage_gaps",
+      "value": 8.5,
+      "band": "Critical",
+      "method": "impact_fallback",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2024-03-31",
+      "components": {
+        "biophysical_burden": 0.934,
+        "human_economic_burden": 0.83632,
+        "persistence": 0.967,
+        "extent": 0.45
+      },
+      "raw_inputs": {
+        "biophysical_burden": {
+          "reported_mhews_country_share_pct": 55,
+          "derived_country_reporting_gap_pct": 45,
+          "anchors_pct": [
+            0,
+            10,
+            25,
+            50
+          ],
+          "boundary": "A country reporting gap, not proof that every non-reporting country lacks any capability."
+        },
+        "human_economic_burden": {
+          "limited_to_moderate_mhews_mortality_per_100000": 3.79,
+          "substantial_to_comprehensive_mhews_mortality_per_100000": 0.63,
+          "derived_mortality_ratio": 6.016,
+          "derived_affected_people_ratio_context_only": 3.504,
+          "anchors_ratio": [
+            1,
+            2,
+            4,
+            8
+          ],
+          "boundary": "Descriptive country-group outcome ratios; not a randomized causal effect or population-coverage estimate."
+        },
+        "persistence": {
+          "impact_period_start_year": 2005,
+          "impact_period_end_year": 2023,
+          "impact_period_years_inclusive": 19,
+          "anchors_years": [
+            0,
+            5,
+            10,
+            20
+          ]
+        },
+        "extent": {
+          "derived_country_reporting_gap_pct": 45,
+          "normalized_value": 0.45,
+          "boundary": "Country-share extent; not population coverage."
+        },
+        "source_snapshot": {
+          "path": "public/undrr-mhews-status-snapshot.json",
+          "version": "undrr_mhews_global_status_2024_v1",
+          "captured_at": "2026-07-31T17:26:01.163Z",
+          "source_locator": {
+            "report_page_url": "https://www.undrr.org/reports/global-status-MHEWS-2024",
+            "locator": "Global impacts by MHEWS comprehensiveness, 2005-2023",
+            "boundary": "Descriptive country-group outcome ratios; not a randomized causal effect or population-coverage estimate."
+          }
+        }
+      },
+      "transformations": [
+        {
+          "type": "source_share_complement",
+          "formula": "Country reporting gap = 100 minus the source-reported share of countries reporting MHEWS existence."
+        },
+        {
+          "type": "descriptive_outcome_ratio",
+          "formula": "Divide the source-reported 2005-2023 disaster mortality rate for limited-to-moderate MHEWS countries by the rate for substantial-to-comprehensive countries."
+        },
+        {
+          "type": "fixed_assessment_period",
+          "formula": "Count the source outcome interval 2005-2023 inclusively; do not extrapolate beyond the report."
+        }
+      ],
+      "source_ids": [
+        "undrr_global_status_multi_hazard_early_warning_systems_2024"
+      ],
+      "uncertainty": "No numeric uncertainty interval is reported. Coverage is affected by country reporting completeness; non-reporting does not establish absence of MHEWS capability. The outcome ratios are descriptive country-group comparisons and do not isolate causal effects of warning systems.",
+      "freshness": "UNDRR/WMO 2024 status assessment with outcomes through 2023; snapshot captured 2026-07-31T17:26:01.163Z.",
+      "selection_reason": {
+        "selected_method_passed": "UNDRR/WMO quantifies the global country reporting gap, disaster mortality and affected-people ratios by system comprehensiveness, a 19-year outcome interval and worldwide country extent.",
+        "higher_priority_failures": [
+          "Annual global status editions do not yet provide at least 20 complete annual observations under a stable reporting method, so the current-data historical-distribution gate is not met."
+        ]
+      },
+      "input_hash": "fnv1a32:69260cc5"
+    }
+  ]
+}

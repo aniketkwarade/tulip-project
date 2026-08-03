@@ -1,0 +1,107 @@
+{
+  "version": "1.0.0",
+  "method_version": "tulip_urgency_v2",
+  "campaign": "current_evidence_wave_21_acaps_humanitarian_access",
+  "generated_at": "2026-07-31T22:57:33.716Z",
+  "source_snapshot": "public/acaps-humanitarian-access-snapshot.json",
+  "source_id": "acaps_humanitarian_access",
+  "promoted_node_count": 1,
+  "receipts": [
+    {
+      "node_id": "humanitarian_access_constraints",
+      "value": 6.6,
+      "band": "Rising",
+      "method": "current_data",
+      "method_version": "tulip_urgency_v2",
+      "as_of": "2025-11-30",
+      "components": {
+        "magnitude": 0.8152,
+        "threshold": 0.439024,
+        "momentum": 0.718293,
+        "extent": 0.42487
+      },
+      "raw_inputs": {
+        "magnitude": {
+          "high_to_extreme_country_count": 36,
+          "high_to_extreme_country_share_pct_source_reported": 44,
+          "anchors_country_count": [
+            0,
+            10,
+            25,
+            50
+          ],
+          "boundary": "Countries in the ACAPS crisis-affected assessment panel, not people or incidents."
+        },
+        "threshold": {
+          "source_threshold": "ACAPS overall access score 3-5",
+          "countries_meeting_threshold": 36,
+          "assessed_country_count": 82,
+          "exact_share": 0.439024,
+          "source_rounded_share_pct": 44
+        },
+        "momentum": {
+          "deteriorated_country_count": 19,
+          "improved_country_count": 9,
+          "stable_country_count": 54,
+          "net_deterioration_country_count": 10,
+          "net_deterioration_share": 0.121951,
+          "anchors_share": [
+            0,
+            0.05,
+            0.1,
+            0.25
+          ],
+          "boundary": "Net panel direction during the assessment period; not an annual rate or causal trend."
+        },
+        "extent": {
+          "assessed_crisis_affected_country_count": 82,
+          "un_member_state_reference_count": 193,
+          "confirmed_assessment_extent_lower_bound": 0.42487,
+          "missing_data_rule": "Unassessed countries are outside the numerator and are not classified as unconstrained."
+        },
+        "source_snapshot": {
+          "path": "public/acaps-humanitarian-access-snapshot.json",
+          "version": "acaps_humanitarian_access_assessment_summary_v1",
+          "captured_at": "2026-07-19T03:44:58.900Z",
+          "observation_period_start": "2025-06-01",
+          "observation_period_end": "2025-11-30",
+          "source_locator": {
+            "url": "https://www.acaps.org/en/thematics/all-topics/humanitarian-access-overview",
+            "period_claim": "Between June 2025 and November 2025, crisis-affected populations in 36 countries experienced high to extreme humanitarian access constraints",
+            "distribution_claim": "deterioration in 23% of the crisis-affected countries (19 countries) and an improvement in 11% (nine countries), while the humanitarian access situation remained stable for 66% (54 countries)",
+            "severity_share_claim": "high to extreme levels of humanitarian constraints (3–5) in 44% of crisis-affected countries",
+            "methodology_claim": "methodology groups 9 indicators under 3 pillars: each indicator is given a score from 0–3 and X when there is an information gap. The model then combines the indicators in pillars, where they get a final score on a scale of 0–5"
+          }
+        }
+      },
+      "transformations": [
+        {
+          "type": "recognized_severity_threshold_count",
+          "formula": "Normalize the source-reported number of countries at ACAPS overall access score 3-5 through named country-count anchors."
+        },
+        {
+          "type": "threshold_exceedance_share",
+          "formula": "Divide countries at the recognized high-to-extreme threshold by the reconciled assessment-panel denominator."
+        },
+        {
+          "type": "net_panel_direction",
+          "formula": "Subtract improved-country count from deteriorated-country count and divide by the assessed panel; stable countries remain in the denominator."
+        },
+        {
+          "type": "confirmed_country_extent_lower_bound",
+          "formula": "Divide the assessed crisis-affected country panel by 193 UN member states without classifying unassessed countries."
+        }
+      ],
+      "source_ids": [
+        "acaps_humanitarian_access"
+      ],
+      "uncertainty": "The source synthesizes analyst-reviewed secondary information. Country aggregation can hide subnational variation; crisis definitions, information access, source availability, conflict dynamics and assessment revisions affect comparison. The assessed-country denominator is derived from the three source-reported trend-category counts because the page does not state that denominator directly.",
+      "freshness": "ACAPS assessment period 2025-06-01 to 2025-11-30; snapshot captured 2026-07-19T03:44:58.900Z.",
+      "selection_reason": {
+        "selected_method_passed": "ACAPS supplies a current 82-country crisis panel, a recognized score 3-5 high-to-extreme threshold, 36 threshold-exceeding countries, and reconciled deteriorated, improved and stable counts.",
+        "higher_priority_failures": []
+      },
+      "input_hash": "fnv1a32:2747bae7"
+    }
+  ]
+}

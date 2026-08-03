@@ -1,0 +1,55 @@
+import fs from 'node:fs/promises';
+import path from 'node:path';
+
+const OUTPUT_PATH = path.resolve('public/fao-fishery-protein-impact-snapshot.json');
+const snapshot = {
+  version: 'fao_sofia_2024_fishery_protein_dependence_snapshot_v1',
+  captured_at: new Date().toISOString(),
+  source: {
+    id: 'fao_the_state_of_world_fisheries_and_aquaculture_2024',
+    name: 'The State of World Fisheries and Aquaculture 2024',
+    publisher: 'Food and Agriculture Organization of the United Nations',
+    report_year: 2024,
+    latest_consumption_year: 2021,
+    production_year: 2022,
+    report_page_url: 'https://www.fao.org/publications/fao-flagship-publications/the-state-of-world-fisheries-and-aquaculture/2024/en',
+    official_summary_url: 'https://www.fao.org/newsroom/detail/fao-report-global-fisheries-and-aquaculture-production-reaches-a-new-record-high/'
+  },
+  ingestion_job_id: 'export_fao_fishery_protein_impact_snapshot',
+  metric_contract_ids: ['aquatic_food_share_of_animal_protein'],
+  contract_bindings: [
+    { node_id: 'fishery_protein_dependence', metric_id: 'aquatic_food_share_of_animal_protein', measurement_role: 'global_assessment_accumulated_dependence_primary' }
+  ],
+  cadence: 'Refresh with each FAO State of World Fisheries and Aquaculture release.',
+  provenance: 'Reviewed source-reported global production, consumption, nutrition, employment and regional-distribution values from FAO SOFIA 2024. Aquatic animals and algae remain distinguished where the report does so.',
+  uncertainty: 'Informal production, trade allocation, apparent-consumption accounting, food-balance estimation, population denominators and revisions affect values. Aquatic-food reliance is not itself evidence of ecological damage, food insecurity or unsustainable harvest.',
+  failure_behavior: 'Retain the last reviewed assessment and mark stale; never infer household intake from apparent consumption, treat aquaculture as capture fisheries, merge algae into aquatic-animal consumption, or convert missing regions to zero.',
+  assessment: {
+    report_year: 2024,
+    latest_consumption_year: 2021,
+    production_year: 2022,
+    global_aquatic_animal_food_consumption_million_tonnes: 162.5,
+    global_aquatic_food_consumption_kg_per_capita_1961: 9.1,
+    global_aquatic_food_consumption_kg_per_capita_2021: 20.6,
+    people_receiving_at_least_20pct_animal_protein_billion: 3.2,
+    animal_protein_dependency_threshold_pct: 20,
+    primary_sector_employment_million: 61.8,
+    total_fisheries_aquaculture_first_sale_value_usd_billion: 472,
+    aquatic_animal_production_region_share_pct: {
+      asia: 70,
+      europe: 9,
+      latin_america_caribbean: 9,
+      africa: 7,
+      northern_america: 3,
+      oceania: 1
+    },
+    geography_boundary: 'Global FAO assessment with production distributed across all inhabited regions',
+    source_locators: [
+      'FAO SOFIA 2024 official publication page',
+      'FAO official SOFIA 2024 in-numbers news release'
+    ]
+  }
+};
+
+await fs.writeFile(OUTPUT_PATH, `${JSON.stringify(snapshot, null, 2)}\n`);
+console.log(JSON.stringify({ output: OUTPUT_PATH, latest_consumption_year: snapshot.assessment.latest_consumption_year, metric_contract_ids: snapshot.metric_contract_ids }, null, 2));
