@@ -13347,6 +13347,7 @@ function playWelcomeSplash() {
   graphInstance?.pause();
   const splashVisitCountKey = 'tulip_welcome_splash_visit_count_v2';
   const splashHoldMs = 10000;
+  const splashDemoRequested = new URLSearchParams(window.location.search).get('demoSplash') === '1';
   let dismissed = false;
   let splashTimerId = null;
 
@@ -13377,7 +13378,7 @@ function playWelcomeSplash() {
       window.clearTimeout(splashTimerId);
       splashTimerId = null;
     }
-    recordSplashVisit(splashVisitCount);
+    if (!splashDemoRequested) recordSplashVisit(splashVisitCount);
     document.body.classList.remove('splash-active');
     splash.classList.add('is-hidden');
     graphInstance?.resume();
@@ -13385,7 +13386,7 @@ function playWelcomeSplash() {
   };
 
   const splashVisitCount = getSplashVisitCount();
-  if (splashVisitCount >= 2) {
+  if (!splashDemoRequested && splashVisitCount >= 2) {
     document.body.classList.remove('splash-active');
     splash.classList.add('is-hidden');
     finishSplash();

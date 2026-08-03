@@ -181,7 +181,7 @@ html.welcome-splash-seen body.splash-active .tulip-footer-bar {
 }
 
 .quote-splash-inner {
-  max-width: min(760px, 100%);
+  max-width: min(1120px, 100%);
   text-align: center;
   margin: 0 auto;
   display: flex;
@@ -199,12 +199,17 @@ html.welcome-splash-seen body.splash-active .tulip-footer-bar {
   margin: 0;
   color: #ffffff;
   font-family: var(--font-sans);
-  font-size: clamp(40px, 4.5vw, 62px);
+  font-size: clamp(30px, 4vw, 56px);
   font-weight: 400;
   line-height: 1.08;
   letter-spacing: -1px;
   text-wrap: balance;
   text-align: center;
+}
+
+.quote-splash-title span {
+  display: block;
+  white-space: nowrap;
 }
 
 .quote-splash-body {
@@ -480,6 +485,10 @@ svg {
 #tulip-footer-bar #search-results {
   top: auto;
   bottom: calc(100% + 12px);
+  right: 0;
+  left: auto;
+  width: min(250%, calc(100vw - 32px));
+  transform: none;
   max-height: 320px;
   box-shadow: 0 -12px 32px rgba(0, 0, 0, 0.5),
               inset 0 -1px 0 rgba(255, 255, 255, 0.05);
@@ -793,10 +802,9 @@ svg {
   flex: 1;
   overflow-y: auto;
   margin-top: var(--space-stack);
-  padding-right: var(--space-xs);
-  width: min(1360px, calc(100vw - 72px));
-  margin-left: auto;
-  margin-right: auto;
+  padding-right: max(36px, calc((100vw - 1360px) / 2));
+  padding-left: max(36px, calc((100vw - 1360px) / 2));
+  width: 100%;
 }
 
 .sources-content-container::-webkit-scrollbar {
@@ -1932,7 +1940,7 @@ svg {
 }
 
 .phenomena-view {
-  width: min(1780px, calc(100vw - 220px));
+  width: 100%;
   min-height: 0;
   height: calc(100% - 58px);
   margin: 0 auto 58px;
@@ -1966,8 +1974,10 @@ svg {
   display: flex;
   flex-direction: column;
   gap: 0;
+  width: min(1780px, calc(100vw - 220px));
   height: auto;
   min-height: 660px;
+  margin: 0 auto;
   padding: var(--space-panel) 64px 120px 356px;
   background: transparent;
 }
@@ -4483,16 +4493,17 @@ svg {
 
 @media (max-width: 1180px) {
   .phenomena-view {
-    width: calc(100vw - 96px);
-    margin: 120px auto var(--space-2xl);
+    width: 100%;
+    margin: 120px 0 var(--space-2xl);
   }
 
   .personal-footprint-view {
-    width: calc(100vw - 96px);
-    margin: 128px auto 120px;
+    width: 100%;
+    margin: 128px 0 120px;
   }
 
   .phenomena-shell {
+    width: calc(100vw - 96px);
     padding-top: var(--space-2xl);
     padding-bottom: 96px;
     padding-left: 286px;
@@ -4542,12 +4553,13 @@ svg {
 
 @media (max-width: 950px) {
   .phenomena-view {
-    width: calc(100vw - 28px);
+    width: 100%;
     height: auto;
-    margin: 42px auto 116px;
+    margin: 42px 0 116px;
   }
 
   .phenomena-shell {
+    width: calc(100vw - 28px);
     padding-top: 0;
     padding-left: 0;
   }
@@ -4627,9 +4639,9 @@ svg {
   }
 
   .personal-footprint-view {
-    width: calc(100vw - 28px);
+    width: 100%;
     height: auto;
-    margin: 24px auto 150px;
+    margin: 24px 0 150px;
   }
 
   .personal-footprint-metric-strip {
@@ -6518,11 +6530,9 @@ svg {
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 2px var(--space-xs) 0 0;
-  width: min(1360px, calc(100vw - 72px));
+  padding: 2px max(36px, calc((100vw - 1360px) / 2)) 0;
+  width: 100%;
   margin-top: var(--space-stack);
-  margin-left: auto;
-  margin-right: auto;
 }
 
 .registry-directory-body {

@@ -29,8 +29,9 @@
           document.documentElement.classList.add('touch-device-gated');
         }
 
+        const splashDemoRequested = new URLSearchParams(window.location.search).get('demoSplash') === '1';
         const splashVisitCount = Number(window.localStorage.getItem('tulip_welcome_splash_visit_count_v2')) || 0;
-        if (splashVisitCount >= 2) {
+        if (!splashDemoRequested && splashVisitCount >= 2) {
           document.documentElement.classList.add('welcome-splash-seen');
         }
       } catch {}
@@ -49,8 +50,11 @@
     <div id="quote-splash" class="quote-splash" role="button" tabindex="0" aria-label="Enter TULIP" aria-hidden="false">
       <div class="quote-splash-inner">
         <img src="/logo.svg" alt="The TULIP Project" class="quote-splash-logo" />
-        <h1 class="quote-splash-title">See how climate change takes shape.</h1>
-        <p class="quote-splash-body">Explore how environmental changes begin, how their effects connect, and what we can do to build a healthier planet.</p>
+        <h1 class="quote-splash-title">
+          <span>Discover how human choices affect</span>
+          <span>Earth's climate and resources</span>
+        </h1>
+        <p class="quote-splash-body">Learn how environmental changes begin, how their effects connect, and what we can do to build a healthier planet.</p>
       </div>
     </div>
     <div id="touch-device-gate" class="touch-device-gate" hidden aria-hidden="true">
