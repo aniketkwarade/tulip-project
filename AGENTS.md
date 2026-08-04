@@ -18,8 +18,14 @@ release workflow below. A Git push by itself is not a completed release.
    commit the intended files, push the branch, and open a pull request against
    `main`. Do not push application releases directly to `main` and do not use
    `vercel --prod`; the Git integration is the production deploy authority.
-5. Wait for both required GitHub checks, `release-checks` and `Vercel`, to pass.
-   Squash-merge the pull request into `main`, then refresh `origin/main`.
+5. Immediately enable squash auto-merge on the pull request. GitHub will merge
+   once the required `release-checks` and `Vercel` checks pass; do not wait for
+   the checks and then issue a separate manual merge request. Observe the pull
+   request and `origin/main` to confirm the merge. If a GitHub merge command
+   returns a 5xx response, inspect those authoritative states before retrying;
+   the server may have accepted the merge despite the failed client response.
+   Never create a duplicate pull request for the same commit merely to retry a
+   merge. Refresh `origin/main` after the merge is confirmed.
 6. Wait for Vercel to report a `READY` production deployment whose
    `githubCommitSha` is the new `main` commit. Confirm that
    `https://tulip-project-six.vercel.app/` is an alias of that deployment and
@@ -31,3 +37,8 @@ release workflow below. A Git push by itself is not a completed release.
 The permanent source-to-production path is:
 
 `verified local source -> GitHub pull request -> main -> Vercel Git deployment -> tulip-project-six.vercel.app`
+
+The expected happy-path release time is roughly one to two minutes: local gate,
+one pull request with auto-merge armed, required checks, then the Vercel Git
+deployment. Reopened pull requests and repeated workflow dispatches are recovery
+tools, not normal release steps.

@@ -14,9 +14,19 @@ import {
   hashTulipUrgencyV3Content,
   verifyTulipUrgencyReceiptV3
 } from './lib/tulip-urgency-v3-receipts.mjs';
+import { restoreGeneratedArtifactsOnExit } from './lib/restore-generated-artifacts.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const readJson = filename => JSON.parse(fs.readFileSync(path.join(ROOT, 'public', filename), 'utf8'));
+
+restoreGeneratedArtifactsOnExit(ROOT, [
+  'docs/tulip-urgency-v3-public-rollout.md',
+  'public/tulip-urgency-v3-review-queue.json',
+  'public/tulip-urgency-v3-scores.json',
+  'public/tulip-urgency-v3-shadow-audit.json',
+  'public/tulip-urgency-v3-shadow-comparison.json',
+  'public/tulip-urgency-v3-shadow-scores.json'
+]);
 
 const boundaries = [
   [1, 'Low Concern'], [4.9, 'Low Concern'],
