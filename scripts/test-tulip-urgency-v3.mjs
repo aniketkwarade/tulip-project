@@ -184,8 +184,10 @@ assert.doesNotMatch(main, /calculateTulipSensitivity|renderTulipSensitivityExplo
 assert.match(main, /urgency-band-tooltip/);
 assert.match(main, /label\.tabIndex = 0/);
 assert.match(html, /aria-label="TULIP urgency bands"/);
+assert.match(html, /TULIP Urgency summarizes how immediate and severe an issue is on a 1–10 scale\./);
+assert.doesNotMatch(html, /urgency-band-range-table/);
+assert.doesNotMatch(main, /urgency-band-range-table/);
 assert.match(main, /tulipUrgencyHistoricalV2Preview[\s\S]*tulip-urgency-v3-scores\.json/);
-assert.match(main, /tulipUrgencyV3ShadowPreview \? 'A shadow' : 'The public'/);
 assert.match(server, /'\/api\/tulip\/urgency-scores': 'tulip-urgency-v3-scores\.json'/);
 assert.match(server, /'\/api\/tulip\/urgency-v2-scores': 'tulip-urgency-scores\.json'/);
 
