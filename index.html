@@ -641,58 +641,22 @@
             </div>
           </div>
 
-          <!-- MONITORING SOURCE -->
+          <!-- NODE MEASUREMENT & SOURCE -->
           <div id="monitoring-source-section" class="console-section simulator-section">
             <button id="monitoring-source-toggle" class="section-header section-toggle collapsed" type="button" aria-expanded="false">
-              <span>Monitoring Sources</span>
+              <span>How This Is Measured</span>
               <span class="section-toggle-arrow" aria-hidden="true"></span>
             </button>
             <div id="monitoring-source-content" class="section-toggle-content" hidden>
-              <div class="simulator-card" style="padding: 16px;">
-                <div class="meta-desc-section" style="margin-top: 0;">
-                  <div class="meta-label" style="margin-bottom: 10px; color: var(--accent-color); font-size: 12px; letter-spacing: 1.5px; font-weight: 700;">ACTIVE OBSERVATION SENSORS</div>
-                  <ul id="console-node-sensors" class="monitoring-sensors-list" style="margin: 0; padding-left: 20px; color: rgba(255, 255, 255, 0.7); font-size: 13.5px; line-height: 1.6; font-family: var(--font-sans);">
-                    <!-- Dynamic sensors list -->
-                  </ul>
-                </div>
-                <div id="data-center-intel-card" class="meta-desc-section" style="display: none; margin-top: 16px;">
-                  <div class="meta-label" style="margin-bottom: 10px; color: rgba(96, 165, 250, 0.95); font-size: 12px; letter-spacing: 1.5px; font-weight: 700;">DATA-CENTRE ENERGY &amp; EMISSIONS</div>
-                  <div id="data-center-intel-list" style="display: flex; flex-direction: column; gap: 10px;">
-                    <div style="font-size: 12px; color: rgba(255,255,255,0.52); line-height: 1.5;">
-                      Data-centre measurements will appear here.
-                    </div>
-                  </div>
-                </div>
-                <div class="meta-desc-section" style="margin-top: 16px;">
-                  <div class="meta-label" style="margin-bottom: 10px; color: rgba(255, 220, 174, 0.95); font-size: 12px; letter-spacing: 1.5px; font-weight: 700;">NASA EARTHDATA COLLECTIONS</div>
-                  <div id="console-earthdata-collections" style="display: flex; flex-direction: column; gap: 8px;">
-                    <div style="font-size: 12px; color: rgba(255,255,255,0.52); line-height: 1.5;">
-                      Earthdata collection matches will appear here.
-                    </div>
-                  </div>
-                </div>
-                <div class="meta-desc-section" style="margin-top: 16px;">
-                  <div class="meta-label" style="margin-bottom: 10px; color: rgba(96, 165, 250, 0.95); font-size: 12px; letter-spacing: 1.5px; font-weight: 700;">GRACE MASS-CHANGE PRODUCTS</div>
-                  <div id="console-grace-collections" style="display: flex; flex-direction: column; gap: 8px;">
-                    <div style="font-size: 12px; color: rgba(255,255,255,0.52); line-height: 1.5;">
-                      GRACE product matches will appear here.
-                    </div>
-                  </div>
-                </div>
-                <div class="meta-desc-section" style="margin-top: 16px;">
-                  <div class="meta-label" style="margin-bottom: 10px; color: rgba(255, 176, 80, 0.95); font-size: 12px; letter-spacing: 1.5px; font-weight: 700;">NASA POWER CLIMATE BASELINES</div>
-                  <div id="console-power-baselines" style="display: flex; flex-direction: column; gap: 8px;">
-                    <div style="font-size: 12px; color: rgba(255,255,255,0.52); line-height: 1.5;">
-                      NASA POWER climatology baselines will appear here.
-                    </div>
-                  </div>
+              <div class="simulator-card monitoring-source-card-shell">
+                <div id="monitoring-source-body" aria-live="polite">
+                  <div class="monitoring-source-loading">Select a node to see its measurement and source.</div>
                 </div>
               </div>
             </div>
           </div>
 
       </div>
-
       <section id="phenomena-view" class="phenomena-view" hidden>
         <div class="phenomena-shell">
 
