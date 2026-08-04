@@ -25,6 +25,7 @@ import {
   getRelationshipQuestionAuxiliary,
   isCausalRelationship
 } from './relationship-semantics.js';
+import { buildMonitoringSourceProfile } from './monitoring-sources.js';
 
 let activityModulesPromise = null;
 let getPhenomenonLens = null;
@@ -604,9 +605,6 @@ const TRAIL_TARGET_LENGTH = 5;
 let owidGlobalData = [];
 let owidCatalog = null;
 let srcBoundariesData = [];
-let earthdataCatalog = null;
-let graceCatalog = null;
-let powerCatalog = null;
 let adbDatasetsData = [];
 let escapDatasetsData = [];
 let rdsDatasetsData = [];
@@ -626,13 +624,16 @@ let unepWesrDatasetsData = [];
 let undrrEmdatDatasetsData = [];
 let ieaCrDatasetsData = [];
 let ipccScenariosDatasetsData = [];
-let dataCenterSourcesRegistry = null;
-let dataCenterPlatformSummary = null;
+let monitoringSourceRegistry = null;
+let monitoringSourceRegistryPromise = null;
+let monitoringSourceRegistryStatus = 'idle';
 let natureClimateCrosswalk = null;
 let natureClimateById = new Map();
 let natureClimateByName = new Map();
 let tulipUrgencyByNodeId = new Map();
 let tulipUrgencyStatus = null;
+let tulipUrgencyRegistryStatus = 'idle';
+let tulipUrgencyRegistryRequested = false;
 const tulipUrgencyQuery = new URLSearchParams(window.location.search);
 const tulipUrgencyHistoricalV2Preview = tulipUrgencyQuery.get('tulipUrgencyVersion') === 'v2';
 const tulipUrgencyV3ShadowPreview = tulipUrgencyQuery.get('tulipUrgencyV3') === 'shadow';
@@ -696,10 +697,7 @@ let connectionDetailSection = null;
 let connectionDetailHeader = null;
 let connectionDetailReason = null;
 let connectionDetailEvidence = null;
-let consoleNodeSensors = null;
-let consoleEarthdataCollections = null;
-let consoleGraceCollections = null;
-let consolePowerBaselines = null;
+let monitoringSourceBody = null;
 let consoleDriversList = null;
 let consoleImpactsList = null;
 let humanImpactSeverity = null;
@@ -784,7 +782,6 @@ const REGISTRY_CARD_IDS = [
   'gcb-datasets-card',
   'iucn-unbl-datasets-card',
   'unep-wesr-datasets-card',
-  'data-center-intel-card',
   'src-datasets-card',
   'adb-datasets-card',
   'unep-datasets-card',
@@ -2026,6 +2023,7 @@ function setShellMode(mode) {
   if (appContainer) {
     appContainer.dataset.viewMode = mode;
     appContainer.classList.toggle('study-active', isStudy);
+    if (previousMode !== mode) appContainer.scrollTop = 0;
   }
   if (graphInstance) {
     if (isPhenomena || isPersonalFootprint) {
@@ -2041,10 +2039,12 @@ function setShellMode(mode) {
   if (studyConsole) {
     studyConsole.style.display = isStudy ? 'flex' : 'none';
     studyConsole.toggleAttribute('hidden', !isStudy);
+    if (isStudy && previousMode !== mode) studyConsole.scrollTop = 0;
   }
   if (phenomenaView) {
     phenomenaView.style.display = isPhenomena ? 'block' : 'none';
     phenomenaView.toggleAttribute('hidden', !isPhenomena);
+    if (isPhenomena && previousMode !== mode) phenomenaView.scrollTop = 0;
   }
   if (personalFootprintView) {
     personalFootprintView.style.display = isPersonalFootprint ? 'block' : 'none';
@@ -2093,7 +2093,6 @@ function setShellMode(mode) {
     window.requestAnimationFrame(() => restartMotionClass(enteringView, 'shell-view-enter', 560));
   }
 }
-
 
 // Target and select node, focusing the 3D globe and loading diagnostics
 function targetAndSelectNode(node, navigationOptions = {}) {
@@ -3607,7 +3606,7 @@ function loadDatasetWithUpdateCheck(key, localUrl, remoteUrl, callback) {
   }, 2500);
 }
 
-function loadJsonWithApiFallback(apiUrl, fallbackUrl, callback) {
+function loadJsonWithApiFallback(apiUrl, fallbackUrl, callback, errorCallback = null) {
   const loadFallback = () =>
     fetch(fallbackUrl)
       .then(res => {
@@ -3617,6 +3616,7 @@ function loadJsonWithApiFallback(apiUrl, fallbackUrl, callback) {
       .then(data => callback(data, 'static'))
       .catch(err => {
         console.error(`[Data Center Loader] Failed to load ${fallbackUrl}:`, err);
+        errorCallback?.(err);
       });
 
   if (apiUrl === fallbackUrl) {
@@ -3796,10 +3796,11 @@ function renderTulipUrgencyBandScale() {
   }
 }
 
-function requestSupportingCatalogs() {
-  if (supportingCatalogsRequested) return;
-  supportingCatalogsRequested = true;
-
+function requestTulipUrgencyRegistry() {
+  if (tulipUrgencyRegistryRequested) return;
+  tulipUrgencyRegistryRequested = true;
+  tulipUrgencyRegistryStatus = 'loading';
+  renderMonitoringSource(currentSelectedNode);
   const urgencyEndpoint = tulipUrgencyHistoricalV2Preview
     ? '/api/tulip/urgency-v2-scores'
     : tulipUrgencyV3ShadowPreview
@@ -3811,6 +3812,7 @@ function requestSupportingCatalogs() {
       ? '/tulip-urgency-v3-shadow-scores.json'
       : '/tulip-urgency-v3-scores.json';
   loadJsonWithApiFallback(urgencyEndpoint, urgencyFallback, (registry, mode) => {
+    tulipUrgencyRegistryStatus = 'ready';
     tulipUrgencyStatus = registry.status ?? null;
     tulipUrgencyMethodVersion = registry.method_version ?? 'tulip_urgency_v2';
     tulipUrgencyByNodeId = new Map((registry.receipts ?? []).map(receipt => [receipt.node_id, receipt]));
@@ -3836,8 +3838,21 @@ function requestSupportingCatalogs() {
       graphInstance?.requestRender();
     }
     console.log(`[TULIP Urgency] Loaded ${tulipUrgencyByNodeId.size} ${registry.method_version ?? 'unknown-version'} ${registry.status ?? 'unknown-status'} receipts via ${mode}.`);
-    if (currentSelectedNode) updateTulipUrgencyProfile(currentSelectedNode);
+    if (currentSelectedNode) {
+      updateTulipUrgencyProfile(currentSelectedNode);
+      renderMonitoringSource(currentSelectedNode);
+    }
+  }, error => {
+    tulipUrgencyRegistryStatus = 'error';
+    console.warn('[TULIP Urgency] Evidence registry unavailable; measurement definitions remain available.', error);
+    renderMonitoringSource(currentSelectedNode);
   });
+}
+
+function requestSupportingCatalogs() {
+  if (supportingCatalogsRequested) return;
+  supportingCatalogsRequested = true;
+  requestTulipUrgencyRegistry();
 
   loadJsonWithApiFallback('/api/owid/global-co2', '/owid-global-co2.json', (data, mode) => {
     owidGlobalData = data;
@@ -3859,42 +3874,6 @@ function requestSupportingCatalogs() {
       console.log(`Loaded ${srcBoundariesData.length} records from Stockholm Resilience Centre Planetary Boundaries.`);
     }
   );
-
-  loadJsonWithApiFallback('/api/data-centers/sources', '/data-center-sources.json', (data, mode) => {
-    dataCenterSourcesRegistry = data;
-    console.log(`[Data Center Registry] Loaded ${dataCenterSourcesRegistry.sources?.length || 0} source definitions via ${mode}.`);
-    if (isDataCenterNode(currentSelectedNode)) fetchDataCenterIntelligence(currentSelectedNode);
-  });
-
-  loadJsonWithApiFallback('/api/data-centers/summary', '/data-center-platform-summary.json', (data, mode) => {
-    dataCenterPlatformSummary = data;
-    console.log(`[Data Center Summary] Loaded frozen data-center summary via ${mode}.`);
-    if (isDataCenterNode(currentSelectedNode)) fetchDataCenterIntelligence(currentSelectedNode);
-  });
-
-  loadJsonWithApiFallback('/api/earthdata/catalog', '/earthdata-catalog.json', (data, mode) => {
-    earthdataCatalog = data;
-    console.log(`[Earthdata Catalog] Loaded ${earthdataCatalog.collections?.length || 0} Earthdata collections via ${mode}.`);
-    if (currentSelectedNode) {
-      renderEarthdataCollections(currentSelectedNode);
-    }
-  });
-
-  loadJsonWithApiFallback('/api/grace/catalog', '/grace-catalog.json', (data, mode) => {
-    graceCatalog = data;
-    console.log(`[GRACE Catalog] Loaded ${graceCatalog.collections?.length || 0} GRACE collections via ${mode}.`);
-    if (currentSelectedNode) {
-      renderGraceCollections(currentSelectedNode);
-    }
-  });
-
-  loadJsonWithApiFallback('/api/power/catalog', '/power-catalog.json', (data, mode) => {
-    powerCatalog = data;
-    console.log(`[POWER Catalog] Loaded ${powerCatalog.baselines?.length || 0} NASA POWER baselines via ${mode}.`);
-    if (currentSelectedNode) {
-      renderPowerBaselines(currentSelectedNode);
-    }
-  });
 
   // Load Asian Development Bank datasets with the default refresh window
   loadDatasetWithUpdateCheck(
@@ -4144,349 +4123,6 @@ function getNatureClimateTierMeta(tier) {
         bg: 'rgba(255, 255, 255, 0.03)'
       };
   }
-}
-
-function getDataCenterAnchorId(node) {
-  if (!node) return null;
-
-  const anchorId = node.calibration?.anchor_id || node.id || '';
-  if (anchorId === 'data_centers' || anchorId === 'ai_data_centers') {
-    return anchorId;
-  }
-
-  const name = (node.name || '').toLowerCase();
-  if (name.includes('ai') || name.includes('compute')) {
-    return 'ai_data_centers';
-  }
-  if (name.includes('data center') || name.includes('server') || name.includes('cooling water')) {
-    return 'data_centers';
-  }
-
-  return null;
-}
-
-function isDataCenterNode(node) {
-  return Boolean(getDataCenterAnchorId(node));
-}
-
-function getIntegrationTierMeta(tier) {
-  switch (tier) {
-    case 'ready_now':
-      return {
-        label: 'Ready now',
-        color: 'rgba(52, 211, 153, 0.95)',
-        border: 'rgba(52, 211, 153, 0.22)',
-        bg: 'rgba(52, 211, 153, 0.10)'
-      };
-    case 'proxy_required':
-      return {
-        label: 'Proxy required',
-        color: 'rgba(251, 191, 36, 0.95)',
-        border: 'rgba(251, 191, 36, 0.22)',
-        bg: 'rgba(251, 191, 36, 0.10)'
-      };
-    case 'proxy_recommended':
-      return {
-        label: 'Proxy recommended',
-        color: 'rgba(96, 165, 250, 0.95)',
-        border: 'rgba(96, 165, 250, 0.22)',
-        bg: 'rgba(96, 165, 250, 0.10)'
-      };
-    case 'catalog_only':
-      return {
-        label: 'Catalog only',
-        color: 'rgba(196, 181, 253, 0.95)',
-        border: 'rgba(196, 181, 253, 0.22)',
-        bg: 'rgba(196, 181, 253, 0.10)'
-      };
-    default:
-      return {
-        label: 'Reference only',
-        color: 'rgba(248, 250, 252, 0.88)',
-        border: 'rgba(255, 255, 255, 0.14)',
-        bg: 'rgba(255, 255, 255, 0.05)'
-      };
-  }
-}
-
-function renderDataCenterSourceGroup(title, sources) {
-  if (!sources || sources.length === 0) return '';
-
-  return `
-    <div style="display: flex; flex-direction: column; gap: 8px;">
-      <div style="font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: rgba(255, 255, 255, 0.48); font-weight: 700;">
-        ${title}
-      </div>
-      ${sources.map(source => {
-        const tier = getIntegrationTierMeta(source.integration_tier);
-        const metrics = (source.metrics_supported || [])
-          .slice(0, 3)
-          .map(metric => metric.replace(/_/g, ' '))
-          .join(' • ');
-
-        return `
-          <div style="display: flex; flex-direction: column; gap: 6px; padding: 10px 12px; border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 10px; background: rgba(255, 255, 255, 0.02);">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px;">
-              <a href="${source.url}" target="_blank" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 600; line-height: 1.35;">
-                ${source.name} ↗
-              </a>
-              <span style="flex-shrink: 0; font-size: 12px; font-weight: 700; letter-spacing: 0.7px; text-transform: uppercase; color: ${tier.color}; border: none; background: ${tier.bg}; border-radius: 8px; padding: 3px 7px;">
-                ${tier.label}
-              </span>
-            </div>
-            <div style="font-size: 12px; color: rgba(255, 255, 255, 0.56); line-height: 1.45;">
-              ${source.notes}
-            </div>
-            <div style="display: flex; justify-content: space-between; gap: 10px; font-size: 12px; color: rgba(255, 255, 255, 0.42);">
-              <span>Refresh: ${source.refresh_days}d</span>
-              <span>${source.access.replace(/_/g, ' ')}</span>
-              <span>${source.region}</span>
-            </div>
-            ${metrics ? `<div style="font-size: 12px; color: rgba(var(--accent-color-rgb), 0.88); line-height: 1.4;">Metrics: ${metrics}</div>` : ''}
-          </div>
-        `;
-      }).join('')}
-    </div>
-  `;
-}
-
-function renderDataCenterGlobalBenchmark(summary, anchorId) {
-  const benchmark = summary?.iea_energy_and_ai;
-  const observed = benchmark?.observed_2024;
-  const baseCase = benchmark?.base_case;
-  const sensitivity = benchmark?.sensitivity;
-  if (!observed || !baseCase || !sensitivity) return '';
-
-  return `
-    <div style="display: flex; flex-direction: column; gap: 8px;">
-      <div style="display: flex; justify-content: space-between; gap: 10px; align-items: baseline;">
-        <div style="font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: rgba(255, 255, 255, 0.48); font-weight: 700;">
-          IEA global benchmark
-        </div>
-        <a href="${benchmark.source}" target="_blank" style="font-size: 12px; color: rgba(var(--accent-color-rgb), 0.88); text-decoration: none;">Energy and AI ↗</a>
-      </div>
-      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; font-size: 12px;">
-        <div style="padding: 7px 8px; border-radius: 8px; background: rgba(255,255,255,0.03); color: rgba(255,255,255,0.7);">2024 electricity: <strong style="color:#fff;">${observed.data_center_electricity_twh} TWh</strong></div>
-        <div style="padding: 7px 8px; border-radius: 8px; background: rgba(255,255,255,0.03); color: rgba(255,255,255,0.7);">Global share: <strong style="color:#fff;">${observed.share_of_global_electricity_pct}%</strong></div>
-        <div style="padding: 7px 8px; border-radius: 8px; background: rgba(255,255,255,0.03); color: rgba(255,255,255,0.7);">Indirect CO₂: <strong style="color:#fff;">${observed.indirect_electricity_co2_mt} Mt</strong></div>
-        <div style="padding: 7px 8px; border-radius: 8px; background: rgba(255,255,255,0.03); color: rgba(255,255,255,0.7);">2030 base case: <strong style="color:#fff;">${baseCase.data_center_electricity_2030_twh} TWh</strong></div>
-      </div>
-      <div style="font-size: 12px; color: rgba(255,255,255,0.56); line-height: 1.5;">
-        ${anchorId === 'ai_data_centers'
-          ? benchmark.ai_boundary
-          : 'Observed values cover all data-centre workloads. AI is one workload category and must not be assigned the full total.'}
-      </div>
-      <div style="font-size: 12px; color: rgba(255,255,255,0.42); line-height: 1.45;">
-        Boundary: ${benchmark.emissions_boundary} 2035 electricity spans ${sensitivity.data_center_electricity_2035_low_twh.toLocaleString()}–${sensitivity.data_center_electricity_2035_high_twh.toLocaleString()} TWh across IEA scenarios; this is a scenario range, not a confidence interval.
-      </div>
-    </div>
-  `;
-}
-
-function renderDataCenterOperationalSnapshot(summary, anchorId) {
-  if (!summary?.electricity_maps?.priority_zone_snapshots) return '';
-
-  const preferredStates = anchorId === 'ai_data_centers'
-    ? ['VA', 'TX', 'CA', 'WA', 'OR']
-    : ['VA', 'TX', 'GA', 'NC', 'AZ'];
-
-  const zoneSnapshots = summary.electricity_maps.priority_zone_snapshots
-    .filter(item => (item.mapped_states || []).some(state => preferredStates.includes(state)))
-    .slice(0, 4);
-
-  if (zoneSnapshots.length === 0) return '';
-
-  return `
-    <div style="display: flex; flex-direction: column; gap: 8px;">
-      <div style="font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: rgba(255, 255, 255, 0.48); font-weight: 700;">
-        Frozen operational snapshots
-      </div>
-      ${zoneSnapshots.map(item => {
-        const snap = item.snapshot || {};
-        const sources = (snap.top_power_sources_mw || [])
-          .map(entry => `${escapeHtml(entry.fuel)}: ${Math.round(entry.value).toLocaleString()} MW`)
-          .join(' • ');
-        const location = item.hubs?.length
-          ? item.hubs.map(value => escapeHtml(value)).join(' • ')
-          : item.mapped_states?.map(value => escapeHtml(value)).join(', ');
-
-        return `
-          <div style="display: flex; flex-direction: column; gap: 6px; padding: 10px 12px; border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 10px; background: rgba(255, 255, 255, 0.02);">
-            <div style="display: flex; justify-content: space-between; gap: 10px; align-items: baseline;">
-              <div style="font-size: 13px; color: #ffffff; font-weight: 600;">${escapeHtml(item.label)}</div>
-              <div style="font-size: 12px; color: rgba(255,255,255,0.45);">${snap.captured_at ? new Date(snap.captured_at).toLocaleDateString() : 'Snapshot'}</div>
-            </div>
-            <div style="font-size: 12px; color: rgba(255,255,255,0.56); line-height: 1.45;">
-              ${location || 'Priority data-center region'}
-            </div>
-            <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; font-size: 12px;">
-              <div style="padding: 7px 8px; border-radius: 8px; background: rgba(255,255,255,0.03); color: rgba(255,255,255,0.7);">Current CI: <strong style="color:#fff;">${escapeHtml(snap.carbon_intensity_gco2eq_kwh ?? '—')}</strong></div>
-              <div style="padding: 7px 8px; border-radius: 8px; background: rgba(255,255,255,0.03); color: rgba(255,255,255,0.7);">24h Avg: <strong style="color:#fff;">${escapeHtml(snap.carbon_intensity_24h_avg_gco2eq_kwh ?? '—')}</strong></div>
-              <div style="padding: 7px 8px; border-radius: 8px; background: rgba(255,255,255,0.03); color: rgba(255,255,255,0.7);">Renewables: <strong style="color:#fff;">${escapeHtml(snap.renewable_percentage ?? '—')}%</strong></div>
-              <div style="padding: 7px 8px; border-radius: 8px; background: rgba(255,255,255,0.03); color: rgba(255,255,255,0.7);">Carbon-free: <strong style="color:#fff;">${escapeHtml(snap.carbon_free_percentage ?? '—')}%</strong></div>
-            </div>
-            ${sources ? `<div style="font-size: 12px; color: rgba(var(--accent-color-rgb), 0.88); line-height: 1.4;">Top sources: ${sources}</div>` : ''}
-          </div>
-        `;
-      }).join('')}
-    </div>
-  `;
-}
-
-function renderDataCenterAnnualBaselines(summary, anchorId) {
-  if (!summary?.eia?.state_profiles) return '';
-
-  const preferredStates = anchorId === 'ai_data_centers'
-    ? ['VA', 'TX', 'CA', 'WA']
-    : ['VA', 'TX', 'GA', 'NC'];
-
-  const stateProfiles = summary.eia.state_profiles
-    .filter(item => preferredStates.includes(item.state_code))
-    .slice(0, 4);
-
-  if (stateProfiles.length === 0) return '';
-
-  return `
-    <div style="display: flex; flex-direction: column; gap: 8px;">
-      <div style="font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: rgba(255, 255, 255, 0.48); font-weight: 700;">
-        Annual grid baselines
-      </div>
-      ${stateProfiles.map(item => {
-        const mix = item.annual_generation_mix_pct || {};
-        return `
-          <div style="display: flex; flex-direction: column; gap: 6px; padding: 10px 12px; border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 10px; background: rgba(255, 255, 255, 0.02);">
-            <div style="display: flex; justify-content: space-between; gap: 10px; align-items: baseline;">
-              <div style="font-size: 13px; color: #ffffff; font-weight: 600;">${item.state_name}</div>
-              <div style="font-size: 12px; color: rgba(255,255,255,0.45);">EIA ${item.latest_year}</div>
-            </div>
-            <div style="font-size: 12px; color: rgba(255,255,255,0.56); line-height: 1.45;">
-              ${item.data_center_hub}
-            </div>
-            <div style="display: flex; flex-wrap: wrap; gap: 6px;">
-              <span style="font-size: 12px; color: rgba(255,255,255,0.7); border: none; background: rgba(255,255,255,0.03); border-radius: 8px; padding: 4px 7px;">Fossil ${mix.fossil_pct ?? '—'}%</span>
-              <span style="font-size: 12px; color: rgba(255,255,255,0.7); border: none; background: rgba(255,255,255,0.03); border-radius: 8px; padding: 4px 7px;">Nuclear ${mix.nuclear_pct ?? '—'}%</span>
-              <span style="font-size: 12px; color: rgba(255,255,255,0.7); border: none; background: rgba(255,255,255,0.03); border-radius: 8px; padding: 4px 7px;">Renewables ${mix.renewables_pct ?? '—'}%</span>
-              <span style="font-size: 12px; color: rgba(255,255,255,0.7); border: none; background: rgba(255,255,255,0.03); border-radius: 8px; padding: 4px 7px;">Gas ${mix.gas_pct ?? '—'}%</span>
-            </div>
-          </div>
-        `;
-      }).join('')}
-    </div>
-  `;
-}
-
-function renderDisclosureLayer(summary) {
-  const operators = summary?.disclosures?.operators || [];
-  if (operators.length === 0) return '';
-
-  return `
-    <div style="display: flex; flex-direction: column; gap: 8px;">
-      <div style="font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: rgba(255, 255, 255, 0.48); font-weight: 700;">
-        Disclosure layer
-      </div>
-      ${operators.map(item => `
-        <div style="display: flex; flex-direction: column; gap: 6px; padding: 10px 12px; border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 10px; background: rgba(255, 255, 255, 0.02);">
-          <div style="display: flex; justify-content: space-between; gap: 10px; align-items: baseline;">
-            <div style="font-size: 13px; color: #ffffff; font-weight: 600;">${item.operator}</div>
-            <div style="font-size: 12px; color: rgba(255,255,255,0.45); text-transform: uppercase;">Context only</div>
-          </div>
-          <div style="font-size: 12px; color: rgba(255,255,255,0.56); line-height: 1.45;">
-            ${item.notes}
-          </div>
-          <div style="display: flex; flex-wrap: wrap; gap: 6px;">
-            ${Object.entries(item.fields || {}).slice(0, 4).map(([key, value]) => `
-              <span style="font-size: 12px; color: rgba(255,255,255,0.7); border: none; background: rgba(255,255,255,0.03); border-radius: 8px; padding: 4px 7px;">
-                ${key.replace(/_/g, ' ')}: ${value}
-              </span>
-            `).join('')}
-          </div>
-        </div>
-      `).join('')}
-    </div>
-  `;
-}
-
-function fetchDataCenterIntelligence(node) {
-  const cardContainer = document.getElementById('data-center-intel-card');
-  const listContainer = document.getElementById('data-center-intel-list');
-  if (!cardContainer || !listContainer) return;
-
-  if (!isDataCenterNode(node)) {
-    cardContainer.style.display = 'none';
-    return;
-  }
-
-  cardContainer.style.display = 'block';
-
-  if (!dataCenterSourcesRegistry || !Array.isArray(dataCenterSourcesRegistry.sources)) {
-    requestSupportingCatalogs();
-    listContainer.innerHTML = `<div style="font-size: 13px; color: var(--text-muted); padding: 6px 0;">Loading data-center source registry...</div>`;
-    setTimeout(() => {
-      if (currentSelectedNode === node) fetchDataCenterIntelligence(node);
-    }, 200);
-    return;
-  }
-
-  const anchorId = getDataCenterAnchorId(node);
-  const priorityMetrics = (dataCenterSourcesRegistry.priority_metrics || []).filter(metric => (metric.applies_to || []).includes(anchorId));
-  const relevantSources = dataCenterSourcesRegistry.sources.filter(source => (source.priority_for || []).includes(anchorId) || (source.priority_for || []).includes('data_centers'));
-
-  const readySources = relevantSources.filter(source => source.integration_tier === 'ready_now');
-  const proxySources = relevantSources.filter(source => ['proxy_required', 'proxy_recommended'].includes(source.integration_tier));
-  const referenceSources = relevantSources.filter(source => !['ready_now', 'proxy_required', 'proxy_recommended'].includes(source.integration_tier));
-  const refreshPolicy = dataCenterSourcesRegistry.refresh_policy || {};
-
-  const summaryBadges = [
-    { label: 'Ready', value: readySources.length, color: 'rgba(52, 211, 153, 0.95)' },
-    { label: 'Derived', value: proxySources.length, color: 'rgba(251, 191, 36, 0.95)' },
-    { label: 'Reference', value: referenceSources.length, color: 'rgba(248, 250, 252, 0.9)' }
-  ];
-
-  listContainer.innerHTML = `
-    <div style="display: flex; flex-direction: column; gap: 14px;">
-      <div style="font-size: 12px; color: rgba(255, 255, 255, 0.62); line-height: 1.5;">
-        This stack separates browser-safe datasets from derived APIs and report-grade calibration sources. Default refresh is modeled at
-        <strong style="color: #ffffff;">${refreshPolicy.default_days || 42} days</strong>, with slower-moving disclosures at
-        <strong style="color: #ffffff;">${refreshPolicy.slow_moving_days || 56} days</strong>.
-      </div>
-
-      ${dataCenterPlatformSummary ? `
-        <div style="font-size: 12px; color: rgba(255,255,255,0.45);">
-          Frozen snapshot captured ${new Date(dataCenterPlatformSummary.captured_at).toLocaleString()}.
-        </div>
-      ` : ''}
-
-      <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-        ${summaryBadges.map(item => `
-          <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: ${item.color}; border: none; background: rgba(255, 255, 255, 0.03); border-radius: 8px; padding: 5px 9px;">
-            ${item.label}: ${item.value}
-          </span>
-        `).join('')}
-      </div>
-
-      <div style="display: flex; flex-direction: column; gap: 8px;">
-        <div style="font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: rgba(255, 255, 255, 0.48); font-weight: 700;">
-          Priority metrics for ${anchorId === 'ai_data_centers' ? 'AI data centers' : 'data centers'}
-        </div>
-        <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-          ${priorityMetrics.map(metric => `
-            <span style="font-size: 12px; color: rgba(var(--accent-color-rgb), 0.95); border: none; background: rgba(var(--accent-color-rgb), 0.08); border-radius: 8px; padding: 5px 8px;">
-              ${metric.label}
-            </span>
-          `).join('')}
-        </div>
-      </div>
-
-      ${dataCenterPlatformSummary ? renderDataCenterGlobalBenchmark(dataCenterPlatformSummary, anchorId) : ''}
-      ${dataCenterPlatformSummary ? renderDataCenterOperationalSnapshot(dataCenterPlatformSummary, anchorId) : ''}
-      ${dataCenterPlatformSummary ? renderDataCenterAnnualBaselines(dataCenterPlatformSummary, anchorId) : ''}
-      ${dataCenterPlatformSummary ? renderDisclosureLayer(dataCenterPlatformSummary) : ''}
-
-      ${renderDataCenterSourceGroup('Ready now', readySources)}
-      ${renderDataCenterSourceGroup('Needs derived mapping or server-side ETL', proxySources)}
-      ${renderDataCenterSourceGroup('Reference and calibration sources', referenceSources)}
-    </div>
-  `;
 }
 
 // --- APP INITIALIZATION ---
@@ -4757,10 +4393,7 @@ function init() {
   };
   relationshipTriggerSelect?.addEventListener('change', handleRelationshipEvidenceChange);
   relationshipEffectSelect?.addEventListener('change', handleRelationshipEvidenceChange);
-  consoleNodeSensors = document.getElementById('console-node-sensors');
-  consoleEarthdataCollections = document.getElementById('console-earthdata-collections');
-  consoleGraceCollections = document.getElementById('console-grace-collections');
-  consolePowerBaselines = document.getElementById('console-power-baselines');
+  monitoringSourceBody = document.getElementById('monitoring-source-body');
   consoleDriversList = document.getElementById('console-drivers-list');
   consoleImpactsList = document.getElementById('console-impacts-list');
   humanImpactSeverity = document.getElementById('human-impact-severity');
@@ -4849,6 +4482,9 @@ function init() {
       monitoringSourceContent.hidden = !nextExpanded;
 
       if (nextExpanded) {
+        renderMonitoringSource(currentSelectedNode);
+        void loadMonitoringSourceRegistry();
+        requestTulipUrgencyRegistry();
         const monitoringSection = document.getElementById('monitoring-source-section');
         if (monitoringSection) {
           window.requestAnimationFrame(() => {
@@ -5103,6 +4739,7 @@ function init() {
     graphInstance?.exitFocusMode();
     window.requestAnimationFrame(() => {
       graphInstance?.resizeCanvas();
+      if (window.matchMedia('(max-width: 950px)').matches) graphInstance?.zoomToFit();
       updateGatewayArcLayout();
       forceExploreTabState();
     });
@@ -5153,7 +4790,10 @@ function init() {
             graphInstance.zoomToFit();
           }
         }
-        if (studyConsole && workspace) studyConsole.scrollTop = workspace.inspectorScrollTop;
+        if (studyConsole && workspace) {
+          const shouldRestoreInspectorScroll = !window.matchMedia?.('(max-width: 950px)').matches;
+          studyConsole.scrollTop = shouldRestoreInspectorScroll ? workspace.inspectorScrollTop : 0;
+        }
         updateGatewayArcLayout();
       });
       return;
@@ -5231,6 +4871,7 @@ function init() {
   if (footerContact?.getAttribute('aria-disabled') !== 'true') {
     footerContact.addEventListener('click', handleContactClick);
   }
+
   const contactForm = document.getElementById('contact-form');
   const contactFormStatus = document.getElementById('contact-form-status');
   if (contactForm && contactFormStatus) {
@@ -6084,322 +5725,275 @@ function getNodeMeaning(node) {
   return "Socio-political pressures and environmental policy changes impact regional resource allocations, driving human migrations and shifting infrastructure resilience under climate change conditions.";
 }
 
-function getNodeSensors(node) {
-  if (!node) return "<li>No sensors available</li>";
-  const sphere = node.sphere || 'atmosphere';
-  const metric = node.metric_contract;
-  const metricContractItems = metric
-    ? [
-        `<li class="monitoring-method-item"><strong>Measurement</strong> — ${escapeHtml(metric.metric_name || node.name)}</li>`,
-        `<li class="monitoring-method-item"><strong>Unit &amp; coverage</strong> — ${escapeHtml([metric.unit, metric.geography].filter(Boolean).join(' · '))}</li>`,
-        metric.cadence
-          ? `<li class="monitoring-method-item"><strong>Update cadence</strong> — ${escapeHtml(metric.cadence)}</li>`
-          : '',
-        metric.uncertainty
-          ? `<li class="monitoring-method-item"><strong>Uncertainty</strong> — ${escapeHtml(metric.uncertainty)}</li>`
-          : ''
-      ].filter(Boolean)
-    : [];
-  const sensors = {
-    atmosphere: [
-      { name: "Sentinel-5P TROPOMI", desc: "Tropospheric gas spectrometer mapping ozone, NO2, and CO columns." },
-      { name: "NASA OCO-2 & OCO-3", desc: "Spaceborne CO2 spectrometers tracking dry air mole fractions." },
-      { name: "Aqua AIRS", desc: "Atmospheric infrared sounder measuring global temperature & humidity profiles." },
-      { name: "Aura OMI", desc: "Ozone monitoring instrument tracking UV radiation and sulfur dioxide." }
-    ],
-    oceans: [
-      { name: "Sentinel-6 Michael Freilich", desc: "Radar altimeter mapping sea surface height anomalies." },
-      { name: "Terra/Aqua MODIS", desc: "Infrared radiometers tracking sea surface temperatures and coral stress." },
-      { name: "Jason-3 Altimeter", desc: "Ocean surface topography scanner mapping currents & wave heights." },
-      { name: "SMAP Radiometer", desc: "Active-passive microwave instrument monitoring ocean surface salinity." }
-    ],
-    cryosphere: [
-      { name: "GRACE-FO Gravimetry", desc: "Gravity-based mass-change tracking for ice sheets, glaciers, and cryosphere water storage." },
-      { name: "ICESat-2 ATLAS Laser", desc: "Spaceborne lidar profiling glacier elevations and sea ice thickness." },
-      { name: "Sentinel-1 SAR", desc: "Synthetic Aperture Radar monitoring glacial velocities and sheet fractures." },
-      { name: "Terra/Aqua MODIS", desc: "Multispectral radiometer measuring ice albedo feedback variations." }
-    ],
-    biosphere: [
-      { name: "Landsat-8/9 OLI", desc: "Operational Land Imager mapping forest canopy loss and fragmentation." },
-      { name: "Sentinel-2 MSI", desc: "Multispectral land imager tracking regional vegetation cover changes." },
-      { name: "Terra/Aqua MODIS", desc: "Vegetation index sensor tracking global NDVI/EVI anomalies." },
-      { name: "ECOSTRESS", desc: "Thermal radiometer tracking canopy water stress & transpiration." }
-    ],
-    energy: [
-      { name: "Sentinel-5P TROPOMI", desc: "Plume tracker monitoring methane emissions and flaring SO2." },
-      { name: "Suomi NPP VIIRS", desc: "Nighttime lights sensor tracking industrial energy footprint glow." },
-      { name: "OCO-2 CO2 Sensor", desc: "Targeted spectrometer tracking point-source industrial CO2 outflow." },
-      { name: "NASA TEMPO", desc: "Geostationary air spectrometer tracking refinery nitrogen oxide plumes." }
-    ],
-    digital: [
-      { name: "Facility power meters", desc: "On-site interval electricity metering used to track data-center, fab, and network loads." },
-      { name: "Cooling-water telemetry", desc: "Operational metering of water withdrawals, loops, and heat-rejection systems at dense digital facilities." },
-      { name: "Network operations telemetry", desc: "Backbone and interconnection monitoring used to track traffic, outages, and routing stress across digital networks." },
-      { name: "Grid interconnection monitors", desc: "Utility and substation monitoring that reveals concentrated digital load growth and reliability strain." }
-    ],
-    agriculture: [
-      { name: "SMAP Radiometer", desc: "Soil moisture tracker measuring water availability in crop zones." },
-      { name: "Landsat-8/9 TIRS", desc: "Thermal infrared sensor mapping cropland irrigation water depletion." },
-      { name: "Terra/Aqua MODIS", desc: "Ecosystem sensor measuring crop growth curves and harvest yields." },
-      { name: "GPM IMERG Rain", desc: "Precipitation scanner mapping rainfall anomalies in agricultural belts." }
-    ],
-    transport: [
-      { name: "NASA TEMPO", desc: "Urban pollution scanner tracking localized traffic NOx and PM2.5." },
-      { name: "Suomi NPP VIIRS", desc: "Nighttime lights tracking highway density and shipping lane glow." },
-      { name: "Sentinel-5P", desc: "Atmospheric sensor tracking carbon monoxide and particulate corridors." },
-      { name: "Aura OMI", desc: "Ozone monitoring instrument tracking sulfur dioxide shipping emissions." }
-    ],
-    economy: [
-      { name: "Sentinel-5P TROPOMI", desc: "Industrial sensor tracking manufacturing gas outflows and soot." },
-      { name: "Landsat-9 OLI-2", desc: "Operational Land Imager mapping landfills and factory footprints." },
-      { name: "NASA OCO-3", desc: "Space station sensor mapping carbon emissions over urban industrial centers." },
-      { name: "Aqua AIRS", desc: "Infrared sounder profiling thermal discharge from heavy industry zones." }
-    ],
-    sociopolitical: [
-      { name: "GRACE-FO Gravimetry", desc: "Gravity-based tracking of groundwater depletion, basin stress, and drought-linked storage loss." },
-      { name: "Sentinel-6 Altimeter", desc: "Radar mapping coastal flood threats and displacement risks." },
-      { name: "Suomi NPP VIIRS", desc: "Nighttime lights tracking rapid population shifts and slum expansions." },
-      { name: "Terra/Aqua MODIS", desc: "Thermal radiometers tracking heatwave intensities in urban zones." }
-    ]
-  };
+function formatMonitoringSourceDate(value) {
+  if (!value) return null;
+  const match = String(value).match(/^(\d{4})(?:-(\d{2}))?(?:-(\d{2}))?/);
+  if (!match) return String(value);
 
-  const sphereSensors = sensors[sphere] || sensors.atmosphere;
-  const sensorItems = sphereSensors.map(s => {
-    return `<li><strong>${s.name}</strong> — ${s.desc}</li>`;
+  const [, year, month, day] = match;
+  if (!month) return year;
+  const date = new Date(Date.UTC(Number(year), Number(month) - 1, Number(day || 1)));
+  if (Number.isNaN(date.getTime())) return String(value);
+  return new Intl.DateTimeFormat('en-US', {
+    year: 'numeric',
+    month: 'long',
+    ...(day ? { day: 'numeric' } : {}),
+    timeZone: 'UTC'
+  }).format(date);
+}
+
+function formatMonitoringReleaseContext(value) {
+  return String(value || '').replace(
+    /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z/g,
+    timestamp => formatMonitoringSourceDate(timestamp) || timestamp
+  );
+}
+
+async function fetchMonitoringRegistryUrl(url, timeout = 3000) {
+  const controller = new AbortController();
+  const timeoutId = window.setTimeout(() => controller.abort(), timeout);
+  try {
+    const response = await fetch(url, { signal: controller.signal });
+    if (!response.ok) throw new Error(`Status: ${response.status}`);
+    const registry = await response.json();
+    if (!Array.isArray(registry?.sources)) throw new Error('Invalid source registry');
+    return registry;
+  } finally {
+    window.clearTimeout(timeoutId);
+  }
+}
+
+function loadMonitoringSourceRegistry() {
+  if (monitoringSourceRegistry) return Promise.resolve(monitoringSourceRegistry);
+  if (monitoringSourceRegistryPromise) return monitoringSourceRegistryPromise;
+
+  monitoringSourceRegistryStatus = 'loading';
+  renderMonitoringSource(currentSelectedNode);
+  const candidateUrls = import.meta.env.PROD
+    ? ['/tulip-source-registry.json']
+    : ['/api/tulip/sources', '/tulip-source-registry.json'];
+
+  const registryRequest = (async () => {
+    let latestError = null;
+    for (const url of candidateUrls) {
+      try {
+        const registry = await fetchMonitoringRegistryUrl(url);
+        monitoringSourceRegistry = registry;
+        monitoringSourceRegistryStatus = 'ready';
+        console.log(`[Monitoring Sources] Loaded ${registry.sources.length} canonical source records.`);
+        renderMonitoringSource(currentSelectedNode);
+        return registry;
+      } catch (error) {
+        latestError = error;
+      }
+    }
+
+    monitoringSourceRegistryStatus = 'error';
+    console.warn('[Monitoring Sources] Canonical source registry unavailable; using reviewed node fallbacks.', latestError);
+    renderMonitoringSource(currentSelectedNode);
+    return null;
+  })();
+
+  monitoringSourceRegistryPromise = registryRequest;
+  void registryRequest.finally(() => {
+    if (!monitoringSourceRegistry) monitoringSourceRegistryPromise = null;
   });
-  return [...metricContractItems, ...sensorItems].join("");
+
+  return registryRequest;
 }
 
-function getEarthdataMatches(node, limit = 3) {
-  if (!node || !earthdataCatalog || !Array.isArray(earthdataCatalog.collections)) {
-    return [];
-  }
-
-  const normalizedName = String(node.name || '').toLowerCase();
-  const normalizedSphere = String(node.sphere || '').toLowerCase();
-  const nameTokens = normalizedName
-    .replace(/[^a-z0-9]+/g, ' ')
-    .split(' ')
-    .filter(token => token.length >= 4 && !['data', 'global', 'system', 'events', 'centers'].includes(token));
-
-  return earthdataCatalog.collections
-    .map(entry => {
-      const haystack = [
-        entry.title,
-        entry.summary,
-        entry.short_name,
-        ...(entry.primary_spheres || []),
-        ...(entry.match_terms || [])
-      ].join(' ').toLowerCase();
-
-      const exactNameMatch = Boolean(normalizedName && haystack.includes(normalizedName));
-      const tokenHits = nameTokens.filter(token => haystack.includes(token)).length;
-      let score = 0;
-      if ((entry.primary_spheres || []).includes(node.sphere)) score += 8;
-      if (exactNameMatch) score += 18;
-      if (normalizedSphere && haystack.includes(normalizedSphere)) score += 6;
-
-      nameTokens.forEach(token => {
-        if (haystack.includes(token)) score += 3;
-      });
-
-      return { entry, score, strongMatch: exactNameMatch || tokenHits > 0 };
-    })
-    .filter(item => item.score > 0 && item.strongMatch)
-    .sort((a, b) => b.score - a.score || String(a.entry.title).localeCompare(String(b.entry.title)))
-    .slice(0, limit)
-    .map(item => item.entry);
+function renderMonitoringTechnicalRow(label, value) {
+  if (!value) return '';
+  return `
+    <div class="monitoring-technical-row">
+      <dt>${escapeHtml(label)}</dt>
+      <dd>${escapeHtml(value)}</dd>
+    </div>
+  `;
 }
 
-function renderEarthdataCollections(node) {
-  if (!consoleEarthdataCollections) return;
-
-  const matches = getEarthdataMatches(node, 3);
-  const section = consoleEarthdataCollections.closest('.meta-desc-section');
-  if (section) section.hidden = matches.length === 0;
-  if (matches.length === 0) {
-    consoleEarthdataCollections.innerHTML = '';
-    return;
-  }
-
-  consoleEarthdataCollections.innerHTML = matches.map(entry => {
-    const shortName = escapeHtml(entry.short_name || 'NASA Collection');
-    const version = entry.version_id ? ` v${escapeHtml(entry.version_id)}` : '';
-    const archiveCenter = entry.archive_center ? ` · ${escapeHtml(entry.archive_center)}` : '';
-    const summary = escapeHtml(entry.summary || 'NASA Earth observation collection relevant to this node.');
-    const href = escapeHtml(safeHttpsUrl(entry.search_url || entry.access_url, 'https://search.earthdata.nasa.gov/'));
-
-    return `
-      <div style="display:flex; flex-direction:column; gap:4px; padding-top:8px; border-top:1px solid rgba(255,255,255,0.08);">
-        <div style="font-size:12px; color: rgba(255, 220, 174, 0.95); font-weight:600; letter-spacing:0.4px;">${shortName}${version}${archiveCenter}</div>
-        <a href="${href}" target="_blank" rel="noopener noreferrer" style="font-size:13px; color:#ffffff; text-decoration:none; font-weight:500; line-height:1.4;">
-          ${escapeHtml(entry.title)} ↗
-        </a>
-        <div style="font-size:12px; color:rgba(255,255,255,0.56); line-height:1.45;">${summary}</div>
-      </div>
-    `;
-  }).join('');
-}
-
-function getGraceMatches(node, limit = 3) {
-  if (!node || !graceCatalog || !Array.isArray(graceCatalog.collections)) {
-    return [];
-  }
-
-  const normalizedName = String(node.name || '').toLowerCase();
-  const normalizedSphere = String(node.sphere || '').toLowerCase();
-  const nameTokens = normalizedName
-    .replace(/[^a-z0-9]+/g, ' ')
-    .split(' ')
-    .filter(token => token.length >= 4 && !['data', 'global', 'system', 'events'].includes(token));
-
-  return graceCatalog.collections
-    .map(entry => {
-      const haystack = [
-        entry.title,
-        entry.summary,
-        entry.short_name,
-        ...(entry.primary_spheres || []),
-        ...(entry.match_terms || []),
-        ...(entry.node_hints || [])
-      ].join(' ').toLowerCase();
-
-      const nodeHintMatch = (entry.node_hints || []).includes(node.id);
-      const exactNameMatch = Boolean(normalizedName && haystack.includes(normalizedName));
-      const tokenHits = nameTokens.filter(token => haystack.includes(token)).length;
-      const domainMatch = node.id === 'resource_depletion' && /groundwater|water storage|drought|hydrology/.test(haystack)
-        || node.sphere === 'cryosphere' && /ice sheet|greenland|antarctica|mass anomaly|mascon/.test(haystack)
-        || node.sphere === 'oceans' && /ocean mass|sea level|ocean bottom pressure/.test(haystack);
-      let score = 0;
-      if ((entry.primary_spheres || []).includes(node.sphere)) score += 10;
-      if (nodeHintMatch) score += 20;
-      if (exactNameMatch) score += 12;
-      if (normalizedSphere && haystack.includes(normalizedSphere)) score += 6;
-
-      nameTokens.forEach(token => {
-        if (haystack.includes(token)) score += 3;
-      });
-
-      if (node.id === 'resource_depletion' && /groundwater|water storage|drought|hydrology/.test(haystack)) score += 14;
-      if (node.sphere === 'cryosphere' && /ice sheet|greenland|antarctica|mass anomaly|mascon/.test(haystack)) score += 12;
-      if (node.sphere === 'oceans' && /ocean mass|sea level|ocean bottom pressure/.test(haystack)) score += 10;
-
-      return { entry, score, strongMatch: nodeHintMatch || exactNameMatch || tokenHits > 0 || domainMatch };
-    })
-    .filter(item => item.score > 0 && item.strongMatch)
-    .sort((a, b) => b.score - a.score || String(a.entry.title).localeCompare(String(b.entry.title)))
-    .slice(0, limit)
-    .map(item => item.entry);
-}
-
-function renderGraceCollections(node) {
-  if (!consoleGraceCollections) return;
-
-  const matches = getGraceMatches(node, 3);
-  const section = consoleGraceCollections.closest('.meta-desc-section');
-  if (section) section.hidden = matches.length === 0;
-  if (matches.length === 0) {
-    consoleGraceCollections.innerHTML = '';
-    return;
-  }
-
-  consoleGraceCollections.innerHTML = matches.map(entry => {
-    const shortName = escapeHtml(entry.short_name || 'GRACE Collection');
-    const version = entry.version_id ? ` v${escapeHtml(entry.version_id)}` : '';
-    const archiveCenter = entry.archive_center ? ` · ${escapeHtml(entry.archive_center)}` : '';
-    const summary = escapeHtml(entry.summary || 'GRACE/GRACE-FO collection relevant to this mass-change pathway.');
-    const href = escapeHtml(safeHttpsUrl(entry.search_url || entry.access_url, 'https://grace.jpl.nasa.gov/'));
-
-    return `
-      <div style="display:flex; flex-direction:column; gap:4px; padding-top:8px; border-top:1px solid rgba(255,255,255,0.08);">
-        <div style="font-size:12px; color: rgba(96, 165, 250, 0.95); font-weight:600; letter-spacing:0.4px;">${shortName}${version}${archiveCenter}</div>
-        <a href="${href}" target="_blank" rel="noopener noreferrer" style="font-size:13px; color:#ffffff; text-decoration:none; font-weight:500; line-height:1.4;">
-          ${escapeHtml(entry.title)} ↗
-        </a>
-        <div style="font-size:12px; color:rgba(255,255,255,0.56); line-height:1.45;">${summary}</div>
-      </div>
-    `;
-  }).join('');
-}
-
-function getPowerMatches(node, limit = 2) {
-  if (!node || !powerCatalog || !Array.isArray(powerCatalog.baselines)) {
-    return [];
-  }
-
-  const normalizedName = String(node.name || '').toLowerCase();
-  const normalizedSphere = String(node.sphere || '').toLowerCase();
-  const nameTokens = normalizedName
-    .replace(/[^a-z0-9]+/g, ' ')
-    .split(' ')
-    .filter(token => token.length >= 4);
-
-  return powerCatalog.baselines
-    .map(entry => {
-      const haystack = [
-        entry.label,
-        entry.location?.label,
-        ...(entry.primary_spheres || []),
-        ...(entry.match_terms || []),
-        ...(entry.node_hints || [])
-      ].join(' ').toLowerCase();
-
-      let score = 0;
-      if ((entry.primary_spheres || []).includes(node.sphere)) score += 12;
-      if ((entry.node_hints || []).includes(node.id)) score += 18;
-      if (normalizedSphere && haystack.includes(normalizedSphere)) score += 5;
-      if (normalizedName && haystack.includes(normalizedName)) score += 8;
-
-      nameTokens.forEach(token => {
-        if (haystack.includes(token)) score += 3;
-      });
-
-      if (node.sphere === 'cryosphere' && /ice|glacier|snow|permafrost|thaw/.test(haystack)) score += 10;
-      if ((node.sphere === 'agriculture' || node.sphere === 'biosphere') && /drought|water stress|fire|crop/.test(haystack)) score += 8;
-      if (node.sphere === 'energy' && /data center|cooling load|grid/.test(haystack)) score += 10;
-      if (node.sphere === 'atmosphere' && /heat|humidity|precipitation/.test(haystack)) score += 8;
-
-      return { entry, score };
-    })
-    .filter(item => item.score > 0)
-    .sort((a, b) => b.score - a.score || String(a.entry.label).localeCompare(String(b.entry.label)))
-    .slice(0, limit)
-    .map(item => item.entry);
-}
-
-function renderPowerBaselines(node) {
-  if (!consolePowerBaselines) return;
-
-  const matches = getPowerMatches(node, 2);
-  const section = consolePowerBaselines.closest('.meta-desc-section');
-  if (section) section.hidden = matches.length === 0;
-  if (matches.length === 0) {
-    consolePowerBaselines.innerHTML = '';
-    return;
-  }
-
-  consolePowerBaselines.innerHTML = matches.map(entry => {
-    const metrics = entry.metrics || {};
-    const parts = [
-      Number.isFinite(metrics.annual_air_temperature_c) ? `Temp ${metrics.annual_air_temperature_c} C` : null,
-      Number.isFinite(metrics.annual_relative_humidity_pct) ? `Humidity ${metrics.annual_relative_humidity_pct}%` : null,
-      Number.isFinite(metrics.annual_precipitation_mm_day) ? `Precip ${metrics.annual_precipitation_mm_day} mm/day` : null,
-      Number.isFinite(metrics.annual_surface_solar_kwh_m2_day) ? `Solar ${metrics.annual_surface_solar_kwh_m2_day} kWh/m2/day` : null
-    ].filter(Boolean);
-
-    return `
-      <div style="display:flex; flex-direction:column; gap:4px; padding-top:8px; border-top:1px solid rgba(255,255,255,0.08);">
-        <div style="font-size:12px; color: rgba(255, 176, 80, 0.95); font-weight:600; letter-spacing:0.4px;">${entry.label}</div>
-        <a href="https://power.larc.nasa.gov/" target="_blank" rel="noopener noreferrer" style="font-size:13px; color:#ffffff; text-decoration:none; font-weight:500; line-height:1.4;">
-          ${entry.location?.label || 'NASA POWER baseline'} ↗
-        </a>
-        <div style="font-size:12px; color:rgba(255,255,255,0.72); line-height:1.45;">
-          Representative climatology baseline for this pathway, not a node-specific geolocation.
+function renderMonitoringHighlights(highlights = []) {
+  if (!highlights.length) return '';
+  return `
+    <div class="monitoring-evidence-highlights" role="group" aria-label="Reviewed quantitative highlights">
+      ${highlights.map(highlight => `
+        <div class="monitoring-evidence-highlight">
+          <span class="monitoring-evidence-highlight-label">${escapeHtml(highlight.label)}</span>
+          <strong>${escapeHtml(highlight.value)} <small>${escapeHtml(highlight.unit)}</small></strong>
+          ${highlight.observedAt ? `<span>${escapeHtml(String(highlight.observedAt))}</span>` : ''}
         </div>
-        <div style="font-size:12px; color:rgba(255,255,255,0.56); line-height:1.45;">${parts.join(' · ')}</div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function renderMonitoringSupportingSources(sources = []) {
+  const resolvedSources = sources.filter(source => source.resolved);
+  if (!resolvedSources.length) return '';
+  return `
+    <div class="monitoring-supporting-sources">
+      <h4>Evidence used for this snapshot</h4>
+      <ul>
+        ${resolvedSources.map(source => {
+          const sourceHref = safeHttpsUrl(source.url, '');
+          const hasSourceLink = sourceHref !== 'about:blank';
+          return hasSourceLink
+            ? `<li><a href="${escapeHtml(sourceHref)}" target="_blank" rel="noopener noreferrer" aria-label="Open ${escapeHtml(source.name)} in a new tab">${escapeHtml(source.name)} <span aria-hidden="true">↗</span></a></li>`
+            : `<li><span>${escapeHtml(source.name)}</span></li>`;
+        }).join('')}
+      </ul>
+    </div>
+  `;
+}
+
+function renderMonitoringEvidenceCard(profile) {
+  const evidence = profile.evidenceSnapshot;
+  if (evidence) {
+    const evidenceDate = formatMonitoringSourceDate(evidence.asOf) || evidence.asOf;
+    const score = Number.isFinite(evidence.score) ? evidence.score.toFixed(1) : null;
+    const scoreMarkup = score
+      ? `<strong>${escapeHtml(score)} <small>/ 10</small></strong>${evidence.band ? `<span>${escapeHtml(evidence.band)}</span>` : ''}`
+      : '<span>Reviewed snapshot</span>';
+    return `
+      <article class="monitoring-evidence-card">
+        <div class="monitoring-evidence-heading">
+          <div>
+            <div class="monitoring-card-kicker">Latest reviewed evidence</div>
+            <h3>${escapeHtml(evidence.methodLabel)}</h3>
+          </div>
+          <div class="monitoring-evidence-score" role="img" aria-label="${score ? `TULIP urgency score ${score} out of 10${evidence.band ? `, ${evidence.band}` : ''}` : 'Reviewed TULIP snapshot'}">
+            ${scoreMarkup}
+          </div>
+        </div>
+        <dl class="monitoring-evidence-facts">
+          ${evidenceDate ? `<div><dt>Evidence date</dt><dd>${escapeHtml(evidenceDate)}</dd></div>` : ''}
+          <div><dt>Evidence route</dt><dd>${escapeHtml(evidence.methodLabel)}</dd></div>
+        </dl>
+        ${renderMonitoringHighlights(evidence.highlights)}
+        ${evidence.rationale ? `<div class="monitoring-evidence-explanation"><h4>Why this evidence</h4><p>${escapeHtml(evidence.rationale)}</p></div>` : ''}
+        ${evidence.freshness ? `<p class="monitoring-evidence-freshness"><strong>Release context:</strong> ${escapeHtml(formatMonitoringReleaseContext(evidence.freshness))}</p>` : ''}
+        ${renderMonitoringSupportingSources(evidence.supportingSources)}
+        <p class="monitoring-snapshot-note">${escapeHtml(evidence.snapshotNote)}</p>
+      </article>
+    `;
+  }
+
+  if (profile.isResponse && profile.responseTracking) {
+    return `
+      <article class="monitoring-response-card">
+        <div class="monitoring-card-kicker">How progress is tracked</div>
+        <h3>${escapeHtml(profile.responseTracking.status)}</h3>
+        <p>${escapeHtml(profile.responseTracking.summary)}</p>
+        <p class="monitoring-response-note">${escapeHtml(profile.responseTracking.note)}</p>
+      </article>
+    `;
+  }
+
+  const stateCopy = profile.urgencyStatus === 'error'
+    ? 'The latest TULIP evidence snapshot is temporarily unavailable. The reviewed measurement definition and primary source below are still available.'
+    : profile.urgencyStatus === 'ready'
+      ? 'A reviewed urgency snapshot is not available for this issue. The measurement definition and primary source below remain valid.'
+      : 'Loading the latest reviewed evidence snapshot. The measurement definition is already available.';
+  return `<div class="monitoring-evidence-state">${escapeHtml(stateCopy)}</div>`;
+}
+
+function renderMonitoringSource(node) {
+  if (!monitoringSourceBody) return;
+  if (!node) {
+    monitoringSourceBody.innerHTML = '<div class="monitoring-source-loading">Select a node to see its measurement and source.</div>';
+    return;
+  }
+
+  const profile = buildMonitoringSourceProfile(
+    node,
+    monitoringSourceRegistry?.sources || [],
+    nodeSourceDateRegistry.entries?.[node.id] || null,
+    {
+      registryStatus: monitoringSourceRegistryStatus,
+      urgencyReceipt: tulipUrgencyByNodeId.get(node.id) ?? node.tulipUrgencyReceipt ?? null,
+      urgencyStatus: tulipUrgencyRegistryStatus
+    }
+  );
+
+  if (!profile) {
+    monitoringSourceBody.innerHTML = `
+      <div class="monitoring-source-empty">
+        A reviewed measurement profile is not available for ${escapeHtml(node.name)} yet.
       </div>
     `;
-  }).join('');
+    return;
+  }
+
+  const source = profile.measurementSource;
+  const sourceHref = safeHttpsUrl(source.url, '');
+  const hasSourceLink = sourceHref !== 'about:blank';
+  const sourceDate = formatMonitoringSourceDate(source.sourceDate);
+  const evidenceDate = formatMonitoringSourceDate(profile.evidenceSnapshot?.asOf);
+  const reviewedAt = formatMonitoringSourceDate(profile.reviewedAt);
+  const sourceAction = hasSourceLink
+    ? `<a class="monitoring-source-action" href="${escapeHtml(sourceHref)}" target="_blank" rel="noopener noreferrer">${escapeHtml(source.cta)} <span aria-hidden="true">↗</span></a>`
+    : '<span class="monitoring-source-link-unavailable">External source link unavailable</span>';
+  const snapshotAction = source.snapshotPath
+    ? `<a class="monitoring-snapshot-link" href="${escapeHtml(source.snapshotPath)}" target="_blank" rel="noopener noreferrer">View TULIP’s reviewed snapshot (JSON) <span aria-hidden="true">↗</span></a>`
+    : '';
+
+  monitoringSourceBody.innerHTML = `
+    <article class="monitoring-measurement-card">
+      <div class="monitoring-measurement-heading">
+        <div class="monitoring-card-kicker">What TULIP measures</div>
+        <span class="monitoring-node-type">${escapeHtml(profile.nodeType)}</span>
+      </div>
+      <h3>${escapeHtml(profile.metricName)}</h3>
+      <div class="monitoring-measurement-meaning">
+        <h4>What this tells us</h4>
+        <p>${escapeHtml(profile.meaning)}</p>
+      </div>
+      <dl class="monitoring-measurement-facts">
+        <div>
+          <dt>Reported as</dt>
+          <dd>${escapeHtml(profile.unit)}</dd>
+        </div>
+        <div>
+          <dt>Coverage</dt>
+          <dd>${escapeHtml(profile.geography)}</dd>
+        </div>
+        <div>
+          <dt>Updates</dt>
+          <dd>${escapeHtml(profile.cadenceLabel)}</dd>
+        </div>
+      </dl>
+    </article>
+
+    ${renderMonitoringEvidenceCard(profile)}
+
+    <article class="monitoring-primary-source-card">
+      <div class="monitoring-card-kicker">Primary measurement source</div>
+      <h3>${escapeHtml(source.name)}</h3>
+      <div class="monitoring-source-actions">
+        ${sourceAction}
+      </div>
+    </article>
+
+    <details class="monitoring-technical-details">
+      <summary>Technical details</summary>
+      <dl>
+        ${renderMonitoringTechnicalRow('Metric ID', profile.metricId)}
+        ${renderMonitoringTechnicalRow('Primary source ID', source.id)}
+        ${renderMonitoringTechnicalRow('Observation date field', profile.observationTimeField)}
+        ${renderMonitoringTechnicalRow('Canonical source date', sourceDate)}
+        ${renderMonitoringTechnicalRow('Evidence snapshot date', evidenceDate)}
+        ${renderMonitoringTechnicalRow('Evidence route', profile.evidenceSnapshot?.methodLabel)}
+        ${renderMonitoringTechnicalRow('Source-defined cadence', profile.cadence)}
+        ${renderMonitoringTechnicalRow('Contract reviewed', reviewedAt)}
+        ${renderMonitoringTechnicalRow('Snapshot status', source.snapshotStatus)}
+        ${renderMonitoringTechnicalRow('Method', profile.transformation)}
+        ${renderMonitoringTechnicalRow('Uncertainty', profile.uncertainty)}
+        ${renderMonitoringTechnicalRow('Threshold basis', profile.thresholdProvenance)}
+        ${renderMonitoringTechnicalRow('What not to assume', profile.failureBehavior)}
+      </dl>
+      ${snapshotAction}
+    </details>
+  `;
 }
 
 const HUMAN_IMPACT_DOMAIN_RULES = [
@@ -8913,7 +8507,6 @@ function selectNode(node, { historyMode = 'push', pathNodes = null, motionOrigin
   if (appContainer) appContainer.classList.remove('sources-active');
 
   currentSelectedNode = node;
-  fetchDataCenterIntelligence(node);
   writeNavigationHistory(historyMode);
   updateSelectedEdgeDetail(currentSelectedEdge, currentSelectedNode);
   syncEditorialArcState();
@@ -8938,7 +8531,7 @@ function selectNode(node, { historyMode = 'push', pathNodes = null, motionOrigin
       'faostat-datasets-card', 'gbif-datasets-card', 'unep-datasets-card',
       'informea-datasets-card', 'openaq-datasets-card', 'owid-datasets-card',
       'src-datasets-card', 'adb-datasets-card', 'escap-datasets-card', 'rds-datasets-card', 'asmc-datasets-card', 'mrc-datasets-card', 'servir-datasets-card', 'apcc-datasets-card', 'jma-datasets-card', 'wmo-datasets-card', 'sahf-datasets-card', 'mosdac-datasets-card', 'drawdown-datasets-card',
-      'pik-wb-datasets-card', 'kma-imd-datasets-card', 'iucn-unbl-datasets-card', 'unep-wesr-datasets-card', 'undrr-emdat-datasets-card', 'iea-cr-transition-card', 'ipcc-scenarios-card', 'data-center-intel-card'
+      'pik-wb-datasets-card', 'kma-imd-datasets-card', 'iucn-unbl-datasets-card', 'unep-wesr-datasets-card', 'undrr-emdat-datasets-card', 'iea-cr-transition-card', 'ipcc-scenarios-card'
     ];
     cards.forEach(id => {
       const card = document.getElementById(id);
@@ -9053,12 +8646,7 @@ function selectNode(node, { historyMode = 'push', pathNodes = null, motionOrigin
     consoleNodeMeaning.innerHTML = getNodeMeaning(node);
   }
   populateRelationshipEvidencePicker(node);
-  if (consoleNodeSensors) {
-    consoleNodeSensors.innerHTML = getNodeSensors(node);
-  }
-  renderEarthdataCollections(node);
-  renderGraceCollections(node);
-  renderPowerBaselines(node);
+  renderMonitoringSource(node);
   renderHumanImpact(node);
   renderPlanetImpact(node);
   renderWhatCanBeDone(node);
@@ -13430,7 +13018,6 @@ function bindTouchDeviceGateShareActions() {
 
   const shareUrl = 'https://tulip-project-six.vercel.app';
   const shareTitle = 'TULIP';
-  const shareText = 'Explore TULIP on desktop: https://tulip-project-six.vercel.app';
   const shareNote = document.getElementById('touch-device-gate-share-note');
 
   gate.addEventListener('click', async (event) => {

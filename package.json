@@ -300,6 +300,7 @@
     "audit:citation-destinations:live": "node scripts/audit-citation-destinations.mjs --live",
     "audit:northstar": "npm run export:references && npm run export:contracts && npm run export:graph-governance && npm run export:research-backlog && npm run export:ontology-review && npm run export:relationship-source-repair-queue && npm run export:relationship-descriptions && npm run export:sources && npm run export:evidence-campaign && npm run export:lineage && npm run export:tulip-urgency && npm run audit:graph-contracts && npm run audit:graph-governance && npm run audit:research-backlog && npm run audit:ontology-review && npm run audit:ingestion-snapshots && npm run audit:lineage && npm run audit:defensibility-regressions && npm run audit:node-authenticity && npm run audit:source-entailment && npm run audit:edge-promotion && npm run audit:relationship-descriptions && npm run audit:relationship-semantics && npm run audit:evidence-campaign && npm run audit:node-inspector-profiles",
     "test:personal-footprint": "node scripts/test-personal-footprint-context.mjs",
+    "test:monitoring-sources": "node scripts/test-monitoring-sources.mjs",
     "test:launch-readiness": "node scripts/test-launch-readiness.mjs",
     "test:security-regressions": "node scripts/test-security-regressions.mjs",
     "test:relationship-semantics": "node scripts/test-relationship-semantics.mjs",
@@ -312,7 +313,7 @@
     "audit:tulip-urgency-v3-shadow": "npm run export:tulip-urgency-v3-shadow && node scripts/audit-tulip-urgency-v3-shadow.mjs",
     "promote:tulip-urgency-v3": "npm run review:tulip-urgency-v3-all && npm run audit:tulip-urgency-v3-shadow && node scripts/promote-tulip-urgency-v3.mjs",
     "test:tulip-urgency-v3": "node scripts/test-tulip-urgency-v3.mjs",
-    "test": "npm run test:personal-footprint && npm run test:tulip-urgency-v2 && npm run test:tulip-urgency-v3 && npm run test:relationship-semantics && npm run test:security-regressions && npm run test:launch-readiness && npm run test:public-release",
+    "test": "npm run test:personal-footprint && npm run test:monitoring-sources && npm run test:tulip-urgency-v2 && npm run test:tulip-urgency-v3 && npm run test:relationship-semantics && npm run test:security-regressions && npm run test:launch-readiness && npm run test:public-release",
     "release:check": "npm audit --omit=dev --audit-level=high && npm test && npm run build",
     "build": "vite build",
     "preview": "vite preview"
