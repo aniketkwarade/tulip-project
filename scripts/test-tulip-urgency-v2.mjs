@@ -4,6 +4,7 @@ import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { NODES } from '../src/data.js';
+import { restoreGeneratedArtifactsOnExit } from './lib/restore-generated-artifacts.mjs';
 import {
   buildTulipUrgencyReceipt,
   calculateComposite,
@@ -20,6 +21,13 @@ import {
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const readJson = filename => JSON.parse(fs.readFileSync(path.join(ROOT, 'public', filename), 'utf8'));
+
+restoreGeneratedArtifactsOnExit(ROOT, [
+  'public/tulip-urgency-pilot-comparison.json',
+  'public/tulip-urgency-pilot-scores.json',
+  'public/tulip-urgency-rollout-comparison.json',
+  'public/tulip-urgency-scores.json'
+]);
 
 // Documented anchor boundaries and interpolation.
 assert.equal(normalizeWithAnchors(0, [0, 10, 20, 30]), 0);

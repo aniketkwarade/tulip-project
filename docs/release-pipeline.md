@@ -22,9 +22,14 @@ a release source. They are verification surfaces for the same checked-in source.
 
 3. Push the verified candidate on a `codex/` release branch and open a pull
    request into `main`.
-4. Wait for the required `release-checks` and `Vercel` checks.
-5. Squash-merge into `main`. Vercel's Git integration creates the production
-   deployment; do not create a second deployment with `vercel --prod`.
+4. Immediately arm squash auto-merge on the pull request. GitHub merges it as
+   soon as the required `release-checks` and `Vercel` checks pass. This removes
+   a second client-side merge call from the critical path.
+5. Confirm the pull request is merged and refresh `origin/main`. A 5xx response
+   from a merge command is not authoritative: check the pull request and remote
+   `main` before retrying. Do not create a duplicate pull request for the same
+   commit. Vercel's Git integration creates the production deployment; do not
+   create a second deployment with `vercel --prod`.
 6. Verify all of the following before calling the release complete:
 
    - the pull request's merge commit is the current GitHub `main` commit;
@@ -37,6 +42,10 @@ a release source. They are verification surfaces for the same checked-in source.
 
 - A local gate failure means nothing is pushed.
 - A pull-request check failure means nothing is merged.
+- Pull-request workflow runs use concurrency cancellation, so a newer run for
+  the same pull request replaces stale in-progress work instead of duplicating it.
+- Manual workflow dispatch runs only the release gate unless `run_refresh` is
+  explicitly enabled; the scheduled Northstar refresh stays off the release path.
 - A Vercel build failure leaves the previous ready production deployment live.
 - A commit, deployment, or alias mismatch means the release is still in
   progress; investigate it instead of deploying a separate artifact manually.
