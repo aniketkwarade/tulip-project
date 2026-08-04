@@ -3738,10 +3738,8 @@ function getActiveTulipUrgencyBand(score) {
 function renderTulipUrgencyBandScale() {
   const bands = getActiveTulipUrgencyBands();
   const bandContainer = document.getElementById('urgency-scale-bands');
-  const rangeTable = document.getElementById('urgency-band-range-table');
   const track = document.querySelector('.urgency-scale-track');
   const axis = document.getElementById('urgency-scale-axis');
-  const axisDescription = document.querySelector('.urgency-axis-popover-description');
   const methodologyBandDescription = document.getElementById('tulip-score-band-description');
   const temperatureBandExample = document.getElementById('tulip-score-temperature-band-example');
   if (bandContainer) {
@@ -3769,16 +3767,6 @@ function renderTulipUrgencyBandScale() {
       bandContainer.append(label);
     });
   }
-  if (rangeTable) {
-    rangeTable.replaceChildren();
-    bands.forEach(band => {
-      const term = document.createElement('dt');
-      const definition = document.createElement('dd');
-      term.textContent = band.label;
-      definition.textContent = `${band.min.toFixed(1)}-${band.max.toFixed(1)}`;
-      rangeTable.append(term, definition);
-    });
-  }
   if (track) {
     const stops = bands.map((band, index) => {
       const midpoint = ((((band.min + band.max) / 2) - 1) / 9) * 100;
@@ -3797,11 +3785,6 @@ function renderTulipUrgencyBandScale() {
       label.style.left = `${urgencyScalePosition(tick)}%`;
       axis.append(label);
     });
-  }
-  if (axisDescription) {
-    axisDescription.textContent = tulipUrgencyMethodVersion === 'tulip_urgency_v3'
-      ? `${tulipUrgencyV3ShadowPreview ? 'A shadow' : 'The public'} v3 urgency signal using the unchanged evidence-based score and the seven canonical bands listed below.`
-      : 'A reproducible global urgency signal from 1 to 10 using the approved v2 bands listed below.';
   }
   if (methodologyBandDescription) {
     methodologyBandDescription.innerHTML = tulipUrgencyMethodVersion === 'tulip_urgency_v3'
