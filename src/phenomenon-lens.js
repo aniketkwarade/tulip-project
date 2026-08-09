@@ -11,6 +11,20 @@ const PHENOMENON_LENS_GROUP_CONFIG = {
       secondaryTitle: 'Lower Footprints'
     }
   },
+  freight_logistics: {
+    primaryCount: 2,
+    groupLabels: {
+      primaryTitle: 'Largest Freight Modes',
+      secondaryTitle: 'Other Freight Modes'
+    }
+  },
+  built_environment: {
+    primaryCount: 3,
+    groupLabels: {
+      primaryTitle: 'Lifecycle Components',
+      secondaryTitle: 'Other Components'
+    }
+  },
   industry_farming: {
     primaryCount: 1,
     groupLabels: {
@@ -208,19 +222,101 @@ export const PHENOMENON_LENSES = {
     unitLabel: 'kgCO2e per kg food',
     axisMax: 100,
     axisTicks: [0, 20, 40, 60, 80, 100],
-    scaleNote: 'Measured as kilograms of CO2-equivalent per kilogram of food product. Bigger numbers mean a heavier climate footprint for the same amount of food.',
-    takeaway: 'This makes the consumer-side difference legible immediately: ruminant meat and dairy sit far above staples and plant proteins on the same food basis.',
+    scaleNote: 'Measured as kilograms of CO2-equivalent per kilogram of food product. Typical portions are practical meal-size anchors, not universal averages, and do not change the per-kilogram comparison.',
+    takeaway: 'Ruminant meat sits far above staples and vegetables on the same food-product basis; goat is deferred because the available FAO estimate uses carcass weight instead.',
+    source: {
+      label: 'Poore and Nemecek (2018), processed by Our World in Data',
+      url: 'https://ourworldindata.org/grapher/ghg-per-kg-poore',
+      baseline: '2010 global averages',
+      method: 'Life-cycle meta-analysis',
+      boundary: 'Cradle-to-retail emissions per kilogram of food product; household cooking and waste are excluded.'
+    },
     items: [
-      { label: 'Beef', value: 99.4, note: 'The standout outlier because methane, feed, and land-use pressure stack on top of each other.', emphasis: 'Outlier' },
-      { label: 'Lamb', value: 39.7, note: 'Still extremely high because ruminant livestock carries a large methane and land burden.' },
-      { label: 'Cheese', value: 23.9, note: 'Dairy remains heavy because milk is concentrated into a smaller finished product.' },
-      { label: 'Chocolate', value: 18.7, note: 'High relative footprint driven by land pressure, processing, and supply-chain intensity.' },
-      { label: 'Coffee', value: 15.3, note: 'A good example of a non-livestock food with a meaningful footprint once cultivation and processing are included.' },
-      { label: 'Pork', value: 12.3, note: 'Lower than beef and lamb, but still materially heavier than most plant foods.' },
-      { label: 'Chicken', value: 9.9, note: 'Much lower than ruminant meat, though still well above most legumes and grains.' },
-      { label: 'Eggs', value: 4.7, note: 'Moderate footprint relative to other animal proteins.' },
-      { label: 'Rice', value: 4.5, note: 'Rice stands out among staples because flooded cultivation creates methane.' },
-      { label: 'Tofu', value: 3.2, note: 'A low-footprint protein benchmark that makes the diet comparison intuitive.' }
+      {
+        label: 'Beef',
+        value: 99.48,
+        typicalPortion: '170 g cooked',
+        portionSource: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC6610234/',
+        note: 'Beef from dedicated herds is the clear outlier because methane, feed, and land-use pressure stack together.',
+        emphasis: 'Outlier'
+      },
+      {
+        label: 'Dark Chocolate',
+        value: 46.65,
+        typicalPortion: '30 g',
+        portionSource: 'https://www.ecfr.gov/current/title-21/chapter-I/subchapter-B/part-101/subpart-A/section-101.12',
+        note: 'Cocoa-related land-use change and processing make dark chocolate unusually emissions-intensive by product weight.'
+      },
+      {
+        label: 'Lamb & Mutton',
+        value: 39.72,
+        typicalPortion: '150 g cooked',
+        portionSource: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC6610234/',
+        note: 'Ruminant methane and land demand keep lamb and mutton among the highest-footprint foods.'
+      },
+      {
+        label: 'Coffee',
+        value: 28.53,
+        typicalPortion: '~13 g grounds / 240 mL cup',
+        portionSource: 'https://sca.coffee/s/2017-SCA-CHB-Program-Requirements-ba6g.pdf',
+        note: 'Land-use change and farm-stage inputs make coffee footprint-heavy by product weight, though a brewed cup uses relatively little coffee.'
+      },
+      {
+        label: 'Cheese',
+        value: 23.88,
+        typicalPortion: '40 g',
+        portionSource: 'https://fdc.nal.usda.gov/',
+        note: 'Milk production is concentrated into a smaller finished product, keeping cheese relatively emissions-intensive.'
+      },
+      {
+        label: 'Seafood',
+        value: 13.63,
+        typicalPortion: '170 g cooked',
+        portionSource: 'https://fdc.nal.usda.gov/',
+        note: 'Uses farmed fish as the source benchmark; feed production and aquaculture operations make it a meaningful animal-protein footprint.'
+      },
+      {
+        label: 'Pork',
+        value: 12.31,
+        typicalPortion: '170 g cooked',
+        portionSource: 'https://fdc.nal.usda.gov/',
+        note: 'Lower than ruminant meat, but still materially heavier than most plant foods.'
+      },
+      {
+        label: 'Chicken',
+        value: 9.87,
+        typicalPortion: '170 g cooked',
+        portionSource: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC6610234/',
+        note: 'Lower than beef and lamb, though still well above legumes and most vegetables.'
+      },
+      {
+        label: 'Eggs',
+        value: 4.67,
+        typicalPortion: '2 large eggs (100 g)',
+        portionSource: 'https://fdc.nal.usda.gov/',
+        note: 'A moderate footprint relative to other animal proteins.'
+      },
+      {
+        label: 'Rice',
+        value: 4.45,
+        typicalPortion: '1 cup cooked (160 g)',
+        portionSource: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC6610234/',
+        note: 'Flooded cultivation makes rice stand out among staple crops because it produces methane.'
+      },
+      {
+        label: 'Tofu',
+        value: 3.16,
+        typicalPortion: '150 g',
+        portionSource: 'https://fdc.nal.usda.gov/',
+        note: 'A relatively low-footprint protein benchmark on the same product-weight basis.'
+      },
+      {
+        label: 'Vegetables',
+        value: 0.98,
+        typicalPortion: '1 cup cooked peas (160 g)',
+        portionSource: 'https://fdc.nal.usda.gov/',
+        note: 'A representative vegetable benchmark using peas from the source dataset to make the animal-to-plant contrast clear.'
+      }
     ]
   },
   industry_farming: {
@@ -337,22 +433,28 @@ export const PHENOMENON_LENSES = {
       { label: 'Rubber + fibre crops', value: 2.4, note: 'A smaller but still real commodity block in the cumulative total.' }
     ]
   },
-  road_freight_logistics: {
-    title: 'Road Freight + Logistics',
-    eyebrow: 'Indicative transport-burden lens',
-    intro: 'Road freight is a meaningful footprint category, but public global data is fragmented across trucks, vans, warehouses, fuel routes, and delivery chains.',
-    unitLabel: 'share of freight burden',
-    axisMax: 60,
-    axisTicks: [0, 15, 30, 45, 60],
-    scaleNote: 'Indicative data only. This view uses a burden decomposition rather than a single observed global table, because public logistics reporting is fragmented across vehicle classes and operations.',
-    takeaway: 'This is useful as an indicative footprint because freight and logistics still represent one of the clearest transport-related industrial burdens outside passenger travel.',
+  freight_logistics: {
+    title: 'Freight & Logistics Annual Emissions',
+    eyebrow: 'Modeled freight-mode lens',
+    intro: 'Freight is compared by transport mode on one annual CO2 basis. Warehousing, cold chains, ports, and last-mile delivery are cross-cutting logistics processes, so they are explained without being double-counted as extra modes.',
+    unitLabel: 'MtCO2 per year',
+    axisMax: 1600,
+    axisTicks: [0, 400, 800, 1200, 1600],
+    scaleNote: 'Modeled global freight transport emissions by mode in the ITF 2015 baseline.',
+    takeaway: 'Road freight dominates the modeled baseline, followed by sea freight; shifting suitable loads and cleaning each mode remain complementary levers.',
+    source: {
+      label: 'International Transport Forum, Transport Outlook 2019, Figure 2.9',
+      url: 'https://www.itf-oecd.org/itf-transport-outlook-2019',
+      baseline: '2015 modeled baseline',
+      method: 'ITF global freight model',
+      boundary: 'Operational CO2 by freight mode; logistics facilities and infrastructure are not added as separate bars.'
+    },
     items: [
-      { label: 'Heavy-duty trucks', value: 52, note: 'Long-haul and heavy freight remain the dominant diesel-intensive block.' },
-      { label: 'Light commercial vans', value: 15, note: 'Regional and urban goods movement adds a second significant road-freight burden.' },
-      { label: 'Warehousing + distribution', value: 12, note: 'Buildings, handling systems, and storage energy matter alongside vehicle exhaust.' },
-      { label: 'Cold-chain logistics', value: 9, note: 'Temperature-controlled freight adds additional fuel, electricity, and refrigerant pressure.' },
-      { label: 'Buses + coaches', value: 7, note: 'Passenger-heavy fleet segments overlap with freight infrastructure and fuel demand.' },
-      { label: 'Last-mile delivery', value: 5, note: 'Small vehicles and dense urban routing create a growing but still smaller burden slice.' }
+      { label: 'Road', value: 1460, note: 'Trucks make road freight the largest operational CO2 source in the modeled global baseline.' },
+      { label: 'Sea', value: 800, note: 'Maritime freight carries enormous volumes and forms the second-largest annual block.' },
+      { label: 'Air freight', value: 174, note: 'A smaller total than road or sea, but an especially carbon-intensive mode per tonne-kilometre.' },
+      { label: 'Rail', value: 79, note: 'Rail carries substantial freight with a much smaller global operational CO2 total.' },
+      { label: 'Inland waterways', value: 67, note: 'River and canal freight form the smallest named mode in the modeled baseline.' }
     ]
   },
   urbanization: {
@@ -634,6 +736,28 @@ export const PHENOMENON_LENSES = {
       { label: 'Semiconductor material intensity', value: 4.5, note: 'AI scale-up also amplifies the upstream extraction and fabrication story.' }
     ]
   },
+  built_environment: {
+    title: 'Buildings & Housing Global Emissions',
+    eyebrow: 'GlobalABC lifecycle-boundary lens',
+    intro: 'Buildings & Housing combines operating emissions and construction materials within one 2023 GlobalABC boundary. Housing form and sprawl influence these demands, but are not added as a separate emissions bar.',
+    unitLabel: '% of global CO2 emissions',
+    axisMax: 20,
+    axisTicks: [0, 5, 10, 15, 20],
+    scaleNote: 'Rounded shares of global energy- and process-related CO2 emissions in 2023; the three rows sum to the sector total of 34%.',
+    takeaway: 'Operations remain the largest burden, while building materials and construction add a distinct embodied-emissions block that design and procurement can reduce.',
+    source: {
+      label: 'GlobalABC, Global Status Report for Buildings and Construction 2024/2025',
+      url: 'https://www.unep.org/resources/report/global-status-report-buildings-and-construction-20242025',
+      baseline: '2023 global estimate',
+      method: 'Global sector estimate',
+      boundary: 'Residential and non-residential operations plus building materials and construction; rounded shares sum to 34% of global CO2.'
+    },
+    items: [
+      { label: 'Residential operations', value: 17, note: 'Energy used to heat, cool, light, and operate homes forms the largest single building-related block.' },
+      { label: 'Non-residential operations', value: 11, note: 'Offices, retail, institutions, and other commercial buildings add the second-largest operational block.' },
+      { label: 'Building materials + construction', value: 6, note: 'Cement, steel, and construction activity account for the embodied portion within this coherent boundary.' }
+    ]
+  },
   building_operations: {
     title: 'Building Operations',
     eyebrow: 'Indicative buildings lens',
@@ -669,11 +793,18 @@ export const PHENOMENON_LENSES = {
     title: 'Aviation Annual Emissions',
     eyebrow: 'Observed sector-burden lens',
     intro: 'Aviation now reads as an annual sector burden so it can sit next to shipping, cement, steel, and agriculture without switching units.',
-    unitLabel: 'MtCO2e per year',
+    unitLabel: 'MtCO2 per year',
     axisMax: 1100,
     axisTicks: [0, 250, 500, 750, 1000],
     scaleNote: 'Observed global aviation-sector burden anchored to IEA 2023 aviation emissions context.',
-    takeaway: 'This is deliberately simpler than the earlier flight-class view, but it keeps the unit system coherent across the product.',
+    takeaway: 'This is deliberately simpler than a flight-class split and keeps aviation independently accessible without folding it into freight.',
+    source: {
+      label: 'International Energy Agency, Aviation',
+      url: 'https://www.iea.org/energy-system/transport/aviation',
+      baseline: '2023 global estimate',
+      method: 'Observed sector estimate',
+      boundary: 'Direct CO2 from passenger and cargo aviation; non-CO2 warming effects are excluded.'
+    },
     items: [
       { label: 'Passenger and cargo flights', value: 950, note: 'Observed annual aviation CO2 burden for 2023 based on the IEA sector context used in the research pack.' }
     ]

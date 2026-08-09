@@ -120,6 +120,9 @@ export class TulipGraph {
     this.lastAnalyzeDisplayedIds = new Set();
     this.lastShowAllAnalyzeConnections = false;
     this.userCollapsedAnalyzeConnections = false;
+    this.hasTouchInput = (navigator.maxTouchPoints || 0) > 0
+      || window.matchMedia?.('(pointer: coarse)').matches === true;
+    this.touchGesture = null;
     this.edgeIgnitionStartedAt = 0;
     this.edgeIgnitionNodeId = null;
     this.filterWakeStartedAt = 0;
@@ -613,12 +616,18 @@ export class TulipGraph {
       && this.getDirectInteractiveEdges().length > 40;
     const width = Math.max(1, rect.width / scale);
     const height = Math.max(1, rect.height / scale);
-    const nativePixelRatio = Math.max(1, (window.devicePixelRatio || 1) * scale);
-    const maximumPixelRatio = isDenseAnalyzeTree ? 2.5 : 3;
-    const pixelBudget = isDenseAnalyzeTree ? 12_000_000 : 16_000_000;
+    const isPhoneViewport = window.innerWidth <= 950;
+    const phoneResolutionBoost = isPhoneViewport ? 1.5 : 1;
+    const nativePixelRatio = Math.max(
+      isPhoneViewport ? 2 : 1,
+      (window.devicePixelRatio || 1) * scale * phoneResolutionBoost
+    );
+    const maximumPixelRatio = isPhoneViewport ? 4 : (isDenseAnalyzeTree ? 2.5 : 3);
+    const pixelBudget = isPhoneViewport ? 20_000_000 : (isDenseAnalyzeTree ? 12_000_000 : 16_000_000);
     const budgetPixelRatio = Math.sqrt(pixelBudget / (width * height));
     const dpr = Math.max(1, Math.min(nativePixelRatio, maximumPixelRatio, budgetPixelRatio));
     this.renderPixelRatio = dpr;
+    this.canvas.dataset.renderPixelRatio = dpr.toFixed(2);
     this.width = width;
     this.height = height;
     const renderWidth = Math.max(1, Math.round(this.width * dpr));
@@ -637,7 +646,11 @@ export class TulipGraph {
       this.invalidateAnalyzeCaches();
       this.zoomToFit();
     } else {
-      const verticalOffset = window.innerWidth <= 950 ? 10 : 45;
+      const verticalOffset = window.innerWidth <= 950 ? 26 : 45;
+      if (window.innerWidth <= 950) {
+        this.camera.zoom = 1.3;
+        this.defaultZoom = 1.3;
+      }
       this.camera.x = this.width / 2;
       this.camera.y = this.height / 2 + verticalOffset;
 
@@ -1637,9 +1650,11 @@ export class TulipGraph {
     // Check 1: Click on the orb (screen space)
     const dx = pos.x - screenPos.x;
     const dy = pos.y - screenPos.y;
+    const minimumHitRadius = this.hasTouchInput ? 24 : 15;
+    const followableHitRadius = this.hasTouchInput ? 28 : 22;
     const orbClickRad = this.isFocusMode && analyzeState === 'followable'
-      ? Math.max(22, screenRadius * 2.35)
-      : Math.max(15, screenRadius * 1.5);
+      ? Math.max(followableHitRadius, screenRadius * 2.35)
+      : Math.max(minimumHitRadius, screenRadius * 1.5);
     if (dx * dx + dy * dy < orbClickRad * orbClickRad) {
       return {
         type: 'orb',
@@ -2005,7 +2020,8 @@ export class TulipGraph {
     const availableWidth = Math.max(1, this.width - horizontalLabelClearance * 2);
     const availableHeight = Math.max(1, this.height - verticalLabelClearance * 2);
 
-    const centeredSphereZoom = Math.max(0.28, Math.min(
+    const minimumZoom = this.width <= 480 ? 0.22 : 0.28;
+    const centeredSphereZoom = Math.max(minimumZoom, Math.min(
       this.defaultZoom,
       availableWidth / sphereDiameter,
       availableHeight / sphereDiameter
@@ -2203,6 +2219,30 @@ export class TulipGraph {
       };
     };
 
+    const getTouchPos = (touch) => getMousePos(touch);
+    const getTouchDistance = (first, second) => Math.hypot(
+      second.clientX - first.clientX,
+      second.clientY - first.clientY
+    );
+    const getTouchMidpoint = (first, second) => ({
+      clientX: (first.clientX + second.clientX) / 2,
+      clientY: (first.clientY + second.clientY) / 2
+    });
+    const getMinimumManualZoom = () => {
+      const focusData = this.isFocusMode && this.selectedNode
+        ? this.getAnalyzeFocusData(this.selectedNode)
+        : null;
+      const treeMetrics = (this.layoutMode === 'tree' && this.isFocusMode && this.selectedNode)
+        ? this.getTreeZoomMetrics(focusData)
+        : null;
+      const radialMinimumZoom = this.getRadialSphereZoom() * 0.75;
+      return this.isFocusMode && this.selectedNode
+        ? (this.layoutMode === 'tree'
+          ? Math.max(0.06, Math.min(0.9, treeMetrics?.fitZoom || this.camera.zoom))
+          : radialMinimumZoom)
+        : 0.3;
+    };
+
     this.canvas.addEventListener('mousedown', (e) => {
       this.requestRender();
       const pos = getMousePos(e);
@@ -2363,18 +2403,7 @@ export class TulipGraph {
       const mouseY = (e.clientY - rect.top) / scale;
       
       const zoomFactor = e.deltaY < 0 ? 1.08 : 0.925;
-      const focusData = this.isFocusMode && this.selectedNode
-        ? this.getAnalyzeFocusData(this.selectedNode)
-        : null;
-      const treeMetrics = (this.layoutMode === 'tree' && this.isFocusMode && this.selectedNode)
-        ? this.getTreeZoomMetrics(focusData)
-        : null;
-      const radialMinimumZoom = this.getRadialSphereZoom() * 0.75;
-      const minManualZoom = this.isFocusMode && this.selectedNode
-        ? (this.layoutMode === 'tree'
-          ? Math.max(0.06, Math.min(0.9, treeMetrics?.fitZoom || this.camera.zoom))
-          : radialMinimumZoom)
-        : 0.3;
+      const minManualZoom = getMinimumManualZoom();
       const newZoom = Math.max(minManualZoom, Math.min(3.0, this.camera.zoom * zoomFactor));
 
       if (this.layoutMode === 'tree' && this.isFocusMode) {
@@ -2392,6 +2421,142 @@ export class TulipGraph {
       }
       this.requestRender();
     }, { passive: false });
+
+    this.canvas.addEventListener('touchstart', (event) => {
+      if (event.touches.length === 0) return;
+      event.preventDefault();
+      this.requestRender();
+      this.targetCamera = null;
+      this.hoveredNode = null;
+      this.hoveredEdge = null;
+
+      if (event.touches.length >= 2) {
+        const midpoint = getTouchMidpoint(event.touches[0], event.touches[1]);
+        const midpointPos = getTouchPos(midpoint);
+        this.touchGesture = {
+          pinching: true,
+          startDistance: Math.max(1, getTouchDistance(event.touches[0], event.touches[1])),
+          startZoom: this.camera.zoom,
+          startMidpoint: midpoint,
+          startCamera: { x: this.camera.x, y: this.camera.y },
+          worldAnchor: this.screenToWorld(midpointPos.x, midpointPos.y)
+        };
+        this.isDraggingGlobe = false;
+        this.isPanningCamera = false;
+        return;
+      }
+
+      const touch = event.touches[0];
+      const pos = getTouchPos(touch);
+      const touchedNode = this.findBestHitNode(pos);
+      const touchedEdge = !touchedNode ? this.findHitEdge(pos) : null;
+      this.touchGesture = {
+        pinching: false,
+        moved: false,
+        startX: touch.clientX,
+        startY: touch.clientY,
+        touchedNode,
+        touchedEdge,
+        hadSelectedEdge: Boolean(this.selectedEdge),
+        cameraStart: { x: this.camera.x, y: this.camera.y },
+        rotationStart: { x: this.rotationX, y: this.rotationY }
+      };
+    }, { passive: false });
+
+    this.canvas.addEventListener('touchmove', (event) => {
+      if (!this.touchGesture || event.touches.length === 0) return;
+      event.preventDefault();
+      this.requestRender();
+
+      if (event.touches.length >= 2) {
+        if (!this.touchGesture.pinching) {
+          const midpoint = getTouchMidpoint(event.touches[0], event.touches[1]);
+          const midpointPos = getTouchPos(midpoint);
+          this.touchGesture = {
+            pinching: true,
+            startDistance: Math.max(1, getTouchDistance(event.touches[0], event.touches[1])),
+            startZoom: this.camera.zoom,
+            startMidpoint: midpoint,
+            startCamera: { x: this.camera.x, y: this.camera.y },
+            worldAnchor: this.screenToWorld(midpointPos.x, midpointPos.y)
+          };
+        }
+        const midpoint = getTouchMidpoint(event.touches[0], event.touches[1]);
+        const midpointPos = getTouchPos(midpoint);
+        const distance = getTouchDistance(event.touches[0], event.touches[1]);
+        const nextZoom = Math.max(
+          getMinimumManualZoom(),
+          Math.min(3, this.touchGesture.startZoom * (distance / this.touchGesture.startDistance))
+        );
+        this.camera.zoom = nextZoom;
+        this.needsCentering = false;
+
+        if (this.layoutMode === 'tree' && this.isFocusMode) {
+          this.camera.x = midpointPos.x - this.touchGesture.worldAnchor.x * nextZoom;
+          this.camera.y = midpointPos.y - this.touchGesture.worldAnchor.y * nextZoom;
+        } else {
+          const scaleVal = document.documentElement.style.getPropertyValue('--ui-scale');
+          const scale = scaleVal ? parseFloat(scaleVal) : 1;
+          this.camera.x = this.width / 2 + (midpoint.clientX - this.touchGesture.startMidpoint.clientX) / scale;
+          this.camera.y = this.height / 2 + (midpoint.clientY - this.touchGesture.startMidpoint.clientY) / scale;
+        }
+        return;
+      }
+
+      if (this.touchGesture.pinching) return;
+      const touch = event.touches[0];
+      const dx = touch.clientX - this.touchGesture.startX;
+      const dy = touch.clientY - this.touchGesture.startY;
+      if (!this.touchGesture.moved && Math.hypot(dx, dy) < 8) return;
+      this.touchGesture.moved = true;
+      const scaleVal = document.documentElement.style.getPropertyValue('--ui-scale');
+      const scale = scaleVal ? parseFloat(scaleVal) : 1;
+
+      if (this.layoutMode === 'tree' && this.isFocusMode) {
+        this.isPanningCamera = true;
+        this.camera.x = this.touchGesture.cameraStart.x + dx / scale;
+        this.camera.y = this.touchGesture.cameraStart.y + dy / scale;
+      } else {
+        this.isDraggingGlobe = true;
+        this.needsCentering = false;
+        const zoomFactor = Math.max(0.1, this.camera.zoom);
+        this.rotationY = this.touchGesture.rotationStart.y + (dx * 0.005) / zoomFactor;
+        this.rotationX = Math.max(
+          -Math.PI / 2.2,
+          Math.min(Math.PI / 2.2, this.touchGesture.rotationStart.x - (dy * 0.005) / zoomFactor)
+        );
+      }
+    }, { passive: false });
+
+    const endTouch = (event) => {
+      if (event.touches.length > 0) return;
+      const gesture = this.touchGesture;
+      this.touchGesture = null;
+      this.isDraggingGlobe = false;
+      this.isPanningCamera = false;
+      if (!gesture || gesture.pinching || gesture.moved) {
+        this.requestRender();
+        return;
+      }
+
+      if (gesture.touchedNode) {
+        this.isFocusMode = true;
+        this.needsCentering = true;
+        this.selectNode(gesture.touchedNode, { instantSwap: true });
+        this.onSelectNode(gesture.touchedNode, {
+          motionOrigin: { x: gesture.startX, y: gesture.startY }
+        });
+        this.zoomToFit();
+      } else if (gesture.touchedEdge) {
+        this.selectedEdge = gesture.touchedEdge;
+        this.onSelectEdge?.(gesture.touchedEdge);
+      } else if (gesture.hadSelectedEdge) {
+        this.onSelectEdge?.(null);
+      }
+      this.requestRender();
+    };
+    this.canvas.addEventListener('touchend', endTouch, { passive: true });
+    this.canvas.addEventListener('touchcancel', endTouch, { passive: true });
   }
 
   updatePhysics() {
@@ -2683,7 +2848,7 @@ export class TulipGraph {
         this.ambientHighlightCooldown = 15; // Run every 15 frames (~250ms)
         this.ambientCyclesUntilNextAddition = Math.max(0, (this.ambientCyclesUntilNextAddition || 0) - 1);
 
-        const targetHighlightCount = 8;
+        const targetHighlightCount = window.innerWidth <= 950 ? 3 : 8;
         const highlightEnterZThreshold = 0.14;
         const highlightExitZThreshold = -0.16;
         this.ambientHighlightAges = this.ambientHighlightAges || new Map();
@@ -3145,6 +3310,9 @@ export class TulipGraph {
 
   drawEdges() {
     const ctx = this.ctx;
+    const phoneLineOpacityMultiplier = window.innerWidth <= 950 ? 0.4 : 1;
+    this.phoneLineOpacityMultiplier = phoneLineOpacityMultiplier;
+    this.canvas.dataset.lineOpacityMultiplier = phoneLineOpacityMultiplier.toFixed(2);
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
     const selectedEdge = this.selectedEdge;
@@ -3248,6 +3416,7 @@ export class TulipGraph {
       }
 
       ctx.save();
+      ctx.globalAlpha = phoneLineOpacityMultiplier;
       ctx.strokeStyle = color;
       ctx.setLineDash([]);
       if (this.layoutMode === 'tree' && this.isFocusMode) {
@@ -3808,13 +3977,19 @@ export class TulipGraph {
         }
 
         const isCentralFocusLabel = this.isFocusMode && node.id === activeSelectedId;
+        const mobileLabelScale = window.innerWidth <= 950 ? 0.8 : 1;
+        const displayNameFont = mobileLabelScale === 1 || isCentralFocusLabel
+          ? nameFont
+          : nameFont.replace(/([\d.]+)px/, (_, size) => `${Number(size) * mobileLabelScale}px`);
         ctx.font = isCentralFocusLabel
           ? nameFont
               .replace(/^\d+/, '400')
               .replace(/([\d.]+)px.+$/, (_, size) => `${Number(size) * 0.75 * centralPillScale}px ${centralPillFontFamily}`)
-          : this.boostFontWeight(nameFont, analyzeLabelWeightBoost);
+          : this.boostFontWeight(displayNameFont, analyzeLabelWeightBoost);
         ctx.fillStyle = isCentralFocusLabel ? '#101014' : labelColor;
-        const renderedLineHeight = isCentralFocusLabel ? lineHeight * centralPillScale : lineHeight;
+        const renderedLineHeight = isCentralFocusLabel
+          ? lineHeight * centralPillScale
+          : lineHeight * mobileLabelScale;
 
         const centerY = this.height / 2;
         const placeAbove = this.layoutMode !== 'tree' && screenPos.y < centerY;
@@ -3913,9 +4088,17 @@ export class TulipGraph {
     this.needsCentering = false;
     this.pendingFocusSwap = false;
     this.instantFocusSwapFrame = false;
+    if (window.innerWidth <= 950) {
+      this.nodes.forEach(node => {
+        node.labelOpacity = 0;
+      });
+      this.ambientHighlights = [];
+      this.ambientHighlightSet = new Set();
+    }
     // Start auto-rotation immediately without a pause, allowing the transition factor to handle smooth acceleration
     this.autoRotatePausedUntil = 0;
-    this.tweenCamera(this.width / 2, this.height / 2 + 45, this.defaultZoom);
+    const verticalOffset = window.innerWidth <= 950 ? 26 : 45;
+    this.tweenCamera(this.width / 2, this.height / 2 + verticalOffset, this.defaultZoom);
     this.requestRender();
   }
 

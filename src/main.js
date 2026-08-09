@@ -3,7 +3,7 @@
  */
 
 import './style.css';
-import { NODES, EDGES, PUBLISHED_NODES, PUBLISHED_EDGES, DISCOVERY_TRAILS, getAdjective } from './data.js';
+import { NODES, EDGES, PUBLISHED_NODES, PUBLISHED_EDGES, DISCOVERY_TRAILS } from './data.js';
 import nodeSourceDateRegistry from './node-source-dates.json';
 import { propagateChange } from './propagation.js';
 import { TulipGraph } from './graph.js';
@@ -26,6 +26,9 @@ import {
   isCausalRelationship
 } from './relationship-semantics.js';
 import { buildMonitoringSourceProfile } from './monitoring-sources.js';
+import { PHENOMENON_SELECTOR_CONFIG } from './phenomenon-selector.js';
+
+const TULIP_PRODUCTION_ORIGIN = 'https://tulip-project-six.vercel.app';
 
 let activityModulesPromise = null;
 let getPhenomenonLens = null;
@@ -836,6 +839,7 @@ let tulipScorePopup = null;
 let aboutPopup = null;
 
 let footerExplore = null;
+let footerSearch = null;
 let footerAnalyse = null;
 let footerPhenomena = null;
 let footerPersonalFootprint = null;
@@ -1129,32 +1133,16 @@ const PHENOMENON_ICONS = {
   petroplastics: makeLineIcon('<path d="M6.3 3.1h3.4M7 3.1v2.3l-1.7 2.1a3.3 3.3 0 0 0-.8 2.1 2.5 2.5 0 0 0 2.5 2.5h1.9a2.5 2.5 0 0 0 2.5-2.5c0-.8-.3-1.5-.8-2.1L9 5.4V3.1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5.6 8.5h4.8" stroke="currentColor" stroke-width="1.05" stroke-linecap="round"/>'),
   dataCenters: makeLineIcon('<rect x="3.1" y="3.2" width="9.8" height="2.8" rx="1" stroke="currentColor" stroke-width="1.15"/><rect x="3.1" y="7.4" width="9.8" height="2.8" rx="1" stroke="currentColor" stroke-width="1.15"/><rect x="3.1" y="11.6" width="9.8" height="1.2" rx=".6" fill="currentColor"/><path d="M5.1 4.6h.01M5.1 8.8h.01M7.6 4.6h2.8M7.6 8.8h2.8" stroke="currentColor" stroke-width="1.05" stroke-linecap="round"/>'),
   aiCompute: makeLineIcon('<rect x="3.4" y="3.4" width="9.2" height="9.2" rx="1.6" stroke="currentColor" stroke-width="1.15"/><path d="M6 6h4v4H6z" stroke="currentColor" stroke-width="1.05"/><path d="M8 1.9v1.5M8 12.6v1.5M1.9 8h1.5M12.6 8h1.5M4.2 4.2l.8.8M11 11l.8.8M11.8 4.2l-.8.8M5 11l-.8.8" stroke="currentColor" stroke-width="1" stroke-linecap="round"/><path d="m10.9 4.2 1.2-1.2" stroke="currentColor" stroke-width="1.05" stroke-linecap="round"/>'),
+  aviation: makeLineIcon('<path d="M2.7 8.8 13 4.1l-1.1 2.4-3.3 2.1-1.2 3-1.1.5.2-2.6-2.2.7-1.6-1.4Z" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/><path d="m6.2 7.2-1.4-2 .9-.4 2.1 1.4" stroke="currentColor" stroke-width="1.05" stroke-linecap="round" stroke-linejoin="round"/>'),
   shipping: makeLineIcon('<path d="M2.9 10.2h10.2M4.2 10.2l1.4-2.3h4.2l1.5 2.3" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round"/><path d="M3.8 11.7c.8-.6 1.6-.6 2.4 0 .8.6 1.6.6 2.4 0 .8-.6 1.6-.6 2.4 0 .8.6 1.6.6 2.4 0" stroke="currentColor" stroke-width="1.05" stroke-linecap="round"/><path d="M6.9 6.3h2.2" stroke="currentColor" stroke-width="1.05" stroke-linecap="round"/>'),
   construction: makeLineIcon('<path d="M3.2 12.8h9.6M5 12.8V7.7l3-2.2 3 2.2v5.1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 7.1h8" stroke="currentColor" stroke-width="1.05" stroke-linecap="round"/><path d="M8 8.9v3.9" stroke="currentColor" stroke-width="1.05" stroke-linecap="round"/>'),
   refrigerants: makeLineIcon('<path d="M8 2.4v11.2M4.5 4.5l7 7M11.5 4.5l-7 7M2.4 8h11.2" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><circle cx="8" cy="8" r="1.1" fill="currentColor"/>')
 };
 
-const PHENOMENON_SELECTOR_ITEMS = [
-  { key: 'food', label: 'Diet', nodeIds: ['food'], icon: PHENOMENON_ICONS.diet },
-  { key: 'industry_farming', label: 'Industry Farming', nodeIds: ['industry_farming'], icon: PHENOMENON_ICONS.industryFarming },
-  { key: 'methane', label: 'Methane', nodeIds: ['methane'], icon: PHENOMENON_ICONS.methane },
-  { key: 'carbon_emission', label: 'Carbon', nodeIds: ['carbon_emission'], icon: PHENOMENON_ICONS.carbon },
-  { key: 'electricity_generation', label: 'Electricity', nodeIds: ['carbon_emission'], lensKey: 'electricity_generation', description: 'Electricity generation shows the upstream power mix behind many other footprints, especially coal- and gas-heavy grids that lock in large annual emissions.', icon: PHENOMENON_ICONS.electricity },
-  { key: 'personal_conveyance', label: 'Conveyance', nodeIds: ['personal_conveyance'], icon: PHENOMENON_ICONS.conveyance },
-  { key: 'road_freight_logistics', label: 'Logistics', nodeIds: ['personal_conveyance'], lensKey: 'road_freight_logistics', description: 'Road freight and logistics track the movement of goods through trucks, vans, warehousing, and cold-chain systems that keep freight emissions structurally high.', icon: PHENOMENON_ICONS.logistics },
-  { key: 'food_waste', label: 'Food Waste', nodeIds: ['food_waste'], icon: PHENOMENON_ICONS.foodWaste },
-  { key: 'fertilizer_production', label: 'Fertilizers', nodeIds: ['fertilizer_production'], icon: PHENOMENON_ICONS.fertilizers },
-  { key: 'mining_critical_minerals', label: 'Mining', nodeIds: ['mining_critical_minerals'], icon: PHENOMENON_ICONS.mining },
-  { key: 'urban_sprawl_housing', label: 'Housing', nodeIds: ['urban_sprawl_housing'], icon: PHENOMENON_ICONS.housing },
-  { key: 'building_operations', label: 'Building Operations', nodeIds: ['urban_sprawl_housing'], lensKey: 'building_operations', description: 'Building operations capture the ongoing climate burden from electricity, heating, cooling, and onsite fuel use across homes, offices, and commercial buildings.', icon: PHENOMENON_ICONS.buildingOps },
-  { key: 'deforestation_land_use', label: 'Deforestation', nodeIds: ['deforestation'], icon: PHENOMENON_ICONS.deforestation },
-  { key: 'plastics_petrochemicals', label: 'Petroplastics', nodeIds: ['plastics_petrochemicals'], icon: PHENOMENON_ICONS.petroplastics },
-  { key: 'data_centers', label: 'Data Centers', nodeIds: ['data_centers'], icon: PHENOMENON_ICONS.dataCenters },
-  { key: 'ai_compute', label: 'AI Compute', nodeIds: ['ai_data_centers'], icon: PHENOMENON_ICONS.aiCompute },
-  { key: 'aviation_shipping', label: 'Shipping', nodeIds: ['aviation', 'shipping'], icon: PHENOMENON_ICONS.shipping },
-  { key: 'cement_steel', label: 'Construction', nodeIds: ['cement_concrete', 'steel'], icon: PHENOMENON_ICONS.construction },
-  { key: 'air_conditioning_refrigerants', label: 'Refrigerants', nodeIds: ['air_conditioning_refrigerants'], icon: PHENOMENON_ICONS.refrigerants }
-];
+const PHENOMENON_SELECTOR_ITEMS = PHENOMENON_SELECTOR_CONFIG.map(item => ({
+  ...item,
+  icon: PHENOMENON_ICONS[item.iconKey] || ''
+}));
 
 const REGISTRY_COVERAGE_SPHERES = [
   'atmosphere', 'oceans', 'cryosphere', 'freshwater', 'biosphere', 'agriculture',
@@ -1526,17 +1514,17 @@ const PHENOMENON_THEME_BY_KEY = {
   carbon_emission: { start: 'rgba(244, 114, 182, 0.98)', end: 'rgba(239, 68, 68, 0.96)', glow: 'rgba(248, 113, 113, 0.24)' },
   electricity_generation: { start: 'rgba(96, 165, 250, 0.98)', end: 'rgba(45, 212, 191, 0.96)', glow: 'rgba(96, 165, 250, 0.22)' },
   personal_conveyance: { start: 'rgba(251, 191, 36, 0.98)', end: 'rgba(249, 115, 22, 0.96)', glow: 'rgba(251, 146, 60, 0.22)' },
-  road_freight_logistics: { start: 'rgba(248, 196, 113, 0.98)', end: 'rgba(235, 87, 87, 0.96)', glow: 'rgba(242, 153, 74, 0.22)' },
+  freight_logistics: { start: 'rgba(248, 196, 113, 0.98)', end: 'rgba(235, 87, 87, 0.96)', glow: 'rgba(242, 153, 74, 0.22)' },
   food_waste: { start: 'rgba(250, 204, 21, 0.98)', end: 'rgba(132, 204, 22, 0.96)', glow: 'rgba(163, 230, 53, 0.22)' },
   fertilizer_production: { start: 'rgba(52, 211, 153, 0.98)', end: 'rgba(16, 185, 129, 0.96)', glow: 'rgba(52, 211, 153, 0.2)' },
   mining_critical_minerals: { start: 'rgba(192, 132, 252, 0.98)', end: 'rgba(99, 102, 241, 0.96)', glow: 'rgba(129, 140, 248, 0.22)' },
   urban_sprawl_housing: { start: 'rgba(250, 204, 21, 0.98)', end: 'rgba(245, 158, 11, 0.96)', glow: 'rgba(251, 191, 36, 0.22)' },
-  building_operations: { start: 'rgba(147, 197, 253, 0.98)', end: 'rgba(59, 130, 246, 0.96)', glow: 'rgba(96, 165, 250, 0.22)' },
+  built_environment: { start: 'rgba(147, 197, 253, 0.98)', end: 'rgba(245, 158, 11, 0.96)', glow: 'rgba(96, 165, 250, 0.22)' },
   deforestation_land_use: { start: 'rgba(110, 231, 183, 0.98)', end: 'rgba(34, 197, 94, 0.96)', glow: 'rgba(74, 222, 128, 0.22)' },
   plastics_petrochemicals: { start: 'rgba(248, 113, 113, 0.98)', end: 'rgba(236, 72, 153, 0.96)', glow: 'rgba(244, 114, 182, 0.22)' },
   data_centers: { start: 'rgba(129, 140, 248, 0.98)', end: 'rgba(45, 212, 191, 0.96)', glow: 'rgba(94, 234, 212, 0.22)' },
   ai_compute: { start: 'rgba(167, 139, 250, 0.98)', end: 'rgba(59, 130, 246, 0.96)', glow: 'rgba(129, 140, 248, 0.24)' },
-  aviation_shipping: { start: 'rgba(56, 189, 248, 0.98)', end: 'rgba(14, 165, 233, 0.96)', glow: 'rgba(56, 189, 248, 0.22)' },
+  aviation: { start: 'rgba(56, 189, 248, 0.98)', end: 'rgba(14, 165, 233, 0.96)', glow: 'rgba(56, 189, 248, 0.22)' },
   cement_steel: { start: 'rgba(248, 113, 113, 0.98)', end: 'rgba(217, 119, 6, 0.96)', glow: 'rgba(251, 146, 60, 0.22)' },
   air_conditioning_refrigerants: { start: 'rgba(103, 232, 249, 0.98)', end: 'rgba(59, 130, 246, 0.96)', glow: 'rgba(96, 165, 250, 0.22)' }
 };
@@ -1979,6 +1967,7 @@ function playNodeBridgeTransition(node, origin) {
 }
 
 function setActiveTab(tab) {
+  if (footerSearch) footerSearch.classList.toggle('active', tab === 'search');
   if (footerExplore) footerExplore.classList.toggle('active', tab === 'explore');
   if (footerAnalyse) footerAnalyse.classList.toggle('active', tab === 'study');
   if (footerPhenomena) footerPhenomena.classList.toggle('active', tab === 'phenomena');
@@ -1987,6 +1976,7 @@ function setActiveTab(tab) {
 
 function forceExploreTabState() {
   setActiveTab('explore');
+  if (footerSearch) footerSearch.classList.remove('active');
   if (footerExplore) footerExplore.classList.add('active');
   if (footerAnalyse) footerAnalyse.classList.remove('active');
   if (footerPhenomena) footerPhenomena.classList.remove('active');
@@ -2017,6 +2007,8 @@ function setShellMode(mode) {
   const isStudy = mode === 'study';
   const isPhenomena = mode === 'phenomena';
   const isPersonalFootprint = mode === 'personal-footprint';
+  const mobileAnalyseSections = document.getElementById('mobile-analyse-sections');
+  const mobileStudySheet = document.getElementById('mobile-study-sheet');
 
   const previousMode = appContainer?.dataset.viewMode || 'explore';
   if (previousMode === 'study' && mode !== 'study') captureStudyWorkspaceState();
@@ -2071,6 +2063,16 @@ function setShellMode(mode) {
   if (searchContainer) {
     searchContainer.classList.remove('hidden');
   }
+  if (mobileAnalyseSections) {
+    mobileAnalyseSections.hidden = !isStudy;
+    mobileAnalyseSections.querySelectorAll('button').forEach((button, index) => {
+      button.classList.toggle('active', index === 0);
+    });
+  }
+  if (mobileStudySheet) {
+    mobileStudySheet.hidden = !isStudy;
+    if (isStudy && previousMode !== mode) setMobileSheetDetent('medium');
+  }
   if (isStudy) {
     setActiveTab('study');
   } else if (isPhenomena) {
@@ -2080,6 +2082,8 @@ function setShellMode(mode) {
   } else {
     forceExploreTabState();
   }
+
+  updateMobileAppBar(mode);
 
   if (previousMode !== mode) {
     trackEvent('view_opened', { view: mode });
@@ -2092,6 +2096,59 @@ function setShellMode(mode) {
           : mainContent;
     window.requestAnimationFrame(() => restartMotionClass(enteringView, 'shell-view-enter', 560));
   }
+}
+
+function updateMobileAppBar(mode = document.getElementById('app-container')?.dataset.viewMode || 'explore') {
+  const title = document.getElementById('mobile-view-title');
+  const context = document.getElementById('mobile-view-context');
+  const studyActions = document.getElementById('mobile-study-actions');
+  const moreButton = document.getElementById('mobile-more-btn');
+  const mobileBack = document.getElementById('mobile-study-back');
+  const sheetSphere = document.getElementById('mobile-sheet-sphere');
+  const sheetTitle = document.getElementById('mobile-sheet-title');
+  const sheetDescription = document.getElementById('mobile-sheet-description');
+  const sheetScore = document.getElementById('mobile-sheet-score');
+  const screenCopy = {
+    explore: ['Explore', 'Earth systems network'],
+    study: ['Analyse', currentSelectedNode?.name || 'Select a topic'],
+    phenomena: ['Impacts', 'Activities and responses'],
+    'personal-footprint': ['My Footprint', 'Estimate your annual impact']
+  };
+  const [screenTitle, screenContext] = screenCopy[mode] || screenCopy.explore;
+  if (title) title.textContent = screenTitle;
+  if (context) context.textContent = screenContext;
+  if (studyActions) studyActions.hidden = mode !== 'study';
+  if (moreButton) moreButton.hidden = mode === 'study';
+  if (mobileBack) {
+    mobileBack.disabled = false;
+    mobileBack.setAttribute('aria-label', selectionHistory.length ? 'Go back one analysis step' : 'Close analysis');
+  }
+  if (sheetSphere) sheetSphere.textContent = currentSelectedNode
+    ? (SPHERE_LABELS[currentSelectedNode.sphere] || currentSelectedNode.sphere || 'TULIP topic')
+    : 'TULIP topic';
+  if (sheetTitle) sheetTitle.textContent = currentSelectedNode?.name || 'Select a topic';
+  if (sheetDescription) sheetDescription.textContent = currentSelectedNode
+    ? 'Drag up for relationships, impacts, and actions'
+    : 'Tap a point on the network to begin';
+  if (sheetScore) {
+    const score = currentSelectedNode?.tulipScore ?? currentSelectedNode?.score?.baseline;
+    sheetScore.textContent = Number.isFinite(score) ? Number(score).toFixed(1) : '—';
+    sheetScore.setAttribute('aria-label', Number.isFinite(score) ? `TULIP urgency score ${Number(score).toFixed(1)}` : 'TULIP urgency score unavailable');
+  }
+}
+
+function setMobileSheetDetent(detent, { animate = true } = {}) {
+  const sheet = document.getElementById('mobile-study-sheet');
+  const grabber = document.getElementById('mobile-sheet-grabber');
+  if (!sheet || !['peek', 'medium', 'full'].includes(detent)) return;
+  sheet.style.removeProperty('--mobile-sheet-height');
+  sheet.classList.toggle('is-dragging', !animate);
+  sheet.dataset.detent = detent;
+  if (grabber) {
+    grabber.setAttribute('aria-expanded', String(detent === 'full'));
+    grabber.setAttribute('aria-label', detent === 'full' ? 'Collapse topic details' : 'Expand topic details');
+  }
+  if (animate) window.requestAnimationFrame(() => sheet.classList.remove('is-dragging'));
 }
 
 // Target and select node, focusing the 3D globe and loading diagnostics
@@ -4607,6 +4664,7 @@ function init() {
   openRegistriesBtn = document.getElementById('open-registries-btn');
   dashboardActiveNodeName = document.getElementById('dashboard-active-node-name');
 
+  footerSearch = document.getElementById('footer-btn-search');
   footerExplore = document.getElementById('footer-btn-explore');
   footerAnalyse = document.getElementById('footer-btn-analyse');
   footerPhenomena = document.getElementById('footer-btn-phenomena');
@@ -4630,6 +4688,7 @@ function init() {
       exemptChild = exemptChild.parentElement;
     }
     [...appContainer.children].forEach(child => {
+      if (child.id === 'mobile-app-bar') return;
       if (active && child === exemptChild) return;
       child.inert = active;
     });
@@ -4734,6 +4793,10 @@ function init() {
       e.stopPropagation();
     }
     closeFooterOverlays();
+    document.body.classList.remove('mobile-search-open', 'mobile-filters-open');
+    footerSearch?.setAttribute('aria-expanded', 'false');
+    mobileMore?.setAttribute('aria-expanded', 'false');
+    mobileMore?.setAttribute('aria-label', 'Open filters');
     cancelPendingSelection();
     setShellMode('explore');
     graphInstance?.exitFocusMode();
@@ -4860,6 +4923,25 @@ function init() {
   }
 
   if (footerExplore) footerExplore.addEventListener('click', handleExploreClick);
+  footerSearch?.addEventListener('click', event => {
+    event.preventDefault();
+    closeFooterOverlays();
+    setShellMode('explore');
+    const willOpen = !document.body.classList.contains('mobile-search-open');
+    document.body.classList.toggle('mobile-search-open', willOpen);
+    document.body.classList.remove('mobile-filters-open');
+    footerSearch.setAttribute('aria-expanded', String(willOpen));
+    mobileMore?.setAttribute('aria-expanded', 'false');
+    mobileMore?.setAttribute('aria-label', 'Open filters');
+    setActiveTab(willOpen ? 'search' : 'explore');
+    if (willOpen) {
+      window.requestAnimationFrame(() => {
+        const searchInput = document.getElementById('node-search-input');
+        searchInput?.focus({ preventScroll: true });
+        searchInput?.select();
+      });
+    }
+  });
   if (footerAnalyse) footerAnalyse.addEventListener('click', handleAnalyseClick);
   if (appLogo) appLogo.addEventListener('click', handleLogoClick);
   if (footerPhenomena) footerPhenomena.addEventListener('click', handlePhenomenaClick);
@@ -4870,6 +4952,153 @@ function init() {
   if (footerAbout) footerAbout.addEventListener('click', handleAboutClick);
   if (footerContact?.getAttribute('aria-disabled') !== 'true') {
     footerContact.addEventListener('click', handleContactClick);
+  }
+
+  const mobileHome = document.getElementById('mobile-home-btn');
+  const mobileMore = document.getElementById('mobile-more-btn');
+  const mobileMoreMenu = document.getElementById('mobile-more-menu');
+  const mobileOverlayClose = document.getElementById('mobile-overlay-close');
+  const mobileStudyBack = document.getElementById('mobile-study-back');
+  const mobileStudyShare = document.getElementById('mobile-study-share');
+  const mobileAnalyseSections = document.getElementById('mobile-analyse-sections');
+  const mobileStudySheet = document.getElementById('mobile-study-sheet');
+  const mobileSheetGrabber = document.getElementById('mobile-sheet-grabber');
+  const mobileSheetSummary = document.querySelector('.mobile-sheet-summary');
+  const mobileExplorePrompt = document.getElementById('mobile-explore-prompt');
+
+  const closeMobileMoreMenu = () => {
+    if (!mobileMoreMenu || !mobileMore) return;
+    mobileMoreMenu.hidden = true;
+    mobileMore.setAttribute('aria-expanded', 'false');
+  };
+
+  mobileHome?.addEventListener('click', handleExploreClick);
+  mobileExplorePrompt?.addEventListener('click', () => {
+    const searchInput = document.getElementById('node-search-input');
+    searchInput?.focus({ preventScroll: true });
+    searchInput?.select();
+  });
+  mobileOverlayClose?.addEventListener('click', closeFooterOverlays);
+  mobileMore?.addEventListener('click', event => {
+    event.stopPropagation();
+    if (window.matchMedia('(max-width: 950px)').matches && appContainer?.dataset.viewMode === 'explore') {
+      const willOpen = !document.body.classList.contains('mobile-filters-open');
+      document.body.classList.toggle('mobile-filters-open', willOpen);
+      document.body.classList.remove('mobile-search-open');
+      footerSearch?.setAttribute('aria-expanded', 'false');
+      mobileMore.setAttribute('aria-expanded', String(willOpen));
+      mobileMore.setAttribute('aria-label', willOpen ? 'Close filters' : 'Open filters');
+      setActiveTab('explore');
+      if (willOpen && filterBar) filterBar.scrollLeft = 0;
+      return;
+    }
+    if (!mobileMoreMenu) return;
+    const willOpen = mobileMoreMenu.hidden;
+    mobileMoreMenu.hidden = !willOpen;
+    mobileMore.setAttribute('aria-expanded', String(willOpen));
+    if (willOpen) mobileMoreMenu.querySelector('button')?.focus({ preventScroll: true });
+  });
+  mobileMoreMenu?.addEventListener('click', event => {
+    const menuItem = event.target.closest('[data-mobile-target]');
+    if (!menuItem) return;
+    const target = document.getElementById(menuItem.dataset.mobileTarget);
+    closeMobileMoreMenu();
+    target?.click();
+  });
+  document.addEventListener('click', event => {
+    if (!mobileMoreMenu?.hidden && !mobileMoreMenu.contains(event.target) && event.target !== mobileMore) {
+      closeMobileMoreMenu();
+    }
+  });
+
+  mobileStudyBack?.addEventListener('click', event => {
+    if (selectionHistory.length) focusStepBackBtn?.click();
+    else handleExploreClick(event);
+  });
+  mobileStudyShare?.addEventListener('click', async () => {
+    const url = buildNavigationUrl().toString();
+    const shareData = {
+      title: currentSelectedNode ? `${currentSelectedNode.name} — TULIP` : 'TULIP analysis',
+      text: currentSelectedNode ? `Explore ${currentSelectedNode.name} in TULIP.` : 'Explore this TULIP analysis.',
+      url
+    };
+    try {
+      if (navigator.share) await navigator.share(shareData);
+      else await navigator.clipboard.writeText(url);
+    } catch (error) {
+      if (error?.name !== 'AbortError') console.warn('Unable to share this analysis.', error);
+    }
+  });
+
+  mobileAnalyseSections?.addEventListener('click', event => {
+    const button = event.target.closest('[data-analyse-target]');
+    if (!button) return;
+    const target = studyConsole?.querySelector(button.dataset.analyseTarget);
+    if (!target) return;
+    mobileAnalyseSections.querySelectorAll('button').forEach(item => item.classList.toggle('active', item === button));
+    setMobileSheetDetent('full');
+    window.setTimeout(() => {
+      const targetTop = target.getBoundingClientRect().top - studyConsole.getBoundingClientRect().top + studyConsole.scrollTop;
+      studyConsole.scrollTo({ top: Math.max(0, targetTop - 10), behavior: 'smooth' });
+    }, 220);
+  });
+
+  if (mobileStudySheet && mobileSheetGrabber) {
+    let sheetDrag = null;
+    let suppressSheetClickUntil = 0;
+    const getSheetDetentHeights = () => {
+      const viewportHeight = window.visualViewport?.height || window.innerHeight;
+      const full = Math.max(410, viewportHeight - 146);
+      return {
+        peek: Math.min(196, full),
+        medium: Math.min(Math.max(360, viewportHeight * 0.54), full),
+        full
+      };
+    };
+    const finishSheetDrag = event => {
+      if (!sheetDrag) return;
+      const heights = getSheetDetentHeights();
+      const elapsed = Math.max(1, performance.now() - sheetDrag.startedAt);
+      const velocity = (event.clientY - sheetDrag.startY) / elapsed;
+      const currentHeight = mobileStudySheet.getBoundingClientRect().height;
+      let targetDetent;
+      if (velocity < -0.45) targetDetent = currentHeight < heights.medium ? 'medium' : 'full';
+      else if (velocity > 0.45) targetDetent = currentHeight > heights.medium ? 'medium' : 'peek';
+      else targetDetent = Object.entries(heights)
+        .sort((a, b) => Math.abs(a[1] - currentHeight) - Math.abs(b[1] - currentHeight))[0][0];
+      if (Math.abs(event.clientY - sheetDrag.startY) > 5) suppressSheetClickUntil = performance.now() + 350;
+      mobileStudySheet.classList.remove('is-dragging');
+      sheetDrag = null;
+      setMobileSheetDetent(targetDetent);
+    };
+
+    mobileSheetGrabber.addEventListener('pointerdown', event => {
+      if (!window.matchMedia('(max-width: 950px)').matches) return;
+      sheetDrag = {
+        pointerId: event.pointerId,
+        startY: event.clientY,
+        startHeight: mobileStudySheet.getBoundingClientRect().height,
+        startedAt: performance.now()
+      };
+      mobileStudySheet.classList.add('is-dragging');
+      mobileSheetGrabber.setPointerCapture?.(event.pointerId);
+    });
+    mobileSheetGrabber.addEventListener('pointermove', event => {
+      if (!sheetDrag || event.pointerId !== sheetDrag.pointerId) return;
+      event.preventDefault();
+      const heights = getSheetDetentHeights();
+      const nextHeight = Math.min(heights.full, Math.max(heights.peek, sheetDrag.startHeight - (event.clientY - sheetDrag.startY)));
+      mobileStudySheet.style.setProperty('--mobile-sheet-height', `${nextHeight}px`);
+    });
+    mobileSheetGrabber.addEventListener('pointerup', finishSheetDrag);
+    mobileSheetGrabber.addEventListener('pointercancel', finishSheetDrag);
+    mobileSheetGrabber.addEventListener('click', () => {
+      if (performance.now() < suppressSheetClickUntil) return;
+      setMobileSheetDetent(mobileStudySheet.dataset.detent === 'full' ? 'medium' : 'full');
+    });
+    mobileSheetSummary?.addEventListener('click', () => {
+      if (mobileStudySheet.dataset.detent !== 'full') setMobileSheetDetent('full');
+    });
   }
 
   const contactForm = document.getElementById('contact-form');
@@ -4954,6 +5183,11 @@ function init() {
 
         if (graphInstance) {
           setGraphFilter(filterValue);
+        }
+        if (window.matchMedia('(max-width: 950px)').matches) {
+          document.body.classList.remove('mobile-filters-open');
+          mobileMore?.setAttribute('aria-expanded', 'false');
+          mobileMore?.setAttribute('aria-label', 'Open filters');
         }
       });
     });
@@ -6477,6 +6711,9 @@ function renderPhenomenonLens(node) {
     .replace(' per year', '/yr')
     .replace(' per kg food', '/kg');
   const getUnitExplanation = unit => {
+    if (/MtCO2 per year/i.test(unit)) {
+      return 'Measured in megatonnes of direct CO2 per year. Bigger numbers mean a larger annual carbon-dioxide burden.';
+    }
     if (/MtCO2e per year/i.test(unit)) {
       return 'Measured in Megatonnes of CO2-equivalent per year. Bigger numbers = A larger annual climate burden.';
     }
@@ -6485,6 +6722,9 @@ function renderPhenomenonLens(node) {
     }
     if (/TWh per year/i.test(unit)) {
       return 'Measured in terawatt-hours per year. Bigger numbers mean more annual electricity demand at system scale.';
+    }
+    if (/% of global CO2 emissions/i.test(unit)) {
+      return 'Shown as a share of global energy- and process-related CO2 emissions. The rows use one boundary and may be added together.';
     }
     if (/share of/i.test(unit) || /relative/i.test(unit)) {
       return 'Shown as a comparative share so you can read which drivers are bigger within this phenomenon, rather than as an absolute physical total.';
@@ -6499,8 +6739,23 @@ function renderPhenomenonLens(node) {
     <span class="phenomenon-lens-scale-unit">${escapeHtml(unitLabel)}</span>
     <span class="phenomenon-lens-scale-note">${escapeHtml(getUnitExplanation(unitLabel))}</span>
   `;
-  phenomenonLensSource.textContent = '';
-  phenomenonLensSource.hidden = true;
+  const source = lens.source || null;
+  if (source?.label) {
+    const sourceHref = safeHttpsUrl(source.url, '');
+    const hasSourceLink = sourceHref !== 'about:blank';
+    const sourceLabel = hasSourceLink
+      ? `<a href="${escapeHtml(sourceHref)}" target="_blank" rel="noopener noreferrer">${escapeHtml(source.label)} <span aria-hidden="true">↗</span></a>`
+      : `<span>${escapeHtml(source.label)}</span>`;
+    const sourceMeta = [source.baseline, source.method, source.boundary]
+      .filter(Boolean)
+      .map(value => `<span class="phenomenon-lens-source-meta">${escapeHtml(value)}</span>`)
+      .join('');
+    phenomenonLensSource.innerHTML = `${sourceLabel}${sourceMeta}`;
+    phenomenonLensSource.hidden = false;
+  } else {
+    phenomenonLensSource.textContent = '';
+    phenomenonLensSource.hidden = true;
+  }
   phenomenonLensTakeaway.textContent = lens.takeaway || '';
   phenomenonLensAxis.style.display = 'grid';
 
@@ -6530,8 +6785,7 @@ function renderPhenomenonLens(node) {
   const formatPhenomenonValue = value => {
     if (!Number.isFinite(value)) return '0';
     if (Math.abs(value) >= 100) return Math.round(value).toLocaleString('en-US');
-    if (Math.abs(value) >= 10) return value.toFixed(1);
-    return value.toFixed(1).replace(/\.0$/, '');
+    return value.toFixed(2).replace(/\.?0+$/, '');
   };
 
   phenomenonLensAxis.innerHTML = axisTicks
@@ -6543,7 +6797,7 @@ function renderPhenomenonLens(node) {
     .join('');
 
   const renderPhenomenonRow = (item, index) => {
-    const widthPct = Math.max(4, Math.min(100, ((item.value || 0) / axisMax) * 100));
+    const widthPct = Math.max(0, Math.min(100, ((item.value || 0) / axisMax) * 100));
     const components = Array.isArray(item.components) ? item.components : [];
     const componentTotal = components.reduce((sum, component) => sum + (component.value || 0), 0);
     const normalizedComponents = componentTotal > 0
@@ -6572,6 +6826,9 @@ function renderPhenomenonLens(node) {
             : `
               <div class="phenomenon-row-title-wrap">
                 <h4 class="phenomenon-row-title">${escapeHtml(item.label)}</h4>
+                ${item.typicalPortion
+                  ? `<span class="phenomenon-row-portion">(Typical Portion: ${escapeHtml(item.typicalPortion)})</span>`
+                  : ''}
               </div>
               <div class="phenomenon-row-value">
                 <span class="phenomenon-row-value-number">${escapeHtml(formatPhenomenonValue(item.value || 0))}</span>
@@ -6640,6 +6897,44 @@ function renderPhenomenonSelector() {
   });
 }
 
+function positionPhenomenonModeToggleWithHeading() {
+  if (!phenomenaView || !phenomenaFocusNameText || !phenomenonModeFootprintBtn) return;
+
+  const focusCard = phenomenaView.querySelector('.phenomena-shell > .phenomena-focus-card');
+  const focusMeta = focusCard?.querySelector(':scope > .phenomena-focus-meta');
+  const headingRow = focusMeta?.querySelector('.phenomena-focus-heading-row');
+  const modeToggle = phenomenonModeFootprintBtn.closest('.phenomena-mode-toggle');
+  if (!focusCard || !focusMeta || !headingRow || !modeToggle) return;
+
+  if (window.matchMedia('(min-width: 951px)').matches) {
+    if (modeToggle.parentElement !== headingRow) headingRow.append(modeToggle);
+  } else if (modeToggle.parentElement !== focusCard) {
+    focusCard.insertBefore(modeToggle, focusMeta);
+  }
+}
+
+function normalizePhenomenonFocusIconToDiet() {
+  const svg = phenomenaFocusIcon?.querySelector('svg');
+  if (!svg) return;
+
+  const graphics = Array.from(svg.querySelectorAll('path, circle, rect, line, polyline, polygon, ellipse'));
+  const rects = graphics
+    .map(element => element.getBoundingClientRect())
+    .filter(rect => rect.width > 0 || rect.height > 0);
+  if (!rects.length) return;
+
+  const top = Math.min(...rects.map(rect => rect.top));
+  const bottom = Math.max(...rects.map(rect => rect.bottom));
+  const visualHeight = bottom - top;
+  if (!Number.isFinite(visualHeight) || visualHeight <= 0) return;
+
+  const dietVisualHeight = 27.8;
+  const scale = Math.min(2, Math.max(0.8, dietVisualHeight / visualHeight));
+  svg.style.setProperty('--phenomena-icon-normalize-scale', scale.toFixed(4));
+}
+
+window.addEventListener('resize', positionPhenomenonModeToggleWithHeading, { passive: true });
+
 function setPhenomenonMode(mode) {
   currentPhenomenonMode = mode === 'actions' ? 'actions' : 'footprint';
 
@@ -6687,6 +6982,10 @@ async function setActivePhenomenonNode(node) {
   renderPhenomenonLens(node);
   setActiveActionNode(node);
   setPhenomenonMode(currentPhenomenonMode);
+  requestAnimationFrame(() => {
+    positionPhenomenonModeToggleWithHeading();
+    normalizePhenomenonFocusIconToDiet();
+  });
 }
 
 function buildPhenomenonSelection(item) {
@@ -8507,6 +8806,7 @@ function selectNode(node, { historyMode = 'push', pathNodes = null, motionOrigin
   if (appContainer) appContainer.classList.remove('sources-active');
 
   currentSelectedNode = node;
+  updateMobileAppBar();
   writeNavigationHistory(historyMode);
   updateSelectedEdgeDetail(currentSelectedEdge, currentSelectedNode);
   syncEditorialArcState();
@@ -12893,6 +13193,11 @@ function updateTulipUrgencyProfile(node) {
   const modeledTag = document.getElementById('console-urgency-modeled');
   const bandDetails = getScoreBandDetails(baselineScore);
   if (scoreEl) scoreEl.textContent = baselineScore.toFixed(1);
+  const mobileSheetScore = document.getElementById('mobile-sheet-score');
+  if (mobileSheetScore) {
+    mobileSheetScore.textContent = baselineScore.toFixed(1);
+    mobileSheetScore.setAttribute('aria-label', `TULIP urgency score ${baselineScore.toFixed(1)}`);
+  }
   if (ratingEl) {
     ratingEl.textContent = bandDetails.label;
     ratingEl.className = bandDetails.className;
@@ -12980,80 +13285,6 @@ function playWelcomeSplash() {
   });
 }
 
-function shouldGateTouchDevices() {
-  const coarsePointer = window.matchMedia?.('(pointer: coarse)').matches ?? false;
-  const noHover = window.matchMedia?.('(hover: none)').matches ?? false;
-  const touchPoints = navigator.maxTouchPoints || 0;
-  return (coarsePointer && noHover) || (coarsePointer && touchPoints > 0);
-}
-
-function showTouchDeviceGate() {
-  const gate = document.getElementById('touch-device-gate');
-  const splash = document.getElementById('quote-splash');
-  const appContainer = document.getElementById('app-container');
-  const footerBar = document.getElementById('tulip-footer-bar');
-  if (!gate) return;
-
-  gate.hidden = false;
-  gate.setAttribute('aria-hidden', 'false');
-  gate.classList.add('is-visible');
-
-  if (splash) {
-    splash.classList.add('is-hidden');
-    splash.setAttribute('aria-hidden', 'true');
-  }
-  if (appContainer) {
-    appContainer.style.display = 'none';
-    appContainer.setAttribute('aria-hidden', 'true');
-  }
-  if (footerBar) {
-    footerBar.style.display = 'none';
-    footerBar.setAttribute('aria-hidden', 'true');
-  }
-}
-
-function bindTouchDeviceGateShareActions() {
-  const gate = document.getElementById('touch-device-gate');
-  if (!gate || gate.dataset.shareBound === 'true') return;
-
-  const shareUrl = 'https://tulip-project-six.vercel.app';
-  const shareTitle = 'TULIP';
-  const shareNote = document.getElementById('touch-device-gate-share-note');
-
-  gate.addEventListener('click', async (event) => {
-    const button = event.target.closest('[data-share-action]');
-    if (!button) return;
-
-    const action = button.getAttribute('data-share-action');
-    if (!action) return;
-
-    if (action === 'native' && navigator.share) {
-      try {
-        await navigator.share({ title: shareTitle, text: 'Explore TULIP on desktop', url: shareUrl });
-      } catch {
-        // Ignore aborted native share sheets.
-      }
-      return;
-    }
-
-    if (action === 'native') {
-      try {
-        await navigator.clipboard.writeText(shareUrl);
-        if (shareNote) {
-          shareNote.hidden = false;
-          window.setTimeout(() => {
-            shareNote.hidden = true;
-          }, 1800);
-        }
-      } catch {
-        window.prompt('Copy this link', shareUrl);
-      }
-    }
-  });
-
-  gate.dataset.shareBound = 'true';
-}
-
 function hardenExternalLinks(root = document) {
   root.querySelectorAll?.('a[target="_blank"]').forEach(link => {
     link.setAttribute('rel', 'noopener noreferrer');
@@ -13069,11 +13300,6 @@ window.onload = () => {
       if (node.nodeType === Node.ELEMENT_NODE) hardenExternalLinks(node);
     }));
   }).observe(document.body, { childList: true, subtree: true });
-  bindTouchDeviceGateShareActions();
-  if (shouldGateTouchDevices()) {
-    showTouchDeviceGate();
-    return;
-  }
   adjustScale();
   init();
   if (graphInstance) {
