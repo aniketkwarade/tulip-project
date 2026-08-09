@@ -173,34 +173,34 @@ export const ACTION_PROFILES = {
     ],
     caution: 'The report explicitly favors trip avoidance and smaller vehicles over simple one-for-one car replacement narratives.'
   },
-  road_freight_logistics: {
-    title: 'Road Freight + Logistics Actions',
-    definition: 'Road freight and logistics cover trucks, vans, warehouses, cold-chain systems, and the movement architecture behind goods delivery.',
-    whyItMatters: 'The report frames this as a procurement and infrastructure-heavy category where organizations and regulators matter more than isolated consumer choices.',
+  freight_logistics: {
+    title: 'Freight & Logistics Actions',
+    definition: 'Freight & Logistics covers road, sea, rail, inland-waterway, and air freight, plus the warehouses, cold chains, ports, and delivery systems that connect those modes.',
+    whyItMatters: 'The largest reductions come from moving suitable loads to lower-emissions modes, improving utilization, and cleaning vehicles, vessels, facilities, and fuels together.',
     confidence: 'Medium-high confidence',
-    confidenceNote: 'Promising and actionable, but more fragmented in data quality than power or buildings.',
-    strongestAction: 'Optimize, electrify, and shift freight where the system allows it.',
+    confidenceNote: 'Mode-shift, vehicle efficiency, and operational levers are mature; zero-emission options vary by route and mode.',
+    strongestAction: 'Avoid empty movement, shift suitable freight, and clean each remaining mode.',
     personal: [
       'Consolidate deliveries and avoid unnecessary rush shipping.',
       'Favor lower-frequency purchasing patterns over high-turnover parcel habits.',
-      'Treat personal leverage as secondary to fleet, rail, and warehouse decisions.'
+      'Treat personal leverage as secondary to carrier, fleet, port, and warehouse decisions.'
     ],
     community: [
       'Electrify regional and urban delivery fleets where routes fit.',
-      'Require freight and logistics vendors to disclose emissions and efficiency metrics.',
-      'Improve warehouse, routing, and cold-chain energy performance.'
+      'Require carriers and logistics vendors to disclose mode-specific emissions and efficiency metrics.',
+      'Improve vessel operations, routing, load factors, warehouses, ports, and cold-chain energy performance.'
     ],
     policy: [
       'Support truck ZEV corridors and charging infrastructure.',
-      'Shift suitable freight toward rail and intermodal systems.',
-      'Use performance standards and reporting rules for large logistics operators.'
+      'Shift suitable freight toward rail, waterways, and well-connected intermodal systems.',
+      'Use vehicle, vessel, fuel, port, and reporting standards for large freight operators.'
     ],
     metrics: [
-      'ton-km shifted from road',
-      'fleet electrification share',
-      'logistics emissions per delivery or ton-km'
+      'freight CO2 per tonne-km',
+      'tonne-km shifted from road or air',
+      'fleet, vessel, and facility energy intensity'
     ],
-    caution: 'The report treats this as policy- and procurement-shaped; avoid trivializing it into “order less stuff” alone.'
+    caution: 'Warehousing, cold chain, ports, and last-mile delivery cut across modes; do not add them to modal totals as if they were independent freight modes.'
   },
   food_waste: {
     title: 'Food Waste Actions',
@@ -346,6 +346,35 @@ export const ACTION_PROFILES = {
       'peak demand reduced'
     ],
     caution: 'The report favors direct performance upgrades over vague “green building” narratives.'
+  },
+  built_environment: {
+    title: 'Buildings & Housing Actions',
+    definition: 'Buildings & Housing joins operational energy, housing form, and embodied materials because retrofit, location, design, and procurement shape the same long-lived built environment.',
+    whyItMatters: 'The combined category keeps three distinct levers visible: improve existing buildings, avoid sprawl and excess floor area, and reduce the cement and steel burden of new work.',
+    confidence: 'High-confidence action surface',
+    confidenceNote: 'Retrofits, compact development, material efficiency, and lower-carbon procurement are mature and measurable levers.',
+    strongestAction: 'Retrofit existing buildings, build compactly, and specify lower-carbon materials.',
+    personal: [
+      'Weatherize and improve the building you already occupy before expanding floor area.',
+      'Choose smaller or better-connected housing when genuine options exist.',
+      'Favor renovation, reuse, and lower-material construction over unnecessary replacement.'
+    ],
+    community: [
+      'Retrofit portfolios with insulation, controls, efficient cooling, and clean heating.',
+      'Pair infill and transit-oriented housing with affordability and access safeguards.',
+      'Require embodied-carbon limits, material efficiency, and credible product declarations in major projects.'
+    ],
+    policy: [
+      'Scale building performance standards, retrofit finance, and clean-heating rules.',
+      'Reform land use to support compact housing near jobs, services, and transit.',
+      'Adopt whole-life-carbon codes and lower-carbon public procurement for cement and steel.'
+    ],
+    metrics: [
+      'operational energy per square meter',
+      'embodied carbon per square meter or dwelling',
+      'housing growth in compact connected locations'
+    ],
+    caution: 'Housing form and sprawl change operational, transport, and material demand, but should not be counted as an extra additive emissions bar.'
   },
   deforestation: {
     title: 'Deforestation + Land Use Actions',
@@ -783,13 +812,13 @@ export const ACTION_PROFILES = {
     ],
     caution: 'Subsidizing premiums without reducing risk can delay, rather than solve, the underlying retreat problem.'
   },
-  aviation_shipping: {
-    title: 'Aviation + Shipping Actions',
-    definition: 'Aviation and shipping combine high-emissions long-distance movement with difficult fuel transitions, making demand management and operational efficiency unusually important.',
-    whyItMatters: 'The report is skeptical of overpromising fuels alone and instead emphasizes alternatives to avoidable flights, operational efficiency, and targeted regulation.',
+  aviation: {
+    title: 'Aviation Actions',
+    definition: 'Aviation combines energy-intensive long-distance travel with a difficult fuel transition, making demand management and operational efficiency unusually important.',
+    whyItMatters: 'Avoidable frequent flying can be reduced now, while aircraft efficiency, operations, and credible low-carbon fuels address the flights that remain.',
     confidence: 'Medium-high confidence',
-    confidenceNote: 'Good evidence on demand and efficiency; more uncertainty around some future fuel pathways.',
-    strongestAction: 'Choose alternatives to avoidable flights, improve shipping operations, and treat cleaner fuels as a transition rather than a shortcut.',
+    confidenceNote: 'Good evidence on demand and efficiency; more uncertainty remains around the scale and sustainability of future aviation fuels.',
+    strongestAction: 'Choose alternatives to avoidable flights and reduce fuel burn for the flights that remain.',
     personal: [
       'Choose fewer discretionary flights, especially repeated frequent-flyer patterns.',
       'Substitute remote or rail options where they are real substitutes.',
@@ -798,19 +827,19 @@ export const ACTION_PROFILES = {
     community: [
       'Replace business travel with remote participation where it works.',
       'Use travel policies and procurement that reduce high-frequency flying.',
-      'Adopt slow steaming and operational efficiency in shipping-heavy institutions and vendors.'
+      'Track travel emissions directly and favor efficient itineraries and carriers.'
     ],
     policy: [
       'Use frequent-flyer levies, efficiency mandates, and fuel standards where credible.',
-      'Support port electrification and ship-efficiency requirements.',
-      'Treat sustainable fuels as part of a larger strategy, not a permission slip for unlimited growth.'
+      'Support aircraft and air-traffic efficiency while managing airport expansion against climate goals.',
+      'Treat sustainable aviation fuels as part of a larger strategy, not a permission slip for unlimited growth.'
     ],
     metrics: [
       'flights avoided or substituted',
-      'shipping fuel use per tonne-km',
-      'operational efficiency gains'
+      'aviation CO2 per passenger-km',
+      'fuel burn and low-carbon fuel share'
     ],
-    caution: 'The report warns against offsets solving aviation and against fuel narratives outrunning evidence.'
+    caution: 'Direct CO2 is only part of aviation warming; do not use offsets or uncertain fuel supply to justify unlimited demand growth.'
   },
   cement_steel: {
     title: 'Cement + Steel Actions',
@@ -873,13 +902,12 @@ export const ACTION_PROFILES = {
 };
 
 const ACTION_PROFILE_ALIASES = {
-  aviation: 'aviation_shipping',
-  shipping: 'aviation_shipping',
-  aviation_demand_growth: 'aviation_shipping',
-  shipping_lane_disruption: 'aviation_shipping',
+  shipping: 'freight_logistics',
+  aviation_demand_growth: 'aviation',
+  shipping_lane_disruption: 'freight_logistics',
   cement_concrete: 'cement_steel',
   steel: 'cement_steel',
-  road_freight_diesel_lock_in: 'road_freight_logistics',
+  road_freight_diesel_lock_in: 'freight_logistics',
   telecom_backbone: 'digital_infrastructure',
   mobile_wireless_networks: 'digital_infrastructure',
   internet_exchange_points: 'digital_infrastructure',

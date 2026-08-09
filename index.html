@@ -2,7 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#050608" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <link rel="icon" type="image/svg+xml" href="/logo-monogram.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="description" content="THE TULIP PROJECT is an ecological causal network for exploring connected climate and planetary systems." />
@@ -25,13 +28,6 @@
     <meta name="twitter:image:alt" content="THE TULIP PROJECT ecological causal network preview" />
     <script>
       try {
-        const coarsePointer = window.matchMedia?.('(pointer: coarse)').matches ?? false;
-        const noHover = window.matchMedia?.('(hover: none)').matches ?? false;
-        const touchPoints = navigator.maxTouchPoints || 0;
-        if ((coarsePointer && noHover) || (coarsePointer && touchPoints > 0)) {
-          document.documentElement.classList.add('touch-device-gated');
-        }
-
         const splashDemoRequested = new URLSearchParams(window.location.search).get('demoSplash') === '1';
         const splashVisitCount = Number(window.localStorage.getItem('tulip_welcome_splash_visit_count_v2')) || 0;
         if (!splashDemoRequested && splashVisitCount >= 2) {
@@ -39,9 +35,6 @@
         }
       } catch {}
     </script>
-    <style>
-      html.touch-device-gated #quote-splash { display: none !important; }
-    </style>
     <!-- Inter Display & Variable Font CDN -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -60,21 +53,46 @@
         <p class="quote-splash-body">Learn how environmental changes begin, how their effects connect, and what we can do to build a healthier planet.</p>
       </div>
     </div>
-    <div id="touch-device-gate" class="touch-device-gate" hidden aria-hidden="true">
-      <div class="touch-device-gate-card">
-        <img src="/logo.svg" alt="TULIP Logo" class="touch-device-gate-logo" />
-        <h1 class="touch-device-gate-title">This experience is currently designed for desktop browsers.</h1>
-        <p class="touch-device-gate-body">Please reopen TULIP on a laptop or desktop browser for the intended experience.</p>
-        <p class="touch-device-gate-url" aria-label="TULIP website">tulip-project-six.vercel.app</p>
-        <div class="touch-device-gate-share" aria-label="Share TULIP">
-          <button type="button" class="touch-device-gate-share-btn" data-share-action="native" aria-label="Share TULIP">
-            <img src="/touch-share-icon.svg" alt="" aria-hidden="true" class="touch-device-gate-share-icon" />
+    <div id="app-container" data-view-mode="explore">
+      <!-- PHONE APP CHROME -->
+      <header id="mobile-app-bar" class="mobile-app-bar" aria-label="TULIP mobile navigation">
+        <button id="mobile-home-btn" class="mobile-app-brand" type="button" aria-label="Return to Explore">
+          <img src="/logo-monogram.svg" alt="" aria-hidden="true" />
+        </button>
+        <div class="mobile-app-heading" aria-live="polite">
+          <span class="mobile-app-kicker">TULIP</span>
+          <strong id="mobile-view-title">Explore</strong>
+          <span id="mobile-view-context">Earth systems network</span>
+        </div>
+        <div id="mobile-study-actions" class="mobile-study-actions" hidden>
+          <button id="mobile-study-back" class="mobile-icon-btn" type="button" aria-label="Go back one analysis step">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg>
+          </button>
+          <button id="mobile-study-share" class="mobile-icon-btn" type="button" aria-label="Share this analysis">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="18" cy="5" r="2.25"/><circle cx="6" cy="12" r="2.25"/><circle cx="18" cy="19" r="2.25"/><path d="m8 11 8-5M8 13l8 5"/></svg>
           </button>
         </div>
-        <p class="touch-device-gate-share-note" id="touch-device-gate-share-note" hidden>Link copied to clipboard.</p>
-      </div>
-    </div>
-    <div id="app-container" data-view-mode="explore">
+        <button id="mobile-more-btn" class="mobile-icon-btn mobile-more-btn" type="button" aria-label="Open filters" aria-expanded="false" aria-controls="filter-bar mobile-more-menu">
+          <img class="mobile-filter-icon" src="./Phone WEBAPP/Icon Set/Webapp_Filters.svg" alt="" aria-hidden="true" />
+        </button>
+        <button id="mobile-overlay-close" class="mobile-overlay-close" type="button">Close</button>
+        <div id="mobile-more-menu" class="mobile-more-menu" hidden>
+          <button type="button" data-mobile-target="tulip-score-btn">TULIP Score</button>
+          <button type="button" data-mobile-target="sources-tab-btn">Sources</button>
+          <button type="button" data-mobile-target="registries-btn">Registries</button>
+          <button type="button" data-mobile-target="about-btn">About TULIP</button>
+        </div>
+      </header>
+
+      <button id="mobile-explore-prompt" class="mobile-explore-prompt" type="button" aria-label="Search 381 connected climate topics">
+        <span class="mobile-explore-prompt-handle" aria-hidden="true"></span>
+        <span class="mobile-explore-prompt-copy">
+          <strong>Explore Earth’s connections</strong>
+          <span>Search 381 evidence-backed topics</span>
+        </span>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+      </button>
+
       <!-- APP LOGO -->
       <a href="./" id="app-logo" class="app-logo" aria-label="Return to the Sphere">
         <img src="/logo.svg" alt="TULIP Logo" />
@@ -457,6 +475,26 @@
         </div>
       </div>
 
+      <section id="mobile-study-sheet" class="mobile-study-sheet" data-detent="medium" aria-label="Selected topic details" hidden>
+        <button id="mobile-sheet-grabber" class="mobile-sheet-grabber" type="button" aria-label="Expand topic details" aria-expanded="false">
+          <span aria-hidden="true"></span>
+        </button>
+        <div class="mobile-sheet-summary">
+          <div class="mobile-sheet-summary-copy">
+            <span id="mobile-sheet-sphere">TULIP topic</span>
+            <strong id="mobile-sheet-title">Select a topic</strong>
+            <span id="mobile-sheet-description">Drag up to explore the full analysis</span>
+          </div>
+          <div id="mobile-sheet-score" class="mobile-sheet-score" aria-label="TULIP urgency score">—</div>
+        </div>
+
+      <nav id="mobile-analyse-sections" class="mobile-analyse-sections" aria-label="Analysis sections" hidden>
+        <button class="active" type="button" data-analyse-target=".inspector-overview-card">Overview</button>
+        <button type="button" data-analyse-target=".inspector-relationships-card">Links</button>
+        <button type="button" data-analyse-target=".human-impact-section">Impacts</button>
+        <button type="button" data-analyse-target=".response-section">Action</button>
+      </nav>
+
       <!-- NEW SYSTEM DIAGNOSTIC CONSOLE (SLIDES IN DURING STUDY MODE) -->
       <div id="study-console" class="study-console-layout" style="display: none;">
         <div class="inspector-card inspector-overview-card">
@@ -657,6 +695,8 @@
           </div>
 
       </div>
+      </section>
+
       <section id="phenomena-view" class="phenomena-view" hidden>
         <div class="phenomena-shell">
 
@@ -664,16 +704,18 @@
 
           <div class="phenomena-focus-card">
             <div class="phenomena-mode-toggle" role="tablist" aria-label="Footprint content mode">
-              <button id="phenomena-mode-footprint" class="phenomena-mode-btn active" type="button" role="tab" aria-selected="true">Footprint</button>
+              <button id="phenomena-mode-footprint" class="phenomena-mode-btn active" type="button" role="tab" aria-selected="true">Impact</button>
               <button id="phenomena-mode-actions" class="phenomena-mode-btn" type="button" role="tab" aria-selected="false">Actions</button>
             </div>
 
             <div class="phenomena-focus-meta">
               <div id="phenomena-focus-sphere" class="phenomena-focus-sphere">Farming & Food</div>
-              <h3 id="phenomena-focus-name" class="phenomena-focus-name">
-                <span id="phenomena-focus-icon" class="phenomena-focus-icon" aria-hidden="true"></span>
-                <span id="phenomena-focus-name-text" class="phenomena-focus-name-text">Agricultural Demand</span>
-              </h3>
+              <div class="phenomena-focus-heading-row">
+                <h3 id="phenomena-focus-name" class="phenomena-focus-name">
+                  <span id="phenomena-focus-icon" class="phenomena-focus-icon" aria-hidden="true"></span>
+                  <span id="phenomena-focus-name-text" class="phenomena-focus-name-text">Agricultural Demand</span>
+                </h3>
+              </div>
               <p id="phenomena-focus-description" class="phenomena-focus-description">Footprint-specific explanation surface.</p>
             </div>
 
