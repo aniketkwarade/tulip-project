@@ -22,6 +22,7 @@ references/
 server/
 scripts/*
 !scripts/local-dev-config.mjs
+!scripts/export-runtime-graph.mjs
 
 # Local browser profiles and generated audits
 chrome-debug-profile-unique/
