@@ -1,0 +1,286 @@
+/*
+ * TULIP DESIGN SYSTEM
+ *
+ * This file is the source of truth for reusable visual decisions. Product
+ * styles may consume these tokens, but should not redefine them. Keep
+ * page-specific composition and responsive exceptions in style.css.
+ */
+
+:root {
+  color-scheme: dark;
+
+  /* Primitive palette */
+  --ds-black: #000000;
+  --ds-neutral-975: #050608;
+  --ds-neutral-950: #0b0c0f;
+  --ds-neutral-925: #0f0f13;
+  --ds-neutral-900: #121214;
+  --ds-neutral-875: #141419;
+  --ds-neutral-850: #16161c;
+  --ds-neutral-825: #18191f;
+  --ds-neutral-800: #1a1a21;
+  --ds-neutral-775: #1d1d22;
+  --ds-neutral-750: #202126;
+  --ds-neutral-700: #23232c;
+  --ds-white: #ffffff;
+  --ds-teal-500: #00d2c4;
+  --ds-blue-300: #b8d4ff;
+  --ds-ink-blue: #10233f;
+
+  /* Semantic color */
+  --surface-canvas: var(--ds-black);
+  --surface-reading: var(--ds-neutral-950);
+  --surface-panel: var(--ds-neutral-825);
+  --surface-panel-raised: var(--ds-neutral-750);
+  --surface-overlay: rgba(10, 10, 12, 0.98);
+  --surface-control: rgba(24, 25, 31, 0.78);
+  --surface-control-hover: rgba(255, 255, 255, 0.08);
+  --surface-control-active: rgba(255, 255, 255, 0.12);
+  --text-primary: var(--ds-white);
+  --text-secondary: #e5e5ea;
+  --text-muted: #a1a1aa;
+  --text-subtle: rgba(255, 255, 255, 0.62);
+  --text-control: rgba(255, 255, 255, 0.9);
+  --text-label-muted: rgba(255, 255, 255, 0.56);
+  --text-disabled: rgba(255, 255, 255, 0.42);
+  --accent-color: var(--ds-teal-500);
+  --accent-color-rgb: 0, 210, 196;
+  --focus-ring-color: rgba(184, 212, 255, 0.92);
+
+  /* Existing compatibility aliases. New work should use semantic tokens. */
+  --bg-color: var(--ds-neutral-900);
+  --bg-grey-1: var(--ds-neutral-925);
+  --bg-grey-2: var(--ds-neutral-850);
+  --bg-grey-3: var(--ds-neutral-775);
+  --bg-grey-overlay: var(--surface-overlay);
+  --bg-grey-panel: rgba(22, 22, 28, 0.9);
+
+  /* Borders and dividers */
+  --border-subtle: rgba(255, 255, 255, 0.1);
+  --border-default: rgba(255, 255, 255, 0.14);
+  --border-interactive: rgba(255, 255, 255, 0.16);
+  --border-strong: rgba(255, 255, 255, 0.2);
+  --divider-color: rgba(255, 255, 255, 0.25);
+  --console-divider-color: #918f8a;
+  --line-strong: rgba(255, 255, 255, 0.46);
+  --line-medium: rgba(255, 255, 255, 0.18);
+  --line-soft: var(--border-subtle);
+  --line-shadow: rgba(255, 255, 255, 0.03);
+
+  /* Typography */
+  --font-sans: 'Inter Display', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-hud: var(--font-sans);
+  --type-size-1: 12px;
+  --type-size-2: 14px;
+  --type-size-3: 16px;
+  --type-size-4: 18px;
+  --type-size-5: 24px;
+  --type-size-6: 40px;
+  --type-caption: var(--type-size-1);
+  --type-control: var(--type-size-1);
+  --type-body-compact: var(--type-size-2);
+  --type-body: var(--type-size-3);
+  --type-lead: var(--type-size-4);
+  --type-heading: var(--type-size-5);
+  --type-display: var(--type-size-6);
+  --weight-light: 300;
+  --weight-regular: 400;
+  /* TULIP uses a two-weight editorial system: Light and Regular only. */
+  --weight-medium: var(--weight-regular);
+  --weight-semibold: var(--weight-regular);
+  /* Legacy aliases remain for compatibility, but all resolve to Regular. */
+  --weight-bold: var(--weight-regular);
+  --weight-extrabold: var(--weight-regular);
+  --weight-display-supporting: var(--weight-light);
+  --weight-display-secondary: 350;
+  --weight-display-primary: var(--weight-regular);
+  /* Compatibility aliases for existing display roles. */
+  --weight-display: var(--weight-display-supporting);
+  --weight-display-emphasis: var(--weight-display-secondary);
+  --weight-title: var(--weight-regular);
+  --weight-ui: var(--weight-regular);
+  --weight-emphasis: var(--weight-regular);
+  --leading-tight: 1.15;
+  --leading-control: 1.2;
+  --leading-body: 1.55;
+  --tracking-label: 0.06em;
+  --tracking-kicker: 0.12em;
+
+  /* Spacing: use the fixed scale inside components and fluid aliases between sections. */
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 40px;
+  --space-3xl: 56px;
+  --space-section: clamp(20px, 2vw, 32px);
+  --space-panel: clamp(18px, 1.8vw, 28px);
+  --space-card: clamp(16px, 1.6vw, 24px);
+  --space-stack-tight: clamp(6px, 0.8vw, 10px);
+  --space-stack: clamp(10px, 1.1vw, 16px);
+  --space-stack-loose: clamp(16px, 1.6vw, 24px);
+
+  /* Shape */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-pill: 999px;
+
+  /* Controls */
+  --control-height-sm: 38px;
+  --control-height-md: 42px;
+  --control-height-lg: 48px;
+  --control-padding-inline: 14px;
+  --control-padding-inline-wide: 34px;
+  --control-gap: var(--space-xs);
+  --control-row-gap: 10px;
+  --control-label-gap: 6px;
+
+  /* Elevation and materials */
+  --shadow-control: none;
+  --shadow-panel: none;
+  --glass-surface: #1b1d26;
+  --glass-surface-strong: #181b24;
+  --glass-surface-soft: #22242b;
+  --glass-border: rgba(255, 255, 255, 0.17);
+  --glass-border-soft: var(--border-subtle);
+  --glass-highlight: rgba(255, 255, 255, 0.12);
+  --glass-shadow: none;
+  --glass-shadow-compact: none;
+  --glass-radius: var(--radius-2xl);
+  --glass-radius-card: var(--radius-xl);
+  --glass-blur: 0px;
+
+  /* Motion */
+  --motion-standard: cubic-bezier(0.16, 1, 0.3, 1);
+  --motion-spring: cubic-bezier(0.2, 0.9, 0.22, 1.18);
+  --motion-fast: 180ms;
+  --motion-medium: 320ms;
+
+  /* Layering */
+  --layer-content: 1;
+  --layer-sticky: 100;
+  --layer-navigation: 7000;
+  --layer-overlay: 8000;
+  --layer-toast: 10000;
+
+  /* Scrollbars */
+  --scrollbar-size: 10px;
+  --scrollbar-thumb: rgba(255, 255, 255, 0.26);
+  --scrollbar-thumb-hover: rgba(255, 255, 255, 0.38);
+
+  /* Existing product-specific color contracts */
+  --category-lavender-rgb: 235, 175, 235;
+  --category-gold-rgb: 255, 200, 120;
+  --connection-color-rgb: 100, 210, 255;
+  --phenomenon-carbon: linear-gradient(90deg, #3b82f6 0%, #60a5fa 100%);
+  --phenomenon-methane: linear-gradient(90deg, #f59e0b 0%, #fcd34d 100%);
+  --phenomenon-nitrous: linear-gradient(90deg, #22c55e 0%, #86efac 100%);
+  --phenomenon-soil: linear-gradient(90deg, #fb7185 0%, #fda4af 100%);
+  --phenomenon-steel: linear-gradient(90deg, #a78bfa 0%, #c4b5fd 100%);
+
+  /* Existing pill contract */
+  --ui-pill-bg: var(--ds-neutral-875);
+  --ui-pill-bg-soft: var(--ds-neutral-800);
+  --ui-pill-bg-hover: var(--ds-neutral-700);
+  --ui-pill-border: var(--border-subtle);
+  --ui-pill-border-strong: var(--border-strong);
+  --ui-pill-text: var(--text-subtle);
+  --ui-pill-active-bg: var(--ds-blue-300);
+  --ui-pill-active-border: var(--focus-ring-color);
+  --ui-pill-active-text: var(--ds-ink-blue);
+  --ui-pill-active-icon-filter: brightness(0) saturate(100%) invert(13%) sepia(29%) saturate(1170%) hue-rotate(181deg) brightness(92%) contrast(93%);
+  --ui-pill-shadow: var(--shadow-control);
+  --ui-pill-shadow-active: none;
+}
+
+/* Opt-in layout primitives for new UI. */
+.ds-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ds-stack-gap, var(--space-md));
+}
+
+.ds-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ds-cluster-gap, var(--space-xs));
+}
+
+.ds-card {
+  padding: var(--ds-card-padding, var(--space-card));
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  color: var(--text-secondary);
+  background: color-mix(in srgb, var(--surface-panel) 78%, transparent);
+}
+
+.ds-button,
+.ds-pill,
+.ds-field {
+  min-height: var(--control-height-md);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-pill);
+  color: var(--text-primary);
+  background: var(--surface-control);
+  font: var(--weight-ui) var(--type-control)/var(--leading-control) var(--font-sans);
+}
+
+.ds-button,
+.ds-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--control-gap);
+  padding-inline: var(--control-padding-inline);
+  cursor: pointer;
+  transition: border-color var(--motion-fast) ease, background-color var(--motion-fast) ease, color var(--motion-fast) ease;
+}
+
+.ds-button:hover,
+.ds-pill:hover {
+  border-color: var(--border-strong);
+  background: var(--surface-control-hover);
+}
+
+.ds-button:focus-visible,
+.ds-pill:focus-visible,
+.ds-field:focus-visible {
+  outline: 2px solid var(--focus-ring-color);
+  outline-offset: 2px;
+}
+
+.ds-kicker {
+  color: var(--accent-color);
+  font-size: var(--type-caption);
+  font-weight: var(--weight-ui);
+  letter-spacing: var(--tracking-kicker);
+  text-transform: uppercase;
+}
+
+.ds-heading {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: var(--type-heading);
+  font-weight: var(--weight-title);
+  line-height: var(--leading-tight);
+}
+
+.ds-body {
+  color: var(--text-secondary);
+  font-size: var(--type-body);
+  line-height: var(--leading-body);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-button,
+  .ds-pill {
+    transition-duration: 1ms;
+  }
+}

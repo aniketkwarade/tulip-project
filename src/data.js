@@ -48,6 +48,7 @@ import { FINAL_DENSITY_BATCH_NODES } from './final-density-batch-contracts.js';
 import { EXTENSION_DENSITY_BATCH_NODES } from './extension-density-batch-contracts.js';
 import { CARBON_EFFECT_METRIC_BINDINGS, CARBON_EMISSION_EXPANSION_METRIC_CONTRACTS, CARBON_EMISSION_EXPANSION_NODES } from './carbon-emission-expansion-contracts.js';
 import { attachRelationshipDescriptions } from './relationship-descriptions.js';
+import { attachRelationshipContent } from './relationship-content.js';
 import { agreeRelationshipVerbPhrase, attachRelationshipSemantics } from './relationship-semantics.js';
 import { attachCompleteNodeInspectorProfiles } from './node-inspector-profiles.js';
 import { applyRelationshipEvidenceGovernance } from './relationship-evidence-governance.js';
@@ -2408,6 +2409,8 @@ function createResponseNode(spec) {
     name: spec.name,
     node_kind: 'response',
     response_family: spec.source_family,
+    vector_scoring_eligible: false,
+    vector_validation_status: 'response_assessment_not_environmental_impact',
     vector: {
       climate_forcing: spec.residual_forcing ?? 0.12,
       ecological_damage: spec.residual_ecological_risk ?? 0.16,
@@ -2431,6 +2434,16 @@ function createResponseNode(spec) {
       source_urls: sources.source_urls,
       api_keys: [],
       notes: sources.notes
+    },
+    responseAssessment: {
+      overall,
+      mitigation: spec.mitigation,
+      adaptation: spec.adaptation,
+      feasibility: spec.feasibility,
+      co_benefits: spec.co_benefits,
+      delivery_risk: spec.delivery_risk ?? 0.18,
+      scoring_scope: 'response_action_assessment_only',
+      environmental_urgency_eligible: false
     },
     humanImpact: {
       summary: humanSummary,
@@ -12665,6 +12678,8 @@ function generateScaleFreeEcosystem(baseNodes, baseEdges, targetNodeCount) {
         source_urls: anchorNode ? getAnchorCalibrationProfile(anchorNode).source_urls : [],
         api_keys: anchorNode ? getAnchorCalibrationProfile(anchorNode).api_keys : []
       },
+      vector_scoring_eligible: false,
+      vector_validation_status: 'unvalidated_expert_profile',
       update_policy: {
         last_updated: '2026-06-01',
         update_cadence: 'monthly',
@@ -13166,8 +13181,9 @@ const discoveryTrails = buildAuthoredDiscoveryTrails(contractedNodesWithMetricAl
 const evidenceGovernedEdges = applyRelationshipEvidenceGovernance(contractedGraph.edges, contractedNodesWithMetricAliases);
 const semanticEdges = attachRelationshipSemantics(evidenceGovernedEdges);
 const describedEdges = attachRelationshipDescriptions(contractedNodesWithMetricAliases, semanticEdges);
-export const NODES = attachCompleteNodeInspectorProfiles(contractedNodesWithMetricAliases, describedEdges);
-export const EDGES = describedEdges;
+const contentLayeredEdges = attachRelationshipContent(contractedNodesWithMetricAliases, describedEdges);
+export const NODES = attachCompleteNodeInspectorProfiles(contractedNodesWithMetricAliases, contentLayeredEdges);
+export const EDGES = contentLayeredEdges;
 export const RELATIONSHIP_LINEAGE = Object.freeze({
   authored_input_edges: CURATED_BASE_EDGES.map(edge => ({
     key: `${edge.source}->${edge.target}`,
@@ -13181,7 +13197,7 @@ export const RELATIONSHIP_LINEAGE = Object.freeze({
   })),
   suppressed_edge_keys: [...SUPPRESSED_EDGE_KEYS],
   semantic_redirects: { ...SEMANTIC_COLLAPSE_REDIRECTS },
-  final_edge_keys: describedEdges.map(edge => `${edge.source}->${edge.target}`)
+  final_edge_keys: contentLayeredEdges.map(edge => `${edge.source}->${edge.target}`)
 });
 function buildMinimumDegreeCore(nodes, edges, minimumDegree = 3) {
   const retainedIds = new Set(nodes.map(node => node.id));

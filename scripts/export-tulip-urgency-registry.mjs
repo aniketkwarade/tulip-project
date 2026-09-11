@@ -15,7 +15,8 @@ import {
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const PUBLIC = path.join(ROOT, 'public');
 const METHOD_VERSION = 'tulip_urgency_v2';
-const MODEL_VERSION = 'tulip_modeled_global_v1';
+const MODEL_VERSION = 'tulip_modeled_global_v2';
+const MODEL_WEIGHTS = Object.freeze({ peer: 0.55, contract: 0.45 });
 const isResponseNode = node => node.node_kind === 'response';
 const issueNodes = NODES.filter(node => !isResponseNode(node));
 const responseNodes = NODES.filter(isResponseNode);
@@ -802,11 +803,6 @@ for (const pipeline of lineage.pipelines ?? []) {
 const anchorReceipts = pilotRegistry.receipts.filter(receipt => receipt.method !== 'modeled');
 const anchorComposites = new Map(anchorReceipts.map(receipt => [receipt.node_id, (receipt.value - 1) / 9]));
 const globalAnchorMean = [...anchorComposites.values()].reduce((sum, value) => sum + value, 0) / anchorComposites.size;
-const pilotCalibrationShift = anchorReceipts.reduce((sum, receipt) => {
-  const legacy = (nodeById.get(receipt.node_id).score.baseline - 1) / 9;
-  return sum + ((receipt.value - 1) / 9 - legacy);
-}, 0) / anchorReceipts.length;
-
 const anchorIdsBySphere = new Map();
 for (const [nodeId] of anchorComposites) {
   const sphere = nodeById.get(nodeId)?.sphere;
@@ -871,14 +867,11 @@ function contractEstimate(node) {
 }
 
 function modeledReceipt(node) {
-  const legacyComposite = (node.score.baseline - 1) / 9;
   const peer = relationshipPeerEstimate(node);
   const contract = contractEstimate(node);
   const modeledEstimate = clamp01(
-    0.60 * legacyComposite
-    + 0.22 * peer.value
-    + 0.18 * contract.value
-    + pilotCalibrationShift
+    MODEL_WEIGHTS.peer * peer.value
+    + MODEL_WEIGHTS.contract * contract.value
   );
   const operationalLineage = lineageBindingsByNodeId.get(node.id) ?? [];
   const sourceIds = [...new Set([
@@ -899,35 +892,33 @@ function modeledReceipt(node) {
     as_of: node.update_policy?.last_updated ?? node.calibration?.reviewed_at ?? '2026-07-31',
     components: { modeled_estimate: Number(modeledEstimate.toFixed(6)) },
     raw_inputs: {
-      reviewed_legacy_vector: {
-        value: Number(legacyComposite.toFixed(6)),
-        baseline_score: node.score.baseline,
-        vector: node.vector,
-        weight: 0.60
-      },
       peer_calibration: {
         value: Number(peer.value.toFixed(6)),
         basis: peer.basis,
         peers: peer.peers,
-        weight: 0.22
+        weight: MODEL_WEIGHTS.peer
       },
       reviewed_contract_factors: {
         value: Number(contract.value.toFixed(6)),
         ...contract,
-        weight: 0.18
+        weight: MODEL_WEIGHTS.contract
       },
-      pilot_calibration_shift: Number(pilotCalibrationShift.toFixed(6)),
+      vector_exclusion: {
+        generated_vectors: 'excluded',
+        inherited_vectors: 'excluded',
+        expert_profile_vectors: 'excluded_from_tulip_urgency'
+      },
       operational_lineage: operationalLineage
     },
     transformations: [{
       type: 'named_global_modeled_estimate',
-      formula: 'clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)',
-      exclusions: ['graph degree', 'node popularity', 'source count', 'research volume']
+      formula: 'clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)',
+      exclusions: ['generated vectors', 'inherited vectors', 'expert profile vectors', 'legacy vector score', 'graph degree', 'node popularity', 'source count', 'research volume']
     }],
     source_ids: sourceIds,
     uncertainty: operationalLineage.length
       ? 'Modeled estimate. Operational lineage is retained, but available observations do not cover all required urgency components.'
-      : 'Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.',
+      : 'Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.',
     freshness: operationalLineage.length ? 'model refreshed with operational lineage metadata' : 'model refreshed with graph contract release',
     selection_reason: {
       selected_method_passed: `Deterministic ${MODEL_VERSION} receipt passes the modeled fallback gate.`,
@@ -955,17 +946,16 @@ function sensitivityRange(receipt) {
       return { minimum: receipt.value, maximum: receipt.value, max_delta: 0, rank_unstable: false, note: 'Named pilot model retained without global-weight perturbation.' };
     }
     const values = {
-      legacy: receipt.raw_inputs.reviewed_legacy_vector?.value ?? receipt.raw_inputs.legacy_reviewed_composite?.value,
       peer: receipt.raw_inputs.peer_calibration?.value ?? receipt.raw_inputs.measured_atmosphere_peer_mean?.value,
       contract: receipt.raw_inputs.reviewed_contract_factors?.value ?? receipt.raw_inputs.reviewed_contract_factor_mean?.value
     };
     if (!Object.values(values).every(Number.isFinite)) throw new Error(`Modeled sensitivity inputs missing for ${receipt.node_id}`);
-    const baseWeights = { legacy: 0.60, peer: 0.22, contract: 0.18 };
+    const baseWeights = MODEL_WEIGHTS;
     for (const selected of Object.keys(baseWeights)) {
       for (const multiplier of [0.8, 1.2]) {
         const changed = { ...baseWeights, [selected]: baseWeights[selected] * multiplier };
         const total = Object.values(changed).reduce((sum, value) => sum + value, 0);
-        const composite = Object.entries(changed).reduce((sum, [key, weight]) => sum + values[key] * weight / total, 0) + pilotCalibrationShift;
+        const composite = Object.entries(changed).reduce((sum, [key, weight]) => sum + values[key] * weight / total, 0);
         scores.push(compositeToTulipScore(clamp01(composite)));
       }
     }
@@ -1025,6 +1015,9 @@ const registry = {
   method_version: METHOD_VERSION,
   model_version: MODEL_VERSION,
   status: 'approved',
+  scientific_validation_status: 'pilot_protocol_active_not_independently_validated',
+  scientifically_validated_claim_allowed: false,
+  scientific_validation_requirements: ['external_domain_review', 'independent_reproduction'],
   generated_at: new Date().toISOString(),
   production_scores_replaced: true,
   scope: 'all_issue_nodes',

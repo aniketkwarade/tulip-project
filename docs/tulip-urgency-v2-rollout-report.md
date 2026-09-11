@@ -149,178 +149,178 @@ Status: **approved**. V2 receipts are the production urgency source for every is
 | 132 | Forest Fragmentation | biosphere | 7.6 | 8.6 | +1.0 | Critical | `impact_fallback` |
 | 133 | Wildlife Habitat Patches | biosphere | 7.6 | 8.6 | +1.0 | Critical | `impact_fallback` |
 | 134 | Zoonotic Disease Outbreaks | sociopolitical | 6.3 | 8.6 | +2.3 | Critical | `impact_fallback` |
-| 135 | Rainforest Savannization | biosphere | 8.4 | 8.6 | +0.2 | Critical | `modeled` |
-| 136 | Urban Water Rationing | sociopolitical | 6.9 | 8.6 | +1.7 | Critical | `impact_fallback` |
-| 137 | Jellyfish Bloom Frequency and Biomass | oceans | 7.3 | 8.6 | +1.3 | Critical | `impact_fallback` |
-| 138 | Old-Growth Forest Logging | biosphere | 8.5 | 8.6 | +0.1 | Critical | `impact_fallback` |
-| 139 | Estuarine Nursery Loss | oceans | 7.4 | 8.6 | +1.2 | Critical | `impact_fallback` |
-| 140 | Functional Habitat Connectivity Loss | biosphere | 7.6 | 8.6 | +1.0 | Critical | `impact_fallback` |
-| 141 | Mountain Forest Cover and Treeline Contraction | biosphere | 8.5 | 8.6 | +0.1 | Critical | `modeled` |
-| 142 | Passenger Road-Fuel CO2 Output | economy | 7.1 | 8.6 | +1.5 | Critical | `impact_fallback` |
-| 143 | Resource Depletion | biosphere | 7.1 | 8.5 | +1.4 | Critical | `impact_fallback` |
-| 144 | Rain-on-Snow Flood Risk | cryosphere | 5.7 | 8.5 | +2.8 | Critical | `impact_fallback` |
-| 145 | Steel | energy | 7.2 | 8.5 | +1.3 | Critical | `impact_fallback` |
-| 146 | Thermokarst Expansion | cryosphere | 7.3 | 8.5 | +1.2 | Critical | `impact_fallback` |
-| 147 | Polar Infrastructure Failure | cryosphere | 7.2 | 8.5 | +1.3 | Critical | `impact_fallback` |
-| 148 | Tidal Wetland Carbon Reversal | oceans | 7.8 | 8.5 | +0.7 | Critical | `impact_fallback` |
-| 149 | Steel Decarbonization Gap | economy | 8.1 | 8.5 | +0.4 | Critical | `impact_fallback` |
-| 150 | Battery Supply Chain Pressure | energy | 7.8 | 8.5 | +0.7 | Critical | `impact_fallback` |
-| 151 | Coral Bleaching | oceans | 7.4 | 8.5 | +1.1 | Critical | `current_data` |
-| 152 | Wildfire Smoke Hospitalization Burden | health | 4.7 | 8.5 | +3.8 | Critical | `impact_fallback` |
-| 153 | Early-Warning Coverage Gap | sociopolitical | 6.1 | 8.5 | +2.4 | Critical | `impact_fallback` |
-| 154 | Blue Carbon Habitat Loss | oceans | 8.2 | 8.5 | +0.3 | Critical | `impact_fallback` |
-| 155 | Wildfire Smoke Exposure Duration | sociopolitical | 5.1 | 8.5 | +3.4 | Critical | `impact_fallback` |
-| 156 | Diesel Freight CO2 Output | economy | 7.1 | 8.5 | +1.4 | Critical | `impact_fallback` |
-| 157 | Monsoon Volatility | atmosphere | 6.5 | 8.4 | +1.9 | Critical | `impact_fallback` |
-| 158 | Baseline Water Stress | freshwater | 6.9 | 8.4 | +1.5 | Critical | `current_data` |
-| 159 | AI Data Centers | digital | 6.9 | 8.4 | +1.5 | Critical | `impact_fallback` |
-| 160 | Lightning Ignition under Fire Weather Conditions | atmosphere | 7.0 | 8.4 | +1.4 | Critical | `impact_fallback` |
-| 161 | Freshwater Ecosystem Collapse | biosphere | 7.6 | 8.4 | +0.8 | Critical | `impact_fallback` |
-| 162 | Emergency Response Capacity Exceedance | health | 4.6 | 8.4 | +3.8 | Critical | `current_data` |
-| 163 | Rice Paddy Methane Emissions | agriculture | 8.0 | 8.4 | +0.4 | Critical | `current_data` |
-| 164 | Savanna Tree-Cover Decline | biosphere | 7.7 | 8.4 | +0.7 | Critical | `modeled` |
-| 165 | Fjord Sedimentation Pulses | cryosphere | 7.7 | 8.4 | +0.7 | Critical | `modeled` |
-| 166 | Data Centers | digital | 6.3 | 8.3 | +2.0 | Critical | `impact_fallback` |
-| 167 | Soil Moisture Collapse | agriculture | 8.0 | 8.3 | +0.3 | Critical | `modeled` |
-| 168 | Glacier-Fed Water Dependence | sociopolitical | 6.4 | 8.3 | +1.9 | Critical | `impact_fallback` |
-| 169 | Livestock Disease Pressure | agriculture | 8.6 | 8.3 | -0.3 | Critical | `impact_fallback` |
-| 170 | Fracking Wastewater Lakes | energy | 7.2 | 8.3 | +1.1 | Critical | `impact_fallback` |
-| 171 | Tundra Methane Outgassing | cryosphere | 7.6 | 8.3 | +0.7 | Critical | `modeled` |
-| 172 | PM2.5 Particulates | atmosphere | 7.1 | 8.3 | +1.2 | Critical | `current_data` |
-| 173 | Ice Algae Pigmentation | cryosphere | 7.8 | 8.3 | +0.5 | Critical | `modeled` |
-| 174 | Nunatak Habitat Shrinkage | cryosphere | 7.7 | 8.3 | +0.6 | Critical | `modeled` |
-| 175 | Transformer Heat Failure Risk | energy | 8.3 | 8.3 | 0.0 | Critical | `modeled` |
-| 176 | Freeze-Thaw Rock Fracturing | cryosphere | 7.7 | 8.3 | +0.6 | Critical | `modeled` |
-| 177 | Tundra Shrub Expansion | cryosphere | 7.7 | 8.3 | +0.6 | Critical | `modeled` |
-| 178 | River Network Fragmentation | biosphere | 7.7 | 8.3 | +0.6 | Critical | `impact_fallback` |
-| 179 | Seagrass Meadow Decline | oceans | 6.9 | 8.3 | +1.4 | Critical | `impact_fallback` |
-| 180 | Dam and Diversion Infrastructure | freshwater | 6.2 | 8.3 | +2.1 | Critical | `impact_fallback` |
-| 181 | Peatland Drainage CO2 Release | economy | 7.1 | 8.3 | +1.2 | Critical | `current_data` |
-| 182 | Industry Farming | agriculture | 8.6 | 8.2 | -0.4 | Critical | `impact_fallback` |
-| 183 | Watershed Forest Loss | biosphere | 7.5 | 8.2 | +0.7 | Critical | `impact_fallback` |
-| 184 | Soil Humus Decline | biosphere | 7.7 | 8.2 | +0.5 | Critical | `impact_fallback` |
-| 185 | Soil Microbial Depletion | biosphere | 8.1 | 8.2 | +0.1 | Critical | `impact_fallback` |
-| 186 | Deep-Sea Mining Sediment Plumes | oceans | 7.4 | 8.2 | +0.8 | Critical | `modeled` |
-| 187 | Migratory Bird Timing, Route, and Stopover Disruption | biosphere | 7.8 | 8.2 | +0.4 | Critical | `modeled` |
-| 188 | Arctic Pack Ice Drift | cryosphere | 7.6 | 8.2 | +0.6 | Critical | `modeled` |
-| 189 | Cryoconite Hole Expansion | cryosphere | 7.6 | 8.2 | +0.6 | Critical | `modeled` |
-| 190 | Ice Cap Decapitation | cryosphere | 7.6 | 8.2 | +0.6 | Critical | `modeled` |
-| 191 | Coral Larval Survival and Recruitment Failure | oceans | 7.3 | 8.2 | +0.9 | Critical | `modeled` |
-| 192 | Fast Fashion | economy | 7.2 | 8.1 | +0.9 | Critical | `impact_fallback` |
-| 193 | Ocean Circulation Regime Shifts | oceans | 7.3 | 8.1 | +0.8 | Critical | `modeled` |
-| 194 | Coastal Hypoxia | oceans | 7.2 | 8.1 | +0.9 | Critical | `current_data` |
-| 195 | Ocean Salinity Stratification | oceans | 7.3 | 8.1 | +0.8 | Critical | `modeled` |
-| 196 | Peaker Plant Lock-In | energy | 7.9 | 8.1 | +0.2 | Critical | `modeled` |
-| 197 | Backup Generator Dependence | energy | 7.9 | 8.1 | +0.2 | Critical | `modeled` |
-| 198 | Inland Waterway Fuel Spills | transport | 6.7 | 8.1 | +1.4 | Critical | `impact_fallback` |
-| 199 | Wetland Peat Fires | biosphere | 7.8 | 8.1 | +0.3 | Critical | `impact_fallback` |
-| 200 | Freshwater Mussel Population Decline | biosphere | 7.3 | 8.1 | +0.8 | Critical | `impact_fallback` |
-| 201 | Urban Heat Island | atmosphere | 6.3 | 8.1 | +1.8 | Critical | `impact_fallback` |
-| 202 | Urban Water-Demand Peak | sociopolitical | 5.3 | 8.1 | +2.8 | Critical | `impact_fallback` |
-| 203 | AMOC Slowdown | oceans | 6.4 | 8.0 | +1.6 | Critical | `current_data` |
-| 204 | Loss of Firn Meltwater Storage Capacity | cryosphere | 7.3 | 8.0 | +0.7 | Critical | `modeled` |
-| 205 | Hail Hazard Shift | atmosphere | 6.9 | 8.0 | +1.1 | Critical | `impact_fallback` |
-| 206 | Cloud Radiative Effect Change | atmosphere | 7.3 | 8.0 | +0.7 | Critical | `current_data` |
-| 207 | Glacial Siltation Streams | cryosphere | 7.0 | 8.0 | +1.0 | Critical | `modeled` |
-| 208 | Nighttime Heat Retention | atmosphere | 7.2 | 8.0 | +0.8 | Critical | `impact_fallback` |
-| 209 | Metal Industry Fossil CO2 Output | economy | 7.1 | 8.0 | +0.9 | Critical | `current_data` |
-| 210 | Personal Conveyance | transport | 6.6 | 7.9 | +1.3 | Critical | `impact_fallback` |
-| 211 | Air Conditioning / Refrigerants | energy | 6.6 | 7.9 | +1.3 | Critical | `impact_fallback` |
-| 212 | Flash Flood Regime | atmosphere | 7.2 | 7.9 | +0.7 | Critical | `impact_fallback` |
-| 213 | Energy Affordability Crisis | sociopolitical | 7.0 | 7.9 | +0.9 | Critical | `impact_fallback` |
-| 214 | Airport Climate Exposure | transport | 7.4 | 7.9 | +0.5 | Critical | `impact_fallback` |
-| 215 | Bridge Scour Exposure | transport | 7.3 | 7.9 | +0.6 | Critical | `impact_fallback` |
-| 216 | Insurance Retreat | economy | 7.6 | 7.9 | +0.3 | Critical | `impact_fallback` |
-| 217 | Talik Expansion | cryosphere | 7.1 | 7.9 | +0.8 | Critical | `modeled` |
-| 218 | Pollinator Colony Collapse | biosphere | 7.6 | 7.9 | +0.3 | Critical | `impact_fallback` |
-| 219 | Antarctic Shelf Instability | cryosphere | 7.1 | 7.9 | +0.8 | Critical | `modeled` |
-| 220 | Population and Asset Exposure in Floodplains | freshwater | 6.9 | 7.9 | +1.0 | Critical | `impact_fallback` |
-| 221 | Supply Chain Port Bottlenecks | transport | 7.3 | 7.9 | +0.6 | Critical | `impact_fallback` |
-| 222 | Dryland Degradation | biosphere | 7.3 | 7.9 | +0.6 | Critical | `impact_fallback` |
-| 223 | Ice Shelf Grounding Line Retreat | cryosphere | 7.1 | 7.9 | +0.8 | Critical | `modeled` |
-| 224 | Bark Beetle Epidemics | biosphere | 7.7 | 7.9 | +0.2 | Critical | `impact_fallback` |
-| 225 | Atmospheric Hydroxyl Sink Weakening | atmosphere | 7.4 | 7.9 | +0.5 | Critical | `modeled` |
-| 226 | Chemical Industry Fossil CO2 Output | economy | 7.1 | 7.9 | +0.8 | Critical | `current_data` |
-| 227 | El Niño | oceans | 4.9 | 7.8 | +2.9 | Critical | `current_data` |
-| 228 | Groundwater Depletion | freshwater | 7.0 | 7.8 | +0.8 | Critical | `current_data` |
-| 229 | Wastewater Infrastructure Overflow | freshwater | 6.5 | 7.8 | +1.3 | Critical | `impact_fallback` |
-| 230 | Pacific Decadal Oscillation | oceans | 7.2 | 7.8 | +0.6 | Critical | `current_data` |
-| 231 | Atlantic Niño/Niña | oceans | 7.4 | 7.8 | +0.4 | Critical | `modeled` |
-| 232 | Marine Fisheries Collapse | oceans | 7.1 | 7.8 | +0.7 | Critical | `current_data` |
-| 233 | Atmospheric Moisture Amplification | atmosphere | 6.9 | 7.8 | +0.9 | Critical | `current_data` |
-| 234 | Urban Tree Canopy Loss | sociopolitical | 6.7 | 7.8 | +1.1 | Critical | `impact_fallback` |
-| 235 | Nitrous Oxide | atmosphere | 7.4 | 7.8 | +0.4 | Critical | `current_data` |
-| 236 | Convective Available Potential Energy and Inhibition Anomaly | atmosphere | 7.3 | 7.8 | +0.5 | Critical | `modeled` |
-| 237 | Atmospheric River Intensification | atmosphere | 6.6 | 7.8 | +1.2 | Critical | `impact_fallback` |
-| 238 | Aviation Condensation Trails | atmosphere | 7.3 | 7.8 | +0.5 | Critical | `modeled` |
-| 239 | Cattle Stocking Density | agriculture | 5.3 | 7.8 | +2.5 | Critical | `current_data` |
-| 240 | Gas Power CO2 Output | economy | 7.1 | 7.8 | +0.7 | Critical | `current_data` |
-| 241 | Petroleum Refining and Other Energy Industries Fossil CO2 Output | economy | 7.1 | 7.8 | +0.7 | Critical | `current_data` |
-| 242 | Deforestation | biosphere | 8.7 | 7.7 | -1.0 | Critical | `impact_fallback` |
-| 243 | Peat Oxidation Pulse | biosphere | 8.0 | 7.7 | -0.3 | Critical | `current_data` |
-| 244 | Pollinator Service Decline | biosphere | 7.6 | 7.7 | +0.1 | Critical | `impact_fallback` |
-| 245 | Managed-Retreat Decision Pressure | sociopolitical | 5.3 | 7.7 | +2.4 | Critical | `impact_fallback` |
-| 246 | Agricultural Nitrogen Application | agriculture | 7.0 | 7.7 | +0.7 | Critical | `current_data` |
-| 247 | Fossil Backup-Power CO2 Output | economy | 7.1 | 7.7 | +0.6 | Critical | `modeled` |
-| 248 | Methane Emissions | atmosphere | 7.4 | 7.6 | +0.2 | Critical | `current_data` |
-| 249 | Urbanization | sociopolitical | 7.0 | 7.6 | +0.6 | Critical | `impact_fallback` |
-| 250 | Migration | sociopolitical | 5.0 | 7.6 | +2.6 | Critical | `impact_fallback` |
-| 251 | Carbon Emission | atmosphere | 8.2 | 7.6 | -0.6 | Critical | `current_data` |
-| 252 | Desalination Dependence | energy | 7.5 | 7.6 | +0.1 | Critical | `impact_fallback` |
-| 253 | Persistent Atmospheric Blocking | atmosphere | 6.9 | 7.6 | +0.7 | Critical | `modeled` |
-| 254 | Marine Low-Cloud Decline | atmosphere | 7.0 | 7.6 | +0.6 | Critical | `modeled` |
-| 255 | Cooling Water Competition | energy | 8.0 | 7.6 | -0.4 | Critical | `impact_fallback` |
-| 256 | Farm Heat Stress | agriculture | 8.5 | 7.6 | -0.9 | Critical | `impact_fallback` |
-| 257 | Critical Infrastructure Fragility | sociopolitical | 6.2 | 7.6 | +1.4 | Critical | `impact_fallback` |
-| 258 | Black Carbon Deposition | atmosphere | 7.0 | 7.6 | +0.6 | Critical | `modeled` |
-| 259 | Pacific Walker Circulation Variability | atmosphere | 7.1 | 7.6 | +0.5 | Critical | `modeled` |
-| 260 | Airborne Microplastic Concentration and Deposition | atmosphere | 6.9 | 7.6 | +0.7 | Critical | `modeled` |
-| 261 | North Atlantic Subpolar Gyre Circulation Strength | oceans | 6.6 | 7.6 | +1.0 | Critical | `modeled` |
-| 262 | Equatorial Pacific Trade-Wind Anomaly | atmosphere | 7.1 | 7.6 | +0.5 | Critical | `modeled` |
-| 263 | Road-Stream Crossing Barriers | freshwater | 6.2 | 7.6 | +1.4 | Critical | `impact_fallback` |
-| 264 | Residential Gas-Heating CO2 Output | economy | 7.1 | 7.6 | +0.5 | Critical | `current_data` |
-| 265 | Commercial Gas-Heating CO2 Output | economy | 7.1 | 7.6 | +0.5 | Critical | `current_data` |
-| 266 | Coastal Permafrost Erosion | cryosphere | 5.1 | 7.5 | +2.4 | Critical | `impact_fallback` |
-| 267 | Semiconductor Fabs | digital | 7.1 | 7.5 | +0.4 | Critical | `modeled` |
-| 268 | Urban Sprawl / Housing | sociopolitical | 7.3 | 7.5 | +0.2 | Critical | `current_data` |
-| 269 | Persistent Rossby Wave Patterns | atmosphere | 6.9 | 7.5 | +0.6 | Critical | `modeled` |
-| 270 | Port Heat-Related Operational Vulnerability | transport | 7.3 | 7.5 | +0.2 | Critical | `modeled` |
-| 271 | Jet Stream Volatility | atmosphere | 6.7 | 7.5 | +0.8 | Critical | `modeled` |
-| 272 | Stratospheric Cooling | atmosphere | 7.0 | 7.5 | +0.5 | Critical | `current_data` |
-| 273 | Pollen Allergen Spikes | atmosphere | 7.4 | 7.5 | +0.1 | Critical | `impact_fallback` |
-| 274 | Overstory Tree Mortality | biosphere | 6.8 | 7.5 | +0.7 | Critical | `modeled` |
-| 275 | Coal Power CO2 Output | economy | 7.1 | 7.5 | +0.4 | Critical | `current_data` |
-| 276 | Sea-Level Rise | oceans | 7.3 | 7.4 | +0.1 | Critical | `current_data` |
-| 277 | Global Temperature | atmosphere | 7.7 | 7.3 | -0.4 | Critical | `current_data` |
-| 278 | Mortgage Market Exposure | economy | 7.6 | 7.3 | -0.3 | Critical | `impact_fallback` |
-| 279 | Asphalt Surface Heat Storage | transport | 6.8 | 7.3 | +0.5 | Critical | `modeled` |
-| 280 | Food Insecurity | health | 5.5 | 7.3 | +1.8 | Critical | `impact_fallback` |
-| 281 | Hydropower Reliability Decline | energy | 7.7 | 7.2 | -0.5 | Critical | `current_data` |
-| 282 | Surface Water Storage Instability | freshwater | 7.0 | 7.2 | +0.2 | Critical | `impact_fallback` |
-| 283 | Groundwater Depletion Wells | freshwater | 8.1 | 7.2 | -0.9 | Critical | `current_data` |
-| 284 | Industrial Groundwater Withdrawal | freshwater | 6.1 | 7.2 | +1.1 | Critical | `modeled` |
-| 285 | Agricultural Soil Compaction | agriculture | 6.5 | 7.2 | +0.7 | Critical | `impact_fallback` |
-| 286 | Biodiversity Intactness Loss | biosphere | 7.6 | 7.1 | -0.5 | Critical | `impact_fallback` |
-| 287 | Coastal Property Insurance Nonrenewal | sociopolitical | 6.3 | 7.1 | +0.8 | Critical | `modeled` |
-| 288 | Oceanic Upwelling Disruptions | oceans | 5.4 | 7.0 | +1.6 | Critical | `modeled` |
-| 289 | River Flow Regime Change | biosphere | 7.6 | 7.0 | -0.6 | Critical | `impact_fallback` |
-| 290 | Utility Disconnection Risk | sociopolitical | 7.1 | 7.0 | -0.1 | Critical | `impact_fallback` |
-| 291 | Surface-Water Inflow Deficit | freshwater | 5.6 | 7.0 | +1.4 | Critical | `impact_fallback` |
+| 135 | Urban Water Rationing | sociopolitical | 6.9 | 8.6 | +1.7 | Critical | `impact_fallback` |
+| 136 | Jellyfish Bloom Frequency and Biomass | oceans | 7.3 | 8.6 | +1.3 | Critical | `impact_fallback` |
+| 137 | Old-Growth Forest Logging | biosphere | 8.5 | 8.6 | +0.1 | Critical | `impact_fallback` |
+| 138 | Estuarine Nursery Loss | oceans | 7.4 | 8.6 | +1.2 | Critical | `impact_fallback` |
+| 139 | Functional Habitat Connectivity Loss | biosphere | 7.6 | 8.6 | +1.0 | Critical | `impact_fallback` |
+| 140 | Passenger Road-Fuel CO2 Output | economy | 7.1 | 8.6 | +1.5 | Critical | `impact_fallback` |
+| 141 | Resource Depletion | biosphere | 7.1 | 8.5 | +1.4 | Critical | `impact_fallback` |
+| 142 | Rain-on-Snow Flood Risk | cryosphere | 5.7 | 8.5 | +2.8 | Critical | `impact_fallback` |
+| 143 | Steel | energy | 7.2 | 8.5 | +1.3 | Critical | `impact_fallback` |
+| 144 | Thermokarst Expansion | cryosphere | 7.3 | 8.5 | +1.2 | Critical | `impact_fallback` |
+| 145 | Polar Infrastructure Failure | cryosphere | 7.2 | 8.5 | +1.3 | Critical | `impact_fallback` |
+| 146 | Tidal Wetland Carbon Reversal | oceans | 7.8 | 8.5 | +0.7 | Critical | `impact_fallback` |
+| 147 | Steel Decarbonization Gap | economy | 8.1 | 8.5 | +0.4 | Critical | `impact_fallback` |
+| 148 | Battery Supply Chain Pressure | energy | 7.8 | 8.5 | +0.7 | Critical | `impact_fallback` |
+| 149 | Coral Bleaching | oceans | 7.4 | 8.5 | +1.1 | Critical | `current_data` |
+| 150 | Wildfire Smoke Hospitalization Burden | health | 4.7 | 8.5 | +3.8 | Critical | `impact_fallback` |
+| 151 | Early-Warning Coverage Gap | sociopolitical | 6.1 | 8.5 | +2.4 | Critical | `impact_fallback` |
+| 152 | Blue Carbon Habitat Loss | oceans | 8.2 | 8.5 | +0.3 | Critical | `impact_fallback` |
+| 153 | Wildfire Smoke Exposure Duration | sociopolitical | 5.1 | 8.5 | +3.4 | Critical | `impact_fallback` |
+| 154 | Diesel Freight CO2 Output | economy | 7.1 | 8.5 | +1.4 | Critical | `impact_fallback` |
+| 155 | Monsoon Volatility | atmosphere | 6.5 | 8.4 | +1.9 | Critical | `impact_fallback` |
+| 156 | Baseline Water Stress | freshwater | 6.9 | 8.4 | +1.5 | Critical | `current_data` |
+| 157 | AI Data Centers | digital | 6.9 | 8.4 | +1.5 | Critical | `impact_fallback` |
+| 158 | Lightning Ignition under Fire Weather Conditions | atmosphere | 7.0 | 8.4 | +1.4 | Critical | `impact_fallback` |
+| 159 | Freshwater Ecosystem Collapse | biosphere | 7.6 | 8.4 | +0.8 | Critical | `impact_fallback` |
+| 160 | Emergency Response Capacity Exceedance | health | 4.6 | 8.4 | +3.8 | Critical | `current_data` |
+| 161 | Rice Paddy Methane Emissions | agriculture | 8.0 | 8.4 | +0.4 | Critical | `current_data` |
+| 162 | Data Centers | digital | 6.3 | 8.3 | +2.0 | Critical | `impact_fallback` |
+| 163 | Glacier-Fed Water Dependence | sociopolitical | 6.4 | 8.3 | +1.9 | Critical | `impact_fallback` |
+| 164 | Livestock Disease Pressure | agriculture | 8.6 | 8.3 | -0.3 | Critical | `impact_fallback` |
+| 165 | Fracking Wastewater Lakes | energy | 7.2 | 8.3 | +1.1 | Critical | `impact_fallback` |
+| 166 | PM2.5 Particulates | atmosphere | 7.1 | 8.3 | +1.2 | Critical | `current_data` |
+| 167 | River Network Fragmentation | biosphere | 7.7 | 8.3 | +0.6 | Critical | `impact_fallback` |
+| 168 | Seagrass Meadow Decline | oceans | 6.9 | 8.3 | +1.4 | Critical | `impact_fallback` |
+| 169 | Dam and Diversion Infrastructure | freshwater | 6.2 | 8.3 | +2.1 | Critical | `impact_fallback` |
+| 170 | Peatland Drainage CO2 Release | economy | 7.1 | 8.3 | +1.2 | Critical | `current_data` |
+| 171 | Industry Farming | agriculture | 8.6 | 8.2 | -0.4 | Critical | `impact_fallback` |
+| 172 | Watershed Forest Loss | biosphere | 7.5 | 8.2 | +0.7 | Critical | `impact_fallback` |
+| 173 | Soil Humus Decline | biosphere | 7.7 | 8.2 | +0.5 | Critical | `impact_fallback` |
+| 174 | Soil Microbial Depletion | biosphere | 8.1 | 8.2 | +0.1 | Critical | `impact_fallback` |
+| 175 | Glacial Siltation Streams | cryosphere | 7.0 | 8.2 | +1.2 | Critical | `modeled` |
+| 176 | Fjord Sedimentation Pulses | cryosphere | 7.7 | 8.2 | +0.5 | Critical | `modeled` |
+| 177 | Coral Larval Survival and Recruitment Failure | oceans | 7.3 | 8.2 | +0.9 | Critical | `modeled` |
+| 178 | Fast Fashion | economy | 7.2 | 8.1 | +0.9 | Critical | `impact_fallback` |
+| 179 | Oceanic Upwelling Disruptions | oceans | 5.4 | 8.1 | +2.7 | Critical | `modeled` |
+| 180 | Ocean Circulation Regime Shifts | oceans | 7.3 | 8.1 | +0.8 | Critical | `modeled` |
+| 181 | Coastal Hypoxia | oceans | 7.2 | 8.1 | +0.9 | Critical | `current_data` |
+| 182 | Deep-Sea Mining Sediment Plumes | oceans | 7.4 | 8.1 | +0.7 | Critical | `modeled` |
+| 183 | Inland Waterway Fuel Spills | transport | 6.7 | 8.1 | +1.4 | Critical | `impact_fallback` |
+| 184 | Savanna Tree-Cover Decline | biosphere | 7.7 | 8.1 | +0.4 | Critical | `modeled` |
+| 185 | Wetland Peat Fires | biosphere | 7.8 | 8.1 | +0.3 | Critical | `impact_fallback` |
+| 186 | Freshwater Mussel Population Decline | biosphere | 7.3 | 8.1 | +0.8 | Critical | `impact_fallback` |
+| 187 | Urban Heat Island | atmosphere | 6.3 | 8.1 | +1.8 | Critical | `impact_fallback` |
+| 188 | Urban Water-Demand Peak | sociopolitical | 5.3 | 8.1 | +2.8 | Critical | `impact_fallback` |
+| 189 | AMOC Slowdown | oceans | 6.4 | 8.0 | +1.6 | Critical | `current_data` |
+| 190 | Ocean Salinity Stratification | oceans | 7.3 | 8.0 | +0.7 | Critical | `modeled` |
+| 191 | Hail Hazard Shift | atmosphere | 6.9 | 8.0 | +1.1 | Critical | `impact_fallback` |
+| 192 | Antarctic Shelf Instability | cryosphere | 7.1 | 8.0 | +0.9 | Critical | `modeled` |
+| 193 | Tundra Methane Outgassing | cryosphere | 7.6 | 8.0 | +0.4 | Critical | `modeled` |
+| 194 | Cloud Radiative Effect Change | atmosphere | 7.3 | 8.0 | +0.7 | Critical | `current_data` |
+| 195 | Ice Shelf Grounding Line Retreat | cryosphere | 7.1 | 8.0 | +0.9 | Critical | `modeled` |
+| 196 | Arctic Pack Ice Drift | cryosphere | 7.6 | 8.0 | +0.4 | Critical | `modeled` |
+| 197 | Cryoconite Hole Expansion | cryosphere | 7.6 | 8.0 | +0.4 | Critical | `modeled` |
+| 198 | Ice Cap Decapitation | cryosphere | 7.6 | 8.0 | +0.4 | Critical | `modeled` |
+| 199 | Nighttime Heat Retention | atmosphere | 7.2 | 8.0 | +0.8 | Critical | `impact_fallback` |
+| 200 | Nunatak Habitat Shrinkage | cryosphere | 7.7 | 8.0 | +0.3 | Critical | `modeled` |
+| 201 | Freeze-Thaw Rock Fracturing | cryosphere | 7.7 | 8.0 | +0.3 | Critical | `modeled` |
+| 202 | Tundra Shrub Expansion | cryosphere | 7.7 | 8.0 | +0.3 | Critical | `modeled` |
+| 203 | Metal Industry Fossil CO2 Output | economy | 7.1 | 8.0 | +0.9 | Critical | `current_data` |
+| 204 | Personal Conveyance | transport | 6.6 | 7.9 | +1.3 | Critical | `impact_fallback` |
+| 205 | Air Conditioning / Refrigerants | energy | 6.6 | 7.9 | +1.3 | Critical | `impact_fallback` |
+| 206 | Flash Flood Regime | atmosphere | 7.2 | 7.9 | +0.7 | Critical | `impact_fallback` |
+| 207 | Energy Affordability Crisis | sociopolitical | 7.0 | 7.9 | +0.9 | Critical | `impact_fallback` |
+| 208 | Airport Climate Exposure | transport | 7.4 | 7.9 | +0.5 | Critical | `impact_fallback` |
+| 209 | Bridge Scour Exposure | transport | 7.3 | 7.9 | +0.6 | Critical | `impact_fallback` |
+| 210 | Insurance Retreat | economy | 7.6 | 7.9 | +0.3 | Critical | `impact_fallback` |
+| 211 | Talik Expansion | cryosphere | 7.1 | 7.9 | +0.8 | Critical | `modeled` |
+| 212 | Pollinator Colony Collapse | biosphere | 7.6 | 7.9 | +0.3 | Critical | `impact_fallback` |
+| 213 | Population and Asset Exposure in Floodplains | freshwater | 6.9 | 7.9 | +1.0 | Critical | `impact_fallback` |
+| 214 | Supply Chain Port Bottlenecks | transport | 7.3 | 7.9 | +0.6 | Critical | `impact_fallback` |
+| 215 | Dryland Degradation | biosphere | 7.3 | 7.9 | +0.6 | Critical | `impact_fallback` |
+| 216 | Bark Beetle Epidemics | biosphere | 7.7 | 7.9 | +0.2 | Critical | `impact_fallback` |
+| 217 | Chemical Industry Fossil CO2 Output | economy | 7.1 | 7.9 | +0.8 | Critical | `current_data` |
+| 218 | El Niño | oceans | 4.9 | 7.8 | +2.9 | Critical | `current_data` |
+| 219 | Groundwater Depletion | freshwater | 7.0 | 7.8 | +0.8 | Critical | `current_data` |
+| 220 | Wastewater Infrastructure Overflow | freshwater | 6.5 | 7.8 | +1.3 | Critical | `impact_fallback` |
+| 221 | Loss of Firn Meltwater Storage Capacity | cryosphere | 7.3 | 7.8 | +0.5 | Critical | `modeled` |
+| 222 | Pacific Decadal Oscillation | oceans | 7.2 | 7.8 | +0.6 | Critical | `current_data` |
+| 223 | Marine Fisheries Collapse | oceans | 7.1 | 7.8 | +0.7 | Critical | `current_data` |
+| 224 | Atmospheric Moisture Amplification | atmosphere | 6.9 | 7.8 | +0.9 | Critical | `current_data` |
+| 225 | Urban Tree Canopy Loss | sociopolitical | 6.7 | 7.8 | +1.1 | Critical | `impact_fallback` |
+| 226 | Nitrous Oxide | atmosphere | 7.4 | 7.8 | +0.4 | Critical | `current_data` |
+| 227 | Rainforest Savannization | biosphere | 8.4 | 7.8 | -0.6 | Critical | `modeled` |
+| 228 | Ice Algae Pigmentation | cryosphere | 7.8 | 7.8 | 0.0 | Critical | `modeled` |
+| 229 | North Atlantic Subpolar Gyre Circulation Strength | oceans | 6.6 | 7.8 | +1.2 | Critical | `modeled` |
+| 230 | Atmospheric River Intensification | atmosphere | 6.6 | 7.8 | +1.2 | Critical | `impact_fallback` |
+| 231 | Cattle Stocking Density | agriculture | 5.3 | 7.8 | +2.5 | Critical | `current_data` |
+| 232 | Gas Power CO2 Output | economy | 7.1 | 7.8 | +0.7 | Critical | `current_data` |
+| 233 | Petroleum Refining and Other Energy Industries Fossil CO2 Output | economy | 7.1 | 7.8 | +0.7 | Critical | `current_data` |
+| 234 | Deforestation | biosphere | 8.7 | 7.7 | -1.0 | Critical | `impact_fallback` |
+| 235 | Peat Oxidation Pulse | biosphere | 8.0 | 7.7 | -0.3 | Critical | `current_data` |
+| 236 | Pollinator Service Decline | biosphere | 7.6 | 7.7 | +0.1 | Critical | `impact_fallback` |
+| 237 | Managed-Retreat Decision Pressure | sociopolitical | 5.3 | 7.7 | +2.4 | Critical | `impact_fallback` |
+| 238 | Agricultural Nitrogen Application | agriculture | 7.0 | 7.7 | +0.7 | Critical | `current_data` |
+| 239 | Methane Emissions | atmosphere | 7.4 | 7.6 | +0.2 | Critical | `current_data` |
+| 240 | Urbanization | sociopolitical | 7.0 | 7.6 | +0.6 | Critical | `impact_fallback` |
+| 241 | Migration | sociopolitical | 5.0 | 7.6 | +2.6 | Critical | `impact_fallback` |
+| 242 | Carbon Emission | atmosphere | 8.2 | 7.6 | -0.6 | Critical | `current_data` |
+| 243 | Desalination Dependence | energy | 7.5 | 7.6 | +0.1 | Critical | `impact_fallback` |
+| 244 | Cooling Water Competition | energy | 8.0 | 7.6 | -0.4 | Critical | `impact_fallback` |
+| 245 | Farm Heat Stress | agriculture | 8.5 | 7.6 | -0.9 | Critical | `impact_fallback` |
+| 246 | Critical Infrastructure Fragility | sociopolitical | 6.2 | 7.6 | +1.4 | Critical | `impact_fallback` |
+| 247 | Road-Stream Crossing Barriers | freshwater | 6.2 | 7.6 | +1.4 | Critical | `impact_fallback` |
+| 248 | Industrial Groundwater Withdrawal | freshwater | 6.1 | 7.6 | +1.5 | Critical | `modeled` |
+| 249 | Surface-Water Groundwater-Exchange Shift | freshwater | 5.6 | 7.6 | +2.0 | Critical | `modeled` |
+| 250 | Residential Gas-Heating CO2 Output | economy | 7.1 | 7.6 | +0.5 | Critical | `current_data` |
+| 251 | Commercial Gas-Heating CO2 Output | economy | 7.1 | 7.6 | +0.5 | Critical | `current_data` |
+| 252 | Coastal Permafrost Erosion | cryosphere | 5.1 | 7.5 | +2.4 | Critical | `impact_fallback` |
+| 253 | Urban Sprawl / Housing | sociopolitical | 7.3 | 7.5 | +0.2 | Critical | `current_data` |
+| 254 | Soil Moisture Collapse | agriculture | 8.0 | 7.5 | -0.5 | Critical | `modeled` |
+| 255 | Stratospheric Cooling | atmosphere | 7.0 | 7.5 | +0.5 | Critical | `current_data` |
+| 256 | Pollen Allergen Spikes | atmosphere | 7.4 | 7.5 | +0.1 | Critical | `impact_fallback` |
+| 257 | Migratory Bird Timing, Route, and Stopover Disruption | biosphere | 7.8 | 7.5 | -0.3 | Critical | `modeled` |
+| 258 | Mountain Forest Cover and Treeline Contraction | biosphere | 8.5 | 7.5 | -1.0 | Critical | `modeled` |
+| 259 | Coal Power CO2 Output | economy | 7.1 | 7.5 | +0.4 | Critical | `current_data` |
+| 260 | Persistent Atmospheric Blocking | atmosphere | 6.9 | 7.4 | +0.5 | Critical | `modeled` |
+| 261 | Sea-Level Rise | oceans | 7.3 | 7.4 | +0.1 | Critical | `current_data` |
+| 262 | Jet Stream Volatility | atmosphere | 6.7 | 7.4 | +0.7 | Critical | `modeled` |
+| 263 | Black Carbon Deposition | atmosphere | 7.0 | 7.4 | +0.4 | Critical | `modeled` |
+| 264 | Airborne Microplastic Concentration and Deposition | atmosphere | 6.9 | 7.4 | +0.5 | Critical | `modeled` |
+| 265 | Atmospheric Hydroxyl Sink Weakening | atmosphere | 7.4 | 7.4 | 0.0 | Critical | `modeled` |
+| 266 | Fossil Backup-Power CO2 Output | economy | 7.1 | 7.4 | +0.3 | Critical | `modeled` |
+| 267 | Global Temperature | atmosphere | 7.7 | 7.3 | -0.4 | Critical | `current_data` |
+| 268 | Marine Low-Cloud Decline | atmosphere | 7.0 | 7.3 | +0.3 | Critical | `modeled` |
+| 269 | Mortgage Market Exposure | economy | 7.6 | 7.3 | -0.3 | Critical | `impact_fallback` |
+| 270 | Convective Available Potential Energy and Inhibition Anomaly | atmosphere | 7.3 | 7.3 | 0.0 | Critical | `modeled` |
+| 271 | Overstory Tree Mortality | biosphere | 6.8 | 7.3 | +0.5 | Critical | `modeled` |
+| 272 | Food Insecurity | health | 5.5 | 7.3 | +1.8 | Critical | `impact_fallback` |
+| 273 | Pyrocumulonimbus Smoke Injection | atmosphere | 4.7 | 7.2 | +2.5 | Critical | `modeled` |
+| 274 | Hydropower Reliability Decline | energy | 7.7 | 7.2 | -0.5 | Critical | `current_data` |
+| 275 | Atlantic Niño/Niña | oceans | 7.4 | 7.2 | -0.2 | Critical | `modeled` |
+| 276 | Persistent Rossby Wave Patterns | atmosphere | 6.9 | 7.2 | +0.3 | Critical | `modeled` |
+| 277 | Surface Water Storage Instability | freshwater | 7.0 | 7.2 | +0.2 | Critical | `impact_fallback` |
+| 278 | Groundwater Depletion Wells | freshwater | 8.1 | 7.2 | -0.9 | Critical | `current_data` |
+| 279 | Pacific Walker Circulation Variability | atmosphere | 7.1 | 7.2 | +0.1 | Critical | `modeled` |
+| 280 | Equatorial Pacific Trade-Wind Anomaly | atmosphere | 7.1 | 7.2 | +0.1 | Critical | `modeled` |
+| 281 | Aviation Condensation Trails | atmosphere | 7.3 | 7.2 | -0.1 | Critical | `modeled` |
+| 282 | Agricultural Soil Compaction | agriculture | 6.5 | 7.2 | +0.7 | Critical | `impact_fallback` |
+| 283 | Peaker Plant Lock-In | energy | 7.9 | 7.1 | -0.8 | Critical | `modeled` |
+| 284 | Backup Generator Dependence | energy | 7.9 | 7.1 | -0.8 | Critical | `modeled` |
+| 285 | Biodiversity Intactness Loss | biosphere | 7.6 | 7.1 | -0.5 | Critical | `impact_fallback` |
+| 286 | River Flow Regime Change | biosphere | 7.6 | 7.0 | -0.6 | Critical | `impact_fallback` |
+| 287 | Utility Disconnection Risk | sociopolitical | 7.1 | 7.0 | -0.1 | Critical | `impact_fallback` |
+| 288 | Coastal Property Insurance Nonrenewal | sociopolitical | 6.3 | 7.0 | +0.7 | Critical | `modeled` |
+| 289 | Transformer Heat Failure Risk | energy | 8.3 | 7.0 | -1.3 | Critical | `modeled` |
+| 290 | Surface-Water Inflow Deficit | freshwater | 5.6 | 7.0 | +1.4 | Critical | `impact_fallback` |
+| 291 | Internet Exchange Points | digital | 5.7 | 6.9 | +1.2 | Rising | `modeled` |
 | 292 | Acid Rain Deposition | atmosphere | 7.0 | 6.9 | -0.1 | Rising | `impact_fallback` |
-| 293 | Surface-Water Groundwater-Exchange Shift | freshwater | 5.6 | 6.9 | +1.3 | Rising | `modeled` |
-| 294 | Water-Borne Navigation Fossil CO2 Output | economy | 7.1 | 6.8 | -0.3 | Rising | `current_data` |
-| 295 | Waste Incineration and Open-Burning Fossil CO2 Output | economy | 7.1 | 6.8 | -0.3 | Rising | `current_data` |
-| 296 | Internet Exchange Points | digital | 5.7 | 6.7 | +1.0 | Rising | `modeled` |
+| 293 | Asphalt Surface Heat Storage | transport | 6.8 | 6.9 | +0.1 | Rising | `modeled` |
+| 294 | Semiconductor Fabs | digital | 7.1 | 6.8 | -0.3 | Rising | `modeled` |
+| 295 | Water-Borne Navigation Fossil CO2 Output | economy | 7.1 | 6.8 | -0.3 | Rising | `current_data` |
+| 296 | Waste Incineration and Open-Burning Fossil CO2 Output | economy | 7.1 | 6.8 | -0.3 | Rising | `current_data` |
 | 297 | Quasi-Biennial Oscillation | atmosphere | 6.9 | 6.7 | -0.2 | Rising | `current_data` |
 | 298 | Mangrove Buffer Loss | biosphere | 7.8 | 6.7 | -1.1 | Rising | `impact_fallback` |
 | 299 | Waterborne Pathogen Outbreaks | freshwater | 6.7 | 6.7 | 0.0 | Rising | `current_data` |
 | 300 | Cooling Equity Gaps | sociopolitical | 6.4 | 6.7 | +0.3 | Rising | `impact_fallback` |
-| 301 | Humanitarian Access Constraints | sociopolitical | 4.8 | 6.6 | +1.8 | Rising | `current_data` |
-| 302 | Nocturnal Heat Stress | atmosphere | 6.9 | 6.5 | -0.4 | Rising | `current_data` |
-| 303 | Combined Sewer Overflow | freshwater | 6.7 | 6.4 | -0.3 | Rising | `impact_fallback` |
-| 304 | Atlantic Multidecadal Oscillation | oceans | 7.3 | 6.3 | -1.0 | Rising | `current_data` |
-| 305 | Compound Climate Hazards | atmosphere | 7.2 | 6.2 | -1.0 | Rising | `current_data` |
-| 306 | Pyrocumulonimbus Smoke Injection | atmosphere | 4.7 | 6.2 | +1.5 | Rising | `modeled` |
+| 301 | Port Heat-Related Operational Vulnerability | transport | 7.3 | 6.6 | -0.7 | Rising | `modeled` |
+| 302 | Humanitarian Access Constraints | sociopolitical | 4.8 | 6.6 | +1.8 | Rising | `current_data` |
+| 303 | Nocturnal Heat Stress | atmosphere | 6.9 | 6.5 | -0.4 | Rising | `current_data` |
+| 304 | Combined Sewer Overflow | freshwater | 6.7 | 6.4 | -0.3 | Rising | `impact_fallback` |
+| 305 | Atlantic Multidecadal Oscillation | oceans | 7.3 | 6.3 | -1.0 | Rising | `current_data` |
+| 306 | Compound Climate Hazards | atmosphere | 7.2 | 6.2 | -1.0 | Rising | `current_data` |
 | 307 | Airport Operational Disruption | transport | 7.4 | 6.2 | -1.2 | Rising | `impact_fallback` |
 | 308 | Wastewater Bypass Discharge | freshwater | 6.7 | 6.1 | -0.6 | Rising | `impact_fallback` |
 | 309 | Compound Day-Night Heat Extremes | atmosphere | 7.1 | 6.1 | -1.0 | Rising | `current_data` |

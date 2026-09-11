@@ -284,7 +284,7 @@ const artifact = {
         id: 'route_findings',
         type: 'markdown',
         sourceId: 'modeled_assurance',
-        body: '## Route-specific findings\n\nCurrent-data reviews bind observations, anchors, transformations, method gates, sources, and fixtures. Impact-fallback reviews verify four accumulated-impact components and explicitly distinguish source measurements from TULIP normalization. Modeled reviews reproduce the legacy, peer, contract, calibration, composite, and displayed-score chain, then test ±20% weight perturbation and leave-one-peer-out sensitivity.'
+        body: '## Route-specific findings\n\nCurrent-data reviews bind observations, anchors, transformations, method gates, sources, and fixtures. Impact-fallback reviews verify four accumulated-impact components and explicitly distinguish source measurements from TULIP normalization. Modeled reviews reproduce the evidence-backed peer, contract, composite, and displayed-score chain, verify that generated and inherited vectors are excluded, then test ±20% weight perturbation and leave-one-peer-out sensitivity.'
       },
       { id: 'check_chart', type: 'chart', chartId: 'check_completion', layout: 'full' },
       { id: 'modeled_table', type: 'table', tableId: 'modeled_summary', layout: 'full' },
@@ -299,7 +299,7 @@ const artifact = {
         id: 'limitations',
         type: 'markdown',
         sourceId: 'modeled_assurance',
-        body: '## Assurance boundary\n\nThis is an **AI-assisted reproducible review, not human expert sign-off**; human entailment review was not performed. Passing status means the declared method and evidence satisfy the recorded rubric. It does not prove an original measurement, modeled estimate, or scientific claim true. Impact normalization is checked against declared contracts and fixtures where no verified raw-unit inverse exists. The modeled route is deterministic but is not an independently trained or externally validated predictive model; legacy judgments retain 60% weight, peer sets can be sparse, and external sources provide context rather than score validation.'
+        body: '## Assurance boundary\n\nThis is an **AI-assisted reproducible review, not human expert sign-off**; human entailment review was not performed. Passing status means the declared method and evidence satisfy the recorded rubric. It does not prove an original measurement, modeled estimate, or scientific claim true. Impact normalization is checked against declared contracts and fixtures where no verified raw-unit inverse exists. The modeled route is deterministic but is not an independently trained or externally validated predictive model; peer sets can be sparse, reviewed contract factors remain assumptions, and external sources provide context rather than score validation.'
       },
       {
         id: 'next_steps',

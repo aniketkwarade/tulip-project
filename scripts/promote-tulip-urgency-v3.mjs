@@ -33,7 +33,7 @@ if (incomplete.length) throw new Error(`All-method scientific review gate failed
 const promotedAt = now.toISOString();
 const publicRegistry = {
   ...shadow,
-  version: '3.2.0',
+  version: '3.3.0',
   status: 'approved',
   generated_at: promotedAt,
   promoted_at: promotedAt,
@@ -46,10 +46,13 @@ const publicRegistry = {
     modeled_scientific_review_gate: '50_of_50_current',
     all_methods_scientific_review_gate: '354_of_354_current',
     modeled_method_assurance: 'approved_for_declared_fallback_use',
+    scientific_validation_status: 'pilot_protocol_active_not_independently_validated',
+    scientifically_validated_claim_allowed: false,
+    validation_pilot: '/tulip-scientific-validation-pilot.json',
     reviewer_disclosure: 'AI-assisted reproducible scientific review; not human expert sign-off. Human entailment review was not performed.'
   }
 };
-const report = `# TULIP Urgency v3 - Public Rollout\n\nStatus: **public default**.\n\n- Promoted: ${promotedAt}\n- Numerical scores changed from v2: 0\n- Current-data scientific reviews current: 96 of 96\n- Impact-fallback scientific reviews current: 208 of 208\n- Modeled scientific reviews current: 50 of 50\n- All-method scientific reviews current: 354 of 354\n- Historical v2 receipts preserved: yes\n- Calculation version: \`${publicRegistry.calculation_version}\`\n- Band version: \`${publicRegistry.band_version}\`\n- Receipt schema: \`${publicRegistry.receipt_schema_version}\`\n\nAll review gates are AI-assisted and reproducible, not human expert sign-off. Human entailment review was not performed. Approval means the declared method and evidence passed the six recorded criteria; it does not prove scientific truth or independently validate modeled estimates.\n`;
+const report = `# TULIP Urgency v3 - Public Rollout\n\nStatus: **public default**.\n\n- Promoted: ${promotedAt}\n- Current-data scientific reviews current: 96 of 96\n- Impact-fallback scientific reviews current: 208 of 208\n- Modeled scientific reviews current: 50 of 50\n- All-method scientific reviews current: 354 of 354\n- Generated, inherited, and expert profile vectors excluded from modeled scoring: yes\n- Scientific validation status: pilot protocol active; external review and independent reproduction pending\n- Historical v2 receipts preserved: yes\n- Calculation version: \`${publicRegistry.calculation_version}\`\n- Band version: \`${publicRegistry.band_version}\`\n- Receipt schema: \`${publicRegistry.receipt_schema_version}\`\n\nAll internal review gates are AI-assisted and reproducible, not human expert sign-off. The visible **Scientifically approved** status means the declared method and evidence passed the recorded criteria; it does not mean scientifically validated. That claim remains prohibited until external domain review and independent reproduction pass the published protocol.\n`;
 
 await Promise.all([
   fs.writeFile(path.join(PUBLIC, 'tulip-urgency-v3-scores.json'), `${JSON.stringify(publicRegistry, null, 2)}\n`),

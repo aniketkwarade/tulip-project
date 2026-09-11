@@ -65,8 +65,8 @@ const [html, main, graph, propagation] = await Promise.all([
   readFile(new URL('../src/propagation.js', import.meta.url), 'utf8')
 ]);
 
-assert.match(html, /Choose what influences this/);
-assert.match(html, /Choose what this influences/);
+assert.match(html, /Pick a TRIGGER/);
+assert.match(html, /Pick an EFFECT/);
 assert.doesNotMatch(html, /relationship-context-select|Explore contextual connections/);
 assert.doesNotMatch(main, /relationshipContextSelect|Explore contextual connections/);
 assert.match(html, /<span class="legend-label">Triggers<\/span>/);
@@ -75,15 +75,15 @@ assert.doesNotMatch(
   html,
   /<span class="legend-label">(?:Increases \/ enables|Reduces \/ constrains|Context)<\/span>/
 );
-assert.doesNotMatch(html, /Pick a trigger|What does this trigger|No downstream trigger/);
+assert.doesNotMatch(html, /What does this trigger|No downstream trigger/);
 assert.doesNotMatch(main, /Pick a trigger|What does this trigger|No downstream trigger/);
 assert.doesNotMatch(main, /causal-relation[^\n]*edge\.influence/);
 assert.doesNotMatch(main, /How does \$\{triggerName\} affect/);
 assert.match(main, /How \$\{getRelationshipQuestionAuxiliary\(/);
 
 assert.match(main, /showIncomingInfluences: graphInstance\.showIncomingInfluences/);
-assert.match(main, /workspace\.showIncomingInfluences[\s\S]*?workspace\.showTriggers/);
-assert.match(main, /workspace\.showOutgoingInfluences[\s\S]*?workspace\.showEffects/);
+assert.match(main, /graphInstance\.showIncomingInfluences = state\.showIncomingInfluences/);
+assert.match(main, /graphInstance\.showOutgoingInfluences = state\.showOutgoingInfluences/);
 assert.match(graph, /filter\(isCausalRelationship\)/);
 assert.match(graph, /ctx\.setLineDash\(\[\]\)/);
 assert.match(propagation, /edges\.filter\(isCausalRelationship\)/);

@@ -144,6 +144,35 @@ export const ACTION_PROFILES = {
     ],
     caution: 'The report flags grids and interconnection as bottlenecks, so generation targets alone are not enough.'
   },
+  conveyance_aviation: {
+    title: 'Conveyance & Aviation Actions',
+    definition: 'This combined category covers personal surface mobility and passenger or cargo aviation without treating either as a separate activity tab.',
+    whyItMatters: 'The strongest near-term gains come from reducing avoidable car and flight demand, then improving vehicles, aircraft, operations, and fuels for the travel that remains.',
+    confidence: 'High-confidence demand actions; medium-high technology confidence',
+    confidenceNote: 'Mode shift, trip avoidance, efficient vehicles, and aviation operations are well supported; the scalable supply of genuinely low-carbon aviation fuels remains less certain.',
+    strongestAction: 'Avoid unnecessary car trips and flights, then clean the travel that remains.',
+    personal: [
+      'Consolidate car trips and choose transit, cycling, walking, rail, or remote participation where they are practical substitutes.',
+      'Fly less often for discretionary or repeated trips and favor direct, efficient itineraries when flying is necessary.',
+      'Choose smaller electric or efficient vehicles instead of replacing high-use travel with another oversized vehicle.'
+    ],
+    community: [
+      'Use commuter, parking, fleet, and land-use programs to reduce car dependence.',
+      'Replace avoidable business travel with remote or rail participation and track the flights that remain.',
+      'Electrify suitable fleets while using procurement to reward efficient carriers and itineraries.'
+    ],
+    policy: [
+      'Invest in transit, walking, cycling, and intercity rail so lower-emissions alternatives are genuinely available.',
+      'Pair vehicle efficiency and electrification standards with land-use policy that reduces required travel.',
+      'Use aviation efficiency, fuel, and demand-management policy without treating offsets as a substitute for direct reductions.'
+    ],
+    metrics: [
+      'vehicle-km and flights avoided or substituted',
+      'share of trips shifted to active, transit, rail, or remote modes',
+      'road and aviation emissions per traveler'
+    ],
+    caution: 'Road CO2e estimates and direct aviation CO2 use different boundaries, while aviation also has non-CO2 warming effects; compare the modes without presenting their rows as one additive total.'
+  },
   personal_conveyance: {
     title: 'Conveyance Actions',
     definition: 'Conveyance is the personal mobility footprint driven by car dependence, vehicle size, fuel use, and travel demand.',

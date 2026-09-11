@@ -1,6 +1,6 @@
 # Relationship Semantics Audit
 
-Generated: 2026-08-02T00:58:54.395Z
+Generated: 2026-09-10T18:18:37.038Z
 Status: **PASS**
 
 ## Dataset and grain

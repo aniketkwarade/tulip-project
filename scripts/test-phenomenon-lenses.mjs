@@ -12,15 +12,18 @@ const graphNodeIds = new Set(NODES.map(node => node.id));
 assert.equal(new Set(selectorKeys).size, selectorKeys.length, 'Footprint selector keys must be unique');
 assert.equal(new Set(selectorLabels).size, selectorLabels.length, 'Footprint selector labels must be unique');
 
-for (const expectedKey of ['built_environment', 'freight_logistics', 'aviation']) {
+for (const expectedKey of ['built_environment', 'freight_logistics', 'conveyance_aviation']) {
   assert.ok(selectorKeys.includes(expectedKey), `Footprint selector must include ${expectedKey}`);
   assert.ok(getPhenomenonLensById(expectedKey), `${expectedKey} must resolve to a dedicated lens`);
 }
 
-for (const retiredLabel of ['Housing', 'Building Operations', 'Construction', 'Shipping', 'Logistics']) {
+for (const retiredLabel of ['Housing', 'Building Operations', 'Construction', 'Shipping', 'Logistics', 'Conveyance', 'Aviation']) {
   assert.ok(!selectorLabels.includes(retiredLabel), `${retiredLabel} must not remain a standalone selector`);
 }
-assert.ok(selectorLabels.includes('Aviation'), 'Aviation must remain independently accessible');
+assert.equal(PHENOMENON_SELECTOR_CONFIG.length, 16, 'Conveyance and Aviation must resolve as one Activity category');
+assert.ok(selectorLabels.includes('Transport'), 'The combined transport category must remain accessible');
+const combinedTransportSelector = PHENOMENON_SELECTOR_CONFIG.find(item => item.key === 'conveyance_aviation');
+assert.deepEqual(combinedTransportSelector?.nodeIds, ['personal_conveyance', 'aviation'], 'The combined category must retain both Analyze nodes');
 
 for (const selector of PHENOMENON_SELECTOR_CONFIG) {
   assert.ok(selector.nodeIds.length > 0, `${selector.key} must retain at least one Analyze node`);
@@ -62,15 +65,17 @@ for (let index = 1; index < diet.items.length; index += 1) {
 const expectedLensValues = {
   built_environment: [17, 11, 6],
   freight_logistics: [1460, 800, 174, 79, 67],
+  conveyance_aviation: [3300, 950, 200, 40],
   aviation: [950]
 };
 const expectedUnits = {
   built_environment: '% of global CO2 emissions',
   freight_logistics: 'MtCO2 per year',
+  conveyance_aviation: 'MtCO2 / CO2e per year',
   aviation: 'MtCO2 per year'
 };
 
-for (const lensId of ['food', 'built_environment', 'freight_logistics', 'aviation']) {
+for (const lensId of ['food', 'built_environment', 'freight_logistics', 'conveyance_aviation', 'aviation']) {
   const lens = getPhenomenonLensById(lensId);
   const maxValue = Math.max(...lens.items.map(item => item.value));
   assert.ok(lens.items.every(item => Number.isFinite(item.value)), `${lensId} rows must use one numeric unit`);
@@ -87,7 +92,7 @@ for (const [lensId, values] of Object.entries(expectedLensValues)) {
   assert.deepEqual(lens.items.map(item => item.value), values, `${lensId} must preserve the sourced row values`);
 }
 
-for (const profileId of ['built_environment', 'freight_logistics', 'aviation']) {
+for (const profileId of ['built_environment', 'freight_logistics', 'conveyance_aviation', 'aviation']) {
   assert.ok(ACTION_PROFILES[profileId], `${profileId} must have a dedicated Action profile`);
   assert.equal(getActionProfileById(profileId), ACTION_PROFILES[profileId], `${profileId} Action profile must resolve directly`);
 }

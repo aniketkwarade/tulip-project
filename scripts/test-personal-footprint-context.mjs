@@ -43,10 +43,15 @@ assert.equal(comparisons[0].evidence, '≈ 4.3 tonnes CO₂e annually');
 assert.equal(comparisons[1].headline, '~38,000 showers');
 assert.equal(comparisons[1].evidence, '≈ 2,500,000 litres annually');
 assert.equal(comparisons[2].headline, '~16 basketball courts');
-assert.equal(comparisons[3].headline, '~1 car');
+assert.equal(comparisons[3].headline, '~87 packed suitcases');
+assert.equal(
+  comparisons[3].descriptor,
+  'at 23 kg each, equivalent in raw-material mass every year'
+);
+assert.equal(comparisons[3].evidence, '≈ 2.0 tonnes of raw materials extracted and processed');
 
 const lowCarbonComparison = getFootprintEquivalencies({ carbonTotal: 2.3 })[0];
-assert.equal(lowCarbonComparison.headline, '~5,900 miles');
+assert.equal(lowCarbonComparison.headline, '~9,400 km');
 assert.equal(lowCarbonComparison.descriptor, 'driven in a gasoline car');
 
 console.log('Personal footprint context tests passed.');

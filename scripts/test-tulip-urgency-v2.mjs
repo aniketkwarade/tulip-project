@@ -174,8 +174,15 @@ assert.ok(registry.receipts.every(receipt => receipt.selection_reason?.selected_
 assert.ok(registry.receipts.filter(receipt => receipt.method === 'modeled')
   .every(receipt => receipt.selection_reason.higher_priority_failures?.length === 2));
 assert.ok(registry.receipts.filter(receipt => receipt.method !== 'modeled').every(receipt => receipt.source_ids.length > 0));
-assert.ok(registry.receipts.filter(receipt => receipt.model_version === 'tulip_modeled_global_v1')
-  .every(receipt => receipt.transformations.some(transformation => transformation.exclusions?.includes('graph degree'))));
+assert.ok(registry.receipts.filter(receipt => receipt.model_version === 'tulip_modeled_global_v2')
+  .every(receipt => receipt.transformations.some(transformation => transformation.exclusions?.includes('generated vectors'))));
+assert.ok(registry.receipts.filter(receipt => receipt.method === 'modeled').every(receipt => (
+  !receipt.raw_inputs.reviewed_legacy_vector
+  && !receipt.raw_inputs.legacy_reviewed_composite
+  && receipt.raw_inputs.vector_exclusion?.generated_vectors === 'excluded'
+  && receipt.raw_inputs.vector_exclusion?.inherited_vectors === 'excluded'
+)));
+assert.equal(registry.scientifically_validated_claim_allowed, false);
 
 // Operational lineage is metadata, never an evidence-volume urgency multiplier.
 const modeledWithLineage = registry.receipts.filter(receipt => receipt.method === 'modeled' && receipt.raw_inputs.operational_lineage?.length);

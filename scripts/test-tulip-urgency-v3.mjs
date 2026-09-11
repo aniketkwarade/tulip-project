@@ -73,8 +73,8 @@ assert.equal(v3.receipts.length, issueNodes.length);
 assert.equal(v3.excluded_response_node_ids.length, responseNodes.length);
 assert.ok(responseNodes.every(node => !v3.receipts.some(receipt => receipt.node_id === node.id)));
 assert.deepEqual(v3.band_counts, {
-  'Low Concern': 32, Elevated: 31, Concerning: 26, 'High Risk': 74,
-  Severe: 62, Critical: 80, Extreme: 49
+  'Low Concern': 32, Elevated: 32, Concerning: 39, 'High Risk': 74,
+  Severe: 48, Critical: 80, Extreme: 49
 });
 assert.ok(v3.receipts.every(receipt => receipt.value === v2ById.get(receipt.node_id).value));
 assert.ok(v3.receipts.every(receipt => receipt.legacy_input_hash === v2ById.get(receipt.node_id).input_hash));
@@ -111,12 +111,15 @@ assert.equal(modelAssurance.status, 'approved_for_declared_fallback_use');
 assert.equal(modelAssurance.validation_summary.receipts, 50);
 assert.equal(modelAssurance.validation_summary.passed, 50);
 assert.equal(modelAssurance.validation_summary.failed, 0);
-assert.equal(modelAssurance.pilot_calibration_shift.reproduces, true);
+assert.equal(modelAssurance.model_version, 'tulip_modeled_global_v2');
+assert.equal(modelAssurance.vector_exclusion.generated_vectors, 'excluded');
+assert.ok(reviewedModeledReceipts.every(receipt => !receipt.raw_inputs.reviewed_legacy_vector));
 assert.equal(shadowAudit.status, 'cutover_ready');
 assert.equal(shadowAudit.validation.checks_passed, shadowAudit.validation.checks_total);
 assert.equal(shadowAudit.validation.scientific_assessment, 'all_method_review_gates_passed');
 assert.equal(publicV3.status, 'approved');
 assert.equal(publicV3.production_scores_replaced, true);
+assert.equal(publicV3.scientifically_validated_claim_allowed, false);
 assert.equal(publicV3.rollout.current_data_scientific_review_gate, '96_of_96_current');
 assert.equal(publicV3.rollout.impact_fallback_scientific_review_gate, '208_of_208_current');
 assert.equal(publicV3.rollout.modeled_scientific_review_gate, '50_of_50_current');

@@ -15,8 +15,8 @@ const empiricalShare = empiricalCount / audit.scope.scored_issue_nodes * 100;
 const accumulatedShare = accumulatedCount / audit.scope.scored_issue_nodes * 100;
 const modeledShare = modeledCount / audit.scope.scored_issue_nodes * 100;
 const modeledWithOperationalLineage = audit.totals.modeled_with_operational_lineage;
-const globalModelCount = audit.totals.model_version_counts.tulip_modeled_global_v1 ?? 0;
-const pilotModelCount = audit.totals.model_version_counts.tulip_modeled_pilot_v1 ?? 0;
+const globalModelCount = audit.totals.model_version_counts.tulip_modeled_global_v2 ?? 0;
+const pilotModelCount = audit.totals.model_version_counts.tulip_modeled_pilot_v2 ?? 0;
 const bandSummary = Object.entries(audit.totals.band_counts).map(([band, count]) => `${count} ${band}`).join(' and ');
 
 const source = {
@@ -256,7 +256,7 @@ const artifact = {
         id: 'modeled_section',
         type: 'markdown',
         sourceId: source.id,
-        body: `## ${modeledCount} nodes remain modeled, including ${modeledWithOperationalLineage} with partial operational lineage\n\nA bound feed does not automatically make a score empirical. **${modeledWithOperationalLineage} modeled nodes** have operational lineage, but their bindings do not cover the full current-data or accumulated-impact component gate. Those observations remain internal metadata and do not silently promote the score. **${globalModelCount}** modeled receipts use \`tulip_modeled_global_v1\`${pilotModelCount ? `; **${pilotModelCount}** retain \`tulip_modeled_pilot_v1\`` : ''}.`
+        body: `## ${modeledCount} nodes remain modeled, including ${modeledWithOperationalLineage} with partial operational lineage\n\nA bound feed does not automatically make a score empirical. **${modeledWithOperationalLineage} modeled nodes** have operational lineage, but their bindings do not cover the full current-data or accumulated-impact component gate. Those observations remain internal metadata and do not silently promote the score. Generated, inherited, and expert profile vectors are excluded. **${globalModelCount}** modeled receipts use \`tulip_modeled_global_v2\`${pilotModelCount ? `; **${pilotModelCount}** retain \`tulip_modeled_pilot_v2\`` : ''}.`
       },
       { id: 'modeled_table_block', type: 'table', tableId: 'modeled_nodes_table' },
       {
