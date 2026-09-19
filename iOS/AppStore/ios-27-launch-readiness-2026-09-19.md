@@ -4,7 +4,7 @@ This record covers the first five launch gates selected for TULIP. It separates 
 
 ## 1. Xcode 27 build and archive
 
-**Blocked by local toolchain availability.** The only installed developer app is `/Applications/Xcode.app`, version 26.6 (build 17F113), with the iOS 26.5 SDK and simulator runtime. No iOS 27 SDK or runtime is present.
+**Blocked by local toolchain availability.** The only installed developer app is `/Applications/Xcode.app`, version 26.6 (build 17F113), with the iOS 26.5 SDK and simulator runtime. No iOS 27 SDK or runtime is present. The Mac is running macOS 26.3.1; the App Store lists Xcode 27 as requiring macOS 26.6 or later. `softwareupdate` offers macOS 26.7 and macOS 27, both of which require a restart.
 
 The current source does build successfully with the installed toolchain. A fresh Release static analysis and signed validation archive succeeded at:
 
@@ -22,6 +22,7 @@ Verified on an iPhone 17 Pro simulator running iOS 26.5:
 - A process termination followed by relaunch restored the active My Footprint route and the locally stored footprint result.
 - Explore, Search, Analyse, My Footprint, and Impacts remained usable with the app process configured to send HTTP, HTTPS, and SOCKS traffic to an unreachable loopback proxy. The primary experience is bundle-backed.
 - Search was launched with `-TULIPDisableFoundationModels` to exercise the non-Apple-Intelligence path. “Why is the water near my home turning green and making people sick?” selected Harmful Algal Blooms; “Why are my allergies lasting longer every spring?” selected Air Pollution Health Burden.
+- Simulator’s **Simulate Memory Warning** command was sent while the Analyse route was open. The app remained alive, retained the selected Global Temperature topic, and exposed the full interactive accessibility tree afterward.
 - Runtime logs contained no app crash, fatal error, or fault. The simulator emitted its known duplicate WebKit accessibility-bundle warning; it did not terminate the app.
 
 Still required with Xcode 27 and final hardware:
@@ -54,7 +55,8 @@ This answer remains valid only while production retains the audited behavior: no
 
 ## 5. Public policy and support URLs
 
-The source pages are present at `public/privacy.html` and `public/support.html`. At the start of this audit, production returned HTTP 404 for both paths. Completion requires a verified GitHub-to-Vercel production release and HTTP 200 responses at:
+**Complete.** The source pages are present at `public/privacy.html` and `public/support.html`. Pull request #15 merged as commit `edccf276d0a84994bb04e049b9726e8516438cd7`. Vercel deployment `dpl_5FxTmCSdRP8qaJ1AGfbe3o5atgei` is `READY`, reports that exact `githubCommitSha`, and owns the stable production alias. All three production checks return HTTP 200:
 
+- `https://tulip-project-six.vercel.app/`
 - `https://tulip-project-six.vercel.app/privacy.html`
 - `https://tulip-project-six.vercel.app/support.html`

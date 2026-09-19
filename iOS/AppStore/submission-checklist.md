@@ -26,7 +26,7 @@ This is the release checklist for TULIP 1.0 (build 2). Repository checks are aut
 - [ ] Confirm app name, subtitle, categories, countries/regions, price (free), copyright holder, content rights, and DSA trader status.
 - [ ] Complete the current age-rating questionnaire; TULIP has no user-generated content, gambling, purchases, unrestricted web browsing, or social features.
 - [ ] Paste the privacy answers from `app-privacy-answers.md` and publish them.
-- [ ] Publish and verify `https://tulip-project-six.vercel.app/privacy.html` and `https://tulip-project-six.vercel.app/support.html`; both pages exist in `public/` but remain incomplete until production returns HTTP 200.
+- [x] Publish and verify `https://tulip-project-six.vercel.app/privacy.html` and `https://tulip-project-six.vercel.app/support.html`; both return HTTP 200 from the production deployment for `main` commit `edccf276`.
 - [ ] Review `accessibility-answers.md`, test the release build, and publish only verified Accessibility Nutrition Labels.
 - [ ] Upload final 6.9-inch screenshots (one to ten, no alpha); replace the existing draft set after final visual QA.
 - [ ] Paste localized name, subtitle, description, keywords, URLs, and review notes from `metadata-en-US.md`.
@@ -37,7 +37,7 @@ This is the release checklist for TULIP 1.0 (build 2). Repository checks are aut
 
 - [ ] Cold launch shows the breathing TULIP mark immediately and reaches usable content without a blank frame.
 - [ ] Airplane mode supports Explore, Search, Analyse, Activity Impacts, My Footprint, and menu content; external sources fail gracefully.
-- [x] Simulator background/foreground and process-eviction relaunch preserve the active route and local footprint state. Repeat under real memory pressure on final iOS 27 hardware.
+- [x] Simulator background/foreground, process-eviction relaunch, and **Simulate Memory Warning** preserve the active route and app responsiveness. Repeat under real memory pressure on final iOS 27 hardware.
 - [ ] All tabs, long press, gestures, search, inspector, links, Share, and Contact work on a current physical iPhone.
 - [ ] No content sits behind the dock; no black overscroll strip, clipped text, placeholder, dead control, or debug UI remains.
 - [ ] VoiceOver order, Dynamic Type, Reduce Motion, Increase Contrast, and 44 pt controls pass the routes in `accessibility-answers.md`.
