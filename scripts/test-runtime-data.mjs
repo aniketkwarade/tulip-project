@@ -28,6 +28,14 @@ assert.equal(runtimeGraph.edges.length, EDGES.length);
 assert.equal(runtimeGraph.publishedNodeIds.length, PUBLISHED_NODES.length);
 assert.equal(runtimeGraph.publishedEdgeKeys.length, PUBLISHED_EDGES.length);
 
+const nodeWithSemanticAliases = NODES.find(node => node.semanticAliases?.length);
+assert.ok(nodeWithSemanticAliases, 'Authoritative graph should include a semantic alias fixture');
+assert.deepEqual(
+  runtimeGraph.nodes.find(node => node.id === nodeWithSemanticAliases.id)?.semanticAliases,
+  nodeWithSemanticAliases.semanticAliases.map(({ id, name }) => ({ id, name })),
+  'Runtime graph must retain semantic alias IDs and names for search'
+);
+
 const generatedNodeDetails = JSON.parse(await readFile(
   new URL('../public/runtime-node-details.json', import.meta.url),
   'utf8'

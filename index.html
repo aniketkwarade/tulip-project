@@ -31,7 +31,8 @@
         const coarsePointer = window.matchMedia?.('(pointer: coarse)').matches ?? false;
         const noHover = window.matchMedia?.('(hover: none)').matches ?? false;
         const touchPoints = navigator.maxTouchPoints || 0;
-        if ((coarsePointer && noHover) || (coarsePointer && touchPoints > 0)) {
+        const phoneSizedViewport = window.matchMedia?.('(max-width: 767px)').matches ?? window.innerWidth <= 767;
+        if (phoneSizedViewport && ((coarsePointer && noHover) || (coarsePointer && touchPoints > 0))) {
           document.documentElement.classList.add('touch-device-gated');
         }
 

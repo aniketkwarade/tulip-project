@@ -7169,7 +7169,10 @@ function requestRuntimeNodeDetails(node) {
   void hydrateRuntimeNodeDetails(NODES)
     .then(() => {
       runtimeNodeDetailsStatus = 'ready';
-      refreshSelectedNodeDetailSurfaces(NODE_BY_ID.get(node.id));
+      const selectedNode = currentSelectedNode
+        ? NODE_BY_ID.get(currentSelectedNode.id)
+        : null;
+      refreshSelectedNodeDetailSurfaces(selectedNode);
     })
     .catch(error => {
       runtimeNodeDetailsStatus = 'error';
@@ -14431,7 +14434,8 @@ function shouldGateTouchDevices() {
   const coarsePointer = window.matchMedia?.('(pointer: coarse)').matches ?? false;
   const noHover = window.matchMedia?.('(hover: none)').matches ?? false;
   const touchPoints = navigator.maxTouchPoints || 0;
-  return (coarsePointer && noHover) || (coarsePointer && touchPoints > 0);
+  const phoneSizedViewport = window.matchMedia?.('(max-width: 767px)').matches ?? window.innerWidth <= 767;
+  return phoneSizedViewport && ((coarsePointer && noHover) || (coarsePointer && touchPoints > 0));
 }
 
 function showTouchDeviceGate() {

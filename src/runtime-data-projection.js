@@ -37,6 +37,7 @@ export function projectRuntimeNode(node) {
     graph_contract: node.graph_contract
       ? pickDefined(node.graph_contract, ['metric_contract_status', 'visibility'])
       : undefined,
+    semanticAliases: node.semanticAliases?.map(alias => pickDefined(alias, ['id', 'name'])),
     metricAliases: node.metricAliases?.map(alias => pickDefined(alias, ['name', 'metric_name'])),
     runtimeHints: {
       hasHumanImpact: Boolean(node.humanImpact?.primaryPathways?.length),
