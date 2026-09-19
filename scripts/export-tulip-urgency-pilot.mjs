@@ -208,9 +208,8 @@ if (missingPilotNodes.length) throw new Error(`Missing pilot nodes: ${missingPil
 const measuredPeerComposite = ['temp', 'methane', 'carbon_emission']
   .map(id => calculateComposite('current_data', currentContracts[id].components))
   .reduce((sum, value) => sum + value, 0) / 3;
-const hazardLegacyComposite = (pilotNodes.environ_anomalies.score.baseline - 1) / 9;
 const hazardContractFactors = (0.9 + 1 + 0.8) / 3;
-const modeledHazard = 0.5 * hazardLegacyComposite + 0.3 * measuredPeerComposite + 0.2 * hazardContractFactors;
+const modeledHazard = 0.6 * measuredPeerComposite + 0.4 * hazardContractFactors;
 
 const methodMeta = {
   temp: { as_of: tempMonitoring.observed_at + '-30', uncertainty: 'Global products agree closely, but monthly and annual values use different reference periods.', freshness: 'monthly', selected_method_passed: 'Global current magnitude and threshold position provide 60% direct component coverage; recent anomaly and global extent complete the receipt.', higher_priority_failures: [] },
@@ -251,16 +250,16 @@ for (const id of PILOT_IDS) {
     : buildTulipUrgencyReceipt({
       node_id: id,
       method: 'modeled',
-      model_version: 'tulip_modeled_pilot_v1',
+      model_version: 'tulip_modeled_pilot_v2',
       as_of: meta.as_of,
       components: { modeled_estimate: Number(modeledHazard.toFixed(6)) },
       raw_inputs: {
-        legacy_reviewed_composite: { value: Number(hazardLegacyComposite.toFixed(6)), weight: 0.5 },
-        measured_atmosphere_peer_mean: { value: Number(measuredPeerComposite.toFixed(6)), weight: 0.3, peer_node_ids: ['temp', 'methane', 'carbon_emission'] },
-        reviewed_contract_factor_mean: { value: Number(hazardContractFactors.toFixed(6)), weight: 0.2, factors: ['persistence', 'global_reach', 'causal_role'] }
+        measured_atmosphere_peer_mean: { value: Number(measuredPeerComposite.toFixed(6)), weight: 0.6, peer_node_ids: ['temp', 'methane', 'carbon_emission'] },
+        reviewed_contract_factor_mean: { value: Number(hazardContractFactors.toFixed(6)), weight: 0.4, factors: ['persistence', 'global_reach', 'causal_role'] },
+        vector_exclusion: { generated_vectors: 'excluded', inherited_vectors: 'excluded', expert_profile_vectors: 'excluded_from_tulip_urgency' }
       },
-      transformations: [{ type: 'weighted_modeled_estimate', formula: '0.50 × legacy reviewed composite + 0.30 × measured atmosphere peer mean + 0.20 × reviewed contract-factor mean' }],
-      source_ids: ['reviewed_legacy_vector_registry', 'tulip_urgency_v2_pilot_peers', 'reviewed_node_contracts'],
+      transformations: [{ type: 'weighted_modeled_estimate', formula: '0.60 × evidence-backed measured peer mean + 0.40 × reviewed contract-factor mean', exclusions: ['generated vectors', 'inherited vectors', 'expert profile vectors', 'legacy vector score'] }],
+      source_ids: ['tulip_urgency_v2_pilot_peers', 'reviewed_node_contracts'],
       uncertainty: meta.uncertainty,
       freshness: meta.freshness,
       selection_reason: {

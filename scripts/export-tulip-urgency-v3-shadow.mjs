@@ -70,10 +70,10 @@ const bandCounts = Object.fromEntries(TULIP_URGENCY_BANDS_V3.map(({ label }) => 
 ]));
 const expectedBandCounts = {
   'Low Concern': 32,
-  Elevated: 31,
-  Concerning: 26,
+  Elevated: 32,
+  Concerning: 39,
   'High Risk': 74,
-  Severe: 62,
+  Severe: 48,
   Critical: 80,
   Extreme: 49
 };
@@ -128,6 +128,9 @@ const registry = {
   calculation_version: TULIP_URGENCY_CALCULATION_VERSION,
   band_version: TULIP_URGENCY_BAND_VERSION,
   status: 'shadow_review',
+  scientific_validation_status: v2Registry.scientific_validation_status,
+  scientifically_validated_claim_allowed: v2Registry.scientifically_validated_claim_allowed,
+  scientific_validation_requirements: v2Registry.scientific_validation_requirements,
   generated_at: generatedAt,
   production_scores_replaced: false,
   scope: 'all_issue_nodes',

@@ -12,17 +12,23 @@ const relationships = EDGES.map((edge, index) => ({
   semantic_role: edge.semantic_role,
   relationship_level: edge.relationship_level || edge.evidence?.relationship_level || 'missing',
   description: edge.relationship_description,
+  plain_language: edge.relationship_content?.plain_language || '',
+  technical_detail: edge.relationship_content?.technical_detail || '',
+  confidence: edge.relationship_content?.confidence || null,
+  sources: edge.relationship_content?.sources || [],
   relationship_source_urls: edge.evidence?.relationship_source_urls || edge.evidence?.source_urls || []
 }));
 
 const registry = {
-  version: 'relationship_descriptions_v1',
+  version: 'relationship_descriptions_v2',
   generated_at: new Date().toISOString(),
   recall_key: 'RELATIONSHIP DESCRIPTIONS',
   constraints: [
     'Every relationship has a unique description.',
     'Descriptions contain one or two sentences.',
-    'Descriptions preserve endpoint names when they are needed for precise, natural-language mechanisms.'
+    'Descriptions preserve endpoint names when they are needed for precise, natural-language mechanisms.',
+    'Every relationship separates plain language, technical detail, confidence, and sources.',
+    'Plain-language summaries contain two or three distinct sentences, with no unexplained specialist notation, and remain under 83 words.'
   ],
   relationship_count: relationships.length,
   relationships

@@ -2,8 +2,11 @@
  * THE TULIP PROJECT - Application Orchestrator & UI Controller (Minimalist Realignment)
  */
 
+import './design-system.css';
 import './style.css';
-import { NODES, EDGES, PUBLISHED_NODES, PUBLISHED_EDGES, DISCOVERY_TRAILS } from './data.js';
+import '@fortawesome/fontawesome-free/css/fontawesome.min.css';
+import '@fortawesome/fontawesome-free/css/solid.min.css';
+import { NODES, EDGES, PUBLISHED_NODES, PUBLISHED_EDGES, DISCOVERY_TRAILS } from './runtime-data.js';
 import nodeSourceDateRegistry from './node-source-dates.json';
 import { propagateChange } from './propagation.js';
 import { TulipGraph } from './graph.js';
@@ -15,6 +18,16 @@ import {
   estimateGlobalCarbonPercentile,
   getFootprintEquivalencies
 } from './personal-footprint-context.js';
+import {
+  PERSONAL_FOOTPRINT_QUESTIONS as SHARED_PERSONAL_FOOTPRINT_QUESTIONS,
+  PERSONAL_FOOTPRINT_BASELINE_SELECTIONS as SHARED_PERSONAL_FOOTPRINT_BASELINE_SELECTIONS,
+  PERSONAL_FOOTPRINT_LABELS as SHARED_PERSONAL_FOOTPRINT_LABELS,
+  PERSONAL_FOOTPRINT_BENCHMARKS as SHARED_PERSONAL_FOOTPRINT_BENCHMARKS,
+  PERSONAL_FOOTPRINT_PHYSICAL_FACTORS as SHARED_PERSONAL_FOOTPRINT_PHYSICAL_FACTORS,
+  PERSONAL_FOOTPRINT_ANNUAL_REFERENCES as SHARED_PERSONAL_FOOTPRINT_ANNUAL_REFERENCES,
+  PERSONAL_FOOTPRINT_MODULES as SHARED_PERSONAL_FOOTPRINT_MODULES,
+  calculatePersonalFootprint as calculateSharedPersonalFootprint
+} from './personal-footprint-model.js';
 import { getTulipUrgencyBand as getTulipUrgencyBandV2 } from './tulip-urgency-v2.js';
 import {
   TULIP_URGENCY_BANDS_V3,
@@ -27,6 +40,26 @@ import {
 } from './relationship-semantics.js';
 import { buildMonitoringSourceProfile } from './monitoring-sources.js';
 import { PHENOMENON_SELECTOR_CONFIG } from './phenomenon-selector.js';
+import {
+  SPHERE_LABELS as SHARED_SPHERE_LABELS,
+  buildUrgencyTrustProfile,
+  buildHumanInspectorProfile,
+  buildPlanetInspectorProfile,
+  formatNodeSourceDate as formatSharedNodeSourceDate,
+  getNodeInspectorMeaning
+} from './node-inspector-display.js';
+import { getSearchRecoverySuggestions, searchNodes } from './search.js';
+import { findRelatedPhenomenon } from './journey-context.js';
+import { getRelationshipDetail } from './relationship-details.js';
+import { hydrateRuntimeNodeDetails } from './node-details.js';
+import { formatOccurrenceDate, getRecentOccurrenceProfile } from './recent-occurrences.js';
+import {
+  getPersonalFootprintInsights,
+  getPersonalFootprintProgress
+} from './personal-footprint-experience.js';
+import { initializeLaunchExperience } from './launch-experience.js';
+import { formatMetricDisplayText } from './metric-display.js';
+import { getInterfaceScale } from './display-resolution.js';
 
 const TULIP_PRODUCTION_ORIGIN = 'https://tulip-project-six.vercel.app';
 
@@ -49,19 +82,7 @@ async function ensureActivityModules() {
   return activityModulesPromise;
 }
 
-const SPHERE_LABELS = {
-  atmosphere: 'Air & Skies',
-  oceans: 'Oceans & Water',
-  cryosphere: 'Ice & Glaciers',
-  biosphere: 'Plants & Wildlife',
-  energy: 'Power & Heat',
-  digital: 'Digital Infrastructure',
-  agriculture: 'Farming & Food',
-  transport: 'Travel & Shipping',
-  economy: 'Markets & Money',
-  sociopolitical: 'Society & Politics',
-  core: 'Core'
-};
+const SPHERE_LABELS = SHARED_SPHERE_LABELS;
 
 const SPHERE_MOTION_RGB = Object.freeze({
   atmosphere: '210, 170, 245',
@@ -174,6 +195,15 @@ const GATEWAY_TOPIC_LABELS = {
   'industrial-farming': 'Industry Farming',
   'fossil-fuels': 'Carbon Emissions',
   'extreme-weather': 'Weather Anomalies'
+};
+
+const GATEWAY_TOPIC_SUMMARIES = {
+  'global-warming': 'Follow rising temperature through weather, ecosystems, and human systems.',
+  'melting-glaciers': 'Trace ice loss into sea level, coastlines, water, and infrastructure.',
+  deforestation: 'See how forest loss changes carbon, water, fire, and biodiversity.',
+  'industrial-farming': 'Explore how intensive food production affects land, water, emissions, and resilience.',
+  'fossil-fuels': 'See how fossil carbon accumulates and drives warming across connected systems.',
+  'extreme-weather': 'Trace extreme heat, rainfall, drought, fire, and storms into wider impacts.'
 };
 
 const GATEWAY_TOPIC_ORDER = {
@@ -595,6 +625,10 @@ let currentSelectedNode = null;
 let currentSelectedEdge = null;
 let selectionHistory = [];
 let studyWorkspaceState = null;
+const shellScrollState = {
+  phenomena: 0,
+  personalFootprint: 0
+};
 let queuedSelectionToken = 0;
 const NODE_BY_ID = new Map(NODES.map(node => [node.id, node]));
 const ROUTABLE_NODE_BY_ID = new Map(PUBLISHED_NODES.map(node => [node.id, node]));
@@ -693,13 +727,17 @@ let consoleSphereBadge = null;
 let consoleThreatPercentage = null;
 let consoleThreatStatus = null;
 let consoleNodeMeaning = null;
+let recentOccurrencesSection = null;
+let recentOccurrencesTitle = null;
+let recentOccurrencesList = null;
+let recentOccurrencesToggle = null;
+let recentOccurrencesContent = null;
 let relationshipEvidencePickerSection = null;
 let relationshipTriggerSelect = null;
 let relationshipEffectSelect = null;
 let connectionDetailSection = null;
 let connectionDetailHeader = null;
 let connectionDetailReason = null;
-let connectionDetailEvidence = null;
 let monitoringSourceBody = null;
 let consoleDriversList = null;
 let consoleImpactsList = null;
@@ -883,7 +921,7 @@ let personalFootprintDrivers = null;
 let personalFootprintMethod = null;
 let personalFootprintBreakdown = null;
 
-const PERSONAL_FOOTPRINT_QUESTIONS = [
+const PERSONAL_FOOTPRINT_QUESTIONS_DESKTOP_SNAPSHOT = [
   {
     key: 'geography',
     title: 'Where are you located?',
@@ -1032,6 +1070,7 @@ const PERSONAL_FOOTPRINT_QUESTIONS = [
     ]
   }
 ];
+const PERSONAL_FOOTPRINT_QUESTIONS = SHARED_PERSONAL_FOOTPRINT_QUESTIONS;
 
 let personalFootprintState = {
   geography: null,
@@ -1047,7 +1086,7 @@ let personalFootprintState = {
   other_stuff: null
 };
 
-const PERSONAL_FOOTPRINT_BASELINE_SELECTIONS = Object.freeze({
+const PERSONAL_FOOTPRINT_BASELINE_SELECTIONS_DESKTOP_SNAPSHOT = Object.freeze({
   geography: 'mixed_car',
   hvac: 'seasonally',
   household_size: 'two',
@@ -1060,8 +1099,9 @@ const PERSONAL_FOOTPRINT_BASELINE_SELECTIONS = Object.freeze({
   new_clothes: 'occasional',
   other_stuff: 'occasional'
 });
+const PERSONAL_FOOTPRINT_BASELINE_SELECTIONS = SHARED_PERSONAL_FOOTPRINT_BASELINE_SELECTIONS;
 
-const PERSONAL_FOOTPRINT_LABELS = {
+const PERSONAL_FOOTPRINT_LABELS_DESKTOP_SNAPSHOT = {
   geography: 'Geography',
   hvac: 'HVAC Usage',
   household_size: 'Household Size',
@@ -1074,44 +1114,50 @@ const PERSONAL_FOOTPRINT_LABELS = {
   new_clothes: 'Clothing',
   other_stuff: 'Other Purchases'
 };
+const PERSONAL_FOOTPRINT_LABELS = SHARED_PERSONAL_FOOTPRINT_LABELS;
 
-const PERSONAL_FOOTPRINT_BENCHMARKS = Object.freeze({
+const PERSONAL_FOOTPRINT_BENCHMARKS_DESKTOP_SNAPSHOT = Object.freeze({
   carbon: { low: 3.5, average: 6.6, high: 40.0 },
   nature: { low: 20.0, average: 50.0, high: 75.0 },
   water: { low: 25.0, average: 60.0, high: 80.0 },
   material: { low: 20.0, average: 45.0, high: 75.0 }
 });
+const PERSONAL_FOOTPRINT_BENCHMARKS = SHARED_PERSONAL_FOOTPRINT_BENCHMARKS;
 
 // Benchmark-calibrated physical estimates. Land is anchored to the JRC's
 // global-average cropland footprint (0.19 ha/person), water to the Water
 // Footprint Network global-consumer estimate (1,385 m3/yr), and materials to
 // the UN SDG 12.2.1 global material footprint (about 12.3 t/person in 2022). The
 // question-level values distribute those annual benchmarks across sections.
-const PERSONAL_FOOTPRINT_PHYSICAL_FACTORS = Object.freeze({
+const PERSONAL_FOOTPRINT_PHYSICAL_FACTORS_DESKTOP_SNAPSHOT = Object.freeze({
   landM2PerPoint: 1900 / PERSONAL_FOOTPRINT_BENCHMARKS.nature.average,
   waterM3PerPoint: 1385 / PERSONAL_FOOTPRINT_BENCHMARKS.water.average,
   materialTonnesPerPoint: 12.3 / PERSONAL_FOOTPRINT_BENCHMARKS.material.average
 });
+const PERSONAL_FOOTPRINT_PHYSICAL_FACTORS = SHARED_PERSONAL_FOOTPRINT_PHYSICAL_FACTORS;
 
-const PERSONAL_FOOTPRINT_ANNUAL_REFERENCES = Object.freeze({
+const PERSONAL_FOOTPRINT_ANNUAL_REFERENCES_DESKTOP_SNAPSHOT = Object.freeze({
   carbonTonnes: PERSONAL_FOOTPRINT_BENCHMARKS.carbon.average,
   waterM3: 1385,
   landM2: 1900,
   materialTonnes: 12.3
 });
+const PERSONAL_FOOTPRINT_ANNUAL_REFERENCES = SHARED_PERSONAL_FOOTPRINT_ANNUAL_REFERENCES;
 
-const PERSONAL_FOOTPRINT_MODULES = Object.freeze([
+const PERSONAL_FOOTPRINT_MODULES_DESKTOP_SNAPSHOT = Object.freeze([
   { key: 'home', label: 'Home' },
   { key: 'travel', label: 'Travel' },
   { key: 'food', label: 'Food' },
   { key: 'stuff', label: 'Purchasing' }
 ]);
+const PERSONAL_FOOTPRINT_MODULES = SHARED_PERSONAL_FOOTPRINT_MODULES;
 
 
 let personalFootprintPreviousMetrics = null;
 let personalFootprintLastInteraction = null;
 let personalFootprintStartedTracked = false;
 let personalFootprintCompletedTracked = false;
+let personalFootprintWasComplete = false;
 
 
 const makeLineIcon = paths => `<svg viewBox="0 0 16 16" fill="none" aria-hidden="true">${paths}</svg>`;
@@ -1139,10 +1185,53 @@ const PHENOMENON_ICONS = {
   refrigerants: makeLineIcon('<path d="M8 2.4v11.2M4.5 4.5l7 7M11.5 4.5l-7 7M2.4 8h11.2" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/><circle cx="8" cy="8" r="1.1" fill="currentColor"/>')
 };
 
+const IOS_ACTIVITY_ICON_FILES = Object.freeze({
+  diet: 'fork-knife.png',
+  industryFarming: 'industry-farming.svg',
+  methane: 'cloud-fill.png',
+  carbon: 'smoke-fill.png',
+  electricity: 'bolt-fill.png',
+  conveyance: 'airplane.png',
+  shipping: 'shippingbox-fill.png',
+  foodWaste: 'trash-fill.png',
+  fertilizers: 'testtube-2.png',
+  mining: 'hammer-fill.png',
+  construction: 'building-2-fill.png',
+  deforestation: 'tree-fill.png',
+  petroplastics: 'waterbottle-fill.png',
+  dataCenters: 'server-rack.png',
+  aiCompute: 'cpu-fill.png',
+  refrigerants: 'snowflake.png'
+});
+
+const IOS_ACTIVITY_ICON_COLOR_BY_KEY = Object.freeze({
+  food: '#ff9500',
+  industry_farming: '#63d685',
+  methane: '#6db5ff',
+  carbon_emission: '#ff6663',
+  electricity_generation: '#6db5ff',
+  mining_critical_minerals: '#b3a1ff',
+  deforestation_land_use: '#63d685',
+  plastics_petrochemicals: '#ff6663',
+  ai_compute: '#b3a1ff',
+  air_conditioning_refrigerants: '#6db5ff'
+});
+
+const makeIOSActivityIcon = fileName => {
+  const sizeClass = fileName === 'industry-farming.svg' ? ' ios-symbol-industry-farming' : '';
+  return `<span class="ios-symbol-icon${sizeClass}" style="--ios-symbol-url: url('/activity-icons/ios/${fileName}')" aria-hidden="true"></span>`;
+};
+
 const PHENOMENON_SELECTOR_ITEMS = PHENOMENON_SELECTOR_CONFIG.map(item => ({
   ...item,
-  icon: PHENOMENON_ICONS[item.iconKey] || ''
+  icon: IOS_ACTIVITY_ICON_FILES[item.iconKey]
+    ? makeIOSActivityIcon(IOS_ACTIVITY_ICON_FILES[item.iconKey])
+      : (PHENOMENON_ICONS[item.iconKey] || '')
 }));
+
+const PREFERRED_PHENOMENON_BY_NODE_ID = Object.freeze({
+  temp: 'carbon_emission'
+});
 
 const REGISTRY_COVERAGE_SPHERES = [
   'atmosphere', 'oceans', 'cryosphere', 'freshwater', 'biosphere', 'agriculture',
@@ -1195,7 +1284,9 @@ function renderRegistryCoverageCockpit(backlogRegistry = null) {
   const nodeCount = PUBLISHED_NODES.length;
   const relationshipCount = PUBLISHED_EDGES.length;
   const metricContractCount = PUBLISHED_NODES.filter(node => (
-    node?.graph_contract?.metric_contract_status === 'defined' || Boolean(node?.metric_contract)
+    node?.graph_contract?.metric_contract_status === 'defined'
+    || node?.runtimeHints?.hasMetricContract
+    || Boolean(node?.metric_contract)
   )).length;
   const missingMetricContractCount = Math.max(nodeCount - metricContractCount, 0);
   const relationshipLevels = PUBLISHED_EDGES.reduce((counts, edge) => {
@@ -1974,6 +2065,143 @@ function setActiveTab(tab) {
   if (footerPersonalFootprint) footerPersonalFootprint.classList.toggle('active', tab === 'personal-footprint');
 }
 
+function setupFluidFooterNavigation() {
+  const footerBar = document.getElementById('tulip-footer-bar');
+  const track = footerBar?.querySelector('.footer-center');
+  const indicator = track?.querySelector('.footer-nav-indicator');
+  const buttons = [...(track?.querySelectorAll('.footer-nav-btn') || [])];
+  if (!footerBar || !track || !indicator || !buttons.length) return;
+
+  let gesture = null;
+  let suppressNativeClick = false;
+  let committingSelection = false;
+  let settlingSelection = false;
+
+  const setIndicatorX = x => {
+    indicator.style.transform = `translate3d(${x}px, 0, 0) translateX(-50%)`;
+    track.classList.add('is-pill-ready');
+  };
+
+  const centerInTrack = button => {
+    const trackRect = track.getBoundingClientRect();
+    const buttonRect = button.getBoundingClientRect();
+    return buttonRect.left + buttonRect.width / 2 - trackRect.left;
+  };
+
+  const buttonAtX = clientX => {
+    let nearest = null;
+    let nearestDistance = Number.POSITIVE_INFINITY;
+    buttons.forEach(button => {
+      const rect = button.getBoundingClientRect();
+      const distance = Math.abs(clientX - (rect.left + rect.width / 2));
+      if (distance < nearestDistance) {
+        nearest = button;
+        nearestDistance = distance;
+      }
+    });
+    return nearest;
+  };
+
+  const trackAtX = clientX => {
+    const trackRect = track.getBoundingClientRect();
+    const minimumX = centerInTrack(buttons[0]);
+    const maximumX = centerInTrack(buttons[buttons.length - 1]);
+    setIndicatorX(Math.min(maximumX, Math.max(minimumX, clientX - trackRect.left)));
+  };
+
+  const clearPreview = () => buttons.forEach(button => button.classList.remove('scrub-preview'));
+  const previewAtX = clientX => {
+    const button = buttonAtX(clientX);
+    clearPreview();
+    button?.classList.add('scrub-preview');
+    trackAtX(clientX);
+    return button;
+  };
+
+  const syncToActive = () => {
+    if (gesture?.axis === 'horizontal' || settlingSelection) return;
+    const activeButton = buttons.find(button => button.classList.contains('active')) || buttons[0];
+    setIndicatorX(centerInTrack(activeButton));
+  };
+
+  track.addEventListener('pointerdown', event => {
+    if (
+      event.button !== 0 ||
+      !window.matchMedia('(max-width: 950px)').matches ||
+      event.target.closest('#search-container')
+    ) return;
+    gesture = {
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startY: event.clientY,
+      axis: 'pending'
+    };
+    track.setPointerCapture(event.pointerId);
+  });
+
+  track.addEventListener('pointermove', event => {
+    if (!gesture || gesture.pointerId !== event.pointerId) return;
+    const dx = event.clientX - gesture.startX;
+    const dy = event.clientY - gesture.startY;
+    const distance = Math.hypot(dx, dy);
+    if (distance >= 8 && gesture.axis === 'pending') {
+      if (Math.abs(dx) > Math.abs(dy) * 1.15) gesture.axis = 'horizontal';
+      else if (Math.abs(dy) > Math.abs(dx) * 1.15 || distance >= 16) gesture.axis = 'vertical';
+    }
+    if (gesture.axis !== 'horizontal') return;
+    track.classList.add('is-scrubbing');
+    previewAtX(event.clientX);
+  });
+
+  const finishGesture = event => {
+    if (!gesture || gesture.pointerId !== event.pointerId) return;
+    const wasHorizontal = gesture.axis === 'horizontal';
+    const target = wasHorizontal ? buttonAtX(event.clientX) : null;
+    if (wasHorizontal) trackAtX(event.clientX);
+    if (wasHorizontal) settlingSelection = true;
+    gesture = null;
+    clearPreview();
+    track.classList.remove('is-scrubbing');
+    if (!wasHorizontal || !target) {
+      settlingSelection = false;
+      window.requestAnimationFrame(syncToActive);
+      return;
+    }
+
+    suppressNativeClick = true;
+    window.requestAnimationFrame(() => setIndicatorX(centerInTrack(target)));
+    window.setTimeout(() => {
+      committingSelection = true;
+      target.click();
+      committingSelection = false;
+      suppressNativeClick = false;
+      settlingSelection = false;
+      window.requestAnimationFrame(syncToActive);
+    }, 0);
+  };
+
+  track.addEventListener('pointerup', finishGesture);
+  track.addEventListener('pointercancel', event => {
+    if (!gesture || gesture.pointerId !== event.pointerId) return;
+    gesture = null;
+    clearPreview();
+    track.classList.remove('is-scrubbing');
+    window.requestAnimationFrame(syncToActive);
+  });
+  track.addEventListener('click', event => {
+    if (!suppressNativeClick || committingSelection) return;
+    event.preventDefault();
+    event.stopImmediatePropagation();
+  }, true);
+
+  const activeObserver = new MutationObserver(syncToActive);
+  buttons.forEach(button => activeObserver.observe(button, { attributes: true, attributeFilter: ['class'] }));
+  const resizeObserver = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(syncToActive);
+  resizeObserver?.observe(track);
+  window.addEventListener('resize', syncToActive);
+  window.requestAnimationFrame(syncToActive);
+}
+
 function forceExploreTabState() {
   setActiveTab('explore');
   if (footerSearch) footerSearch.classList.remove('active');
@@ -1998,6 +2226,38 @@ function captureStudyWorkspaceState() {
   };
 }
 
+function getPhenomenaScrollContainer() {
+  if (!phenomenaView) return null;
+  if (!window.matchMedia('(min-width: 951px)').matches) return phenomenaView;
+  return phenomenaView.querySelector(':scope > .phenomena-shell > .phenomena-focus-card') || phenomenaView;
+}
+
+function restoreStudyWorkspaceState() {
+  if (!currentSelectedNode || !graphInstance || studyWorkspaceState?.nodeId !== currentSelectedNode.id) {
+    return false;
+  }
+
+  const state = studyWorkspaceState;
+  graphInstance.isFocusMode = true;
+  graphInstance.selectNode(currentSelectedNode, { instantSwap: true });
+  graphInstance.layoutMode = state.layoutMode;
+  graphInstance.showAllAnalyzeConnections = state.showAllAnalyzeConnections;
+  graphInstance.userCollapsedAnalyzeConnections = state.userCollapsedAnalyzeConnections;
+  graphInstance.showIncomingInfluences = state.showIncomingInfluences;
+  graphInstance.showOutgoingInfluences = state.showOutgoingInfluences;
+  graphInstance.invalidateAnalyzeCaches();
+  setShellMode('study');
+
+  window.requestAnimationFrame(() => {
+    graphInstance.resizeCanvas();
+    graphInstance.camera = { ...state.camera };
+    graphInstance.targetCamera = state.targetCamera ? { ...state.targetCamera } : null;
+    graphInstance.requestRender();
+    if (studyConsole) studyConsole.scrollTop = state.inspectorScrollTop;
+  });
+  return true;
+}
+
 function setShellMode(mode) {
   const appContainer = document.getElementById('app-container');
   const mainContent = document.getElementById('main-content');
@@ -2010,8 +2270,18 @@ function setShellMode(mode) {
   const mobileAnalyseSections = document.getElementById('mobile-analyse-sections');
   const mobileStudySheet = document.getElementById('mobile-study-sheet');
 
+  if (mode !== 'explore') {
+    hideAnalyseStarterPicker({ resumeGraph: false });
+  }
+
   const previousMode = appContainer?.dataset.viewMode || 'explore';
   if (previousMode === 'study' && mode !== 'study') captureStudyWorkspaceState();
+  if (previousMode === 'phenomena' && mode !== 'phenomena') {
+    shellScrollState.phenomena = getPhenomenaScrollContainer()?.scrollTop || 0;
+  }
+  if (previousMode === 'personal-footprint' && mode !== 'personal-footprint' && personalFootprintView) {
+    shellScrollState.personalFootprint = personalFootprintView.scrollTop;
+  }
   if (appContainer) {
     appContainer.dataset.viewMode = mode;
     appContainer.classList.toggle('study-active', isStudy);
@@ -2036,13 +2306,16 @@ function setShellMode(mode) {
   if (phenomenaView) {
     phenomenaView.style.display = isPhenomena ? 'block' : 'none';
     phenomenaView.toggleAttribute('hidden', !isPhenomena);
-    if (isPhenomena && previousMode !== mode) phenomenaView.scrollTop = 0;
+    if (isPhenomena && previousMode !== mode) {
+      const scrollContainer = getPhenomenaScrollContainer();
+      if (scrollContainer) scrollContainer.scrollTop = shellScrollState.phenomena;
+    }
   }
   if (personalFootprintView) {
     personalFootprintView.style.display = isPersonalFootprint ? 'block' : 'none';
     personalFootprintView.toggleAttribute('hidden', !isPersonalFootprint);
-    if (isPersonalFootprint) {
-      personalFootprintView.scrollTop = 0;
+    if (isPersonalFootprint && previousMode !== mode) {
+      personalFootprintView.scrollTop = shellScrollState.personalFootprint;
     }
   }
   if (studyControlsOverlay) {
@@ -2071,7 +2344,10 @@ function setShellMode(mode) {
   }
   if (mobileStudySheet) {
     mobileStudySheet.hidden = !isStudy;
-    if (isStudy && previousMode !== mode) setMobileSheetDetent('medium');
+    if (isStudy && previousMode !== mode) {
+      mobileStudySheet.classList.remove('is-inspector-scrolled');
+      setMobileSheetDetent('medium');
+    }
   }
   if (isStudy) {
     setActiveTab('study');
@@ -2108,9 +2384,16 @@ function updateMobileAppBar(mode = document.getElementById('app-container')?.dat
   const sheetTitle = document.getElementById('mobile-sheet-title');
   const sheetDescription = document.getElementById('mobile-sheet-description');
   const sheetScore = document.getElementById('mobile-sheet-score');
+  const sheetModeled = document.getElementById('mobile-sheet-modeled');
   const screenCopy = {
     explore: ['Explore', 'Earth systems network'],
-    study: ['Analyse', currentSelectedNode?.name || 'Select a topic'],
+    study: [
+      currentSelectedNode?.name || 'Analyse',
+      currentSelectedNode
+        ? `Analyse · ${SPHERE_LABELS[currentSelectedNode.sphere] || currentSelectedNode.sphere || 'TULIP topic'}`
+        : 'Select a topic'
+    ],
+    'analyse-starter': ['Analyse', 'Choose a starter topic'],
     phenomena: ['Impacts', 'Activities and responses'],
     'personal-footprint': ['My Footprint', 'Estimate your annual impact']
   };
@@ -2126,7 +2409,7 @@ function updateMobileAppBar(mode = document.getElementById('app-container')?.dat
   if (sheetSphere) sheetSphere.textContent = currentSelectedNode
     ? (SPHERE_LABELS[currentSelectedNode.sphere] || currentSelectedNode.sphere || 'TULIP topic')
     : 'TULIP topic';
-  if (sheetTitle) sheetTitle.textContent = currentSelectedNode?.name || 'Select a topic';
+  if (sheetTitle) sheetTitle.textContent = currentSelectedNode ? 'Evidence & score' : 'Select a topic';
   if (sheetDescription) sheetDescription.textContent = currentSelectedNode
     ? 'Drag up for relationships, impacts, and actions'
     : 'Tap a point on the network to begin';
@@ -2135,6 +2418,7 @@ function updateMobileAppBar(mode = document.getElementById('app-container')?.dat
     sheetScore.textContent = Number.isFinite(score) ? Number(score).toFixed(1) : '—';
     sheetScore.setAttribute('aria-label', Number.isFinite(score) ? `TULIP urgency score ${Number(score).toFixed(1)}` : 'TULIP urgency score unavailable');
   }
+  if (sheetModeled) sheetModeled.hidden = currentSelectedNode?.tulipUrgencyReceipt?.method !== 'modeled';
 }
 
 function setMobileSheetDetent(detent, { animate = true } = {}) {
@@ -2142,8 +2426,10 @@ function setMobileSheetDetent(detent, { animate = true } = {}) {
   const grabber = document.getElementById('mobile-sheet-grabber');
   if (!sheet || !['peek', 'medium', 'full'].includes(detent)) return;
   sheet.style.removeProperty('--mobile-sheet-height');
+  sheet.style.setProperty('--mobile-sheet-rubber-y', '0px');
   sheet.classList.toggle('is-dragging', !animate);
   sheet.dataset.detent = detent;
+  if (detent === 'peek') sheet.classList.remove('is-nav-compact');
   if (grabber) {
     grabber.setAttribute('aria-expanded', String(detent === 'full'));
     grabber.setAttribute('aria-label', detent === 'full' ? 'Collapse topic details' : 'Expand topic details');
@@ -2154,6 +2440,7 @@ function setMobileSheetDetent(detent, { animate = true } = {}) {
 // Target and select node, focusing the 3D globe and loading diagnostics
 function targetAndSelectNode(node, navigationOptions = {}) {
   if (!node) return;
+  hideAnalyseStarterPicker({ resumeGraph: false });
   trackEvent('node_selected', { node_id: node.id, sphere: node.sphere });
 
   // Close search results dropdown
@@ -2175,6 +2462,12 @@ function targetAndSelectNode(node, navigationOptions = {}) {
   const motionOrigin = shouldBridgeFromExplore ? getNodeMotionOrigin(node) : navigationOptions.motionOrigin;
 
   if (graphInstance) {
+    graphInstance.selectionHistory = Array.isArray(navigationOptions.pathNodes)
+      ? navigationOptions.pathNodes.slice(0, -1)
+      : selectionHistory;
+    if (Object.prototype.hasOwnProperty.call(navigationOptions, 'selectionContext')) {
+      graphInstance.setSelectionContext(navigationOptions.selectionContext);
+    }
     graphInstance.isFocusMode = true;
     graphInstance.needsCentering = true;
     graphInstance.selectNode(node, { instantSwap: true });
@@ -2276,7 +2569,6 @@ function writeNavigationHistory(mode = 'push') {
 
 function resetExplorationState({ historyMode = 'push' } = {}) {
   cancelPendingSelection();
-
   document.querySelectorAll('.filter-pill').forEach(pill => {
     pill.classList.toggle('active', pill.getAttribute('data-filter') === 'all');
   });
@@ -2328,19 +2620,7 @@ function undoLastSelection() {
 }
 
 function formatNodeSourceDate(node) {
-  const rawDate = nodeSourceDateRegistry.entries?.[node?.id]?.source_date;
-  if (!rawDate) return 'Most Recent Data: Unavailable';
-
-  const [year, month] = String(rawDate).split('-').map(Number);
-  if (!Number.isInteger(year) || !Number.isInteger(month) || month < 1 || month > 12) {
-    return 'Most Recent Data: Unavailable';
-  }
-
-  const monthLabel = new Intl.DateTimeFormat('en-US', {
-    month: 'long',
-    timeZone: 'UTC'
-  }).format(new Date(Date.UTC(year, month - 1, 1)));
-  return `Most Recent Data: ${monthLabel}, ${year}`;
+  return formatSharedNodeSourceDate(node,nodeSourceDateRegistry);
 }
 
 function announceStudyShareStatus(message) {
@@ -4190,10 +4470,9 @@ function adjustScale() {
   const viewport = window.visualViewport;
   const width = viewport?.width || window.innerWidth;
   const height = viewport?.height || window.innerHeight;
-  const referenceWidth = 1920;
-  const referenceHeight = 1080;
-
-  if (width <= referenceWidth || height <= referenceHeight) {
+  const scale = getInterfaceScale(width, height);
+  if (scale === 1) {
+    document.documentElement.dataset.resolutionTier = 'standard';
     document.documentElement.style.removeProperty('--ui-scale');
     document.documentElement.style.removeProperty('--ui-scale-inverse');
     container.style.removeProperty('--ui-scale');
@@ -4206,11 +4485,9 @@ function adjustScale() {
 
   // Keep the platform at its intended 1920 × 1080 visual density on large
   // displays. Using both axes prevents ultrawide screens from over-scaling.
-  const scale = Math.min(width / referenceWidth, height / referenceHeight);
-  const clampedScale = Math.max(1, Math.min(2, scale));
-
-  document.documentElement.style.setProperty('--ui-scale', clampedScale);
-  document.documentElement.style.setProperty('--ui-scale-inverse', 1 / clampedScale);
+  document.documentElement.style.setProperty('--ui-scale', scale);
+  document.documentElement.style.setProperty('--ui-scale-inverse', 1 / scale);
+  document.documentElement.dataset.resolutionTier = width >= 2560 && height >= 1400 ? 'high' : 'standard';
   container.style.removeProperty('--ui-scale');
   container.style.transform = '';
   container.style.transformOrigin = '';
@@ -4428,13 +4705,17 @@ function init() {
   consoleThreatPercentage = document.getElementById('console-threat-percentage');
   consoleThreatStatus = document.getElementById('console-threat-status');
   consoleNodeMeaning = document.getElementById('console-node-meaning');
+  recentOccurrencesSection = document.getElementById('recent-occurrences-section');
+  recentOccurrencesTitle = document.getElementById('recent-occurrences-title');
+  recentOccurrencesList = document.getElementById('recent-occurrences-list');
+  recentOccurrencesToggle = document.getElementById('recent-occurrences-toggle');
+  recentOccurrencesContent = document.getElementById('recent-occurrences-content');
   relationshipEvidencePickerSection = document.getElementById('relationship-evidence-picker-section');
   relationshipTriggerSelect = document.getElementById('relationship-trigger-select');
   relationshipEffectSelect = document.getElementById('relationship-effect-select');
   connectionDetailSection = document.getElementById('connection-detail-section');
   connectionDetailHeader = document.getElementById('connection-detail-header');
   connectionDetailReason = document.getElementById('connection-detail-reason');
-  connectionDetailEvidence = document.getElementById('connection-detail-evidence');
   const handleRelationshipEvidenceChange = event => {
     const changedSelect = event.currentTarget;
     if (changedSelect.value) {
@@ -4525,6 +4806,13 @@ function init() {
   urgencyAxisInfoIcon = urgencyAxisInfoToggle ? urgencyAxisInfoToggle.querySelector('.urgency-axis-info-icon') : null;
   urgencyAxisInfoLabel = urgencyAxisInfoToggle ? urgencyAxisInfoToggle.querySelector('.urgency-axis-info-label') : null;
 
+  if (recentOccurrencesToggle && recentOccurrencesContent) {
+    recentOccurrencesToggle.addEventListener('click', () => {
+      const expanded = recentOccurrencesToggle.getAttribute('aria-expanded') === 'true';
+      setRecentOccurrencesExpanded(!expanded);
+    });
+  }
+
   const collapseMonitoringSource = () => {
     if (!monitoringSourceToggle || !monitoringSourceContent) return;
     monitoringSourceToggle.setAttribute('aria-expanded', 'false');
@@ -4588,8 +4876,8 @@ function init() {
   function setUrgencyAxisPopoverOpen(isOpen) {
     if (!urgencyAxisInfoToggle || !urgencyAxisPopover) return;
     urgencyAxisInfoToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-    urgencyAxisInfoToggle.setAttribute('aria-label', isOpen ? 'Hide TULIP score chart axes info' : 'Show TULIP score chart axes info');
-    urgencyAxisInfoToggle.title = isOpen ? 'Hide info' : 'Info';
+    urgencyAxisInfoToggle.setAttribute('aria-label', isOpen ? 'Hide how the TULIP score is calculated' : 'Explain how the TULIP score is calculated');
+    urgencyAxisInfoToggle.title = isOpen ? 'Hide score explanation' : 'How the score works';
     if (urgencyAxisInfoIcon) {
       urgencyAxisInfoIcon.src = '/urgency-axis-icon.png';
     }
@@ -4650,6 +4938,7 @@ function init() {
   // TULIP Footer Event Bindings
   tulipScorePopup = document.getElementById('tulip-score-popup');
   const footerTulipScore = document.getElementById('tulip-score-btn');
+  const urgencyScoreGuideButton = document.getElementById('urgency-score-guide-button');
   aboutPopup = document.getElementById('about-popup');
   const footerAbout = document.getElementById('about-btn');
   const contactPopup = document.getElementById('contact-popup');
@@ -4793,6 +5082,7 @@ function init() {
       e.stopPropagation();
     }
     closeFooterOverlays();
+    hideAnalyseStarterPicker({ resumeGraph: false });
     document.body.classList.remove('mobile-search-open', 'mobile-filters-open');
     footerSearch?.setAttribute('aria-expanded', 'false');
     mobileMore?.setAttribute('aria-expanded', 'false');
@@ -4815,71 +5105,43 @@ function init() {
   function handleAnalyseClick(e) {
     if (e) e.preventDefault();
     closeFooterOverlays();
-    if (currentSelectedNode) {
-      if (appContainer?.dataset.viewMode === 'study') return;
-      cancelPendingSelection();
-      const workspace = studyWorkspaceState?.nodeId === currentSelectedNode.id
-        ? studyWorkspaceState
-        : null;
-      if (graphInstance) {
-        if (workspace) {
-          graphInstance.layoutMode = workspace.layoutMode;
-          graphInstance.showAllAnalyzeConnections = workspace.showAllAnalyzeConnections;
-          graphInstance.showIncomingInfluences = workspace.showIncomingInfluences
-            ?? workspace.showTriggers
-            ?? true;
-          graphInstance.showOutgoingInfluences = workspace.showOutgoingInfluences
-            ?? workspace.showEffects
-            ?? true;
-        }
-        graphInstance.isFocusMode = true;
-        graphInstance.selectNode(currentSelectedNode, { instantSwap: true });
-        if (workspace) {
-          graphInstance.userCollapsedAnalyzeConnections = workspace.userCollapsedAnalyzeConnections;
-          graphInstance.invalidateAnalyzeCaches();
-        }
-        if (currentSelectedEdge) graphInstance.setSelectedEdge(currentSelectedEdge);
-      }
-      setShellMode('study');
-      updateSelectedEdgeDetail(currentSelectedEdge, currentSelectedNode);
-      window.requestAnimationFrame(() => {
-        if (graphInstance) {
-          graphInstance.resizeCanvas();
-          if (workspace) {
-            graphInstance.camera = { ...workspace.camera };
-            graphInstance.targetCamera = workspace.targetCamera ? { ...workspace.targetCamera } : null;
-            graphInstance.requestRender();
-          } else {
-            graphInstance.zoomToFit();
-          }
-        }
-        if (studyConsole && workspace) {
-          const shouldRestoreInspectorScroll = !window.matchMedia?.('(max-width: 950px)').matches;
-          studyConsole.scrollTop = shouldRestoreInspectorScroll ? workspace.inspectorScrollTop : 0;
-        }
-        updateGatewayArcLayout();
-      });
-      return;
-    }
-    const defaultNode = NODE_BY_ID.get('temp');
-    if (defaultNode) targetAndSelectNode(defaultNode);
+    if (appContainer?.dataset.viewMode === 'study' && currentSelectedNode) return;
+    const starterPicker = document.getElementById('analyse-starter-picker');
+    const starterPickerIsVisible = (
+      appContainer?.dataset.viewMode === 'explore' &&
+      appContainer.classList.contains('analyse-starter-active') &&
+      starterPicker &&
+      !starterPicker.hidden
+    );
+    if (starterPickerIsVisible) return;
+
+    if (restoreStudyWorkspaceState()) return;
+
+    hideAnalyseStarterPicker({ resumeGraph: false });
+    resetExplorationState({ historyMode: 'replace' });
+    window.requestAnimationFrame(() => showAnalyseStarterPicker());
   }
 
   async function handlePhenomenaClick(e) {
     if (e) e.preventDefault();
     closeFooterOverlays();
-    setShellMode('phenomena');
+
+    if (currentPhenomenonNode) {
+      setShellMode('phenomena');
+      setPhenomenonMode(currentPhenomenonMode);
+      window.requestAnimationFrame(positionPhenomenonModeToggleWithHeading);
+      return;
+    }
 
     const defaultNode = getDefaultPhenomenonNode();
-    if (defaultNode) {
-      await setActivePhenomenonNode(defaultNode);
-    }
+    if (!defaultNode) return;
+    setShellMode('phenomena');
+    await setActivePhenomenonNode(defaultNode);
   }
 
   function handlePersonalFootprintClick(e) {
     if (e) e.preventDefault();
     closeFooterOverlays();
-    renderPersonalFootprint();
     setShellMode('personal-footprint');
   }
 
@@ -4946,7 +5208,14 @@ function init() {
   if (appLogo) appLogo.addEventListener('click', handleLogoClick);
   if (footerPhenomena) footerPhenomena.addEventListener('click', handlePhenomenaClick);
   if (footerPersonalFootprint) footerPersonalFootprint.addEventListener('click', handlePersonalFootprintClick);
+  setupFluidFooterNavigation();
+  document.getElementById('activity-compare-next')?.addEventListener('click', () => {
+    setPhenomenonMode('footprint');
+    phenomenaSelector?.querySelector('.phenomena-selector-btn:not(.active)')?.focus({ preventScroll: true });
+    phenomenaSelector?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+  });
   if (footerTulipScore) footerTulipScore.addEventListener('click', handleTulipScoreClick);
+  if (urgencyScoreGuideButton) urgencyScoreGuideButton.addEventListener('click', handleTulipScoreClick);
   if (footerRegistries) footerRegistries.addEventListener('click', handleRegistriesClick);
   if (openRegistriesBtn) openRegistriesBtn.addEventListener('click', handleRegistriesClick);
   if (footerAbout) footerAbout.addEventListener('click', handleAboutClick);
@@ -4965,6 +5234,53 @@ function init() {
   const mobileSheetGrabber = document.getElementById('mobile-sheet-grabber');
   const mobileSheetSummary = document.querySelector('.mobile-sheet-summary');
   const mobileExplorePrompt = document.getElementById('mobile-explore-prompt');
+
+  let mobileInspectorScrollFrame = 0;
+  let mobileInspectorNavFrame = 0;
+  let mobileInspectorNavCompactTimer = 0;
+  let mobileInspectorLastScrollTop = studyConsole?.scrollTop || 0;
+  const syncMobileInspectorScrollHeader = () => {
+    if (mobileInspectorScrollFrame) return;
+    mobileInspectorScrollFrame = window.requestAnimationFrame(() => {
+      mobileInspectorScrollFrame = 0;
+      if (!mobileStudySheet || !studyConsole) return;
+      const wasScrolled = mobileStudySheet.classList.contains('is-inspector-scrolled');
+      const next = wasScrolled ? studyConsole.scrollTop > 4 : studyConsole.scrollTop > 24;
+      if (next === wasScrolled) return;
+      mobileStudySheet.classList.toggle('is-inspector-scrolled', next);
+    });
+  };
+
+  studyConsole?.addEventListener('scroll', syncMobileInspectorScrollHeader, { passive: true });
+
+  const syncMobileInspectorNavSize = () => {
+    if (mobileInspectorNavFrame) return;
+    mobileInspectorNavFrame = window.requestAnimationFrame(() => {
+      mobileInspectorNavFrame = 0;
+      if (!mobileStudySheet || !studyConsole) return;
+      const nextScrollTop = studyConsole.scrollTop;
+      const delta = nextScrollTop - mobileInspectorLastScrollTop;
+      mobileInspectorLastScrollTop = nextScrollTop;
+      const isCompact = mobileStudySheet.classList.contains('is-nav-compact');
+      if (mobileStudySheet.dataset.detent === 'peek' || nextScrollTop <= 8) {
+        if (mobileInspectorNavCompactTimer) window.clearTimeout(mobileInspectorNavCompactTimer);
+        mobileInspectorNavCompactTimer = 0;
+        mobileStudySheet.classList.remove('is-nav-compact');
+      } else if (delta > 2 && !isCompact && !mobileInspectorNavCompactTimer) {
+        mobileInspectorNavCompactTimer = window.setTimeout(() => {
+          mobileInspectorNavCompactTimer = 0;
+          mobileInspectorLastScrollTop = studyConsole.scrollTop;
+          if (mobileStudySheet.dataset.detent !== 'peek' && mobileInspectorLastScrollTop > 8) {
+            mobileStudySheet.classList.add('is-nav-compact');
+          }
+        }, 90);
+      } else if (delta < -2 && isCompact) {
+        mobileStudySheet.classList.remove('is-nav-compact');
+      }
+    });
+  };
+
+  studyConsole?.addEventListener('scroll', syncMobileInspectorNavSize, { passive: true });
 
   const closeMobileMoreMenu = () => {
     if (!mobileMoreMenu || !mobileMore) return;
@@ -5046,6 +5362,11 @@ function init() {
   if (mobileStudySheet && mobileSheetGrabber) {
     let sheetDrag = null;
     let suppressSheetClickUntil = 0;
+    const rubberBandDistance = (distance, dimension) => {
+      const normalizedDistance = Math.max(0, distance);
+      const safeDimension = Math.max(1, dimension);
+      return (1 - (1 / ((normalizedDistance * 0.55 / safeDimension) + 1))) * safeDimension;
+    };
     const getSheetDetentHeights = () => {
       const viewportHeight = window.visualViewport?.height || window.innerHeight;
       const full = Math.max(410, viewportHeight - 146);
@@ -5058,16 +5379,22 @@ function init() {
     const finishSheetDrag = event => {
       if (!sheetDrag) return;
       const heights = getSheetDetentHeights();
-      const elapsed = Math.max(1, performance.now() - sheetDrag.startedAt);
-      const velocity = (event.clientY - sheetDrag.startY) / elapsed;
       const currentHeight = mobileStudySheet.getBoundingClientRect().height;
-      let targetDetent;
-      if (velocity < -0.45) targetDetent = currentHeight < heights.medium ? 'medium' : 'full';
-      else if (velocity > 0.45) targetDetent = currentHeight > heights.medium ? 'medium' : 'peek';
-      else targetDetent = Object.entries(heights)
-        .sort((a, b) => Math.abs(a[1] - currentHeight) - Math.abs(b[1] - currentHeight))[0][0];
-      if (Math.abs(event.clientY - sheetDrag.startY) > 5) suppressSheetClickUntil = performance.now() + 350;
+      const releaseAge = performance.now() - sheetDrag.lastTime;
+      const releaseDecay = Math.max(0, 1 - releaseAge / 140);
+      const velocity = event.type === 'pointercancel' ? 0 : sheetDrag.velocityY * releaseDecay;
+      const projectedHeight = Math.min(
+        heights.full,
+        Math.max(heights.peek, currentHeight - velocity * 240)
+      );
+      const targetDetent = Object.entries(heights)
+        .sort((a, b) => Math.abs(a[1] - projectedHeight) - Math.abs(b[1] - projectedHeight))[0][0];
+      if (Math.abs(sheetDrag.lastY - sheetDrag.startY) > 5) {
+        suppressSheetClickUntil = performance.now() + 350;
+      }
+      mobileStudySheet.style.setProperty('--mobile-sheet-rubber-y', '0px');
       mobileStudySheet.classList.remove('is-dragging');
+      mobileSheetGrabber.releasePointerCapture?.(sheetDrag.pointerId);
       sheetDrag = null;
       setMobileSheetDetent(targetDetent);
     };
@@ -5078,8 +5405,11 @@ function init() {
         pointerId: event.pointerId,
         startY: event.clientY,
         startHeight: mobileStudySheet.getBoundingClientRect().height,
-        startedAt: performance.now()
+        lastY: event.clientY,
+        lastTime: performance.now(),
+        velocityY: 0
       };
+      mobileStudySheet.style.setProperty('--mobile-sheet-rubber-y', '0px');
       mobileStudySheet.classList.add('is-dragging');
       mobileSheetGrabber.setPointerCapture?.(event.pointerId);
     });
@@ -5087,8 +5417,23 @@ function init() {
       if (!sheetDrag || event.pointerId !== sheetDrag.pointerId) return;
       event.preventDefault();
       const heights = getSheetDetentHeights();
-      const nextHeight = Math.min(heights.full, Math.max(heights.peek, sheetDrag.startHeight - (event.clientY - sheetDrag.startY)));
+      const now = performance.now();
+      const elapsed = Math.max(1, now - sheetDrag.lastTime);
+      const instantaneousVelocity = (event.clientY - sheetDrag.lastY) / elapsed;
+      sheetDrag.velocityY = sheetDrag.velocityY * 0.68 + instantaneousVelocity * 0.32;
+      sheetDrag.lastY = event.clientY;
+      sheetDrag.lastTime = now;
+
+      const rawHeight = sheetDrag.startHeight - (event.clientY - sheetDrag.startY);
+      const nextHeight = Math.min(heights.full, Math.max(heights.peek, rawHeight));
+      let rubberOffset = 0;
+      if (rawHeight > heights.full) {
+        rubberOffset = -rubberBandDistance(rawHeight - heights.full, heights.full) * 0.32;
+      } else if (rawHeight < heights.peek) {
+        rubberOffset = rubberBandDistance(heights.peek - rawHeight, heights.full) * 0.32;
+      }
       mobileStudySheet.style.setProperty('--mobile-sheet-height', `${nextHeight}px`);
+      mobileStudySheet.style.setProperty('--mobile-sheet-rubber-y', `${rubberOffset}px`);
     });
     mobileSheetGrabber.addEventListener('pointerup', finishSheetDrag);
     mobileSheetGrabber.addEventListener('pointercancel', finishSheetDrag);
@@ -5256,6 +5601,8 @@ function init() {
   const searchResults = document.getElementById('search-results');
 
   if (searchInput && searchResults) {
+    let searchResultsExpanded = false;
+    let lastSearchQuery = '';
     if (!searchInput.dataset.shortcutBound) {
       document.addEventListener('keydown', (event) => {
         if (!(event.metaKey || event.ctrlKey) || event.key.toLowerCase() !== 'k') return;
@@ -5266,80 +5613,147 @@ function init() {
       searchInput.dataset.shortcutBound = 'true';
     }
 
-    function nodeSearchTerms(node) {
-      return [
-        node.name,
-        ...(node.semanticAliases || []).map(alias => alias.name),
-        ...(node.metricAliases || []).map(alias => alias.name)
-      ].filter(Boolean);
-    }
-
     function handleSearch() {
-      const query = searchInput.value.toLowerCase().trim();
+      const query = searchInput.value.trim();
+      if (query !== lastSearchQuery) {
+        searchResultsExpanded = false;
+        lastSearchQuery = query;
+      }
       if (!query) {
         searchResults.style.display = 'none';
         searchResults.innerHTML = '';
+        searchInput.setAttribute('aria-expanded', 'false');
+        searchInput.removeAttribute('aria-activedescendant');
         return;
       }
 
-      // Tiered relevance scoring based on search query match quality
-      const matchedWithScore = PUBLISHED_NODES.map((n, idx) => {
-        const score = Math.max(...nodeSearchTerms(n).map(term => scoreSearchTerm(term, query)));
-        return { node: n, index: idx, score };
-      }).filter(item => item.score > 0);
-      
-      matchedWithScore.sort((a, b) => {
-        if (b.score !== a.score) {
-          return b.score - a.score; // Primary sort: match quality score
-        }
-        if (b.node.tulipScore !== a.node.tulipScore) {
-          return b.node.tulipScore - a.node.tulipScore; // Secondary sort: urgency/Tulip score
-        }
-        return b.index - a.index; // Tertiary sort: recency
-      });
-
-      const matches = matchedWithScore.slice(0, 15).map(item => item.node);
-
-      if (matches.length === 0) {
-        searchResults.style.display = 'block';
-        searchResults.innerHTML = `<div style="padding: 12px; font-size: 13px; color: var(--text-muted); text-align: center;">No matching vectors found</div>`;
-        return;
-      }
-
+      const matches = searchNodes(PUBLISHED_NODES, query, PUBLISHED_NODES.length);
       searchResults.style.display = 'block';
+      searchInput.setAttribute('aria-expanded', 'true');
+      searchInput.removeAttribute('aria-activedescendant');
       searchResults.innerHTML = '';
-      matches.forEach(node => {
+
+      if (!matches.length) {
+        const recovery = document.createElement('div');
+        recovery.className = 'search-recovery';
+        const title = document.createElement('strong');
+        title.textContent = 'No direct match yet';
+        const guidance = document.createElement('span');
+        guidance.textContent = 'Try a broader topic:';
+        const suggestions = document.createElement('div');
+        suggestions.className = 'search-recovery-suggestions';
+        getSearchRecoverySuggestions(PUBLISHED_NODES).forEach((node, index) => {
+          const suggestion = document.createElement('button');
+          suggestion.type = 'button';
+          suggestion.className = 'search-recovery-suggestion';
+          suggestion.id = `search-recovery-${index}`;
+          suggestion.setAttribute('role', 'option');
+          suggestion.setAttribute('aria-selected', 'false');
+          suggestion.textContent = node.id === 'temp' ? 'Global warming' : node.name;
+          suggestion.addEventListener('click', () => {
+            targetAndSelectNode(node, { selectionContext: query });
+            closeSearch();
+          });
+          suggestions.appendChild(suggestion);
+        });
+        recovery.append(title, guidance, suggestions);
+        searchResults.appendChild(recovery);
+        return;
+      }
+
+      const visibleMatches = searchResultsExpanded ? matches : matches.slice(0, 5);
+      const resultSummary = document.createElement('div');
+      resultSummary.className = 'search-results-summary';
+      resultSummary.setAttribute('role', 'presentation');
+      resultSummary.textContent = matches.length === 1
+        ? '1 topic found'
+        : `${matches.length} topics found · showing ${visibleMatches.length}`;
+      searchResults.appendChild(resultSummary);
+
+      visibleMatches.forEach(({ node, matchedTerm }, index) => {
         const item = document.createElement('div');
         item.className = 'search-result-item';
+        item.id = `search-result-${index}`;
+        item.setAttribute('role', 'option');
+        item.setAttribute('aria-selected', 'false');
+        item.tabIndex = -1;
         
         const sphereKey = node.sphere ? node.sphere : 'core';
         const sphereLabel = SPHERE_LABELS[sphereKey] || sphereKey;
-        
-        item.innerHTML = `
-          <span>${node.name}</span>
-          <span style="display: flex; align-items: center; gap: 8px;">
-            <span class="search-result-sphere-badge">${sphereLabel}</span>
-            <strong style="color: var(--accent-color); font-weight: 700; font-size: 13px;">${node.tulipScore}</strong>
-          </span>
-        `;
+
+        const copy = document.createElement('span');
+        copy.className = 'search-result-copy';
+        const label = document.createElement('span');
+        label.textContent = node.name;
+        copy.appendChild(label);
+        if (matchedTerm && String(matchedTerm).toLowerCase() !== node.name.toLowerCase()) {
+          const matchReason = document.createElement('small');
+          matchReason.textContent = `Matches “${matchedTerm}”`;
+          copy.appendChild(matchReason);
+        }
+
+        const meta = document.createElement('span');
+        meta.className = 'search-result-meta';
+        const sphereBadge = document.createElement('span');
+        sphereBadge.className = 'search-result-sphere-badge';
+        sphereBadge.textContent = sphereLabel;
+        const score = document.createElement('strong');
+        score.className = 'search-result-score';
+        const numericScore = Number(node.tulipScore);
+        const scoreBand = Number.isFinite(numericScore) ? getActiveTulipUrgencyBand(numericScore) : null;
+        score.textContent = Number.isFinite(numericScore)
+          ? scoreBand
+          : 'Risk unavailable';
+        score.setAttribute('aria-label', Number.isFinite(numericScore)
+          ? `Risk assessment: ${scoreBand}`
+          : 'Risk assessment unavailable');
+        meta.append(sphereBadge, score);
+        item.append(copy, meta);
 
         item.addEventListener('click', () => {
-          targetAndSelectNode(node);
+          targetAndSelectNode(node, { selectionContext: query });
           closeSearch();
         });
 
         searchResults.appendChild(item);
       });
+
+      if (!searchResultsExpanded && matches.length > visibleMatches.length) {
+        const viewAll = document.createElement('button');
+        viewAll.type = 'button';
+        viewAll.className = 'search-view-all';
+        viewAll.id = 'search-view-all';
+        viewAll.setAttribute('role', 'option');
+        viewAll.setAttribute('aria-selected', 'false');
+        viewAll.textContent = `View all ${matches.length} results`;
+        viewAll.addEventListener('click', () => {
+          searchResultsExpanded = true;
+          handleSearch();
+          searchInput.focus();
+        });
+        searchResults.appendChild(viewAll);
+      }
     }
 
     searchInput.addEventListener('input', handleSearch);
 
     searchInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        const firstItem = searchResults.querySelector('.search-result-item');
-        if (firstItem) {
-          firstItem.click();
-        }
+      const options = [...searchResults.querySelectorAll('[role="option"]')];
+      const activeId = searchInput.getAttribute('aria-activedescendant');
+      const activeIndex = options.findIndex(option => option.id === activeId);
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        if (!options.length) return;
+        e.preventDefault();
+        const direction = e.key === 'ArrowDown' ? 1 : -1;
+        const nextIndex = activeIndex < 0
+          ? (direction > 0 ? 0 : options.length - 1)
+          : (activeIndex + direction + options.length) % options.length;
+        options.forEach((option, index) => option.setAttribute('aria-selected', String(index === nextIndex)));
+        searchInput.setAttribute('aria-activedescendant', options[nextIndex].id);
+        options[nextIndex].scrollIntoView({ block: 'nearest' });
+      } else if (e.key === 'Enter') {
+        const activeItem = options.find(option => option.id === activeId) || options[0];
+        if (activeItem) activeItem.click();
       } else if (e.key === 'Escape') {
         closeSearch();
       }
@@ -5354,7 +5768,11 @@ function init() {
     function closeSearch() {
       searchResults.style.display = 'none';
       searchResults.innerHTML = '';
+      searchInput.setAttribute('aria-expanded', 'false');
+      searchInput.removeAttribute('aria-activedescendant');
       searchInput.value = '';
+      searchResultsExpanded = false;
+      lastSearchQuery = '';
       searchInput.blur();
     }
   }
@@ -5456,6 +5874,12 @@ function setConnectionQuestionMarkup(edge, node = currentSelectedNode) {
 
   if (!edge || !node) return;
 
+  const icon = document.createElement('i');
+  icon.className = 'platform-section-icon fa-solid fa-link';
+  icon.setAttribute('aria-hidden', 'true');
+  const label = document.createElement('span');
+  label.className = 'section-header-label';
+
   const sourceName = NODE_BY_ID.get(edge.source)?.name || edge.source;
   const targetName = NODE_BY_ID.get(edge.target)?.name || edge.target;
   const leadingText = document.createTextNode(`How ${getRelationshipQuestionAuxiliary(NODE_BY_ID.get(edge.source) || edge.source)} `);
@@ -5476,79 +5900,38 @@ function setConnectionQuestionMarkup(edge, node = currentSelectedNode) {
     targetSpan.textContent = targetName;
   }
 
-  connectionDetailHeader.append(leadingText, sourceSpan, middleText, targetSpan, trailingText);
+  label.append(leadingText, sourceSpan, middleText, targetSpan, trailingText);
+  connectionDetailHeader.append(icon, label);
 }
 
 function getRelationshipDescription(edge, sourceName, targetName) {
+  const plainLanguage = edge?.relationship_content?.plain_language?.trim();
   const relationshipDescription = edge?.relationship_description?.trim();
   const mechanism = edge?.evidence?.mechanism?.trim();
   const notes = edge?.evidence?.notes?.trim();
-  return relationshipDescription
+  return formatMetricDisplayText(plainLanguage
+    || relationshipDescription
     || (mechanism ? sentenceCaseFirst(mechanism) : '')
     || (notes ? sentenceCaseFirst(notes) : '')
-    || `${sourceName} affects ${targetName} through the reviewed relationship represented in this network.`;
+    || `${sourceName} affects ${targetName} through the reviewed relationship represented in this network.`);
 }
 
-function isSubstantiveCitationLocator(locator) {
-  if (!locator?.url || !locator?.section?.trim()) return false;
+let selectedRelationshipDetailKey = null;
+
+async function hydrateSelectedEdgeDescription(edge, sourceName, targetName) {
+  const edgeKey = `${edge.source}->${edge.target}`;
+  selectedRelationshipDetailKey = edgeKey;
 
   try {
-    const url = new URL(locator.url);
-    const host = url.hostname.toLowerCase();
-    const path = url.pathname.toLowerCase();
-    const rawEndpoint = host.startsWith('api.')
-      || host.startsWith('developer.')
-      || host.startsWith('developers.')
-      || /\/(?:api|swagger|openapi)(?:\/|$)/.test(path)
-      || /\/docs\/(?:services\/)?api(?:\/|$)/.test(path)
-      || /\/(?:register|login|map_key)(?:\/|$)/.test(path)
-      || /(?:capabilities\.xml|collections\.json)$/.test(path);
-    return ['http:', 'https:'].includes(url.protocol) && !rawEndpoint;
-  } catch {
-    return false;
+    const detail = await getRelationshipDetail(edgeKey);
+    if (selectedRelationshipDetailKey !== edgeKey || !detail) return;
+    connectionDetailReason.textContent = detail.plain_language?.trim()
+      || detail.description?.trim()
+      || getRelationshipDescription(edge, sourceName, targetName);
+  } catch (error) {
+    if (selectedRelationshipDetailKey !== edgeKey) return;
+    console.warn('[Relationship Detail] Reader-facing explanation could not be loaded.', error);
   }
-}
-
-function appendCollapsedSources(container, locators = []) {
-  const availableSources = locators.filter((locator, index, items) => (
-    isSubstantiveCitationLocator(locator)
-    && items.findIndex(candidate => candidate?.url === locator.url) === index
-  ));
-  if (!availableSources.length) return;
-
-  const disclosure = document.createElement('details');
-  disclosure.className = 'connection-evidence-sources';
-  const summary = document.createElement('summary');
-  summary.textContent = `Sources (${availableSources.length})`;
-  disclosure.appendChild(summary);
-
-  const links = document.createElement('div');
-  links.className = 'connection-evidence-source-links';
-  for (const [index, locator] of availableSources.entries()) {
-    const link = document.createElement('a');
-    link.href = locator.url;
-    link.target = '_blank';
-    link.rel = 'noopener noreferrer';
-    link.textContent = locator.section || `Source ${index + 1}`;
-    links.appendChild(link);
-  }
-  disclosure.appendChild(links);
-  container.appendChild(disclosure);
-}
-
-function renderSelectedEdgeEvidence(edge) {
-  if (!connectionDetailEvidence) return;
-  connectionDetailEvidence.replaceChildren();
-
-  const readback = edge?.evidence?.source_readback;
-  const estimate = edge?.evidence?.quantitative_evidence
-    ?.relationship_quantification?.scientific_effect_estimate;
-  const locators = [
-    ...(readback?.status === 'confirmed_bounded' ? readback.source_locators || [] : []),
-    ...(estimate?.status === 'source_reported_estimate' && estimate.source_locator ? [estimate.source_locator] : [])
-  ];
-  connectionDetailEvidence.hidden = !locators.some(locator => locator?.url);
-  if (!connectionDetailEvidence.hidden) appendCollapsedSources(connectionDetailEvidence, locators);
 }
 
 function updateSelectedEdgeDetail(edge, node = currentSelectedNode) {
@@ -5561,13 +5944,16 @@ function updateSelectedEdgeDetail(edge, node = currentSelectedNode) {
   );
 
   connectionDetailSection.hidden = !isSelectedNodeRelationship;
-  if (!isSelectedNodeRelationship) return;
+  if (!isSelectedNodeRelationship) {
+    selectedRelationshipDetailKey = null;
+    return;
+  }
 
   const sourceName = NODE_BY_ID.get(edge.source)?.name || edge.source;
   const targetName = NODE_BY_ID.get(edge.target)?.name || edge.target;
   setConnectionQuestionMarkup(edge, node);
   connectionDetailReason.textContent = getRelationshipDescription(edge, sourceName, targetName);
-  renderSelectedEdgeEvidence(edge);
+  void hydrateSelectedEdgeDescription(edge, sourceName, targetName);
   const edgeKey = `${edge.source}->${edge.target}`;
   const isCausal = isCausalRelationship(edge);
   if (relationshipTriggerSelect) relationshipTriggerSelect.value = isCausal && edge.target === node.id ? edgeKey : '';
@@ -5602,6 +5988,11 @@ function handleSelectEdge(edge) {
   currentSelectedEdge = edge;
   graphInstance?.setSelectedEdge?.(currentSelectedEdge);
   updateSelectedEdgeDetail(currentSelectedEdge, currentSelectedNode);
+  window.requestAnimationFrame(() => {
+    connectionDetailSection?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    connectionDetailSection?.setAttribute('tabindex', '-1');
+    window.setTimeout(() => connectionDetailSection?.focus({ preventScroll: true }), 280);
+  });
 }
 
 function populateRelationshipEvidencePicker(node) {
@@ -5610,11 +6001,11 @@ function populateRelationshipEvidencePicker(node) {
   relationshipEffectSelect.replaceChildren();
   const triggerPlaceholder = document.createElement('option');
   triggerPlaceholder.value = '';
-  triggerPlaceholder.textContent = 'Choose what influences this';
+  triggerPlaceholder.textContent = 'Pick a TRIGGER';
   relationshipTriggerSelect.appendChild(triggerPlaceholder);
   const effectPlaceholder = document.createElement('option');
   effectPlaceholder.value = '';
-  effectPlaceholder.textContent = 'Choose what this influences';
+  effectPlaceholder.textContent = 'Pick an EFFECT';
   relationshipEffectSelect.appendChild(effectPlaceholder);
   if (!node) {
     relationshipEvidencePickerSection.hidden = true;
@@ -5720,10 +6111,8 @@ function updateCausalLists(node) {
 // --- NODE MEANINGS & MONITORING SENSORS GENERATORS ---
 function getNodeMeaning(node) {
   if (!node) return "Awaiting description...";
-  if (node.readerMeaning) return node.readerMeaning;
-  if (node.node_kind === 'response') {
-    return node.responseProfile?.summary || node.description || 'A reviewed climate response pathway.';
-  }
+  const sharedMeaning = getNodeInspectorMeaning(node);
+  if (sharedMeaning) return sharedMeaning;
 
   const customMeanings = {
     temp: "Rising long-term temperature changes the baseline that weather now operates on, making heat extremes, heavy rainfall, and stress on ice, crops, and ecosystems more likely.",
@@ -6041,7 +6430,7 @@ function renderMonitoringTechnicalRow(label, value) {
   return `
     <div class="monitoring-technical-row">
       <dt>${escapeHtml(label)}</dt>
-      <dd>${escapeHtml(value)}</dd>
+      <dd>${escapeHtml(formatMetricDisplayText(value))}</dd>
     </div>
   `;
 }
@@ -6053,7 +6442,7 @@ function renderMonitoringHighlights(highlights = []) {
       ${highlights.map(highlight => `
         <div class="monitoring-evidence-highlight">
           <span class="monitoring-evidence-highlight-label">${escapeHtml(highlight.label)}</span>
-          <strong>${escapeHtml(highlight.value)} <small>${escapeHtml(highlight.unit)}</small></strong>
+          <strong>${escapeHtml(formatMetricDisplayText(highlight.value))} <small>${escapeHtml(formatMetricDisplayText(highlight.unit))}</small></strong>
           ${highlight.observedAt ? `<span>${escapeHtml(String(highlight.observedAt))}</span>` : ''}
         </div>
       `).join('')}
@@ -6086,7 +6475,7 @@ function renderMonitoringEvidenceCard(profile) {
     const evidenceDate = formatMonitoringSourceDate(evidence.asOf) || evidence.asOf;
     const score = Number.isFinite(evidence.score) ? evidence.score.toFixed(1) : null;
     const scoreMarkup = score
-      ? `<strong>${escapeHtml(score)} <small>/ 10</small></strong>${evidence.band ? `<span>${escapeHtml(evidence.band)}</span>` : ''}`
+      ? `<strong>${escapeHtml(score)} <small>/ 10</small></strong>${evidence.band ? `<span>${escapeHtml(evidence.band)}</span>` : ''}${evidence.method === 'modeled' ? '<span class="urgency-modeled-tag">Modeled</span>' : ''}`
       : '<span>Reviewed snapshot</span>';
     return `
       <article class="monitoring-evidence-card">
@@ -6101,13 +6490,16 @@ function renderMonitoringEvidenceCard(profile) {
         </div>
         <dl class="monitoring-evidence-facts">
           ${evidenceDate ? `<div><dt>Evidence date</dt><dd>${escapeHtml(evidenceDate)}</dd></div>` : ''}
-          <div><dt>Evidence route</dt><dd>${escapeHtml(evidence.methodLabel)}</dd></div>
+          <div><dt>Method</dt><dd>${escapeHtml(evidence.methodLabel)}</dd></div>
+          <div><dt>Evidence quality</dt><dd>${escapeHtml(evidence.evidenceQuality)}</dd></div>
+          <div><dt>Review status</dt><dd>${escapeHtml(evidence.reviewStatus)}</dd></div>
         </dl>
+        <div class="monitoring-evidence-explanation"><h4>Uncertainty</h4><p>${escapeHtml(formatMetricDisplayText(evidence.uncertainty))}</p></div>
         ${renderMonitoringHighlights(evidence.highlights)}
-        ${evidence.rationale ? `<div class="monitoring-evidence-explanation"><h4>Why this evidence</h4><p>${escapeHtml(evidence.rationale)}</p></div>` : ''}
-        ${evidence.freshness ? `<p class="monitoring-evidence-freshness"><strong>Release context:</strong> ${escapeHtml(formatMonitoringReleaseContext(evidence.freshness))}</p>` : ''}
+        ${evidence.rationale ? `<div class="monitoring-evidence-explanation"><h4>Why this evidence</h4><p>${escapeHtml(formatMetricDisplayText(evidence.rationale))}</p></div>` : ''}
+        ${evidence.freshness ? `<p class="monitoring-evidence-freshness"><strong>Release context:</strong> ${escapeHtml(formatMetricDisplayText(formatMonitoringReleaseContext(evidence.freshness)))}</p>` : ''}
         ${renderMonitoringSupportingSources(evidence.supportingSources)}
-        <p class="monitoring-snapshot-note">${escapeHtml(evidence.snapshotNote)}</p>
+        <p class="monitoring-snapshot-note">${escapeHtml(formatMetricDisplayText(evidence.snapshotNote))}</p>
       </article>
     `;
   }
@@ -6117,8 +6509,8 @@ function renderMonitoringEvidenceCard(profile) {
       <article class="monitoring-response-card">
         <div class="monitoring-card-kicker">How progress is tracked</div>
         <h3>${escapeHtml(profile.responseTracking.status)}</h3>
-        <p>${escapeHtml(profile.responseTracking.summary)}</p>
-        <p class="monitoring-response-note">${escapeHtml(profile.responseTracking.note)}</p>
+        <p>${escapeHtml(formatMetricDisplayText(profile.responseTracking.summary))}</p>
+        <p class="monitoring-response-note">${escapeHtml(formatMetricDisplayText(profile.responseTracking.note))}</p>
       </article>
     `;
   }
@@ -6177,19 +6569,19 @@ function renderMonitoringSource(node) {
         <div class="monitoring-card-kicker">What TULIP measures</div>
         <span class="monitoring-node-type">${escapeHtml(profile.nodeType)}</span>
       </div>
-      <h3>${escapeHtml(profile.metricName)}</h3>
+      <h3>${escapeHtml(formatMetricDisplayText(profile.metricName))}</h3>
       <div class="monitoring-measurement-meaning">
         <h4>What this tells us</h4>
-        <p>${escapeHtml(profile.meaning)}</p>
+        <p>${escapeHtml(formatMetricDisplayText(profile.meaning))}</p>
       </div>
       <dl class="monitoring-measurement-facts">
         <div>
           <dt>Reported as</dt>
-          <dd>${escapeHtml(profile.unit)}</dd>
+          <dd>${escapeHtml(formatMetricDisplayText(profile.unit))}</dd>
         </div>
         <div>
           <dt>Coverage</dt>
-          <dd>${escapeHtml(profile.geography)}</dd>
+          <dd>${escapeHtml(formatMetricDisplayText(profile.geography))}</dd>
         </div>
         <div>
           <dt>Updates</dt>
@@ -6602,10 +6994,70 @@ function renderImpactConsequences(items, mode) {
     .map(item => `
       <li>
         <span class="impact-consequence-icon" aria-hidden="true">${iconFor(item)}</span>
-        <span>${escapeHtml(item)}</span>
+        <span>${escapeHtml(formatMetricDisplayText(item))}</span>
       </li>
     `)
     .join('');
+}
+
+function setRecentOccurrencesExpanded(expanded) {
+  if (!recentOccurrencesToggle || !recentOccurrencesContent) return;
+  recentOccurrencesToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+  recentOccurrencesToggle.classList.toggle('collapsed', !expanded);
+  recentOccurrencesContent.hidden = !expanded;
+}
+
+function renderRecentOccurrences(node) {
+  if (!recentOccurrencesSection || !recentOccurrencesTitle || !recentOccurrencesList) {
+    return;
+  }
+
+  const profile = getRecentOccurrenceProfile(node, {
+    sourceDate: nodeSourceDateRegistry?.entries?.[node?.id]?.source_date || ''
+  });
+  if (!profile) {
+    setRecentOccurrencesExpanded(false);
+    recentOccurrencesSection.hidden = true;
+    recentOccurrencesSection.removeAttribute('data-node-id');
+    recentOccurrencesList.innerHTML = '';
+    return;
+  }
+
+  if (recentOccurrencesSection.getAttribute('data-node-id') !== node.id) {
+    setRecentOccurrencesExpanded(true);
+  }
+  recentOccurrencesSection.setAttribute('data-node-id', node.id);
+  recentOccurrencesSection.setAttribute('data-profile-kind', profile.profileKind || 'events');
+  recentOccurrencesTitle.textContent = profile.title;
+  recentOccurrencesList.innerHTML = profile.occurrences.map(occurrence => {
+    const sourceLinks = (Array.isArray(occurrence.sources) ? occurrence.sources : [])
+      .map(source => {
+        const href = safeHttpsUrl(source.url, '');
+        if (href === 'about:blank') return '';
+        return `<a href="${escapeHtml(href)}" target="_blank" rel="noopener noreferrer">${escapeHtml(source.label)} <span aria-hidden="true">↗</span></a>`;
+      })
+      .filter(Boolean)
+      .join('');
+
+    return `
+      <article class="recent-occurrence-card">
+        <div class="recent-occurrence-meta">
+          <time datetime="${escapeHtml(occurrence.date)}">${escapeHtml(formatOccurrenceDate(occurrence.date))}</time>
+          <span aria-hidden="true">·</span>
+          <span>${escapeHtml(occurrence.place)}</span>
+        </div>
+        <div class="recent-occurrence-title-row">
+          <h3>${escapeHtml(occurrence.title)}</h3>
+          <span class="recent-occurrence-status status-${escapeHtml(occurrence.status)}" title="${escapeHtml(occurrence.statusNote)}">${escapeHtml(occurrence.statusLabel)}</span>
+        </div>
+        ${occurrence.summary ? `<p>${escapeHtml(occurrence.summary)}</p>` : ''}
+        <div class="recent-occurrence-footer">
+          ${sourceLinks ? `<span class="recent-occurrence-sources">${sourceLinks}</span>` : ''}
+        </div>
+      </article>
+    `;
+  }).join('');
+  recentOccurrencesSection.hidden = false;
 }
 
 function renderHumanImpact(node) {
@@ -6613,8 +7065,8 @@ function renderHumanImpact(node) {
     return;
   }
 
-  const profile = inferHumanImpactProfile(node);
-  const sectionHeader = document.querySelector('.human-impact-section > .section-header');
+  const profile = buildHumanInspectorProfile(node);
+  const sectionHeader = document.querySelector('.human-impact-section > .section-header .section-header-label');
   if (sectionHeader) sectionHeader.textContent = node?.node_kind === 'response' ? 'Benefits for Humans' : 'Impact on Humans';
   humanImpactSeverity.textContent = profile.severity.label.toUpperCase();
   humanImpactSeverity.className = `human-impact-severity ${profile.severity.className}`;
@@ -6622,11 +7074,11 @@ function renderHumanImpact(node) {
   humanImpactReach.title = profile.timeHorizon || profile.basis
     ? `Time horizon: ${profile.timeHorizon || 'unspecified'} | Basis: ${profile.basis || 'unspecified'}`
     : 'Human impact profile metadata';
-  humanImpactSummary.textContent = profile.summary;
+  humanImpactSummary.textContent = formatMetricDisplayText(profile.summary);
   humanImpactDomains.hidden = profile.domains.length === 0;
   humanImpactDomains.innerHTML = profile.domains.length > 0
     ? `<strong class="impact-affects-label">AFFECTS:</strong> ${profile.domains
-      .map((domain, index) => `${index > 0 ? ', ' : ''}<span class="human-impact-domain">${escapeHtml(domain)}</span>`)
+      .map((domain, index) => `${index > 0 ? ', ' : ''}<span class="human-impact-domain">${escapeHtml(formatMetricDisplayText(domain))}</span>`)
       .join('')}`
     : '';
   humanImpactConsequences.innerHTML = renderImpactConsequences(profile.consequences, 'human');
@@ -6638,11 +7090,11 @@ function renderHumanImpact(node) {
   }
   if (humanImpactHiddenCostItem && humanImpactHiddenCost) {
     humanImpactHiddenCostItem.hidden = !economicContext?.hiddenCost;
-    humanImpactHiddenCost.textContent = economicContext?.hiddenCost || '';
+    humanImpactHiddenCost.textContent = formatMetricDisplayText(economicContext?.hiddenCost || '');
   }
   if (humanImpactWhoPaysItem && humanImpactWhoPays) {
     humanImpactWhoPaysItem.hidden = !economicContext?.whoPays;
-    humanImpactWhoPays.textContent = economicContext?.whoPays || '';
+    humanImpactWhoPays.textContent = formatMetricDisplayText(economicContext?.whoPays || '');
   }
 }
 
@@ -6651,8 +7103,8 @@ function renderPlanetImpact(node) {
     return;
   }
 
-  const profile = inferPlanetImpactProfile(node);
-  const sectionHeader = document.querySelector('.planet-impact-section > .section-header');
+  const profile = buildPlanetInspectorProfile(node);
+  const sectionHeader = document.querySelector('.planet-impact-section > .section-header .section-header-label');
   if (sectionHeader) sectionHeader.textContent = node?.node_kind === 'response' ? 'Benefits for the Planet' : 'Impact on the Planet';
   planetImpactSeverity.textContent = profile.severity.label.toUpperCase();
   planetImpactSeverity.className = `planet-impact-severity ${profile.severity.className}`;
@@ -6660,11 +7112,11 @@ function renderPlanetImpact(node) {
   planetImpactReach.title = profile.timeHorizon || profile.basis
     ? `Time horizon: ${profile.timeHorizon || 'unspecified'} | Basis: ${profile.basis || 'unspecified'}`
     : 'Planet impact profile metadata';
-  planetImpactSummary.textContent = profile.summary;
+  planetImpactSummary.textContent = formatMetricDisplayText(profile.summary);
   planetImpactDomains.hidden = profile.domains.length === 0;
   planetImpactDomains.innerHTML = profile.domains.length > 0
     ? `<strong class="impact-affects-label">AFFECTS:</strong> ${profile.domains
-      .map((domain, index) => `${index > 0 ? ', ' : ''}<span class="planet-impact-domain">${escapeHtml(domain)}</span>`)
+      .map((domain, index) => `${index > 0 ? ', ' : ''}<span class="planet-impact-domain">${escapeHtml(formatMetricDisplayText(domain))}</span>`)
       .join('')}`
     : '';
   planetImpactConsequences.innerHTML = renderImpactConsequences(profile.consequences, 'planet');
@@ -6676,7 +7128,7 @@ function renderPlanetImpact(node) {
   }
   if (planetImpactPhysicalLimitItem && planetImpactPhysicalLimit) {
     planetImpactPhysicalLimitItem.hidden = !economicContext?.physicalLimit;
-    planetImpactPhysicalLimit.textContent = economicContext?.physicalLimit || '';
+    planetImpactPhysicalLimit.textContent = formatMetricDisplayText(economicContext?.physicalLimit || '');
   }
 }
 
@@ -6686,12 +7138,46 @@ function renderWhatCanBeDone(node) {
   }
 
   const economicContext = node?.economicContext || null;
-  responseDefaultDriver.textContent = economicContext?.defaultDriver || 'Structural response guidance has not been curated for this node yet.';
+  responseDefaultDriver.textContent = formatMetricDisplayText(economicContext?.defaultDriver || 'Structural response guidance has not been curated for this node yet.');
   const levers = economicContext?.systemLevers || [];
   responseSystemLevers.innerHTML = levers.length > 0
-    ? levers.map(item => `<li>${escapeHtml(item)}</li>`).join('')
+    ? levers.map(item => `<li>${escapeHtml(formatMetricDisplayText(item))}</li>`).join('')
     : '<li>Curated system levers will appear here as nodes are converted.</li>';
 
+}
+
+let runtimeNodeDetailsStatus = 'idle';
+
+function refreshSelectedNodeDetailSurfaces(node) {
+  if (!node || currentSelectedNode?.id !== node.id) return;
+  if (consoleNodeMeaning) consoleNodeMeaning.innerHTML = formatMetricDisplayText(getNodeMeaning(node));
+  if (nodeSourceDate) nodeSourceDate.textContent = formatNodeSourceDate(node);
+  renderMonitoringSource(node);
+  renderRecentOccurrences(node);
+  renderHumanImpact(node);
+  renderPlanetImpact(node);
+  renderWhatCanBeDone(node);
+  renderPhenomenonLens(node);
+  updateTulipUrgencyProfile(node);
+}
+
+function requestRuntimeNodeDetails(node) {
+  if (!node || runtimeNodeDetailsStatus === 'ready') return;
+  if (runtimeNodeDetailsStatus === 'loading') return;
+
+  runtimeNodeDetailsStatus = 'loading';
+  void hydrateRuntimeNodeDetails(NODES)
+    .then(() => {
+      runtimeNodeDetailsStatus = 'ready';
+      const selectedNode = currentSelectedNode
+        ? NODE_BY_ID.get(currentSelectedNode.id)
+        : null;
+      refreshSelectedNodeDetailSurfaces(selectedNode);
+    })
+    .catch(error => {
+      runtimeNodeDetailsStatus = 'error';
+      console.warn('[Node Detail] Reader-facing node evidence could not be loaded.', error);
+    });
 }
 
 function renderPhenomenonLens(node) {
@@ -6798,6 +7284,8 @@ function renderPhenomenonLens(node) {
 
   const renderPhenomenonRow = (item, index) => {
     const widthPct = Math.max(0, Math.min(100, ((item.value || 0) / axisMax) * 100));
+    const scenarioLow = (item.value || 0) * 0.85;
+    const scenarioHigh = (item.value || 0) * 1.15;
     const components = Array.isArray(item.components) ? item.components : [];
     const componentTotal = components.reduce((sum, component) => sum + (component.value || 0), 0);
     const normalizedComponents = componentTotal > 0
@@ -6817,10 +7305,8 @@ function renderPhenomenonLens(node) {
               <div class="phenomenon-row-speculative-line">
                 <span class="phenomenon-row-speculative-label">${escapeHtml(item.label)}</span>
                 <span class="phenomenon-row-speculative-separator">-</span>
-                <span class="phenomenon-row-speculative-number">${escapeHtml(formatPhenomenonValue(item.value || 0))}</span>
+                <span class="phenomenon-row-speculative-number" aria-label="Scenario range ${escapeHtml(formatPhenomenonValue(scenarioLow))} to ${escapeHtml(formatPhenomenonValue(scenarioHigh))}">${escapeHtml(formatPhenomenonValue(scenarioLow))}–${escapeHtml(formatPhenomenonValue(scenarioHigh))}</span>
                 <span class="phenomenon-row-speculative-unit">${escapeHtml(metricUnitLabel)}</span>
-                <span class="phenomenon-row-speculative-separator">-</span>
-                <span class="phenomenon-row-speculative-tag">speculative</span>
               </div>
             `
             : `
@@ -6868,20 +7354,30 @@ function getPhenomenonNodes() {
     .filter(Boolean);
 }
 
+function getJourneyPhenomenonMatch() {
+  return findRelatedPhenomenon(
+    getPhenomenonNodes(),
+    currentSelectedNode,
+    EDGES,
+    { preferredPhenomenonKeyByNodeId: PREFERRED_PHENOMENON_BY_NODE_ID }
+  );
+}
+
 function getDefaultPhenomenonNode() {
-  return currentPhenomenonNode
-    || (currentSelectedNode ? getPhenomenonNodes().find(item => item.nodeIds.includes(currentSelectedNode.id)) : null)
-    || getPhenomenonNodes()[0]
-    || null;
+  const journeyPhenomenon = getJourneyPhenomenonMatch()?.phenomenon;
+  if (journeyPhenomenon) return journeyPhenomenon;
+  if (currentSelectedNode) return null;
+  return currentPhenomenonNode || getPhenomenonNodes()[0] || null;
 }
 
 function renderPhenomenonSelector() {
   if (!phenomenaSelector) return;
 
-  phenomenaSelector.innerHTML = getPhenomenonNodes().map(node => {
+  const nodes = getPhenomenonNodes();
+  phenomenaSelector.innerHTML = nodes.map(node => {
     const isActive = currentPhenomenonNode?.key === node.key;
     return `
-      <button class="phenomena-selector-btn ${isActive ? 'active' : ''}" data-phenomenon-node="${node.key}" type="button" title="${escapeHtml(node.label)}">
+      <button class="phenomena-selector-btn ${isActive ? 'active' : ''}" data-phenomenon-node="${node.key}" type="button" title="${escapeHtml(node.label)}" aria-current="${isActive ? 'true' : 'false'}">
         <span class="phenomena-selector-name">${escapeHtml(node.label)}</span>
       </button>
     `;
@@ -6960,7 +7456,13 @@ async function setActivePhenomenonNode(node) {
   await ensureActivityModules();
   if (!node || !getSelectionPhenomenonLens(node)) return;
 
+  const previousNodeKey = currentPhenomenonNode?.key || null;
   currentPhenomenonNode = node;
+  if (previousNodeKey && previousNodeKey !== node.key) {
+    const scrollContainer = getPhenomenaScrollContainer();
+    if (scrollContainer) scrollContainer.scrollTop = 0;
+    shellScrollState.phenomena = 0;
+  }
 
   if (phenomenaFocusSphere) {
     const primarySphere = node.primaryNode?.sphere;
@@ -6968,6 +7470,7 @@ async function setActivePhenomenonNode(node) {
   }
   if (phenomenaFocusIcon) {
     phenomenaFocusIcon.innerHTML = node.icon || '';
+    phenomenaFocusIcon.style.color = IOS_ACTIVITY_ICON_COLOR_BY_KEY[node.key] || '#4dd1d6';
   }
   if (phenomenaFocusNameText) {
     phenomenaFocusNameText.textContent = node.label;
@@ -6975,13 +7478,20 @@ async function setActivePhenomenonNode(node) {
     phenomenaFocusName.textContent = node.label;
   }
   if (phenomenaFocusDescription) {
-    phenomenaFocusDescription.textContent = node.description || getNodeMeaning(node.primaryNode) || 'Footprint-specific explanation surface.';
+    phenomenaFocusDescription.textContent = formatMetricDisplayText(node.description || getNodeMeaning(node.primaryNode) || 'Footprint-specific explanation surface.');
   }
 
   renderPhenomenonSelector();
   renderPhenomenonLens(node);
   setActiveActionNode(node);
   setPhenomenonMode(currentPhenomenonMode);
+  window.dispatchEvent(new CustomEvent('tulip:phenomenonchange', {
+    detail: {
+      key: node.key,
+      label: node.label,
+      primaryNodeId: node.primaryNode?.id || null
+    }
+  }));
   requestAnimationFrame(() => {
     positionPhenomenonModeToggleWithHeading();
     normalizePhenomenonFocusIconToDiet();
@@ -7055,6 +7565,10 @@ function getActionListIcon(item, targetId) {
   const isImpact = String(targetId || '').includes('impact');
   const iconClass = isImpact ? 'actions-list-icon-impact' : '';
   const wrap = paths => `<span class="actions-list-icon ${iconClass}" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none">${paths}</svg></span>`;
+
+  if (!isImpact) {
+    return '<span class="actions-list-icon" aria-hidden="true"><span class="ios-symbol-icon ios-symbol-action-link" style="--ios-symbol-url: url(\'/activity-icons/ios/arrow-up-right.png\')"></span></span>';
+  }
 
   if (text.includes('transit') || text.includes('rail') || text.includes('train')) {
     return wrap('<path d="M4.2 3.6h7.6c.7 0 1.2.5 1.2 1.2v4.6c0 1.7-1.4 3-3 3H6c-1.6 0-3-1.3-3-3V4.8c0-.7.5-1.2 1.2-1.2Z"/><path d="M5.5 12.4 4.4 13.7M10.5 12.4l1.1 1.3M5.7 6.3h.01M10.3 6.3h.01"/><path d="M4 9.3h8"/>');
@@ -7136,7 +7650,7 @@ function buildActionSystemLogic(profileKey, node) {
   const normalizedKey = String(profileKey || '').toLowerCase();
   const sphere = String(node?.primaryNode?.sphere || '').toLowerCase();
 
-  if (['carbon_emission', 'electricity_generation', 'methane', 'personal_conveyance', 'road_freight_logistics', 'aviation_shipping'].includes(normalizedKey)) {
+  if (['carbon_emission', 'electricity_generation', 'methane', 'personal_conveyance', 'conveyance_aviation', 'road_freight_logistics', 'aviation_shipping'].includes(normalizedKey)) {
     return 'Ecological-economics lens: fossil-heavy systems look cheaper than they really are when climate and health damages sit outside the price tag. Green tax reform, subsidy removal, standards, and infrastructure investment help move those hidden costs back into the decision.';
   }
 
@@ -7243,7 +7757,7 @@ function renderPersonalFootprintMetricChip(label, value, trend, colorClass = '',
   return `<span class="personal-footprint-metric-chip is-${direction} ${shouldAnimate ? 'is-updated' : ''}">${trendMarkup}<span class="${colorClass}">${escapeHtml(`${label} ${value}`)}</span></span>`;
 }
 
-function calculatePersonalFootprint(state = personalFootprintState) {
+function calculatePersonalFootprintDesktopSnapshot(state = personalFootprintState) {
   const getResolvedValue = questionKey => state[questionKey] || PERSONAL_FOOTPRINT_BASELINE_SELECTIONS[questionKey] || null;
   const geographyOption = getPersonalFootprintOption('geography', getResolvedValue('geography'));
   const hvacOption = getPersonalFootprintOption('hvac', getResolvedValue('hvac'));
@@ -7399,6 +7913,8 @@ function calculatePersonalFootprint(state = personalFootprintState) {
   };
 }
 
+const calculatePersonalFootprint = (state = personalFootprintState) => calculateSharedPersonalFootprint(state);
+
 function getPersonalFootprintOptionScore(question, option) {
   if (question.key === 'geography') {
     return ((((option.homeBaselineCarbon || 3) / 6) * 100) + ((option.transportMultiplier || 1) * 100) + ((option.flightsMultiplier || 1) * 100)) / 3;
@@ -7422,6 +7938,16 @@ const PERSONAL_FOOTPRINT_VISUAL_COLORS = [
   '#60a5fa', '#22d3ee', '#4ade80', '#c4b5fd',
   '#fbbf24', '#fb7185', '#a3e635', '#f97316'
 ];
+
+const PERSONAL_FOOTPRINT_INSIGHT_META = Object.freeze({
+  home_energy: Object.freeze({ icon: 'bolt-fill.png', color: '#60a5fa' }),
+  everyday_travel: Object.freeze({ icon: 'bus-fill.png', color: '#22d3ee' }),
+  flights: Object.freeze({ icon: 'airplane.png', color: '#c4b5fd' }),
+  diet: Object.freeze({ icon: 'fork-knife.png', color: '#fbbf24' }),
+  food_waste: Object.freeze({ icon: 'takeoutbag-cup-straw-fill.png', color: '#4ade80' }),
+  new_clothes: Object.freeze({ icon: 'tshirt-fill.png', color: '#fb7185' }),
+  other_stuff: Object.freeze({ icon: 'shippingbox-fill.png', color: '#f97316' })
+});
 
 const PERSONAL_FOOTPRINT_BREAKDOWN_METRICS = Object.freeze({
   carbon: {
@@ -7454,6 +7980,8 @@ function renderPersonalFootprintStory(result) {
   if (!result?.anyAnswers) {
     return '';
   }
+
+  const bubbleChart = renderPersonalFootprintBubbleChart(result);
 
   const equivalencies = getFootprintEquivalencies(result);
   const breakdownMetric = PERSONAL_FOOTPRINT_BREAKDOWN_METRICS.carbon;
@@ -7511,8 +8039,13 @@ function renderPersonalFootprintStory(result) {
     ...item,
     referencePercent: Math.round((item.value / Math.max(item.reference, 0.01)) * 100)
   }));
+  const insights = result.rankReady
+    ? getPersonalFootprintInsights(personalFootprintState, 5)
+    : [];
 
   return `
+    ${bubbleChart}
+
     <section class="footprint-story-section footprint-equivalency-section" aria-labelledby="footprint-equivalency-title">
       <div class="footprint-story-heading-row is-compact">
         <div>
@@ -7532,6 +8065,35 @@ function renderPersonalFootprintStory(result) {
         `).join('')}
       </div>
     </section>
+
+    ${insights.length ? `
+      <section class="footprint-story-section footprint-insights-section" aria-labelledby="footprint-insights-title">
+        <div class="footprint-story-heading-row is-compact footprint-insights-heading">
+          <div class="footprint-insights-title-row">
+            <span class="footprint-insights-title-icon ios-symbol-icon" style="--ios-symbol-url: url('/activity-icons/ios/sparkles.png')" aria-hidden="true"></span>
+            <h3 id="footprint-insights-title">Five actions for you</h3>
+          </div>
+        </div>
+        <div class="footprint-insights-list" role="list">
+          ${insights.map((insight, index) => {
+            const meta = PERSONAL_FOOTPRINT_INSIGHT_META[insight.questionKey]
+              || { icon: 'tree-fill.png', color: '#4ade80' };
+            return `
+              <article class="footprint-insight-row" role="listitem" style="--footprint-insight-color:${meta.color}">
+                <div class="footprint-insight-symbol" aria-hidden="true">
+                  <span class="footprint-insight-icon ios-symbol-icon" style="--ios-symbol-url: url('/activity-icons/ios/${meta.icon}')"></span>
+                  <span class="footprint-insight-number">${index + 1}</span>
+                </div>
+                <div class="footprint-insight-copy">
+                  <h4>${escapeHtml(insight.title)}</h4>
+                  <p>${escapeHtml(insight.action)}</p>
+                </div>
+              </article>
+            `;
+          }).join('')}
+        </div>
+      </section>
+    ` : ''}
 
     <section class="footprint-story-section" aria-labelledby="footprint-waterfall-title">
       <div class="footprint-story-heading-row">
@@ -7606,25 +8168,32 @@ function renderPersonalFootprintStory(result) {
     <section class="footprint-story-section" aria-labelledby="footprint-reference-title">
       <div class="footprint-story-heading-row is-compact">
         <div>
-          <h3 id="footprint-reference-title">Against annual reference</h3>
+          <h3 id="footprint-reference-title">Compared with the worldwide average</h3>
         </div>
       </div>
       <div class="footprint-reference-grid">
         ${references.map(item => `
           <div class="footprint-reference-row ${item.className}">
             <div class="footprint-reference-label">
-              <span>${item.label}</span>
+              <span>${escapeHtml(item.label)}</span>
               <strong>${item.valueText}</strong>
             </div>
-            <div class="footprint-reference-track">
-              <span style="--reference-fill:${Math.min(item.referencePercent, 100)}%"></span>
+            <div
+              class="footprint-reference-scale"
+              role="img"
+              aria-label="Your ${escapeHtml(item.label.toLowerCase())} estimate is ${item.referencePercent}% of the worldwide average"
+            >
+              <div class="footprint-reference-track">
+                <span style="--reference-fill:${Math.min(item.referencePercent, 100)}%"></span>
+              </div>
+              <span class="footprint-reference-overflow ${item.referencePercent > 100 ? 'is-visible' : ''}" aria-hidden="true">+</span>
+              <strong class="footprint-reference-percent">${item.referencePercent}%</strong>
             </div>
-            <small>${item.referencePercent}% of reference · Reference ${item.referenceText}</small>
+            <small>Worldwide average: ${item.referenceText}</small>
           </div>
         `).join('')}
       </div>
       <p class="footprint-method-note">
-        Land, water, and material figures are benchmark-calibrated estimates, not metered consumption.
         Land anchor: 1,900 m²/person/yr (JRC global-average cropland footprint).
         Water anchor: 1,385 m³/person/yr (Water Footprint Network global consumer average).
         Material anchor: about 12.3 t/person/yr (98.0 billion tonnes globally under UN SDG 12.2.1, 2022).
@@ -7646,7 +8215,7 @@ function renderPersonalFootprintStory(result) {
           </p>
           <p>
             Comparisons use EPA gasoline-vehicle emissions, 65.1 litres per average shower,
-            436.64 m² per NBA-size basketball court, and a deliberately round 2-tonne car mass
+            436.64 m² per NBA-size basketball court, and a 23 kg packed-suitcase mass
             benchmark. They communicate scale; the scientific units and annual-reference section
             carry the measurement context.
           </p>
@@ -7658,6 +8227,143 @@ function renderPersonalFootprintStory(result) {
           </div>
         </div>
       </details>
+    </section>
+  `;
+}
+
+const PERSONAL_FOOTPRINT_BUBBLE_SLOTS = Object.freeze([
+  { key: 'diet', label: 'Diet', x: 0.59, y: 0.35, labelX: 0, labelY: 0, color: '#cc7aa8', rgb: '204, 122, 168', angle: 145 },
+  { key: 'home_type', label: 'Home Type', x: 0.29, y: 0.72, labelX: 0, labelY: 0, color: '#d65e00', rgb: '214, 94, 0', angle: 145 },
+  { key: 'home_energy', label: 'Energy', x: 0.33, y: 0.18, labelX: 0.02, labelY: 0.014, color: '#f0e342', rgb: '240, 227, 66', angle: 145 },
+  { key: 'everyday_travel', label: 'Travel', x: 0.18, y: 0.16, labelX: -0.02, labelY: -0.012, color: '#0073b3', rgb: '0, 115, 179', angle: 325 },
+  { key: 'other_stuff', label: 'Purchases', x: 0.18, y: 0.33, labelX: -0.008, labelY: 0, color: '#57b5e8', rgb: '87, 181, 232', angle: 145 },
+  { key: 'flights', label: 'Flights', x: 0.25, y: 0.48, labelX: 0.006, labelY: 0.006, color: '#009e73', rgb: '0, 158, 115', angle: 145 },
+  { key: 'food_waste', label: 'Food Waste', x: 0.56, y: 0.82, labelX: -0.006, labelY: 0, color: '#e69f00', rgb: '230, 159, 0', angle: 145 },
+  { key: 'new_clothes', label: 'Clothing', x: 0.75, y: 0.82, labelX: 0.006, labelY: 0, color: '#a685f2', rgb: '166, 133, 242', angle: 145 }
+]);
+
+function getPersonalFootprintBubbleLayouts(result) {
+  const designSize = 1000;
+  const contributionByKey = new Map(result.breakdown.map(item => [item.key, item]));
+  const largestImpact = Math.max(
+    0.1,
+    ...PERSONAL_FOOTPRINT_BUBBLE_SLOTS.map(slot => contributionByKey.get(slot.key)?.co2 || 0)
+  );
+  const placements = PERSONAL_FOOTPRINT_BUBBLE_SLOTS.map((slot, rank) => {
+    const contribution = contributionByKey.get(slot.key);
+    const carbon = Math.max(0, contribution?.co2 || 0);
+    const impact = Math.min(1, carbon / largestImpact);
+    const visualImpact = Math.pow(impact, 0.62);
+    const diameter = designSize * Math.max(0.19, 0.63 * Math.sqrt(impact));
+    return {
+      ...slot,
+      rank,
+      carbon,
+      diameter,
+      radius: diameter / 2,
+      centerX: designSize * slot.x,
+      centerY: designSize * slot.y,
+      targetX: designSize * slot.x,
+      targetY: designSize * slot.y,
+      offsetX: designSize * slot.labelX,
+      offsetY: designSize * slot.labelY,
+      opacity: 0.58 + (0.38 * visualImpact)
+    };
+  });
+
+  const labelProtectionRadius = placement => Math.min(130, Math.max(80, placement.radius * 0.4));
+  const clampPlacement = placement => {
+    const horizontalMargin = 20;
+    const topBoundary = 78;
+    const bottomBoundary = 940;
+    const minimumX = horizontalMargin + placement.radius;
+    const maximumX = Math.max(minimumX, designSize - horizontalMargin - placement.radius);
+    const minimumY = topBoundary + placement.radius;
+    const maximumY = Math.max(minimumY, bottomBoundary - placement.radius);
+    placement.centerX = clamp(placement.centerX, minimumX, maximumX);
+    placement.centerY = clamp(placement.centerY, minimumY, maximumY);
+  };
+
+  placements.forEach(clampPlacement);
+  for (let pass = 0; pass < 120; pass += 1) {
+    for (let leftIndex = 0; leftIndex < placements.length; leftIndex += 1) {
+      for (let rightIndex = leftIndex + 1; rightIndex < placements.length; rightIndex += 1) {
+        const left = placements[leftIndex];
+        const right = placements[rightIndex];
+        let deltaX = right.centerX - left.centerX;
+        let deltaY = right.centerY - left.centerY;
+        let distance = Math.hypot(deltaX, deltaY);
+        const leftLabelReach = Math.hypot(left.offsetX, left.offsetY) + labelProtectionRadius(left);
+        const rightLabelReach = Math.hypot(right.offsetX, right.offsetY) + labelProtectionRadius(right);
+        const requiredDistance = Math.max(
+          left.radius + rightLabelReach,
+          right.radius + leftLabelReach
+        ) + 10;
+        if (distance >= requiredDistance) continue;
+
+        if (distance <= 0.001) {
+          const angle = (leftIndex + rightIndex + 1) * 0.91;
+          deltaX = Math.cos(angle);
+          deltaY = Math.sin(angle);
+          distance = 1;
+        }
+        const overlap = requiredDistance - distance;
+        const directionX = deltaX / distance;
+        const directionY = deltaY / distance;
+        const combinedRadius = Math.max(1, left.radius + right.radius);
+        const leftShare = right.radius / combinedRadius;
+        const rightShare = left.radius / combinedRadius;
+        left.centerX -= directionX * overlap * leftShare;
+        left.centerY -= directionY * overlap * leftShare;
+        right.centerX += directionX * overlap * rightShare;
+        right.centerY += directionY * overlap * rightShare;
+      }
+    }
+
+    placements.forEach(placement => {
+      placement.centerX += (placement.targetX - placement.centerX) * 0.008;
+      placement.centerY += (placement.targetY - placement.centerY) * 0.008;
+      clampPlacement(placement);
+    });
+  }
+
+  return placements;
+}
+
+function renderPersonalFootprintBubbleChart(result) {
+  const layouts = getPersonalFootprintBubbleLayouts(result);
+  const total = `${result.carbonTotal.toFixed(1)} tCO2e/yr`;
+  return `
+    <section class="footprint-story-section footprint-bubble-section" aria-labelledby="footprint-bubble-title">
+      <div class="footprint-story-heading-row footprint-bubble-heading">
+        <div>
+          <h3 id="footprint-bubble-title">What shapes your annual footprint</h3>
+          <p>Circle area represents each source’s estimated annual carbon contribution.</p>
+        </div>
+        <strong class="footprint-story-physical-total">${escapeHtml(total)}</strong>
+      </div>
+      <div
+        class="footprint-bubble-stage"
+        role="img"
+        aria-label="Your annual carbon footprint is ${escapeHtml(total)}. The bubbles show the sources that make up that footprint."
+      >
+        ${layouts.map(layout => {
+          const titleSize = Math.min(20, Math.max(10, layout.diameter * 0.08));
+          const valueSize = Math.min(16, Math.max(9, layout.diameter * 0.058));
+          return `
+            <div
+              class="footprint-impact-bubble"
+              style="--bubble-x:${(layout.centerX / 10).toFixed(3)}%; --bubble-y:${(layout.centerY / 10).toFixed(3)}%; --bubble-size:${(layout.diameter / 10).toFixed(3)}%; --bubble-rgb:${layout.rgb}; --bubble-color:${layout.color}; --bubble-angle:${layout.angle}deg; --bubble-opacity:${layout.opacity.toFixed(3)}; --bubble-delay:${layout.rank * 70}ms; --bubble-z:${10 + layout.rank}; --bubble-label-x:${(layout.offsetX / 10).toFixed(3)}cqw; --bubble-label-y:${(layout.offsetY / 10).toFixed(3)}cqw; --bubble-title-size:${(titleSize / 10).toFixed(3)}cqw; --bubble-value-size:${(valueSize / 10).toFixed(3)}cqw;"
+              aria-label="${escapeHtml(layout.label)}, ${layout.carbon.toFixed(1)} tonnes carbon dioxide equivalent per year"
+            >
+              <span class="footprint-impact-bubble-label">
+                <strong>${escapeHtml(layout.label)}</strong>
+                <small>${layout.carbon.toFixed(1)} tCO2e/yr</small>
+              </span>
+            </div>
+          `;
+        }).join('')}
+      </div>
     </section>
   `;
 }
@@ -7738,26 +8444,26 @@ function renderPersonalFootprintModuleHeader(moduleSummary) {
   const metrics = [
     {
       label: 'Carbon emissions',
-      value: hasAnswers ? `${moduleSummary.carbon.toFixed(1)} tCO2e/yr` : '--',
-      note: hasAnswers ? `${moduleSummary.carbonShare}% of total` : 'Awaiting answers',
+      value: hasAnswers ? `${moduleSummary.carbon.toFixed(1)} tCO2e/yr` : 'Estimate pending',
+      note: hasAnswers ? `${moduleSummary.carbonShare}% of total` : 'Answer this section',
       className: 'is-carbon'
     },
     {
       label: 'Water footprint',
-      value: hasAnswers ? `${moduleSummary.waterM3.toLocaleString('en-US')} m³/yr` : '--',
-      note: hasAnswers ? `${moduleSummary.waterShare}% of total` : 'Awaiting answers',
+      value: hasAnswers ? `${moduleSummary.waterM3.toLocaleString('en-US')} m³/yr` : 'Estimate pending',
+      note: hasAnswers ? `${moduleSummary.waterShare}% of total` : 'Answer this section',
       className: 'is-water'
     },
     {
       label: 'Land footprint',
-      value: hasAnswers ? `${moduleSummary.landM2.toLocaleString('en-US')} m²·yr` : '--',
-      note: hasAnswers ? `${moduleSummary.natureShare}% of total` : 'Awaiting answers',
+      value: hasAnswers ? `${moduleSummary.landM2.toLocaleString('en-US')} m²·yr` : 'Estimate pending',
+      note: hasAnswers ? `${moduleSummary.natureShare}% of total` : 'Answer this section',
       className: 'is-nature'
     },
     {
       label: 'Material footprint',
-      value: hasAnswers ? `${moduleSummary.materialTonnes.toFixed(1)} t RME/yr` : '--',
-      note: hasAnswers ? `${moduleSummary.materialShare}% of total` : 'Awaiting answers',
+      value: hasAnswers ? `${moduleSummary.materialTonnes.toFixed(1)} t RME/yr` : 'Estimate pending',
+      note: hasAnswers ? `${moduleSummary.materialShare}% of total` : 'Answer this section',
       className: 'is-material'
     }
   ];
@@ -7784,8 +8490,304 @@ function renderPersonalFootprintModuleHeader(moduleSummary) {
   `;
 }
 
+function focusPersonalFootprintQuestion(questionKey = PERSONAL_FOOTPRINT_QUESTIONS[0]?.key) {
+  const card = document.getElementById(`personal-footprint-question-${questionKey}`);
+  if (!card) return;
+  card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  window.setTimeout(() => {
+    const activeAnswer = card.querySelector('.personal-footprint-pill.active');
+    (activeAnswer || card).focus({ preventScroll: true });
+  }, 360);
+}
+
+function announcePersonalFootprintShare(message) {
+  const status = document.getElementById('personal-footprint-share-status');
+  if (!status) return;
+  status.textContent = message;
+}
+
+async function downloadPersonalFootprintSummary() {
+  const result = calculatePersonalFootprint(personalFootprintState);
+  if (!result.rankReady) {
+    announcePersonalFootprintShare('Complete all questions before downloading your PDF.');
+    return;
+  }
+
+  announcePersonalFootprintShare('Preparing PDF...');
+
+  try {
+    await document.fonts?.ready;
+    const [{ jsPDF }, brandLogoRaster] = await Promise.all([
+      import('jspdf'),
+      rasterizeExportAsset('/logo.svg', 960, '#555153')
+    ]);
+    const pdf = new jsPDF({
+      orientation: 'portrait',
+      unit: 'mm',
+      format: 'a4',
+      compress: true
+    });
+    await registerPdfInterDisplay(pdf);
+
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+    const margin = 12;
+    const contentWidth = pageWidth - margin * 2;
+    const ink = [43, 40, 40];
+    const muted = [103, 99, 99];
+    const line = [221, 218, 216];
+    const colors = {
+      carbon: [239, 68, 68],
+      water: [14, 165, 233],
+      land: [34, 197, 94],
+      materials: [139, 92, 246]
+    };
+    const generatedDate = new Intl.DateTimeFormat('en-US', {
+      month: 'long', day: 'numeric', year: 'numeric'
+    }).format(new Date());
+    const insights = getPersonalFootprintInsights(personalFootprintState, 5);
+    const globalRank = estimateGlobalCarbonPercentile(result.carbonTotal);
+
+    pdf.setProperties({
+      title: 'TULIP - Your Footprint Summary',
+      subject: 'Personal carbon, water, land, and material footprint summary',
+      author: 'TULIP',
+      creator: 'TULIP'
+    });
+
+    const setFont = (style = 'normal', size = 11, color = ink) => {
+      pdf.setFont('InterDisplay', style);
+      pdf.setFontSize(size);
+      pdf.setTextColor(...color);
+    };
+
+    const drawFootprintPill = (x, y, width, height, color) => {
+      pdf.setFillColor(...color);
+      pdf.roundedRect(x, y, width, height, height / 2, height / 2, 'F');
+    };
+
+    const drawPageHeader = (continued = false) => {
+      fillPdfPageBackground(pdf);
+      drawPdfBrandLogo(pdf, brandLogoRaster, margin - 0.4, 15.5, 40);
+      setFont('semibold', 9, muted);
+      pdf.text(continued ? 'YOUR FOOTPRINT - CONTINUED' : 'YOUR FOOTPRINT', margin, 45.5);
+      setFont('normal', 20, ink);
+      pdf.text('Your footprint summary', margin, 55.5);
+      setFont('normal', 10.5, muted);
+      pdf.text(`Prepared ${generatedDate}  |  ${result.confidence} confidence`, margin, 63.5);
+      pdf.setDrawColor(...line);
+      pdf.setLineWidth(0.22);
+      pdf.line(margin, 68.5, pageWidth - margin, 68.5);
+      return 77;
+    };
+
+    const drawSectionTitle = (title, y, accent = ink) => {
+      setFont('semibold', 13, accent);
+      pdf.text(normalizePdfText(title), margin, y);
+      return y + 8;
+    };
+
+    const addFlowPage = sectionTitle => {
+      pdf.addPage();
+      pdf.setPage(pdf.getNumberOfPages());
+      let y = drawPageHeader(true);
+      if (sectionTitle) y = drawSectionTitle(sectionTitle, y);
+      return y;
+    };
+
+    const metricCards = [
+      { label: 'CARBON EMISSIONS', value: `${result.carbonTotal.toFixed(1)} tCO2e / year`, color: colors.carbon },
+      { label: 'WATER FOOTPRINT', value: `${result.waterTotalM3.toLocaleString('en-US')} m3 / year`, color: colors.water },
+      { label: 'LAND FOOTPRINT', value: `${result.landTotalM2.toLocaleString('en-US')} m2-year`, color: colors.land },
+      { label: 'MATERIAL FOOTPRINT', value: `${result.materialTotalTonnes.toFixed(1)} t RME / year`, color: colors.materials }
+    ];
+
+    let y = drawPageHeader();
+    const cardGap = 6;
+    const cardWidth = (contentWidth - cardGap) / 2;
+    const cardHeight = 28;
+    metricCards.forEach((metric, index) => {
+      const column = index % 2;
+      const row = Math.floor(index / 2);
+      const x = margin + column * (cardWidth + cardGap);
+      const cardY = y + row * (cardHeight + cardGap);
+      pdf.setFillColor(249, 248, 247);
+      pdf.setDrawColor(...line);
+      pdf.roundedRect(x, cardY, cardWidth, cardHeight, 3.2, 3.2, 'FD');
+      pdf.setFillColor(...metric.color);
+      pdf.roundedRect(x, cardY, 2.3, cardHeight, 1.15, 1.15, 'F');
+      setFont('semibold', 8.2, muted);
+      pdf.text(metric.label, x + 7, cardY + 9);
+      setFont('semibold', 15, ink);
+      pdf.text(metric.value, x + 7, cardY + 20);
+    });
+    y += cardHeight * 2 + cardGap + 12;
+
+    if (globalRank) {
+      setFont('normal', 11, ink);
+      const rankCopy = `${globalRank.populationLabel} has a lower estimated annual carbon footprint (2019 WID reference).`;
+      const rankLines = pdf.splitTextToSize(normalizePdfText(rankCopy), contentWidth);
+      pdf.text(rankLines, margin, y, { lineHeightFactor: 1.2 });
+      y += rankLines.length * 4.8 + 8;
+    }
+
+    y = drawSectionTitle('What builds your carbon footprint', y);
+    const carbonItems = result.breakdown
+      .filter(item => item.carbon > 0)
+      .sort((left, right) => right.carbon - left.carbon);
+    const maximumCarbon = Math.max(1, ...carbonItems.map(item => item.carbon));
+    carbonItems.forEach(item => {
+      if (y > pageHeight - 24) y = addFlowPage('What builds your carbon footprint');
+      setFont('normal', 9.4, ink);
+      pdf.text(normalizePdfText(item.title), margin, y);
+      setFont('semibold', 9.4, muted);
+      pdf.text(`${item.carbon.toFixed(1)} t`, pageWidth - margin, y, { align: 'right' });
+      const trackY = y + 3.2;
+      drawFootprintPill(margin, trackY, contentWidth, 3.2, [235, 232, 230]);
+      drawFootprintPill(
+        margin,
+        trackY,
+        Math.max(2.4, contentWidth * (item.carbon / maximumCarbon)),
+        3.2,
+        [139, 92, 246]
+      );
+      y += 11.5;
+    });
+
+    y = addFlowPage('Five actions for you');
+    insights.forEach((insight, index) => {
+      setFont('semibold', 11, ink);
+      const titleLines = pdf.splitTextToSize(normalizePdfText(`${index + 1}. ${insight.title}`), contentWidth - 8);
+      setFont('normal', 10, ink);
+      const bodyLines = pdf.splitTextToSize(normalizePdfText(insight.action), contentWidth - 8);
+      setFont('normal', 8.5, muted);
+      const reasonLines = pdf.splitTextToSize(normalizePdfText(insight.rationale), contentWidth - 8);
+      const requiredHeight = titleLines.length * 5.4 + bodyLines.length * 4.8 + reasonLines.length * 4.2 + 15;
+      if (y + requiredHeight > pageHeight - 18) y = addFlowPage('Five actions for you');
+      pdf.saveGraphicsState();
+      pdf.setFillColor(249, 248, 247);
+      pdf.setDrawColor(...line);
+      pdf.roundedRect(margin, y - 4, contentWidth, requiredHeight, 3, 3, 'FD');
+      pdf.restoreGraphicsState();
+      setFont('semibold', 11, ink);
+      pdf.text(titleLines, margin + 5, y + 3, { lineHeightFactor: 1.15 });
+      let itemY = y + titleLines.length * 5.4 + 5;
+      setFont('normal', 10, ink);
+      pdf.text(bodyLines, margin + 5, itemY, { lineHeightFactor: 1.2 });
+      itemY += bodyLines.length * 4.8 + 3;
+      setFont('normal', 8.5, muted);
+      pdf.text(reasonLines, margin + 5, itemY, { lineHeightFactor: 1.18 });
+      y += requiredHeight + 6;
+    });
+
+    if (y > pageHeight - 86) y = addFlowPage('Compared with the worldwide average');
+    else y = drawSectionTitle('Compared with the worldwide average', y + 5);
+    const comparisons = [
+      { label: 'Carbon', value: result.carbonTotal, average: PERSONAL_FOOTPRINT_ANNUAL_REFERENCES.carbonTonnes, display: `${result.carbonTotal.toFixed(1)} tCO2e`, color: colors.carbon },
+      { label: 'Water', value: result.waterTotalM3, average: PERSONAL_FOOTPRINT_ANNUAL_REFERENCES.waterM3, display: `${result.waterTotalM3.toLocaleString('en-US')} m3`, color: colors.water },
+      { label: 'Land', value: result.landTotalM2, average: PERSONAL_FOOTPRINT_ANNUAL_REFERENCES.landM2, display: `${result.landTotalM2.toLocaleString('en-US')} m2-year`, color: colors.land },
+      { label: 'Materials', value: result.materialTotalTonnes, average: PERSONAL_FOOTPRINT_ANNUAL_REFERENCES.materialTonnes, display: `${result.materialTotalTonnes.toFixed(1)} t RME`, color: colors.materials }
+    ];
+    comparisons.forEach(item => {
+      const percentage = Math.round((item.value / Math.max(item.average, 0.01)) * 100);
+      setFont('normal', 9.3, ink);
+      pdf.text(item.label, margin, y);
+      setFont('semibold', 9.3, ink);
+      pdf.text(`${item.display}  |  ${percentage}%`, pageWidth - margin, y, { align: 'right' });
+      drawFootprintPill(margin, y + 3.2, contentWidth, 3.5, [235, 232, 230]);
+      drawFootprintPill(margin, y + 3.2, Math.max(2.4, contentWidth * Math.min(percentage / 100, 1)), 3.5, item.color);
+      y += 13;
+    });
+
+    y = addFlowPage('Your answers');
+    PERSONAL_FOOTPRINT_QUESTIONS.forEach((question, index) => {
+      const option = getPersonalFootprintOption(question.key, personalFootprintState[question.key]);
+      setFont('normal', 8.7, muted);
+      const questionLines = pdf.splitTextToSize(
+        normalizePdfText(`${index + 1}. ${question.title}`),
+        contentWidth
+      );
+      setFont('normal', 10.2, ink);
+      const answerLines = pdf.splitTextToSize(
+        normalizePdfText(option?.label || 'Not answered'),
+        contentWidth - 6
+      );
+      const questionHeight = questionLines.length * 4.1;
+      const answerHeight = answerLines.length * 4.7;
+      const rowHeight = questionHeight + answerHeight + 9;
+      if (y + rowHeight > pageHeight - 23) y = addFlowPage('Your answers');
+      setFont('normal', 8.7, muted);
+      pdf.text(questionLines, margin, y, { lineHeightFactor: 1.2 });
+      const answerY = y + questionHeight + 2.5;
+      pdf.setDrawColor(188, 184, 181);
+      pdf.setLineWidth(0.55);
+      pdf.line(margin, answerY - 3.1, margin, answerY + answerHeight - 1.8);
+      setFont('normal', 10.2, ink);
+      pdf.text(answerLines, margin + 4, answerY, { lineHeightFactor: 1.18 });
+      pdf.setDrawColor(...line);
+      pdf.setLineWidth(0.18);
+      const dividerY = answerY + answerHeight + 1.5;
+      pdf.line(margin, dividerY, pageWidth - margin, dividerY);
+      y += rowHeight;
+    });
+
+    if (y > pageHeight - 42) y = addFlowPage('How to read this estimate');
+    else y = drawSectionTitle('How to read this estimate', y + 6);
+    setFont('normal', 9.5, muted);
+    const methodology = pdf.splitTextToSize(
+      'This is a benchmark-calibrated estimate, not a measured inventory. It uses your answers to estimate annual lifestyle-linked demand, with worldwide reference choices filling any unanswered inputs. Use it to compare sources and identify practical opportunities, not as a formal emissions disclosure.',
+      contentWidth
+    );
+    pdf.text(methodology, margin, y, { lineHeightFactor: 1.28 });
+
+    const pageCount = pdf.getNumberOfPages();
+    for (let pageNumber = 1; pageNumber <= pageCount; pageNumber += 1) {
+      pdf.setPage(pageNumber);
+      pdf.setDrawColor(...line);
+      pdf.line(margin, pageHeight - 14, pageWidth - margin, pageHeight - 14);
+      setFont('normal', 8, muted);
+      pdf.text('TULIP  |  Personal impact summary', margin, pageHeight - 8.5);
+      pdf.text(`${pageNumber} / ${pageCount}`, pageWidth - margin, pageHeight - 8.5, { align: 'right' });
+    }
+
+    pdf.save('tulip-your-footprint.pdf');
+    announcePersonalFootprintShare('PDF saved.');
+  } catch (error) {
+    console.error('Unable to export footprint PDF:', error);
+    announcePersonalFootprintShare('PDF export unavailable. Please try again.');
+  }
+}
+
+function restartPersonalFootprint() {
+  if (!window.confirm('Restart this assessment and clear all 11 answers?')) return;
+  personalFootprintState = Object.fromEntries(PERSONAL_FOOTPRINT_QUESTIONS.map(question => [question.key, null]));
+  personalFootprintPreviousMetrics = null;
+  personalFootprintLastInteraction = null;
+  personalFootprintWasComplete = false;
+  personalFootprintCompletedTracked = false;
+  renderPersonalFootprint();
+  personalFootprintQuestions?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  window.setTimeout(() => focusPersonalFootprintQuestion(), 360);
+}
+
+function bindPersonalFootprintResultActions() {
+  const actions = [
+    ['personal-footprint-edit', () => focusPersonalFootprintQuestion()],
+    ['personal-footprint-download', downloadPersonalFootprintSummary],
+    ['personal-footprint-restart', restartPersonalFootprint]
+  ];
+  actions.forEach(([id, handler]) => {
+    const button = document.getElementById(id);
+    if (!button || button.dataset.footprintActionBound === 'true') return;
+    button.dataset.footprintActionBound = 'true';
+    button.addEventListener('click', handler);
+  });
+}
+
 function renderPersonalFootprint() {
   const result = calculatePersonalFootprint();
+  const progress = getPersonalFootprintProgress(personalFootprintState);
+  const justCompleted = progress.complete && !personalFootprintWasComplete;
   const globalCarbonRank = result.rankReady
     ? estimateGlobalCarbonPercentile(result.carbonTotal)
     : null;
@@ -7813,8 +8815,7 @@ function renderPersonalFootprint() {
   }
   
   if (personalFootprintFocusDescription) {
-    personalFootprintFocusDescription.textContent =
-      'Carbon, water, land, and materials are calculated independently.';
+    personalFootprintFocusDescription.textContent = 'Carbon, water, land, and materials are calculated independently.';
   }
 
   if (personalFootprintSummaryTitle) {
@@ -7841,7 +8842,7 @@ function renderPersonalFootprint() {
     personalFootprintMetricStrip.innerHTML = [
       {
         label: 'Carbon Emissions',
-        value: !result.anyAnswers ? '--' : `${result.carbonTotal.toFixed(1)} tCO2e/yr`,
+        value: !result.anyAnswers ? 'Estimate pending' : `${result.carbonTotal.toFixed(1)} tCO2e/yr`,
         trend: currentMetrics && previousMetrics
           ? getPersonalFootprintMetricTrend(currentMetrics.carbonTotal, previousMetrics.carbonTotal)
           : 'neutral',
@@ -7849,7 +8850,7 @@ function renderPersonalFootprint() {
       },
       {
         label: 'Water Footprint',
-        value: !result.anyAnswers ? '--' : `${result.waterTotalM3.toLocaleString('en-US')} m³/yr`,
+        value: !result.anyAnswers ? 'Estimate pending' : `${result.waterTotalM3.toLocaleString('en-US')} m³/yr`,
         trend: currentMetrics && previousMetrics
           ? getPersonalFootprintMetricTrend(currentMetrics.waterTotalM3, previousMetrics.waterTotalM3)
           : 'neutral',
@@ -7857,7 +8858,7 @@ function renderPersonalFootprint() {
       },
       {
         label: 'Land Footprint',
-        value: !result.anyAnswers ? '--' : `${result.landTotalM2.toLocaleString('en-US')} m²·yr`,
+        value: !result.anyAnswers ? 'Estimate pending' : `${result.landTotalM2.toLocaleString('en-US')} m²·yr`,
         trend: currentMetrics && previousMetrics
           ? getPersonalFootprintMetricTrend(currentMetrics.landTotalM2, previousMetrics.landTotalM2)
           : 'neutral',
@@ -7865,7 +8866,7 @@ function renderPersonalFootprint() {
       },
       {
         label: 'Material Footprint',
-        value: !result.anyAnswers ? '--' : `${result.materialTotalTonnes.toFixed(1)} t RME/yr`,
+        value: !result.anyAnswers ? 'Estimate pending' : `${result.materialTotalTonnes.toFixed(1)} t RME/yr`,
         trend: currentMetrics && previousMetrics
           ? getPersonalFootprintMetricTrend(currentMetrics.materialTotalTonnes, previousMetrics.materialTotalTonnes)
           : 'neutral',
@@ -7894,7 +8895,7 @@ function renderPersonalFootprint() {
 
       return `
         ${isModuleStart ? renderPersonalFootprintModuleHeader(moduleSummariesByKey.get(question.module)) : ''}
-        <section class="personal-footprint-question-card">
+        <section id="personal-footprint-question-${question.key}" class="personal-footprint-question-card" tabindex="-1">
           <div class="personal-footprint-question-meta">
             <h3 class="personal-footprint-question-title">
               <span class="personal-footprint-question-count">${index + 1} -</span>
@@ -7909,7 +8910,7 @@ function renderPersonalFootprint() {
 
               return `
                 ${question.key === 'geography' && option.value === 'fossil_transit' ? '<span class="personal-footprint-option-row-break" aria-hidden="true"></span>' : ''}
-                <button class="personal-footprint-pill ${isActive ? 'active' : ''}" type="button" data-personal-footprint-question="${question.key}" data-personal-footprint-option="${option.value}" style="--pill-intensity:${intensity}%;">
+                <button class="personal-footprint-pill ${isActive ? 'active' : ''}" type="button" data-personal-footprint-question="${question.key}" data-personal-footprint-option="${option.value}" aria-pressed="${isActive ? 'true' : 'false'}" style="--pill-intensity:${intensity}%;">
                   ${escapeHtml(option.label)}
                 </button>
               `;
@@ -7952,6 +8953,23 @@ function renderPersonalFootprint() {
   if (personalFootprintBreakdown) {
     personalFootprintBreakdown.innerHTML = renderPersonalFootprintStory(result);
   }
+
+  const resultsCard = document.getElementById('personal-footprint-results-start');
+  const resultsTitle = document.getElementById('personal-footprint-results-title');
+  const resultsActions = document.getElementById('personal-footprint-results-actions');
+  if (resultsCard) resultsCard.hidden = !progress.complete;
+  if (resultsTitle) resultsTitle.textContent = 'Your footprint results';
+  if (resultsActions) resultsActions.hidden = !progress.complete;
+
+  personalFootprintWasComplete = progress.complete;
+  if (justCompleted) {
+    window.requestAnimationFrame(() => {
+      const results = document.getElementById('personal-footprint-results-start');
+      results?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      window.setTimeout(() => results?.focus({ preventScroll: true }), 420);
+    });
+  }
+  bindPersonalFootprintResultActions();
 }
 
 
@@ -8326,6 +9344,19 @@ function updateTrailPrompts(node) {
 
 function updateAnalyzeShowMoreButton(node) {
   if (!analyzeShowMoreBtn) return;
+  const stopExpandBreathing = ({ resetNode = false } = {}) => {
+    analyzeShowMoreBtn.classList.remove('is-breathing');
+    if (resetNode) delete analyzeShowMoreBtn.dataset.breathNode;
+  };
+  const startExpandBreathing = () => {
+    const nodeKey = String(node?.id || node?.name || '');
+    if (!nodeKey || analyzeShowMoreBtn.dataset.breathNode === nodeKey) return;
+    stopExpandBreathing();
+    analyzeShowMoreBtn.dataset.breathNode = nodeKey;
+    // Restart the finite animation when a different eligible node is presented.
+    void analyzeShowMoreBtn.offsetWidth;
+    analyzeShowMoreBtn.classList.add('is-breathing');
+  };
   const setExpandBadge = (badge = '') => {
     analyzeShowMoreBtn.dataset.badge = badge ? String(badge) : '';
   };
@@ -8336,6 +9367,7 @@ function updateAnalyzeShowMoreButton(node) {
   };
 
   if (!node || !graphInstance?.isFocusMode) {
+    stopExpandBreathing({ resetNode: true });
     analyzeShowMoreBtn.style.display = 'none';
     analyzeShowMoreBtn.classList.remove('active');
     analyzeShowMoreBtn.disabled = true;
@@ -8347,12 +9379,14 @@ function updateAnalyzeShowMoreButton(node) {
   const focusData = graphInstance.getAnalyzeFocusData(node);
   const hiddenCount = focusData?.hiddenConnectionCount || 0;
   if (focusData?.autoExpandAllConnections) {
+    stopExpandBreathing();
     analyzeShowMoreBtn.style.display = 'none';
     analyzeShowMoreBtn.disabled = true;
     analyzeShowMoreBtn.classList.remove('active');
     setExpandIcon(false);
     setExpandBadge();
   } else if (graphInstance.showAllAnalyzeConnections) {
+    stopExpandBreathing();
     analyzeShowMoreBtn.setAttribute('aria-label', 'Simplify incoming and outgoing influences');
     analyzeShowMoreBtn.style.display = 'inline-flex';
     analyzeShowMoreBtn.disabled = false;
@@ -8366,7 +9400,9 @@ function updateAnalyzeShowMoreButton(node) {
     analyzeShowMoreBtn.classList.remove('active');
     setExpandIcon(false);
     setExpandBadge(hiddenCount);
+    startExpandBreathing();
   } else {
+    stopExpandBreathing();
     analyzeShowMoreBtn.style.display = 'none';
     analyzeShowMoreBtn.disabled = true;
     analyzeShowMoreBtn.classList.remove('active');
@@ -8599,6 +9635,63 @@ function renderGatewayIcon(topic) {
   `;
 }
 
+function renderAnalyseStarterPicker() {
+  const grid = document.getElementById('analyse-starter-grid');
+  if (!grid || grid.childElementCount) return;
+
+  GATEWAY_TOPICS.forEach(topic => {
+    const node = NODE_BY_ID.get(topic.nodeId) || getNodeByName(topic.label);
+    if (!node) return;
+
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'analyse-starter-card';
+    button.setAttribute('data-analyse-starter-node', node.id);
+    button.style.setProperty('--starter-accent', topic.color);
+    button.innerHTML = `
+      <span class="analyse-starter-card-icon" aria-hidden="true">${renderGatewayIcon(topic)}</span>
+      <span class="analyse-starter-card-copy">
+        <strong>${escapeHtml(GATEWAY_TOPIC_LABELS[topic.key] || topic.label)}</strong>
+        <span>${escapeHtml(formatMetricDisplayText(GATEWAY_TOPIC_SUMMARIES[topic.key] || getNodeMeaning(node)))}</span>
+      </span>
+      <span class="analyse-starter-card-action" aria-hidden="true">Start analysis <span>→</span></span>
+    `;
+    button.addEventListener('click', () => {
+      trackEvent('analyse_starter_selected', { node_id: node.id });
+      hideAnalyseStarterPicker({ resumeGraph: false });
+      targetAndSelectNode(node, { pathNodes: [node] });
+    });
+    grid.appendChild(button);
+  });
+}
+
+function showAnalyseStarterPicker() {
+  const picker = document.getElementById('analyse-starter-picker');
+  const appContainer = document.getElementById('app-container');
+  if (!picker || !appContainer) return;
+
+  renderAnalyseStarterPicker();
+  picker.hidden = false;
+  appContainer.classList.add('analyse-starter-active');
+  document.body.classList.add('analyse-starter-active');
+  setActiveTab('study');
+  updateMobileAppBar('analyse-starter');
+  graphInstance?.pause();
+  trackEvent('analyse_starter_opened', { starter_count: GATEWAY_TOPICS.length });
+  picker.querySelector('.analyse-starter-card')?.focus({ preventScroll: true });
+}
+
+function hideAnalyseStarterPicker({ resumeGraph = true } = {}) {
+  const picker = document.getElementById('analyse-starter-picker');
+  const appContainer = document.getElementById('app-container');
+  if (picker) picker.hidden = true;
+  appContainer?.classList.remove('analyse-starter-active');
+  document.body.classList.remove('analyse-starter-active');
+  if (resumeGraph && (appContainer?.dataset.viewMode || 'explore') === 'explore') {
+    graphInstance?.resume();
+  }
+}
+
 function syncEditorialArcState() {
   if (!editorialArcButtons.length) return;
   const activeId = currentSelectedNode?.id || null;
@@ -8769,6 +9862,7 @@ function initEditorialArcs() {
 
 // --- NODE SELECTION & DYNAMIC CONTENT WRITER ---
 function selectNode(node, { historyMode = 'push', pathNodes = null, motionOrigin = null } = {}) {
+  const previousSelectedNode = currentSelectedNode;
   const isNewSelection = Boolean(node && (!currentSelectedNode || currentSelectedNode.id !== node.id));
 
   if (isNewSelection || !node) {
@@ -8822,6 +9916,7 @@ function selectNode(node, { historyMode = 'push', pathNodes = null, motionOrigin
     updateAnalyzeShowMoreButton(null);
     setShellMode('explore');
     renderPhenomenonLens(null);
+    renderRecentOccurrences(null);
     
     // Hide all dynamic dataset cards
     const cards = [
@@ -8873,6 +9968,9 @@ function selectNode(node, { historyMode = 'push', pathNodes = null, motionOrigin
     }
 
     window.requestAnimationFrame(() => forceExploreTabState());
+    window.dispatchEvent(new CustomEvent('tulip:nodechange', {
+      detail: { node: null, previousNode: previousSelectedNode, path: [] }
+    }));
     return;
   }
 
@@ -8884,6 +9982,7 @@ function selectNode(node, { historyMode = 'push', pathNodes = null, motionOrigin
 
   // Active node case: reveal simulation dashboard details
   setShellMode('study');
+  requestRuntimeNodeDetails(node);
   if (graphInstance && isNewSelection) {
     graphInstance.showAllAnalyzeConnections = false;
     graphInstance.invalidateAnalyzeCaches();
@@ -8943,10 +10042,11 @@ function selectNode(node, { historyMode = 'push', pathNodes = null, motionOrigin
     consoleImpactBadge.textContent = `${badgeLabel}: ${node.impactScore || 50}/100`;
   }
   if (consoleNodeMeaning) {
-    consoleNodeMeaning.innerHTML = getNodeMeaning(node);
+    consoleNodeMeaning.innerHTML = formatMetricDisplayText(getNodeMeaning(node));
   }
   populateRelationshipEvidencePicker(node);
   renderMonitoringSource(node);
+  renderRecentOccurrences(node);
   renderHumanImpact(node);
   renderPlanetImpact(node);
   renderWhatCanBeDone(node);
@@ -8959,8 +10059,24 @@ function selectNode(node, { historyMode = 'push', pathNodes = null, motionOrigin
   updateCausalLists(node);
   updateAnalyzeShowMoreButton(node);
 
-  // Populate Self-Reinforcing Loops
+  // Populate Positive Feedback Loop
   renderFeedbackLoops(node);
+
+  const currentPath = [...selectionHistory, node].filter(Boolean);
+  if (isNewSelection) {
+    if (studyConsole) studyConsole.scrollTop = 0;
+    if (consoleNodeName) {
+      consoleNodeName.setAttribute('tabindex', '-1');
+      window.requestAnimationFrame(() => consoleNodeName.focus({ preventScroll: true }));
+    }
+  }
+  window.dispatchEvent(new CustomEvent('tulip:nodechange', {
+    detail: {
+      node,
+      previousNode: previousSelectedNode,
+      path: currentPath.map(pathNode => ({ id: pathNode.id, name: pathNode.name }))
+    }
+  }));
 
   // Registries now live in a shared footer directory rather than a node-scoped loader surface.
 
@@ -9145,8 +10261,8 @@ function fetchNasaDatasets(node) {
         const searchUrl = `https://search.earthdata.nasa.gov/search?q=${encodeURIComponent(shortName)}`;
 
         item.innerHTML = `
-          <div style="font-size: 12px; color: rgba(255, 220, 174, 0.95); font-weight: 500; letter-spacing: 0.5px;">${shortName}${version}</div>
-          <a href="${searchUrl}" target="_blank" class="nasa-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 500; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(255, 220, 174, 0.95)'" onmouseout="this.style.color='#ffffff'">
+          <div style="font-size: 12px; color: rgba(255, 220, 174, 0.95); font-weight: 400; letter-spacing: 0.5px;">${shortName}${version}</div>
+          <a href="${searchUrl}" target="_blank" class="nasa-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 400; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(255, 220, 174, 0.95)'" onmouseout="this.style.color='#ffffff'">
             ${titleText} ↗
           </a>
         `;
@@ -9244,17 +10360,17 @@ function fetchEonetEvents(node) {
           `[${event.geometry[0].coordinates.join(', ')}]` : 'N/A';
 
         item.innerHTML = `
-          <div style="font-size: 12px; color: #ff5252; font-weight: 500; letter-spacing: 0.5px; display: flex; justify-content: space-between;">
+          <div style="font-size: 12px; color: #ff5252; font-weight: 400; letter-spacing: 0.5px; display: flex; justify-content: space-between;">
             <span>EONET LIVE EVENT: ${categoryLabel.toUpperCase()}</span>
             <span>${date}</span>
           </div>
-          <div style="font-size: 13px; color: #ffffff; font-weight: 500; line-height: 1.3;">${event.title}</div>
+          <div style="font-size: 13px; color: #ffffff; font-weight: 400; line-height: 1.3;">${event.title}</div>
           <div style="font-size: 12px; color: var(--text-muted); display: flex; justify-content: space-between; margin-top: 2px;">
             <span>ID: ${event.id}</span>
             <span style="font-family: monospace;">Coords: ${coordinates}</span>
           </div>
           <div style="margin-top: 4px;">
-            <a href="${event.sources && event.sources[0] ? event.sources[0].url : '#'}" target="_blank" style="font-size: 12px; color: #ff5252; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; font-weight: 500;">
+            <a href="${event.sources && event.sources[0] ? event.sources[0].url : '#'}" target="_blank" style="font-size: 12px; color: #ff5252; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; font-weight: 400;">
               SOURCE DATA ENTRY <span style="font-size: 9pt;">↗</span>
             </a>
           </div>
@@ -9328,8 +10444,8 @@ function fetchNoaaDatasets(node) {
         }
 
         item.innerHTML = `
-          <div style="font-size: 12px; color: rgba(226, 217, 255, 0.95); font-weight: 500; letter-spacing: 0.5px;">${identifier}</div>
-          <a href="${alternateLink}" target="_blank" class="noaa-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 500; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(226, 217, 255, 0.95)'" onmouseout="this.style.color='#ffffff'">
+          <div style="font-size: 12px; color: rgba(226, 217, 255, 0.95); font-weight: 400; letter-spacing: 0.5px;">${identifier}</div>
+          <a href="${alternateLink}" target="_blank" class="noaa-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 400; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(226, 217, 255, 0.95)'" onmouseout="this.style.color='#ffffff'">
             ${titleText} ↗
           </a>
         `;
@@ -9405,8 +10521,8 @@ function fetchCdsDatasets(node) {
         const landingUrl = `https://cds.climate.copernicus.eu/datasets/${encodeURIComponent(entry.id)}?tab=overview`;
 
         item.innerHTML = `
-          <div style="font-size: 12px; color: rgba(var(--accent-color-rgb), 0.95); font-weight: 500; letter-spacing: 0.5px;">${identifier}</div>
-          <a href="${landingUrl}" target="_blank" class="cds-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 500; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(var(--accent-color-rgb), 0.95)'" onmouseout="this.style.color='#ffffff'">
+          <div style="font-size: 12px; color: rgba(var(--accent-color-rgb), 0.95); font-weight: 400; letter-spacing: 0.5px;">${identifier}</div>
+          <a href="${landingUrl}" target="_blank" class="cds-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 400; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(var(--accent-color-rgb), 0.95)'" onmouseout="this.style.color='#ffffff'">
             ${titleText} ↗
           </a>
         `;
@@ -9489,11 +10605,11 @@ function fetchEcmwfDatasets(node) {
         const identifier = entry.id || 'N/A';
 
         item.innerHTML = `
-          <div style="font-size: 12px; color: rgba(var(--accent-color-rgb), 0.95); font-weight: 500; letter-spacing: 0.5px; display: flex; justify-content: space-between;">
+          <div style="font-size: 12px; color: rgba(var(--accent-color-rgb), 0.95); font-weight: 400; letter-spacing: 0.5px; display: flex; justify-content: space-between;">
             <span>${identifier}</span>
             <span style="font-size: 9pt; color: rgba(255,255,255,0.4); text-transform: uppercase;">Get API Request ↗</span>
           </div>
-          <div class="ecmwf-dataset-title" style="font-size: 13px; color: #ffffff; font-weight: 500; line-height: 1.4; transition: color 0.24s;">
+          <div class="ecmwf-dataset-title" style="font-size: 13px; color: #ffffff; font-weight: 400; line-height: 1.4; transition: color 0.24s;">
             ${titleText}
           </div>
         `;
@@ -9690,11 +10806,11 @@ function fetchGcpDatasets(node) {
         }
 
         item.innerHTML = `
-          <div style="font-size: 12px; color: rgba(255, 174, 174, 0.95); font-weight: 500; letter-spacing: 0.5px; display: flex; justify-content: space-between;">
+          <div style="font-size: 12px; color: rgba(255, 174, 174, 0.95); font-weight: 400; letter-spacing: 0.5px; display: flex; justify-content: space-between;">
             <span>DOI: ${doi}</span>
             <span>${year}</span>
           </div>
-          <a href="${landingUrl}" target="_blank" class="gcp-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 500; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(255, 174, 174, 0.95)'" onmouseout="this.style.color='#ffffff'">
+          <a href="${landingUrl}" target="_blank" class="gcp-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 400; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(255, 174, 174, 0.95)'" onmouseout="this.style.color='#ffffff'">
             ${titleText} ↗
           </a>
         `;
@@ -9777,11 +10893,11 @@ function fetchGcbDatasets(node) {
         }
 
         item.innerHTML = `
-          <div style="font-size: 12px; color: rgba(168, 230, 180, 0.95); font-weight: 500; letter-spacing: 0.5px; display: flex; justify-content: space-between;">
+          <div style="font-size: 12px; color: rgba(168, 230, 180, 0.95); font-weight: 400; letter-spacing: 0.5px; display: flex; justify-content: space-between;">
             <span>DOI: ${doi}</span>
             <span>${year}</span>
           </div>
-          <a href="${landingUrl}" target="_blank" class="gcb-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 500; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(168, 230, 180, 0.95)'" onmouseout="this.style.color='#ffffff'">
+          <a href="${landingUrl}" target="_blank" class="gcb-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 400; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(168, 230, 180, 0.95)'" onmouseout="this.style.color='#ffffff'">
             ${titleText} ↗
           </a>
         `;
@@ -9879,11 +10995,11 @@ function fetchEdgarDatasets(node) {
         }
 
         item.innerHTML = `
-          <div style="font-size: 12px; color: rgba(255, 204, 102, 0.95); font-weight: 500; letter-spacing: 0.5px; display: flex; justify-content: space-between;">
+          <div style="font-size: 12px; color: rgba(255, 204, 102, 0.95); font-weight: 400; letter-spacing: 0.5px; display: flex; justify-content: space-between;">
             <span>FORMAT: ${formatStr}</span>
             <span>ID: ${hit.id.substring(0, 8)}</span>
           </div>
-          <a href="${landingUrl}" target="_blank" class="edgar-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 500; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(255, 204, 102, 0.95)'" onmouseout="this.style.color='#ffffff'">
+          <a href="${landingUrl}" target="_blank" class="edgar-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 400; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(255, 204, 102, 0.95)'" onmouseout="this.style.color='#ffffff'">
             ${titleText} ↗
           </a>
         `;
@@ -9964,11 +11080,11 @@ function fetchWriDatasets(node) {
         let landingUrl = `https://resourcewatch.org/data/explore?dataset=${hit.id}`;
 
         item.innerHTML = `
-          <div style="font-size: 12px; color: rgba(140, 240, 220, 0.95); font-weight: 500; letter-spacing: 0.5px; display: flex; justify-content: space-between;">
+          <div style="font-size: 12px; color: rgba(140, 240, 220, 0.95); font-weight: 400; letter-spacing: 0.5px; display: flex; justify-content: space-between;">
             <span>SOURCE: ${source}</span>
             <span>PROVIDER: ${provider}</span>
           </div>
-          <a href="${landingUrl}" target="_blank" class="wri-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 500; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(140, 240, 220, 0.95)'" onmouseout="this.style.color='#ffffff'">
+          <a href="${landingUrl}" target="_blank" class="wri-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 400; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(140, 240, 220, 0.95)'" onmouseout="this.style.color='#ffffff'">
             ${titleText} ↗
           </a>
         `;
@@ -10054,11 +11170,11 @@ function fetchGfwDatasets(node) {
         let landingUrl = `https://data.globalforestwatch.org/datasets/gfw::${datasetName}`;
 
         item.innerHTML = `
-          <div style="font-size: 12px; color: rgba(170, 240, 130, 0.95); font-weight: 500; letter-spacing: 0.5px; display: flex; justify-content: space-between;">
+          <div style="font-size: 12px; color: rgba(170, 240, 130, 0.95); font-weight: 400; letter-spacing: 0.5px; display: flex; justify-content: space-between;">
             <span>SOURCE: ${source}</span>
             <span>NAME: ${datasetName.substring(0, 15)}</span>
           </div>
-          <a href="${landingUrl}" target="_blank" class="gfw-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 500; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(170, 240, 130, 0.95)'" onmouseout="this.style.color='#ffffff'">
+          <a href="${landingUrl}" target="_blank" class="gfw-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 400; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(170, 240, 130, 0.95)'" onmouseout="this.style.color='#ffffff'">
             ${titleText} ↗
           </a>
         `;
@@ -10138,11 +11254,11 @@ function fetchFaostatDatasets(node) {
         let landingUrl = `https://www.fao.org/faostat/en/#data/${code}`;
 
         item.innerHTML = `
-          <div style="font-size: 12px; color: rgba(240, 190, 100, 0.95); font-weight: 500; letter-spacing: 0.5px; display: flex; justify-content: space-between;">
+          <div style="font-size: 12px; color: rgba(240, 190, 100, 0.95); font-weight: 400; letter-spacing: 0.5px; display: flex; justify-content: space-between;">
             <span>FORMAT: ${formatStr.toUpperCase()} (${sizeStr})</span>
             <span>CODE: ${code}</span>
           </div>
-          <a href="${landingUrl}" target="_blank" class="faostat-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 500; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(240, 190, 100, 0.95)'" onmouseout="this.style.color='#ffffff'">
+          <a href="${landingUrl}" target="_blank" class="faostat-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 400; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(240, 190, 100, 0.95)'" onmouseout="this.style.color='#ffffff'">
             ${titleText} ↗
           </a>
         `;
@@ -10219,11 +11335,11 @@ function fetchGbifDatasets(node) {
         let landingUrl = `https://www.gbif.org/dataset/${key}`;
 
         item.innerHTML = `
-          <div style="font-size: 12px; color: rgba(215, 170, 255, 0.95); font-weight: 500; letter-spacing: 0.5px; display: flex; justify-content: space-between;">
+          <div style="font-size: 12px; color: rgba(215, 170, 255, 0.95); font-weight: 400; letter-spacing: 0.5px; display: flex; justify-content: space-between;">
             <span>TYPE: ${typeStr.toUpperCase()}${recordText}</span>
             <span>KEY: ${key.substring(0, 8)}...</span>
           </div>
-          <a href="${landingUrl}" target="_blank" class="gbif-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 500; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(215, 170, 255, 0.95)'" onmouseout="this.style.color='#ffffff'">
+          <a href="${landingUrl}" target="_blank" class="gbif-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 400; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(215, 170, 255, 0.95)'" onmouseout="this.style.color='#ffffff'">
             ${titleText} ↗
           </a>
         `;
@@ -10307,11 +11423,11 @@ function fetchUnepDatasets(node) {
         const landingUrl = `https://unstats.un.org/sdgs/dataportal/database?indicator=${encodeURIComponent(code)}`;
 
         item.innerHTML = `
-          <div style="font-size: 12px; color: rgba(100, 220, 150, 0.95); font-weight: 500; letter-spacing: 0.5px; display: flex; justify-content: space-between;">
+          <div style="font-size: 12px; color: rgba(100, 220, 150, 0.95); font-weight: 400; letter-spacing: 0.5px; display: flex; justify-content: space-between;">
             <span>INDICATOR ${code}</span>
             <span>TIER ${tier}</span>
           </div>
-          <a href="${landingUrl}" target="_blank" class="unep-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 500; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(100, 220, 150, 0.95)'" onmouseout="this.style.color='#ffffff'">
+          <a href="${landingUrl}" target="_blank" class="unep-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 400; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(100, 220, 150, 0.95)'" onmouseout="this.style.color='#ffffff'">
             ${descText} ↗
           </a>
         `;
@@ -10425,11 +11541,11 @@ function fetchInformeaDatasets(node) {
         const landingUrl = hit.url || `https://www.informea.org/treaties/${hit.id}`;
 
         item.innerHTML = `
-          <div style="font-size: 12px; color: rgba(255, 120, 150, 0.95); font-weight: 500; letter-spacing: 0.5px; display: flex; justify-content: space-between;">
+          <div style="font-size: 12px; color: rgba(255, 120, 150, 0.95); font-weight: 400; letter-spacing: 0.5px; display: flex; justify-content: space-between;">
             <span>TREATY / PROTOCOL</span>
             <span>ID: ${code}</span>
           </div>
-          <a href="${landingUrl}" target="_blank" class="informea-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 500; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(255, 120, 150, 0.95)'" onmouseout="this.style.color='#ffffff'">
+          <a href="${landingUrl}" target="_blank" class="informea-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 400; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(255, 120, 150, 0.95)'" onmouseout="this.style.color='#ffffff'">
             ${titleText} ↗
           </a>
         `;
@@ -10509,7 +11625,7 @@ function fetchOpenaqDatasets(node) {
         <div>A free OpenAQ API key is required to retrieve real-time air monitoring stations.</div>
         <div style="display: flex; gap: 8px; margin-top: 4px;">
           <input type="password" id="openaq-key-input" placeholder="Enter OpenAQ API Key..." style="flex: 1; padding: 6px 10px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.2); background: rgba(0, 0, 0, 0.3); color: #fff; font-size: 12px;" />
-          <button id="openaq-save-key-btn" style="padding: 6px 12px; border-radius: 8px; border: none; background: rgba(var(--accent-color-rgb), 0.25); color: #fff; font-size: 12px; font-weight: 500; cursor: pointer; border: 1px solid rgba(var(--accent-color-rgb), 0.4); transition: background 0.24s;" onmouseover="this.style.background='rgba(var(--accent-color-rgb), 0.45)'" onmouseout="this.style.background='rgba(var(--accent-color-rgb), 0.25)'">Save</button>
+          <button id="openaq-save-key-btn" style="padding: 6px 12px; border-radius: 8px; border: none; background: rgba(var(--accent-color-rgb), 0.25); color: #fff; font-size: 12px; font-weight: 400; cursor: pointer; border: 1px solid rgba(var(--accent-color-rgb), 0.4); transition: background 0.24s;" onmouseover="this.style.background='rgba(var(--accent-color-rgb), 0.45)'" onmouseout="this.style.background='rgba(var(--accent-color-rgb), 0.25)'">Save</button>
         </div>
       </div>
     `;
@@ -10630,11 +11746,11 @@ function fetchOpenaqDatasets(node) {
         const landingUrl = `https://explore.openaq.org/locations/${hit.id}`;
 
         item.innerHTML = `
-          <div style="font-size: 12px; color: rgba(var(--accent-color-rgb), 0.95); font-weight: 500; letter-spacing: 0.5px; display: flex; justify-content: space-between;">
+          <div style="font-size: 12px; color: rgba(var(--accent-color-rgb), 0.95); font-weight: 400; letter-spacing: 0.5px; display: flex; justify-content: space-between;">
             <span>LOCATION: ${countryName.toUpperCase()}</span>
             <span>SENSORS: ${sensorCount}</span>
           </div>
-          <a href="${landingUrl}" target="_blank" class="openaq-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 500; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(var(--accent-color-rgb), 0.95)'" onmouseout="this.style.color='#ffffff'">
+          <a href="${landingUrl}" target="_blank" class="openaq-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 400; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(var(--accent-color-rgb), 0.95)'" onmouseout="this.style.color='#ffffff'">
             ${nameText} ↗
           </a>
         `;
@@ -10919,7 +12035,7 @@ function fetchOwidDatasets(node) {
       const isNegativeMetric = match.key !== 'gdp' && match.key !== 'population';
       const trendColor = isNegativeMetric ? (pctChange >= 0 ? '#ff6b6b' : '#51cf66') : (pctChange >= 0 ? '#51cf66' : '#ff6b6b');
       
-      trendHtml = `<span style="font-size: 12px; color: ${trendColor}; font-weight: 600; margin-left: 6px;">${sign}${pctChange.toFixed(1)}% (10y)</span>`;
+      trendHtml = `<span style="font-size: 12px; color: ${trendColor}; font-weight: 400; margin-left: 6px;">${sign}${pctChange.toFixed(1)}% (10y)</span>`;
     }
 
     // Format value with abbreviation if very large
@@ -10948,8 +12064,8 @@ function fetchOwidDatasets(node) {
 
     item.innerHTML = `
       <div style="flex: 1; min-width: 0;">
-        <div style="font-size: 12px; color: rgba(64, 224, 208, 0.95); font-weight: 500; letter-spacing: 0.5px;">${match.key.toUpperCase()}</div>
-        <div style="font-size: 13px; color: #ffffff; font-weight: 500; line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${indicatorMeta.title || match.title}">
+        <div style="font-size: 12px; color: rgba(64, 224, 208, 0.95); font-weight: 400; letter-spacing: 0.5px;">${match.key.toUpperCase()}</div>
+        <div style="font-size: 13px; color: #ffffff; font-weight: 400; line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${indicatorMeta.title || match.title}">
           ${indicatorMeta.title || match.title}
         </div>
         <div style="font-size: 12px; color: rgba(255, 255, 255, 0.55); margin-top: 2px;">
@@ -10958,7 +12074,7 @@ function fetchOwidDatasets(node) {
       </div>
       <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 4px;">
         ${sparklineSvg}
-        <a href="${redirectUrl}" target="_blank" style="font-size: 9pt; color: rgba(255,255,255,0.4); text-decoration: none; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; transition: color 0.24s;" onmouseover="this.style.color='rgba(64, 224, 208, 0.95)'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">
+        <a href="${redirectUrl}" target="_blank" style="font-size: 9pt; color: rgba(255,255,255,0.4); text-decoration: none; font-weight: 400; text-transform: uppercase; letter-spacing: 0.5px; transition: color 0.24s;" onmouseover="this.style.color='rgba(64, 224, 208, 0.95)'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">
           OWID Chart ↗
         </a>
       </div>
@@ -11104,11 +12220,11 @@ function fetchSrcDatasets(node) {
     item.innerHTML = `
       <div style="display: flex; justify-content: space-between; align-items: flex-start;">
         <div>
-          <div style="font-size: 12px; color: ${boundary.status_color}; font-weight: 500; letter-spacing: 0.5px; display: flex; align-items: center; gap: 6px;">
+          <div style="font-size: 12px; color: ${boundary.status_color}; font-weight: 400; letter-spacing: 0.5px; display: flex; align-items: center; gap: 6px;">
             <span>${boundary.id.toUpperCase().replace(/_/g, ' ')}</span>
-            <span style="font-size: 9pt; padding: 2px 6px; border-radius: 4px; background: ${boundary.status_color}25; border: 1px solid ${boundary.status_color}50; font-weight: 600; text-transform: uppercase;">${boundary.status}</span>
+            <span style="font-size: 9pt; padding: 2px 6px; border-radius: 4px; background: ${boundary.status_color}25; border: 1px solid ${boundary.status_color}50; font-weight: 400; text-transform: uppercase;">${boundary.status}</span>
           </div>
-          <a href="${boundary.link}" target="_blank" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 500; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='${boundary.status_color}'" onmouseout="this.style.color='#ffffff'">
+          <a href="${boundary.link}" target="_blank" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 400; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='${boundary.status_color}'" onmouseout="this.style.color='#ffffff'">
             ${boundary.name} ↗
           </a>
           <div style="font-size: 12px; color: rgba(255, 255, 255, 0.5); line-height: 1.3; margin-top: 2px;">
@@ -11126,11 +12242,11 @@ function fetchSrcDatasets(node) {
           <div style="position: absolute; left: ${isDecreasing ? currPct : 0}%; right: ${isDecreasing ? 100 - basePct : 100 - currPct}%; height: 100%; background: ${boundary.status_color}; opacity: 0.75; border-radius: 3px;"></div>
           
           <div style="position: absolute; left: ${safePct}%; width: 2px; height: 10px; background: #fff; top: -2px; z-index: 2;" title="Safe Boundary Limit: ${boundary.safe_boundary}">
-            <div style="position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); font-size: 9pt; color: #fff; font-weight: 500; white-space: nowrap; text-transform: uppercase;">SAFE LIMIT</div>
+            <div style="position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); font-size: 9pt; color: #fff; font-weight: 400; white-space: nowrap; text-transform: uppercase;">SAFE LIMIT</div>
           </div>
           
           <div style="position: absolute; left: ${currPct}%; width: 6px; height: 6px; border-radius: 50%; background: ${boundary.status_color}; top: 0px; box-shadow: 0 0 8px ${boundary.status_color}; z-index: 3;" title="Current Value: ${boundary.current_value}">
-            <div style="position: absolute; top: 8px; left: 50%; transform: translateX(-50%); font-size: 9pt; color: ${boundary.status_color}; font-weight: 600; white-space: nowrap;">CURRENT: ${boundary.current_value}</div>
+            <div style="position: absolute; top: 8px; left: 50%; transform: translateX(-50%); font-size: 9pt; color: ${boundary.status_color}; font-weight: 400; white-space: nowrap;">CURRENT: ${boundary.current_value}</div>
           </div>
         </div>
       </div>
@@ -11186,11 +12302,11 @@ function fetchAdbDatasets(node) {
     item.style.gap = '4px';
 
     item.innerHTML = `
-      <div style="font-size: 12px; color: rgba(255, 193, 7, 0.95); font-weight: 500; letter-spacing: 0.5px; display: flex; justify-content: space-between;">
+      <div style="font-size: 12px; color: rgba(255, 193, 7, 0.95); font-weight: 400; letter-spacing: 0.5px; display: flex; justify-content: space-between;">
         <span>PROGRAM: ${program.id.toUpperCase().replace(/_/g, ' ')}</span>
         <span>${program.funding_allocated}</span>
       </div>
-      <a href="${program.link}" target="_blank" class="adb-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 500; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(255, 193, 7, 0.95)'" onmouseout="this.style.color='#ffffff'">
+      <a href="${program.link}" target="_blank" class="adb-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 400; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(255, 193, 7, 0.95)'" onmouseout="this.style.color='#ffffff'">
         ${program.name} ↗
       </a>
       <div style="font-size: 12px; color: rgba(255, 255, 255, 0.5); line-height: 1.3;">
@@ -11236,13 +12352,13 @@ function fetchAdbDatasets(node) {
       <rect x="${x}" y="${y}" width="${barWidth}" height="${barHeight}" fill="rgba(255, 193, 7, 0.15)" stroke="rgba(255, 193, 7, 0.95)" stroke-width="1" rx="2" ry="2">
         <title>${c.year}: $${c.val} Billion</title>
       </rect>
-      <text x="${x + barWidth/2}" y="${y - 4}" font-size="9pt" fill="#ffffff" font-weight="500" text-anchor="middle">$${c.val}B</text>
+      <text x="${x + barWidth/2}" y="${y - 4}" font-size="9pt" fill="#ffffff" font-weight="400" text-anchor="middle">$${c.val}B</text>
       <text x="${x + barWidth/2}" y="${chartHeight + 11}" font-size="9pt" fill="rgba(255,255,255,0.4)" text-anchor="middle">${c.year}</text>
     `;
   }).join('');
 
   chartDiv.innerHTML = `
-    <div style="font-size: 12px; color: rgba(255, 255, 255, 0.45); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 500;">
+    <div style="font-size: 12px; color: rgba(255, 255, 255, 0.45); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 400;">
       ADB Climate Finance Commitments (USD Billion)
     </div>
     <div style="display: flex; justify-content: center; align-items: center; margin-top: 5px; margin-bottom: 5px;">
@@ -11252,7 +12368,7 @@ function fetchAdbDatasets(node) {
     </div>
     <div style="font-size: 12px; color: rgba(255,255,255,0.4); line-height: 1.3; font-style: italic; border-top: 1px dotted rgba(255,255,255,0.08); padding-top: 4px; display: flex; justify-content: space-between; align-items: center;">
       <span>Target: $100B Cumulative (2019-2030)</span>
-      <a href="https://data.adb.org" target="_blank" style="color: rgba(255,193,7,0.95); text-decoration: none; font-weight: 500;" onmouseover="this.style.color='rgba(255, 193, 7, 0.95)'" onmouseout="this.style.color='rgba(255, 193, 7, 0.85)'">ADB Data Library ↗</a>
+      <a href="https://data.adb.org" target="_blank" style="color: rgba(255,193,7,0.95); text-decoration: none; font-weight: 400;" onmouseover="this.style.color='rgba(255, 193, 7, 0.95)'" onmouseout="this.style.color='rgba(255, 193, 7, 0.85)'">ADB Data Library ↗</a>
     </div>
   `;
 
@@ -11305,17 +12421,17 @@ function fetchEscapDatasets(node) {
     const apiEndpoint = `http://api-dataexplorer.unescap.org/rest/v2/data/DF_ESCAP_SDG/.${indicator.id.toUpperCase()}...`;
 
     const apiCallStatusHtml = `
-      <div style="font-size: 12px; color: rgba(255, 107, 107, 0.9); font-weight: 500; font-family: monospace; display: flex; align-items: center; gap: 4px; padding: 2px 4px; background: rgba(255, 107, 107, 0.08); border-radius: 4px; border: 1px solid rgba(255, 107, 107, 0.15); width: fit-content;">
+      <div style="font-size: 12px; color: rgba(255, 107, 107, 0.9); font-weight: 400; font-family: monospace; display: flex; align-items: center; gap: 4px; padding: 2px 4px; background: rgba(255, 107, 107, 0.08); border-radius: 4px; border: 1px solid rgba(255, 107, 107, 0.15); width: fit-content;">
         <span>API BLOCKED (CORS/MIXED CONTENT)</span>
       </div>
     `;
 
     item.innerHTML = `
-      <div style="font-size: 12px; color: rgba(var(--accent-color-rgb), 0.95); font-weight: 500; letter-spacing: 0.5px; display: flex; justify-content: space-between; align-items: center;">
+      <div style="font-size: 12px; color: rgba(var(--accent-color-rgb), 0.95); font-weight: 400; letter-spacing: 0.5px; display: flex; justify-content: space-between; align-items: center;">
         <span>INDICATOR: ${indicator.id.toUpperCase().replace(/_/g, ' ')}</span>
         <span>LATEST: ${indicator.timeseries[indicator.timeseries.length - 1].value}${indicator.unit}</span>
       </div>
-      <a href="${indicator.link}" target="_blank" class="escap-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 500; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(var(--accent-color-rgb), 0.95)'" onmouseout="this.style.color='#ffffff'">
+      <a href="${indicator.link}" target="_blank" class="escap-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 400; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(var(--accent-color-rgb), 0.95)'" onmouseout="this.style.color='#ffffff'">
         ${indicator.name} ↗
       </a>
       <div style="font-size: 12px; color: rgba(255, 255, 255, 0.5); line-height: 1.3;">
@@ -11451,17 +12567,17 @@ function fetchRdsDatasets(node) {
     const apiEndpoint = `http://rds.icimod.org:8080/geonetwork/srv/api/records/${dataset.id}`;
 
     const apiCallStatusHtml = `
-      <div style="font-size: 12px; color: rgba(255, 107, 107, 0.9); font-weight: 500; font-family: monospace; display: flex; align-items: center; gap: 4px; padding: 2px 4px; background: rgba(255, 107, 107, 0.08); border-radius: 4px; border: 1px solid rgba(255, 107, 107, 0.15); width: fit-content;">
+      <div style="font-size: 12px; color: rgba(255, 107, 107, 0.9); font-weight: 400; font-family: monospace; display: flex; align-items: center; gap: 4px; padding: 2px 4px; background: rgba(255, 107, 107, 0.08); border-radius: 4px; border: 1px solid rgba(255, 107, 107, 0.15); width: fit-content;">
         <span>API BLOCKED (CORS/PORT 8080)</span>
       </div>
     `;
 
     item.innerHTML = `
-      <div style="font-size: 12px; color: rgba(var(--accent-color-rgb), 0.95); font-weight: 500; letter-spacing: 0.5px; display: flex; justify-content: space-between; align-items: center;">
+      <div style="font-size: 12px; color: rgba(var(--accent-color-rgb), 0.95); font-weight: 400; letter-spacing: 0.5px; display: flex; justify-content: space-between; align-items: center;">
         <span>DATASET: ${dataset.id.toUpperCase().replace(/_/g, ' ')}</span>
         <span>STATUS: ${dataset.timeseries[dataset.timeseries.length - 1].value} ${dataset.unit}</span>
       </div>
-      <a href="${dataset.link}" target="_blank" class="rds-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 500; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(var(--accent-color-rgb), 0.95)'" onmouseout="this.style.color='#ffffff'">
+      <a href="${dataset.link}" target="_blank" class="rds-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 400; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(var(--accent-color-rgb), 0.95)'" onmouseout="this.style.color='#ffffff'">
         ${dataset.name} ↗
       </a>
       <div style="font-size: 12px; color: rgba(255, 255, 255, 0.5); line-height: 1.3;">
@@ -11597,17 +12713,17 @@ function fetchAsmcDatasets(node) {
     const apiEndpoint = `https://asmc.asean.org/api/v1/hazemonitoring/${dataset.id}`;
 
     const apiCallStatusHtml = `
-      <div style="font-size: 12px; color: rgba(255, 107, 107, 0.9); font-weight: 500; font-family: monospace; display: flex; align-items: center; gap: 4px; padding: 2px 4px; background: rgba(255, 107, 107, 0.08); border-radius: 4px; border: 1px solid rgba(255, 107, 107, 0.15); width: fit-content;">
+      <div style="font-size: 12px; color: rgba(255, 107, 107, 0.9); font-weight: 400; font-family: monospace; display: flex; align-items: center; gap: 4px; padding: 2px 4px; background: rgba(255, 107, 107, 0.08); border-radius: 4px; border: 1px solid rgba(255, 107, 107, 0.15); width: fit-content;">
         <span>API RESTRICTED (CORS/WIS 2.0 ACCESS)</span>
       </div>
     `;
 
     item.innerHTML = `
-      <div style="font-size: 12px; color: rgba(var(--accent-color-rgb), 0.95); font-weight: 500; letter-spacing: 0.5px; display: flex; justify-content: space-between; align-items: center;">
+      <div style="font-size: 12px; color: rgba(var(--accent-color-rgb), 0.95); font-weight: 400; letter-spacing: 0.5px; display: flex; justify-content: space-between; align-items: center;">
         <span>DATASET: ${dataset.id.toUpperCase().replace(/_/g, ' ')}</span>
         <span>LATEST: ${dataset.timeseries[dataset.timeseries.length - 1].value} ${dataset.unit}</span>
       </div>
-      <a href="${dataset.link}" target="_blank" class="asmc-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 500; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(var(--accent-color-rgb), 0.95)'" onmouseout="this.style.color='#ffffff'">
+      <a href="${dataset.link}" target="_blank" class="asmc-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 400; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(var(--accent-color-rgb), 0.95)'" onmouseout="this.style.color='#ffffff'">
         ${dataset.name} ↗
       </a>
       <div style="font-size: 12px; color: rgba(255, 255, 255, 0.5); line-height: 1.3;">
@@ -11743,17 +12859,17 @@ function fetchMrcDatasets(node) {
     const apiEndpoint = `https://portal.mrcmekong.org/api/v1/hydromet/station/${dataset.id}`;
 
     const apiCallStatusHtml = `
-      <div style="font-size: 12px; color: rgba(255, 107, 107, 0.9); font-weight: 500; font-family: monospace; display: flex; align-items: center; gap: 4px; padding: 2px 4px; background: rgba(255, 107, 107, 0.08); border-radius: 4px; border: 1px solid rgba(255, 107, 107, 0.15); width: fit-content;">
+      <div style="font-size: 12px; color: rgba(255, 107, 107, 0.9); font-weight: 400; font-family: monospace; display: flex; align-items: center; gap: 4px; padding: 2px 4px; background: rgba(255, 107, 107, 0.08); border-radius: 4px; border: 1px solid rgba(255, 107, 107, 0.15); width: fit-content;">
         <span>API RESTRICTED (CORS/SIGN-IN REQUIRED)</span>
       </div>
     `;
 
     item.innerHTML = `
-      <div style="font-size: 12px; color: rgba(var(--accent-color-rgb), 0.95); font-weight: 500; letter-spacing: 0.5px; display: flex; justify-content: space-between; align-items: center;">
+      <div style="font-size: 12px; color: rgba(var(--accent-color-rgb), 0.95); font-weight: 400; letter-spacing: 0.5px; display: flex; justify-content: space-between; align-items: center;">
         <span>DATASET: ${dataset.id.toUpperCase().replace(/_/g, ' ')}</span>
         <span>LATEST: ${dataset.timeseries[dataset.timeseries.length - 1].value} ${dataset.unit}</span>
       </div>
-      <a href="${dataset.link}" target="_blank" class="mrc-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 500; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(var(--accent-color-rgb), 0.95)'" onmouseout="this.style.color='#ffffff'">
+      <a href="${dataset.link}" target="_blank" class="mrc-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 400; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(var(--accent-color-rgb), 0.95)'" onmouseout="this.style.color='#ffffff'">
         ${dataset.name} ↗
       </a>
       <div style="font-size: 12px; color: rgba(255, 255, 255, 0.5); line-height: 1.3;">
@@ -11889,17 +13005,17 @@ function fetchServirDatasets(node) {
     const apiEndpoint = `https://climateserv.servirglobal.net/api/v1/request/submitDataRequest/?datatype=0&begintime=01/01/2015&endtime=12/31/2024&intervaltype=0&operationtype=5&geometry={"type":"Polygon","coordinates":[[[100,10],[108,10],[108,20],[100,20],[100,10]]]}&id=${dataset.id}`;
 
     const apiCallStatusHtml = `
-      <div style="font-size: 12px; color: rgba(255, 107, 107, 0.9); font-weight: 500; font-family: monospace; display: flex; align-items: center; gap: 4px; padding: 2px 4px; background: rgba(255, 107, 107, 0.08); border-radius: 4px; border: 1px solid rgba(255, 107, 107, 0.15); width: fit-content;">
+      <div style="font-size: 12px; color: rgba(255, 107, 107, 0.9); font-weight: 400; font-family: monospace; display: flex; align-items: center; gap: 4px; padding: 2px 4px; background: rgba(255, 107, 107, 0.08); border-radius: 4px; border: 1px solid rgba(255, 107, 107, 0.15); width: fit-content;">
         <span>API RESTRICTED (CORS/CLIMATESERV)</span>
       </div>
     `;
 
     item.innerHTML = `
-      <div style="font-size: 12px; color: rgba(var(--accent-color-rgb), 0.95); font-weight: 500; letter-spacing: 0.5px; display: flex; justify-content: space-between; align-items: center;">
+      <div style="font-size: 12px; color: rgba(var(--accent-color-rgb), 0.95); font-weight: 400; letter-spacing: 0.5px; display: flex; justify-content: space-between; align-items: center;">
         <span>DATASET: ${dataset.id.toUpperCase().replace(/_/g, ' ')}</span>
         <span>LATEST: ${dataset.timeseries[dataset.timeseries.length - 1].value} ${dataset.unit}</span>
       </div>
-      <a href="${dataset.link}" target="_blank" class="servir-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 500; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(var(--accent-color-rgb), 0.95)'" onmouseout="this.style.color='#ffffff'">
+      <a href="${dataset.link}" target="_blank" class="servir-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 400; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(var(--accent-color-rgb), 0.95)'" onmouseout="this.style.color='#ffffff'">
         ${dataset.name} ↗
       </a>
       <div style="font-size: 12px; color: rgba(255, 255, 255, 0.5); line-height: 1.3;">
@@ -12037,11 +13153,11 @@ function fetchApccDatasets(node) {
     const apiCallStatusHtml = ``;
 
     item.innerHTML = `
-      <div style="font-size: 12px; color: rgba(var(--accent-color-rgb), 0.95); font-weight: 500; letter-spacing: 0.5px; display: flex; justify-content: space-between; align-items: center;">
+      <div style="font-size: 12px; color: rgba(var(--accent-color-rgb), 0.95); font-weight: 400; letter-spacing: 0.5px; display: flex; justify-content: space-between; align-items: center;">
         <span>DATASET: ${dataset.id.toUpperCase().replace(/_/g, ' ')}</span>
         <span>LATEST: ${dataset.timeseries[dataset.timeseries.length - 1].value} ${dataset.unit}</span>
       </div>
-      <div class="apcc-dataset-link" style="font-size: 13px; color: #ffffff; font-weight: 500; line-height: 1.4;">
+      <div class="apcc-dataset-link" style="font-size: 13px; color: #ffffff; font-weight: 400; line-height: 1.4;">
         ${dataset.name}
       </div>
       <div style="font-size: 12px; color: rgba(255, 255, 255, 0.5); line-height: 1.3;">
@@ -12177,17 +13293,17 @@ function fetchJmaDatasets(node) {
     const apiEndpoint = `https://ds.data.jma.go.jp/tcc/tcc/api/v1/climatview?station=47662&element=${dataset.id}`;
 
     const apiCallStatusHtml = `
-      <div style="font-size: 12px; color: rgba(255, 107, 107, 0.9); font-weight: 500; font-family: monospace; display: flex; align-items: center; gap: 4px; padding: 2px 4px; background: rgba(255, 107, 107, 0.08); border-radius: 4px; border: 1px solid rgba(255, 107, 107, 0.15); width: fit-content;">
+      <div style="font-size: 12px; color: rgba(255, 107, 107, 0.9); font-weight: 400; font-family: monospace; display: flex; align-items: center; gap: 4px; padding: 2px 4px; background: rgba(255, 107, 107, 0.08); border-radius: 4px; border: 1px solid rgba(255, 107, 107, 0.15); width: fit-content;">
         <span>API RESTRICTED (CORS/JMA TCC)</span>
       </div>
     `;
 
     item.innerHTML = `
-      <div style="font-size: 12px; color: rgba(var(--accent-color-rgb), 0.95); font-weight: 500; letter-spacing: 0.5px; display: flex; justify-content: space-between; align-items: center;">
+      <div style="font-size: 12px; color: rgba(var(--accent-color-rgb), 0.95); font-weight: 400; letter-spacing: 0.5px; display: flex; justify-content: space-between; align-items: center;">
         <span>DATASET: ${dataset.id.toUpperCase().replace(/_/g, ' ')}</span>
         <span>LATEST: ${dataset.timeseries[dataset.timeseries.length - 1].value} ${dataset.unit}</span>
       </div>
-      <a href="${dataset.link}" target="_blank" class="jma-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 500; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(var(--accent-color-rgb), 0.95)'" onmouseout="this.style.color='#ffffff'">
+      <a href="${dataset.link}" target="_blank" class="jma-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 400; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(var(--accent-color-rgb), 0.95)'" onmouseout="this.style.color='#ffffff'">
         ${dataset.name} ↗
       </a>
       <div style="font-size: 12px; color: rgba(255, 255, 255, 0.5); line-height: 1.3;">
@@ -12331,17 +13447,17 @@ function fetchWmoDatasets(node) {
     const apiEndpoint = `https://wis2.wmo.int/api/v1/gdc/collections/datasets/items?id=${dataset.id}`;
 
     const apiCallStatusHtml = `
-      <div style="font-size: 12px; color: rgba(255, 107, 107, 0.9); font-weight: 500; font-family: monospace; display: flex; align-items: center; gap: 4px; padding: 2px 4px; background: rgba(255, 107, 107, 0.08); border-radius: 4px; border: 1px solid rgba(255, 107, 107, 0.15); width: fit-content;">
+      <div style="font-size: 12px; color: rgba(255, 107, 107, 0.9); font-weight: 400; font-family: monospace; display: flex; align-items: center; gap: 4px; padding: 2px 4px; background: rgba(255, 107, 107, 0.08); border-radius: 4px; border: 1px solid rgba(255, 107, 107, 0.15); width: fit-content;">
         <span>API RESTRICTED (CORS/WIS 2.0)</span>
       </div>
     `;
 
     item.innerHTML = `
-      <div style="font-size: 12px; color: rgba(var(--accent-color-rgb), 0.95); font-weight: 500; letter-spacing: 0.5px; display: flex; justify-content: space-between; align-items: center;">
+      <div style="font-size: 12px; color: rgba(var(--accent-color-rgb), 0.95); font-weight: 400; letter-spacing: 0.5px; display: flex; justify-content: space-between; align-items: center;">
         <span>DATASET: ${dataset.id.toUpperCase().replace(/_/g, ' ')}</span>
         <span>LATEST: ${dataset.timeseries[dataset.timeseries.length - 1].value} ${dataset.unit}</span>
       </div>
-      <a href="${dataset.link}" target="_blank" class="wmo-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 500; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(var(--accent-color-rgb), 0.95)'" onmouseout="this.style.color='#ffffff'">
+      <a href="${dataset.link}" target="_blank" class="wmo-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 400; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(var(--accent-color-rgb), 0.95)'" onmouseout="this.style.color='#ffffff'">
         ${dataset.name} ↗
       </a>
       <div style="font-size: 12px; color: rgba(255, 255, 255, 0.5); line-height: 1.3;">
@@ -12477,17 +13593,17 @@ function fetchSahfDatasets(node) {
     const apiEndpoint = `https://www.sahf.info/api/v1/sascof/outlook?indicator=${dataset.id}&forecast_run=latest`;
 
     const apiCallStatusHtml = `
-      <div style="font-size: 12px; color: rgba(255, 107, 107, 0.9); font-weight: 500; font-family: monospace; display: flex; align-items: center; gap: 4px; padding: 2px 4px; background: rgba(255, 107, 107, 0.08); border-radius: 4px; border: 1px solid rgba(255, 107, 107, 0.15); width: fit-content;">
+      <div style="font-size: 12px; color: rgba(255, 107, 107, 0.9); font-weight: 400; font-family: monospace; display: flex; align-items: center; gap: 4px; padding: 2px 4px; background: rgba(255, 107, 107, 0.08); border-radius: 4px; border: 1px solid rgba(255, 107, 107, 0.15); width: fit-content;">
         <span>API RESTRICTED (CORS/SAHF PORTAL)</span>
       </div>
     `;
 
     item.innerHTML = `
-      <div style="font-size: 12px; color: rgba(var(--accent-color-rgb), 0.95); font-weight: 500; letter-spacing: 0.5px; display: flex; justify-content: space-between; align-items: center;">
+      <div style="font-size: 12px; color: rgba(var(--accent-color-rgb), 0.95); font-weight: 400; letter-spacing: 0.5px; display: flex; justify-content: space-between; align-items: center;">
         <span>DATASET: ${dataset.id.toUpperCase().replace(/_/g, ' ')}</span>
         <span>LATEST: ${dataset.timeseries[dataset.timeseries.length - 1].value} ${dataset.unit}</span>
       </div>
-      <a href="${dataset.link}" target="_blank" class="sahf-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 500; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(var(--accent-color-rgb), 0.95)'" onmouseout="this.style.color='#ffffff'">
+      <a href="${dataset.link}" target="_blank" class="sahf-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 400; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(var(--accent-color-rgb), 0.95)'" onmouseout="this.style.color='#ffffff'">
         ${dataset.name} ↗
       </a>
       <div style="font-size: 12px; color: rgba(255, 255, 255, 0.5); line-height: 1.3;">
@@ -12623,17 +13739,17 @@ function fetchMosdacDatasets(node) {
     const apiEndpoint = `https://mosdac.gov.in/api/v1/download/search?datasetId=${dataset.id.toUpperCase()}&startTime=2015-01-01T00:00:00Z&endTime=2024-12-31T23:59:59Z`;
 
     const apiCallStatusHtml = `
-      <div style="font-size: 12px; color: rgba(255, 107, 107, 0.9); font-weight: 500; font-family: monospace; display: flex; align-items: center; gap: 4px; padding: 2px 4px; background: rgba(255, 107, 107, 0.08); border-radius: 4px; border: 1px solid rgba(255, 107, 107, 0.15); width: fit-content;">
+      <div style="font-size: 12px; color: rgba(255, 107, 107, 0.9); font-weight: 400; font-family: monospace; display: flex; align-items: center; gap: 4px; padding: 2px 4px; background: rgba(255, 107, 107, 0.08); border-radius: 4px; border: 1px solid rgba(255, 107, 107, 0.15); width: fit-content;">
         <span>API RESTRICTED (CORS/SSO REQUIRED)</span>
       </div>
     `;
 
     item.innerHTML = `
-      <div style="font-size: 12px; color: rgba(var(--accent-color-rgb), 0.95); font-weight: 500; letter-spacing: 0.5px; display: flex; justify-content: space-between; align-items: center;">
+      <div style="font-size: 12px; color: rgba(var(--accent-color-rgb), 0.95); font-weight: 400; letter-spacing: 0.5px; display: flex; justify-content: space-between; align-items: center;">
         <span>DATASET: ${dataset.id.toUpperCase().replace(/_/g, ' ')}</span>
         <span>LATEST: ${dataset.timeseries[dataset.timeseries.length - 1].value} ${dataset.unit}</span>
       </div>
-      <a href="${dataset.link}" target="_blank" class="mosdac-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 500; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(var(--accent-color-rgb), 0.95)'" onmouseout="this.style.color='#ffffff'">
+      <a href="${dataset.link}" target="_blank" class="mosdac-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 400; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(var(--accent-color-rgb), 0.95)'" onmouseout="this.style.color='#ffffff'">
         ${dataset.name} ↗
       </a>
       <div style="font-size: 12px; color: rgba(255, 255, 255, 0.5); line-height: 1.3;">
@@ -12769,17 +13885,17 @@ function fetchDrawdownDatasets(node) {
     const apiEndpoint = `https://api.drawdown.org/v1/solutions/${dataset.id.replace('drawdown_', '')}?scenario=plausible`;
 
     const apiCallStatusHtml = `
-      <div style="font-size: 12px; color: rgba(255, 107, 107, 0.9); font-weight: 500; font-family: monospace; display: flex; align-items: center; gap: 4px; padding: 2px 4px; background: rgba(255, 107, 107, 0.08); border-radius: 4px; border: 1px solid rgba(255, 107, 107, 0.15); width: fit-content;">
+      <div style="font-size: 12px; color: rgba(255, 107, 107, 0.9); font-weight: 400; font-family: monospace; display: flex; align-items: center; gap: 4px; padding: 2px 4px; background: rgba(255, 107, 107, 0.08); border-radius: 4px; border: 1px solid rgba(255, 107, 107, 0.15); width: fit-content;">
         <span>API RESTRICTED (CORS/EXPLORER ONLY)</span>
       </div>
     `;
 
     item.innerHTML = `
-      <div style="font-size: 12px; color: rgba(var(--accent-color-rgb), 0.95); font-weight: 500; letter-spacing: 0.5px; display: flex; justify-content: space-between; align-items: center;">
+      <div style="font-size: 12px; color: rgba(var(--accent-color-rgb), 0.95); font-weight: 400; letter-spacing: 0.5px; display: flex; justify-content: space-between; align-items: center;">
         <span>SOLUTION: ${dataset.id.toUpperCase().replace('DRAWDOWN_', '').replace(/_/g, ' ')}</span>
         <span>LATEST: ${dataset.timeseries[dataset.timeseries.length - 1].value} ${dataset.unit.split('/')[0]}</span>
       </div>
-      <a href="${dataset.link}" target="_blank" class="drawdown-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 500; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(var(--accent-color-rgb), 0.95)'" onmouseout="this.style.color='#ffffff'">
+      <a href="${dataset.link}" target="_blank" class="drawdown-dataset-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 400; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(var(--accent-color-rgb), 0.95)'" onmouseout="this.style.color='#ffffff'">
         ${dataset.name} ↗
       </a>
       <div style="font-size: 12px; color: rgba(255, 255, 255, 0.5); line-height: 1.3;">
@@ -13042,11 +14158,11 @@ function renderStandardTimeseriesList(datasets, container, gradPrefix, apiRoot, 
     const latestVal = dataset.timeseries[dataset.timeseries.length - 1].value;
 
     item.innerHTML = `
-      <div style="font-size: 12px; color: rgba(var(--accent-color-rgb), 0.95); font-weight: 500; letter-spacing: 0.5px; display: flex; justify-content: space-between; align-items: center;">
+      <div style="font-size: 12px; color: rgba(var(--accent-color-rgb), 0.95); font-weight: 400; letter-spacing: 0.5px; display: flex; justify-content: space-between; align-items: center;">
         <span>INDICATOR: ${dataset.id.toUpperCase().replace(/_/g, ' ')}</span>
         <span>LATEST: ${latestVal} ${dataset.unit.split('/')[0]}</span>
       </div>
-      <a href="${dataset.link}" target="_blank" class="${gradPrefix}-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 500; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(var(--accent-color-rgb), 0.95)'" onmouseout="this.style.color='#ffffff'">
+      <a href="${dataset.link}" target="_blank" class="${gradPrefix}-link" style="font-size: 13px; color: #ffffff; text-decoration: none; font-weight: 400; line-height: 1.4; transition: color 0.24s;" onmouseover="this.style.color='rgba(var(--accent-color-rgb), 0.95)'" onmouseout="this.style.color='#ffffff'">
         ${dataset.name} ↗
       </a>
       <div style="font-size: 12px; color: rgba(255, 255, 255, 0.5); line-height: 1.3;">
@@ -13177,7 +14293,7 @@ function updateTulipUrgencyProfile(node) {
   const baselineScore = useReceipt ? receipt.value : node.score.baseline;
   const isResponseNode = node.node_kind === 'response';
   const urgencySection = document.querySelector('.urgency-section');
-  const sectionHeading = document.querySelector('.urgency-section .section-header');
+  const sectionHeading = document.querySelector('.urgency-section .section-header .section-header-label');
   if (urgencySection) urgencySection.style.display = isResponseNode ? 'none' : '';
   if (isResponseNode) return;
   if (sectionHeading) {
@@ -13194,10 +14310,12 @@ function updateTulipUrgencyProfile(node) {
   const bandDetails = getScoreBandDetails(baselineScore);
   if (scoreEl) scoreEl.textContent = baselineScore.toFixed(1);
   const mobileSheetScore = document.getElementById('mobile-sheet-score');
+  const mobileSheetModeled = document.getElementById('mobile-sheet-modeled');
   if (mobileSheetScore) {
     mobileSheetScore.textContent = baselineScore.toFixed(1);
     mobileSheetScore.setAttribute('aria-label', `TULIP urgency score ${baselineScore.toFixed(1)}`);
   }
+  if (mobileSheetModeled) mobileSheetModeled.hidden = !(useReceipt && receipt.method === 'modeled');
   if (ratingEl) {
     ratingEl.textContent = bandDetails.label;
     ratingEl.className = bandDetails.className;
@@ -13206,8 +14324,35 @@ function updateTulipUrgencyProfile(node) {
 
   const scoreMarker = document.getElementById('urgency-score-marker');
   const markerValue = document.getElementById('urgency-marker-value');
-  if (scoreMarker) scoreMarker.style.left = `${Math.max(4, Math.min(96, urgencyScalePosition(baselineScore)))}%`;
+  if (scoreMarker) {
+    scoreMarker.hidden = false;
+    scoreMarker.style.left = `${Math.max(4, Math.min(96, urgencyScalePosition(baselineScore)))}%`;
+  }
   if (markerValue) markerValue.textContent = baselineScore.toFixed(1);
+
+  const trust = buildUrgencyTrustProfile(node, receipt, {
+    useReceipt,
+    score: baselineScore,
+    fallbackAsOf: nodeSourceDateRegistry?.entries?.[node.id]?.source_date || null
+  });
+  const trustFieldValues = {
+    'urgency-evidence-quality': trust.evidenceQuality,
+    'urgency-evidence-method': trust.method,
+    'urgency-review-status': trust.reviewStatus,
+    'urgency-evidence-scope': trust.scope,
+    'urgency-evidence-date': trust.asOf,
+    'urgency-evidence-confidence': trust.confidence,
+    'urgency-why-label': trust.whyLabel,
+    'urgency-why-copy': trust.why,
+    'urgency-uncertainty-copy': trust.uncertainty,
+    'urgency-source-summary': trust.sourceCount
+      ? `${trust.sourceCount} source${trust.sourceCount === 1 ? '' : 's'} • ${trust.method} • ${trust.reviewNote}`
+      : `${trust.method} • ${trust.reviewNote}`
+  };
+  Object.entries(trustFieldValues).forEach(([id, value]) => {
+    const element = document.getElementById(id);
+    if (element) element.textContent = value;
+  });
   document.querySelectorAll('[data-urgency-band]').forEach(label => {
     label.classList.toggle('is-active', label.dataset.urgencyBand === bandDetails.label);
   });
@@ -13285,6 +14430,81 @@ function playWelcomeSplash() {
   });
 }
 
+function shouldGateTouchDevices() {
+  const coarsePointer = window.matchMedia?.('(pointer: coarse)').matches ?? false;
+  const noHover = window.matchMedia?.('(hover: none)').matches ?? false;
+  const touchPoints = navigator.maxTouchPoints || 0;
+  const phoneSizedViewport = window.matchMedia?.('(max-width: 767px)').matches ?? window.innerWidth <= 767;
+  return phoneSizedViewport && ((coarsePointer && noHover) || (coarsePointer && touchPoints > 0));
+}
+
+function showTouchDeviceGate() {
+  const gate = document.getElementById('touch-device-gate');
+  const splash = document.getElementById('quote-splash');
+  const appContainer = document.getElementById('app-container');
+  const footerBar = document.getElementById('tulip-footer-bar');
+  if (!gate) return;
+
+  gate.hidden = false;
+  gate.setAttribute('aria-hidden', 'false');
+  gate.classList.add('is-visible');
+
+  if (splash) {
+    splash.classList.add('is-hidden');
+    splash.setAttribute('aria-hidden', 'true');
+  }
+  if (appContainer) {
+    appContainer.style.display = 'none';
+    appContainer.setAttribute('aria-hidden', 'true');
+  }
+  if (footerBar) {
+    footerBar.style.display = 'none';
+    footerBar.setAttribute('aria-hidden', 'true');
+  }
+}
+
+function bindTouchDeviceGateShareActions() {
+  const gate = document.getElementById('touch-device-gate');
+  if (!gate || gate.dataset.shareBound === 'true') return;
+
+  const shareUrl = 'https://tulip-project-six.vercel.app';
+  const shareTitle = 'TULIP';
+  const shareNote = document.getElementById('touch-device-gate-share-note');
+
+  gate.addEventListener('click', async (event) => {
+    const button = event.target.closest('[data-share-action]');
+    if (!button) return;
+
+    const action = button.getAttribute('data-share-action');
+    if (!action) return;
+
+    if (action === 'native' && navigator.share) {
+      try {
+        await navigator.share({ title: shareTitle, text: 'Explore TULIP on desktop', url: shareUrl });
+      } catch {
+        // Ignore aborted native share sheets.
+      }
+      return;
+    }
+
+    if (action === 'native') {
+      try {
+        await navigator.clipboard.writeText(shareUrl);
+        if (shareNote) {
+          shareNote.hidden = false;
+          window.setTimeout(() => {
+            shareNote.hidden = true;
+          }, 1800);
+        }
+      } catch {
+        window.prompt('Copy this link', shareUrl);
+      }
+    }
+  });
+
+  gate.dataset.shareBound = 'true';
+}
+
 function hardenExternalLinks(root = document) {
   root.querySelectorAll?.('a[target="_blank"]').forEach(link => {
     link.setAttribute('rel', 'noopener noreferrer');
@@ -13295,13 +14515,22 @@ function hardenExternalLinks(root = document) {
 window.onload = () => {
   initTelemetry();
   hardenExternalLinks();
-  new MutationObserver(mutations => {
+  const externalLinkObserver = new MutationObserver(mutations => {
     mutations.forEach(mutation => mutation.addedNodes.forEach(node => {
       if (node.nodeType === Node.ELEMENT_NODE) hardenExternalLinks(node);
     }));
-  }).observe(document.body, { childList: true, subtree: true });
+  });
+  if (document.body instanceof Node) {
+    externalLinkObserver.observe(document.body, { childList: true, subtree: true });
+  }
+  bindTouchDeviceGateShareActions();
+  if (shouldGateTouchDevices()) {
+    showTouchDeviceGate();
+    return;
+  }
   adjustScale();
   init();
+  initializeLaunchExperience();
   if (graphInstance) {
     graphInstance.resizeCanvas();
     updateGatewayArcLayout();

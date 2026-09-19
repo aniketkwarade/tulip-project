@@ -1,0 +1,68 @@
+name: Thursday recent major events
+
+on:
+  schedule:
+    # Thursday at 06:43 UTC (02:43 EDT / 01:43 EST).
+    - cron: '43 6 * * 4'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: recent-major-events-weekly
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Refresh article-backed event profiles
+        run: npm run refresh:recent-major-events
+      - name: Validate web and iPhone event structure
+        run: |
+          npm run check:recent-major-events
+          npm run test:recent-occurrences
+          npm run build
+          sh iOS/scripts/sync-web-app.sh
+          npm run test:mobile-data-parity
+      - name: Detect snapshot changes
+        id: changes
+        run: |
+          if git diff --quiet -- src/recent-major-events.generated.json; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Open or update the reviewed refresh pull request
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          branch="automation/recent-major-events-weekly"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B "$branch"
+          git add src/recent-major-events.generated.json
+          git commit -m "chore: refresh recent major events"
+          git push --force-with-lease --set-upstream origin "$branch"
+          pr_url="$(gh pr list --head "$branch" --base main --state open --json url --jq '.[0].url')"
+          if [ -z "$pr_url" ]; then
+            pr_url="$(gh pr create --base main --head "$branch" --title "Thursday recent major events refresh" --body "Automated Thursday refresh of article-backed Recent Major Events profiles for the web and iPhone apps. Shared card-schema, source-policy, coverage, recency, no-filler, web-build, iPhone-bundle, parity, and HTTPS-link checks passed before this PR was opened.")"
+          fi
+          gh pr merge --auto --squash "$pr_url"
+      - name: Archive the validated snapshot
+        uses: actions/upload-artifact@v4
+        with:
+          name: recent-major-events-${{ github.run_id }}
+          path: src/recent-major-events.generated.json

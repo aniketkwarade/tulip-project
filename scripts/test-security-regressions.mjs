@@ -51,11 +51,11 @@ const [html, main, server, citation, securityText, robots, sitemap, vercelSource
   read('vercel.json'),
 ]);
 
-assert.match(main, /escapeHtml\(profile\.metricName\)/);
+assert.match(main, /escapeHtml\(formatMetricDisplayText\(profile\.metricName\)\)/);
 assert.match(main, /escapeHtml\(source\.name\)/);
 assert.match(main, /safeHttpsUrl\(source\.url, ''\)/);
 assert.match(main, /aria-label="Open \$\{escapeHtml\(source\.name\)\} in a new tab"/);
-assert.match(main, /escapeHtml\(evidence\.rationale\)/);
+assert.match(main, /escapeHtml\(formatMetricDisplayText\(evidence\.rationale\)\)/);
 assert.match(main, /escapeHtml\(highlight\.label\)/);
 assert.match(server, /resolveSnapshotPath\(ROOT, filepath\)/);
 assert.match(server, /isAllowedSnapshotOrigin\(req\.headers\.origin/);

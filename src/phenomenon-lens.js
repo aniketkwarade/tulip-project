@@ -137,6 +137,13 @@ const PHENOMENON_LENS_GROUP_CONFIG = {
       secondaryTitle: 'Where It Happens'
     }
   },
+  conveyance_aviation: {
+    primaryCount: 1,
+    groupLabels: {
+      primaryTitle: 'Largest Source',
+      secondaryTitle: 'Other Transport Sources'
+    }
+  },
   personal_conveyance: {
     primaryCount: 1,
     groupLabels: {
@@ -676,6 +683,29 @@ export const PHENOMENON_LENSES = {
       { label: 'Policy and security sensitivity', value: 4, note: 'Abrupt regional shifts matter partly because institutions are not built for them.' }
     ]
   },
+  conveyance_aviation: {
+    title: 'Conveyance & Aviation Annual Emissions',
+    eyebrow: 'Combined transport-burden lens',
+    intro: 'Surface mobility and aviation now share one view, with each mode kept as a distinct row so the aviation total is not counted again inside personal conveyance.',
+    unitLabel: 'MtCO2 / CO2e per year',
+    axisMax: 4000,
+    axisTicks: [0, 1000, 2000, 3000, 4000],
+    scaleNote: 'Road values retain the existing CO2e estimates; aviation uses direct CO2 from the IEA 2023 context. Compare the rows, but do not sum them into one sector total because their emissions boundaries differ.',
+    takeaway: 'Cars and SUVs remain the largest annual mobility burden in this view, while aviation is presented once as the full passenger-and-cargo sector rather than duplicated as a personal-flight estimate.',
+    source: {
+      label: 'TULIP transport synthesis with International Energy Agency aviation context',
+      url: 'https://www.iea.org/energy-system/transport/aviation',
+      baseline: 'Existing road-mode estimates and 2023 global aviation estimate',
+      method: 'Comparative transport synthesis',
+      boundary: 'Road rows use broader CO2e working estimates; aviation reports direct passenger-and-cargo CO2 and excludes non-CO2 warming. Rows are comparative, not additive.'
+    },
+    items: [
+      { label: 'Cars and SUVs', value: 3300, note: 'Dominant annual burden estimate for personal surface mobility pending a direct transport-sector extraction.' },
+      { label: 'Passenger and cargo aviation', value: 950, note: 'Observed annual aviation CO2 burden for 2023 based on the IEA sector context used in the research pack.' },
+      { label: 'Motorcycles', value: 200, note: 'Smaller than car dependence, but still a recurring annual surface-mobility burden.' },
+      { label: 'Rail', value: 40, note: 'Included as a lower-emissions annual comparator rather than a dominant burden source.' }
+    ]
+  },
   personal_conveyance: {
     title: 'Personal Conveyance Annual Emissions',
     eyebrow: 'Annual mobility-burden lens',
@@ -701,6 +731,13 @@ export const PHENOMENON_LENSES = {
     axisTicks: [0, 50, 100, 150, 200],
     scaleNote: 'Research-backed regional split from IEA Energy and AI using 2024 activity, plus one 2030 projection marker.',
     takeaway: 'This framing turns a hidden infrastructure system into a readable map of where compute power is already landing and how fast it may grow.',
+    source: {
+      label: 'IEA, Energy and AI',
+      url: 'https://www.iea.org/reports/energy-and-ai/energy-demand-from-ai',
+      baseline: '2024 observed regional demand · 2030 base-case scenario',
+      method: 'Observed electricity demand with a published scenario outlook',
+      boundary: 'Global data-center electricity demand, split across the United States, China, Europe, and the rest of the world.'
+    },
     items: [
       { label: 'United States', value: 187, note: 'About 45% of the 415 TWh global data-center electricity total in 2024.' },
       { label: 'China', value: 104, note: 'About 25% of the global total in 2024.' },

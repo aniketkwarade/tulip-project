@@ -11,7 +11,14 @@ export const PHENOMENON_SELECTOR_CONFIG = [
     description: 'Electricity generation shows the upstream power mix behind many other footprints, especially coal- and gas-heavy grids that lock in large annual emissions.',
     iconKey: 'electricity'
   },
-  { key: 'personal_conveyance', label: 'Conveyance', nodeIds: ['personal_conveyance'], iconKey: 'conveyance' },
+  {
+    key: 'conveyance_aviation',
+    label: 'Transport',
+    nodeIds: ['personal_conveyance', 'aviation'],
+    lensKey: 'conveyance_aviation',
+    description: 'Conveyance and aviation combine surface mobility and air travel in one transport view, while keeping road, air, motorcycle, and rail burdens separate so they are not double-counted.',
+    iconKey: 'conveyance'
+  },
   {
     key: 'freight_logistics',
     label: 'Freight & Logistics',
@@ -35,6 +42,5 @@ export const PHENOMENON_SELECTOR_CONFIG = [
   { key: 'plastics_petrochemicals', label: 'Petroplastics', nodeIds: ['plastics_petrochemicals'], iconKey: 'petroplastics' },
   { key: 'data_centers', label: 'Data Centers', nodeIds: ['data_centers'], iconKey: 'dataCenters' },
   { key: 'ai_compute', label: 'AI Compute', nodeIds: ['ai_data_centers'], iconKey: 'aiCompute' },
-  { key: 'aviation', label: 'Aviation', nodeIds: ['aviation'], iconKey: 'aviation' },
   { key: 'air_conditioning_refrigerants', label: 'Refrigerants', nodeIds: ['air_conditioning_refrigerants'], iconKey: 'refrigerants' }
 ];

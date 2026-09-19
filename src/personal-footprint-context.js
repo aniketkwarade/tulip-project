@@ -11,10 +11,10 @@ export const CARBON_PERCENTILE_ANCHORS = Object.freeze([
 
 export const FOOTPRINT_EQUIVALENCY_FACTORS = Object.freeze({
   carbonTonnesPerGasolineVehicleYear: 4.29,
-  carbonTonnesPerGasolineVehicleMile: 0.000393,
+  carbonTonnesPerGasolineVehicleKilometre: 0.000393 / 1.609344,
   litresPerAverageShower: 65.1,
   landM2PerBasketballCourt: 436.64,
-  materialTonnesPerIllustrativeCar: 2
+  materialKgPerPackedSuitcase: 23
 });
 
 export const FOOTPRINT_CONTEXT_REFERENCES = Object.freeze({
@@ -123,13 +123,14 @@ export function getFootprintEquivalencies({
 } = {}) {
   const carbonVehicleYears = carbonTotal / FOOTPRINT_EQUIVALENCY_FACTORS.carbonTonnesPerGasolineVehicleYear;
   const carbonUsesCars = carbonVehicleYears >= 0.75;
-  const carbonMiles = roundReadableCount(
-    carbonTotal / FOOTPRINT_EQUIVALENCY_FACTORS.carbonTonnesPerGasolineVehicleMile
+  const carbonKilometres = roundReadableCount(
+    carbonTotal / FOOTPRINT_EQUIVALENCY_FACTORS.carbonTonnesPerGasolineVehicleKilometre
   );
   const waterLitres = Math.round(waterTotalM3 * 1000);
   const showers = roundReadableCount(waterLitres / FOOTPRINT_EQUIVALENCY_FACTORS.litresPerAverageShower);
   const basketballCourts = landTotalM2 / FOOTPRINT_EQUIVALENCY_FACTORS.landM2PerBasketballCourt;
-  const materialCarMasses = materialTotalTonnes / FOOTPRINT_EQUIVALENCY_FACTORS.materialTonnesPerIllustrativeCar;
+  const materialPackedSuitcases =
+    (materialTotalTonnes * 1000) / FOOTPRINT_EQUIVALENCY_FACTORS.materialKgPerPackedSuitcase;
 
   return [
     {
@@ -137,7 +138,7 @@ export function getFootprintEquivalencies({
       label: 'Carbon emissions',
       headline: carbonUsesCars
         ? formatWholeComparison(carbonVehicleYears, 'car')
-        : `~${carbonMiles.toLocaleString('en-US')} miles`,
+        : `~${carbonKilometres.toLocaleString('en-US')} km`,
       descriptor: carbonUsesCars
         ? 'driven for an entire year'
         : 'driven in a gasoline car',
@@ -186,9 +187,9 @@ export function getFootprintEquivalencies({
     {
       key: 'materials',
       label: 'Material footprint',
-      headline: formatWholeComparison(materialCarMasses, 'car'),
-      descriptor: 'in raw-material weight every year',
-      evidence: `≈ ${materialTotalTonnes.toFixed(1)} tonnes extracted and processed`,
+      headline: formatWholeComparison(materialPackedSuitcases, 'packed suitcase'),
+      descriptor: 'at 23 kg each, equivalent in raw-material mass every year',
+      evidence: `≈ ${materialTotalTonnes.toFixed(1)} tonnes of raw materials extracted and processed`,
       context: [
         formatRelativeBenchmark(
           materialTotalTonnes,

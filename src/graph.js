@@ -3,8 +3,8 @@
  * Renders nodes as large, flat lavender/gold/grey bubbles matching the reference design.
  */
 
-import { getAdjective } from './data.js';
 import { isCausalRelationship } from './relationship-semantics.js';
+import { getCanvasRenderProfile } from './display-resolution.js';
 
 const SPHERE_CATEGORY_RGB = Object.freeze({
   atmosphere: '210, 170, 245',
@@ -37,6 +37,14 @@ const PDF_GRAPH_RGB = Object.freeze({
 });
 
 const TREE_NODE_LABEL_EDGE_GAP = 24;
+const REPRESENTATIVE_CONNECTION_LIMIT = 6;
+const REPRESENTATIVE_DIRECTION_LIMIT = 3;
+const REPRESENTATIVE_CONTEXT_STOP_WORDS = new Set([
+  'about', 'after', 'and', 'before', 'being', 'cause', 'causes', 'could', 'does',
+  'effect', 'effects', 'for', 'from', 'have', 'into', 'more', 'much', 'over', 'that', 'the',
+  'their', 'then', 'there', 'these', 'they', 'this', 'through', 'what', 'when',
+  'where', 'which', 'with', 'would', 'your'
+]);
 
 export class TulipGraph {
   constructor(canvas, nodes, edges, onSelectNode, onHoverNode = null, onSelectEdge = null) {
@@ -84,6 +92,7 @@ export class TulipGraph {
     this.axisTiltPhase = 0.0;
     this.ambientHighlights = [];
     this.ambientHighlightSet = new Set();
+    this.mobileHighlightedLabelsAsPills = false;
     this.isFocusMode = false;
     this.needsCentering = false;
     this.activeFilter = 'all';
@@ -114,6 +123,10 @@ export class TulipGraph {
     this.cachedTreeLayoutKey = null;
     this.analyzeRevealState = new Map();
     this.analyzeEdgeRankingCache = new Map();
+    this.selectionContext = '';
+    this.selectionContextTokens = new Set();
+    this.selectionContextVersion = 0;
+    this.selectionHistory = [];
     this.returningFromAnalyzeTree = false;
     this.sphereReturnMomentumUntil = 0;
     this.lastAnalyzeSelectedId = null;
@@ -123,10 +136,24 @@ export class TulipGraph {
     this.hasTouchInput = (navigator.maxTouchPoints || 0) > 0
       || window.matchMedia?.('(pointer: coarse)').matches === true;
     this.touchGesture = null;
+    this.touchMomentum = null;
+    this.rotationMomentumHapticTravel = 0;
+    this.lastRotationHapticX = this.rotationX;
+    this.lastRotationHapticY = this.rotationY;
+    this.lastPhysicsAt = performance.now();
     this.edgeIgnitionStartedAt = 0;
     this.edgeIgnitionNodeId = null;
     this.filterWakeStartedAt = 0;
     this.filterWakeDuration = 720;
+    const nativeMaximumFps = Number(window.__TULIP_NATIVE_MAX_FPS__);
+    const preferredFps = Number.isFinite(nativeMaximumFps)
+      ? Math.min(60, Math.max(30, nativeMaximumFps))
+      : 60;
+    this.targetFrameDurationMs = 1000 / preferredFps;
+    this.idleFrameDurationMs = this.targetFrameDurationMs;
+    this.mobileAmbientEdgeStride = 2;
+    this.depthSortedNodes = [...this.nodes];
+    this.lastNativeHapticAt = 0;
 
     this.buildIndexes();
     this.assignDiscoveryProfiles();
@@ -136,7 +163,16 @@ export class TulipGraph {
     this.resizeCanvas();
 
     // Event listeners
-    window.addEventListener('resize', () => this.resizeCanvas());
+    this.resizeFrameId = null;
+    this.scheduleResize = () => {
+      if (this.resizeFrameId !== null) return;
+      this.resizeFrameId = window.requestAnimationFrame(() => {
+        this.resizeFrameId = null;
+        if (this.isRunning) this.resizeCanvas();
+      });
+    };
+    this.handleWindowResize = this.scheduleResize;
+    window.addEventListener('resize', this.handleWindowResize);
     this.watchPixelRatio = () => {
       this.pixelRatioMediaQuery?.removeEventListener?.('change', this.handlePixelRatioChange);
       this.pixelRatioMediaQuery = window.matchMedia?.(
@@ -144,21 +180,19 @@ export class TulipGraph {
       );
       this.handlePixelRatioChange = () => {
         this.watchPixelRatio();
-        this.resizeCanvas();
+        this.scheduleResize();
       };
       this.pixelRatioMediaQuery?.addEventListener?.('change', this.handlePixelRatioChange);
     };
     this.watchPixelRatio();
     if (typeof ResizeObserver !== 'undefined') {
-      this.canvasResizeObserver = new ResizeObserver(() => {
-        window.requestAnimationFrame(() => this.resizeCanvas());
-      });
+      this.canvasResizeObserver = new ResizeObserver(this.scheduleResize);
       this.canvasResizeObserver.observe(this.canvas.parentElement);
     }
     if (document.fonts?.ready) {
       document.fonts.ready.then(() => {
         this._textWidthCache?.clear();
-        this.resizeCanvas();
+        this.scheduleResize();
       });
     }
     this.setupEvents();
@@ -187,6 +221,14 @@ export class TulipGraph {
       width: rect.width,
       height: rect.height
     });
+  }
+
+  emitNativeHaptic(kind = 'selection', minimumInterval = 0) {
+    if (!window.TULIPNative?.haptic) return;
+    const now = performance.now();
+    if (now - this.lastNativeHapticAt < minimumInterval) return;
+    this.lastNativeHapticAt = now;
+    window.TULIPNative.haptic(kind);
   }
 
   measureTextCached(text, font) {
@@ -234,17 +276,17 @@ export class TulipGraph {
 
     if (style === 'neighbor') {
       if (isHoveredFollowable) {
-        nameFont = '800 18px "Inter Display", "InterDisplay", "Inter", sans-serif';
+        nameFont = '400 18px "Inter Display", "InterDisplay", "Inter", sans-serif';
         lineHeight = 21;
       } else {
         nameFont = '400 18px "Inter Display", "InterDisplay", "Inter", sans-serif';
         lineHeight = 21;
       }
     } else if (style === 'ambient') {
-      nameFont = '500 15px "Inter Display", "InterDisplay", "Inter", sans-serif';
+      nameFont = '400 15px "Inter Display", "InterDisplay", "Inter", sans-serif';
       lineHeight = 18;
     } else {
-      nameFont = '800 27px "Inter Display", "InterDisplay", "Inter", sans-serif';
+      nameFont = '400 27px "Inter Display", "InterDisplay", "Inter", sans-serif';
       lineHeight = 31;
     }
 
@@ -353,7 +395,7 @@ export class TulipGraph {
       ? Math.min(defaultBracketScreenX, labelOuterScreenEdge - bracketMargin)
       : Math.max(defaultBracketScreenX, labelOuterScreenEdge + bracketMargin);
 
-    const tagFont = '800 15px "Inter Display", "InterDisplay", "Inter", sans-serif';
+    const tagFont = '400 15px "Inter Display", "InterDisplay", "Inter", sans-serif';
     const tagWidth = this.measureTextCached(this.getTreeGroupDisplayName(group), tagFont);
     const tagOffset = 22;
     const tagScreenX = isLeft ? requiredBracketScreenX - tagOffset : requiredBracketScreenX + tagOffset;
@@ -464,8 +506,8 @@ export class TulipGraph {
 
       const societalFallout = this.clamp01(node.vector?.societal_fallout ?? 0.5);
       const humanDrivenness = this.clamp01(node.vector?.human_drivenness ?? 0.5);
-      const hasHumanImpact = node.humanImpact?.primaryPathways?.length ? 1 : 0;
-      const hasEconomicContext = node.economicContext ? 1 : 0;
+      const hasHumanImpact = node.runtimeHints?.hasHumanImpact ?? Boolean(node.humanImpact?.primaryPathways?.length);
+      const hasEconomicContext = node.runtimeHints?.hasEconomicContext ?? Boolean(node.economicContext);
       const reachBonus =
         node.context?.reach === 'global'
           ? 0.18
@@ -610,24 +652,33 @@ export class TulipGraph {
     const scaleVal = document.documentElement.style.getPropertyValue('--ui-scale');
     const parsedScale = scaleVal ? parseFloat(scaleVal) : 1;
     const scale = Number.isFinite(parsedScale) && parsedScale > 0 ? parsedScale : 1;
+    this.uiScale = scale;
 
     const isDenseAnalyzeTree = this.layoutMode === 'tree'
       && this.isFocusMode
       && this.getDirectInteractiveEdges().length > 40;
     const width = Math.max(1, rect.width / scale);
     const height = Math.max(1, rect.height / scale);
-    const isPhoneViewport = window.innerWidth <= 950;
-    const phoneResolutionBoost = isPhoneViewport ? 1.5 : 1;
-    const nativePixelRatio = Math.max(
-      isPhoneViewport ? 2 : 1,
-      (window.devicePixelRatio || 1) * scale * phoneResolutionBoost
-    );
-    const maximumPixelRatio = isPhoneViewport ? 4 : (isDenseAnalyzeTree ? 2.5 : 3);
-    const pixelBudget = isPhoneViewport ? 20_000_000 : (isDenseAnalyzeTree ? 12_000_000 : 16_000_000);
-    const budgetPixelRatio = Math.sqrt(pixelBudget / (width * height));
-    const dpr = Math.max(1, Math.min(nativePixelRatio, maximumPixelRatio, budgetPixelRatio));
+    // Use the graph surface width rather than the outer browser width so the
+    // phone-sized canvas inside the desktop device preview gets the same crisp
+    // treatment as a real handset.
+    const displayedGraphWidth = this.canvas.getBoundingClientRect?.().width || this.width;
+    const isPhoneViewport = displayedGraphWidth <= 950;
+    const renderProfile = getCanvasRenderProfile({
+      width,
+      height,
+      devicePixelRatio: window.devicePixelRatio || 1,
+      uiScale: scale,
+      viewportWidth: window.innerWidth,
+      viewportHeight: window.innerHeight,
+      isPhoneViewport,
+      isDenseAnalyzeTree
+    });
+    const dpr = renderProfile.renderPixelRatio;
     this.renderPixelRatio = dpr;
     this.canvas.dataset.renderPixelRatio = dpr.toFixed(2);
+    this.canvas.dataset.resolutionTier = renderProfile.highResolution ? 'high' : 'standard';
+    this.canvas.dataset.pixelBudget = String(renderProfile.pixelBudget);
     this.width = width;
     this.height = height;
     const renderWidth = Math.max(1, Math.round(this.width * dpr));
@@ -638,6 +689,7 @@ export class TulipGraph {
     }
     this.canvas.style.width = this.width + 'px';
     this.canvas.style.height = this.height + 'px';
+    this.canvasRect = this.canvas.getBoundingClientRect();
     
     // Leave a reliable label-safe gutter between the filter rail and fixed footer.
     this.sphereRadius = Math.min(this.width, this.height) * 0.55;
@@ -687,6 +739,9 @@ export class TulipGraph {
       node &&
       this.selectedNode.id !== node.id;
 
+    if (Object.prototype.hasOwnProperty.call(options, 'selectionContext')) {
+      this.setSelectionContext(options.selectionContext);
+    }
     this.pendingFocusSwap = options.instantSwap === true || isChangingFocus;
     if (!this.selectedNode || !node || this.selectedNode.id !== node.id) {
       this.userCollapsedAnalyzeConnections = false;
@@ -694,6 +749,7 @@ export class TulipGraph {
     const shouldIgnitePath = Boolean(
       node &&
       (!this.selectedNode || this.selectedNode.id !== node.id) &&
+      !this.disableEdgeIgnition &&
       !window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches
     );
     this.selectedNode = node;
@@ -746,6 +802,8 @@ export class TulipGraph {
       this.showEffects ? '1' : '0',
       this.showAllAnalyzeConnections ? '1' : '0',
       this.userCollapsedAnalyzeConnections ? '1' : '0',
+      this.selectionContextVersion,
+      (this.selectionHistory || []).slice(-4).map(node => node?.id || '').join('~'),
       selectedEdgeKey
     ].join('|');
   }
@@ -790,6 +848,243 @@ export class TulipGraph {
     return `${sourceId}->${targetId}`;
   }
 
+  tokenizeSelectionContext(value) {
+    return String(value || '')
+      .toLocaleLowerCase()
+      .normalize('NFKD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .match(/[a-z0-9]+/g)
+      ?.filter(token => token.length > 2 && !REPRESENTATIVE_CONTEXT_STOP_WORDS.has(token)) || [];
+  }
+
+  setSelectionContext(value = '') {
+    const normalized = String(value || '').trim();
+    const tokens = new Set(this.tokenizeSelectionContext(normalized));
+    const tokenKey = [...tokens].sort().join('|');
+    const previousKey = [...this.selectionContextTokens].sort().join('|');
+    if (normalized === this.selectionContext && tokenKey === previousKey) return;
+
+    this.selectionContext = normalized;
+    this.selectionContextTokens = tokens;
+    this.selectionContextVersion += 1;
+    this.invalidateAnalyzeCaches();
+  }
+
+  getEndpointNode(edge, direction) {
+    return this.nodeById.get(direction === 'incoming' ? edge.source : edge.target) || null;
+  }
+
+  getEvidenceConfidenceScore(edge) {
+    const confidence = String(
+      edge.evidence?.confidence ||
+      edge.confidence ||
+      edge.calibration?.confidence ||
+      ''
+    ).toLocaleLowerCase();
+    if (confidence.includes('high')) return 0.96;
+    if (confidence.includes('medium') || confidence.includes('moderate')) return 0.76;
+    if (confidence.includes('low')) return 0.48;
+
+    const sourceStatus = String(
+      edge.evidence?.source_status ||
+      edge.source_status ||
+      ''
+    ).toLocaleLowerCase();
+    if (sourceStatus.includes('curated') || sourceStatus.includes('reviewed')) return 0.9;
+    if (sourceStatus.includes('primary') || sourceStatus.includes('official')) return 0.86;
+
+    const topologyRule = String(edge.topology_rule || '').toLocaleLowerCase();
+    if (topologyRule === 'curated_base') return 0.94;
+    if (topologyRule.includes('promotion') || topologyRule.includes('rehabilitation')) return 0.84;
+    if (topologyRule.includes('expansion')) return 0.68;
+    if (topologyRule.includes('generated')) return 0.52;
+    return 0.72;
+  }
+
+  getFocusReadabilityScore(node, selectedNode = this.selectedNode) {
+    if (!node || !selectedNode) return 0.5;
+    const nodeVector = [node.sphereX, node.sphereY, node.sphereZ];
+    const selectedVector = [selectedNode.sphereX, selectedNode.sphereY, selectedNode.sphereZ];
+    const hasSphereVectors = [...nodeVector, ...selectedVector].every(Number.isFinite);
+
+    if (hasSphereVectors) {
+      const nodeLength = Math.hypot(...nodeVector);
+      const selectedLength = Math.hypot(...selectedVector);
+      if (nodeLength > 0 && selectedLength > 0) {
+        const dot = nodeVector.reduce(
+          (sum, value, index) => sum + value * selectedVector[index],
+          0
+        ) / (nodeLength * selectedLength);
+        // Selection centers the chosen point. Angular proximity therefore
+        // predicts the readable hemisphere better than its pre-focus z value.
+        return this.clamp01((dot + 1) / 2);
+      }
+    }
+
+    return this.clamp01(((node.z ?? 0) + 1) / 2);
+  }
+
+  getSelectionContextScore(node) {
+    if (!node || this.selectionContextTokens.size === 0) return 0;
+    const searchableTokens = new Set(this.tokenizeSelectionContext([
+      node.name,
+      node.description,
+      node.sphere,
+      node.discovery?.reason
+    ].filter(Boolean).join(' ')));
+    let matches = 0;
+    this.selectionContextTokens.forEach(token => {
+      if (searchableTokens.has(token)) matches += 1;
+    });
+    return this.clamp01(matches / Math.max(1, this.selectionContextTokens.size));
+  }
+
+  getJourneyRelevanceScore(node) {
+    if (!node || !Array.isArray(this.selectionHistory) || this.selectionHistory.length === 0) return 0;
+    const recent = this.selectionHistory.slice(-4);
+    if (recent.some(item => item?.id === node.id)) return 1;
+    const latest = recent.at(-1);
+    if (latest?.sphere && latest.sphere === node.sphere) return 0.42;
+    return recent.some(item => item?.sphere && item.sphere === node.sphere) ? 0.24 : 0;
+  }
+
+  getMechanismCluster(edge, direction, node = this.getEndpointNode(edge, direction)) {
+    const explicitCluster =
+      edge.mechanism_cluster ||
+      edge.mechanismFamily ||
+      edge.evidence?.mechanism_family ||
+      '';
+    const normalizedExplicit = String(explicitCluster).trim().toLocaleLowerCase();
+    if (normalizedExplicit && !['unknown', 'direct'].includes(normalizedExplicit)) {
+      return `${direction}:${normalizedExplicit}`;
+    }
+
+    // Topology rules often describe the review pipeline rather than a physical
+    // mechanism. Use them only when they explicitly identify a family/cohort;
+    // otherwise derive the cluster from the endpoint's actual topic name.
+    const topologyRule = String(edge.topology_rule || '').trim().toLocaleLowerCase();
+    const topologyNamesFamily =
+      !topologyRule.includes('missing_link') &&
+      /(family|expansion|batch|cohort|sector)/.test(topologyRule);
+    if (topologyNamesFamily) return `${direction}:${topologyRule}`;
+
+    const semanticTokens = this.tokenizeSelectionContext(node?.name || '')
+      .filter(token => !['change', 'decline', 'increase', 'loss', 'output', 'pressure', 'risk'].includes(token))
+      .slice(0, 2);
+    return `${direction}:${node?.sphere || 'unknown'}:${semanticTokens.join('-') || node?.id || 'relationship'}`;
+  }
+
+  isCrossSystemBridge(node, selectedNode = this.selectedNode) {
+    if (!node) return false;
+    if (selectedNode?.sphere && node.sphere && selectedNode.sphere !== node.sphere) return true;
+    if (node.discovery?.segment === 'bridge') return true;
+
+    const neighborSpheres = new Set();
+    (this.adjacentIdsById.get(node.id) || new Set()).forEach(id => {
+      const neighborSphere = this.nodeById.get(id)?.sphere;
+      if (neighborSphere && neighborSphere !== node.sphere) neighborSpheres.add(neighborSphere);
+    });
+    return neighborSpheres.size >= 2;
+  }
+
+  buildRepresentativeCandidate(edge, direction, selectedNode, feedbackNodeIds = new Set()) {
+    const node = this.getEndpointNode(edge, direction);
+    const influence = this.clamp01(Math.abs(Number(edge.influence) || 0));
+    const evidence = this.getEvidenceConfidenceScore(edge);
+    const discovery = this.clamp01((node?.discovery?.score || 0) / 100);
+    const context = this.getSelectionContextScore(node);
+    const readability = this.getFocusReadabilityScore(node, selectedNode);
+    const journey = this.getJourneyRelevanceScore(node);
+    const isBridge = this.isCrossSystemBridge(node, selectedNode);
+    const isFeedback = feedbackNodeIds.has(node?.id);
+    const score =
+      influence * 0.34 +
+      evidence * 0.2 +
+      discovery * 0.15 +
+      context * 0.13 +
+      readability * 0.1 +
+      journey * 0.08 +
+      (isBridge ? 0.04 : 0) +
+      (isFeedback ? 0.05 : 0);
+
+    return {
+      edge,
+      direction,
+      node,
+      nodeId: node?.id || (direction === 'incoming' ? edge.source : edge.target),
+      mechanismCluster: this.getMechanismCluster(edge, direction, node),
+      isBridge,
+      isFeedback,
+      components: { influence, evidence, discovery, context, readability, journey },
+      score
+    };
+  }
+
+  pickDiverseRepresentativeCandidates(candidates, count, sharedState = null) {
+    if (count <= 0 || candidates.length === 0) return [];
+    const state = sharedState || {
+      mechanismCounts: new Map(),
+      spheres: new Set(),
+      hasBridge: false,
+      hasFeedback: false
+    };
+    const remaining = [...candidates];
+    const selected = [];
+
+    while (selected.length < count && remaining.length > 0) {
+      remaining.sort((a, b) => {
+        const adjustedScore = candidate => {
+          const repeatedMechanism = state.mechanismCounts.get(candidate.mechanismCluster) || 0;
+          const sphereIsNew = candidate.node?.sphere && !state.spheres.has(candidate.node.sphere);
+          return candidate.score
+            - repeatedMechanism * 0.34
+            + (repeatedMechanism === 0 ? 0.11 : 0)
+            + (sphereIsNew ? 0.05 : 0)
+            + (!state.hasBridge && candidate.isBridge ? 0.07 : 0)
+            + (!state.hasFeedback && candidate.isFeedback ? 0.08 : 0);
+        };
+        const scoreDifference = adjustedScore(b) - adjustedScore(a);
+        if (Math.abs(scoreDifference) > 0.0001) return scoreDifference;
+        return (a.node?.name || '').localeCompare(b.node?.name || '');
+      });
+
+      const chosen = remaining.shift();
+      selected.push(chosen);
+      state.mechanismCounts.set(
+        chosen.mechanismCluster,
+        (state.mechanismCounts.get(chosen.mechanismCluster) || 0) + 1
+      );
+      if (chosen.node?.sphere) state.spheres.add(chosen.node.sphere);
+      state.hasBridge ||= chosen.isBridge;
+      state.hasFeedback ||= chosen.isFeedback;
+    }
+
+    return selected;
+  }
+
+  ensureRepresentativeBridgeOrFeedback(selectedCandidates, allCandidates) {
+    if (selectedCandidates.some(candidate => candidate.isBridge || candidate.isFeedback)) {
+      return selectedCandidates;
+    }
+
+    const specialCandidate = [...allCandidates]
+      .filter(candidate => candidate.isBridge || candidate.isFeedback)
+      .sort((a, b) => b.score - a.score)[0];
+    if (!specialCandidate || selectedCandidates.some(candidate => candidate.nodeId === specialCandidate.nodeId)) {
+      return selectedCandidates;
+    }
+
+    const replaceableIndex = selectedCandidates
+      .map((candidate, index) => ({ candidate, index }))
+      .filter(({ candidate }) => candidate.direction === specialCandidate.direction)
+      .sort((a, b) => a.candidate.score - b.candidate.score)[0]?.index;
+    if (replaceableIndex === undefined) return selectedCandidates;
+
+    const next = [...selectedCandidates];
+    next[replaceableIndex] = specialCandidate;
+    return next;
+  }
+
   rankAnalyzeEdges(edges, direction) {
     if (edges.length > 0) {
       const ownerId = direction === 'incoming' ? edges[0].target : edges[0].source;
@@ -826,64 +1121,65 @@ export class TulipGraph {
     return Math.abs(edge.influence || 0) * 100 + (node?.discovery?.score || 0);
   }
 
-  getCollapsedAnalyzeSelection(incomingEdges, outgoingEdges, maxConnections = 8) {
-    // Keep the selected node's causal story legible when one side is much
-    // smaller than the other. Ranking every edge in a single pool made a
-    // high-degree anchor such as Carbon Emission appear to have only a couple
-    // of effects: its many upstream drivers consumed the display budget. This
-    // is a presentation constraint, not an evidence constraint, so preserve
-    // the entire small side where it fits and use the remaining slots for the
-    // highest-ranked relationships on the large side.
+  getCollapsedAnalyzeSelection(
+    incomingEdges,
+    outgoingEdges,
+    maxConnections = REPRESENTATIVE_CONNECTION_LIMIT,
+    selectedNode = this.selectedNode,
+    feedbackNodeIds = new Set()
+  ) {
     const totalConnections = incomingEdges.length + outgoingEdges.length;
-    const preserveIncoming = incomingEdges.length > 0 && incomingEdges.length <= Math.floor(maxConnections / 2);
-    const preserveOutgoing = outgoingEdges.length > 0 && outgoingEdges.length <= Math.floor(maxConnections / 2);
-
     if (totalConnections <= maxConnections) {
       return {
         displayedDriverEdges: incomingEdges,
-        displayedImpactEdges: outgoingEdges
+        displayedImpactEdges: outgoingEdges,
+        representativeCandidates: []
       };
     }
 
-    if (preserveIncoming && !preserveOutgoing) {
-      return {
-        displayedDriverEdges: incomingEdges,
-        displayedImpactEdges: outgoingEdges.slice(0, Math.max(0, maxConnections - incomingEdges.length))
-      };
-    }
+    const hasBothDirections = incomingEdges.length > 0 && outgoingEdges.length > 0;
+    const perDirectionLimit = hasBothDirections
+      ? Math.min(REPRESENTATIVE_DIRECTION_LIMIT, Math.floor(maxConnections / 2))
+      : maxConnections;
+    const incomingTarget = Math.min(incomingEdges.length, perDirectionLimit);
+    const outgoingTarget = Math.min(outgoingEdges.length, perDirectionLimit);
+    const incomingCandidates = incomingEdges.map(edge =>
+      this.buildRepresentativeCandidate(edge, 'incoming', selectedNode, feedbackNodeIds)
+    );
+    const outgoingCandidates = outgoingEdges.map(edge =>
+      this.buildRepresentativeCandidate(edge, 'outgoing', selectedNode, feedbackNodeIds)
+    );
+    const sharedState = {
+      mechanismCounts: new Map(),
+      spheres: new Set(),
+      hasBridge: false,
+      hasFeedback: false
+    };
 
-    if (preserveOutgoing && !preserveIncoming) {
-      return {
-        displayedDriverEdges: incomingEdges.slice(0, Math.max(0, maxConnections - outgoingEdges.length)),
-        displayedImpactEdges: outgoingEdges
-      };
-    }
+    let representativeCandidates = [
+      ...this.pickDiverseRepresentativeCandidates(incomingCandidates, incomingTarget, sharedState),
+      ...this.pickDiverseRepresentativeCandidates(outgoingCandidates, outgoingTarget, sharedState)
+    ];
+    representativeCandidates = this.ensureRepresentativeBridgeOrFeedback(
+      representativeCandidates,
+      [...incomingCandidates, ...outgoingCandidates]
+    );
 
-    const rankedCandidates = [
-      ...incomingEdges.map(edge => ({
-        edge,
-        direction: 'incoming',
-        nodeId: edge.source,
-        score: this.getAnalyzeEdgeScore(edge, 'incoming')
-      })),
-      ...outgoingEdges.map(edge => ({
-        edge,
-        direction: 'outgoing',
-        nodeId: edge.target,
-        score: this.getAnalyzeEdgeScore(edge, 'outgoing')
-      }))
-    ].sort((a, b) => {
-      if (b.score !== a.score) return b.score - a.score;
-      const aNode = this.nodeById.get(a.nodeId);
-      const bNode = this.nodeById.get(b.nodeId);
-      return (aNode?.name || '').localeCompare(bNode?.name || '');
-    });
-
-    const keptNodeIds = new Set(rankedCandidates.slice(0, maxConnections).map(item => item.nodeId));
+    const driverNodeIds = new Set(
+      representativeCandidates
+        .filter(candidate => candidate.direction === 'incoming')
+        .map(candidate => candidate.nodeId)
+    );
+    const impactNodeIds = new Set(
+      representativeCandidates
+        .filter(candidate => candidate.direction === 'outgoing')
+        .map(candidate => candidate.nodeId)
+    );
 
     return {
-      displayedDriverEdges: incomingEdges.filter(edge => keptNodeIds.has(edge.source)),
-      displayedImpactEdges: outgoingEdges.filter(edge => keptNodeIds.has(edge.target))
+      displayedDriverEdges: incomingEdges.filter(edge => driverNodeIds.has(edge.source)),
+      displayedImpactEdges: outgoingEdges.filter(edge => impactNodeIds.has(edge.target)),
+      representativeCandidates
     };
   }
 
@@ -892,7 +1188,7 @@ export class TulipGraph {
       ...incomingEdges.map(edge => edge.source),
       ...outgoingEdges.map(edge => edge.target)
     ]);
-    return directIds.size <= 8;
+    return directIds.size <= REPRESENTATIVE_CONNECTION_LIMIT;
   }
 
   findAnalyzeLoop(selectedId, preferredNodeIds = []) {
@@ -947,13 +1243,25 @@ export class TulipGraph {
       (this.outgoingEdgesById.get(selectedId) || []).filter(isCausalRelationship),
       'outgoing'
     );
+    const allDirectIds = [
+      ...incomingEdges.map(edge => edge.source),
+      ...outgoingEdges.map(edge => edge.target)
+    ];
+    const loop = this.findAnalyzeLoop(selectedId, allDirectIds);
+    const feedbackNodeIds = new Set(loop?.nodeIds || []);
     // Keep the default view legible and frame-safe. Larger neighborhoods retain
     // every reviewed relationship behind the explicit Expand control.
     const autoExpandAllConnections = this.shouldAutoExpandAnalyzeConnections(incomingEdges, outgoingEdges);
     const displayAllConnections = this.showAllAnalyzeConnections || (autoExpandAllConnections && !this.userCollapsedAnalyzeConnections);
     const collapsedSelection = displayAllConnections
-      ? { displayedDriverEdges: incomingEdges, displayedImpactEdges: outgoingEdges }
-      : this.getCollapsedAnalyzeSelection(incomingEdges, outgoingEdges, 8);
+      ? { displayedDriverEdges: incomingEdges, displayedImpactEdges: outgoingEdges, representativeCandidates: [] }
+      : this.getCollapsedAnalyzeSelection(
+          incomingEdges,
+          outgoingEdges,
+          REPRESENTATIVE_CONNECTION_LIMIT,
+          selectedNode,
+          feedbackNodeIds
+        );
 
     let displayedDriverEdges = this.showTriggers === false
       ? []
@@ -999,8 +1307,6 @@ export class TulipGraph {
     const displayedImpactIds = displayedImpactEdges.map(edge => edge.target);
     const displayedDriverIdSet = new Set(displayedDriverIds);
     const displayedImpactIdSet = new Set(displayedImpactIds);
-    const preferredLoopIds = [...displayedDriverIds, ...displayedImpactIds];
-    const loop = this.findAnalyzeLoop(selectedId, preferredLoopIds);
     const loopNodeIds = loop
       ? loop.nodeIds.filter(id => !displayedDriverIdSet.has(id) && !displayedImpactIdSet.has(id))
       : [];
@@ -1033,6 +1339,15 @@ export class TulipGraph {
       contextIds,
       visibleIds,
       emphasizedEdgeKeys,
+      representativeSelection: collapsedSelection.representativeCandidates.map(candidate => ({
+        nodeId: candidate.nodeId,
+        direction: candidate.direction,
+        mechanismCluster: candidate.mechanismCluster,
+        isBridge: candidate.isBridge,
+        isFeedback: candidate.isFeedback,
+        score: candidate.score,
+        components: candidate.components
+      })),
       autoExpandAllConnections,
       displayAllConnections,
       hiddenConnectionCount: Math.max(0, incomingEdges.length - displayedDriverIds.length) + Math.max(0, outgoingEdges.length - displayedImpactIds.length),
@@ -1582,7 +1897,7 @@ export class TulipGraph {
       : Math.max(...drawableGroups.map(entry => entry.requiredBracketScreenX));
 
     if (this.exportBackgroundColor) {
-      const tagFont = '800 15px "Inter Display", "InterDisplay", "Inter", sans-serif';
+      const tagFont = '400 15px "Inter Display", "InterDisplay", "Inter", sans-serif';
       const widestTag = Math.max(
         ...drawableGroups.map(({ group }) => this.measureTextCached(this.getTreeGroupDisplayName(group), tagFont))
       );
@@ -1626,7 +1941,7 @@ export class TulipGraph {
       const tagFontSize = 15;
       const tagOffset = 22;
 
-      ctx.font = `800 ${tagFontSize}px "Inter Display", "InterDisplay", "Inter", sans-serif`;
+      ctx.font = `400 ${tagFontSize}px "Inter Display", "InterDisplay", "Inter", sans-serif`;
       ctx.fillStyle = getSphereColor(sphere, this.exportBackgroundColor ? 0.96 : 0.7);
       ctx.textAlign = isLeft ? 'right' : 'left';
       ctx.textBaseline = 'middle';
@@ -1685,7 +2000,7 @@ export class TulipGraph {
 
       if (style === 'neighbor') {
         if (!this.isFocusMode && isHighlighted) {
-          nameFont = '600 17.25px "Inter Display", "InterDisplay", "Inter", sans-serif';
+          nameFont = '400 17.25px "Inter Display", "InterDisplay", "Inter", sans-serif';
           yOffsetName = 18;
         } else {
           nameFont = '400 15px "Inter Display", "InterDisplay", "Inter", sans-serif';
@@ -1694,19 +2009,19 @@ export class TulipGraph {
         lineHeight = 21;
       } else if (style === 'ambient') {
         if (!this.isFocusMode && isHighlighted) {
-          nameFont = '700 13.8px "Inter Display", "InterDisplay", "Inter", sans-serif';
+          nameFont = '400 13.8px "Inter Display", "InterDisplay", "Inter", sans-serif';
           yOffsetName = 17;
         } else {
-          nameFont = '500 12px "Inter Display", "InterDisplay", "Inter", sans-serif';
+          nameFont = '400 12px "Inter Display", "InterDisplay", "Inter", sans-serif';
           yOffsetName = 18;
         }
         lineHeight = 18;
       } else {
         if (!this.isFocusMode && isHighlighted) {
-          nameFont = '900 27.6px "Inter Display", "InterDisplay", "Inter", sans-serif';
+          nameFont = '400 27.6px "Inter Display", "InterDisplay", "Inter", sans-serif';
           yOffsetName = 30;
         } else {
-          nameFont = '800 24px "Inter Display", "InterDisplay", "Inter", sans-serif';
+          nameFont = '400 24px "Inter Display", "InterDisplay", "Inter", sans-serif';
           yOffsetName = 26;
         }
         lineHeight = 28;
@@ -2008,7 +2323,7 @@ export class TulipGraph {
   boostFontWeight(font, factor = 1) {
     if (factor <= 1) return font;
     return font.replace(/^(\d{3})(\s+)/, (_, weight, spacing) => {
-      const boostedWeight = Math.min(900, Math.round(parseInt(weight, 10) * factor));
+      const boostedWeight = Math.min(400, Math.round(parseInt(weight, 10) * factor));
       return `${boostedWeight}${spacing}`;
     });
   }
@@ -2210,9 +2525,8 @@ export class TulipGraph {
     });
 
     const getMousePos = (e) => {
-      const rect = this.canvas.getBoundingClientRect();
-      const scaleVal = document.documentElement.style.getPropertyValue('--ui-scale');
-      const scale = scaleVal ? parseFloat(scaleVal) : 1;
+      const rect = this.canvasRect || this.canvas.getBoundingClientRect();
+      const scale = this.uiScale || 1;
       return {
         x: (e.clientX - rect.left) / scale,
         y: (e.clientY - rect.top) / scale
@@ -2229,6 +2543,7 @@ export class TulipGraph {
       clientY: (first.clientY + second.clientY) / 2
     });
     const getMinimumManualZoom = () => {
+      if (Number.isFinite(this.minimumManualZoom)) return this.minimumManualZoom;
       const focusData = this.isFocusMode && this.selectedNode
         ? this.getAnalyzeFocusData(this.selectedNode)
         : null;
@@ -2242,8 +2557,12 @@ export class TulipGraph {
           : radialMinimumZoom)
         : 0.3;
     };
+    const getMaximumManualZoom = () => Number.isFinite(this.maximumManualZoom)
+      ? this.maximumManualZoom
+      : 3.0;
 
     this.canvas.addEventListener('mousedown', (e) => {
+      this.canvasRect = this.canvas.getBoundingClientRect();
       this.requestRender();
       const pos = getMousePos(e);
       const clickedNode = this.findBestHitNode(pos);
@@ -2289,6 +2608,9 @@ export class TulipGraph {
         this.isDraggingGlobe = true;
         this.dragStart = { x: e.clientX, y: e.clientY };
         this.rotationStart = { x: this.rotationX, y: this.rotationY };
+        this.lastRotationHapticX = this.rotationX;
+        this.lastRotationHapticY = this.rotationY;
+        this.rotationMomentumHapticTravel = 0;
       }
     });
 
@@ -2303,8 +2625,7 @@ export class TulipGraph {
         this.backgroundPress.moved = Math.hypot(dx, dy) > 5;
       }
 
-      const scaleVal = document.documentElement.style.getPropertyValue('--ui-scale');
-      const scale = scaleVal ? parseFloat(scaleVal) : 1;
+      const scale = this.uiScale || 1;
 
       if (this.isPanningCamera) {
         const dx = (e.clientX - this.dragStart.x) / scale;
@@ -2321,7 +2642,16 @@ export class TulipGraph {
         const dy = (e.clientY - this.dragStart.y) / scale;
         const zoomFactor = Math.max(0.1, this.camera.zoom);
         this.rotationY = this.rotationStart.y + (dx * 0.005) / zoomFactor;
-        this.rotationX = Math.max(-Math.PI / 2.2, Math.min(Math.PI / 2.2, this.rotationStart.x - (dy * 0.005) / zoomFactor));
+        this.rotationX = this.rotationStart.x - (dy * 0.005) / zoomFactor;
+        const rotationDelta = Math.hypot(
+          this.rotationX - this.lastRotationHapticX,
+          this.rotationY - this.lastRotationHapticY
+        );
+        if (rotationDelta >= 0.1) {
+          this.emitNativeHaptic('rotation', 58);
+          this.lastRotationHapticX = this.rotationX;
+          this.lastRotationHapticY = this.rotationY;
+        }
         return;
       }
 
@@ -2397,14 +2727,13 @@ export class TulipGraph {
       this.targetCamera = null; // Interrupt camera tween
       
       const rect = this.canvas.getBoundingClientRect();
-      const scaleVal = document.documentElement.style.getPropertyValue('--ui-scale');
-      const scale = scaleVal ? parseFloat(scaleVal) : 1;
+      const scale = this.uiScale || 1;
       const mouseX = (e.clientX - rect.left) / scale;
       const mouseY = (e.clientY - rect.top) / scale;
       
       const zoomFactor = e.deltaY < 0 ? 1.08 : 0.925;
       const minManualZoom = getMinimumManualZoom();
-      const newZoom = Math.max(minManualZoom, Math.min(3.0, this.camera.zoom * zoomFactor));
+      const newZoom = Math.max(minManualZoom, Math.min(getMaximumManualZoom(), this.camera.zoom * zoomFactor));
 
       if (this.layoutMode === 'tree' && this.isFocusMode) {
         // Zoom relative to cursor position in tree mode (Figma/D3 style)
@@ -2427,8 +2756,11 @@ export class TulipGraph {
       event.preventDefault();
       this.requestRender();
       this.targetCamera = null;
+      this.touchMomentum = null;
+      this.rotationMomentumHapticTravel = 0;
       this.hoveredNode = null;
       this.hoveredEdge = null;
+      this.canvasRect = this.canvas.getBoundingClientRect();
 
       if (event.touches.length >= 2) {
         const midpoint = getTouchMidpoint(event.touches[0], event.touches[1]);
@@ -2439,7 +2771,8 @@ export class TulipGraph {
           startZoom: this.camera.zoom,
           startMidpoint: midpoint,
           startCamera: { x: this.camera.x, y: this.camera.y },
-          worldAnchor: this.screenToWorld(midpointPos.x, midpointPos.y)
+          worldAnchor: this.screenToWorld(midpointPos.x, midpointPos.y),
+          lastHapticZoom: this.camera.zoom
         };
         this.isDraggingGlobe = false;
         this.isPanningCamera = false;
@@ -2459,7 +2792,14 @@ export class TulipGraph {
         touchedEdge,
         hadSelectedEdge: Boolean(this.selectedEdge),
         cameraStart: { x: this.camera.x, y: this.camera.y },
-        rotationStart: { x: this.rotationX, y: this.rotationY }
+        rotationStart: { x: this.rotationX, y: this.rotationY },
+        lastX: touch.clientX,
+        lastY: touch.clientY,
+        lastTime: performance.now(),
+        velocityX: 0,
+        velocityY: 0,
+        lastHapticRotationX: this.rotationX,
+        lastHapticRotationY: this.rotationY
       };
     }, { passive: false });
 
@@ -2478,7 +2818,8 @@ export class TulipGraph {
             startZoom: this.camera.zoom,
             startMidpoint: midpoint,
             startCamera: { x: this.camera.x, y: this.camera.y },
-            worldAnchor: this.screenToWorld(midpointPos.x, midpointPos.y)
+            worldAnchor: this.screenToWorld(midpointPos.x, midpointPos.y),
+            lastHapticZoom: this.camera.zoom
           };
         }
         const midpoint = getTouchMidpoint(event.touches[0], event.touches[1]);
@@ -2486,17 +2827,20 @@ export class TulipGraph {
         const distance = getTouchDistance(event.touches[0], event.touches[1]);
         const nextZoom = Math.max(
           getMinimumManualZoom(),
-          Math.min(3, this.touchGesture.startZoom * (distance / this.touchGesture.startDistance))
+          Math.min(getMaximumManualZoom(), this.touchGesture.startZoom * (distance / this.touchGesture.startDistance))
         );
         this.camera.zoom = nextZoom;
         this.needsCentering = false;
+        if (Math.abs(nextZoom - this.touchGesture.lastHapticZoom) >= 0.09) {
+          this.emitNativeHaptic('selection', 90);
+          this.touchGesture.lastHapticZoom = nextZoom;
+        }
 
         if (this.layoutMode === 'tree' && this.isFocusMode) {
           this.camera.x = midpointPos.x - this.touchGesture.worldAnchor.x * nextZoom;
           this.camera.y = midpointPos.y - this.touchGesture.worldAnchor.y * nextZoom;
         } else {
-          const scaleVal = document.documentElement.style.getPropertyValue('--ui-scale');
-          const scale = scaleVal ? parseFloat(scaleVal) : 1;
+          const scale = this.uiScale || 1;
           this.camera.x = this.width / 2 + (midpoint.clientX - this.touchGesture.startMidpoint.clientX) / scale;
           this.camera.y = this.height / 2 + (midpoint.clientY - this.touchGesture.startMidpoint.clientY) / scale;
         }
@@ -2505,12 +2849,23 @@ export class TulipGraph {
 
       if (this.touchGesture.pinching) return;
       const touch = event.touches[0];
+      const now = performance.now();
+      const sampleElapsed = Math.max(1, now - this.touchGesture.lastTime);
+      const instantaneousVelocityX = (touch.clientX - this.touchGesture.lastX) / sampleElapsed;
+      const instantaneousVelocityY = (touch.clientY - this.touchGesture.lastY) / sampleElapsed;
+      this.touchGesture.velocityX = this.touchGesture.velocityX * 0.72 + instantaneousVelocityX * 0.28;
+      this.touchGesture.velocityY = this.touchGesture.velocityY * 0.72 + instantaneousVelocityY * 0.28;
+      this.touchGesture.lastX = touch.clientX;
+      this.touchGesture.lastY = touch.clientY;
+      this.touchGesture.lastTime = now;
       const dx = touch.clientX - this.touchGesture.startX;
       const dy = touch.clientY - this.touchGesture.startY;
-      if (!this.touchGesture.moved && Math.hypot(dx, dy) < 8) return;
-      this.touchGesture.moved = true;
-      const scaleVal = document.documentElement.style.getPropertyValue('--ui-scale');
-      const scale = scaleVal ? parseFloat(scaleVal) : 1;
+      if (!this.touchGesture.moved && Math.hypot(dx, dy) < (this.touchTapSlop || 8)) return;
+      if (!this.touchGesture.moved) {
+        this.touchGesture.moved = true;
+        this.emitNativeHaptic('light', 0);
+      }
+      const scale = this.uiScale || 1;
 
       if (this.layoutMode === 'tree' && this.isFocusMode) {
         this.isPanningCamera = true;
@@ -2521,10 +2876,16 @@ export class TulipGraph {
         this.needsCentering = false;
         const zoomFactor = Math.max(0.1, this.camera.zoom);
         this.rotationY = this.touchGesture.rotationStart.y + (dx * 0.005) / zoomFactor;
-        this.rotationX = Math.max(
-          -Math.PI / 2.2,
-          Math.min(Math.PI / 2.2, this.touchGesture.rotationStart.x - (dy * 0.005) / zoomFactor)
+        this.rotationX = this.touchGesture.rotationStart.x - (dy * 0.005) / zoomFactor;
+        const rotationDelta = Math.hypot(
+          this.rotationX - this.touchGesture.lastHapticRotationX,
+          this.rotationY - this.touchGesture.lastHapticRotationY
         );
+        if (rotationDelta >= 0.1) {
+          this.emitNativeHaptic('rotation', 58);
+          this.touchGesture.lastHapticRotationX = this.rotationX;
+          this.touchGesture.lastHapticRotationY = this.rotationY;
+        }
       }
     }, { passive: false });
 
@@ -2534,6 +2895,29 @@ export class TulipGraph {
       this.touchGesture = null;
       this.isDraggingGlobe = false;
       this.isPanningCamera = false;
+      if (gesture?.moved && !gesture.pinching) {
+        const scale = this.uiScale || 1;
+        const frameMs = 1000 / 60;
+        const releaseAge = performance.now() - gesture.lastTime;
+        const releaseDecay = Math.max(0, 1 - releaseAge / 140);
+        const velocityX = gesture.velocityX * releaseDecay;
+        const velocityY = gesture.velocityY * releaseDecay;
+        if (this.layoutMode === 'tree' && this.isFocusMode) {
+          this.touchMomentum = {
+            kind: 'camera',
+            x: Math.max(-36, Math.min(36, (velocityX * frameMs) / scale)),
+            y: Math.max(-36, Math.min(36, (velocityY * frameMs) / scale))
+          };
+        } else {
+          const zoomFactor = Math.max(0.1, this.camera.zoom);
+          this.touchMomentum = {
+            kind: 'sphere',
+            x: Math.max(-0.08, Math.min(0.08, -(velocityY * frameMs * 0.005) / zoomFactor)),
+            y: Math.max(-0.08, Math.min(0.08, (velocityX * frameMs * 0.005) / zoomFactor))
+          };
+          this.rotationMomentumHapticTravel = 0;
+        }
+      }
       if (!gesture || gesture.pinching || gesture.moved) {
         this.requestRender();
         return;
@@ -2560,6 +2944,35 @@ export class TulipGraph {
   }
 
   updatePhysics() {
+    const physicsNow = performance.now();
+    const frameScale = Math.min(2.5, Math.max(0.25, (physicsNow - this.lastPhysicsAt) / (1000 / 60)));
+    this.lastPhysicsAt = physicsNow;
+    if (this.touchMomentum && !this.isDraggingGlobe && !this.isPanningCamera) {
+      const friction = Math.pow(0.94, frameScale);
+      if (this.touchMomentum.kind === 'camera') {
+        this.camera.x += this.touchMomentum.x * frameScale;
+        this.camera.y += this.touchMomentum.y * frameScale;
+      } else {
+        this.needsCentering = false;
+        const rotationStepX = this.touchMomentum.x * frameScale;
+        const rotationStepY = this.touchMomentum.y * frameScale;
+        this.rotationX += rotationStepX;
+        this.rotationY += rotationStepY;
+        this.rotationMomentumHapticTravel += Math.hypot(rotationStepX, rotationStepY);
+        const momentumSpeed = Math.hypot(this.touchMomentum.x, this.touchMomentum.y);
+        const hapticTravelStep = momentumSpeed >= 0.04 ? 0.09 : 0.13;
+        if (this.rotationMomentumHapticTravel >= hapticTravelStep) {
+          this.emitNativeHaptic('rotationMomentum', 72);
+          this.rotationMomentumHapticTravel = 0;
+        }
+      }
+      this.touchMomentum.x *= friction;
+      this.touchMomentum.y *= friction;
+      if (Math.hypot(this.touchMomentum.x, this.touchMomentum.y) < 0.0012) {
+        this.touchMomentum = null;
+        this.rotationMomentumHapticTravel = 0;
+      }
+    }
     const instantFocusSwap = this.pendingFocusSwap === true;
     this.instantFocusSwapFrame = instantFocusSwap;
     this.cachedAnalyzeFocusData = this.isFocusMode && this.selectedNode
@@ -2603,8 +3016,11 @@ export class TulipGraph {
       const transitionFactor = hasReturnMomentum
         ? Math.max(0.58, rawTransitionFactor)
         : rawTransitionFactor;
-      this.rotationY += 0.00155 * speedMultiplier * transitionFactor;
-      this.axisTiltPhase = (this.axisTiltPhase || 0) + 0.001 * speedMultiplier * transitionFactor;
+      const autoRotateSpeedMultiplier = Number.isFinite(Number(this.mobileAutoRotateSpeedMultiplier))
+        ? Number(this.mobileAutoRotateSpeedMultiplier)
+        : 1;
+      this.rotationY += 0.00155 * speedMultiplier * transitionFactor * autoRotateSpeedMultiplier;
+      this.axisTiltPhase = (this.axisTiltPhase || 0) + 0.001 * speedMultiplier * transitionFactor * autoRotateSpeedMultiplier;
     }
 
     // 2. Smoothly rotate the globe to center the focused node at the front
@@ -2614,6 +3030,10 @@ export class TulipGraph {
       const dist = Math.sqrt(node.sphereX * node.sphereX + node.sphereZ * node.sphereZ);
       const targetRotY = -Math.atan2(-node.sphereX, node.sphereZ);
       const targetRotX = Math.atan2(node.sphereY, dist);
+      const deltaRotX = Math.atan2(
+        Math.sin(targetRotX - this.rotationX),
+        Math.cos(targetRotX - this.rotationX)
+      );
       const deltaRotY = Math.atan2(
         Math.sin(targetRotY - this.rotationY),
         Math.cos(targetRotY - this.rotationY)
@@ -2621,7 +3041,7 @@ export class TulipGraph {
 
       // Lerp rotation smoothly
       const rotLerpFactor = this.isFocusMode ? 0.075 : 0.067;
-      this.rotationX += (targetRotX - this.rotationX) * rotLerpFactor;
+      this.rotationX += deltaRotX * rotLerpFactor;
       this.rotationY += deltaRotY * rotLerpFactor;
 
       // Also dynamically adjust camera framing during centering in network mode
@@ -2631,13 +3051,10 @@ export class TulipGraph {
 
       // Stop centering once close enough
       const centeringThreshold = this.isFocusMode ? 0.05 : 0.01;
-      if (Math.abs(targetRotX - this.rotationX) < centeringThreshold && Math.abs(targetRotY - this.rotationY) < centeringThreshold) {
+      if (Math.abs(deltaRotX) < centeringThreshold && Math.abs(deltaRotY) < centeringThreshold) {
         this.needsCentering = false;
       }
     }
-
-    // Clamp X rotation to prevent flipping upside down
-    this.rotationX = Math.max(-Math.PI / 2.2, Math.min(Math.PI / 2.2, this.rotationX));
 
     // Update layout transition factor (0.0 = globe, 1.0 = tree)
     const targetTransition = (this.layoutMode === 'tree' && this.isFocusMode && this.selectedNode) ? 1.0 : 0.0;
@@ -3104,7 +3521,10 @@ export class TulipGraph {
       && !this.hoveredNode
       && !this.isDraggingGlobe
       && !this.isPanningCamera;
-    const minimumFrameDuration = isIdleBrowse ? 32 : 16;
+    const requestedTargetFrameDuration = Number(this.targetFrameDurationMs);
+    const minimumFrameDuration = Number.isFinite(requestedTargetFrameDuration)
+      ? Math.max(1, requestedTargetFrameDuration)
+      : (isIdleBrowse ? (this.idleFrameDurationMs || 32) : 16);
     if (timestamp - this.lastRenderedAt < minimumFrameDuration) {
       this.animationFrameId = requestAnimationFrame(nextTimestamp => this.animate(nextTimestamp));
       return;
@@ -3129,6 +3549,7 @@ export class TulipGraph {
       && !this.targetCamera
       && !this.isDraggingGlobe
       && !this.isPanningCamera
+      && !this.touchMomentum
       && !this.pendingFocusSwap
       && !this.edgeIgnitionStartedAt
       && !this.filterWakeStartedAt
@@ -3161,7 +3582,7 @@ export class TulipGraph {
     ctx.scale(this.camera.zoom, this.camera.zoom);
 
     // Make a depth-sorted copy of nodes for rendering
-    const sortedNodes = [...this.nodes].sort((a, b) => a.z - b.z);
+    const sortedNodes = this.depthSortedNodes.sort((a, b) => a.z - b.z);
 
     // Draw Category-Coded Radial Glow backdrop in Focus Mode
     // GLOW REMOVED AS PER REQUEST
@@ -3310,16 +3731,45 @@ export class TulipGraph {
 
   drawEdges() {
     const ctx = this.ctx;
-    const phoneLineOpacityMultiplier = window.innerWidth <= 950 ? 0.4 : 1;
+    const isPhoneViewport = window.innerWidth <= 950;
+    const requestedPhoneOpacity = Number(this.mobileLineOpacityMultiplier);
+    const requestedPhoneWidth = Number(this.mobileLineWidthMultiplier);
+    const phoneLineOpacityMultiplier = isPhoneViewport
+      ? (Number.isFinite(requestedPhoneOpacity) ? requestedPhoneOpacity : 0.4)
+      : 1;
+    const phoneLineWidthMultiplier = isPhoneViewport && Number.isFinite(requestedPhoneWidth)
+      ? requestedPhoneWidth
+      : 1;
     this.phoneLineOpacityMultiplier = phoneLineOpacityMultiplier;
     this.canvas.dataset.lineOpacityMultiplier = phoneLineOpacityMultiplier.toFixed(2);
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
+    ctx.setLineDash([]);
+    ctx.globalAlpha = phoneLineOpacityMultiplier;
     const selectedEdge = this.selectedEdge;
     const hoveredEdge = this.hoveredEdge;
-    this.edges.forEach(edge => {
+    const configuredAmbientEdgeStride = Math.max(1, Math.floor(Number(this.mobileAmbientEdgeStride) || 1));
+    const ambientEdgeStride = isPhoneViewport && (
+      this.isDraggingGlobe || this.isPanningCamera || this.touchMomentum
+    )
+      ? Math.max(2, configuredAmbientEdgeStride)
+      : configuredAmbientEdgeStride;
+    this.edges.forEach((edge, edgeIndex) => {
       const opacity = edge.visualOpacity || 0;
       if (opacity <= 0.01) return;
+
+      // Mobile Explore can preserve the full relationship graph for selection
+      // while drawing a stable subset of ambient lines during idle rotation.
+      // This avoids saturating the main thread with more than a thousand
+      // individual canvas strokes on every background frame.
+      if (
+        isPhoneViewport &&
+        ambientEdgeStride > 1 &&
+        !this.isFocusMode &&
+        !this.selectedNode &&
+        !this.hoveredNode &&
+        edgeIndex % ambientEdgeStride !== 0
+      ) return;
 
       const source = edge.sourceNode;
       const target = edge.targetNode;
@@ -3415,10 +3865,7 @@ export class TulipGraph {
         }
       }
 
-      ctx.save();
-      ctx.globalAlpha = phoneLineOpacityMultiplier;
       ctx.strokeStyle = color;
-      ctx.setLineDash([]);
       if (this.layoutMode === 'tree' && this.isFocusMode) {
         const treeEdgeWidth = (0.4 + 0.34 * effectiveOpacity) * 2.0 * 1.1 * 1.18 * 1.5;
         ctx.lineWidth = Math.max(2.03, treeEdgeWidth);
@@ -3426,12 +3873,14 @@ export class TulipGraph {
         ctx.lineWidth = this.isFocusMode ? (0.45 + 0.45 * effectiveOpacity) * 1.5 * 1.1 : (0.8 + 0.7 * effectiveOpacity) * 1.5 * 1.1;
         if (this.layoutMode === 'tree') ctx.lineWidth *= 1.18;
       }
+      ctx.lineWidth *= phoneLineWidthMultiplier;
 
       if (isHoveredEdge && !isSelectedEdge) {
         ctx.lineWidth *= 1.35;
       }
 
       if (isSelectedEdge) {
+        ctx.save();
         const pulse = 0.86 + 0.14 * Math.sin(performance.now() / 240);
         ctx.strokeStyle = this.exportBackgroundColor
           ? `rgba(28, 31, 38, ${pulse})`
@@ -3457,8 +3906,9 @@ export class TulipGraph {
       }
       ctx.stroke();
       this.drawEdgeIgnitionPulse(edge);
-      ctx.restore();
+      if (isSelectedEdge) ctx.restore();
     });
+    ctx.globalAlpha = 1;
   }
 
   drawNodes(sortedNodes) {
@@ -3841,6 +4291,36 @@ export class TulipGraph {
       ctx.restore();
     };
 
+    const drawHighlightedLabelPill = (node, lines, labelX, startY, lineHeight) => {
+      const metrics = lines.map(line => ctx.measureText(line));
+      const textWidth = Math.max(...metrics.map(metric => metric.width), 1);
+      const ascent = Math.max(...metrics.map(metric => metric.actualBoundingBoxAscent || lineHeight * 0.75));
+      const descent = Math.max(...metrics.map(metric => metric.actualBoundingBoxDescent || lineHeight * 0.25));
+      const paddingX = 10;
+      const paddingY = 6;
+      const pillX = labelX - textWidth / 2 - paddingX;
+      const pillY = startY - ascent - paddingY;
+      const pillWidth = textWidth + paddingX * 2;
+      const pillHeight = ascent + descent + (lines.length - 1) * lineHeight + paddingY * 2;
+      const pillRadius = pillHeight / 2;
+      const categoryRgb = this.getNodeCategoryRgb(node);
+
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(pillX + pillRadius, pillY);
+      ctx.lineTo(pillX + pillWidth - pillRadius, pillY);
+      ctx.arc(pillX + pillWidth - pillRadius, pillY + pillRadius, pillRadius, -Math.PI / 2, Math.PI / 2);
+      ctx.lineTo(pillX + pillRadius, pillY + pillHeight);
+      ctx.arc(pillX + pillRadius, pillY + pillRadius, pillRadius, Math.PI / 2, Math.PI * 1.5);
+      ctx.closePath();
+      ctx.fillStyle = `rgba(${categoryRgb}, 0.92)`;
+      ctx.fill();
+      ctx.strokeStyle = `rgba(${categoryRgb}, 1)`;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+      ctx.restore();
+    };
+
     sortedNodes.forEach(node => {
       // Render text labels smoothly in screen space using node.labelOpacity
       if (node.labelOpacity && node.labelOpacity > 0.01) {
@@ -3911,11 +4391,11 @@ export class TulipGraph {
 
         if (style === 'neighbor') {
           if (isHoveredFollowable) {
-            nameFont = '800 15px "Inter Display", "InterDisplay", "Inter", sans-serif';
+            nameFont = '400 15px "Inter Display", "InterDisplay", "Inter", sans-serif';
             lineHeight = 18;
             yOffsetName = 16;
           } else if (!this.isFocusMode && isHighlighted) {
-            nameFont = '600 17.25px "Inter Display", "InterDisplay", "Inter", sans-serif';
+            nameFont = '400 17.25px "Inter Display", "InterDisplay", "Inter", sans-serif';
             lineHeight = 21;
             yOffsetName = 18;
           } else {
@@ -3943,22 +4423,22 @@ export class TulipGraph {
             : `${colorHex}, ${getBoostedLabelOpacity(0.9 * node.labelOpacity)})`;
         } else if (style === 'ambient') {
           if (!this.isFocusMode && isHighlighted) {
-            nameFont = '700 13.8px "Inter Display", "InterDisplay", "Inter", sans-serif';
+            nameFont = '400 13.8px "Inter Display", "InterDisplay", "Inter", sans-serif';
             lineHeight = 17;
             yOffsetName = 17;
           } else {
-            nameFont = '500 12px "Inter Display", "InterDisplay", "Inter", sans-serif';
+            nameFont = '400 12px "Inter Display", "InterDisplay", "Inter", sans-serif';
             lineHeight = 15;
             yOffsetName = 15;
           }
           labelColor = `rgba(255, 255, 255, ${getBoostedLabelOpacity(0.75 * node.labelOpacity)})`;
         } else { // active focused/selected
           if (!this.isFocusMode && isHighlighted) {
-            nameFont = '900 27.6px "Inter Display", "InterDisplay", "Inter", sans-serif';
+            nameFont = '400 27.6px "Inter Display", "InterDisplay", "Inter", sans-serif';
             lineHeight = 32;
             yOffsetName = 30;
           } else {
-            nameFont = '800 24px "Inter Display", "InterDisplay", "Inter", sans-serif';
+            nameFont = '400 24px "Inter Display", "InterDisplay", "Inter", sans-serif';
             lineHeight = 28;
             yOffsetName = 26;
           }
@@ -3974,6 +4454,15 @@ export class TulipGraph {
           labelColor = this.exportBackgroundColor
             ? `rgba(28, 31, 38, ${getBoostedLabelOpacity(node.labelOpacity)})`
             : `rgba(255, 255, 255, ${getBoostedLabelOpacity(node.labelOpacity)})`;
+        }
+
+        if (
+          this.mobileHighlightedLabelColor
+          && !this.isFocusMode
+          && isHighlighted
+          && !isFilteredOut
+        ) {
+          labelColor = this.mobileHighlightedLabelColor;
         }
 
         const isCentralFocusLabel = this.isFocusMode && node.id === activeSelectedId;
@@ -4061,6 +4550,10 @@ export class TulipGraph {
           }
 
           node.renderedNetworkLabelStartY = startY;
+          if (this.mobileHighlightedLabelsAsPills && isHighlighted && !isCentralFocusLabel) {
+            drawHighlightedLabelPill(node, lines, screenPos.x, startY, renderedLineHeight);
+            ctx.fillStyle = '#101014';
+          }
           lines.forEach((line, idx) => {
             ctx.fillText(line, screenPos.x, startY + idx * renderedLineHeight);
           });
@@ -4080,6 +4573,9 @@ export class TulipGraph {
     }
     this.isFocusMode = false;
     this.selectedNode = null;
+    this.selectionContext = '';
+    this.selectionContextTokens = new Set();
+    this.selectionContextVersion += 1;
     this.hoveredNode = null;
     this.selectedEdge = null;
     this.hoveredEdge = null;
@@ -4138,5 +4634,13 @@ export class TulipGraph {
       cancelAnimationFrame(this.animationFrameId);
       this.animationFrameId = null;
     }
+    if (this.resizeFrameId !== null) {
+      cancelAnimationFrame(this.resizeFrameId);
+      this.resizeFrameId = null;
+    }
+    window.removeEventListener('resize', this.handleWindowResize);
+    this.canvasResizeObserver?.disconnect();
+    this.pixelRatioMediaQuery?.removeEventListener?.('change', this.handlePixelRatioChange);
+    document.removeEventListener('visibilitychange', this.handleVisibilityChange);
   }
 }

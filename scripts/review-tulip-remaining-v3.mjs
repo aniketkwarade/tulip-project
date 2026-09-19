@@ -21,8 +21,8 @@ const REVIEWER_LABEL = 'OpenAI Codex — reproducible AI-assisted scientific rev
 const REVIEWER_TYPE = 'ai_assisted';
 const REVIEWED_AT = '2026-08-02T16:00:00.000Z';
 const REVIEW_DATE = new Date(REVIEWED_AT);
-const MODEL_VERSION = 'tulip_modeled_global_v1';
-const MODEL_WEIGHTS = Object.freeze({ legacy: 0.60, peer: 0.22, contract: 0.18 });
+const MODEL_VERSION = 'tulip_modeled_global_v2';
+const MODEL_WEIGHTS = Object.freeze({ peer: 0.55, contract: 0.45 });
 const CONTRACT_WEIGHTS = Object.freeze({ persistence: 0.40, geographic_reach: 0.35, causal_role: 0.25 });
 
 // These official primary-source endpoints were inspected on the review date because the
@@ -415,12 +415,6 @@ for (const receipt of impactReceipts) {
 const anchorReceipts = pilotRegistry.receipts.filter(receipt => receipt.method !== 'modeled');
 const anchorCompositeById = new Map(anchorReceipts.map(receipt => [receipt.node_id, (receipt.value - 1) / 9]));
 const globalAnchorMean = [...anchorCompositeById.values()].reduce((sum, value) => sum + value, 0) / anchorCompositeById.size;
-const recomputedPilotShift = anchorReceipts.reduce((sum, receipt) => {
-  const node = nodeById.get(receipt.node_id);
-  return sum + ((receipt.value - 1) / 9 - (node.score.baseline - 1) / 9);
-}, 0) / anchorReceipts.length;
-const roundedPilotShift = Number(recomputedPilotShift.toFixed(6));
-
 function recomputePeer(peerCalibration) {
   const peers = peerCalibration?.peers ?? [];
   if (!peers.length || peers.some(peer => !anchorCompositeById.has(peer.peer_node_id))) return null;
@@ -439,33 +433,28 @@ function recomputeContract(contractInput) {
 }
 
 function modeledValidation(receipt) {
-  const node = nodeById.get(receipt.node_id);
-  const legacy = receipt.raw_inputs?.reviewed_legacy_vector;
   const peer = receipt.raw_inputs?.peer_calibration;
   const contract = receipt.raw_inputs?.reviewed_contract_factors;
-  const expectedLegacy = node ? (node.score.baseline - 1) / 9 : null;
   const expectedPeer = recomputePeer(peer);
   const expectedContract = recomputeContract(contract);
-  const expectedComposite = [expectedLegacy, expectedPeer, expectedContract].every(Number.isFinite)
+  const expectedComposite = [expectedPeer, expectedContract].every(Number.isFinite)
     ? Math.max(0, Math.min(1,
-      MODEL_WEIGHTS.legacy * expectedLegacy
-      + MODEL_WEIGHTS.peer * expectedPeer
+      MODEL_WEIGHTS.peer * expectedPeer
       + MODEL_WEIGHTS.contract * expectedContract
-      + roundedPilotShift
     ))
     : null;
   const expectedScore = Number.isFinite(expectedComposite) ? compositeToTulipScore(expectedComposite) : null;
 
   const perturbedScores = [];
-  if ([expectedLegacy, expectedPeer, expectedContract].every(Number.isFinite)) {
-    const values = { legacy: expectedLegacy, peer: expectedPeer, contract: expectedContract };
+  if ([expectedPeer, expectedContract].every(Number.isFinite)) {
+    const values = { peer: expectedPeer, contract: expectedContract };
     for (const key of Object.keys(MODEL_WEIGHTS)) {
       for (const multiplier of [0.8, 1.2]) {
         const weights = { ...MODEL_WEIGHTS, [key]: MODEL_WEIGHTS[key] * multiplier };
         const total = Object.values(weights).reduce((sum, value) => sum + value, 0);
         const composite = Object.entries(weights).reduce((sum, [name, weight]) => (
           sum + values[name] * weight / total
-        ), 0) + roundedPilotShift;
+        ), 0);
         perturbedScores.push(compositeToTulipScore(Math.max(0, Math.min(1, composite))));
       }
     }
@@ -479,10 +468,8 @@ function modeledValidation(receipt) {
       const peerValue = recomputePeer({ peers: remaining });
       if (!Number.isFinite(peerValue)) continue;
       const composite = Math.max(0, Math.min(1,
-        MODEL_WEIGHTS.legacy * expectedLegacy
-        + MODEL_WEIGHTS.peer * peerValue
+        MODEL_WEIGHTS.peer * peerValue
         + MODEL_WEIGHTS.contract * expectedContract
-        + roundedPilotShift
       ));
       leaveOneOutScores.push(compositeToTulipScore(composite));
     }
@@ -492,10 +479,12 @@ function modeledValidation(receipt) {
     && Math.abs(left - right) <= tolerance;
   const checks = {
     model_version_matches: receipt.model_version === MODEL_VERSION,
-    legacy_vector_reproduces: exact(legacy?.value, expectedLegacy),
+    generated_or_inherited_vectors_excluded: !receipt.raw_inputs?.reviewed_legacy_vector
+      && !receipt.raw_inputs?.legacy_reviewed_composite
+      && receipt.raw_inputs?.vector_exclusion?.generated_vectors === 'excluded'
+      && receipt.raw_inputs?.vector_exclusion?.inherited_vectors === 'excluded',
     peer_estimate_reproduces: exact(peer?.value, expectedPeer),
     contract_estimate_reproduces: exact(contract?.value, expectedContract),
-    pilot_shift_reproduces: exact(receipt.raw_inputs?.pilot_calibration_shift, roundedPilotShift),
     modeled_component_reproduces: exact(receipt.components?.modeled_estimate, expectedComposite),
     displayed_score_reproduces: receipt.value === expectedScore,
     higher_priority_failures_declared: (receipt.selection_reason?.higher_priority_failures?.length ?? 0) === 2,
@@ -506,10 +495,8 @@ function modeledValidation(receipt) {
     checks,
     passed: Object.values(checks).every(Boolean),
     expected: {
-      legacy: expectedLegacy,
       peer: expectedPeer,
       contract: expectedContract,
-      pilot_calibration_shift: roundedPilotShift,
       modeled_estimate: expectedComposite,
       score: expectedScore
     },
@@ -530,11 +517,10 @@ function modeledValidation(receipt) {
     },
     peer_count: peers.length,
     model_input_lineage: {
-      legacy_vector: 'src/data.js node.score.baseline and node.vector',
       peer_anchor_registry: 'public/tulip-urgency-pilot-scores.json non-modeled anchor receipts',
       relationship_graph: 'src/data.js EDGES, with same-sphere/global fallback when no eligible relationship peer exists',
       contract_factors: 'src/data.js node.context and node.graph_contract',
-      calibration_shift: 'Mean pilot-anchor difference between evidence-based composite and legacy baseline',
+      vector_exclusion: 'Generated, inherited, and expert profile vectors are not inputs to the modeled urgency calculation.',
       executable_formula: 'scripts/export-tulip-urgency-registry.mjs modeledReceipt()'
     }
   };
@@ -544,8 +530,7 @@ const modelValidations = modeledReceipts.map(receipt => ({
   node_id: receipt.node_id,
   ...modeledValidation(receipt)
 }));
-const globalModelAuditPassed = modelValidations.every(result => result.passed)
-  && modeledReceipts.every(receipt => receipt.raw_inputs.pilot_calibration_shift === roundedPilotShift);
+const globalModelAuditPassed = modelValidations.every(result => result.passed);
 const modeledReportRows = [];
 
 for (const receipt of modeledReceipts) {
@@ -569,7 +554,7 @@ for (const receipt of modeledReceipts) {
     units: assurance.units,
     direction: 'higher_modeled_estimate_is_more_urgent',
     anchor_values: assurance.anchor_values,
-    rationale: 'Reviewed as the named deterministic fallback model. The legacy, peer, contract, and pilot-shift inputs are independently recomputed from their declared workspace lineage. External sources support phenomenon context but do not validate the modeled score.',
+    rationale: 'Reviewed as the named deterministic fallback model. Evidence-backed peer and contract inputs are independently recomputed from their declared workspace lineage. Generated, inherited, and expert profile vectors are excluded. External sources support phenomenon context but do not validate the modeled score.',
     citations: assurance.citations,
     source_locators: modelLocators,
     review_evidence: {
@@ -623,10 +608,9 @@ for (const receipt of modeledReceipts) {
       && Boolean(metricContracts.contracts?.[receipt.node_id])
       && receipt.model_version === MODEL_VERSION
       && Number.isFinite(receipt.components?.modeled_estimate) ? 'pass' : 'fail',
-    anchor_provenance: validation.checks.legacy_vector_reproduces
+    anchor_provenance: validation.checks.generated_or_inherited_vectors_excluded
       && validation.checks.peer_estimate_reproduces
-      && validation.checks.contract_estimate_reproduces
-      && validation.checks.pilot_shift_reproduces ? 'pass' : 'fail',
+      && validation.checks.contract_estimate_reproduces ? 'pass' : 'fail',
     transformation_correctness: validation.passed
       && computational.computationally_valid
       && transformationReviews.every(item => item.approval.status === 'approved') ? 'pass' : 'fail',
@@ -713,14 +697,13 @@ const modelAssurance = {
     'The external contextual source directly validates the TULIP score.',
     'Scientific approval proves the estimate or source claim true.'
   ],
-  formula: 'clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)',
+  formula: 'clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)',
   weights: MODEL_WEIGHTS,
   contract_weights: CONTRACT_WEIGHTS,
-  pilot_calibration_shift: {
-    stored: modeledReceipts[0]?.raw_inputs?.pilot_calibration_shift ?? null,
-    recomputed: roundedPilotShift,
-    anchor_receipts: anchorReceipts.length,
-    reproduces: modeledReceipts.every(receipt => receipt.raw_inputs.pilot_calibration_shift === roundedPilotShift)
+  vector_exclusion: {
+    generated_vectors: 'excluded',
+    inherited_vectors: 'excluded',
+    expert_profile_vectors: 'excluded_from_scoring'
   },
   model_input_lineage: modelValidations[0]?.model_input_lineage ?? null,
   validation_summary: {
@@ -736,9 +719,8 @@ const modelAssurance = {
   },
   limitations: [
     'The model is deterministic but is not an independently trained or externally validated predictive model.',
-    'Legacy judgments retain 60% weight and therefore materially influence the result.',
     'Peer sets are constrained to reviewed pilot anchors and may contain only one eligible peer.',
-    'The common pilot calibration shift is a portfolio-level correction and not node-specific evidence.',
+    'Reviewed contract factors are expert-authored categorical assumptions and are therefore shown only under a Modeled label.',
     'External sources provide phenomenon context only; they do not validate the modeled score.',
     'Approval is AI-assisted and is not human expert sign-off.'
   ],
@@ -758,7 +740,7 @@ const modeledRows = modeledReportRows
 
 const impactReport = `# TULIP v3 Impact-Fallback Scientific Review\n\n## Technical summary\n\n- Scope: all 208 receipts using \`impact_fallback\`.\n- Result: ${JSON.stringify(impactStatusCounts)}.\n- Reviewer: ${REVIEWER_LABEL}.\n- Review date: ${REVIEWED_AT}.\n- Transformations reviewed: ${impactReportRows.reduce((sum, row) => sum + row.transformations, 0)}.\n- Source assertions reviewed: ${impactReceipts.reduce((sum, receipt) => sum + receipt.source_ids.length, 0)}.\n\n## Review boundary\n\nThe review checks measurement suitability, transformation and anchor contracts, route eligibility, exact source assertions, source currency, local snapshot presence where declared, and computational reproduction. Many historical semantic transformations do not expose an executable inverse; those reviews validate the declared boundary, parameters, source binding, normalized range, and stored output fixture rather than claiming a fresh independent derivation.\n\nThis is AI-assisted and reproducible, not human expert sign-off.\n\n## Receipt-level results\n\n| Node | ID | Score | Sources | Snapshots | Transformations | Status | Next review |\n|---|---|---:|---:|---:|---:|---|---|\n${impactRows}\n`;
 
-const modeledReport = `# TULIP v3 Modeled Scientific Review\n\n## Technical summary\n\n- Scope: all 50 receipts using \`modeled\`.\n- Result: ${JSON.stringify(modeledStatusCounts)}.\n- Global model audit: ${modelAssurance.status}.\n- Pilot calibration shift: stored ${modelAssurance.pilot_calibration_shift.stored}, independently recomputed ${modelAssurance.pilot_calibration_shift.recomputed}.\n- Maximum ±20% weight-perturbation score delta: ${modelAssurance.validation_summary.maximum_weight_perturbation_score_delta.toFixed(1)}.\n- Maximum leave-one-peer-out score delta where available: ${modelAssurance.validation_summary.maximum_leave_one_peer_out_score_delta.toFixed(1)}.\n\n## Review boundary\n\nEvery receipt’s legacy input, peer estimate, contract factor, common calibration shift, modeled composite, and displayed score was independently recomputed from declared workspace lineage. External sources were reviewed only as phenomenon context and are not represented as direct validation of the score. The model remains a deterministic fallback, not an observed measurement or an independently validated predictive model.\n\nThis is AI-assisted and reproducible, not human expert sign-off.\n\n## Receipt-level results\n\n| Node | ID | Score | Sources | Peers | Weight Δ | Leave-one-out Δ | Status |\n|---|---|---:|---:|---:|---:|---:|---|\n${modeledRows}\n`;
+const modeledReport = `# TULIP v3 Modeled Scientific Review\n\n## Technical summary\n\n- Scope: all 50 receipts using \`modeled\`.\n- Result: ${JSON.stringify(modeledStatusCounts)}.\n- Global model audit: ${modelAssurance.status}.\n- Generated, inherited, and expert profile vectors excluded from scoring: yes.\n- Maximum ±20% weight-perturbation score delta: ${modelAssurance.validation_summary.maximum_weight_perturbation_score_delta.toFixed(1)}.\n- Maximum leave-one-peer-out score delta where available: ${modelAssurance.validation_summary.maximum_leave_one_peer_out_score_delta.toFixed(1)}.\n\n## Review boundary\n\nEvery receipt’s peer estimate, contract factor, modeled composite, and displayed score was independently recomputed from declared workspace lineage. Generated, inherited, and expert profile vectors are explicitly excluded. External sources were reviewed only as phenomenon context and are not represented as direct validation of the score. The model remains a deterministic fallback, not an observed measurement or an independently validated predictive model.\n\nThis is AI-assisted and reproducible, not human expert sign-off.\n\n## Receipt-level results\n\n| Node | ID | Score | Sources | Peers | Weight Δ | Leave-one-out Δ | Status |\n|---|---|---:|---:|---:|---:|---:|---|\n${modeledRows}\n`;
 
 await Promise.all([
   fs.writeFile(path.join(PUBLIC, 'tulip-urgency-scientific-review-registry.json'), `${JSON.stringify(reviewRegistry, null, 2)}\n`),

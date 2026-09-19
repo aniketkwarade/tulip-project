@@ -1,9 +1,15 @@
 {
   "version": "2.0.0",
   "method_version": "tulip_urgency_v2",
-  "model_version": "tulip_modeled_global_v1",
+  "model_version": "tulip_modeled_global_v2",
   "status": "approved",
-  "generated_at": "2026-08-03T17:14:09.275Z",
+  "scientific_validation_status": "pilot_protocol_active_not_independently_validated",
+  "scientifically_validated_claim_allowed": false,
+  "scientific_validation_requirements": [
+    "external_domain_review",
+    "independent_reproduction"
+  ],
+  "generated_at": "2026-08-29T13:10:26.714Z",
   "production_scores_replaced": true,
   "scope": "all_issue_nodes",
   "issue_node_count": 354,
@@ -2498,27 +2504,16 @@
     },
     {
       "node_id": "oceanic_upwelling_disruptions",
-      "value": 7,
+      "value": 8.1,
       "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.662415
+        "modeled_estimate": 0.786131
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.488889,
-          "baseline_score": 5.4,
-          "vector": {
-            "climate_forcing": 0.24,
-            "ecological_damage": 0.82,
-            "human_drivenness": 0.16,
-            "societal_fallout": 0.68
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.755556,
           "basis": "global_measured_and_impact_anchor_mean",
@@ -2560,7 +2555,7 @@
               "peer_node_id": "environ_anomalies"
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.8235,
@@ -2574,16 +2569,24 @@
             "reach": "global",
             "node_class": "operational_indicator"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -2594,16 +2597,16 @@
       "source_ids": [
         "copernicus_marine_service"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:b4a117a9"
+      "input_hash": "fnv1a32:fc63bed3"
     },
     {
       "node_id": "extreme_precipitation_intensity",
@@ -2824,27 +2827,16 @@
     },
     {
       "node_id": "pyrocumulonimbus_smoke_injection",
-      "value": 6.2,
-      "band": "Rising",
+      "value": 7.2,
+      "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.577431
+        "modeled_estimate": 0.690336
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.411111,
-          "baseline_score": 4.7,
-          "vector": {
-            "climate_forcing": 0.34,
-            "ecological_damage": 0.36,
-            "human_drivenness": 0.32,
-            "societal_fallout": 0.68
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.686111,
           "basis": "same_domain_anchor_mean",
@@ -2862,7 +2854,7 @@
               "peer_node_id": "environ_anomalies"
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.6955,
@@ -2876,16 +2868,24 @@
             "reach": "global",
             "node_class": "operational_indicator"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -2896,16 +2896,16 @@
       "source_ids": [
         "nasa_omps_aerosol_index"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:4dd064a9"
+      "input_hash": "fnv1a32:a273cd37"
     },
     {
       "node_id": "coastal_permafrost_erosion",
@@ -3699,27 +3699,16 @@
     },
     {
       "node_id": "semiconductor_fabs",
-      "value": 7.5,
-      "band": "Critical",
+      "value": 6.8,
+      "band": "Rising",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.72082
+        "modeled_estimate": 0.648808
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.677778,
-          "baseline_score": 7.1,
-          "vector": {
-            "climate_forcing": 0.76,
-            "ecological_damage": 0.44,
-            "human_drivenness": 0.99,
-            "societal_fallout": 0.61
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.733333,
           "basis": "reviewed_relationship_weighted_peer_mean",
@@ -3729,7 +3718,7 @@
               "influence": 0.45
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.5455000000000001,
@@ -3743,16 +3732,24 @@
             "reach": "local",
             "node_class": "authored_root_driver"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -3763,16 +3760,16 @@
       "source_ids": [
         "epa_semiconductor_water_use"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:1700bbfe"
+      "input_hash": "fnv1a32:8afe9aea"
     },
     {
       "node_id": "telecom_backbone",
@@ -3944,27 +3941,16 @@
     },
     {
       "node_id": "internet_exchange_points",
-      "value": 6.7,
+      "value": 6.9,
       "band": "Rising",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.632375
+        "modeled_estimate": 0.661031
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.522222,
-          "baseline_score": 5.7,
-          "vector": {
-            "climate_forcing": 0.44,
-            "ecological_damage": 0.18,
-            "human_drivenness": 0.93,
-            "societal_fallout": 0.76
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.755556,
           "basis": "global_measured_and_impact_anchor_mean",
@@ -4006,7 +3992,7 @@
               "peer_node_id": "environ_anomalies"
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.5455000000000001,
@@ -4020,16 +4006,24 @@
             "reach": "local",
             "node_class": "authored_root_driver"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -4040,16 +4034,16 @@
       "source_ids": [
         "itu_internet_traffic_indicators_handbook"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:c083b79b"
+      "input_hash": "fnv1a32:3aeef2d0"
     },
     {
       "node_id": "subsea_cables",
@@ -5656,27 +5650,16 @@
     },
     {
       "node_id": "soil_moisture_collapse",
-      "value": 8.3,
+      "value": 7.5,
       "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.808933
+        "modeled_estimate": 0.719092
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.777778,
-          "baseline_score": 8,
-          "vector": {
-            "climate_forcing": 0.68,
-            "ecological_damage": 0.81,
-            "human_drivenness": 0.8,
-            "societal_fallout": 0.85
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.719167,
           "basis": "reviewed_relationship_weighted_peer_mean",
@@ -5690,7 +5673,7 @@
               "influence": 0.46
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.7190000000000001,
@@ -5704,16 +5687,24 @@
             "reach": "regional",
             "node_class": "phenomenon"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -5724,16 +5715,16 @@
       "source_ids": [
         "nasa_smap_data"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:e3ab5fb7"
+      "input_hash": "fnv1a32:c6b868b2"
     },
     {
       "node_id": "flash_flood_regime",
@@ -7562,27 +7553,16 @@
     },
     {
       "node_id": "firn_layer_depletion",
-      "value": 8,
+      "value": 7.8,
       "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.77686
+        "modeled_estimate": 0.755575
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.7,
-          "baseline_score": 7.3,
-          "vector": {
-            "climate_forcing": 0.84,
-            "ecological_damage": 0.75,
-            "human_drivenness": 0.19,
-            "societal_fallout": 0.92
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.7,
           "basis": "reviewed_relationship_weighted_peer_mean",
@@ -7592,7 +7572,7 @@
               "influence": 0.61
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.8235,
@@ -7606,16 +7586,24 @@
             "reach": "global",
             "node_class": "operational_indicator"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -7626,16 +7614,16 @@
       "source_ids": [
         "ice_sheet_mass_balance_inter_comparison_exercise"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:eb767514"
+      "input_hash": "fnv1a32:87f5772b"
     },
     {
       "node_id": "glacier_meltwater_dependency",
@@ -8164,27 +8152,16 @@
     },
     {
       "node_id": "atlantic_ni_o_ni_a",
-      "value": 7.8,
+      "value": 7.2,
       "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.756637
+        "modeled_estimate": 0.688353
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.711111,
-          "baseline_score": 7.4,
-          "vector": {
-            "climate_forcing": 0.64,
-            "ecological_damage": 0.91,
-            "human_drivenness": 0.34,
-            "societal_fallout": 0.87
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.577778,
           "basis": "reviewed_relationship_weighted_peer_mean",
@@ -8194,7 +8171,7 @@
               "influence": 0.43
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.8235,
@@ -8208,16 +8185,24 @@
             "reach": "global",
             "node_class": "operational_indicator"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -8228,16 +8213,16 @@
       "source_ids": [
         "copernicus_climate_change_service"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:7b2b8f73"
+      "input_hash": "fnv1a32:14beb692"
     },
     {
       "node_id": "indian_ocean_dipole",
@@ -8544,23 +8529,12 @@
       "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.791393
+        "modeled_estimate": 0.791908
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.7,
-          "baseline_score": 7.3,
-          "vector": {
-            "climate_forcing": 0.63,
-            "ecological_damage": 0.92,
-            "human_drivenness": 0.33,
-            "societal_fallout": 0.87
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.733333,
           "basis": "reviewed_relationship_weighted_peer_mean",
@@ -8570,7 +8544,7 @@
               "influence": 0.46
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.8634999999999999,
@@ -8584,16 +8558,24 @@
             "reach": "global",
             "node_class": "phenomenon"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -8604,16 +8586,16 @@
       "source_ids": [
         "copernicus_marine_service"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:a0e03f03"
+      "input_hash": "fnv1a32:c02d42ee"
     },
     {
       "node_id": "coastal_hypoxia",
@@ -8787,27 +8769,16 @@
     },
     {
       "node_id": "ocean_salinity_stratification",
-      "value": 8.1,
+      "value": 8,
       "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.787242
+        "modeled_estimate": 0.781531
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.7,
-          "baseline_score": 7.3,
-          "vector": {
-            "climate_forcing": 0.63,
-            "ecological_damage": 0.91,
-            "human_drivenness": 0.32,
-            "societal_fallout": 0.87
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.714465,
           "basis": "reviewed_relationship_weighted_peer_mean",
@@ -8821,7 +8792,7 @@
               "influence": 0.46
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.8634999999999999,
@@ -8835,16 +8806,24 @@
             "reach": "global",
             "node_class": "phenomenon"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -8855,16 +8834,16 @@
       "source_ids": [
         "argo_ocean_observing_network"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:0a241455"
+      "input_hash": "fnv1a32:f9957999"
     },
     {
       "node_id": "harmful_algal_blooms",
@@ -10474,27 +10453,16 @@
     },
     {
       "node_id": "blocking_pattern_persistence",
-      "value": 7.6,
+      "value": 7.4,
       "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.731297
+        "modeled_estimate": 0.708336
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.655556,
-          "baseline_score": 6.9,
-          "vector": {
-            "climate_forcing": 0.89,
-            "ecological_damage": 0.47,
-            "human_drivenness": 0.39,
-            "societal_fallout": 0.86
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.686111,
           "basis": "same_domain_anchor_mean",
@@ -10512,7 +10480,7 @@
               "peer_node_id": "environ_anomalies"
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.7355,
@@ -10526,16 +10494,24 @@
             "reach": "global",
             "node_class": "phenomenon"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -10546,16 +10522,16 @@
       "source_ids": [
         "copernicus_climate_change_service"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:e370ef48"
+      "input_hash": "fnv1a32:a63ddb12"
     },
     {
       "node_id": "humidity_amplification",
@@ -11075,27 +11051,16 @@
     },
     {
       "node_id": "rossby_wave_stalling",
-      "value": 7.5,
+      "value": 7.2,
       "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.724097
+        "modeled_estimate": 0.690336
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.655556,
-          "baseline_score": 6.9,
-          "vector": {
-            "climate_forcing": 0.88,
-            "ecological_damage": 0.47,
-            "human_drivenness": 0.38,
-            "societal_fallout": 0.85
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.686111,
           "basis": "same_domain_anchor_mean",
@@ -11113,7 +11078,7 @@
               "peer_node_id": "environ_anomalies"
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.6955,
@@ -11127,16 +11092,24 @@
             "reach": "global",
             "node_class": "operational_indicator"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -11147,16 +11120,16 @@
       "source_ids": [
         "copernicus_climate_change_service"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:b6d5e01e"
+      "input_hash": "fnv1a32:8083ee9b"
     },
     {
       "node_id": "smoke_exposure_burden",
@@ -11217,27 +11190,16 @@
     },
     {
       "node_id": "low_cloud_deck_retreat",
-      "value": 7.6,
+      "value": 7.3,
       "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.73382
+        "modeled_estimate": 0.697975
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.666667,
-          "baseline_score": 7,
-          "vector": {
-            "climate_forcing": 0.9,
-            "ecological_damage": 0.48,
-            "human_drivenness": 0.4,
-            "societal_fallout": 0.86
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.7,
           "basis": "reviewed_relationship_weighted_peer_mean",
@@ -11251,7 +11213,7 @@
               "influence": 0.47
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.6955,
@@ -11265,16 +11227,24 @@
             "reach": "global",
             "node_class": "operational_indicator"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -11285,16 +11255,16 @@
       "source_ids": [
         "nasa_ceres_science"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:e9fa83f9"
+      "input_hash": "fnv1a32:091dd0d9"
     },
     {
       "node_id": "aerosol_cooling_loss",
@@ -11516,27 +11486,16 @@
     },
     {
       "node_id": "peaker_plant_lock_in",
-      "value": 8.1,
+      "value": 7.1,
       "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.786663
+        "modeled_estimate": 0.680083
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.766667,
-          "baseline_score": 7.9,
-          "vector": {
-            "climate_forcing": 0.93,
-            "ecological_damage": 0.55,
-            "human_drivenness": 0.94,
-            "societal_fallout": 0.67
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.733333,
           "basis": "reviewed_relationship_weighted_peer_mean",
@@ -11546,7 +11505,7 @@
               "influence": 0.61
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.615,
@@ -11560,16 +11519,24 @@
             "reach": "regional",
             "node_class": "operational_indicator"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -11580,16 +11547,16 @@
       "source_ids": [
         "eia_hourly_electric_grid_monitor"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:b9b39e3d"
+      "input_hash": "fnv1a32:ae009a01"
     },
     {
       "node_id": "transmission_buildout_lag",
@@ -12570,27 +12537,16 @@
     },
     {
       "node_id": "backup_generator_dependence",
-      "value": 8.1,
+      "value": 7.1,
       "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.786663
+        "modeled_estimate": 0.680083
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.766667,
-          "baseline_score": 7.9,
-          "vector": {
-            "climate_forcing": 0.92,
-            "ecological_damage": 0.55,
-            "human_drivenness": 0.95,
-            "societal_fallout": 0.68
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.733333,
           "basis": "reviewed_relationship_weighted_peer_mean",
@@ -12600,7 +12556,7 @@
               "influence": 0.57
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.615,
@@ -12614,16 +12570,24 @@
             "reach": "regional",
             "node_class": "operational_indicator"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -12634,16 +12598,16 @@
       "source_ids": [
         "lbnl_2024_united_states_data_center_energy_usage_report"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:592fc7f9"
+      "input_hash": "fnv1a32:58dfd20a"
     },
     {
       "node_id": "energy_affordability_crisis",
@@ -13228,27 +13192,16 @@
     },
     {
       "node_id": "port_heat_vulnerability",
-      "value": 7.5,
-      "band": "Critical",
+      "value": 6.6,
+      "band": "Rising",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.72232
+        "modeled_estimate": 0.619225
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.7,
-          "baseline_score": 7.3,
-          "vector": {
-            "climate_forcing": 0.82,
-            "ecological_damage": 0.44,
-            "human_drivenness": 0.91,
-            "societal_fallout": 0.72
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.7,
           "basis": "reviewed_relationship_weighted_peer_mean",
@@ -13258,7 +13211,7 @@
               "influence": 0.54
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.5205000000000001,
@@ -13272,16 +13225,24 @@
             "reach": "local",
             "node_class": "operational_indicator"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -13292,16 +13253,16 @@
       "source_ids": [
         "unctad_review_of_maritime_transport_2024"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:4c808e0b"
+      "input_hash": "fnv1a32:fc128461"
     },
     {
       "node_id": "road_freight_diesel_lock_in",
@@ -16991,23 +16952,12 @@
       "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.767193
+        "modeled_estimate": 0.764742
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.677778,
-          "baseline_score": 7.1,
-          "vector": {
-            "climate_forcing": 0.86,
-            "ecological_damage": 0.76,
-            "human_drivenness": 0.15,
-            "societal_fallout": 0.83
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.716667,
           "basis": "reviewed_relationship_weighted_peer_mean",
@@ -17021,7 +16971,7 @@
               "influence": 0.45
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.8235,
@@ -17035,16 +16985,24 @@
             "reach": "global",
             "node_class": "operational_indicator"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -17055,16 +17013,16 @@
       "source_ids": [
         "usgs_water_data_ogc_api"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:337e00ed"
+      "input_hash": "fnv1a32:26a699a7"
     },
     {
       "node_id": "pollinator_colony_collapse",
@@ -17772,27 +17730,16 @@
     },
     {
       "node_id": "antarctic_shelf_instability",
-      "value": 7.9,
+      "value": 8,
       "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.770726
+        "modeled_estimate": 0.773575
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.677778,
-          "baseline_score": 7.1,
-          "vector": {
-            "climate_forcing": 0.82,
-            "ecological_damage": 0.73,
-            "human_drivenness": 0.17,
-            "societal_fallout": 0.91
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.7,
           "basis": "reviewed_relationship_weighted_peer_mean",
@@ -17802,7 +17749,7 @@
               "influence": 0.39
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.8634999999999999,
@@ -17816,16 +17763,24 @@
             "reach": "global",
             "node_class": "phenomenon"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -17836,16 +17791,16 @@
       "source_ids": [
         "imbie_publications_and_assessments"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:b9d40288"
+      "input_hash": "fnv1a32:74f9d61e"
     },
     {
       "node_id": "wildlife_habitat_patches",
@@ -18758,27 +18713,16 @@
     },
     {
       "node_id": "tundra_methane_outgassing",
-      "value": 8.3,
+      "value": 8,
       "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.807726
+        "modeled_estimate": 0.782742
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.733333,
-          "baseline_score": 7.6,
-          "vector": {
-            "climate_forcing": 0.96,
-            "ecological_damage": 0.6,
-            "human_drivenness": 0.59,
-            "societal_fallout": 0.73
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.716667,
           "basis": "reviewed_relationship_weighted_peer_mean",
@@ -18792,7 +18736,7 @@
               "influence": 0.34
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.8634999999999999,
@@ -18806,16 +18750,24 @@
             "reach": "global",
             "node_class": "phenomenon"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -18826,16 +18778,16 @@
       "source_ids": [
         "global_terrestrial_network_for_permafrost"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:69cf80c5"
+      "input_hash": "fnv1a32:108ae604"
     },
     {
       "node_id": "soil_microbial_depletion",
@@ -21327,27 +21279,16 @@
     },
     {
       "node_id": "jet_stream_volatility",
-      "value": 7.5,
+      "value": 7.4,
       "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.717964
+        "modeled_estimate": 0.708336
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.633333,
-          "baseline_score": 6.7,
-          "vector": {
-            "climate_forcing": 0.53,
-            "ecological_damage": 0.63,
-            "human_drivenness": 0.52,
-            "societal_fallout": 0.92
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.686111,
           "basis": "same_domain_anchor_mean",
@@ -21365,7 +21306,7 @@
               "peer_node_id": "environ_anomalies"
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.7355,
@@ -21379,16 +21320,24 @@
             "reach": "global",
             "node_class": "phenomenon"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -21399,16 +21348,16 @@
       "source_ids": [
         "noaa_physical_sciences_laboratory_enso"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:d273d4f0"
+      "input_hash": "fnv1a32:7bf51e29"
     },
     {
       "node_id": "glacier_calving_events",
@@ -21967,27 +21916,16 @@
     },
     {
       "node_id": "coastal_property_insurance_redlines",
-      "value": 7.1,
+      "value": 7,
       "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.674506
+        "modeled_estimate": 0.666358
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.588889,
-          "baseline_score": 6.3,
-          "vector": {
-            "climate_forcing": 0.48,
-            "ecological_damage": 0.4,
-            "human_drivenness": 0.66,
-            "societal_fallout": 0.99
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.733333,
           "basis": "same_domain_anchor_mean",
@@ -21999,7 +21937,7 @@
               "peer_node_id": "migration"
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.5845,
@@ -22013,16 +21951,24 @@
             "reach": "local",
             "node_class": "response"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -22033,16 +21979,16 @@
       "source_ids": [
         "federal_insurance_office_2025_annual_report"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:26248b3a"
+      "input_hash": "fnv1a32:b58d3298"
     },
     {
       "node_id": "cloud_albedo_shift",
@@ -22161,27 +22107,16 @@
     },
     {
       "node_id": "deep_sea_mining_dust",
-      "value": 8.2,
+      "value": 8.1,
       "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.795749
+        "modeled_estimate": 0.786131
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.711111,
-          "baseline_score": 7.4,
-          "vector": {
-            "climate_forcing": 0.65,
-            "ecological_damage": 0.92,
-            "human_drivenness": 0.33,
-            "societal_fallout": 0.86
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.755556,
           "basis": "global_measured_and_impact_anchor_mean",
@@ -22223,7 +22158,7 @@
               "peer_node_id": "environ_anomalies"
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.8235,
@@ -22237,16 +22172,24 @@
             "reach": "global",
             "node_class": "operational_indicator"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -22257,16 +22200,16 @@
       "source_ids": [
         "usgs_deep_sea_nodule_mining_midwater_plumes"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:a6ab32ff"
+      "input_hash": "fnv1a32:4434a442"
     },
     {
       "node_id": "agrochemical_water_sinks",
@@ -22727,27 +22670,16 @@
     },
     {
       "node_id": "rainforest_savannization",
-      "value": 8.6,
+      "value": 7.8,
       "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.848353
+        "modeled_estimate": 0.750975
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.822222,
-          "baseline_score": 8.4,
-          "vector": {
-            "climate_forcing": 0.66,
-            "ecological_damage": 1,
-            "human_drivenness": 0.8,
-            "societal_fallout": 0.84
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.724772,
           "basis": "reviewed_relationship_weighted_peer_mean",
@@ -22761,7 +22693,7 @@
               "influence": 0.54
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.7830000000000001,
@@ -22775,16 +22707,24 @@
             "reach": "regional",
             "node_class": "phenomenon"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -22795,16 +22735,16 @@
       "source_ids": [
         "global_forest_watch"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:7b51d55b"
+      "input_hash": "fnv1a32:e2114d9f"
     },
     {
       "node_id": "urban_water_rationing_zones",
@@ -22914,27 +22854,16 @@
     },
     {
       "node_id": "asphalt_pavement_heat_absorbers",
-      "value": 7.3,
-      "band": "Critical",
+      "value": 6.9,
+      "band": "Rising",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.703653
+        "modeled_estimate": 0.655892
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.644444,
-          "baseline_score": 6.8,
-          "vector": {
-            "climate_forcing": 0.74,
-            "ecological_damage": 0.33,
-            "human_drivenness": 0.98,
-            "societal_fallout": 0.63
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.766667,
           "basis": "reviewed_relationship_weighted_peer_mean",
@@ -22944,7 +22873,7 @@
               "influence": 0.18
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.5205000000000001,
@@ -22958,16 +22887,24 @@
             "reach": "local",
             "node_class": "operational_indicator"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -22978,16 +22915,16 @@
       "source_ids": [
         "epa_heat_island_measurement_guidance"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:42c6dd1c"
+      "input_hash": "fnv1a32:29c752c1"
     },
     {
       "node_id": "heatwave_excess_mortality_rates",
@@ -24034,27 +23971,16 @@
     },
     {
       "node_id": "ice_shelf_grounding_line_retreat",
-      "value": 7.9,
+      "value": 8,
       "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.770726
+        "modeled_estimate": 0.773575
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.677778,
-          "baseline_score": 7.1,
-          "vector": {
-            "climate_forcing": 0.81,
-            "ecological_damage": 0.73,
-            "human_drivenness": 0.16,
-            "societal_fallout": 0.91
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.7,
           "basis": "reviewed_relationship_weighted_peer_mean",
@@ -24064,7 +23990,7 @@
               "influence": 0.34
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.8634999999999999,
@@ -24078,16 +24004,24 @@
             "reach": "global",
             "node_class": "phenomenon"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -24098,16 +24032,16 @@
       "source_ids": [
         "ice_sheet_mass_balance_inter_comparison_exercise"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:a82992de"
+      "input_hash": "fnv1a32:8eb83c4a"
     },
     {
       "node_id": "pollen_allergen_spikes",
@@ -24353,27 +24287,16 @@
     },
     {
       "node_id": "avian_migration_disruptions",
-      "value": 8.2,
+      "value": 7.5,
       "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.795703
+        "modeled_estimate": 0.71935
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.755556,
-          "baseline_score": 7.8,
-          "vector": {
-            "climate_forcing": 0.53,
-            "ecological_damage": 0.99,
-            "human_drivenness": 0.52,
-            "societal_fallout": 0.96
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.7,
           "basis": "reviewed_relationship_weighted_peer_mean",
@@ -24383,7 +24306,7 @@
               "influence": 0.43
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.7430000000000001,
@@ -24397,16 +24320,24 @@
             "reach": "regional",
             "node_class": "operational_indicator"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -24417,16 +24348,16 @@
       "source_ids": [
         "when_timing_is_everything_migratory_bird_phenology_in_a_changing_climate"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:cfffc85b"
+      "input_hash": "fnv1a32:f40bd638"
     },
     {
       "node_id": "shell_calcification_failures",
@@ -24547,27 +24478,16 @@
     },
     {
       "node_id": "arctic_pack_ice_drift",
-      "value": 8.2,
+      "value": 8,
       "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.80406
+        "modeled_estimate": 0.773575
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.733333,
-          "baseline_score": 7.6,
-          "vector": {
-            "climate_forcing": 0.87,
-            "ecological_damage": 0.77,
-            "human_drivenness": 0.29,
-            "societal_fallout": 0.9
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.7,
           "basis": "reviewed_relationship_weighted_peer_mean",
@@ -24577,7 +24497,7 @@
               "influence": 0.34
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.8634999999999999,
@@ -24591,16 +24511,24 @@
             "reach": "global",
             "node_class": "phenomenon"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -24611,16 +24539,16 @@
       "source_ids": [
         "copernicus_marine_service"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:d2cf48ec"
+      "input_hash": "fnv1a32:89458c2b"
     },
     {
       "node_id": "amphibian_chytrid_fungus_spreads",
@@ -24811,27 +24739,16 @@
     },
     {
       "node_id": "black_carbon_deposition",
-      "value": 7.6,
+      "value": 7.4,
       "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.737964
+        "modeled_estimate": 0.708336
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.666667,
-          "baseline_score": 7,
-          "vector": {
-            "climate_forcing": 0.91,
-            "ecological_damage": 0.47,
-            "human_drivenness": 0.41,
-            "societal_fallout": 0.86
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.686111,
           "basis": "same_domain_anchor_mean",
@@ -24849,7 +24766,7 @@
               "peer_node_id": "environ_anomalies"
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.7355,
@@ -24863,16 +24780,24 @@
             "reach": "global",
             "node_class": "phenomenon"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -24883,40 +24808,29 @@
       "source_ids": [
         "national_snow_and_ice_data_center"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:529b6265"
+      "input_hash": "fnv1a32:ff914259"
     },
     {
       "node_id": "glacial_siltation_streams",
-      "value": 8,
+      "value": 8.2,
       "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.776282
+        "modeled_estimate": 0.804131
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.666667,
-          "baseline_score": 7,
-          "vector": {
-            "climate_forcing": 0.8,
-            "ecological_damage": 0.72,
-            "human_drivenness": 0.15,
-            "societal_fallout": 0.9
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.755556,
           "basis": "global_measured_and_impact_anchor_mean",
@@ -24958,7 +24872,7 @@
               "peer_node_id": "environ_anomalies"
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.8634999999999999,
@@ -24972,16 +24886,24 @@
             "reach": "global",
             "node_class": "phenomenon"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -24992,16 +24914,16 @@
       "source_ids": [
         "usgs_glacier_runoff_and_sediment"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:75fe8a5e"
+      "input_hash": "fnv1a32:c53ea6c0"
     },
     {
       "node_id": "jellyfish_swarm_surges",
@@ -25110,27 +25032,16 @@
     },
     {
       "node_id": "cryoconite_hole_expansion",
-      "value": 8.2,
+      "value": 8,
       "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.80406
+        "modeled_estimate": 0.773575
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.733333,
-          "baseline_score": 7.6,
-          "vector": {
-            "climate_forcing": 0.87,
-            "ecological_damage": 0.77,
-            "human_drivenness": 0.3,
-            "societal_fallout": 0.9
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.7,
           "basis": "reviewed_relationship_weighted_peer_mean",
@@ -25140,7 +25051,7 @@
               "influence": 0.34
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.8634999999999999,
@@ -25154,16 +25065,24 @@
             "reach": "global",
             "node_class": "phenomenon"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -25174,16 +25093,16 @@
       "source_ids": [
         "nasa_sea_level_change_portal"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:abe9d374"
+      "input_hash": "fnv1a32:46508f0f"
     },
     {
       "node_id": "bark_beetle_epidemics",
@@ -25438,27 +25357,16 @@
     },
     {
       "node_id": "savannah_tree_cover_decline",
-      "value": 8.4,
+      "value": 8.1,
       "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.818236
+        "modeled_estimate": 0.79235
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.744444,
-          "baseline_score": 7.7,
-          "vector": {
-            "climate_forcing": 0.51,
-            "ecological_damage": 1,
-            "human_drivenness": 0.5,
-            "societal_fallout": 0.94
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.8,
           "basis": "reviewed_relationship_weighted_peer_mean",
@@ -25468,7 +25376,7 @@
               "influence": 0.43
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.7830000000000001,
@@ -25482,16 +25390,24 @@
             "reach": "regional",
             "node_class": "phenomenon"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -25502,16 +25418,16 @@
       "source_ids": [
         "us_forest_service_savanna_fire_and_woody_cover"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:751b867e"
+      "input_hash": "fnv1a32:82cdf531"
     },
     {
       "node_id": "particulate_soot_levels",
@@ -25772,27 +25688,16 @@
     },
     {
       "node_id": "ice_algae_pigmentation",
-      "value": 8.3,
+      "value": 7.8,
       "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.810193
+        "modeled_estimate": 0.755575
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.755556,
-          "baseline_score": 7.8,
-          "vector": {
-            "climate_forcing": 0.89,
-            "ecological_damage": 0.79,
-            "human_drivenness": 0.32,
-            "societal_fallout": 0.92
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.7,
           "basis": "reviewed_relationship_weighted_peer_mean",
@@ -25802,7 +25707,7 @@
               "influence": 0.34
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.8235,
@@ -25816,16 +25721,24 @@
             "reach": "global",
             "node_class": "operational_indicator"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -25836,16 +25749,16 @@
       "source_ids": [
         "nasa_sea_level_change_portal"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:ef4e1980"
+      "input_hash": "fnv1a32:c3f34b84"
     },
     {
       "node_id": "snowpack_dust_soot_coverage",
@@ -26192,27 +26105,16 @@
     },
     {
       "node_id": "convective_instability_shift",
-      "value": 7.8,
+      "value": 7.3,
       "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.75382
+        "modeled_estimate": 0.697975
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.7,
-          "baseline_score": 7.3,
-          "vector": {
-            "climate_forcing": 0.68,
-            "ecological_damage": 0.81,
-            "human_drivenness": 0.34,
-            "societal_fallout": 0.9
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.7,
           "basis": "reviewed_relationship_weighted_peer_mean",
@@ -26222,7 +26124,7 @@
               "influence": 0.48
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.6955,
@@ -26236,16 +26138,24 @@
             "reach": "global",
             "node_class": "operational_indicator"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -26256,40 +26166,29 @@
       "source_ids": [
         "noaa_goes_r_series_advanced_baseline_imager_abi_level_2_derived_stability_indices_dsi"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:e30cc030"
+      "input_hash": "fnv1a32:6b1c3797"
     },
     {
       "node_id": "ice_cap_decapitation",
-      "value": 8.2,
+      "value": 8,
       "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.80406
+        "modeled_estimate": 0.773575
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.733333,
-          "baseline_score": 7.6,
-          "vector": {
-            "climate_forcing": 0.88,
-            "ecological_damage": 0.77,
-            "human_drivenness": 0.29,
-            "societal_fallout": 0.9
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.7,
           "basis": "reviewed_relationship_weighted_peer_mean",
@@ -26299,7 +26198,7 @@
               "influence": 0.34
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.8634999999999999,
@@ -26313,16 +26212,24 @@
             "reach": "global",
             "node_class": "phenomenon"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -26333,16 +26240,16 @@
       "source_ids": [
         "nasa_sea_level_change_portal"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:c39b62e1"
+      "input_hash": "fnv1a32:46508f0f"
     },
     {
       "node_id": "riparian_zone_erosion",
@@ -26584,27 +26491,16 @@
     },
     {
       "node_id": "nunatak_habitat_shrinkage",
-      "value": 8.3,
+      "value": 8,
       "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.810726
+        "modeled_estimate": 0.773575
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.744444,
-          "baseline_score": 7.7,
-          "vector": {
-            "climate_forcing": 0.88,
-            "ecological_damage": 0.79,
-            "human_drivenness": 0.32,
-            "societal_fallout": 0.91
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.7,
           "basis": "reviewed_relationship_weighted_peer_mean",
@@ -26614,7 +26510,7 @@
               "influence": 0.34
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.8634999999999999,
@@ -26628,16 +26524,24 @@
             "reach": "global",
             "node_class": "phenomenon"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -26648,16 +26552,16 @@
       "source_ids": [
         "gbif_occurrence_api"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:53d3ebcd"
+      "input_hash": "fnv1a32:425f520a"
     },
     {
       "node_id": "biodiversity_corridors_disruption",
@@ -26754,27 +26658,16 @@
     },
     {
       "node_id": "walker_circulation_shift",
-      "value": 7.6,
+      "value": 7.2,
       "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.737431
+        "modeled_estimate": 0.690336
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.677778,
-          "baseline_score": 7.1,
-          "vector": {
-            "climate_forcing": 0.69,
-            "ecological_damage": 0.77,
-            "human_drivenness": 0.33,
-            "societal_fallout": 0.88
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.686111,
           "basis": "same_domain_anchor_mean",
@@ -26792,7 +26685,7 @@
               "peer_node_id": "environ_anomalies"
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.6955,
@@ -26806,16 +26699,24 @@
             "reach": "global",
             "node_class": "operational_indicator"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -26826,40 +26727,29 @@
       "source_ids": [
         "ipcc_ar6_wgi_large_scale_circulation"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:1af5d4ad"
+      "input_hash": "fnv1a32:af4156fd"
     },
     {
       "node_id": "fjord_sedimentation_pulses",
-      "value": 8.4,
+      "value": 8.2,
       "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.822949
+        "modeled_estimate": 0.804131
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.744444,
-          "baseline_score": 7.7,
-          "vector": {
-            "climate_forcing": 0.89,
-            "ecological_damage": 0.79,
-            "human_drivenness": 0.3,
-            "societal_fallout": 0.91
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.755556,
           "basis": "global_measured_and_impact_anchor_mean",
@@ -26901,7 +26791,7 @@
               "peer_node_id": "environ_anomalies"
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.8634999999999999,
@@ -26915,16 +26805,24 @@
             "reach": "global",
             "node_class": "phenomenon"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -26935,40 +26833,29 @@
       "source_ids": [
         "national_snow_and_ice_data_center"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:72880a15"
+      "input_hash": "fnv1a32:bcf0c5cc"
     },
     {
       "node_id": "transformer_heat_failure_risk",
-      "value": 8.3,
+      "value": 7,
       "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.805996
+        "modeled_estimate": 0.66175
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.811111,
-          "baseline_score": 8.3,
-          "vector": {
-            "climate_forcing": 0.99,
-            "ecological_damage": 0.6,
-            "human_drivenness": 0.93,
-            "societal_fallout": 0.76
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.7,
           "basis": "reviewed_relationship_weighted_peer_mean",
@@ -26978,7 +26865,7 @@
               "influence": 0.48
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.615,
@@ -26992,16 +26879,24 @@
             "reach": "regional",
             "node_class": "operational_indicator"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -27012,40 +26907,29 @@
       "source_ids": [
         "doe_large_power_transformer_resilience"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:aa6c8ffb"
+      "input_hash": "fnv1a32:42e59933"
     },
     {
       "node_id": "freeze_thaw_rock_fracturing",
-      "value": 8.3,
+      "value": 8,
       "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.810726
+        "modeled_estimate": 0.773575
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.744444,
-          "baseline_score": 7.7,
-          "vector": {
-            "climate_forcing": 0.89,
-            "ecological_damage": 0.79,
-            "human_drivenness": 0.31,
-            "societal_fallout": 0.91
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.7,
           "basis": "reviewed_relationship_weighted_peer_mean",
@@ -27055,7 +26939,7 @@
               "influence": 0.52
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.8634999999999999,
@@ -27069,16 +26953,24 @@
             "reach": "global",
             "node_class": "phenomenon"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -27089,40 +26981,29 @@
       "source_ids": [
         "national_snow_and_ice_data_center"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:7f64699d"
+      "input_hash": "fnv1a32:bc42e066"
     },
     {
       "node_id": "overstory_tree_mortality",
-      "value": 7.5,
+      "value": 7.3,
       "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.721924
+        "modeled_estimate": 0.70157
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.644444,
-          "baseline_score": 6.8,
-          "vector": {
-            "climate_forcing": 0.47,
-            "ecological_damage": 0.66,
-            "human_drivenness": 0.54,
-            "societal_fallout": 0.97
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.634946,
           "basis": "reviewed_relationship_weighted_peer_mean",
@@ -27136,7 +27017,7 @@
               "influence": 0.58
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.7830000000000001,
@@ -27150,16 +27031,24 @@
             "reach": "regional",
             "node_class": "phenomenon"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -27170,40 +27059,29 @@
       "source_ids": [
         "us_forest_service_tree_mortality_drought_insects"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:3ceba16f"
+      "input_hash": "fnv1a32:cd2242df"
     },
     {
       "node_id": "aerosolized_microplastics",
-      "value": 7.6,
+      "value": 7.4,
       "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.734486
+        "modeled_estimate": 0.716308
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.655556,
-          "baseline_score": 6.9,
-          "vector": {
-            "climate_forcing": 0.9,
-            "ecological_damage": 0.46,
-            "human_drivenness": 0.4,
-            "societal_fallout": 0.85
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.733333,
           "basis": "reviewed_relationship_weighted_peer_mean",
@@ -27213,7 +27091,7 @@
               "influence": 0.38
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.6955,
@@ -27227,16 +27105,24 @@
             "reach": "global",
             "node_class": "operational_indicator"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -27247,16 +27133,16 @@
       "source_ids": [
         "integrated_science_for_the_study_of_microplastics_in_the_environment"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:cf76b148"
+      "input_hash": "fnv1a32:98bdca3f"
     },
     {
       "node_id": "coastal_saltwater_intrusion",
@@ -27328,27 +27214,16 @@
     },
     {
       "node_id": "tundra_shrubification_speeds",
-      "value": 8.3,
+      "value": 8,
       "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.810726
+        "modeled_estimate": 0.773575
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.744444,
-          "baseline_score": 7.7,
-          "vector": {
-            "climate_forcing": 0.89,
-            "ecological_damage": 0.78,
-            "human_drivenness": 0.32,
-            "societal_fallout": 0.91
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.7,
           "basis": "reviewed_relationship_weighted_peer_mean",
@@ -27358,7 +27233,7 @@
               "influence": 0.45
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.8634999999999999,
@@ -27372,16 +27247,24 @@
             "reach": "global",
             "node_class": "phenomenon"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -27392,40 +27275,29 @@
       "source_ids": [
         "noaa_arctic_report_card"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:bd347490"
+      "input_hash": "fnv1a32:096be02f"
     },
     {
       "node_id": "subpolar_gyre_weakening",
-      "value": 7.6,
+      "value": 7.8,
       "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.730193
+        "modeled_estimate": 0.755575
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.622222,
-          "baseline_score": 6.6,
-          "vector": {
-            "climate_forcing": 0.49,
-            "ecological_damage": 0.83,
-            "human_drivenness": 0.23,
-            "societal_fallout": 0.92
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.7,
           "basis": "reviewed_relationship_weighted_peer_mean",
@@ -27435,7 +27307,7 @@
               "influence": 0.38
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.8235,
@@ -27449,16 +27321,24 @@
             "reach": "global",
             "node_class": "operational_indicator"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -27469,16 +27349,16 @@
       "source_ids": [
         "spin_down_of_the_north_atlantic_subpolar_circulation"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:942a8873"
+      "input_hash": "fnv1a32:7765a06b"
     },
     {
       "node_id": "shelf_sea_hypoxia",
@@ -27931,23 +27811,12 @@
       "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.796282
+        "modeled_estimate": 0.804131
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.7,
-          "baseline_score": 7.3,
-          "vector": {
-            "climate_forcing": 0.59,
-            "ecological_damage": 0.94,
-            "human_drivenness": 0.36,
-            "societal_fallout": 0.87
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.755556,
           "basis": "global_measured_and_impact_anchor_mean",
@@ -27989,7 +27858,7 @@
               "peer_node_id": "environ_anomalies"
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.8634999999999999,
@@ -28003,16 +27872,24 @@
             "reach": "global",
             "node_class": "phenomenon"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -28023,16 +27900,16 @@
       "source_ids": [
         "noaa_coral_reproduction_and_recruitment"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:7859b4be"
+      "input_hash": "fnv1a32:14533548"
     },
     {
       "node_id": "riverine_habitat_fragmentation",
@@ -28125,27 +28002,16 @@
     },
     {
       "node_id": "high_altitude_forest_shrinkage",
-      "value": 8.6,
+      "value": 7.5,
       "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.84237
+        "modeled_estimate": 0.71935
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.833333,
-          "baseline_score": 8.5,
-          "vector": {
-            "climate_forcing": 0.68,
-            "ecological_damage": 1,
-            "human_drivenness": 0.83,
-            "societal_fallout": 0.84
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.7,
           "basis": "reviewed_relationship_weighted_peer_mean",
@@ -28155,7 +28021,7 @@
               "influence": 0.43
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.7430000000000001,
@@ -28169,16 +28035,24 @@
             "reach": "regional",
             "node_class": "operational_indicator"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -28189,16 +28063,16 @@
       "source_ids": [
         "effects_of_climate_change_on_forest_vegetation_in_the_northern_rockies"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:05def8b3"
+      "input_hash": "fnv1a32:0154a0b1"
     },
     {
       "node_id": "atmospheric_river_intensification",
@@ -28319,27 +28193,16 @@
     },
     {
       "node_id": "trade_wind_weakening",
-      "value": 7.6,
+      "value": 7.2,
       "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.737431
+        "modeled_estimate": 0.690336
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.677778,
-          "baseline_score": 7.1,
-          "vector": {
-            "climate_forcing": 0.7,
-            "ecological_damage": 0.76,
-            "human_drivenness": 0.34,
-            "societal_fallout": 0.88
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.686111,
           "basis": "same_domain_anchor_mean",
@@ -28357,7 +28220,7 @@
               "peer_node_id": "environ_anomalies"
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.6955,
@@ -28371,16 +28234,24 @@
             "reach": "global",
             "node_class": "operational_indicator"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -28391,16 +28262,16 @@
       "source_ids": [
         "copernicus_climate_change_service"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:06eea6f5"
+      "input_hash": "fnv1a32:8083ee9b"
     },
     {
       "node_id": "blue_carbon_habitat_loss",
@@ -28502,27 +28373,16 @@
     },
     {
       "node_id": "methane_hydroxyl_sink_loss",
-      "value": 7.9,
+      "value": 7.4,
       "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.76782
+        "modeled_estimate": 0.716308
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.711111,
-          "baseline_score": 7.4,
-          "vector": {
-            "climate_forcing": 0.97,
-            "ecological_damage": 0.5,
-            "human_drivenness": 0.69,
-            "societal_fallout": 0.68
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.733333,
           "basis": "reviewed_relationship_weighted_peer_mean",
@@ -28532,7 +28392,7 @@
               "influence": 0.48
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.6955,
@@ -28546,16 +28406,24 @@
             "reach": "global",
             "node_class": "operational_indicator"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -28566,16 +28434,16 @@
       "source_ids": [
         "trends_in_global_tropospheric_hydroxyl_radical_and_methane_lifetime_since_1850_from_aerchemmip"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:b8ed6cdb"
+      "input_hash": "fnv1a32:df910044"
     },
     {
       "node_id": "stratospheric_chlorine_sinks",
@@ -28674,27 +28542,16 @@
     },
     {
       "node_id": "aviation_condensation_trails",
-      "value": 7.8,
+      "value": 7.2,
       "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-06-01",
       "components": {
-        "modeled_estimate": 0.750764
+        "modeled_estimate": 0.690336
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.7,
-          "baseline_score": 7.3,
-          "vector": {
-            "climate_forcing": 0.88,
-            "ecological_damage": 0.45,
-            "human_drivenness": 0.75,
-            "societal_fallout": 0.75
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.686111,
           "basis": "same_domain_anchor_mean",
@@ -28712,7 +28569,7 @@
               "peer_node_id": "environ_anomalies"
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.6955,
@@ -28726,16 +28583,24 @@
             "reach": "global",
             "node_class": "operational_indicator"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -28746,16 +28611,16 @@
       "source_ids": [
         "federal_aviation_administration_contrails"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:b79ca5d8"
+      "input_hash": "fnv1a32:555f235f"
     },
     {
       "node_id": "compound_coastal_flooding",
@@ -30183,27 +30048,16 @@
     },
     {
       "node_id": "industrial_groundwater_withdrawal",
-      "value": 7.2,
+      "value": 7.6,
       "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-07-31",
       "components": {
-        "modeled_estimate": 0.687572
+        "modeled_estimate": 0.732356
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.566667,
-          "baseline_score": 6.1,
-          "vector": {
-            "climate_forcing": 0.08,
-            "ecological_damage": 0.66,
-            "human_drivenness": 0.94,
-            "societal_fallout": 0.78
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.755556,
           "basis": "global_measured_and_impact_anchor_mean",
@@ -30245,7 +30099,7 @@
               "peer_node_id": "environ_anomalies"
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.704,
@@ -30259,16 +30113,24 @@
             "reach": "regional",
             "node_class": "authored_root_driver"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -30279,16 +30141,16 @@
       "source_ids": [
         "usgs_water_data_ogc_api"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:826492d5"
+      "input_hash": "fnv1a32:37c03470"
     },
     {
       "node_id": "agricultural_nitrogen_application",
@@ -31486,27 +31348,16 @@
     },
     {
       "node_id": "surface_water_groundwater_exchange_shift",
-      "value": 6.9,
-      "band": "Rising",
+      "value": 7.6,
+      "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-07-31",
       "components": {
-        "modeled_estimate": 0.654239
+        "modeled_estimate": 0.732356
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.511111,
-          "baseline_score": 5.6,
-          "vector": {
-            "climate_forcing": 0.26,
-            "ecological_damage": 0.59,
-            "human_drivenness": 0.47,
-            "societal_fallout": 0.83
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.755556,
           "basis": "global_measured_and_impact_anchor_mean",
@@ -31548,7 +31399,7 @@
               "peer_node_id": "environ_anomalies"
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.704,
@@ -31562,16 +31413,24 @@
             "reach": "regional",
             "node_class": "authored_root_driver"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -31582,16 +31441,16 @@
       "source_ids": [
         "usgs_water_data_ogc_api"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:5dee2c6b"
+      "input_hash": "fnv1a32:37c03470"
     },
     {
       "node_id": "surface_water_withdrawal_pressure",
@@ -33246,27 +33105,16 @@
     },
     {
       "node_id": "fossil_power_backup_co2",
-      "value": 7.7,
+      "value": 7.4,
       "band": "Critical",
       "method": "modeled",
       "method_version": "tulip_urgency_v2",
-      "model_version": "tulip_modeled_global_v1",
+      "model_version": "tulip_modeled_global_v2",
       "as_of": "2026-07-31",
       "components": {
-        "modeled_estimate": 0.746388
+        "modeled_estimate": 0.712729
       },
       "raw_inputs": {
-        "reviewed_legacy_vector": {
-          "value": 0.677778,
-          "baseline_score": 7.1,
-          "vector": {
-            "climate_forcing": 0.85,
-            "ecological_damage": 0.42,
-            "human_drivenness": 0.9,
-            "societal_fallout": 0.58
-          },
-          "weight": 0.6
-        },
         "peer_calibration": {
           "value": 0.719872,
           "basis": "reviewed_relationship_weighted_peer_mean",
@@ -33280,7 +33128,7 @@
               "influence": 0.42
             }
           ],
-          "weight": 0.22
+          "weight": 0.55
         },
         "reviewed_contract_factors": {
           "value": 0.704,
@@ -33294,16 +33142,24 @@
             "reach": "regional",
             "node_class": "authored_root_driver"
           },
-          "weight": 0.18
+          "weight": 0.45
         },
-        "pilot_calibration_shift": 0.05463,
+        "vector_exclusion": {
+          "generated_vectors": "excluded",
+          "inherited_vectors": "excluded",
+          "expert_profile_vectors": "excluded_from_tulip_urgency"
+        },
         "operational_lineage": []
       },
       "transformations": [
         {
           "type": "named_global_modeled_estimate",
-          "formula": "clamp01(0.60 × reviewed legacy composite + 0.22 × relationship/same-domain peer estimate + 0.18 × reviewed persistence/reach/causal-role factor + pilot calibration shift)",
+          "formula": "clamp01(0.55 × evidence-backed relationship/same-domain peer estimate + 0.45 × reviewed persistence/reach/causal-role factor)",
           "exclusions": [
+            "generated vectors",
+            "inherited vectors",
+            "expert profile vectors",
+            "legacy vector score",
             "graph degree",
             "node popularity",
             "source count",
@@ -33314,16 +33170,16 @@
       "source_ids": [
         "edgar_global_emissions_database"
       ],
-      "uncertainty": "Modeled estimate based on reviewed vectors, peer calibration and reviewed node contracts; no complete measured receipt is available.",
+      "uncertainty": "Modeled estimate based on evidence-backed peer receipts and reviewed node contracts; no complete measured receipt is available.",
       "freshness": "model refreshed with graph contract release",
       "selection_reason": {
-        "selected_method_passed": "Deterministic tulip_modeled_global_v1 receipt passes the modeled fallback gate.",
+        "selected_method_passed": "Deterministic tulip_modeled_global_v2 receipt passes the modeled fallback gate.",
         "higher_priority_failures": [
           "No reviewed current global observation supplies the required magnitude-plus-threshold-or-momentum coverage.",
           "No reviewed four-component accumulated-impact contract is bound to this node."
         ]
       },
-      "input_hash": "fnv1a32:c7dc9996"
+      "input_hash": "fnv1a32:62f8776e"
     },
     {
       "node_id": "waste_incineration_co2",

@@ -1,0 +1,6 @@
+DerivedData/
+Distribution/
+TULIPiOS/WebApp/
+*.xcuserstate
+xcuserdata/
+TULIPiOS/AppIconSource.pdf
