@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-03T00:27:16.891Z",
+  "generated_at": "2026-09-19T19:58:22.560Z",
   "provider": "Bing News RSS fallback (GDELT unavailable)",
   "source_policy": "Reputed article publishers only; government and dataset pages excluded.",
   "profiles": {
@@ -9757,7 +9757,7 @@
     },
     "tropospheric_ozone": {
       "title": "Recent Major Events",
-      "updatedAt": "2026-09-01",
+      "updatedAt": "2026-09-19",
       "profileKind": "events",
       "occurrences": [
         {
@@ -9789,16 +9789,16 @@
           ]
         },
         {
-          "id": "tropospheric_ozone-22e8cbe63934",
-          "date": "2023-09-17",
+          "id": "tropospheric_ozone-ea2366abeb29",
+          "date": "2024-12-12",
           "place": "Global reporting",
-          "title": "Wildfires in Canada led to dangerous air quality in parts of the US for the first time. See the affected areas",
+          "title": "Air pollution has contributed to 16 million deaths in India in the past decade – new study",
           "status": "reported",
           "summary": "",
           "sources": [
             {
-              "label": "CNN",
-              "url": "https://www.cnn.com/2023/09/17/us/air-quality-wildfire-pollution-allergy-dg/"
+              "label": "The Conversation",
+              "url": "https://theconversation.com/air-pollution-has-contributed-to-16-million-deaths-in-india-in-the-past-decade-new-study-245714"
             }
           ]
         }

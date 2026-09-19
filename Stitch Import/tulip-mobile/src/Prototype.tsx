@@ -158,7 +158,7 @@ type FootprintSectionSummary = { label:string; carbon:number; land:number; water
 type FootprintResult = { carbon:number; land:number; water:number; material:number; answered:number; region:string; breakdown:FootprintBreakdownItem[]; sectionSummaries:FootprintSectionSummary[] };
 type ExploreInfoSection = "score" | "sources" | "registries" | "about" | "contact" | "privacy";
 type TulipNativeBridge = {
-  haptic:(kind?:"selection"|"light"|"medium"|"success") => void;
+  haptic:(kind?:"selection"|"light"|"medium"|"rotation"|"rotationMomentum"|"success") => void;
   share:(payload:{ title:string; text:string; url:string }) => void;
   startupReady?:() => void;
   navigationState?:(payload:{ active:Screen; visible:boolean; compact:boolean; quickStartActive:boolean }) => void;
@@ -1367,6 +1367,8 @@ function ExploreScreen({ active, suspended, activeFilter, resetKey, onOpenInfo, 
     graph.updatePhysics = (...args:any[]) => {
       originalUpdatePhysics(...args);
       lockExploreCameraOrigin();
+      canvas.dataset.rotationX = graph.rotationX.toFixed(5);
+      canvas.dataset.rotationY = graph.rotationY.toFixed(5);
       if (graph.isFocusMode || graph.selectedNode) return;
       const targetCount = 7;
       const activeNodes = graph.ambientHighlights

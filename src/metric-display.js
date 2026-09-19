@@ -59,7 +59,7 @@ function replaceFahrenheit(text) {
 
 function protectLexicalMileTerms(text) {
   const protectedValues = [];
-  const protectedText = text.replace(/\b(?:(?:last|first)[-\s]mile|(?:on|by)\s+foot|foot\s+traffic|rail\s+yards?|shipyards?|front\s+yards?|backyards?|schoolyards?)\b/gi, value => {
+  const protectedText = text.replace(/\b(?:(?:last|first)[-\s]mile|(?:on|by)\s+foot|foot\s+traffic|rail\s+yards?|shipyards?|front\s+yards?|backyards?|schoolyards?|berths?,\s*yards?)\b/gi, value => {
     const token = `__TULIP_METRIC_PROTECTED_${protectedValues.length}__`;
     protectedValues.push(value);
     return token;

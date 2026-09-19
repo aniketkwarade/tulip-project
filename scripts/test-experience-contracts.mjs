@@ -85,6 +85,7 @@ assert.match(main, /pdf\.text\(answerLines, margin \+ 4, answerY/);
 assert.match(main, /const dividerY = answerY \+ answerHeight \+ 1\.5/);
 assert.match(main, /button\.addEventListener\('click', handler\)/);
 assert.doesNotMatch(main, /button\.onclick = handler/);
+assert.doesNotMatch(main, /phenomenon-row-speculative-tag">scenario range/);
 assert.doesNotMatch(main, /tulip-footprint-summary\.txt/);
 assert.match(main, /results\?\.scrollIntoView/);
 assert.match(main, /resultsCard\.hidden = !progress\.complete/);

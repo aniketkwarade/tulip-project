@@ -2462,6 +2462,12 @@ function targetAndSelectNode(node, navigationOptions = {}) {
   const motionOrigin = shouldBridgeFromExplore ? getNodeMotionOrigin(node) : navigationOptions.motionOrigin;
 
   if (graphInstance) {
+    graphInstance.selectionHistory = Array.isArray(navigationOptions.pathNodes)
+      ? navigationOptions.pathNodes.slice(0, -1)
+      : selectionHistory;
+    if (Object.prototype.hasOwnProperty.call(navigationOptions, 'selectionContext')) {
+      graphInstance.setSelectionContext(navigationOptions.selectionContext);
+    }
     graphInstance.isFocusMode = true;
     graphInstance.needsCentering = true;
     graphInstance.selectNode(node, { instantSwap: true });
@@ -5645,7 +5651,7 @@ function init() {
           suggestion.setAttribute('aria-selected', 'false');
           suggestion.textContent = node.id === 'temp' ? 'Global warming' : node.name;
           suggestion.addEventListener('click', () => {
-            targetAndSelectNode(node);
+            targetAndSelectNode(node, { selectionContext: query });
             closeSearch();
           });
           suggestions.appendChild(suggestion);
@@ -5705,7 +5711,7 @@ function init() {
         item.append(copy, meta);
 
         item.addEventListener('click', () => {
-          targetAndSelectNode(node);
+          targetAndSelectNode(node, { selectionContext: query });
           closeSearch();
         });
 
@@ -7298,8 +7304,6 @@ function renderPhenomenonLens(node) {
                 <span class="phenomenon-row-speculative-separator">-</span>
                 <span class="phenomenon-row-speculative-number" aria-label="Scenario range ${escapeHtml(formatPhenomenonValue(scenarioLow))} to ${escapeHtml(formatPhenomenonValue(scenarioHigh))}">${escapeHtml(formatPhenomenonValue(scenarioLow))}–${escapeHtml(formatPhenomenonValue(scenarioHigh))}</span>
                 <span class="phenomenon-row-speculative-unit">${escapeHtml(metricUnitLabel)}</span>
-                <span class="phenomenon-row-speculative-separator">-</span>
-                <span class="phenomenon-row-speculative-tag">scenario range</span>
               </div>
             `
             : `
@@ -7974,6 +7978,8 @@ function renderPersonalFootprintStory(result) {
     return '';
   }
 
+  const bubbleChart = renderPersonalFootprintBubbleChart(result);
+
   const equivalencies = getFootprintEquivalencies(result);
   const breakdownMetric = PERSONAL_FOOTPRINT_BREAKDOWN_METRICS.carbon;
   const breakdownItems = result.breakdown
@@ -8035,6 +8041,8 @@ function renderPersonalFootprintStory(result) {
     : [];
 
   return `
+    ${bubbleChart}
+
     <section class="footprint-story-section footprint-equivalency-section" aria-labelledby="footprint-equivalency-title">
       <div class="footprint-story-heading-row is-compact">
         <div>
@@ -8216,6 +8224,143 @@ function renderPersonalFootprintStory(result) {
           </div>
         </div>
       </details>
+    </section>
+  `;
+}
+
+const PERSONAL_FOOTPRINT_BUBBLE_SLOTS = Object.freeze([
+  { key: 'diet', label: 'Diet', x: 0.59, y: 0.35, labelX: 0, labelY: 0, color: '#cc7aa8', rgb: '204, 122, 168', angle: 145 },
+  { key: 'home_type', label: 'Home Type', x: 0.29, y: 0.72, labelX: 0, labelY: 0, color: '#d65e00', rgb: '214, 94, 0', angle: 145 },
+  { key: 'home_energy', label: 'Energy', x: 0.33, y: 0.18, labelX: 0.02, labelY: 0.014, color: '#f0e342', rgb: '240, 227, 66', angle: 145 },
+  { key: 'everyday_travel', label: 'Travel', x: 0.18, y: 0.16, labelX: -0.02, labelY: -0.012, color: '#0073b3', rgb: '0, 115, 179', angle: 325 },
+  { key: 'other_stuff', label: 'Purchases', x: 0.18, y: 0.33, labelX: -0.008, labelY: 0, color: '#57b5e8', rgb: '87, 181, 232', angle: 145 },
+  { key: 'flights', label: 'Flights', x: 0.25, y: 0.48, labelX: 0.006, labelY: 0.006, color: '#009e73', rgb: '0, 158, 115', angle: 145 },
+  { key: 'food_waste', label: 'Food Waste', x: 0.56, y: 0.82, labelX: -0.006, labelY: 0, color: '#e69f00', rgb: '230, 159, 0', angle: 145 },
+  { key: 'new_clothes', label: 'Clothing', x: 0.75, y: 0.82, labelX: 0.006, labelY: 0, color: '#a685f2', rgb: '166, 133, 242', angle: 145 }
+]);
+
+function getPersonalFootprintBubbleLayouts(result) {
+  const designSize = 1000;
+  const contributionByKey = new Map(result.breakdown.map(item => [item.key, item]));
+  const largestImpact = Math.max(
+    0.1,
+    ...PERSONAL_FOOTPRINT_BUBBLE_SLOTS.map(slot => contributionByKey.get(slot.key)?.co2 || 0)
+  );
+  const placements = PERSONAL_FOOTPRINT_BUBBLE_SLOTS.map((slot, rank) => {
+    const contribution = contributionByKey.get(slot.key);
+    const carbon = Math.max(0, contribution?.co2 || 0);
+    const impact = Math.min(1, carbon / largestImpact);
+    const visualImpact = Math.pow(impact, 0.62);
+    const diameter = designSize * Math.max(0.19, 0.63 * Math.sqrt(impact));
+    return {
+      ...slot,
+      rank,
+      carbon,
+      diameter,
+      radius: diameter / 2,
+      centerX: designSize * slot.x,
+      centerY: designSize * slot.y,
+      targetX: designSize * slot.x,
+      targetY: designSize * slot.y,
+      offsetX: designSize * slot.labelX,
+      offsetY: designSize * slot.labelY,
+      opacity: 0.58 + (0.38 * visualImpact)
+    };
+  });
+
+  const labelProtectionRadius = placement => Math.min(130, Math.max(80, placement.radius * 0.4));
+  const clampPlacement = placement => {
+    const horizontalMargin = 20;
+    const topBoundary = 78;
+    const bottomBoundary = 940;
+    const minimumX = horizontalMargin + placement.radius;
+    const maximumX = Math.max(minimumX, designSize - horizontalMargin - placement.radius);
+    const minimumY = topBoundary + placement.radius;
+    const maximumY = Math.max(minimumY, bottomBoundary - placement.radius);
+    placement.centerX = clamp(placement.centerX, minimumX, maximumX);
+    placement.centerY = clamp(placement.centerY, minimumY, maximumY);
+  };
+
+  placements.forEach(clampPlacement);
+  for (let pass = 0; pass < 120; pass += 1) {
+    for (let leftIndex = 0; leftIndex < placements.length; leftIndex += 1) {
+      for (let rightIndex = leftIndex + 1; rightIndex < placements.length; rightIndex += 1) {
+        const left = placements[leftIndex];
+        const right = placements[rightIndex];
+        let deltaX = right.centerX - left.centerX;
+        let deltaY = right.centerY - left.centerY;
+        let distance = Math.hypot(deltaX, deltaY);
+        const leftLabelReach = Math.hypot(left.offsetX, left.offsetY) + labelProtectionRadius(left);
+        const rightLabelReach = Math.hypot(right.offsetX, right.offsetY) + labelProtectionRadius(right);
+        const requiredDistance = Math.max(
+          left.radius + rightLabelReach,
+          right.radius + leftLabelReach
+        ) + 10;
+        if (distance >= requiredDistance) continue;
+
+        if (distance <= 0.001) {
+          const angle = (leftIndex + rightIndex + 1) * 0.91;
+          deltaX = Math.cos(angle);
+          deltaY = Math.sin(angle);
+          distance = 1;
+        }
+        const overlap = requiredDistance - distance;
+        const directionX = deltaX / distance;
+        const directionY = deltaY / distance;
+        const combinedRadius = Math.max(1, left.radius + right.radius);
+        const leftShare = right.radius / combinedRadius;
+        const rightShare = left.radius / combinedRadius;
+        left.centerX -= directionX * overlap * leftShare;
+        left.centerY -= directionY * overlap * leftShare;
+        right.centerX += directionX * overlap * rightShare;
+        right.centerY += directionY * overlap * rightShare;
+      }
+    }
+
+    placements.forEach(placement => {
+      placement.centerX += (placement.targetX - placement.centerX) * 0.008;
+      placement.centerY += (placement.targetY - placement.centerY) * 0.008;
+      clampPlacement(placement);
+    });
+  }
+
+  return placements;
+}
+
+function renderPersonalFootprintBubbleChart(result) {
+  const layouts = getPersonalFootprintBubbleLayouts(result);
+  const total = `${result.carbonTotal.toFixed(1)} tCO2e/yr`;
+  return `
+    <section class="footprint-story-section footprint-bubble-section" aria-labelledby="footprint-bubble-title">
+      <div class="footprint-story-heading-row footprint-bubble-heading">
+        <div>
+          <h3 id="footprint-bubble-title">What shapes your annual footprint</h3>
+          <p>Circle area represents each source’s estimated annual carbon contribution.</p>
+        </div>
+        <strong class="footprint-story-physical-total">${escapeHtml(total)}</strong>
+      </div>
+      <div
+        class="footprint-bubble-stage"
+        role="img"
+        aria-label="Your annual carbon footprint is ${escapeHtml(total)}. The bubbles show the sources that make up that footprint."
+      >
+        ${layouts.map(layout => {
+          const titleSize = Math.min(20, Math.max(10, layout.diameter * 0.08));
+          const valueSize = Math.min(16, Math.max(9, layout.diameter * 0.058));
+          return `
+            <div
+              class="footprint-impact-bubble"
+              style="--bubble-x:${(layout.centerX / 10).toFixed(3)}%; --bubble-y:${(layout.centerY / 10).toFixed(3)}%; --bubble-size:${(layout.diameter / 10).toFixed(3)}%; --bubble-rgb:${layout.rgb}; --bubble-color:${layout.color}; --bubble-angle:${layout.angle}deg; --bubble-opacity:${layout.opacity.toFixed(3)}; --bubble-delay:${layout.rank * 70}ms; --bubble-z:${10 + layout.rank}; --bubble-label-x:${(layout.offsetX / 10).toFixed(3)}cqw; --bubble-label-y:${(layout.offsetY / 10).toFixed(3)}cqw; --bubble-title-size:${(titleSize / 10).toFixed(3)}cqw; --bubble-value-size:${(valueSize / 10).toFixed(3)}cqw;"
+              aria-label="${escapeHtml(layout.label)}, ${layout.carbon.toFixed(1)} tonnes carbon dioxide equivalent per year"
+            >
+              <span class="footprint-impact-bubble-label">
+                <strong>${escapeHtml(layout.label)}</strong>
+                <small>${layout.carbon.toFixed(1)} tCO2e/yr</small>
+              </span>
+            </div>
+          `;
+        }).join('')}
+      </div>
     </section>
   `;
 }

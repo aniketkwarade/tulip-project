@@ -26,6 +26,12 @@ final class TULIPBookmarkStore: ObservableObject {
         }
         defaults.set(names, forKey: storageKey)
     }
+
+    func remove(_ name: String) {
+        guard let index = names.firstIndex(of: name) else { return }
+        names.remove(at: index)
+        defaults.set(names, forKey: storageKey)
+    }
 }
 
 struct TULIPNodeCatalogEntry: Codable, Identifiable, Hashable {
@@ -547,11 +553,13 @@ enum TULIPFootprintInsightGenerator {
 final class TULIPDataStore: ObservableObject {
     @Published private(set) var nodes: [TULIPNodeCatalogEntry] = []
     @Published private(set) var inspectorProfiles: [String: TULIPInspectorProfile] = [:]
+    @Published private(set) var searchProfiles: [String: TULIPInspectorProfile] = [:]
     @Published private(set) var activityProfiles: [TULIPActivityProfile] = []
     @Published private(set) var footprintModel: TULIPFootprintModel?
     @Published private(set) var loadError: String?
-    private var essentialsLoadInFlight = false
-    private var inspectorLoadInFlight = false
+    private var essentialsLoadTask: Task<TULIPEssentialData, Error>?
+    private var inspectorLoadTask: Task<[String: TULIPInspectorProfile], Error>?
+    private var searchLoadTask: Task<[String: TULIPInspectorProfile], Error>?
 
     var inspectorDataReady: Bool {
         !inspectorProfiles.isEmpty || loadError != nil
@@ -566,38 +574,73 @@ final class TULIPDataStore: ObservableObject {
         guard nodes.isEmpty,
               activityProfiles.isEmpty,
               footprintModel == nil,
-              loadError == nil,
-              !essentialsLoadInFlight else { return }
-        essentialsLoadInFlight = true
-        defer { essentialsLoadInFlight = false }
-        do {
-            let payload = try await Task.detached(priority: .userInitiated) {
+              loadError == nil else { return }
+
+        let task: Task<TULIPEssentialData, Error>
+        if let essentialsLoadTask {
+            task = essentialsLoadTask
+        } else {
+            task = Task.detached(priority: .userInitiated) {
                 TULIPEssentialData(
                     nodes: try Self.decode("mobile-node-catalog", from: bundle),
                     activityProfiles: try Self.decode("mobile-activity-snapshot", from: bundle),
                     footprintModel: try Self.decode("personal-footprint-model", from: bundle)
                 )
-            }.value
+            }
+            essentialsLoadTask = task
+        }
+
+        do {
+            let payload = try await task.value
             nodes = payload.nodes
             activityProfiles = payload.activityProfiles
             footprintModel = payload.footprintModel
         } catch {
             recordLoadError(error)
         }
+        essentialsLoadTask = nil
     }
 
     func loadInspectorProfiles(bundle: Bundle = .main) async {
-        guard inspectorProfiles.isEmpty, loadError == nil, !inspectorLoadInFlight else { return }
-        inspectorLoadInFlight = true
-        defer { inspectorLoadInFlight = false }
-        do {
-            let profiles: [String: TULIPInspectorProfile] = try await Task.detached(priority: .utility) {
+        guard inspectorProfiles.isEmpty, loadError == nil else { return }
+
+        let task: Task<[String: TULIPInspectorProfile], Error>
+        if let inspectorLoadTask {
+            task = inspectorLoadTask
+        } else {
+            task = Task.detached(priority: .utility) {
                 try Self.decode("mobile-inspector-snapshot", from: bundle)
-            }.value
-            inspectorProfiles = profiles
+            }
+            inspectorLoadTask = task
+        }
+
+        do {
+            inspectorProfiles = try await task.value
         } catch {
             recordLoadError(error)
         }
+        inspectorLoadTask = nil
+    }
+
+    func loadSearchProfiles(bundle: Bundle = .main) async {
+        guard searchProfiles.isEmpty, loadError == nil else { return }
+
+        let task: Task<[String: TULIPInspectorProfile], Error>
+        if let searchLoadTask {
+            task = searchLoadTask
+        } else {
+            task = Task.detached(priority: .utility) {
+                try Self.decode("mobile-search-snapshot", from: bundle)
+            }
+            searchLoadTask = task
+        }
+
+        do {
+            searchProfiles = try await task.value
+        } catch {
+            recordLoadError(error)
+        }
+        searchLoadTask = nil
     }
 
     func profile(named name: String?) -> TULIPInspectorProfile? {

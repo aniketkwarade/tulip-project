@@ -9,6 +9,13 @@ private struct TULIPSearchHeaderHeightKey: PreferenceKey {
     }
 }
 
+private enum TULIPSearchIntelligenceState: Equatable {
+    case idle
+    case thinking
+    case result(TULIPDiscoveryResult)
+    case noMatch
+}
+
 struct TULIPSearchView: View {
     private enum Section {
         case search
@@ -16,19 +23,26 @@ struct TULIPSearchView: View {
     }
 
     let nodes: [TULIPNodeCatalogEntry]
+    let inspectorProfiles: [String: TULIPInspectorProfile]
     let bookmarkedNames: [String]
     let resetRequest: Int
     let onSelect: (String) -> Void
+    let onRemoveBookmark: (String) -> Void
     let onKeyboardVisibilityChange: (Bool) -> Void
 
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var query = ""
     @State private var recentNames: [String] = []
     @State private var scrollResetID = 0
     @State private var selectedSection: Section = .search
     @State private var frozenHeaderHeight: CGFloat = 0
+    @State private var intelligenceState: TULIPSearchIntelligenceState = .idle
+    @State private var previousDiscoveryContext: TULIPDiscoveryContext?
+    @State private var results: [TULIPNodeCatalogEntry] = []
+    @State private var suggested: [TULIPNodeCatalogEntry] = []
     @FocusState private var searchFieldFocused: Bool
 
-    private var results: [TULIPNodeCatalogEntry] {
+    private func directMatches(for query: String) -> [TULIPNodeCatalogEntry] {
         let trimmed = query.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return [] }
         return nodes
@@ -43,7 +57,7 @@ struct TULIPSearchView: View {
             .map { $0 }
     }
 
-    private var suggested: [TULIPNodeCatalogEntry] {
+    private func suggestedNodes() -> [TULIPNodeCatalogEntry] {
         let preferred = [
             "Global Temperature",
             "Ocean Heat Content",
@@ -53,6 +67,21 @@ struct TULIPSearchView: View {
             "Ocean Acidification",
         ]
         return preferred.compactMap { name in nodes.first { $0.name == name } }
+    }
+
+    private var shouldInterpretQuery: Bool {
+        selectedSection == .search
+            && TULIPNaturalLanguageSearch.shouldInterpret(query, hasDirectMatches: !results.isEmpty)
+    }
+
+    private var discoveryTaskID: String {
+        "\(selectedSection == .search)-\(query)-\(nodes.count)-\(inspectorProfiles.count)-\(previousDiscoveryContext?.query ?? "")"
+    }
+
+    private var relatedDiscoveryMatches: [TULIPDiscoveryMatch] {
+        guard case .result(let result) = intelligenceState else { return [] }
+        let directIDs = Set(results.map(\.id))
+        return Array(result.matches.dropFirst().filter { !directIDs.contains($0.node.id) }.prefix(5))
     }
 
     var body: some View {
@@ -77,7 +106,8 @@ struct TULIPSearchView: View {
                                     searchRow(
                                         name: name,
                                         sphere: nodes.first { $0.name == name }?.sphere,
-                                        trailingIcon: "bookmark.fill"
+                                        trailingIcon: "bookmark.fill",
+                                        onRemove: { removeBookmark(name) }
                                     )
                                 }
                             }
@@ -87,7 +117,11 @@ struct TULIPSearchView: View {
                             if !recentNames.isEmpty {
                                 searchGroup("Recent Searches") {
                                     ForEach(recentNames, id: \.self) { name in
-                                        searchRow(name: name, sphere: nodes.first { $0.name == name }?.sphere)
+                                        searchRow(
+                                            name: name,
+                                            sphere: nodes.first { $0.name == name }?.sphere,
+                                            onRemove: { forget(name) }
+                                        )
                                     }
                                 }
                             }
@@ -96,18 +130,38 @@ struct TULIPSearchView: View {
                                     searchRow(name: node.name, sphere: node.sphere)
                                 }
                             }
-                        } else if results.isEmpty {
-                            TULIPEmptyState(
-                                title: "No matching topic",
-                                message: "Try a broader environmental term."
-                            )
-                            .frame(maxWidth: .infinity)
-                            .padding(.top, TULIPLayout.searchEmptyTopPadding)
                         } else {
-                            searchGroup("Results") {
-                                ForEach(results) { node in
-                                    searchRow(name: node.name, sphere: node.sphere)
+                            if shouldInterpretQuery {
+                                intelligenceContent
+                            }
+
+                            if !results.isEmpty {
+                                searchGroup("Topic Matches") {
+                                    ForEach(results) { node in
+                                        searchRow(name: node.name, sphere: node.sphere)
+                                    }
                                 }
+                            }
+
+                            if !relatedDiscoveryMatches.isEmpty {
+                                searchGroup("Related in the graph") {
+                                    ForEach(relatedDiscoveryMatches) { match in
+                                        searchRow(
+                                            name: match.node.name,
+                                            sphere: match.node.sphere,
+                                            supportingText: "\(match.reason) · \(match.node.sphere.capitalized)"
+                                        )
+                                    }
+                                }
+                            }
+
+                            if results.isEmpty, !shouldInterpretQuery || intelligenceState == .noMatch {
+                                TULIPEmptyState(
+                                    title: "No matching topic",
+                                    message: "Try describing what you observe, what might cause it, or what happens next."
+                                )
+                                .frame(maxWidth: .infinity)
+                                .padding(.top, TULIPLayout.searchEmptyTopPadding)
                             }
                         }
                     }
@@ -117,8 +171,10 @@ struct TULIPSearchView: View {
                 .padding(.bottom, TULIPLayout.dockContentClearance)
             }
             .id(scrollResetID)
+            .scrollIndicators(.hidden)
             .scrollDismissesKeyboard(.interactively)
-            .scrollBounceBehavior(.always)
+            .scrollBounceBehavior(.basedOnSize)
+            .tulipIOS27SwipeActionsContainer()
             .background(TULIPPalette.background)
 
             TULIPTopContentFade()
@@ -147,6 +203,9 @@ struct TULIPSearchView: View {
             if focused, selectedSection == .bookmarks {
                 selectedSection = .search
             }
+            if focused {
+                TULIPNaturalLanguageSearch.prewarmOnDeviceUnderstanding()
+            }
             onKeyboardVisibilityChange(focused)
         }
         .onChange(of: selectedSection) { _, section in
@@ -156,6 +215,19 @@ struct TULIPSearchView: View {
                 onKeyboardVisibilityChange(false)
             }
         }
+        .onChange(of: query) { oldValue, newValue in
+            results = directMatches(for: newValue)
+            if !newValue.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                TULIPNaturalLanguageSearch.prewarmOnDeviceUnderstanding()
+            }
+            guard !oldValue.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
+                  newValue.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else { return }
+            preserveDiscoveryContext()
+        }
+        .onChange(of: nodes.count, initial: true) { _, _ in
+            suggested = suggestedNodes()
+            results = directMatches(for: query)
+        }
         .onChange(of: resetRequest) { _, _ in
             guard selectedSection == .bookmarks else { return }
             TULIPHaptics.selection()
@@ -164,73 +236,133 @@ struct TULIPSearchView: View {
         .onDisappear {
             onKeyboardVisibilityChange(false)
         }
+        .task(id: discoveryTaskID) {
+            await updateIntelligence()
+        }
+        .task(id: "\(nodes.count)-\(inspectorProfiles.count)") {
+            await TULIPNaturalLanguageSearch.prepareIndex(
+                nodes: nodes,
+                profiles: inspectorProfiles
+            )
+        }
         .simultaneousGesture(searchResetGesture)
     }
 
     private var frozenSearchHeader: some View {
         VStack(alignment: .leading, spacing: TULIPSpacing.zero) {
-            TULIPScreenHeader("Search")
+            TULIPScreenHeader(selectedSection == .search ? "Search" : "Bookmarks")
 
             TULIPGlassGroup(spacing: TULIPSpacing.compact) {
                 HStack(spacing: TULIPSpacing.compact) {
-                    HStack(spacing: TULIPSpacing.compact) {
-                        Image(systemName: TULIPIconography.search)
-                            .font(.body.weight(.medium))
-                            .foregroundStyle(TULIPPalette.tertiaryText)
-                        TextField("Search a topic", text: $query)
-                            .focused($searchFieldFocused)
-                            .textInputAutocapitalization(.never)
-                            .autocorrectionDisabled()
-                            .submitLabel(.search)
-                            .foregroundStyle(TULIPPalette.text)
-                        if !query.isEmpty {
-                            Button {
-                                TULIPHaptics.button()
-                                query = ""
-                            } label: {
-                                Image(systemName: TULIPIconography.clear)
-                                    .foregroundStyle(TULIPPalette.tertiaryText)
-                                    .frame(width: 32, height: 32)
-                            }
-                            .buttonStyle(.plain)
-                            .accessibilityLabel("Clear search")
-                        }
+                    if selectedSection == .search {
+                        expandedSearchControl
+                            .transition(.opacity.combined(with: .scale(scale: 0.98, anchor: .leading)))
+                        compactBookmarkControl
+                            .transition(.opacity.combined(with: .scale(scale: 0.94, anchor: .trailing)))
+                    } else {
+                        compactSearchControl
+                            .transition(.opacity.combined(with: .scale(scale: 0.94, anchor: .leading)))
+                        expandedBookmarkControl
+                            .transition(.opacity.combined(with: .scale(scale: 0.98, anchor: .trailing)))
                     }
-                    .padding(.horizontal, TULIPLayout.rowHorizontalPadding)
-                    .frame(minHeight: TULIPLayout.primaryControlHeight)
-                    .tulipFloatingChrome(in: Capsule(), interactive: true)
-
-                    Button {
-                        TULIPHaptics.selection()
-                        selectedSection = selectedSection == .bookmarks ? .search : .bookmarks
-                    } label: {
-                        Image(systemName: selectedSection == .bookmarks ? "bookmark.fill" : "bookmark")
-                            .font(.system(size: 17, weight: .semibold))
-                            .foregroundStyle(selectedSection == .bookmarks ? Color.white : TULIPPalette.secondaryText)
-                            .frame(
-                                width: TULIPLayout.primaryControlHeight,
-                                height: TULIPLayout.primaryControlHeight
-                            )
-                    }
-                    .buttonStyle(.plain)
-                    .tulipSelectableChrome(
-                        in: Circle(),
-                        isSelected: selectedSection == .bookmarks,
-                        selectionFill: TULIPPalette.lavender
-                    )
-                    .padding(TULIPSpacing.xSmall)
-                    .contentShape(Rectangle())
-                    .zIndex(1)
-                    .accessibilityLabel(
-                        selectedSection == .bookmarks ? "Return to search" : "Show bookmarks"
-                    )
-                    .accessibilityValue(selectedSection == .bookmarks ? "Selected" : "Not selected")
                 }
+                .animation(TULIPMotion.animation(.standard, reduceMotion: reduceMotion), value: selectedSection)
             }
             .padding(.horizontal, TULIPLayout.screenHorizontalPadding)
             .padding(.top, TULIPSpacing.standard)
         }
         .padding(.bottom, TULIPSpacing.compact)
+    }
+
+    private var expandedSearchControl: some View {
+        HStack(spacing: TULIPSpacing.compact) {
+            Image(systemName: TULIPIconography.search)
+                .font(.body.weight(.medium))
+                .foregroundStyle(TULIPPalette.tertiaryText)
+            TextField("Ask a question or search a topic", text: $query)
+                .focused($searchFieldFocused)
+                .textInputAutocapitalization(.sentences)
+                .submitLabel(.search)
+                .foregroundStyle(TULIPPalette.text)
+            if !query.isEmpty {
+                Button {
+                    TULIPHaptics.button()
+                    query = ""
+                } label: {
+                    Image(systemName: TULIPIconography.clear)
+                        .foregroundStyle(TULIPPalette.tertiaryText)
+                        .frame(width: 32, height: 32)
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel("Clear search")
+            }
+        }
+        .padding(.horizontal, TULIPLayout.rowHorizontalPadding)
+        .frame(maxWidth: .infinity, minHeight: TULIPLayout.primaryControlHeight)
+        .tulipFloatingChrome(in: Capsule(), interactive: true)
+    }
+
+    private var compactSearchControl: some View {
+        Button {
+            switchSearchSection(to: .search, focusSearch: true)
+        } label: {
+            Image(systemName: TULIPIconography.search)
+                .font(.system(size: 18, weight: .semibold))
+                .foregroundStyle(Color.white)
+                .frame(width: compactHeaderControlWidth, height: compactHeaderControlWidth)
+                .contentShape(Circle())
+        }
+        .buttonStyle(.plain)
+        .tulipFloatingChrome(in: Circle(), interactive: true)
+        .accessibilityLabel("Show search")
+    }
+
+    private var compactBookmarkControl: some View {
+        Button {
+            switchSearchSection(to: .bookmarks)
+        } label: {
+            Image(systemName: "bookmark.fill")
+                .font(.system(size: 18, weight: .semibold))
+                .foregroundStyle(TULIPPalette.blue)
+                .frame(width: compactHeaderControlWidth, height: compactHeaderControlWidth)
+                .contentShape(Circle())
+        }
+        .buttonStyle(.plain)
+        .tulipFloatingChrome(in: Circle(), interactive: true)
+        .accessibilityLabel("Show bookmarks")
+        .accessibilityValue("Not selected")
+    }
+
+    private var expandedBookmarkControl: some View {
+        Button {
+            switchSearchSection(to: .bookmarks)
+        } label: {
+            Image(systemName: "bookmark.fill")
+                .font(.system(size: 18, weight: .semibold))
+                .foregroundStyle(Color.white)
+                .frame(maxWidth: .infinity, minHeight: TULIPLayout.primaryControlHeight)
+                .contentShape(Capsule())
+        }
+        .buttonStyle(.plain)
+        .tulipSolidControl(in: Capsule(), fill: TULIPPalette.blue)
+        .accessibilityLabel("Bookmarks")
+        .accessibilityValue("Selected")
+    }
+
+    private var compactHeaderControlWidth: CGFloat {
+        TULIPLayout.primaryControlHeight
+    }
+
+    private func switchSearchSection(to section: Section, focusSearch: Bool = false) {
+        guard selectedSection != section else { return }
+        TULIPHaptics.selection()
+        withAnimation(TULIPMotion.animation(.standard, reduceMotion: reduceMotion)) {
+            selectedSection = section
+        }
+        guard focusSearch else { return }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.18) {
+            searchFieldFocused = true
+        }
     }
 
     private var searchResetGesture: some Gesture {
@@ -253,6 +385,125 @@ struct TULIPSearchView: View {
     }
 
     @ViewBuilder
+    private var intelligenceContent: some View {
+        switch intelligenceState {
+        case .idle:
+            EmptyView()
+        case .thinking:
+            HStack(spacing: TULIPSpacing.compact) {
+                ProgressView()
+                    .tint(TULIPPalette.lavender)
+                VStack(alignment: .leading, spacing: TULIPSpacing.xSmall) {
+                    Text("Understanding your question")
+                        .font(TULIPTypography.supporting.weight(.semibold))
+                        .foregroundStyle(TULIPPalette.text)
+                    Text("Searching names, descriptions, evidence, causes, and effects…")
+                        .font(TULIPTypography.metadata)
+                        .foregroundStyle(TULIPPalette.secondaryText)
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(TULIPLayout.cardContentPadding)
+            .tulipFloatingChrome(in: RoundedRectangle(cornerRadius: TULIPRadius.card))
+            .padding(.top, TULIPSpacing.large)
+            .accessibilityElement(children: .combine)
+        case .result(let result):
+            intelligenceCard(result)
+                .padding(.top, TULIPSpacing.large)
+        case .noMatch:
+            EmptyView()
+        }
+    }
+
+    private func intelligenceCard(_ result: TULIPDiscoveryResult) -> some View {
+        VStack(alignment: .leading, spacing: TULIPSpacing.compact) {
+            HStack(spacing: TULIPSpacing.small) {
+                Image(systemName: "sparkles")
+                    .foregroundStyle(TULIPPalette.lavender)
+                Text("ASK TULIP")
+                    .font(TULIPTypography.sectionLabel)
+                    .tracking(1.2)
+                    .foregroundStyle(TULIPPalette.lavender)
+                Spacer(minLength: TULIPSpacing.small)
+                Text(result.source.label)
+                    .font(.caption2.weight(.bold))
+                    .foregroundStyle(TULIPPalette.tertiaryText)
+            }
+
+            if let primary = result.primaryMatch {
+                Text("This sounds like \(primary.node.name)")
+                    .font(.title3.weight(.bold))
+                    .foregroundStyle(TULIPPalette.text)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+
+            Text(result.answer)
+                .font(TULIPTypography.body)
+                .foregroundStyle(TULIPPalette.secondaryText)
+                .fixedSize(horizontal: false, vertical: true)
+
+            if result.usedPreviousContext {
+                Label("Using your previous search for context", systemImage: "arrow.trianglehead.turn.up.right.circle")
+                    .font(TULIPTypography.metadata)
+                    .foregroundStyle(TULIPPalette.blue)
+            }
+
+            if let clarification = result.clarification {
+                Label(clarification, systemImage: "questionmark.bubble")
+                    .font(TULIPTypography.metadata)
+                    .foregroundStyle(TULIPPalette.blue)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+
+            if let scopeNote = result.scopeNote {
+                Label(scopeNote, systemImage: "location.slash")
+                    .font(TULIPTypography.metadata)
+                    .foregroundStyle(TULIPPalette.tertiaryText)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+
+            HStack(spacing: TULIPSpacing.small) {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(result.confidenceLabel)
+                        .font(TULIPTypography.metadata.weight(.semibold))
+                        .foregroundStyle(TULIPPalette.tertiaryText)
+                    Text(result.confidenceReason)
+                        .font(.caption2)
+                        .foregroundStyle(TULIPPalette.tertiaryText)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                Spacer(minLength: TULIPSpacing.small)
+                if let primary = result.primaryMatch {
+                    Button {
+                        TULIPHaptics.selection()
+                        remember(primary.node.name)
+                        onSelect(primary.node.name)
+                    } label: {
+                        HStack(spacing: TULIPSpacing.xSmall) {
+                            Text("Open topic")
+                            Image(systemName: "arrow.right")
+                        }
+                        .font(TULIPTypography.control)
+                        .foregroundStyle(TULIPPalette.text)
+                        .padding(.horizontal, TULIPSpacing.compact)
+                        .frame(minHeight: TULIPLayout.minimumTouchTarget)
+                    }
+                    .buttonStyle(.plain)
+                    .tulipSelectableChrome(
+                        in: Capsule(),
+                        isSelected: true,
+                        selectionFill: TULIPPalette.lavender
+                    )
+                    .accessibilityLabel("Open \(primary.node.name)")
+                }
+            }
+        }
+        .padding(TULIPLayout.cardContentPadding)
+        .tulipFloatingChrome(in: RoundedRectangle(cornerRadius: TULIPRadius.card))
+        .accessibilityElement(children: .contain)
+    }
+
+    @ViewBuilder
     private func searchGroup<Content: View>(
         _ title: String,
         @ViewBuilder content: () -> Content
@@ -266,41 +517,198 @@ struct TULIPSearchView: View {
         content()
     }
 
+    @ViewBuilder
     private func searchRow(
         name: String,
         sphere: String?,
-        trailingIcon: String = TULIPIconography.externalLink
+        supportingText: String? = nil,
+        trailingIcon: String = TULIPIconography.externalLink,
+        onRemove: (() -> Void)? = nil
     ) -> some View {
-        Button {
-            TULIPHaptics.selection()
-            remember(name)
-            onSelect(name)
-        } label: {
-            HStack(spacing: TULIPSpacing.compact) {
-                VStack(alignment: .leading, spacing: TULIPSpacing.xSmall) {
-                    Text(name)
-                        .font(.body.weight(.medium))
-                        .foregroundStyle(TULIPPalette.text)
-                    if let sphere {
-                        Text(sphere)
-                            .font(.caption)
-                            .foregroundStyle(TULIPPalette.tertiaryText)
-                    }
-                }
-                Spacer()
-                Image(systemName: trailingIcon)
-                    .font(.caption.weight(.semibold))
-                    .foregroundStyle(TULIPPalette.tertiaryText)
+        if let onRemove {
+            TULIPSearchSwipeRow(
+                onSelect: {
+                    TULIPHaptics.selection()
+                    remember(name)
+                    onSelect(name)
+                },
+                onDelete: onRemove
+            ) { trailingIconOpacity in
+                searchRowContent(
+                    name: name,
+                    sphere: sphere,
+                    supportingText: supportingText,
+                    trailingIcon: trailingIcon,
+                    trailingIconOpacity: trailingIconOpacity
+                )
             }
-            .frame(minHeight: 54)
-            .contentShape(Rectangle())
+                .accessibilityLabel(name)
+                .accessibilityHint("Opens the topic inspector. Swipe left for delete.")
+                .accessibilityAction(named: "Remove \(name)") {
+                    onRemove()
+                }
+        } else {
+            Button {
+                TULIPHaptics.selection()
+                remember(name)
+                onSelect(name)
+            } label: {
+                searchRowContent(
+                    name: name,
+                    sphere: sphere,
+                    supportingText: supportingText,
+                    trailingIcon: trailingIcon
+                )
+            }
+            .buttonStyle(.plain)
+            .accessibilityHint("Opens the topic inspector")
         }
-        .buttonStyle(.plain)
-        .accessibilityHint("Opens the topic inspector")
+    }
+
+    private func searchRowContent(
+        name: String,
+        sphere: String?,
+        supportingText: String?,
+        trailingIcon: String,
+        trailingIconOpacity: CGFloat = 1
+    ) -> some View {
+        HStack(spacing: TULIPSpacing.compact) {
+            VStack(alignment: .leading, spacing: TULIPSpacing.xSmall) {
+                Text(name)
+                    .font(.body.weight(.medium))
+                    .foregroundStyle(TULIPPalette.text)
+                if let detail = supportingText ?? sphere {
+                    Text(detail)
+                        .font(.caption)
+                        .foregroundStyle(TULIPPalette.tertiaryText)
+                }
+            }
+            Spacer()
+            Image(systemName: trailingIcon)
+                .font(.caption.weight(.semibold))
+                .foregroundStyle(TULIPPalette.tertiaryText)
+                .opacity(trailingIconOpacity)
+        }
+        .frame(minHeight: 54)
+        .contentShape(Rectangle())
     }
 
     private func loadRecent() {
         recentNames = UserDefaults.standard.stringArray(forKey: "TULIPRecentSearches") ?? []
+        #if DEBUG
+        let arguments = ProcessInfo.processInfo.arguments
+        if query.isEmpty,
+           let index = arguments.firstIndex(of: "-TULIPSearchQuery"),
+           arguments.indices.contains(index + 1) {
+            query = arguments[index + 1]
+        }
+        #endif
+    }
+
+    @MainActor
+    private func updateIntelligence() async {
+        guard shouldInterpretQuery else {
+            intelligenceState = .idle
+            return
+        }
+
+        intelligenceState = .thinking
+        TULIPNaturalLanguageSearch.prewarmOnDeviceUnderstanding()
+        do {
+            try await Task.sleep(nanoseconds: 100_000_000)
+        } catch {
+            return
+        }
+        guard !Task.isCancelled else { return }
+
+        let activeQuery = query
+
+        let localResult = await TULIPNaturalLanguageSearch.localResult(
+            for: activeQuery,
+            nodes: nodes,
+            profiles: inspectorProfiles,
+            context: previousDiscoveryContext
+        )
+        guard !Task.isCancelled else { return }
+        if let localResult {
+            intelligenceState = .result(localResult)
+        }
+
+        #if canImport(FoundationModels)
+        if #available(iOS 26.0, *), TULIPNaturalLanguageSearch.canUseOnDeviceUnderstanding {
+            // When a quick graph match is available, give SwiftUI one frame to
+            // publish it. If it is not, ask the already-prewarmed on-device
+            // model immediately instead of building every semantic vector first.
+            if localResult != nil {
+                do {
+                    try await Task.sleep(nanoseconds: 120_000_000)
+                } catch {
+                    return
+                }
+            }
+            guard !Task.isCancelled else { return }
+            if let refined = await TULIPNaturalLanguageSearch.enhancedResult(
+               for: activeQuery,
+               nodes: nodes,
+               profiles: inspectorProfiles,
+               context: previousDiscoveryContext,
+               fallback: localResult
+            ), !Task.isCancelled {
+                intelligenceState = .result(refined)
+                return
+            }
+
+            if let localResult {
+                intelligenceState = .result(localResult)
+                return
+            }
+
+            // Foundation Models can occasionally decline or be interrupted.
+            // Only then pay the one-time embedding cost and recover locally.
+            await TULIPNaturalLanguageSearch.prepareSemanticIndex(
+                nodes: nodes,
+                profiles: inspectorProfiles
+            )
+            guard !Task.isCancelled else { return }
+            if let semanticResult = await TULIPNaturalLanguageSearch.localResult(
+                for: activeQuery,
+                nodes: nodes,
+                profiles: inspectorProfiles,
+                context: previousDiscoveryContext
+            ), !Task.isCancelled {
+                intelligenceState = .result(semanticResult)
+            } else if !Task.isCancelled {
+                intelligenceState = .noMatch
+            }
+            return
+        }
+        #endif
+
+        // Devices without Foundation Models still get the richer local
+        // semantic pass, followed by an immediate second retrieval.
+        await TULIPNaturalLanguageSearch.prepareSemanticIndex(
+            nodes: nodes,
+            profiles: inspectorProfiles
+        )
+        guard !Task.isCancelled else { return }
+        if let semanticResult = await TULIPNaturalLanguageSearch.localResult(
+            for: activeQuery,
+            nodes: nodes,
+            profiles: inspectorProfiles,
+            context: previousDiscoveryContext
+        ), !Task.isCancelled {
+            intelligenceState = .result(semanticResult)
+        } else if let localResult {
+            intelligenceState = .result(localResult)
+        } else if !Task.isCancelled {
+            intelligenceState = .noMatch
+        }
+    }
+
+    private func preserveDiscoveryContext() {
+        guard case .result(let result) = intelligenceState,
+              let context = result.conversationContext else { return }
+        previousDiscoveryContext = context
     }
 
     private func remember(_ name: String) {
@@ -308,6 +716,158 @@ struct TULIPSearchView: View {
         next.insert(name, at: 0)
         recentNames = Array(next.prefix(8))
         UserDefaults.standard.set(recentNames, forKey: "TULIPRecentSearches")
+    }
+
+    private func forget(_ name: String) {
+        TULIPHaptics.button()
+        recentNames.removeAll { $0 == name }
+        UserDefaults.standard.set(recentNames, forKey: "TULIPRecentSearches")
+    }
+
+    private func removeBookmark(_ name: String) {
+        TULIPHaptics.button()
+        onRemoveBookmark(name)
+    }
+}
+
+private struct TULIPSearchSwipeRow<Content: View>: View {
+    private enum DragIntent: Equatable {
+        case horizontal
+        case vertical
+    }
+
+    private let actionWidth: CGFloat = 76
+    private let onSelect: () -> Void
+    private let onDelete: () -> Void
+    private let content: (CGFloat) -> Content
+
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+    @State private var rowWidth: CGFloat = 1
+    @State private var offsetX: CGFloat = 0
+    @State private var settledOffsetX: CGFloat = 0
+    @State private var dragIntent: DragIntent?
+    @State private var isDeleting = false
+    @State private var suppressSelection = false
+
+    init(
+        onSelect: @escaping () -> Void,
+        onDelete: @escaping () -> Void,
+        @ViewBuilder content: @escaping (CGFloat) -> Content
+    ) {
+        self.onSelect = onSelect
+        self.onDelete = onDelete
+        self.content = content
+    }
+
+    var body: some View {
+        let revealedWidth = max(0, -offsetX)
+        let trailingIconOpacity = max(0, 1 - (revealedWidth / 12))
+
+        ZStack(alignment: .trailing) {
+            Capsule()
+                .fill(TULIPPalette.red)
+                .frame(width: max(actionWidth, revealedWidth), height: TULIPLayout.minimumTouchTarget)
+                .opacity(revealedWidth > 0 ? 1 : 0)
+
+            content(trailingIconOpacity)
+                .background(TULIPPalette.background)
+                .offset(x: offsetX)
+                .onTapGesture(perform: handleRowTap)
+
+            Button(role: .destructive, action: commitDelete) {
+                Image(systemName: "trash.fill")
+                    .font(.system(size: 17, weight: .bold))
+                    .foregroundStyle(.white)
+                    .frame(width: actionWidth, height: TULIPLayout.minimumTouchTarget)
+                    .background(TULIPPalette.red, in: Capsule())
+            }
+            .buttonStyle(.plain)
+            .opacity(min(1, revealedWidth / actionWidth))
+            .allowsHitTesting(offsetX <= -(actionWidth * 0.72) && !isDeleting)
+            .accessibilityHidden(offsetX > -(actionWidth * 0.72) || isDeleting)
+        }
+        .clipped()
+        .accessibilityAddTraits(.isButton)
+        .accessibilityAction { handleRowTap() }
+        .background {
+            GeometryReader { geometry in
+                Color.clear
+                    .onAppear { rowWidth = max(1, geometry.size.width) }
+                    .onChange(of: geometry.size.width) { _, width in
+                        rowWidth = max(1, width)
+                    }
+            }
+        }
+        .simultaneousGesture(swipeGesture)
+    }
+
+    private var swipeGesture: some Gesture {
+        DragGesture(minimumDistance: 10, coordinateSpace: .local)
+            .onChanged { value in
+                guard !isDeleting else { return }
+                if dragIntent == nil {
+                    let horizontal = abs(value.translation.width)
+                    let vertical = abs(value.translation.height)
+                    guard max(horizontal, vertical) >= 10 else { return }
+                    dragIntent = horizontal > vertical * 1.12 ? .horizontal : .vertical
+                }
+                guard dragIntent == .horizontal else { return }
+                suppressSelection = true
+                offsetX = min(0, max(-rowWidth, settledOffsetX + value.translation.width))
+            }
+            .onEnded { value in
+                defer {
+                    dragIntent = nil
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.08) {
+                        suppressSelection = false
+                    }
+                }
+                guard dragIntent == .horizontal, !isDeleting else { return }
+
+                let projectedOffset = min(
+                    0,
+                    max(-rowWidth, settledOffsetX + value.predictedEndTranslation.width)
+                )
+                if offsetX <= -(rowWidth * 0.62) || projectedOffset <= -(rowWidth * 0.78) {
+                    commitDelete()
+                } else if offsetX <= -(actionWidth * 0.5) || projectedOffset <= -(actionWidth * 0.82) {
+                    settle(at: -actionWidth)
+                } else {
+                    closeAction()
+                }
+            }
+    }
+
+    private func settle(at offset: CGFloat) {
+        withAnimation(TULIPMotion.animation(.quick, reduceMotion: reduceMotion)) {
+            offsetX = offset
+            settledOffsetX = offset
+        }
+    }
+
+    private func closeAction() {
+        settle(at: 0)
+    }
+
+    private func handleRowTap() {
+        guard !suppressSelection, !isDeleting else { return }
+        if offsetX < -1 {
+            closeAction()
+        } else {
+            onSelect()
+        }
+    }
+
+    private func commitDelete() {
+        guard !isDeleting else { return }
+        isDeleting = true
+        withAnimation(TULIPMotion.animation(.quick, reduceMotion: reduceMotion)) {
+            offsetX = -rowWidth
+            settledOffsetX = -rowWidth
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + (reduceMotion ? 0 : 0.16)) {
+            onDelete()
+        }
     }
 }
 
@@ -329,6 +889,10 @@ private struct InspectorRelationshipSelection: Identifiable {
     var id: String { "\(direction.rawValue)-\(relationship.id)" }
 }
 
+private struct TULIPPDFExportIssue: Identifiable {
+    let id = "pdf-export-failed"
+}
+
 struct TULIPInspectorView: View {
     let profile: TULIPInspectorProfile?
     let toggleRequest: Int
@@ -347,13 +911,7 @@ struct TULIPInspectorView: View {
     @State private var selectedRelationship: InspectorRelationshipSelection?
     @State private var openSelectedNodeExpanded = false
     @State private var sharePayload: TULIPSharePayload?
-    @State private var pdfExportFailed = false
-
-    // The expanded header reserves a 44pt action row while the collapsed
-    // header only shows its 4pt handle. Move the identity row by the inverse
-    // of that difference as the sheet settles so its global path stays
-    // continuous when the header switches presentation at either endpoint.
-    private let headerIdentityTravel: CGFloat = TULIPLayout.minimumTouchTarget - 4
+    @State private var pdfExportIssue: TULIPPDFExportIssue?
 
     var body: some View {
         if let profile {
@@ -364,41 +922,40 @@ struct TULIPInspectorView: View {
                 // row plus a clear gap above the overlaid navigation dock.
                 let collapsedPeek: CGFloat = 200
                 let collapsedOffset = max(0, sheetHeight - collapsedPeek)
+                let sheetOffset = min(
+                    collapsedOffset,
+                    max(0, (collapsedOffset * sheetPosition) + sheetDragY)
+                )
+                let collapseProgress = collapsedOffset > 0
+                    ? min(1, max(0, sheetOffset / collapsedOffset))
+                    : (isExpanded ? 0 : 1)
 
                 ZStack(alignment: .bottom) {
                     causalStage(profile)
                         .padding(.top, TULIPLayout.screenHeaderTopPadding)
                         .padding(.bottom, collapsedPeek - 8)
 
-                    if isExpanded {
-                        Text("Swipe down to explore connections")
-                            .font(.caption.weight(.semibold))
-                            .foregroundStyle(Color.white.opacity(0.72))
-                            .frame(maxWidth: .infinity)
-                            .frame(height: expandedTop)
-                            .background(Color.black)
-                            .frame(maxHeight: .infinity, alignment: .top)
-                            .allowsHitTesting(false)
-                            .transition(.opacity)
-                            .zIndex(2)
-                    }
+                    Text("Swipe down to explore connections")
+                        .font(.caption.weight(.semibold))
+                        .foregroundStyle(Color.white.opacity(0.72))
+                        .frame(maxWidth: .infinity)
+                        .frame(height: expandedTop)
+                        .background(Color.black)
+                        .frame(maxHeight: .infinity, alignment: .top)
+                        .opacity(1 - collapseProgress)
+                        .allowsHitTesting(false)
+                        .zIndex(2)
 
-                    if isExpanded {
-                        TULIPPalette.raisedSurface
-                            .frame(height: geometry.safeAreaInsets.bottom + 140)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
-                            .ignoresSafeArea(edges: .bottom)
-                            .allowsHitTesting(false)
-                    }
+                    TULIPPalette.raisedSurface
+                        .frame(height: geometry.safeAreaInsets.bottom + 140)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
+                        .ignoresSafeArea(edges: .bottom)
+                        .opacity(1 - collapseProgress)
+                        .allowsHitTesting(false)
 
-                    inspectorSheet(profile)
+                    inspectorSheet(profile, collapseProgress: collapseProgress)
                         .frame(height: sheetHeight)
-                        .offset(
-                            y: min(
-                                collapsedOffset,
-                                max(0, (collapsedOffset * sheetPosition) + sheetDragY)
-                            )
-                        )
+                        .offset(y: sheetOffset)
                 }
                 .contentShape(Rectangle())
                 .simultaneousGesture(
@@ -410,11 +967,11 @@ struct TULIPInspectorView: View {
                 .sheet(item: $sharePayload) { payload in
                     TULIPShareSheet(items: payload.items)
                 }
-                .alert("PDF could not be prepared", isPresented: $pdfExportFailed) {
-                    Button("OK", role: .cancel) { }
-                } message: {
-                    Text("Please try sharing the report again.")
-                }
+                .tulipItemAlert(
+                    item: $pdfExportIssue,
+                    title: "PDF could not be prepared",
+                    message: "Please try sharing the report again."
+                )
             }
             .background(.black)
             .onChange(of: profile.name) { _, _ in
@@ -441,9 +998,14 @@ struct TULIPInspectorView: View {
         }
     }
 
-    private func inspectorSheet(_ profile: TULIPInspectorProfile) -> some View {
-        VStack(spacing: TULIPSpacing.zero) {
-            inspectorHeader(profile)
+    private func inspectorSheet(
+        _ profile: TULIPInspectorProfile,
+        collapseProgress: CGFloat
+    ) -> some View {
+        let contentVisibility = max(0, 1 - collapseProgress)
+
+        return VStack(spacing: TULIPSpacing.zero) {
+            inspectorHeader(profile, collapseProgress: collapseProgress)
 
             ScrollView {
                 LazyVStack(alignment: .leading, spacing: TULIPLayout.sectionSpacing) {
@@ -461,6 +1023,7 @@ struct TULIPInspectorView: View {
                     recentEventsSection(profile.recentOccurrences)
                     measurementSection(profile.measurement)
                 }
+                .tulipSelectableEvidence()
                 .padding(.horizontal, TULIPLayout.screenHorizontalPadding)
                 .padding(.top, TULIPLayout.contentTopPadding)
                 .padding(.bottom, TULIPLayout.dockContentClearance)
@@ -468,13 +1031,15 @@ struct TULIPInspectorView: View {
             .id(profile.name)
             .modifier(
                 TULIPDockScrollTrackingModifier(
-                    isEnabled: isExpanded,
+                    isEnabled: collapseProgress < 0.01,
                     onCompactChange: onScrollDirection
                 )
             )
-            .scrollDisabled(!isExpanded)
-            .allowsHitTesting(isExpanded)
-            .opacity(isExpanded ? 1 : 0)
+            .scrollDisabled(collapseProgress >= 0.01)
+            .scrollBounceBehavior(.basedOnSize)
+            .allowsHitTesting(collapseProgress < 0.01)
+            .scaleEffect(0.92 + (0.08 * contentVisibility), anchor: .top)
+            .opacity(contentVisibility)
         }
         .background(TULIPPalette.raisedSurface)
         .clipShape(
@@ -488,107 +1053,129 @@ struct TULIPInspectorView: View {
         )
     }
 
-    private func inspectorHeader(_ profile: TULIPInspectorProfile) -> some View {
-        VStack(spacing: TULIPSpacing.small) {
+    private func inspectorHeader(
+        _ profile: TULIPInspectorProfile,
+        collapseProgress: CGFloat
+    ) -> some View {
+        let expandedProgress = max(0, 1 - collapseProgress)
+
+        return VStack(spacing: TULIPSpacing.small) {
             ZStack {
                 Capsule()
                     .fill(.white.opacity(0.32))
                     .frame(width: 48, height: 4)
 
-                if isExpanded {
-                    HStack(spacing: TULIPSpacing.zero) {
-                        Spacer()
-                        HStack(spacing: TULIPSpacing.xSmall) {
-                            Menu {
-                                Button {
-                                    TULIPHaptics.button()
-                                    sharePayload = TULIPSharePayload(
-                                        items: [
-                                            "Explore \(profile.name) in The TULIP Project.",
-                                            shareURL,
-                                        ]
-                                    )
-                                } label: {
-                                    Label("Share Link", systemImage: "link")
-                                }
-
-                                Button {
-                                    sharePDF(profile)
-                                } label: {
-                                    Label("Share PDF", systemImage: "doc.richtext")
-                                }
-                            } label: {
-                                Image(systemName: "square.and.arrow.up")
-                                    .font(.system(size: 17, weight: .semibold))
-                                    .foregroundStyle(TULIPPalette.text)
-                                    .frame(
-                                        width: TULIPLayout.minimumTouchTarget,
-                                        height: TULIPLayout.minimumTouchTarget
-                                    )
-                            }
-                            .buttonStyle(.plain)
-                            .contentShape(Rectangle())
-                            .accessibilityLabel("Share \(profile.name) as a link or PDF")
-
-                            TULIPIconButton(
-                                systemName: isBookmarked ? "bookmark.fill" : "bookmark",
-                                accessibilityLabel: isBookmarked ? "Remove bookmark" : "Bookmark \(profile.name)"
-                            ) {
+                HStack(spacing: TULIPSpacing.zero) {
+                    Spacer()
+                    HStack(spacing: TULIPSpacing.xSmall) {
+                        Menu {
+                            Button {
                                 TULIPHaptics.button()
-                                onToggleBookmark()
+                                sharePayload = TULIPSharePayload(
+                                    items: [
+                                        "Explore \(profile.name) in The TULIP Project.",
+                                        shareURL,
+                                    ]
+                                )
+                            } label: {
+                                Label("Share Link", systemImage: "link")
                             }
+
+                            Button {
+                                sharePDF(profile)
+                            } label: {
+                                Label("Share PDF", systemImage: "doc.richtext")
+                            }
+                        } label: {
+                            Image(systemName: "square.and.arrow.up")
+                                .font(.system(size: 17, weight: .semibold))
+                                .foregroundStyle(TULIPPalette.text)
+                                .frame(
+                                    width: TULIPLayout.minimumTouchTarget,
+                                    height: TULIPLayout.minimumTouchTarget
+                                )
+                        }
+                        .buttonStyle(.plain)
+                        .contentShape(Rectangle())
+                        .accessibilityLabel("Share \(profile.name) as a link or PDF")
+
+                        TULIPIconButton(
+                            systemName: isBookmarked ? "bookmark.fill" : "bookmark",
+                            accessibilityLabel: isBookmarked ? "Remove bookmark" : "Bookmark \(profile.name)"
+                        ) {
+                            TULIPHaptics.button()
+                            onToggleBookmark()
                         }
                     }
-                    .transition(.opacity)
                 }
+                .scaleEffect(0.88 + (0.12 * expandedProgress), anchor: .trailing)
+                .opacity(expandedProgress)
+                .allowsHitTesting(collapseProgress < 0.05)
+                .accessibilityHidden(collapseProgress >= 0.05)
             }
-            .frame(maxWidth: .infinity, minHeight: isExpanded ? TULIPLayout.minimumTouchTarget : 4)
+            .frame(maxWidth: .infinity)
+            .frame(height: 22 + ((TULIPLayout.minimumTouchTarget - 22) * expandedProgress))
             .padding(.horizontal, TULIPLayout.screenHorizontalPadding)
             .padding(.top, TULIPSpacing.small)
 
             HStack(alignment: .center, spacing: TULIPSpacing.compact) {
-                VStack(alignment: .leading, spacing: isExpanded ? 4 : 0) {
-                    if isExpanded {
-                        Label(profile.sphere.uppercased(), systemImage: sphereSymbol(profile.sphere))
-                            .font(.caption2.weight(.bold))
-                            .tracking(1.3)
-                            .foregroundStyle(TULIPPalette.blue)
-                    }
+                VStack(alignment: .leading, spacing: 4 * expandedProgress) {
+                    Label(profile.sphere.uppercased(), systemImage: sphereSymbol(profile.sphere))
+                        .font(.caption2.weight(.bold))
+                        .tracking(1.3)
+                        .foregroundStyle(TULIPPalette.blue)
+                        .scaleEffect(0.88 + (0.12 * expandedProgress), anchor: .leading)
+                        .opacity(expandedProgress)
+                        .frame(height: 16 * expandedProgress, alignment: .top)
+                        .clipped()
+
                     HStack(alignment: .firstTextBaseline, spacing: TULIPSpacing.small) {
-                        if !isExpanded {
-                            Image(systemName: sphereSymbol(profile.sphere))
-                                .font(.subheadline.weight(.semibold))
-                                .foregroundStyle(TULIPPalette.blue)
-                        }
+                        Image(systemName: sphereSymbol(profile.sphere))
+                            .font(.subheadline.weight(.semibold))
+                            .foregroundStyle(TULIPPalette.blue)
+                            .frame(width: 20 * collapseProgress)
+                            .scaleEffect(collapseProgress)
+                            .opacity(collapseProgress)
                         Text(profile.name)
                             .font(.title3.bold())
-                            .lineLimit(2)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.68)
+                            .allowsTightening(true)
                             .foregroundStyle(TULIPPalette.text)
                     }
-                    if isExpanded, let updated = profile.updated {
+                    if let updated = profile.updated {
                         Text(formattedUpdated(updated))
                             .font(.caption2)
                             .foregroundStyle(TULIPPalette.tertiaryText)
+                            .scaleEffect(0.88 + (0.12 * expandedProgress), anchor: .leading)
+                            .opacity(expandedProgress)
+                            .frame(height: 14 * expandedProgress, alignment: .top)
+                            .clipped()
                     }
                 }
                 Spacer(minLength: 8)
-                TULIPScoreBadge(score: profile.urgency ?? 0, band: profile.urgencyBand)
-                    .scaleEffect(isExpanded ? 1 : 0.72, anchor: .trailing)
+                TULIPScoreBadge(
+                    score: profile.urgency ?? 0,
+                    band: profile.urgencyBand,
+                    compactness: collapseProgress
+                )
             }
             .frame(minHeight: 60)
-            .offset(y: isExpanded ? -(headerIdentityTravel * sheetPosition) : 0)
             .padding(.horizontal, TULIPLayout.screenHorizontalPadding)
-            .padding(.bottom, isExpanded ? 14 : TULIPSpacing.compact)
+            .padding(
+                .bottom,
+                TULIPSpacing.compact + ((14 - TULIPSpacing.compact) * expandedProgress)
+            )
         }
         .frame(maxWidth: .infinity)
         .background(TULIPPalette.raisedSurface)
         .contentShape(Rectangle())
         .onTapGesture {
-            settleInspector(expanded: !isExpanded)
+            settleInspector(expanded: collapseProgress >= 0.5)
         }
         .accessibilityElement(children: .contain)
-        .accessibilityAction(named: isExpanded ? "Collapse inspector" : "Expand inspector") {
-            settleInspector(expanded: !isExpanded)
+        .accessibilityAction(named: collapseProgress < 0.5 ? "Collapse inspector" : "Expand inspector") {
+            settleInspector(expanded: collapseProgress >= 0.5)
         }
     }
 
@@ -598,7 +1185,7 @@ struct TULIPInspectorView: View {
             let fileURL = try TULIPInspectorPDFExporter.makePDF(for: profile)
             sharePayload = TULIPSharePayload(items: [fileURL])
         } catch {
-            pdfExportFailed = true
+            pdfExportIssue = TULIPPDFExportIssue()
         }
     }
 
@@ -764,7 +1351,6 @@ struct TULIPInspectorView: View {
     }
 
     private func finishInspectorCollapse() {
-        selectedRelationship = nil
         onScrollDirection(false)
     }
 
@@ -1319,15 +1905,42 @@ struct TULIPActivityView: View {
         )
     }
 
-    private var activityModeSelector: some View {
-        GeometryReader { geometry in
-            let options: [(id: Int, title: String, icon: String, color: Color)] = [
-                (id: 0, title: "Impact", icon: "chart.bar.fill", color: TULIPPalette.red),
-                (id: 1, title: "Actions", icon: "bolt.heart.fill", color: TULIPPalette.green),
-            ]
+    private var activityModeOptions: [(id: Int, title: String, icon: String, color: Color)] {
+        [
+            (id: 0, title: "Impact", icon: "chart.bar.fill", color: TULIPPalette.red),
+            (id: 1, title: "Actions", icon: "bolt.heart.fill", color: TULIPPalette.green),
+        ]
+    }
 
+    @ViewBuilder
+    private var activityModeSelector: some View {
+#if TULIP_IOS27_SDK
+        if #available(iOS 27.0, *) {
+            Picker("Activity view", selection: $mode) {
+                ForEach(activityModeOptions, id: \.id) { option in
+                    Label(option.title, systemImage: option.icon)
+                        .tag(option.id)
+                }
+            }
+            .pickerStyle(.tabs)
+            .tint(TULIPPalette.lavender)
+            .onChange(of: mode) { _, _ in
+                TULIPHaptics.selection()
+            }
+            .frame(maxWidth: .infinity)
+            .accessibilityLabel("Activity view")
+        } else {
+            legacyActivityModeSelector
+        }
+#else
+        legacyActivityModeSelector
+#endif
+    }
+
+    private var legacyActivityModeSelector: some View {
+        GeometryReader { geometry in
             HStack(spacing: TULIPSpacing.xSmall) {
-                ForEach(options, id: \.id) { option in
+                ForEach(activityModeOptions, id: \.id) { option in
                     Button {
                         TULIPHaptics.selection()
                         withAnimation(TULIPMotion.animation(.quick, reduceMotion: reduceMotion)) {
@@ -1642,6 +2255,7 @@ struct TULIPFootprintView: View {
                 onCompactChange: onScrollDirection
             )
         )
+        .scrollBounceBehavior(.basedOnSize)
     }
 
     private func choose(
@@ -1764,6 +2378,12 @@ private struct TULIPFootprintBubbleResultView: View {
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @State private var bubblesVisible = false
     @State private var scrollCueBounces = false
+    @State private var startOverProgress: CGFloat = 0
+    @State private var isStartingOver = false
+    @State private var isPressingStartOver = false
+    @State private var startOverHapticTask: Task<Void, Never>?
+
+    private let startOverHoldDuration: TimeInterval = 2
 
     private let compositionSlots: [FootprintBubbleCompositionSlot] = [
         .init(
@@ -1875,7 +2495,7 @@ private struct TULIPFootprintBubbleResultView: View {
                     .padding(.bottom, TULIPLayout.dockContentClearance)
                 }
                 .scrollIndicators(.hidden)
-                .scrollBounceBehavior(.always)
+                .scrollBounceBehavior(.basedOnSize)
                 .modifier(
                     TULIPDockScrollTrackingModifier(
                         isEnabled: true,
@@ -1941,7 +2561,9 @@ private struct TULIPFootprintBubbleResultView: View {
             }
 
             VStack(spacing: 0) {
-                TULIPScreenHeader("My Footprint")
+                TULIPScreenHeader("My Footprint") {
+                    startOverButton
+                }
                 Spacer(minLength: 0)
             }
 
@@ -2152,14 +2774,14 @@ private struct TULIPFootprintBubbleResultView: View {
             .scaleEffect(bubblesVisible ? 1 : 0.72)
             .opacity(bubblesVisible ? layout.opacity : 0)
 
-        if #available(iOS 26.0, *) {
-            bubble
-                .glassEffect(.clear, in: Circle())
-                .modifier(BubblePresentationModifier(layout: layout, bubblesVisible: bubblesVisible, reduceMotion: reduceMotion))
-        } else {
-            bubble
-                .modifier(BubblePresentationModifier(layout: layout, bubblesVisible: bubblesVisible, reduceMotion: reduceMotion))
-        }
+        bubble
+            .modifier(
+                BubblePresentationModifier(
+                    layout: layout,
+                    bubblesVisible: bubblesVisible,
+                    reduceMotion: reduceMotion
+                )
+            )
     }
 
     private struct BubblePresentationModifier: ViewModifier {
@@ -2224,29 +2846,113 @@ private struct TULIPFootprintBubbleResultView: View {
     }
 
     private var resultControls: some View {
-        HStack(spacing: TULIPSpacing.compact) {
-            Button {
-                TULIPHaptics.button()
-                onReview()
-            } label: {
-                Label("Review Answers", systemImage: "list.bullet.clipboard")
-                    .frame(maxWidth: .infinity, minHeight: TULIPLayout.primaryControlHeight)
-            }
-            .tulipSolidControl(in: Capsule())
-
-            Button {
-                TULIPHaptics.impact(.medium, intensity: 0.76)
-                onStartOver()
-            } label: {
-                Label("Start Over", systemImage: "arrow.counterclockwise")
-                    .frame(maxWidth: .infinity, minHeight: TULIPLayout.primaryControlHeight)
-            }
-            .tulipSolidControl(in: Capsule())
+        Button {
+            TULIPHaptics.button()
+            onReview()
+        } label: {
+            Label("Review Answers", systemImage: "list.bullet.clipboard")
+                .frame(maxWidth: .infinity, minHeight: TULIPLayout.primaryControlHeight)
         }
+        .tulipSolidControl(in: Capsule())
         .font(TULIPTypography.control)
         .foregroundStyle(TULIPPalette.text)
         .buttonStyle(.plain)
         .frame(minHeight: TULIPLayout.minimumTouchTarget)
+    }
+
+    private var startOverButton: some View {
+        startOverButtonLabel
+            .onLongPressGesture(
+                minimumDuration: startOverHoldDuration,
+                maximumDistance: 32,
+                pressing: updateStartOverPress,
+                perform: commitStartOver
+            )
+            .accessibilityAddTraits(.isButton)
+            .accessibilityLabel("Start Over")
+            .accessibilityHint("Press and hold for two seconds to remove your saved answers")
+            .accessibilityValue(isStartingOver ? "Starting over" : isPressingStartOver ? "Hold to continue" : "Ready")
+            .accessibilityAction {
+                commitStartOver()
+            }
+            .onDisappear {
+                startOverHapticTask?.cancel()
+            }
+    }
+
+    private var startOverButtonLabel: some View {
+        Label("Start Over", systemImage: "arrow.counterclockwise")
+            .font(TULIPTypography.control)
+            .foregroundStyle(Color.white)
+            .padding(.horizontal, TULIPSpacing.standard)
+            .frame(minHeight: TULIPLayout.minimumTouchTarget)
+            .background {
+                startOverFill
+            }
+            .overlay {
+                Capsule().stroke(Color.white.opacity(0.08), lineWidth: 0.6)
+            }
+            .contentShape(Capsule())
+    }
+
+    private var startOverFill: some View {
+        GeometryReader { geometry in
+            let fillWidth = geometry.size.width * startOverProgress
+            ZStack(alignment: .leading) {
+                Capsule().fill(TULIPPalette.surface)
+                Rectangle()
+                    .fill(TULIPPalette.blue)
+                    .frame(width: fillWidth)
+            }
+            .clipShape(Capsule())
+        }
+    }
+
+    private func updateStartOverPress(_ isPressing: Bool) {
+        guard !isStartingOver else { return }
+        if isPressing {
+            guard !isPressingStartOver else { return }
+            isPressingStartOver = true
+            startOverHapticTask?.cancel()
+            withAnimation(.linear(duration: startOverHoldDuration)) {
+                startOverProgress = 1
+            }
+            startOverHapticTask = Task { @MainActor in
+                var hapticProgress: CGFloat = 0
+                while !Task.isCancelled, hapticProgress < 1 {
+                    TULIPHaptics.startOverHold(progress: hapticProgress)
+                    let interval = 0.18 - (0.12 * Double(hapticProgress))
+                    do {
+                        try await Task.sleep(nanoseconds: UInt64(interval * 1_000_000_000))
+                    } catch {
+                        return
+                    }
+                    hapticProgress = min(
+                        1,
+                        hapticProgress + CGFloat(interval / startOverHoldDuration)
+                    )
+                }
+            }
+        } else {
+            isPressingStartOver = false
+            startOverHapticTask?.cancel()
+            startOverHapticTask = nil
+            guard !isStartingOver else { return }
+            withAnimation(TULIPMotion.animation(.quick, reduceMotion: reduceMotion)) {
+                startOverProgress = 0
+            }
+        }
+    }
+
+    private func commitStartOver() {
+        guard !isStartingOver else { return }
+        isStartingOver = true
+        isPressingStartOver = false
+        startOverHapticTask?.cancel()
+        startOverHapticTask = nil
+        startOverProgress = 1
+        TULIPHaptics.success()
+        onStartOver()
     }
 
     private func carbonValue(_ value: Double) -> String {
@@ -2684,6 +3390,7 @@ struct TULIPMenuView: View {
                 .containerRelativeFrame(.vertical, alignment: .center)
             }
             .scrollBounceBehavior(.always)
+            .tulipIOS27AdaptiveNavigationBar()
             .background(TULIPPalette.background)
             .navigationTitle("Menu")
             .navigationBarTitleDisplayMode(.inline)
@@ -2761,10 +3468,12 @@ private struct TULIPMenuDetailView: View {
                     .foregroundStyle(TULIPPalette.text)
                 content
             }
+            .tulipSelectableEvidence()
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(TULIPLayout.screenHorizontalPadding)
             .padding(.bottom, TULIPSpacing.xxLarge)
         }
+        .tulipIOS27AdaptiveNavigationBar()
     }
 
     @ViewBuilder

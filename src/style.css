@@ -4893,6 +4893,122 @@ svg {
   gap: 34px;
 }
 
+.footprint-bubble-section {
+  isolation: isolate;
+}
+
+.footprint-bubble-heading {
+  align-items: flex-end;
+}
+
+.footprint-bubble-stage {
+  position: relative;
+  width: min(720px, 100%);
+  aspect-ratio: 1;
+  margin: 2px auto 8px;
+  overflow: hidden;
+  container-type: inline-size;
+  border-radius: clamp(24px, 4vw, 44px);
+  background:
+    radial-gradient(circle at 50% 48%, rgba(93, 103, 130, 0.1), transparent 55%),
+    #000000;
+}
+
+.footprint-impact-bubble {
+  position: absolute;
+  left: var(--bubble-x);
+  top: var(--bubble-y);
+  z-index: var(--bubble-z);
+  display: grid;
+  place-items: center;
+  width: var(--bubble-size);
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.27);
+  border-radius: 50%;
+  opacity: var(--bubble-opacity);
+  background:
+    radial-gradient(circle at 30% 22%, rgba(255, 255, 255, 0.38) 0 3%, rgba(255, 255, 255, 0.12) 15%, transparent 37%),
+    linear-gradient(var(--bubble-angle), rgba(0, 0, 0, 0.92) 3%, rgba(var(--bubble-rgb), 0.22) 46%, rgba(var(--bubble-rgb), 0.96) 100%);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.34),
+    inset -14px -18px 34px rgba(0, 0, 0, 0.28),
+    inset 12px 14px 28px rgba(255, 255, 255, 0.08),
+    0 18px 48px rgba(var(--bubble-rgb), 0.14),
+    0 2px 10px rgba(0, 0, 0, 0.5);
+  -webkit-backdrop-filter: blur(13px) saturate(1.35) brightness(1.06);
+  backdrop-filter: blur(13px) saturate(1.35) brightness(1.06);
+  transform: translate(-50%, -50%) scale(1);
+  transform-origin: center;
+  animation: footprint-bubble-reveal 680ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--bubble-delay);
+  will-change: transform, opacity;
+}
+
+.footprint-impact-bubble::before,
+.footprint-impact-bubble::after {
+  content: "";
+  position: absolute;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.footprint-impact-bubble::before {
+  inset: 1px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.2), transparent 34%, rgba(255, 255, 255, 0.05) 64%, transparent);
+}
+
+.footprint-impact-bubble::after {
+  inset: 6%;
+  border-top: 1px solid rgba(255, 255, 255, 0.24);
+  filter: blur(0.25px);
+  opacity: 0.72;
+}
+
+.footprint-impact-bubble-label {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 2;
+  display: grid;
+  width: 76%;
+  gap: clamp(3px, 0.55cqw, 7px);
+  color: rgba(255, 255, 255, 0.95);
+  text-align: center;
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.78);
+  transform: translate(calc(-50% + var(--bubble-label-x)), calc(-50% + var(--bubble-label-y)));
+}
+
+.footprint-impact-bubble-label strong {
+  overflow: hidden;
+  font-size: clamp(10px, var(--bubble-title-size), 20px);
+  font-weight: var(--weight-regular);
+  line-height: 1.04;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.footprint-impact-bubble-label small {
+  font-size: clamp(9px, var(--bubble-value-size), 16px);
+  font-weight: var(--weight-regular);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+@keyframes footprint-bubble-reveal {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.72);
+  }
+
+  to {
+    opacity: var(--bubble-opacity);
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
 .footprint-story-section {
   display: grid;
   gap: 18px;
@@ -15498,6 +15614,17 @@ body:has(#app-container[data-view-mode="explore"]) .tulip-footer-bar .footer-nav
     flex: 1 1 calc(50% - 8px);
   }
 
+  .footprint-bubble-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .footprint-bubble-stage {
+    width: min(100%, 620px);
+    border-radius: 24px;
+  }
+
   #tulip-footer-bar #search-results {
     width: min(420px, calc(100vw - 20px));
   }
@@ -15506,6 +15633,12 @@ body:has(#app-container[data-view-mode="explore"]) .tulip-footer-bar .footer-nav
     align-items: flex-end;
     flex-direction: column;
     gap: 4px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footprint-impact-bubble {
+    animation: none;
   }
 }
 

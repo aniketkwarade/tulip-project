@@ -37,6 +37,14 @@ const PDF_GRAPH_RGB = Object.freeze({
 });
 
 const TREE_NODE_LABEL_EDGE_GAP = 24;
+const REPRESENTATIVE_CONNECTION_LIMIT = 6;
+const REPRESENTATIVE_DIRECTION_LIMIT = 3;
+const REPRESENTATIVE_CONTEXT_STOP_WORDS = new Set([
+  'about', 'after', 'and', 'before', 'being', 'cause', 'causes', 'could', 'does',
+  'effect', 'effects', 'for', 'from', 'have', 'into', 'more', 'much', 'over', 'that', 'the',
+  'their', 'then', 'there', 'these', 'they', 'this', 'through', 'what', 'when',
+  'where', 'which', 'with', 'would', 'your'
+]);
 
 export class TulipGraph {
   constructor(canvas, nodes, edges, onSelectNode, onHoverNode = null, onSelectEdge = null) {
@@ -115,6 +123,10 @@ export class TulipGraph {
     this.cachedTreeLayoutKey = null;
     this.analyzeRevealState = new Map();
     this.analyzeEdgeRankingCache = new Map();
+    this.selectionContext = '';
+    this.selectionContextTokens = new Set();
+    this.selectionContextVersion = 0;
+    this.selectionHistory = [];
     this.returningFromAnalyzeTree = false;
     this.sphereReturnMomentumUntil = 0;
     this.lastAnalyzeSelectedId = null;
@@ -125,6 +137,9 @@ export class TulipGraph {
       || window.matchMedia?.('(pointer: coarse)').matches === true;
     this.touchGesture = null;
     this.touchMomentum = null;
+    this.rotationMomentumHapticTravel = 0;
+    this.lastRotationHapticX = this.rotationX;
+    this.lastRotationHapticY = this.rotationY;
     this.lastPhysicsAt = performance.now();
     this.edgeIgnitionStartedAt = 0;
     this.edgeIgnitionNodeId = null;
@@ -724,6 +739,9 @@ export class TulipGraph {
       node &&
       this.selectedNode.id !== node.id;
 
+    if (Object.prototype.hasOwnProperty.call(options, 'selectionContext')) {
+      this.setSelectionContext(options.selectionContext);
+    }
     this.pendingFocusSwap = options.instantSwap === true || isChangingFocus;
     if (!this.selectedNode || !node || this.selectedNode.id !== node.id) {
       this.userCollapsedAnalyzeConnections = false;
@@ -784,6 +802,8 @@ export class TulipGraph {
       this.showEffects ? '1' : '0',
       this.showAllAnalyzeConnections ? '1' : '0',
       this.userCollapsedAnalyzeConnections ? '1' : '0',
+      this.selectionContextVersion,
+      (this.selectionHistory || []).slice(-4).map(node => node?.id || '').join('~'),
       selectedEdgeKey
     ].join('|');
   }
@@ -828,6 +848,243 @@ export class TulipGraph {
     return `${sourceId}->${targetId}`;
   }
 
+  tokenizeSelectionContext(value) {
+    return String(value || '')
+      .toLocaleLowerCase()
+      .normalize('NFKD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .match(/[a-z0-9]+/g)
+      ?.filter(token => token.length > 2 && !REPRESENTATIVE_CONTEXT_STOP_WORDS.has(token)) || [];
+  }
+
+  setSelectionContext(value = '') {
+    const normalized = String(value || '').trim();
+    const tokens = new Set(this.tokenizeSelectionContext(normalized));
+    const tokenKey = [...tokens].sort().join('|');
+    const previousKey = [...this.selectionContextTokens].sort().join('|');
+    if (normalized === this.selectionContext && tokenKey === previousKey) return;
+
+    this.selectionContext = normalized;
+    this.selectionContextTokens = tokens;
+    this.selectionContextVersion += 1;
+    this.invalidateAnalyzeCaches();
+  }
+
+  getEndpointNode(edge, direction) {
+    return this.nodeById.get(direction === 'incoming' ? edge.source : edge.target) || null;
+  }
+
+  getEvidenceConfidenceScore(edge) {
+    const confidence = String(
+      edge.evidence?.confidence ||
+      edge.confidence ||
+      edge.calibration?.confidence ||
+      ''
+    ).toLocaleLowerCase();
+    if (confidence.includes('high')) return 0.96;
+    if (confidence.includes('medium') || confidence.includes('moderate')) return 0.76;
+    if (confidence.includes('low')) return 0.48;
+
+    const sourceStatus = String(
+      edge.evidence?.source_status ||
+      edge.source_status ||
+      ''
+    ).toLocaleLowerCase();
+    if (sourceStatus.includes('curated') || sourceStatus.includes('reviewed')) return 0.9;
+    if (sourceStatus.includes('primary') || sourceStatus.includes('official')) return 0.86;
+
+    const topologyRule = String(edge.topology_rule || '').toLocaleLowerCase();
+    if (topologyRule === 'curated_base') return 0.94;
+    if (topologyRule.includes('promotion') || topologyRule.includes('rehabilitation')) return 0.84;
+    if (topologyRule.includes('expansion')) return 0.68;
+    if (topologyRule.includes('generated')) return 0.52;
+    return 0.72;
+  }
+
+  getFocusReadabilityScore(node, selectedNode = this.selectedNode) {
+    if (!node || !selectedNode) return 0.5;
+    const nodeVector = [node.sphereX, node.sphereY, node.sphereZ];
+    const selectedVector = [selectedNode.sphereX, selectedNode.sphereY, selectedNode.sphereZ];
+    const hasSphereVectors = [...nodeVector, ...selectedVector].every(Number.isFinite);
+
+    if (hasSphereVectors) {
+      const nodeLength = Math.hypot(...nodeVector);
+      const selectedLength = Math.hypot(...selectedVector);
+      if (nodeLength > 0 && selectedLength > 0) {
+        const dot = nodeVector.reduce(
+          (sum, value, index) => sum + value * selectedVector[index],
+          0
+        ) / (nodeLength * selectedLength);
+        // Selection centers the chosen point. Angular proximity therefore
+        // predicts the readable hemisphere better than its pre-focus z value.
+        return this.clamp01((dot + 1) / 2);
+      }
+    }
+
+    return this.clamp01(((node.z ?? 0) + 1) / 2);
+  }
+
+  getSelectionContextScore(node) {
+    if (!node || this.selectionContextTokens.size === 0) return 0;
+    const searchableTokens = new Set(this.tokenizeSelectionContext([
+      node.name,
+      node.description,
+      node.sphere,
+      node.discovery?.reason
+    ].filter(Boolean).join(' ')));
+    let matches = 0;
+    this.selectionContextTokens.forEach(token => {
+      if (searchableTokens.has(token)) matches += 1;
+    });
+    return this.clamp01(matches / Math.max(1, this.selectionContextTokens.size));
+  }
+
+  getJourneyRelevanceScore(node) {
+    if (!node || !Array.isArray(this.selectionHistory) || this.selectionHistory.length === 0) return 0;
+    const recent = this.selectionHistory.slice(-4);
+    if (recent.some(item => item?.id === node.id)) return 1;
+    const latest = recent.at(-1);
+    if (latest?.sphere && latest.sphere === node.sphere) return 0.42;
+    return recent.some(item => item?.sphere && item.sphere === node.sphere) ? 0.24 : 0;
+  }
+
+  getMechanismCluster(edge, direction, node = this.getEndpointNode(edge, direction)) {
+    const explicitCluster =
+      edge.mechanism_cluster ||
+      edge.mechanismFamily ||
+      edge.evidence?.mechanism_family ||
+      '';
+    const normalizedExplicit = String(explicitCluster).trim().toLocaleLowerCase();
+    if (normalizedExplicit && !['unknown', 'direct'].includes(normalizedExplicit)) {
+      return `${direction}:${normalizedExplicit}`;
+    }
+
+    // Topology rules often describe the review pipeline rather than a physical
+    // mechanism. Use them only when they explicitly identify a family/cohort;
+    // otherwise derive the cluster from the endpoint's actual topic name.
+    const topologyRule = String(edge.topology_rule || '').trim().toLocaleLowerCase();
+    const topologyNamesFamily =
+      !topologyRule.includes('missing_link') &&
+      /(family|expansion|batch|cohort|sector)/.test(topologyRule);
+    if (topologyNamesFamily) return `${direction}:${topologyRule}`;
+
+    const semanticTokens = this.tokenizeSelectionContext(node?.name || '')
+      .filter(token => !['change', 'decline', 'increase', 'loss', 'output', 'pressure', 'risk'].includes(token))
+      .slice(0, 2);
+    return `${direction}:${node?.sphere || 'unknown'}:${semanticTokens.join('-') || node?.id || 'relationship'}`;
+  }
+
+  isCrossSystemBridge(node, selectedNode = this.selectedNode) {
+    if (!node) return false;
+    if (selectedNode?.sphere && node.sphere && selectedNode.sphere !== node.sphere) return true;
+    if (node.discovery?.segment === 'bridge') return true;
+
+    const neighborSpheres = new Set();
+    (this.adjacentIdsById.get(node.id) || new Set()).forEach(id => {
+      const neighborSphere = this.nodeById.get(id)?.sphere;
+      if (neighborSphere && neighborSphere !== node.sphere) neighborSpheres.add(neighborSphere);
+    });
+    return neighborSpheres.size >= 2;
+  }
+
+  buildRepresentativeCandidate(edge, direction, selectedNode, feedbackNodeIds = new Set()) {
+    const node = this.getEndpointNode(edge, direction);
+    const influence = this.clamp01(Math.abs(Number(edge.influence) || 0));
+    const evidence = this.getEvidenceConfidenceScore(edge);
+    const discovery = this.clamp01((node?.discovery?.score || 0) / 100);
+    const context = this.getSelectionContextScore(node);
+    const readability = this.getFocusReadabilityScore(node, selectedNode);
+    const journey = this.getJourneyRelevanceScore(node);
+    const isBridge = this.isCrossSystemBridge(node, selectedNode);
+    const isFeedback = feedbackNodeIds.has(node?.id);
+    const score =
+      influence * 0.34 +
+      evidence * 0.2 +
+      discovery * 0.15 +
+      context * 0.13 +
+      readability * 0.1 +
+      journey * 0.08 +
+      (isBridge ? 0.04 : 0) +
+      (isFeedback ? 0.05 : 0);
+
+    return {
+      edge,
+      direction,
+      node,
+      nodeId: node?.id || (direction === 'incoming' ? edge.source : edge.target),
+      mechanismCluster: this.getMechanismCluster(edge, direction, node),
+      isBridge,
+      isFeedback,
+      components: { influence, evidence, discovery, context, readability, journey },
+      score
+    };
+  }
+
+  pickDiverseRepresentativeCandidates(candidates, count, sharedState = null) {
+    if (count <= 0 || candidates.length === 0) return [];
+    const state = sharedState || {
+      mechanismCounts: new Map(),
+      spheres: new Set(),
+      hasBridge: false,
+      hasFeedback: false
+    };
+    const remaining = [...candidates];
+    const selected = [];
+
+    while (selected.length < count && remaining.length > 0) {
+      remaining.sort((a, b) => {
+        const adjustedScore = candidate => {
+          const repeatedMechanism = state.mechanismCounts.get(candidate.mechanismCluster) || 0;
+          const sphereIsNew = candidate.node?.sphere && !state.spheres.has(candidate.node.sphere);
+          return candidate.score
+            - repeatedMechanism * 0.34
+            + (repeatedMechanism === 0 ? 0.11 : 0)
+            + (sphereIsNew ? 0.05 : 0)
+            + (!state.hasBridge && candidate.isBridge ? 0.07 : 0)
+            + (!state.hasFeedback && candidate.isFeedback ? 0.08 : 0);
+        };
+        const scoreDifference = adjustedScore(b) - adjustedScore(a);
+        if (Math.abs(scoreDifference) > 0.0001) return scoreDifference;
+        return (a.node?.name || '').localeCompare(b.node?.name || '');
+      });
+
+      const chosen = remaining.shift();
+      selected.push(chosen);
+      state.mechanismCounts.set(
+        chosen.mechanismCluster,
+        (state.mechanismCounts.get(chosen.mechanismCluster) || 0) + 1
+      );
+      if (chosen.node?.sphere) state.spheres.add(chosen.node.sphere);
+      state.hasBridge ||= chosen.isBridge;
+      state.hasFeedback ||= chosen.isFeedback;
+    }
+
+    return selected;
+  }
+
+  ensureRepresentativeBridgeOrFeedback(selectedCandidates, allCandidates) {
+    if (selectedCandidates.some(candidate => candidate.isBridge || candidate.isFeedback)) {
+      return selectedCandidates;
+    }
+
+    const specialCandidate = [...allCandidates]
+      .filter(candidate => candidate.isBridge || candidate.isFeedback)
+      .sort((a, b) => b.score - a.score)[0];
+    if (!specialCandidate || selectedCandidates.some(candidate => candidate.nodeId === specialCandidate.nodeId)) {
+      return selectedCandidates;
+    }
+
+    const replaceableIndex = selectedCandidates
+      .map((candidate, index) => ({ candidate, index }))
+      .filter(({ candidate }) => candidate.direction === specialCandidate.direction)
+      .sort((a, b) => a.candidate.score - b.candidate.score)[0]?.index;
+    if (replaceableIndex === undefined) return selectedCandidates;
+
+    const next = [...selectedCandidates];
+    next[replaceableIndex] = specialCandidate;
+    return next;
+  }
+
   rankAnalyzeEdges(edges, direction) {
     if (edges.length > 0) {
       const ownerId = direction === 'incoming' ? edges[0].target : edges[0].source;
@@ -864,64 +1121,65 @@ export class TulipGraph {
     return Math.abs(edge.influence || 0) * 100 + (node?.discovery?.score || 0);
   }
 
-  getCollapsedAnalyzeSelection(incomingEdges, outgoingEdges, maxConnections = 8) {
-    // Keep the selected node's causal story legible when one side is much
-    // smaller than the other. Ranking every edge in a single pool made a
-    // high-degree anchor such as Carbon Emission appear to have only a couple
-    // of effects: its many upstream drivers consumed the display budget. This
-    // is a presentation constraint, not an evidence constraint, so preserve
-    // the entire small side where it fits and use the remaining slots for the
-    // highest-ranked relationships on the large side.
+  getCollapsedAnalyzeSelection(
+    incomingEdges,
+    outgoingEdges,
+    maxConnections = REPRESENTATIVE_CONNECTION_LIMIT,
+    selectedNode = this.selectedNode,
+    feedbackNodeIds = new Set()
+  ) {
     const totalConnections = incomingEdges.length + outgoingEdges.length;
-    const preserveIncoming = incomingEdges.length > 0 && incomingEdges.length <= Math.floor(maxConnections / 2);
-    const preserveOutgoing = outgoingEdges.length > 0 && outgoingEdges.length <= Math.floor(maxConnections / 2);
-
     if (totalConnections <= maxConnections) {
       return {
         displayedDriverEdges: incomingEdges,
-        displayedImpactEdges: outgoingEdges
+        displayedImpactEdges: outgoingEdges,
+        representativeCandidates: []
       };
     }
 
-    if (preserveIncoming && !preserveOutgoing) {
-      return {
-        displayedDriverEdges: incomingEdges,
-        displayedImpactEdges: outgoingEdges.slice(0, Math.max(0, maxConnections - incomingEdges.length))
-      };
-    }
+    const hasBothDirections = incomingEdges.length > 0 && outgoingEdges.length > 0;
+    const perDirectionLimit = hasBothDirections
+      ? Math.min(REPRESENTATIVE_DIRECTION_LIMIT, Math.floor(maxConnections / 2))
+      : maxConnections;
+    const incomingTarget = Math.min(incomingEdges.length, perDirectionLimit);
+    const outgoingTarget = Math.min(outgoingEdges.length, perDirectionLimit);
+    const incomingCandidates = incomingEdges.map(edge =>
+      this.buildRepresentativeCandidate(edge, 'incoming', selectedNode, feedbackNodeIds)
+    );
+    const outgoingCandidates = outgoingEdges.map(edge =>
+      this.buildRepresentativeCandidate(edge, 'outgoing', selectedNode, feedbackNodeIds)
+    );
+    const sharedState = {
+      mechanismCounts: new Map(),
+      spheres: new Set(),
+      hasBridge: false,
+      hasFeedback: false
+    };
 
-    if (preserveOutgoing && !preserveIncoming) {
-      return {
-        displayedDriverEdges: incomingEdges.slice(0, Math.max(0, maxConnections - outgoingEdges.length)),
-        displayedImpactEdges: outgoingEdges
-      };
-    }
+    let representativeCandidates = [
+      ...this.pickDiverseRepresentativeCandidates(incomingCandidates, incomingTarget, sharedState),
+      ...this.pickDiverseRepresentativeCandidates(outgoingCandidates, outgoingTarget, sharedState)
+    ];
+    representativeCandidates = this.ensureRepresentativeBridgeOrFeedback(
+      representativeCandidates,
+      [...incomingCandidates, ...outgoingCandidates]
+    );
 
-    const rankedCandidates = [
-      ...incomingEdges.map(edge => ({
-        edge,
-        direction: 'incoming',
-        nodeId: edge.source,
-        score: this.getAnalyzeEdgeScore(edge, 'incoming')
-      })),
-      ...outgoingEdges.map(edge => ({
-        edge,
-        direction: 'outgoing',
-        nodeId: edge.target,
-        score: this.getAnalyzeEdgeScore(edge, 'outgoing')
-      }))
-    ].sort((a, b) => {
-      if (b.score !== a.score) return b.score - a.score;
-      const aNode = this.nodeById.get(a.nodeId);
-      const bNode = this.nodeById.get(b.nodeId);
-      return (aNode?.name || '').localeCompare(bNode?.name || '');
-    });
-
-    const keptNodeIds = new Set(rankedCandidates.slice(0, maxConnections).map(item => item.nodeId));
+    const driverNodeIds = new Set(
+      representativeCandidates
+        .filter(candidate => candidate.direction === 'incoming')
+        .map(candidate => candidate.nodeId)
+    );
+    const impactNodeIds = new Set(
+      representativeCandidates
+        .filter(candidate => candidate.direction === 'outgoing')
+        .map(candidate => candidate.nodeId)
+    );
 
     return {
-      displayedDriverEdges: incomingEdges.filter(edge => keptNodeIds.has(edge.source)),
-      displayedImpactEdges: outgoingEdges.filter(edge => keptNodeIds.has(edge.target))
+      displayedDriverEdges: incomingEdges.filter(edge => driverNodeIds.has(edge.source)),
+      displayedImpactEdges: outgoingEdges.filter(edge => impactNodeIds.has(edge.target)),
+      representativeCandidates
     };
   }
 
@@ -930,7 +1188,7 @@ export class TulipGraph {
       ...incomingEdges.map(edge => edge.source),
       ...outgoingEdges.map(edge => edge.target)
     ]);
-    return directIds.size <= 8;
+    return directIds.size <= REPRESENTATIVE_CONNECTION_LIMIT;
   }
 
   findAnalyzeLoop(selectedId, preferredNodeIds = []) {
@@ -985,13 +1243,25 @@ export class TulipGraph {
       (this.outgoingEdgesById.get(selectedId) || []).filter(isCausalRelationship),
       'outgoing'
     );
+    const allDirectIds = [
+      ...incomingEdges.map(edge => edge.source),
+      ...outgoingEdges.map(edge => edge.target)
+    ];
+    const loop = this.findAnalyzeLoop(selectedId, allDirectIds);
+    const feedbackNodeIds = new Set(loop?.nodeIds || []);
     // Keep the default view legible and frame-safe. Larger neighborhoods retain
     // every reviewed relationship behind the explicit Expand control.
     const autoExpandAllConnections = this.shouldAutoExpandAnalyzeConnections(incomingEdges, outgoingEdges);
     const displayAllConnections = this.showAllAnalyzeConnections || (autoExpandAllConnections && !this.userCollapsedAnalyzeConnections);
     const collapsedSelection = displayAllConnections
-      ? { displayedDriverEdges: incomingEdges, displayedImpactEdges: outgoingEdges }
-      : this.getCollapsedAnalyzeSelection(incomingEdges, outgoingEdges, 8);
+      ? { displayedDriverEdges: incomingEdges, displayedImpactEdges: outgoingEdges, representativeCandidates: [] }
+      : this.getCollapsedAnalyzeSelection(
+          incomingEdges,
+          outgoingEdges,
+          REPRESENTATIVE_CONNECTION_LIMIT,
+          selectedNode,
+          feedbackNodeIds
+        );
 
     let displayedDriverEdges = this.showTriggers === false
       ? []
@@ -1037,8 +1307,6 @@ export class TulipGraph {
     const displayedImpactIds = displayedImpactEdges.map(edge => edge.target);
     const displayedDriverIdSet = new Set(displayedDriverIds);
     const displayedImpactIdSet = new Set(displayedImpactIds);
-    const preferredLoopIds = [...displayedDriverIds, ...displayedImpactIds];
-    const loop = this.findAnalyzeLoop(selectedId, preferredLoopIds);
     const loopNodeIds = loop
       ? loop.nodeIds.filter(id => !displayedDriverIdSet.has(id) && !displayedImpactIdSet.has(id))
       : [];
@@ -1071,6 +1339,15 @@ export class TulipGraph {
       contextIds,
       visibleIds,
       emphasizedEdgeKeys,
+      representativeSelection: collapsedSelection.representativeCandidates.map(candidate => ({
+        nodeId: candidate.nodeId,
+        direction: candidate.direction,
+        mechanismCluster: candidate.mechanismCluster,
+        isBridge: candidate.isBridge,
+        isFeedback: candidate.isFeedback,
+        score: candidate.score,
+        components: candidate.components
+      })),
       autoExpandAllConnections,
       displayAllConnections,
       hiddenConnectionCount: Math.max(0, incomingEdges.length - displayedDriverIds.length) + Math.max(0, outgoingEdges.length - displayedImpactIds.length),
@@ -2331,6 +2608,9 @@ export class TulipGraph {
         this.isDraggingGlobe = true;
         this.dragStart = { x: e.clientX, y: e.clientY };
         this.rotationStart = { x: this.rotationX, y: this.rotationY };
+        this.lastRotationHapticX = this.rotationX;
+        this.lastRotationHapticY = this.rotationY;
+        this.rotationMomentumHapticTravel = 0;
       }
     });
 
@@ -2362,7 +2642,16 @@ export class TulipGraph {
         const dy = (e.clientY - this.dragStart.y) / scale;
         const zoomFactor = Math.max(0.1, this.camera.zoom);
         this.rotationY = this.rotationStart.y + (dx * 0.005) / zoomFactor;
-        this.rotationX = Math.max(-Math.PI / 2.2, Math.min(Math.PI / 2.2, this.rotationStart.x - (dy * 0.005) / zoomFactor));
+        this.rotationX = this.rotationStart.x - (dy * 0.005) / zoomFactor;
+        const rotationDelta = Math.hypot(
+          this.rotationX - this.lastRotationHapticX,
+          this.rotationY - this.lastRotationHapticY
+        );
+        if (rotationDelta >= 0.1) {
+          this.emitNativeHaptic('rotation', 58);
+          this.lastRotationHapticX = this.rotationX;
+          this.lastRotationHapticY = this.rotationY;
+        }
         return;
       }
 
@@ -2468,6 +2757,7 @@ export class TulipGraph {
       this.requestRender();
       this.targetCamera = null;
       this.touchMomentum = null;
+      this.rotationMomentumHapticTravel = 0;
       this.hoveredNode = null;
       this.hoveredEdge = null;
       this.canvasRect = this.canvas.getBoundingClientRect();
@@ -2586,16 +2876,13 @@ export class TulipGraph {
         this.needsCentering = false;
         const zoomFactor = Math.max(0.1, this.camera.zoom);
         this.rotationY = this.touchGesture.rotationStart.y + (dx * 0.005) / zoomFactor;
-        this.rotationX = Math.max(
-          -Math.PI / 2.2,
-          Math.min(Math.PI / 2.2, this.touchGesture.rotationStart.x - (dy * 0.005) / zoomFactor)
-        );
+        this.rotationX = this.touchGesture.rotationStart.x - (dy * 0.005) / zoomFactor;
         const rotationDelta = Math.hypot(
           this.rotationX - this.touchGesture.lastHapticRotationX,
           this.rotationY - this.touchGesture.lastHapticRotationY
         );
-        if (rotationDelta >= 0.18) {
-          this.emitNativeHaptic('selection', 95);
+        if (rotationDelta >= 0.1) {
+          this.emitNativeHaptic('rotation', 58);
           this.touchGesture.lastHapticRotationX = this.rotationX;
           this.touchGesture.lastHapticRotationY = this.rotationY;
         }
@@ -2628,6 +2915,7 @@ export class TulipGraph {
             x: Math.max(-0.08, Math.min(0.08, -(velocityY * frameMs * 0.005) / zoomFactor)),
             y: Math.max(-0.08, Math.min(0.08, (velocityX * frameMs * 0.005) / zoomFactor))
           };
+          this.rotationMomentumHapticTravel = 0;
         }
       }
       if (!gesture || gesture.pinching || gesture.moved) {
@@ -2666,16 +2954,23 @@ export class TulipGraph {
         this.camera.y += this.touchMomentum.y * frameScale;
       } else {
         this.needsCentering = false;
-        this.rotationX = Math.max(
-          -Math.PI / 2.2,
-          Math.min(Math.PI / 2.2, this.rotationX + this.touchMomentum.x * frameScale)
-        );
-        this.rotationY += this.touchMomentum.y * frameScale;
+        const rotationStepX = this.touchMomentum.x * frameScale;
+        const rotationStepY = this.touchMomentum.y * frameScale;
+        this.rotationX += rotationStepX;
+        this.rotationY += rotationStepY;
+        this.rotationMomentumHapticTravel += Math.hypot(rotationStepX, rotationStepY);
+        const momentumSpeed = Math.hypot(this.touchMomentum.x, this.touchMomentum.y);
+        const hapticTravelStep = momentumSpeed >= 0.04 ? 0.09 : 0.13;
+        if (this.rotationMomentumHapticTravel >= hapticTravelStep) {
+          this.emitNativeHaptic('rotationMomentum', 72);
+          this.rotationMomentumHapticTravel = 0;
+        }
       }
       this.touchMomentum.x *= friction;
       this.touchMomentum.y *= friction;
       if (Math.hypot(this.touchMomentum.x, this.touchMomentum.y) < 0.0012) {
         this.touchMomentum = null;
+        this.rotationMomentumHapticTravel = 0;
       }
     }
     const instantFocusSwap = this.pendingFocusSwap === true;
@@ -2735,6 +3030,10 @@ export class TulipGraph {
       const dist = Math.sqrt(node.sphereX * node.sphereX + node.sphereZ * node.sphereZ);
       const targetRotY = -Math.atan2(-node.sphereX, node.sphereZ);
       const targetRotX = Math.atan2(node.sphereY, dist);
+      const deltaRotX = Math.atan2(
+        Math.sin(targetRotX - this.rotationX),
+        Math.cos(targetRotX - this.rotationX)
+      );
       const deltaRotY = Math.atan2(
         Math.sin(targetRotY - this.rotationY),
         Math.cos(targetRotY - this.rotationY)
@@ -2742,7 +3041,7 @@ export class TulipGraph {
 
       // Lerp rotation smoothly
       const rotLerpFactor = this.isFocusMode ? 0.075 : 0.067;
-      this.rotationX += (targetRotX - this.rotationX) * rotLerpFactor;
+      this.rotationX += deltaRotX * rotLerpFactor;
       this.rotationY += deltaRotY * rotLerpFactor;
 
       // Also dynamically adjust camera framing during centering in network mode
@@ -2752,13 +3051,10 @@ export class TulipGraph {
 
       // Stop centering once close enough
       const centeringThreshold = this.isFocusMode ? 0.05 : 0.01;
-      if (Math.abs(targetRotX - this.rotationX) < centeringThreshold && Math.abs(targetRotY - this.rotationY) < centeringThreshold) {
+      if (Math.abs(deltaRotX) < centeringThreshold && Math.abs(deltaRotY) < centeringThreshold) {
         this.needsCentering = false;
       }
     }
-
-    // Clamp X rotation to prevent flipping upside down
-    this.rotationX = Math.max(-Math.PI / 2.2, Math.min(Math.PI / 2.2, this.rotationX));
 
     // Update layout transition factor (0.0 = globe, 1.0 = tree)
     const targetTransition = (this.layoutMode === 'tree' && this.isFocusMode && this.selectedNode) ? 1.0 : 0.0;
@@ -4277,6 +4573,9 @@ export class TulipGraph {
     }
     this.isFocusMode = false;
     this.selectedNode = null;
+    this.selectionContext = '';
+    this.selectionContextTokens = new Set();
+    this.selectionContextVersion += 1;
     this.hoveredNode = null;
     this.selectedEdge = null;
     this.hoveredEdge = null;
