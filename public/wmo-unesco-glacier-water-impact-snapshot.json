@@ -1,5 +1,5 @@
 {
-  "version": "wmo_sgwr_2024_unesco_wwdr_2025_glacier_water_v1",
+  "version": "wmo_sgwr_2024_unesco_wwdr_2025_glacier_water_v2_context_only",
   "captured_at": "2026-07-31T18:12:40.094Z",
   "source": {
     "id": "wmo_unesco_global_glacier_water_assessments",
@@ -21,7 +21,8 @@
     {
       "node_id": "glacier_meltwater_dependency",
       "metric_id": "glacier_runoff_share_of_water_supply",
-      "measurement_role": "global_glacier_mass_loss_and_glacier_snow_melt_dependence_assessment"
+      "measurement_role": "global_glacier_mass_loss_and_glacier_snow_melt_dependence_assessment",
+      "supports_direct_metric": false
     }
   ],
   "cadence": "Annual WMO water-resource report and UN World Water Development Report release review.",
@@ -52,5 +53,10 @@
     "future glacier-loss projections",
     "regional Colombian loss rate",
     "mountain-water users not explicitly tied to glacier or snow melt"
-  ]
+  ],
+  "measurement_ready_metric_ids": [],
+  "reference_only_metric_ids": [
+    "glacier_runoff_share_of_water_supply"
+  ],
+  "measurement_readiness_note": "Glacier mass and glacier-plus-snow dependence are supporting context; the snapshot has no glacier-only seasonal runoff-share numerator, supply denominator or volume observation."
 }

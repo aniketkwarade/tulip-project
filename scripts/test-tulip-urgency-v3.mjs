@@ -194,12 +194,8 @@ assert.doesNotMatch(html, /Hypothetical sensitivity score|Evidence sensitivity/)
 assert.doesNotMatch(main, /slider-forcing|slider-damage|slider-drivenness|slider-fallout/);
 assert.doesNotMatch(main, /climate_forcing:\s*cf/);
 assert.doesNotMatch(main, /calculateTulipSensitivity|renderTulipSensitivityExplorer|urgencySensitivityState/);
-assert.match(main, /urgency-band-tooltip/);
-assert.match(main, /label\.tabIndex = 0/);
-assert.match(html, /aria-label="TULIP urgency bands"/);
-assert.match(html, /TULIP Urgency summarizes how immediate and severe an issue is on a 1–10 scale\./);
-assert.doesNotMatch(html, /urgency-band-range-table/);
-assert.doesNotMatch(main, /urgency-band-range-table/);
+assert.doesNotMatch(html, /Legacy urgency|legacy editorial urgency index/);
+assert.match(html, /data-score-method-copy/);
 assert.match(main, /tulipUrgencyHistoricalV2Preview[\s\S]*tulip-urgency-v3-scores\.json/);
 assert.match(server, /'\/api\/tulip\/urgency-scores': 'tulip-urgency-v3-scores\.json'/);
 assert.match(server, /'\/api\/tulip\/urgency-v2-scores': 'tulip-urgency-scores\.json'/);

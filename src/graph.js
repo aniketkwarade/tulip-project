@@ -1,5 +1,5 @@
 /**
- * THE TULIP PROJECT - Canvas Graph Engine (Minimalist Realignment)
+ * Tulip Earth - Canvas Graph Engine (Minimalist Realignment)
  * Renders nodes as large, flat lavender/gold/grey bubbles matching the reference design.
  */
 
@@ -46,6 +46,36 @@ const REPRESENTATIVE_CONTEXT_STOP_WORDS = new Set([
   'where', 'which', 'with', 'would', 'your'
 ]);
 
+const sphereQuaternion = (x, y, z, angle) => {
+  const half = angle / 2;
+  const sine = Math.sin(half);
+  return [Math.cos(half), x * sine, y * sine, z * sine];
+};
+
+const multiplySphereQuaternions = (a, b) => [
+  a[0] * b[0] - a[1] * b[1] - a[2] * b[2] - a[3] * b[3],
+  a[0] * b[1] + a[1] * b[0] + a[2] * b[3] - a[3] * b[2],
+  a[0] * b[2] - a[1] * b[3] + a[2] * b[0] + a[3] * b[1],
+  a[0] * b[3] + a[1] * b[2] - a[2] * b[1] + a[3] * b[0]
+];
+
+const normalizeSphereQuaternion = quaternion => {
+  const length = Math.hypot(...quaternion) || 1;
+  return quaternion.map(component => component / length);
+};
+
+const rotateSphereVector = (quaternion, x, y, z) => {
+  const [w, qx, qy, qz] = quaternion;
+  const tx = 2 * (qy * z - qz * y);
+  const ty = 2 * (qz * x - qx * z);
+  const tz = 2 * (qx * y - qy * x);
+  return [
+    x + w * tx + qy * tz - qz * ty,
+    y + w * ty + qz * tx - qx * tz,
+    z + w * tz + qx * ty - qy * tx
+  ];
+};
+
 export class TulipGraph {
   constructor(canvas, nodes, edges, onSelectNode, onHoverNode = null, onSelectEdge = null) {
     this.canvas = canvas;
@@ -53,6 +83,8 @@ export class TulipGraph {
     this.nodes = nodes;
     this.edges = edges;
     this.onSelectNode = onSelectNode;
+    // Hosts that use a second tap to confirm a focused node can opt in.
+    this.onReselectNode = null;
     this.onHoverNode = onHoverNode;
     this.onSelectEdge = onSelectEdge;
     this.nodeById = new Map();
@@ -63,8 +95,9 @@ export class TulipGraph {
     this.adjacentIdsById = new Map();
     this.nodeDegreeById = new Map();
 
-    // Camera transform (zoomed in slightly to make bubbles feel large)
-    this.camera = { x: 0, y: 0, zoom: 0.7296 };
+    // Start and reset 15% closer than the previous 0.6 Explore view.
+    this.defaultZoom = 0.6 * 1.15;
+    this.camera = { x: 0, y: 0, zoom: this.defaultZoom };
     this.dragStart = { x: 0, y: 0 };
     this.cameraStart = { x: 0, y: 0 };
     this.isDraggingGlobe = false;
@@ -80,18 +113,24 @@ export class TulipGraph {
     this.draggedNode = null;
     this.hoverTimeout = null;
     this.leaveTimeout = null;
-    this.defaultZoom = 0.7296;
     this.targetCamera = null;
 
     // 3D Globe parameters
     this.rotationX = 0.2; // initial tilt
     this.rotationY = 0.0;
+    this.freeSphereRotation = false;
+    this.freeRotationOrientation = null;
+    this.freeRotationIdleAxis = [0, -1, 0];
     this.rotationStart = { x: 0, y: 0 };
     this.sphereRadius = 240;
     this.axisTiltAngle = 0.0;
     this.axisTiltPhase = 0.0;
     this.ambientHighlights = [];
     this.ambientHighlightSet = new Set();
+    this.ambientLineRhythm = false;
+    this.ambientLineRhythmEdges = new Set();
+    this.ambientLineRhythmStartedAt = 0;
+    this.ambientLineRhythmNextAt = performance.now() + 3000;
     this.mobileHighlightedLabelsAsPills = false;
     this.isFocusMode = false;
     this.needsCentering = false;
@@ -137,6 +176,7 @@ export class TulipGraph {
       || window.matchMedia?.('(pointer: coarse)').matches === true;
     this.touchGesture = null;
     this.touchMomentum = null;
+    this.mouseDragMotion = null;
     this.rotationMomentumHapticTravel = 0;
     this.lastRotationHapticX = this.rotationX;
     this.lastRotationHapticY = this.rotationY;
@@ -540,7 +580,7 @@ export class TulipGraph {
         bridgeSignal * 0.05
       );
 
-      const urgency = this.clamp01(((node.tulipScore ?? node.score?.baseline ?? 1) - 1) / 9);
+      const urgency = Number.isFinite(node.tulipScore) ? this.clamp01((node.tulipScore - 1) / 9) : 0.5;
       const discoveryScore = this.clamp01(
         novelty * 0.32 +
         consequence * 0.24 +
@@ -648,6 +688,7 @@ export class TulipGraph {
   }
 
   resizeCanvas() {
+    const previousView = this.isFocusMode && !this.needsCentering && !this.targetCamera && this.width > 1 && this.height > 1 ? this.captureViewState() : null;
     const rect = this.canvas.parentElement.getBoundingClientRect();
     const scaleVal = document.documentElement.style.getPropertyValue('--ui-scale');
     const parsedScale = scaleVal ? parseFloat(scaleVal) : 1;
@@ -696,13 +737,9 @@ export class TulipGraph {
 
     if (this.isFocusMode) {
       this.invalidateAnalyzeCaches();
-      this.zoomToFit();
+      if (!previousView || !this.restoreViewState(previousView)) this.zoomToFit();
     } else {
       const verticalOffset = window.innerWidth <= 950 ? 26 : 45;
-      if (window.innerWidth <= 950) {
-        this.camera.zoom = 1.3;
-        this.defaultZoom = 1.3;
-      }
       this.camera.x = this.width / 2;
       this.camera.y = this.height / 2 + verticalOffset;
 
@@ -763,22 +800,100 @@ export class TulipGraph {
     this.requestRender();
   }
 
-  setSelectedEdge(edge) {
-    const previousEdgeKey = this.selectedEdge
-      ? (this.selectedEdge.edgeKey || this.buildEdgeKey(this.selectedEdge.source, this.selectedEdge.target))
-      : '';
-    const nextEdge = edge || null;
-    const nextEdgeKey = nextEdge
-      ? (nextEdge.edgeKey || this.buildEdgeKey(nextEdge.source, nextEdge.target))
-      : '';
+  captureViewState() {
+    return {
+      nodeId: this.selectedNode?.id, layoutMode: this.layoutMode,
+      camera: { ...this.camera }, width: this.width, height: this.height,
+      rotationX: this.rotationX, rotationY: this.rotationY, axisTiltPhase: this.axisTiltPhase,
+      freeRotationOrientation: this.freeRotationOrientation ? [...this.freeRotationOrientation] : null,
+      freeRotationIdleAxis: [...this.freeRotationIdleAxis],
+      selectedEdgeKey: this.selectedEdge ? `${this.selectedEdge.source}->${this.selectedEdge.target}` : null,
+      showAllAnalyzeConnections: this.showAllAnalyzeConnections,
+      userCollapsedAnalyzeConnections: this.userCollapsedAnalyzeConnections,
+      showIncomingInfluences: this.showIncomingInfluences,
+      showOutgoingInfluences: this.showOutgoingInfluences,
+      selectionContext: this.selectionContext
+    };
+  }
 
-    this.selectedEdge = nextEdge;
+  restoreViewState(state) {
+    if (!state || state.nodeId !== this.selectedNode?.id ||
+        !['tree', 'network'].includes(state.layoutMode) ||
+        ![state.camera?.x, state.camera?.y, state.camera?.zoom, state.rotationX, state.rotationY,
+          state.width, state.height].every(Number.isFinite) ||
+        state.width < 1 || state.height < 1 || state.width > 1e6 || state.height > 1e6 || state.camera.zoom < .01 || state.camera.zoom > 10 ||
+        Math.abs(state.camera.x) > 1e6 || Math.abs(state.camera.y) > 1e6) return false;
+    this.layoutMode = state.layoutMode;
+    this.layoutTransition = state.layoutMode === 'tree' ? 1 : 0;
+    this.rotationX = state.rotationX;
+    this.rotationY = state.rotationY;
+    this.freeRotationOrientation = Array.isArray(state.freeRotationOrientation)
+      && state.freeRotationOrientation.length === 4
+      && state.freeRotationOrientation.every(Number.isFinite)
+      ? normalizeSphereQuaternion(state.freeRotationOrientation)
+      : null;
+    if (Array.isArray(state.freeRotationIdleAxis) && state.freeRotationIdleAxis.length === 3
+        && state.freeRotationIdleAxis.every(Number.isFinite)) {
+      const length = Math.hypot(...state.freeRotationIdleAxis);
+      if (length > 0) this.freeRotationIdleAxis = state.freeRotationIdleAxis.map(value => value / length);
+    }
+    if (Number.isFinite(state.axisTiltPhase)) this.axisTiltPhase = state.axisTiltPhase;
+    for (const key of ['showAllAnalyzeConnections', 'userCollapsedAnalyzeConnections', 'showIncomingInfluences', 'showOutgoingInfluences']) {
+      if (typeof state[key] === 'boolean') this[key] = state[key];
+    }
+    this.setSelectionContext(typeof state.selectionContext === 'string' ? state.selectionContext : '');
+    this.selectedEdge = this.edges.find(edge => `${edge.source}->${edge.target}` === state.selectedEdgeKey &&
+      (edge.source === state.nodeId || edge.target === state.nodeId)) || null;
+    const ratio = Math.min(this.width, this.height) / Math.min(state.width, state.height);
+    this.camera = {
+      x: this.width / 2 + (state.camera.x - state.width / 2) * ratio,
+      y: this.height / 2 + (state.camera.y - state.height / 2) * ratio,
+      zoom: state.camera.zoom * (state.layoutMode === 'network' ? 1 : ratio)
+    };
+    this.targetCamera = null;
+    this.needsCentering = false;
+    this.touchMomentum = null;
+    this.analyzeRevealState.clear();
+    this.lastAnalyzeSelectedId = this.selectedNode.id;
+    this.lastShowAllAnalyzeConnections = this.showAllAnalyzeConnections;
+    this.edgeIgnitionStartedAt = 0;
+    this.edgeIgnitionNodeId = null;
+    this.pendingFocusSwap = true;
+    this.invalidateAnalyzeCaches();
+    this.requestRender();
+    return true;
+  }
 
-    if (previousEdgeKey !== nextEdgeKey) {
-      this.invalidateAnalyzeCaches();
-      if (this.isFocusMode) {
-        this.zoomToFit();
-      }
+  revealEdge(edge) {
+    if (!edge || !this.isFocusMode) return;
+    const positions = this.layoutMode === 'tree' ? this.getTreeLayout(this.selectedNode)?.positions : null;
+    const points = [edge.source, edge.target].map(id => positions?.[id] || this.nodeById.get(id)).filter(Boolean);
+    if (points.length !== 2) return;
+    const gutter = 40;
+    let screen = points.map(point => this.worldToScreen(point.x, point.y));
+    let minX = Math.min(...screen.map(p => p.x)), maxX = Math.max(...screen.map(p => p.x));
+    let minY = Math.min(...screen.map(p => p.y)), maxY = Math.max(...screen.map(p => p.y));
+    const ratio = Math.min(1, Math.max(1, this.width - 2 * gutter) / Math.max(1, maxX - minX),
+      Math.max(1, this.height - 2 * gutter) / Math.max(1, maxY - minY));
+    if (ratio < 1) {
+      this.camera.zoom *= ratio;
+      screen = points.map(point => this.worldToScreen(point.x, point.y));
+      minX = Math.min(...screen.map(p => p.x)); maxX = Math.max(...screen.map(p => p.x));
+      minY = Math.min(...screen.map(p => p.y)); maxY = Math.max(...screen.map(p => p.y));
+    }
+    this.camera.x += minX < gutter ? gutter - minX : maxX > this.width - gutter ? this.width - gutter - maxX : 0;
+    this.camera.y += minY < gutter ? gutter - minY : maxY > this.height - gutter ? this.height - gutter - maxY : 0;
+  }
+
+  setSelectedEdge(edge, { reveal = true } = {}) {
+    const previous = this.selectedEdge;
+    this.selectedEdge = edge || null;
+    if (previous !== this.selectedEdge) this.invalidateAnalyzeCaches();
+    // Inspecting a relationship must not restart the topic's camera animation.
+    if (this.selectedEdge) {
+      this.targetCamera = null;
+      this.needsCentering = false;
+      if (reveal) this.revealEdge(this.selectedEdge);
     }
     this.requestRender();
   }
@@ -2567,12 +2682,22 @@ export class TulipGraph {
       const pos = getMousePos(e);
       const clickedNode = this.findBestHitNode(pos);
       const clickedEdge = !clickedNode ? this.findHitEdge(pos) : null;
+      if (this.interactionGuard && !this.interactionGuard({ type: clickedNode ? 'node' : clickedEdge ? 'edge' : 'rotate', node: clickedNode, edge: clickedEdge })) return;
       this.backgroundPress = null;
       this.suppressBackgroundClick = false;
 
       this.targetCamera = null;
+      this.touchMomentum = null;
+      this.mouseDragMotion = null;
 
       if (clickedNode) {
+        if (this.isFocusMode && clickedNode.id === this.selectedNode?.id) {
+          this.onReselectNode?.(clickedNode, {
+            motionOrigin: { x: e.clientX, y: e.clientY }
+          });
+          return;
+        }
+        this.onBeforeSelectNode?.(clickedNode);
         this.isFocusMode = true;
         this.needsCentering = true;
         this.selectNode(clickedNode, { instantSwap: true });
@@ -2587,7 +2712,6 @@ export class TulipGraph {
       }
 
       if (clickedEdge) {
-        this.selectedEdge = clickedEdge;
         this.hoveredEdge = clickedEdge;
         this.onSelectEdge?.(clickedEdge);
         return;
@@ -2608,6 +2732,9 @@ export class TulipGraph {
         this.isDraggingGlobe = true;
         this.dragStart = { x: e.clientX, y: e.clientY };
         this.rotationStart = { x: this.rotationX, y: this.rotationY };
+        this.mouseDragMotion = { x: e.clientX, y: e.clientY, time: performance.now(), velocityX: 0, velocityY: 0 };
+        this.freeDragLast = { x: e.clientX, y: e.clientY };
+        this.ensureFreeRotationOrientation();
         this.lastRotationHapticX = this.rotationX;
         this.lastRotationHapticY = this.rotationY;
         this.rotationMomentumHapticTravel = 0;
@@ -2638,9 +2765,26 @@ export class TulipGraph {
 
       if (this.isDraggingGlobe) {
         this.needsCentering = false; // user interaction overrides auto-centering
+        if (this.mouseDragMotion) {
+          const now = performance.now();
+          const elapsed = Math.max(1, now - this.mouseDragMotion.time);
+          const velocityX = (e.clientX - this.mouseDragMotion.x) / elapsed;
+          const velocityY = (e.clientY - this.mouseDragMotion.y) / elapsed;
+          this.mouseDragMotion.velocityX = this.mouseDragMotion.velocityX * 0.62 + velocityX * 0.38;
+          this.mouseDragMotion.velocityY = this.mouseDragMotion.velocityY * 0.62 + velocityY * 0.38;
+          this.mouseDragMotion.x = e.clientX;
+          this.mouseDragMotion.y = e.clientY;
+          this.mouseDragMotion.time = now;
+        }
         const dx = (e.clientX - this.dragStart.x) / scale;
         const dy = (e.clientY - this.dragStart.y) / scale;
         const zoomFactor = Math.max(0.1, this.camera.zoom);
+        if (this.freeSphereRotation && this.freeDragLast) {
+          const stepX = (e.clientX - this.freeDragLast.x) / scale;
+          const stepY = (e.clientY - this.freeDragLast.y) / scale;
+          this.rotateFreeSphere(-(stepY * 0.005) / zoomFactor, (stepX * 0.005) / zoomFactor, true);
+          this.freeDragLast = { x: e.clientX, y: e.clientY };
+        }
         this.rotationY = this.rotationStart.y + (dx * 0.005) / zoomFactor;
         this.rotationX = this.rotationStart.x - (dy * 0.005) / zoomFactor;
         const rotationDelta = Math.hypot(
@@ -2691,7 +2835,24 @@ export class TulipGraph {
         && this.backgroundPress?.hadSelectedEdge
         && !this.backgroundPress.moved
       );
+      if (this.isDraggingGlobe && Math.hypot(this.rotationX - this.rotationStart.x, this.rotationY - this.rotationStart.y) > 0.04) {
+        this.canvas.dispatchEvent(new CustomEvent('tulip:graphrotate', { bubbles: true }));
+        this.autoRotatePausedUntil = Date.now() + 1200;
+        const motion = this.mouseDragMotion;
+        if (motion && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          const releaseDecay = Math.max(0, 1 - (performance.now() - motion.time) / 140);
+          const zoomFactor = Math.max(0.1, this.camera.zoom);
+          this.touchMomentum = {
+            kind: 'sphere',
+            x: Math.max(-0.08, Math.min(0.08, -(motion.velocityY * releaseDecay * (1000 / 60) * 0.005) / zoomFactor)),
+            y: Math.max(-0.08, Math.min(0.08, (motion.velocityX * releaseDecay * (1000 / 60) * 0.005) / zoomFactor))
+          };
+        }
+      }
       this.isDraggingGlobe = false;
+      this.mouseDragMotion = null;
+      this.freeDragLast = null;
+      if (this.freeSphereRotation) this.hoveredNode = null;
       this.isPanningCamera = false;
       this.backgroundPress = null;
       if (shouldClearSelectedEdge) {
@@ -2851,8 +3012,11 @@ export class TulipGraph {
       const touch = event.touches[0];
       const now = performance.now();
       const sampleElapsed = Math.max(1, now - this.touchGesture.lastTime);
+      const previousTouchX = this.touchGesture.lastX;
+      const previousTouchY = this.touchGesture.lastY;
       const instantaneousVelocityX = (touch.clientX - this.touchGesture.lastX) / sampleElapsed;
       const instantaneousVelocityY = (touch.clientY - this.touchGesture.lastY) / sampleElapsed;
+      const wasMoving = this.touchGesture.moved;
       this.touchGesture.velocityX = this.touchGesture.velocityX * 0.72 + instantaneousVelocityX * 0.28;
       this.touchGesture.velocityY = this.touchGesture.velocityY * 0.72 + instantaneousVelocityY * 0.28;
       this.touchGesture.lastX = touch.clientX;
@@ -2875,6 +3039,11 @@ export class TulipGraph {
         this.isDraggingGlobe = true;
         this.needsCentering = false;
         const zoomFactor = Math.max(0.1, this.camera.zoom);
+        if (this.freeSphereRotation) {
+          const stepX = wasMoving ? touch.clientX - previousTouchX : dx;
+          const stepY = wasMoving ? touch.clientY - previousTouchY : dy;
+          this.rotateFreeSphere(-(stepY * 0.005) / zoomFactor, (stepX * 0.005) / zoomFactor, true);
+        }
         this.rotationY = this.touchGesture.rotationStart.y + (dx * 0.005) / zoomFactor;
         this.rotationX = this.touchGesture.rotationStart.x - (dy * 0.005) / zoomFactor;
         const rotationDelta = Math.hypot(
@@ -2896,6 +3065,7 @@ export class TulipGraph {
       this.isDraggingGlobe = false;
       this.isPanningCamera = false;
       if (gesture?.moved && !gesture.pinching) {
+        this.autoRotatePausedUntil = this.freeSphereRotation ? 0 : Date.now() + 1200;
         const scale = this.uiScale || 1;
         const frameMs = 1000 / 60;
         const releaseAge = performance.now() - gesture.lastTime;
@@ -2924,6 +3094,13 @@ export class TulipGraph {
       }
 
       if (gesture.touchedNode) {
+        if (this.isFocusMode && gesture.touchedNode.id === this.selectedNode?.id) {
+          this.onReselectNode?.(gesture.touchedNode, {
+            motionOrigin: { x: gesture.startX, y: gesture.startY }
+          });
+          return;
+        }
+        this.onBeforeSelectNode?.(gesture.touchedNode);
         this.isFocusMode = true;
         this.needsCentering = true;
         this.selectNode(gesture.touchedNode, { instantSwap: true });
@@ -2932,7 +3109,6 @@ export class TulipGraph {
         });
         this.zoomToFit();
       } else if (gesture.touchedEdge) {
-        this.selectedEdge = gesture.touchedEdge;
         this.onSelectEdge?.(gesture.touchedEdge);
       } else if (gesture.hadSelectedEdge) {
         this.onSelectEdge?.(null);
@@ -2941,6 +3117,40 @@ export class TulipGraph {
     };
     this.canvas.addEventListener('touchend', endTouch, { passive: true });
     this.canvas.addEventListener('touchcancel', endTouch, { passive: true });
+  }
+
+  ensureFreeRotationOrientation() {
+    if (!this.freeSphereRotation || this.freeRotationOrientation) return;
+    const phase = this.axisTiltPhase || 0;
+    const tiltZ = 0.35 + 0.2 * Math.sin(phase) + 0.05 * Math.sin(phase * 0.47);
+    const tiltX = 0.18 * Math.cos(phase * 0.83) + 0.05 * Math.sin(phase * 1.31);
+    this.freeRotationOrientation = normalizeSphereQuaternion(
+      multiplySphereQuaternions(
+        multiplySphereQuaternions(
+          sphereQuaternion(1, 0, 0, this.rotationX + tiltX),
+          sphereQuaternion(0, 0, 1, tiltZ)
+        ),
+        sphereQuaternion(0, 1, 0, -this.rotationY)
+      )
+    );
+  }
+
+  rotateFreeSphere(pitch, yaw, rememberIdleAxis = false) {
+    if (!this.freeSphereRotation || (!pitch && !yaw)) return;
+    this.ensureFreeRotationOrientation();
+    const delta = multiplySphereQuaternions(
+      sphereQuaternion(1, 0, 0, pitch),
+      sphereQuaternion(0, 1, 0, yaw)
+    );
+    if (rememberIdleAxis) {
+      const axisLength = Math.hypot(delta[1], delta[2], delta[3]);
+      if (axisLength > 1e-6) {
+        this.freeRotationIdleAxis = [delta[1] / axisLength, delta[2] / axisLength, delta[3] / axisLength];
+      }
+    }
+    this.freeRotationOrientation = normalizeSphereQuaternion(
+      multiplySphereQuaternions(delta, this.freeRotationOrientation)
+    );
   }
 
   updatePhysics() {
@@ -2956,6 +3166,7 @@ export class TulipGraph {
         this.needsCentering = false;
         const rotationStepX = this.touchMomentum.x * frameScale;
         const rotationStepY = this.touchMomentum.y * frameScale;
+        if (this.freeRotationOrientation) this.rotateFreeSphere(rotationStepX, rotationStepY);
         this.rotationX += rotationStepX;
         this.rotationY += rotationStepY;
         this.rotationMomentumHapticTravel += Math.hypot(rotationStepX, rotationStepY);
@@ -2994,6 +3205,7 @@ export class TulipGraph {
       !this.selectedNode &&
       !this.hoveredNode &&
       !this.isDraggingGlobe &&
+      !this.touchMomentum &&
       Date.now() >= this.autoRotatePausedUntil
     ) {
       const hasReturnMomentum = (
@@ -3019,7 +3231,15 @@ export class TulipGraph {
       const autoRotateSpeedMultiplier = Number.isFinite(Number(this.mobileAutoRotateSpeedMultiplier))
         ? Number(this.mobileAutoRotateSpeedMultiplier)
         : 1;
-      this.rotationY += 0.00155 * speedMultiplier * transitionFactor * autoRotateSpeedMultiplier;
+      const autoRotation = 0.00155 * speedMultiplier * transitionFactor * autoRotateSpeedMultiplier;
+      if (this.freeRotationOrientation) {
+        const [axisX, axisY, axisZ] = this.freeRotationIdleAxis;
+        const step = sphereQuaternion(axisX, axisY, axisZ, autoRotation);
+        this.freeRotationOrientation = normalizeSphereQuaternion(
+          multiplySphereQuaternions(step, this.freeRotationOrientation)
+        );
+      }
+      this.rotationY += autoRotation;
       this.axisTiltPhase = (this.axisTiltPhase || 0) + 0.001 * speedMultiplier * transitionFactor * autoRotateSpeedMultiplier;
     }
 
@@ -3027,22 +3247,39 @@ export class TulipGraph {
     const centeringNode = this.isFocusMode ? this.selectedNode : (this.hoveredNode || this.selectedNode);
     if (this.needsCentering && centeringNode && !this.isDraggingGlobe) {
       const node = centeringNode;
-      const dist = Math.sqrt(node.sphereX * node.sphereX + node.sphereZ * node.sphereZ);
-      const targetRotY = -Math.atan2(-node.sphereX, node.sphereZ);
-      const targetRotX = Math.atan2(node.sphereY, dist);
-      const deltaRotX = Math.atan2(
-        Math.sin(targetRotX - this.rotationX),
-        Math.cos(targetRotX - this.rotationX)
-      );
-      const deltaRotY = Math.atan2(
-        Math.sin(targetRotY - this.rotationY),
-        Math.cos(targetRotY - this.rotationY)
-      );
-
-      // Lerp rotation smoothly
       const rotLerpFactor = this.isFocusMode ? 0.075 : 0.067;
-      this.rotationX += deltaRotX * rotLerpFactor;
-      this.rotationY += deltaRotY * rotLerpFactor;
+      let centeringError;
+      if (this.freeSphereRotation && this.freeRotationOrientation) {
+        const [x, y, z] = rotateSphereVector(
+          this.freeRotationOrientation, node.sphereX, node.sphereY, node.sphereZ
+        );
+        const length = Math.hypot(x, y, z) || 1;
+        centeringError = Math.acos(Math.max(-1, Math.min(1, z / length)));
+        const axisLength = Math.hypot(x, y);
+        if (centeringError > 0.0001) {
+          const step = axisLength > 0.0001
+            ? sphereQuaternion(y / axisLength, -x / axisLength, 0, centeringError * rotLerpFactor)
+            : sphereQuaternion(1, 0, 0, centeringError * rotLerpFactor);
+          this.freeRotationOrientation = normalizeSphereQuaternion(
+            multiplySphereQuaternions(step, this.freeRotationOrientation)
+          );
+        }
+      } else {
+        const dist = Math.sqrt(node.sphereX * node.sphereX + node.sphereZ * node.sphereZ);
+        const targetRotY = -Math.atan2(-node.sphereX, node.sphereZ);
+        const targetRotX = Math.atan2(node.sphereY, dist);
+        const deltaRotX = Math.atan2(
+          Math.sin(targetRotX - this.rotationX),
+          Math.cos(targetRotX - this.rotationX)
+        );
+        const deltaRotY = Math.atan2(
+          Math.sin(targetRotY - this.rotationY),
+          Math.cos(targetRotY - this.rotationY)
+        );
+        this.rotationX += deltaRotX * rotLerpFactor;
+        this.rotationY += deltaRotY * rotLerpFactor;
+        centeringError = Math.max(Math.abs(deltaRotX), Math.abs(deltaRotY));
+      }
 
       // Also dynamically adjust camera framing during centering in network mode
       if (this.layoutMode === 'network') {
@@ -3051,7 +3288,7 @@ export class TulipGraph {
 
       // Stop centering once close enough
       const centeringThreshold = this.isFocusMode ? 0.05 : 0.01;
-      if (Math.abs(deltaRotX) < centeringThreshold && Math.abs(deltaRotY) < centeringThreshold) {
+      if (centeringError < centeringThreshold) {
         this.needsCentering = false;
       }
     }
@@ -3112,9 +3349,14 @@ export class TulipGraph {
       const uz = ty * sinTX + tz * cosTX;
 
       // 4. Rotate X (viewer's pitch/angle looking at the sphere)
-      const rx = ux;
-      const ry = uy * cosX - uz * sinX;
-      const rz = uy * sinX + uz * cosX;
+      let rx = ux;
+      let ry = uy * cosX - uz * sinX;
+      let rz = uy * sinX + uz * cosX;
+      if (this.freeSphereRotation && this.freeRotationOrientation) {
+        [rx, ry, rz] = rotateSphereVector(
+          this.freeRotationOrientation, node.sphereX, node.sphereY, node.sphereZ
+        );
+      }
 
       // Center of globe is at (0, 0) in world space
       const netX = rx * this.sphereRadius;
@@ -3350,7 +3592,7 @@ export class TulipGraph {
         }
 
         const desiredHighlightCount = Math.min(targetHighlightCount, activeHighlights.length + eligiblePool.length);
-        const getNodeAmbientPriorityScore = node => node.tulipScore ?? node.score?.baseline ?? 0;
+        const getNodeAmbientPriorityScore = node => node.tulipScore ?? 0;
         const additionsAllowedThisCycle =
           activeHighlights.length === 0
             ? desiredHighlightCount
@@ -3506,6 +3748,13 @@ export class TulipGraph {
     }
   }
 
+  rotateForAccessibility(direction) {
+    if (this.isFocusMode) return;
+    this.rotationY += Math.sign(direction) * 0.2;
+    this.requestRender();
+    this.canvas.dispatchEvent(new CustomEvent('tulip:graphrotate', { bubbles: true }));
+  }
+
   requestRender() {
     this.settledFrameCount = 0;
     if (!this.isRunning || document.hidden || this.animationFrameId !== null) return;
@@ -3533,7 +3782,18 @@ export class TulipGraph {
 
     this.updatePhysics();
     this.updateCamera();
-    this.draw();
+    try {
+      this.draw();
+      if (this.canvas.dataset.firstFrameRendered !== 'true') {
+        this.canvas.dataset.firstFrameRendered = 'true';
+        this.canvas.dispatchEvent(new CustomEvent('tulip:graphready', { bubbles: true }));
+      }
+    } catch (error) {
+      this.canvas.dataset.renderError = 'true';
+      this.pause();
+      console.error('Graph rendering failed', error);
+      return;
+    }
 
     if (this.edgeIgnitionStartedAt && timestamp - this.edgeIgnitionStartedAt > 1120) {
       this.edgeIgnitionStartedAt = 0;
@@ -3729,6 +3989,62 @@ export class TulipGraph {
     this.ctx.restore();
   }
 
+  getAmbientLineRhythm(now) {
+    const canAnimate = this.ambientLineRhythm
+      && !this.isFocusMode
+      && !this.selectedNode
+      && !this.hoveredNode
+      && !this.isDraggingGlobe
+      && !this.isPanningCamera
+      && !this.touchMomentum
+      && this.activeFilter === 'all'
+      && document.documentElement.dataset.tulipReduceMotion !== 'true'
+      && !window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
+    if (!canAnimate) {
+      this.ambientLineRhythmEdges.clear();
+      this.ambientLineRhythmStartedAt = 0;
+      this.ambientLineRhythmNextAt = now + 7500;
+      return null;
+    }
+
+    if (now >= this.ambientLineRhythmNextAt) {
+      this.ambientLineRhythmNextAt = now + 7500;
+      this.ambientLineRhythmEdges.clear();
+      const anchors = this.ambientHighlights;
+      const first = Math.floor(now / 7500) % Math.max(1, anchors.length);
+      let bestConnected = [];
+      for (let offset = 0; offset < anchors.length; offset += 1) {
+        const nodeId = anchors[(first + offset) % anchors.length];
+        const connected = [
+          ...(this.incomingEdgesById.get(nodeId) || []),
+          ...(this.outgoingEdgesById.get(nodeId) || [])
+        ].filter(edge => {
+          const source = edge.sourceNode;
+          const target = edge.targetNode;
+          return source && target && source.z > -0.25 && target.z > -0.25
+            && (edge.visualOpacity || 0) > 0.1;
+        }).sort((a, b) =>
+          (b.sourceNode.z + b.targetNode.z) - (a.sourceNode.z + a.targetNode.z)
+        );
+        if (connected.length > bestConnected.length) bestConnected = connected;
+        if (connected.length < 6) continue;
+        bestConnected = connected;
+        break;
+      }
+      if (bestConnected.length >= 4) {
+        bestConnected.slice(0, 8).forEach(edge => this.ambientLineRhythmEdges.add(edge.edgeKey));
+        this.ambientLineRhythmStartedAt = now;
+      }
+    }
+
+    const progress = (now - this.ambientLineRhythmStartedAt) / 2700;
+    if (!this.ambientLineRhythmEdges.size || progress < 0 || progress >= 1) return null;
+    return {
+      edges: this.ambientLineRhythmEdges,
+      strength: Math.sin(Math.PI * progress) ** 2
+    };
+  }
+
   drawEdges() {
     const ctx = this.ctx;
     const isPhoneViewport = window.innerWidth <= 950;
@@ -3748,6 +4064,9 @@ export class TulipGraph {
     ctx.globalAlpha = phoneLineOpacityMultiplier;
     const selectedEdge = this.selectedEdge;
     const hoveredEdge = this.hoveredEdge;
+    const ambientLineRhythm = this.ambientLineRhythm
+      ? this.getAmbientLineRhythm(performance.now())
+      : null;
     const configuredAmbientEdgeStride = Math.max(1, Math.floor(Number(this.mobileAmbientEdgeStride) || 1));
     const ambientEdgeStride = isPhoneViewport && (
       this.isDraggingGlobe || this.isPanningCamera || this.touchMomentum
@@ -3768,7 +4087,8 @@ export class TulipGraph {
         !this.isFocusMode &&
         !this.selectedNode &&
         !this.hoveredNode &&
-        edgeIndex % ambientEdgeStride !== 0
+        edgeIndex % ambientEdgeStride !== 0 &&
+        !ambientLineRhythm?.edges.has(edge.edgeKey)
       ) return;
 
       const source = edge.sourceNode;
@@ -3782,13 +4102,22 @@ export class TulipGraph {
       }
 
       const avgZ = (source.z + target.z) / 2;
-      const depthAlpha = Math.max(0.0, 0.5 + 0.5 * avgZ);
+      const refinedAmbient = this.refinedExploreEdges && !this.isFocusMode && !this.exportBackgroundColor;
+      const nativeAmbientDepth = this.ambientLineRhythm && !this.isFocusMode && !this.selectedNode;
+      // Keep every connection, but let front-facing threads carry the sphere.
+      const baseDepth = Math.max(0, 0.5 + 0.5 * avgZ);
+      const depthAlpha = nativeAmbientDepth
+        ? Math.min(1, Math.pow(baseDepth, 1.7) * 1.15)
+        : refinedAmbient ? Math.pow(baseDepth, 1.4) * 0.9 : baseDepth;
       if (depthAlpha <= 0.02) return;
       ctx.beginPath();
 
       // Color mapping based on trigger/effect direction in study mode
       const activeSelectedId = this.selectedNode ? this.selectedNode.id : null;
       const edgeKey = edge.edgeKey;
+      const ambientLineLift = ambientLineRhythm?.edges.has(edgeKey)
+        ? 1 + 2.3 * ambientLineRhythm.strength
+        : 1 - 0.22 * (ambientLineRhythm?.strength || 0);
       const isSelectedEdge = selectedEdge === edge;
       const isHoveredEdge = hoveredEdge === edge;
       const effectiveOpacity = selectedEdge && !isSelectedEdge ? opacity * 0.42 : opacity;
@@ -3857,11 +4186,11 @@ export class TulipGraph {
       } else {
         const type = this.getNodeColorType(source);
         if (type === 'lavender') {
-          color = `rgba(235, 175, 235, ${0.58 * depthAlpha * effectiveOpacity})`;
+          color = `rgba(235, 175, 235, ${0.58 * depthAlpha * effectiveOpacity * ambientLineLift})`;
         } else if (type === 'gold') {
-          color = `rgba(255, 200, 120, ${0.58 * depthAlpha * effectiveOpacity})`;
+          color = `rgba(255, 200, 120, ${0.58 * depthAlpha * effectiveOpacity * ambientLineLift})`;
         } else {
-          color = `rgba(80, 195, 255, ${0.54 * depthAlpha * effectiveOpacity})`;
+          color = `rgba(80, 195, 255, ${0.54 * depthAlpha * effectiveOpacity * ambientLineLift})`;
         }
       }
 
@@ -3873,7 +4202,14 @@ export class TulipGraph {
         ctx.lineWidth = this.isFocusMode ? (0.45 + 0.45 * effectiveOpacity) * 1.5 * 1.1 : (0.8 + 0.7 * effectiveOpacity) * 1.5 * 1.1;
         if (this.layoutMode === 'tree') ctx.lineWidth *= 1.18;
       }
+      if (refinedAmbient) {
+        // Compensate for camera zoom so ambient lines remain fine on screen.
+        ctx.lineWidth = (0.65 + 0.25 * depthAlpha) / Math.max(0.1, this.camera.zoom);
+      }
       ctx.lineWidth *= phoneLineWidthMultiplier;
+      if (ambientLineRhythm?.edges.has(edgeKey)) {
+        ctx.lineWidth *= 1 + 0.1 * ambientLineRhythm.strength;
+      }
 
       if (isHoveredEdge && !isSelectedEdge) {
         ctx.lineWidth *= 1.35;
@@ -4080,7 +4416,6 @@ export class TulipGraph {
       const dotPulse = (analyzeState === 'followable' || isFocusedNode) ? (1 + 0.06 * Math.sin(Date.now() / 432)) : 1;
       const followableDotScale = (analyzeState === 'followable' || isFocusedNode) ? 1.08 : 1;
 
-      // 1. Draw a slightly larger solid dot for highlighted nodes
       if (allowHighlightDot && node.highlightProgress > 0.01) {
         const degFactor = node.degree && this.maxDegree ? (node.degree / this.maxDegree) : 0.2;
         const highlightDotMultiplier = (1.45 + 0.45 * degFactor) * dotPulse * followableDotScale;

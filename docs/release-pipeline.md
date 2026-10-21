@@ -53,3 +53,11 @@ a release source. They are verification surfaces for the same checked-in source.
 This procedure is also recorded in the repository's `AGENTS.md` so future Codex
 sessions interpret a request to push or publish as the entire verified release,
 not merely a `git push` command.
+
+## Website source and photograph checks
+
+`npm test` generates the ignored runtime projection before running contracts, so a fresh checkout does not depend on a previous local build. Release checks validate all 381 shipped JPEGs against their recorded hashes, dimensions, attribution, and mobile snapshot/asset parity.
+
+Publisher originals remain local import inputs rather than repository assets (approximately 2.5 GB). Before changing the photograph selection, run `npm run test:node-photo-originals` with those originals available. This performs the additional original-file hash and source-dimension checks. Both photograph commands passed for the 21 October 2026 website release.
+
+The three committed calibration/continuity JSON files under `artifacts/` are source-bound assessment test fixtures. Other local research outputs, browser captures, native build products, credentials, and `dist/` are not release source.

@@ -1,0 +1,164 @@
+{
+  "temp": {
+    "current": [2025, 2026, "provisional", "end_state_stock"],
+    "history": [1850, 2025],
+    "baseline": ["preindustrial_global_temperature", 1850, 1900],
+    "direction": "worsening",
+    "human": [3, 4, 4],
+    "ecosystem": [3, 4, 4],
+    "rationale": "Observed global warming is already associated with severe, worldwide and long-lived consequences, while the cited physical record does not by itself quantify every terminal loss."
+  },
+  "methane": {
+    "current": [2026, 2026, "provisional", "end_state_stock"],
+    "history": [1984, 2025],
+    "baseline": ["source_required_atmospheric_reference", 1984, 2000],
+    "direction": "worsening",
+    "human": [2, 4, 3],
+    "ecosystem": [2, 4, 3],
+    "rationale": "The global atmospheric burden drives broad warming and ozone pathways, but the current record supports a pressure estimate more directly than a complete attributable consequence total."
+  },
+  "carbon_emission": {
+    "current": [2026, 2026, "provisional", "end_state_stock"],
+    "history": [1958, 2025],
+    "baseline": ["source_required_atmospheric_reference", 1958, 1976],
+    "direction": "worsening",
+    "human": [3, 4, 4],
+    "ecosystem": [3, 4, 4],
+    "rationale": "The accumulated carbon burden is global and persists for centuries, with severe consequences across human and ecological systems even though terminal losses are not summed in the concentration record."
+  },
+  "ocean_acidification": {
+    "current": [2024, 2024, "complete", "end_state_stock"],
+    "history": [1985, 2024],
+    "baseline": ["source_required_ocean_chemistry_reference", 1985, 1985],
+    "direction": "worsening",
+    "human": [2, 3, 3],
+    "ecosystem": [3, 4, 4],
+    "rationale": "The global pH record establishes persistent chemical change; ecological consequences are direct and widespread, while human losses are mediated through fisheries, livelihoods and coastal protection."
+  },
+  "marine_heatwaves": {
+    "current": [2026, 2026, "provisional", "event_distribution"],
+    "history": [1991, 2025],
+    "baseline": ["wmo_climatological_normal", 1991, 2020],
+    "direction": "worsening",
+    "human": [2, 3, 2],
+    "ecosystem": [3, 3, 2],
+    "rationale": "A large share of the ocean is currently exposed and ecological disruption can be severe, but events and recovery vary substantially by location and ecosystem."
+  },
+  "coral_bleaching": {
+    "current": [2023, 2025, "complete", "event_distribution"],
+    "history": [1986, 2025],
+    "baseline": ["source_required_coral_heat_stress_climatology", 1985, 2012],
+    "direction": "worsening",
+    "human": [2, 3, 3],
+    "ecosystem": [3, 4, 4],
+    "rationale": "Bleaching-level heat stress reached most reef area in the latest global event; mortality and recovery differ among reefs, so heat-stress coverage is not treated as universal coral death."
+  },
+  "sea_ice_season_loss": {
+    "current": [2025, 2025, "complete", "end_state_stock"],
+    "history": [1979, 2025],
+    "baseline": ["source_required_alternative", 1981, 2010],
+    "direction": "worsening",
+    "human": [2, 2, 3],
+    "ecosystem": [3, 3, 4],
+    "rationale": "The observed September extent deficit is persistent and ecologically broad, while direct human consequences are concentrated among Arctic communities and connected livelihoods."
+  },
+  "sea_level_rise": {
+    "current": [2025, 2025, "complete", "end_state_stock"],
+    "history": [1993, 2025],
+    "baseline": ["source_required_altimetry_reference", 1993, 1993],
+    "direction": "worsening",
+    "human": [3, 3, 4],
+    "ecosystem": [3, 3, 4],
+    "rationale": "The global mean rise is persistent and effectively irreversible on human planning timescales, with severe consequences where people and ecosystems occupy low coasts."
+  },
+  "wet_bulb_heat": {
+    "current": [2025, 2025, "complete", "event_distribution"],
+    "history": [1991, 2025],
+    "baseline": ["wmo_climatological_normal", 1991, 2020],
+    "direction": "worsening",
+    "human": [4, 3, 2],
+    "ecosystem": [2, 2, 2],
+    "rationale": "High heat and humidity can become directly life-threatening for exposed people, while current exposure is episodic and ecological consequences are less completely quantified."
+  },
+  "drought_persistence": {
+    "current": [2008, 2017, "complete", "period_prevalence"],
+    "history": [1976, 2025],
+    "baseline": ["source_required_drought_impact_reference", 1998, 2017],
+    "direction": "worsening",
+    "human": [3, 4, 3],
+    "ecosystem": [3, 4, 3],
+    "rationale": "The cited global assessment reports at least 1.5 billion people affected and a multi-decadal rise in recorded drought, supporting broad and persistent consequences without treating modeled future losses as current."
+  },
+  "extreme_precipitation_intensity": {
+    "current": [2025, 2025, "complete", "event_distribution"],
+    "history": [1991, 2025],
+    "baseline": ["wmo_climatological_normal", 1991, 2020],
+    "direction": "worsening",
+    "human": [3, 3, 2],
+    "ecosystem": [2, 3, 2],
+    "rationale": "The sentinel record shows broad exposure to intense rainfall, but damage depends on local vulnerability and the latest annual change does not establish uniform acceleration."
+  },
+  "amoc": {
+    "current": [2024, 2024, "complete", "end_state_stock"],
+    "history": [2004, 2024],
+    "baseline": ["source_required_circulation_mean", 2004, 2022],
+    "direction": "mixed",
+    "human": [1, 2, 2],
+    "ecosystem": [1, 2, 2],
+    "rationale": "The observed section was below its documented mean, but a short monthly change is not equivalent to basin-wide collapse or a quantified present consequence."
+  },
+  "permafrost_thaw": {
+    "current": [2007, 2016, "complete", "end_state_stock"],
+    "history": [2007, 2016],
+    "baseline": ["source_required_permafrost_reference", 2007, 2009],
+    "direction": "worsening",
+    "human": [2, 3, 4],
+    "ecosystem": [3, 3, 4],
+    "rationale": "Observed ground warming affects infrastructure and ecosystems across a large cryosphere region and can persist for decades, but the local registry lacks a newer compatible global synthesis."
+  },
+  "deforestation": {
+    "current": [2015, 2025, "complete", "annualized_flow"],
+    "history": [1990, 2025],
+    "baseline": ["source_required_forest_assessment", 1990, 2000],
+    "direction": "worsening",
+    "human": [2, 3, 3],
+    "ecosystem": [3, 2, 4],
+    "rationale": "Current gross loss is global and persistent, with severe habitat consequences; human effects are broad but mediated through livelihoods, water, smoke and climate pathways."
+  },
+  "industry_farming": {
+    "current": [2024, 2024, "complete", "annualized_flow"],
+    "history": [1990, 2024],
+    "baseline": ["source_required_agricultural_account", 1990, 2000],
+    "direction": "mixed",
+    "human": [2, 4, 3],
+    "ecosystem": [3, 3, 3],
+    "rationale": "The global production system reaches most people and creates persistent soil, water and emissions burdens, while management practices and outcomes vary widely."
+  },
+  "air_pollution_health_burden": {
+    "current": [2021, 2024, "complete", "period_prevalence"],
+    "history": [2019, 2024],
+    "baseline": ["who_air_quality_guideline", 2021, 2021],
+    "direction": "mixed",
+    "human": [4, 4, 3],
+    "ecosystem": null,
+    "rationale": "The node explicitly measures human health burden; the cited WHO record reports millions of deaths and near-global exposure, while ecological effects lie outside this node definition."
+  },
+  "groundwater_depletion": {
+    "current": [2001, 2022, "complete", "end_state_stock"],
+    "history": [2001, 2022],
+    "baseline": ["source_required_aquifer_trend_reference", 2001, 2010],
+    "direction": "mixed",
+    "human": [2, 3, 3],
+    "ecosystem": [2, 3, 4],
+    "rationale": "Declines and acceleration occur across many heavily used aquifers, with documented counterevidence in other systems; persistent storage and ecosystem consequences justify broad bounds."
+  },
+  "urban_water_rationing_zones": {
+    "current": [2015, 2018, "complete", "event_distribution"],
+    "history": [2015, 2018],
+    "baseline": ["source_required_service_baseline", 2015, 2015],
+    "direction": "mixed",
+    "human": [2, 3, 2],
+    "ecosystem": null,
+    "rationale": "The node is an administrative human-service condition represented by a documented four-million-person event; no direct ecological consequence is inferred from rationing itself."
+  }
+}

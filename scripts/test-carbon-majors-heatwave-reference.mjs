@@ -1,0 +1,47 @@
+import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
+
+const snapshot = JSON.parse(await readFile(new URL('../artifacts/tulip-calibration-2026-09-22/carbon-majors-heatwave-reference-snapshot.json', import.meta.url), 'utf8'));
+
+assert.equal(snapshot.productionRatingsEnabled, 0);
+assert.equal(snapshot.status, 'published_213_event_180_emitter_hazard_matrix_ingested');
+assert.equal(snapshot.source.workbook.sha256, '9e8bd0d4c0c77df12f58103f00bc29af1588b8ede3568f3e1acd7f95b190c728');
+assert.equal(snapshot.source.workbook.bytes, 818_451);
+assert.equal(snapshot.source.workbook.dimension, 'A1:PN379');
+assert.match(snapshot.source.workbookDescriptionBoundary, /wording discrepancy/i);
+assert.equal(snapshot.coverage.events, 213);
+assert.equal(snapshot.coverage.eventRegions, 8);
+assert.equal(snapshot.coverage.eventCountries, 59);
+assert.equal(snapshot.coverage.carbonMajors, 180);
+assert.equal(snapshot.coverage.headquarterRegions, 8);
+assert.equal(snapshot.coverage.headquarterCountries, 50);
+assert.equal(snapshot.coverage.emitterEventPairs, 38_340);
+assert.equal(snapshot.coverage.missingIntensityMedians, 0);
+assert.equal(snapshot.coverage.annualEventCounts['2000'], 12);
+assert.equal(snapshot.coverage.annualEventCounts['2023'], 39);
+assert.equal(snapshot.events.length, 213);
+assert.equal(new Set(snapshot.events.map(event => event.id)).size, 213);
+assert.equal(snapshot.carbonMajors.length, 180);
+assert.equal(new Set(snapshot.carbonMajors.map(major => major.name)).size, 180);
+assert.equal(snapshot.statistics.anthropogenicClimateIntensityMedianC.minimum, 0.2595);
+assert.equal(snapshot.statistics.anthropogenicClimateIntensityMedianC.median, 1.7135);
+assert.equal(snapshot.statistics.anthropogenicClimateIntensityMedianC.maximum, 2.911);
+assert.equal(snapshot.statistics.anthropogenicClimateProbabilityRatioMedianCensoredAbove10000, 55);
+assert.equal(snapshot.statistics.eventIntensity95IntervalLowerAboveZero, 204);
+assert.equal(snapshot.statistics.eventIntensity95IntervalIncludesZero, 9);
+assert.equal(snapshot.statistics.carbonMajorIntensityContributionC.count, 38_340);
+assert.equal(snapshot.statistics.carbonMajorIntensityContributionC.minimum, 0);
+assert.equal(snapshot.statistics.carbonMajorIntensityContributionC.median, 0.0012);
+assert.equal(snapshot.statistics.carbonMajorIntensityContributionC.maximum, 0.183);
+assert.equal(snapshot.statistics.carbonMajorIntensityContributionZero, 5_349);
+assert.equal(snapshot.statistics.carbonMajorProbabilityMultiplierCensoredAbove10000, 8_441);
+assert.equal(snapshot.statistics.topIntensityContributions[0].carbonMajor, 'Former Soviet Union');
+assert.equal(snapshot.statistics.topIntensityContributions[0].eventId, '2003-0391-CZE');
+assert.equal(snapshot.statistics.topIntensityContributions[0].intensityC, 0.183);
+assert.equal(snapshot.tulipUse.currentEffectOnTulipRatings, 'none');
+assert(snapshot.tulipUse.prohibited.some(rule => /probability ratio as a measure of severity/i.test(rule)));
+assert(snapshot.tulipUse.prohibited.some(rule => /reported deaths/i.test(rule)));
+assert(snapshot.unresolvedForTulip.some(item => /non-overlapping mapping/i.test(item)));
+assert.equal(snapshot.snapshotDigest.length, 64);
+
+console.log('Carbon Majors heatwave reference passed: 213 events and 180 emitters are checksum-pinned as hazard evidence, with terminal-harm shortcuts prohibited.');

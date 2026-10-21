@@ -1,5 +1,5 @@
 /*
- * THE TULIP PROJECT - Minimalist Editorial Style Sheet
+ * Tulip Earth - Minimalist Editorial Style Sheet
  * Aligned exactly with the provided layout design.
  */
 
@@ -860,7 +860,7 @@
     padding: 4px 12px 28px !important;
     overflow-x: hidden !important;
     overflow-y: auto !important;
-    overscroll-behavior: contain;
+    overscroll-behavior: none;
     background: var(--iphone-surface-solid) !important;
     scroll-behavior: smooth;
     scrollbar-width: none !important;
@@ -965,7 +965,7 @@
     background: var(--iphone-surface-solid) !important;
     box-shadow: 0 24px 80px rgba(0, 0, 0, 0.56) !important;
     scrollbar-width: none !important;
-    overscroll-behavior: contain;
+    overscroll-behavior: none;
     -webkit-overflow-scrolling: touch;
   }
 
@@ -1344,7 +1344,7 @@
     padding: 0 0 var(--phone-tab-bar-height) !important;
     overflow-x: hidden;
     overflow-y: auto;
-    overscroll-behavior-y: contain;
+    overscroll-behavior-y: none;
     background: #07080a;
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
@@ -2743,22 +2743,6 @@ svg {
   transform: translateY(-4px);
 }
 
-.app-logo::after {
-  content: "";
-  position: absolute;
-  inset: 8px 12px 16px;
-  background: #ffffff;
-  -webkit-mask: url("/logo.svg") center / contain no-repeat;
-  mask: url("/logo.svg") center / contain no-repeat;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 160ms ease;
-}
-
-.app-logo:hover::after {
-  opacity: 1;
-}
-
 /* --- FILTER BAR GALLERY --- */
 #filter-bar {
   display: inline-flex;
@@ -4123,7 +4107,7 @@ svg {
   padding: var(--space-stack-loose) 0 120px;
   overflow-x: hidden;
   overflow-y: auto;
-  overscroll-behavior-y: contain;
+  overscroll-behavior-y: none;
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
   -webkit-overflow-scrolling: touch;
@@ -4243,7 +4227,7 @@ svg {
   max-height: calc(100vh - 220px);
   overflow-x: hidden;
   overflow-y: auto;
-  overscroll-behavior: contain;
+  overscroll-behavior: none;
   scrollbar-gutter: stable;
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
@@ -7518,6 +7502,14 @@ svg {
   display: none;
 }
 
+.phenomenon-row-note {
+  margin: 10px 0 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 14px;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+
 .phenomenon-bar-shell {
   position: relative;
   width: 100%;
@@ -8666,6 +8658,26 @@ svg {
   line-height: 1.62;
   color: rgba(255, 255, 255, 0.76);
 }
+
+.connection-detail-sources[hidden] { display: none !important; }
+.connection-detail-sources-title {
+  margin: 8px 0 0;
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 12px;
+  font-weight: var(--weight-reading-heading);
+}
+.connection-detail-source-links { display: flex; flex-wrap: wrap; gap: 8px; }
+.connection-detail-source-link {
+  max-width: 100%;
+  padding: 8px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  color: #a9caff;
+  font-size: 12px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+.connection-detail-source-link:focus-visible { outline: 2px solid #a9caff; outline-offset: 2px; }
 
 .relationship-evidence-picker-section[hidden] {
   display: none !important;
@@ -15243,7 +15255,7 @@ body:has(#app-container[data-view-mode="explore"]) .tulip-footer-bar .footer-nav
   transform-origin: center;
 }
 
-/* iPhone interaction physics: native momentum, elastic sheet travel, and press feedback. */
+/* iPhone interaction physics: native momentum, bounded sheet travel, and press feedback. */
 @media (max-width: 950px) {
   #app-container:not([data-view-mode="explore"]),
   #app-container[data-view-mode="study"] #study-console,
@@ -15257,7 +15269,7 @@ body:has(#app-container[data-view-mode="explore"]) .tulip-footer-bar .footer-nav
   .tulip-score-popup-overlay,
   .about-popup-overlay,
   .contact-popup-overlay {
-    overscroll-behavior-y: auto !important;
+    overscroll-behavior-y: none !important;
     scroll-behavior: auto !important;
     -webkit-overflow-scrolling: touch !important;
   }
@@ -15273,7 +15285,7 @@ body:has(#app-container[data-view-mode="explore"]) .tulip-footer-bar .footer-nav
   }
 
   #app-container[data-view-mode="study"] .mobile-study-sheet {
-    transform: translate3d(0, var(--mobile-sheet-rubber-y, 0px), 0);
+    transform: none;
     transform-origin: bottom center;
     transition:
       height 520ms cubic-bezier(0.32, 0.72, 0, 1),
@@ -15428,38 +15440,6 @@ body:has(#app-container[data-view-mode="explore"]) .tulip-footer-bar .footer-nav
   padding-bottom: 24px;
 }
 
-.activity-completion-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-  margin-top: 30px;
-  padding: 20px 0 4px;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-.activity-completion-card > div {
-  display: grid;
-  gap: 5px;
-}
-
-.activity-completion-card span {
-  color: rgba(var(--accent-color-rgb), 0.92);
-  font-size: 12px;
-  font-weight: var(--weight-regular);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.activity-completion-card strong {
-  max-width: 62ch;
-  color: rgba(255, 255, 255, 0.86);
-  font-size: 14px;
-  font-weight: var(--weight-regular);
-  line-height: 1.45;
-}
-
-.activity-completion-card button,
 .personal-footprint-results-actions button {
   min-height: var(--control-height-sm);
   padding: 0 var(--control-padding-inline);
@@ -15471,7 +15451,6 @@ body:has(#app-container[data-view-mode="explore"]) .tulip-footer-bar .footer-nav
   cursor: pointer;
 }
 
-.activity-completion-card button:hover,
 .personal-footprint-results-actions button:hover {
   border-color: rgba(var(--accent-color-rgb), 0.5);
   background: rgba(var(--accent-color-rgb), 0.1);
@@ -15591,14 +15570,9 @@ body:has(#app-container[data-view-mode="explore"]) .tulip-footer-bar .footer-nav
     padding: 0 28px 0 14px !important;
   }
 
-  .activity-completion-card,
   .personal-footprint-results-heading-row {
     align-items: stretch;
     flex-direction: column;
-  }
-
-  .activity-completion-card button {
-    width: 100%;
   }
 
   .personal-footprint-question-card,
@@ -15908,7 +15882,7 @@ body.analyse-starter-active #app-container > #search-container {
     min-height: 0;
     overflow-x: hidden;
     overflow-y: auto;
-    overscroll-behavior-y: contain;
+    overscroll-behavior-y: none;
     scrollbar-gutter: stable;
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -16237,3 +16211,99 @@ body :is(
   font-weight: var(--weight-ui) !important;
   font-variation-settings: "wght" 400 !important;
 }
+
+/* Shared inspector reading contract: complete titles and content-inset rails. */
+#console-node-name, #mobile-sheet-title {
+  overflow: visible !important;
+  text-overflow: clip !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere;
+  -webkit-line-clamp: unset !important;
+  line-height: 1.2 !important;
+}
+#mobile-sheet-title, .mobile-study-sheet.is-inspector-scrolled #mobile-sheet-title { font-size: 20px !important; }
+#mobile-sheet-description, .mobile-study-sheet.is-inspector-scrolled #mobile-sheet-description {
+  display: block !important;
+  white-space: normal !important;
+  overflow: visible !important;
+}
+#app-container[data-view-mode="study"] .mobile-study-sheet[data-detent="peek"] {
+  --mobile-sheet-height: var(--reader-sheet-peek, 196px);
+}
+#relationship-evidence-picker-section .relationship-evidence-fields { display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; }
+#relationship-evidence-picker-section .relationship-evidence-field { display: block; min-width: 0; }
+#relationship-evidence-picker-section .relationship-evidence-field[hidden] { display: none; }
+#relationship-evidence-picker-section .relationship-evidence-field::after { display: none; }
+#relationship-evidence-picker-section .relationship-evidence-prompt { display: block !important; position: static; transform: none; opacity: 1; margin-bottom: 10px; font-size: 16px; }
+#relationship-evidence-picker-section .relationship-evidence-field:first-child .relationship-evidence-prompt { color: #ff6565; }
+#relationship-evidence-picker-section .relationship-evidence-field:last-child .relationship-evidence-prompt { color: #60d580; }
+#relationship-evidence-picker-section select[hidden] { display: none !important; }
+.reader-relationship-rail { margin-inline: -16px; width: calc(100% + 32px); overflow-x: auto; scrollbar-width: none; }
+.reader-relationship-track { display: flex; gap: 8px; width: max-content; padding-inline: 16px; }
+.reader-relationship-track button { flex: none; min-height: 44px; padding: 10px 16px; border-radius: 999px; border: 1px solid #ffffff14; background: #111317; color: #f4f4f5; font: inherit; white-space: nowrap; }
+.reader-relationship-track button[aria-pressed="true"] { background: white; color: #111317; }
+.reader-relationship-track button:focus-visible { outline: 2px solid #7badff; outline-offset: -3px; }
+@media (min-width: 951px) {
+  #study-console .inspector-overview-card { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 14px; }
+  #study-console .inspector-overview-card .console-header,
+  #study-console .inspector-overview-card .urgency-section { display: contents; }
+  #study-console .inspector-overview-card .console-meta-row { grid-column: 1; grid-row: 1; }
+  #study-console .inspector-overview-card .console-title-row { grid-column: 1; grid-row: 2; min-width: 0; }
+  #study-console .inspector-overview-card #node-source-date { grid-column: 1; grid-row: 3; }
+  #study-console .inspector-overview-card #console-node-meaning { grid-column: 1 / -1; grid-row: 4; }
+  #study-console .inspector-overview-card .urgency-heading-wrap { grid-column: 2; grid-row: 1; }
+  #study-console .inspector-overview-card .urgency-hero { grid-column: 2; grid-row: 2 / 4; align-self: center; }
+  #study-console .inspector-overview-card .urgency-scale { grid-column: 1 / -1; grid-row: 5; }
+}
+@media (min-width: 951px) {
+  #app-container[data-view-mode="study"] #study-console { width: min(42vw, 480px) !important; }
+  #study-console .inspector-overview-card { grid-template-columns: minmax(0, 1fr) 132px; }
+  #study-console .inspector-overview-card .urgency-card { display: contents; }
+  #study-console .inspector-overview-card .urgency-score-row { grid-column: 2; grid-row: 2 / 4; align-self: center; min-width: 0; width: 100%; }
+  #study-console .inspector-overview-card .urgency-value-wrap { gap: 0; min-width: 0; }
+  #study-console .inspector-overview-card .urgency-value-wrap > .urgency-monogram { display: none; }
+  #study-console .inspector-overview-card .urgency-score-cluster { gap: 6px; flex-wrap: wrap; }
+  #study-console .inspector-overview-card #console-urgency-score { font-size: 34px; }
+  #study-console .inspector-overview-card .urgency-heading-row { min-width: 0; gap: 4px; }
+  #study-console .inspector-overview-card .urgency-heading-row .section-header-label { font-size: 12px; letter-spacing: .06em; }
+  #study-console .inspector-overview-card .urgency-heading-row .platform-section-icon { display: none; }
+}
+.reader-relationship-track { text-transform: none; letter-spacing: normal; }
+@media (max-width: 950px) {
+  /* The summary now holds the complete title and date. Keep its definition in
+     the scrolling body so longer copy is available on narrow screens too. */
+  #app-container[data-view-mode="study"] .inspector-overview-card .console-header { display: block !important; }
+  #app-container[data-view-mode="study"] .inspector-overview-card .console-meta-row,
+  #app-container[data-view-mode="study"] .inspector-overview-card .console-title-row,
+  #app-container[data-view-mode="study"] .inspector-overview-card #node-source-date { display: none !important; }
+  #app-container[data-view-mode="study"] #console-node-meaning { display: block !important; margin-bottom: 18px !important; }
+}
+
+.tulip-score-status { background: none; color: inherit; border: 0; padding: 8px 0; min-height: 44px; font: inherit; font-weight: 400; text-align: left; cursor: pointer; }
+.score-status-value { display: block; }
+.score-provenance-note {
+  display: block;
+  max-width: 180px;
+  color: #c5cbd5;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: normal;
+  line-height: 1.4;
+}
+#score-status-explanation { font-size: 14px; line-height: 1.6; white-space: normal; }
+#score-status-explanation { grid-column: 1 / -1; text-align: left; padding: 18px 0 4px; }
+#score-status-explanation[hidden] { display: none !important; }
+#score-status-explanation h3 { font-size: 20px; line-height: 1.3; margin: 0 0 8px; }
+#score-status-explanation h4 { font-size: 15px; margin: 0; font-weight: var(--weight-reading-heading); }
+#score-status-explanation p { margin: 0 0 14px; color: #c9cad1; }
+#score-status-explanation .score-component { padding: 16px 0; border-top: 1px solid #ffffff1a; }
+#score-status-explanation .score-component p { margin: 8px 0 0; }
+#score-status-explanation .score-component-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+#score-status-explanation .score-component-heading h4 span { margin-left: 6px; font-size: 13px; color: #b6b8c2; font-weight: 400; }
+#score-status-explanation .score-component-heading strong { flex: none; font-size: 20px; font-variant-numeric: tabular-nums; }
+#score-status-explanation .score-component-heading small { font-size: 13px; font-weight: 400; color: #b6b8c2; }
+#score-status-explanation .score-calculation { padding: 16px; border-radius: 16px; background: #ffffff0d; margin-bottom: 12px; }
+#score-status-explanation .score-calculation p { margin: 8px 0 0; color: #f7f7fb; font-variant-numeric: tabular-nums; }
+#score-status-explanation .score-rounding-note { font-size: 13px; color: #b6b8c2; }
+[data-score-method-copy] p { line-height: 1.65; margin: 0 0 18px; }
+#mobile-sheet-score { white-space: normal; }

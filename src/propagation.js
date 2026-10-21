@@ -1,5 +1,5 @@
 /**
- * THE TULIP PROJECT - Ecological Impact Propagation Loop
+ * Tulip Earth - Ecological Impact Propagation Loop
  * Propagates changes dynamically through causal connections.
  */
 

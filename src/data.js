@@ -1,5 +1,5 @@
 /**
- * THE TULIP PROJECT - Ecological Impact Vector Data
+ * Tulip Earth - Ecological Impact Vector Data
  * Contains base core nodes and a procedural generator to scale to 500+ nodes.
  */
 
@@ -51,6 +51,7 @@ import { attachRelationshipDescriptions } from './relationship-descriptions.js';
 import { attachRelationshipContent } from './relationship-content.js';
 import { agreeRelationshipVerbPhrase, attachRelationshipSemantics } from './relationship-semantics.js';
 import { attachCompleteNodeInspectorProfiles } from './node-inspector-profiles.js';
+import { attachInspectorReaderCopy, assertPublishedReaderCopy } from './inspector-reader-copy.js';
 import { applyRelationshipEvidenceGovernance } from './relationship-evidence-governance.js';
 import { applyAnalyticalLabelReview } from './analytical-label-review.js';
 import { attachRegionalHubProfiles } from './regional-hub-profiles.js';
@@ -13182,7 +13183,7 @@ const evidenceGovernedEdges = applyRelationshipEvidenceGovernance(contractedGrap
 const semanticEdges = attachRelationshipSemantics(evidenceGovernedEdges);
 const describedEdges = attachRelationshipDescriptions(contractedNodesWithMetricAliases, semanticEdges);
 const contentLayeredEdges = attachRelationshipContent(contractedNodesWithMetricAliases, describedEdges);
-export const NODES = attachCompleteNodeInspectorProfiles(contractedNodesWithMetricAliases, contentLayeredEdges);
+export const NODES = attachInspectorReaderCopy(attachCompleteNodeInspectorProfiles(contractedNodesWithMetricAliases, contentLayeredEdges));
 export const EDGES = contentLayeredEdges;
 export const RELATIONSHIP_LINEAGE = Object.freeze({
   authored_input_edges: CURATED_BASE_EDGES.map(edge => ({
@@ -13220,6 +13221,7 @@ function buildMinimumDegreeCore(nodes, edges, minimumDegree = 3) {
 const publishedGraph = buildMinimumDegreeCore(NODES, EDGES, 3);
 export const PUBLISHED_NODES = publishedGraph.nodes;
 export const PUBLISHED_EDGES = publishedGraph.edges;
+assertPublishedReaderCopy(PUBLISHED_NODES, PUBLISHED_EDGES);
 export const EXPLORATION_NODES = NODES.filter(node => node.graph_contract?.visibility === 'default_exploration');
 const EXPLORATION_NODE_IDS = new Set(EXPLORATION_NODES.map(node => node.id));
 export const EXPLORATION_EDGES = EDGES.filter(edge => EXPLORATION_NODE_IDS.has(edge.source) && EXPLORATION_NODE_IDS.has(edge.target));

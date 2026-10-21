@@ -1,0 +1,64 @@
+.desktop-intro-artwork { --tulip-blue-rgb: 72,160,255; --intro-cyan:76,201,240; --intro-green:103,211,145; --intro-amber:255,184,77; --intro-coral:255,107,107; --intro-violet:167,139,250; position:relative; width:190px; height:190px; margin:0 auto 28px; color:white; isolation:isolate; }
+.desktop-intro-artwork::before {content:"";position:absolute;inset:20px;border-radius:50%;z-index:-1;animation:desktop-intro-aura-bloom 2.4s .15s ease both;}
+.desktop-intro-planet { position: absolute; inset: 39px; display: grid; place-items: center; color: rgb(var(--intro-cyan)); filter: drop-shadow(0 0 12px rgba(var(--intro-cyan),.32)); animation: desktop-intro-planet-settle 4.8s cubic-bezier(.22,.61,.36,1) both; }
+.is-planet::before { background: radial-gradient(circle at 38% 36%,rgba(var(--intro-green),.24),rgba(var(--intro-cyan),.14) 38%,rgba(var(--tulip-blue-rgb),.08) 58%,transparent 72%); }
+.is-planet::after { content: ""; position: absolute; inset: 9px; border-radius: 50%; background: conic-gradient(from 210deg,transparent 0 22%,rgba(var(--intro-green),.76) 28%,rgba(var(--intro-cyan),.8) 43%,transparent 51% 75%,rgba(var(--intro-violet),.62) 82%,transparent 90%); -webkit-mask: radial-gradient(circle,transparent 67%,#000 68% 70%,transparent 71%); mask: radial-gradient(circle,transparent 67%,#000 68% 70%,transparent 71%); opacity: 0; animation: desktop-intro-spectrum-ring 3.2s .3s cubic-bezier(.22,.61,.36,1) both; }
+.desktop-intro-orbit { position: absolute; inset: 31px 17px; border: 1px solid rgba(var(--intro-cyan),.64); border-radius: 50%; opacity: 0; box-shadow: 0 0 12px rgba(var(--intro-cyan),.1); }
+.desktop-intro-orbit.orbit-two { border-color: rgba(var(--intro-green),.58); box-shadow: 0 0 12px rgba(var(--intro-green),.1); }
+.desktop-intro-orbit.orbit-one { transform: rotate(24deg); animation: desktop-intro-orbit-appear 1.1s .35s ease-out both; }
+.desktop-intro-orbit.orbit-two { inset: 19px 43px; transform: rotate(-36deg); animation: desktop-intro-orbit-appear 1.1s .7s ease-out both; }
+.desktop-intro-node { position: absolute; display: grid; place-items: center; color: rgb(var(--intro-cyan)); filter: drop-shadow(0 0 9px currentColor); opacity: 0; }
+.desktop-intro-node svg { width: 22px; height: 22px; }
+.desktop-intro-node.node-one { top: 27px; right: 32px; color: rgb(var(--intro-amber)); animation: desktop-intro-node-arrive .65s 1.1s ease-out both; }
+.desktop-intro-node.node-two { right: 14px; bottom: 54px; color: rgb(var(--intro-green)); animation: desktop-intro-node-arrive .65s 1.45s ease-out both; }
+.desktop-intro-node.node-three { left: 17px; bottom: 41px; color: rgb(var(--intro-violet)); animation: desktop-intro-node-arrive .65s 1.8s ease-out both; }
+.is-connections::before { background: radial-gradient(circle,rgba(var(--intro-amber),.14),rgba(var(--intro-coral),.08) 32%,rgba(var(--intro-cyan),.08) 58%,transparent 72%); }
+.is-connections .desktop-intro-link { position: absolute; top: 94px; width: 58px; height: 2px; background: linear-gradient(90deg,rgba(var(--intro-coral),.5),rgba(var(--intro-amber),.92),rgba(var(--intro-cyan),.76)); box-shadow: 0 0 9px rgba(var(--intro-amber),.24); transform-origin: left center; animation: desktop-intro-link-grow .7s ease-out both; }
+.is-connections .link-one { left: 36px; animation-delay: .55s; }
+.is-connections .link-two { left: 96px; animation-delay: 1.25s; }
+.desktop-intro-chain-node { position: absolute; top: 76px; width: 38px; height: 38px; display: grid; place-items: center; border: 1px solid currentColor; border-radius: 50%; background: #070707; box-shadow: inset 0 0 18px rgba(255,255,255,.04),0 0 14px color-mix(in srgb,currentColor 24%,transparent); opacity: 0; transform: scale(.72); }
+.desktop-intro-chain-node svg { width: 21px; height: 21px; }
+.chain-one { left: 17px; color: rgb(var(--intro-coral)); animation: desktop-intro-chain-node 500ms .2s ease-out both; }
+.chain-two { left: 76px; color: rgb(var(--intro-amber)); animation: desktop-intro-chain-node 500ms .9s ease-out both; }
+.chain-three { left: 135px; color: rgb(var(--intro-cyan)); animation: desktop-intro-chain-node 500ms 1.6s ease-out both; }
+.desktop-intro-chain-pulse { position: absolute; top: 89px; left: 29px; width: 12px; height: 12px; border-radius: 50%; background: rgb(var(--intro-amber)); box-shadow: 0 0 7px rgba(var(--intro-amber),.9),0 0 20px rgba(var(--intro-coral),.72); animation: desktop-intro-chain-pulse 2.2s .5s cubic-bezier(.45,0,.55,1) both; }
+.desktop-intro-chain-pulse.pulse-secondary { width: 7px; height: 7px; top: 91px; left: 34px; background: rgb(var(--intro-cyan)); box-shadow: 0 0 7px rgba(var(--intro-cyan),.9),0 0 18px rgba(var(--intro-violet),.68); animation-duration: 1.9s; animation-delay: 1.15s; }
+.is-footprint::before { background: conic-gradient(from -45deg,rgba(var(--intro-green),.13),rgba(var(--intro-cyan),.12),rgba(var(--intro-violet),.12),rgba(var(--intro-amber),.12),rgba(var(--intro-green),.13)); }
+.desktop-intro-footprint-center { position: absolute; z-index: 2; inset: 67px; display: grid; place-items: center; border: 1px solid rgba(var(--intro-cyan),.7); border-radius: 50%; color: rgb(var(--intro-cyan)); background: radial-gradient(circle at 35% 28%,rgba(var(--intro-cyan),.2),rgba(var(--tulip-blue-rgb),.08) 55%,transparent); box-shadow: 0 0 26px rgba(var(--intro-cyan),.25); animation: desktop-intro-footprint-center 1s 1.8s ease-out both; }
+.desktop-intro-life-route { position: absolute; z-index: 1; top: 50%; left: 50%; width: 58px; height: 2px; border-radius: 2px; background: linear-gradient(90deg,rgba(255,255,255,.16),currentColor); transform-origin: left center; animation: desktop-intro-life-route .72s cubic-bezier(.22,.61,.36,1) both; }
+.route-food { color: rgb(var(--intro-green)); rotate: -90deg; animation-delay: .36s; }
+.route-travel { color: rgb(var(--intro-cyan)); rotate: 0deg; animation-delay: .76s; }
+.route-home { color: rgb(var(--intro-violet)); rotate: 90deg; animation-delay: 1.16s; }
+.route-shop { color: rgb(var(--intro-amber)); rotate: 180deg; animation-delay: 1.56s; }
+.desktop-intro-life-icon { position: absolute; z-index: 2; width: 47px; height: 47px; display: grid; place-items: center; border-radius: 50%; color: rgba(255,255,255,.9); background: radial-gradient(circle at 35% 28%,color-mix(in srgb,currentColor 24%,transparent),rgba(8,8,10,.9) 64%); box-shadow: inset 0 0 0 1px color-mix(in srgb,currentColor 54%,transparent),0 0 18px color-mix(in srgb,currentColor 18%,transparent),0 6px 22px rgba(0,0,0,.34); opacity: 0; transform: scale(.6); animation: desktop-intro-life-arrive .72s cubic-bezier(.22,.61,.36,1) both; }
+.life-food { top: 11px; left: 72px; animation-delay: .2s; }
+.life-travel { top: 70px; right: 6px; animation-delay: .6s; }
+.life-home { bottom: 8px; left: 72px; animation-delay: 1s; }
+.life-shop { top: 70px; left: 6px; animation-delay: 1.4s; }
+.life-food { color: rgb(var(--intro-green)); }
+.life-travel { color: rgb(var(--intro-cyan)); }
+.life-home { color: rgb(var(--intro-violet)); }
+.life-shop { color: rgb(var(--intro-amber)); }
+.is-solutions::before { background: radial-gradient(circle,rgba(var(--intro-cyan),.13),rgba(var(--intro-green),.08) 34%,rgba(var(--intro-violet),.07) 56%,transparent 74%); }
+.desktop-intro-action-grid { position: absolute; inset: 13px; display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; padding: 6px; }
+.desktop-intro-action-tile { --tile-x: 0px; --tile-y: 0px; --tile-rotate: 0deg; --tile-delay: 0ms; display: grid; place-items: center; border: 1px solid color-mix(in srgb,currentColor 60%,transparent); border-radius: 22px; color: #fff; background: radial-gradient(circle at 34% 26%,color-mix(in srgb,currentColor 28%,transparent),rgba(8,8,10,.94) 64%); box-shadow: inset 0 1px 0 rgba(255,255,255,.12),0 0 20px color-mix(in srgb,currentColor 18%,transparent); opacity: 0; animation: desktop-intro-action-tile-in .9s var(--tile-delay) cubic-bezier(.2,.78,.2,1) both; }
+.desktop-intro-action-tile svg { filter: drop-shadow(0 0 8px color-mix(in srgb,currentColor 46%,transparent)); animation: desktop-intro-action-icon-settle .52s calc(var(--tile-delay) + .58s) cubic-bezier(.2,.78,.2,1) both; }
+.action-everyday { --tile-x: -22px; --tile-y: -18px; --tile-rotate: -10deg; --tile-delay: .12s; color: rgb(var(--intro-green)); }
+.action-community { --tile-x: 22px; --tile-y: -18px; --tile-rotate: 10deg; --tile-delay: .4s; color: rgb(var(--intro-cyan)); }
+.action-business { --tile-x: -22px; --tile-y: 18px; --tile-rotate: 8deg; --tile-delay: .68s; color: rgb(var(--intro-amber)); }
+.action-policy { --tile-x: 22px; --tile-y: 18px; --tile-rotate: -8deg; --tile-delay: .96s; color: rgb(var(--intro-violet)); }
+
+@keyframes desktop-intro-aura-bloom { 0% { opacity: 0; transform: scale(.72); } 58% { opacity: 1; transform: scale(1.05); } 100% { opacity: .82; transform: scale(1); } }
+@keyframes desktop-intro-spectrum-ring { 0% { opacity: 0; transform: rotate(-28deg) scale(.82); } 62% { opacity: .9; } 100% { opacity: .62; transform: rotate(34deg) scale(1); } }
+@keyframes desktop-intro-planet-settle { 0% { opacity: 0; transform: rotate(-12deg) scale(.88); } 45% { opacity: 1; } 100% { opacity: 1; transform: rotate(8deg) scale(1); } }
+@keyframes desktop-intro-orbit-appear { from { opacity: 0; scale: .82; } to { opacity: 1; scale: 1; } }
+@keyframes desktop-intro-node-arrive { 0% { opacity: 0; transform: scale(.35); } 70% { opacity: 1; transform: scale(1.16); } 100% { opacity: 1; transform: scale(1); } }
+@keyframes desktop-intro-link-grow { from { opacity: 0; transform: scaleX(0); } to { opacity: 1; transform: scaleX(1); } }
+@keyframes desktop-intro-chain-node { 0% { opacity: 0; transform: scale(.72); } 70% { opacity: 1; transform: scale(1.08); border-color: rgba(var(--tulip-blue-rgb),.8); } 100% { opacity: 1; transform: scale(1); } }
+@keyframes desktop-intro-chain-pulse { 0% { opacity: 0; transform: translateX(0) scale(.7); } 12% { opacity: 1; } 88% { opacity: 1; } 100% { opacity: 0; transform: translateX(118px) scale(1); } }
+@keyframes desktop-intro-footprint-center { 0% { opacity: .55; transform: scale(.78); } 70% { opacity: 1; transform: scale(1.08); } 100% { opacity: 1; transform: scale(1); } }
+@keyframes desktop-intro-life-route { from { opacity: 0; scale: 0 1; } 65% { opacity: 1; } to { opacity: .7; scale: 1 1; } }
+@keyframes desktop-intro-life-arrive { 0% { opacity: 0; transform: scale(.6) translateY(8px); } 70% { opacity: 1; transform: scale(1.08) translateY(0); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
+@keyframes desktop-intro-action-tile-in { 0% { opacity: 0; transform: translate(var(--tile-x),var(--tile-y)) rotate(var(--tile-rotate)) scale(.72); } 72% { opacity: 1; transform: translate(0,0) rotate(0) scale(1.05); } 100% { opacity: 1; transform: translate(0,0) rotate(0) scale(1); } }
+@keyframes desktop-intro-action-icon-settle { 0% { opacity: 0; transform: scale(.55); } 72% { opacity: 1; transform: scale(1.16); } 100% { opacity: 1; transform: scale(1); } }
+@media (prefers-reduced-motion: reduce) { .desktop-intro-artwork *, .desktop-intro-artwork::before, .desktop-intro-artwork::after { animation:none!important; opacity:1; transform:none; } .desktop-intro-chain-pulse { display:none; } }

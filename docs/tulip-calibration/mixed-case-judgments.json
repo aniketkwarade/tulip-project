@@ -1,0 +1,29 @@
+{
+  "version": "tulip_mixed_case_judgments_2026_09_27_v1",
+  "status": "internally_authored_before_new_catalogue_comparison",
+  "scope": "Hypothetical current consequences. These are policy judgments and test cases, not observations or a claim of clinical/ecological equivalence.",
+  "comparisonAccountingHorizon": "For ordering the hypothetical ecosystem cases, compare condition-area-time over the next 50 years from the assessment date. This is an internal adjudication horizon for these stress tests, not an outlook added to current node scores.",
+  "comparisonAccountingHorizonYears": 50,
+  "disclosure": "The earlier additive 50/25/25 results were known. These judgments were written before testing the geometric candidate on the catalogue, so they are a challenge set, not a statistically independent validation set.",
+  "cases": [
+    { "id": "human_large_serious", "domain": "human", "axes": [3, 3, 3], "description": "Ten million people experience severe illness with consequences lasting five years." },
+    { "id": "human_small_permanent", "domain": "human", "axes": [4, 1, 4], "description": "Five thousand people experience permanent disability; the same endpoint defines severity, reach and duration." },
+    { "id": "human_widespread_mild", "domain": "human", "axes": [1, 4, 4], "description": "One hundred million people experience mild symptoms lasting ten years. The per-person lost-health rate is not specified." },
+    { "id": "nature_large_serious", "domain": "ecosystem", "axes": [3, 3, 3], "description": "Condition is 50% of the way toward a defined collapse state over 20% of one ecosystem's distribution, with twenty-year recovery." },
+    { "id": "nature_small_permanent", "domain": "ecosystem", "axes": [4, 1, 4], "description": "Condition is 80% of the way toward collapse over 0.5% of the same ecosystem's distribution, with persistent loss. Assume no uniquely irreplaceable feature is confined to that patch." },
+    { "id": "nature_widespread_mild", "domain": "ecosystem", "axes": [1, 4, 4], "description": "Condition is 5% of the way toward collapse over 50% of the same ecosystem's distribution, persisting for fifty years." },
+    { "id": "nature_large_extreme", "domain": "ecosystem", "axes": [4, 3, 4], "description": "Condition is 80% of the way toward collapse over 20% of the same ecosystem's distribution, with irreversible loss." }
+  ],
+  "requiredOrderings": [
+    { "higher": "human_large_serious", "lower": "human_small_permanent", "why": "The serious affected group is 2,000 times larger and its burden lasts years. The smaller group's permanent loss matters, but duration alone cannot outweigh that difference without an explicit burden model." },
+    { "higher": "nature_large_serious", "lower": "nature_small_permanent", "why": "Within the same ecosystem type, the serious condition affects 40 times more distribution. Over the explicitly declared 50-year comparison horizon, its condition-area-time burden is larger; the small patch has no stated unique irreplaceability. A much longer accounting horizon could change this ordering." },
+    { "higher": "nature_large_serious", "lower": "nature_widespread_mild", "why": "In this constructed case, 50% condition loss over 20% for twenty years exceeds 5% over 50% for fifty years in simple affected-condition area-time; this is a test preference, not a universal ecological unit." },
+    { "higher": "nature_large_extreme", "lower": "nature_large_serious", "why": "The same ecosystem area suffers more severe and lasting damage." }
+  ],
+  "unresolvedOrderings": [
+    { "cases": ["human_widespread_mild", "human_large_serious"], "why": "The result depends on a stated per-person severity measure. A decade of very slight symptoms in many people could exceed or fall below a smaller count of severe illness." },
+    { "cases": ["human_widespread_mild", "human_small_permanent"], "why": "No common health-loss measure is specified." },
+    { "cases": ["nature_widespread_mild", "nature_small_permanent"], "why": "Irreplaceability and ecological functions in the small patch are unspecified." },
+    { "cases": ["human_large_serious", "nature_large_serious"], "why": "People and nature have separate component scales. Their equal overall weight is a declared TULIP choice, not a measured physical conversion." }
+  ]
+}

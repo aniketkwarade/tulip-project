@@ -1,4 +1,4 @@
-# THE TULIP PROJECT
+# Tulip Earth
 
 TULIP is an interactive ecological causal network for exploring how climate,
 ecosystems, infrastructure, economies, and everyday activities connect. The

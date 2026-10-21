@@ -1,3 +1,5 @@
+import { getActivityReaderCopy } from './activity-reader-copy.js';
+
 export const PHENOMENON_SELECTOR_CONFIG = [
   { key: 'food', label: 'Diet', nodeIds: ['food'], iconKey: 'diet' },
   { key: 'industry_farming', label: 'Industry Farming', nodeIds: ['industry_farming'], iconKey: 'industryFarming' },
@@ -43,4 +45,11 @@ export const PHENOMENON_SELECTOR_CONFIG = [
   { key: 'data_centers', label: 'Data Centers', nodeIds: ['data_centers'], iconKey: 'dataCenters' },
   { key: 'ai_compute', label: 'AI Compute', nodeIds: ['ai_data_centers'], iconKey: 'aiCompute' },
   { key: 'air_conditioning_refrigerants', label: 'Refrigerants', nodeIds: ['air_conditioning_refrigerants'], iconKey: 'refrigerants' }
-];
+].map(item => {
+  const copy = getActivityReaderCopy(item.key);
+  const profileId = item.lensKey || item.nodeIds[0] || item.key;
+  if (copy.lensId !== profileId || copy.actionId !== profileId) {
+    throw new Error(`Activity reader-copy mapping changed: ${item.key}`);
+  }
+  return { ...item, description: copy.description };
+});

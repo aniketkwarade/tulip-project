@@ -1,3 +1,5 @@
+import { applyActivityActionReaderCopy } from './activity-reader-copy.js';
+
 export const ACTION_PROFILES = {
   food: {
     title: 'Diet Actions',
@@ -929,6 +931,10 @@ export const ACTION_PROFILES = {
     caution: 'The report emphasizes that simply buying newer equipment is not enough if leaks and end-of-life recovery remain weak.'
   }
 };
+
+for (const [id, profile] of Object.entries(ACTION_PROFILES)) {
+  ACTION_PROFILES[id] = applyActivityActionReaderCopy(id, profile);
+}
 
 const ACTION_PROFILE_ALIASES = {
   shipping: 'freight_logistics',

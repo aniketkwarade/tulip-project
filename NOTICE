@@ -1,4 +1,4 @@
-THE TULIP PROJECT
+Tulip Earth
 Copyright 2026 Aniket Warade
 
 This product includes or references data, publications, names, and other
@@ -6,3 +6,12 @@ materials from third-party providers. Those materials remain subject to their
 respective source terms and are not relicensed merely by inclusion in this
 repository. See DATA_AND_ATTRIBUTION.md and the machine-readable source
 registries under public/ for provenance and attribution boundaries.
+
+The desktop welcome artwork reuses Radix Icons.
+Copyright (c) 2022 WorkOS. Distributed under the MIT License; see
+public/desktop-icons/RADIX-LICENSE.txt.
+
+Inspector photographs retain the licenses, attribution and source links recorded
+in src/node-photos.json and docs/inspector-photographs.md. Cropped CC BY-SA
+photographs are distributed under the same CC BY-SA license and version as their
+originals. These photograph licenses are independent of application code.

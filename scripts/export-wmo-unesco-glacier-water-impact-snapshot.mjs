@@ -3,7 +3,7 @@ import path from 'node:path';
 
 const OUTPUT_PATH = path.resolve('public/wmo-unesco-glacier-water-impact-snapshot.json');
 const snapshot = {
-  version: 'wmo_sgwr_2024_unesco_wwdr_2025_glacier_water_v1',
+  version: 'wmo_sgwr_2024_unesco_wwdr_2025_glacier_water_v2_context_only',
   captured_at: new Date().toISOString(),
   source: {
     id: 'wmo_unesco_global_glacier_water_assessments',
@@ -16,7 +16,10 @@ const snapshot = {
   },
   ingestion_job_id: 'export_wmo_unesco_glacier_water_impact_snapshot',
   metric_contract_ids: ['glacier_runoff_share_of_water_supply'],
-  contract_bindings: [{ node_id: 'glacier_meltwater_dependency', metric_id: 'glacier_runoff_share_of_water_supply', measurement_role: 'global_glacier_mass_loss_and_glacier_snow_melt_dependence_assessment' }],
+  contract_bindings: [{ node_id: 'glacier_meltwater_dependency', metric_id: 'glacier_runoff_share_of_water_supply', measurement_role: 'global_glacier_mass_loss_and_glacier_snow_melt_dependence_assessment', supports_direct_metric: false }],
+  measurement_ready_metric_ids: [],
+  reference_only_metric_ids: ['glacier_runoff_share_of_water_supply'],
+  measurement_readiness_note: 'Glacier mass and glacier-plus-snow dependence are supporting context; the snapshot has no glacier-only seasonal runoff-share numerator, supply denominator or volume observation.',
   cadence: 'Annual WMO water-resource report and UN World Water Development Report release review.',
   provenance: 'Official WMO 2024 global glacier mass-balance assessment paired with the official UN glacier-preservation and UNESCO/UN-Water human-dependence assessment. Glacier mass loss and glacier-plus-snow dependence are retained as separate fields.',
   uncertainty: 'The WMO global mass estimate combines about 500 field-monitored glaciers and geodetic measurements covering more than 200,000 glaciers. Preliminary 2024 observations, regional scaling and mass-balance methods affect the estimate. The human figure covers melt from glaciers and snow and must not be interpreted as glacier-only volume share or observed shortage.',

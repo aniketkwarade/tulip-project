@@ -1,0 +1,53 @@
+{
+  "version": "tulip_estimate_and_irreplaceability_decision_2026_09_28_v1",
+  "status": "evidence_standard_priority_and_adjustment_cap_confirmed",
+  "assessmentBasis": "current_harm_with_explicit_ecological_irreplaceability_priority",
+  "internalEstimates": {
+    "allowed": true,
+    "confirmedOn": "2026-09-28",
+    "userAnswer": "Let's use a labeled internal estimate, because that will still be better than keeping the existing score.",
+    "publicValueKind": "internal_estimate",
+    "visibleLabel": "Internal estimate",
+    "rule": "Use documented internal estimates where consequence evidence or a defensible impact model is incomplete. Distinguish source observations, model outputs and authored assumptions. Never present an internal estimate as measured or scientifically calibrated harm.",
+    "scope": "Replacement assessments for issue nodes; this is not permission to relabel retained scores as newly assessed values.",
+    "modelBasedEstimates": "Documented model outputs may inform the estimates under the existing assessment task. Their modeled status and source coverage remain explicit.",
+    "noAutomaticReuseOfExistingValues": true,
+    "noAutomaticReuseOfRejectedBounds": true,
+    "noInventedSourceObservations": true,
+    "noProbabilityIntervalsFromJudgment": true
+  },
+  "irreplaceability": {
+    "enabled": true,
+    "confirmedOn": "2026-09-28",
+    "userAnswer": "Give rare, irreversible ecosystem losses extra score weight",
+    "appliesTo": "ecosystem_component_before_people_nature_average",
+    "maximumNatureBonus": 1,
+    "capStatus": "confirmed",
+    "rule": "Keep the base area-and-condition harm reading visible. Add a separately documented priority adjustment for rare, irreversible ecological loss. This adjustment is a TULIP value choice, not additional measured damaged area or healthy years lost.",
+    "eligibility": "An explicit affected ecological outcome, a documented rarity definition at the assessment scope, an irreversible-loss basis, and causal attribution; an unusual climate event or a long recovery time alone does not qualify.",
+    "unresolved": [
+      "The first authored assessment batch must explicitly review the defined rare ecological asset, its reference and the irreversible loss fraction."
+    ],
+    "maximumOverallIncrease": 0.5,
+    "capConfirmedOn": "2026-09-28",
+    "capUserAnswer": "Up to 0.5 points overall: add at most 1 point to nature",
+    "scaling": "1 nature point multiplied by the estimated irreversible loss fraction of the defined rare ecological asset, bounded between 0 and 1."
+  },
+  "weights": {
+    "human": 0.5,
+    "ecosystem": 0.5
+  },
+  "scoreScale": {
+    "minimum": 1,
+    "maximum": 10,
+    "decimalPlaces": 1
+  },
+  "publicName": "TULIP Score",
+  "formula": "round_once_to_one_decimal(0.5 * human_component + 0.5 * min(10, base_nature_component + explicit_irreplaceability_bonus))",
+  "benchmarkMapping": "Map supported or explicitly estimated consequence quantities separately against the fixed benchmark policy before averaging. Do not fit the scale to the catalogue distribution.",
+  "scientificCalibrationApprovedByThisDecision": false,
+  "numericalRecordsCompletedByThisDecision": 0,
+  "responseDangerScoringAllowed": false,
+  "productionPublicationAuthorizedByThisDecision": false,
+  "phoneInstallationAuthorizedByThisDecision": false
+}

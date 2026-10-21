@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "kind": "frozen_public_assessment_continuity",
+  "recordedOn": "2026-09-27",
+  "purpose": "Keep the existing public rating unchanged while correcting source metadata and reviewing actual consequences. This is an archival reproduction, not a renewed scientific approval.",
+  "records": [
+    {
+      "nodeId": "glacier_meltwater_dependency",
+      "reason": "retain_public_value_during_consequence_review",
+      "replacementAdmitted": false,
+      "retainedValue": 5.5,
+      "assessmentVersion": "tulip_internal_rubric_2026_09_23_v6",
+      "policyDigest": "859bfa32085436d7cb34322cefad8ba4a3f4ddb6c6bf145336d7316311927c5b",
+      "candidateRowDigest": "3e2695aa671a1ebbba985990da61be34da5c5ae9b4769df40e2edf6c4403aa76",
+      "retainedRecordDigest": "5c82e4669dd2c1610b1045efb1bd7aa422963d1f64926a91b934956553dca166",
+      "frozenSourceDigest": "d5808f863c81f7956892173e0c613e5413248a0aed993b23ceb3acd692afcb4a",
+      "correctedSourceDigest": "08e2493ea26ac40e842032dbfa7c63dac881123f71ac0e78079a70f316eb4978",
+      "frozenMetricContract": {
+        "metric_id": "glacier_runoff_share_of_water_supply",
+        "metric_name": "Glacier-derived runoff share of seasonal water supply",
+        "unit": "percent and million cubic metres per season",
+        "geography": "declared basin, aquifer, utility, catchment, floodplain, or administrative reporting area",
+        "cadence": "event-based to monthly with annual accounting",
+        "observation_time_field": "water_observation_time",
+        "source_id": "nasa_sea_level_change_portal",
+        "transformation": "Preserve water-balance boundary, source and use sector, denominator, event definition, reporting coverage, and model version; keep observed, modeled, permitted, and estimated quantities distinct.",
+        "uncertainty": "Gauge and well coverage, withdrawals, return flows, groundwater-surface-water exchange, infrastructure reporting, model resolution, and revisions affect estimates.",
+        "threshold_provenance": "Use the responsible agency standard or a fixed basin-specific hydrologic threshold with versioned provenance.",
+        "failure_behavior": "Do not infer zero flow, zero withdrawal, or zero impact from missing observations or transfer basin results to individual assets.",
+        "reviewed_at": "2026-07-18",
+        "contract_status": "reviewed_live_node_metric"
+      },
+      "correction": "The live metric now correctly identifies WMO/UNESCO as context-only, not a glacier-only runoff-share measurement.",
+      "remainingReview": "Dependence cannot substitute for current attributable harm. The existing central and lower components have not passed replacement consequence review.",
+      "repairRecord": "central-water-source-repairs.json",
+      "limitation": "All public assessment fields are pinned to their prior contents. Any further input, policy, candidate or output change fails the build; no automatic refresh or promotion is permitted."
+    }
+  ]
+}

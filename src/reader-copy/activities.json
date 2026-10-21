@@ -1,0 +1,1358 @@
+{
+  "food": {
+    "lensId": "food",
+    "actionId": "food",
+    "description": "Producing food releases gases that warm the planet. These figures compare the amount released for one kilogram of each food. They include farming and the steps needed to get food to shops.",
+    "lens": {
+      "title": "Comparing foods",
+      "eyebrow": "Understanding the comparison",
+      "intro": "Producing food releases gases that warm the planet. These figures compare the amount released for one kilogram of each food. They include farming and the steps needed to get food to shops.",
+      "scaleNote": "CO2e means carbon dioxide equivalent: it compares different gases by how much warming they cause. Each value is kilograms of CO2e per kilogram of food, using 2010 global averages. Cooking and waste at home are excluded. The example portions show familiar serving sizes; the values are not per serving.",
+      "takeaway": "Beef and lamb generally cause more emissions per kilogram than plant foods. Goat is not shown because its available estimate uses animal carcass weight, which is a different basis for comparison.",
+      "groupTitles": {
+        "primary": "Foods with higher emissions",
+        "secondary": "Other foods"
+      },
+      "items": {
+        "food.beef": {
+          "label": "Beef",
+          "note": "Cattle raised for beef release methane as they digest food. Growing their feed and using land to raise them also add emissions. This figure is for dedicated beef herds."
+        },
+        "food.dark_chocolate": {
+          "label": "Dark Chocolate",
+          "note": "Clearing land to grow cocoa and processing it into chocolate can release large amounts of warming gases. This comparison is per kilogram, not per piece."
+        },
+        "food.lamb_mutton": {
+          "label": "Lamb & Mutton",
+          "note": "Sheep release methane as they digest food. The land needed to raise them also contributes to the total."
+        },
+        "food.coffee": {
+          "label": "Coffee",
+          "note": "Land clearing and the energy and materials used on farms add emissions. A cup uses far less than a kilogram of coffee, so this is not the footprint of one drink."
+        },
+        "food.cheese": {
+          "label": "Cheese",
+          "note": "It takes a large amount of milk to make a smaller amount of cheese. The emissions from producing that milk are included here."
+        },
+        "food.seafood": {
+          "label": "Seafood",
+          "note": "This figure uses farmed fish as an example, not an average for all seafood. Making fish feed and running fish farms both contribute."
+        },
+        "food.pork": {
+          "label": "Pork",
+          "note": "The emissions per kilogram are lower than for beef and lamb, but higher than for most plant foods in this comparison."
+        },
+        "food.chicken": {
+          "label": "Chicken",
+          "note": "The emissions per kilogram are lower than for beef and lamb, but higher than for beans and most vegetables."
+        },
+        "food.eggs": {
+          "label": "Eggs",
+          "note": "The emissions per kilogram sit below most other animal foods shown here."
+        },
+        "food.rice": {
+          "label": "Rice",
+          "note": "Microbes in flooded fields can produce methane while breaking down plant material without oxygen. This raises the footprint compared with many other staple crops."
+        },
+        "food.tofu": {
+          "label": "Tofu",
+          "note": "This food made from soybeans provides protein with relatively low emissions per kilogram in this comparison."
+        },
+        "food.vegetables": {
+          "label": "Vegetables",
+          "note": "This figure uses peas as an example, not an average for every vegetable. The serving example is also for peas."
+        }
+      }
+    },
+    "actions": {
+      "title": "Diet: what can help",
+      "definition": "Raising cattle and sheep, and producing dairy foods, releases large amounts of warming gases. Choosing other foods and changing what large kitchens buy can reduce demand for these products.",
+      "whyItMatters": "Food choices can make a clear difference because the emissions from producing beef, lamb and plant proteins vary widely.",
+      "confidence": "Strong evidence",
+      "confidenceNote": "Studies of diets and changes to food purchasing support these actions. The benefit depends on what a food is replaced with.",
+      "strongestAction": "Start by replacing some beef and lamb meals. Make lower-emission meals easy to choose.",
+      "personal": [
+        "Replace some beef and lamb with beans, lentils, soy, eggs or poultry, according to your needs.",
+        "Reduce meals that rely heavily on cheese or other dairy foods where practical.",
+        "Pay attention to the kind of food you buy. For beef and lamb, how they are produced usually matters more than how far they travel."
+      ],
+      "community": [
+        "Make meals built around plant foods the usual option in schools, hospitals and workplaces.",
+        "Set limits on how much beef and lamb large kitchens buy, rather than relying only on food labels.",
+        "Change everyday menus and recipes so meals with lower emissions are easy and familiar choices."
+      ],
+      "policy": [
+        "Use climate and health evidence when setting public food guidelines.",
+        "Set food-purchasing standards for public kitchens so changes reach many meals.",
+        "Redirect farm support towards food production that causes fewer emissions."
+      ],
+      "metrics": [
+        "warming gases avoided per changed meal, in kilograms of CO2 equivalent",
+        "the share of beef and lamb meals replaced",
+        "yearly warming gases avoided per person, in kilograms of CO2 equivalent"
+      ],
+      "caution": "Buying nearby food alone does not guarantee a lower footprint. The type of food remains important.",
+      "outcomes": {
+        "personal": [
+          "Changing the foods you eat can reduce the emissions caused by producing your meals.",
+          "Track warming gases avoided per changed meal, in kilograms of CO2 equivalent."
+        ],
+        "community": [
+          "Changing regular menus can reduce emissions across many meals at once.",
+          "Track the share of beef and lamb meals replaced."
+        ],
+        "policy": [
+          "Public purchasing and farm support can make lower-emission food easier to provide.",
+          "Track yearly warming gases avoided per person, in kilograms of CO2 equivalent."
+        ]
+      }
+    }
+  },
+  "industry_farming": {
+    "lensId": "industry_farming",
+    "actionId": "industry_farming",
+    "description": "Raising animals and growing crops can release warming gases. Animal digestion, manure, fuel use and clearing land all contribute. The figures here are rough estimates that still need a clearer source breakdown.",
+    "lens": {
+      "title": "Farming emissions: working estimates",
+      "eyebrow": "Understanding the comparison",
+      "intro": "Raising animals and growing crops can release warming gases. Animal digestion, manure, fuel use and clearing land all contribute. The figures here are rough estimates that still need a clearer source breakdown.",
+      "scaleNote": "Values use MtCO2e per year: millions of tonnes of gases, compared by their warming effect. These working estimates draw on food-system research around 2019. The named rows are not a verified breakdown of that research and may overlap. Do not add them into a total.",
+      "takeaway": "Farm practices and protecting land both matter. Treat the size of these particular estimates with caution until their source boundaries are checked.",
+      "groupTitles": {
+        "primary": "Main working estimate",
+        "secondary": "Related working estimates"
+      },
+      "items": {
+        "industry_farming.cattle_ranching": {
+          "label": "Cattle ranching",
+          "note": "Raising cattle releases gases from digestion, manure and feed production. The figure shown is a working estimate; its source does not yet establish a cattle-only total."
+        },
+        "industry_farming.land_clearing_for_cattle": {
+          "label": "Land clearing for cattle",
+          "note": "Clearing forests or other land for livestock can release stored carbon. This working estimate may overlap with the wider farming figures."
+        },
+        "industry_farming.farm_energy": {
+          "label": "Farm energy",
+          "note": "Fuel and electricity are used on farms and along food supply chains. The working estimate here does not yet separate those stages clearly."
+        },
+        "industry_farming.land_clearing_fires": {
+          "label": "Land-clearing fires",
+          "note": "Burning vegetation to clear land releases warming gases. This working estimate should not be added to other land-clearing figures."
+        }
+      }
+    },
+    "actions": {
+      "title": "Farming: what can help",
+      "definition": "Large farms use land, feed, water and energy to produce crops and animal foods. How they handle manure, feed animals and protect land affects their impact.",
+      "whyItMatters": "Farm businesses, major food buyers and governments can change production practices more directly than most individual shoppers.",
+      "confidence": "Fairly strong evidence",
+      "confidenceNote": "Results depend on the farm, local conditions and how a practice is carried out.",
+      "strongestAction": "Improve feed and manure handling, use resources carefully, and protect land from clearing.",
+      "personal": [
+        "Look for animal products with trustworthy evidence about their production and land use, when that information is available.",
+        "Buy less from cattle and animal-feed supply chains that cannot explain where their products come from.",
+        "Remember that changing what you eat is often more practical than trying to judge every farm practice from a label."
+      ],
+      "community": [
+        "Include manure, animal feed, water use and forest protection in large food-purchasing contracts.",
+        "Ask major suppliers to trace cattle and soy back to where they were produced.",
+        "Where possible, buy from a range of farming systems rather than relying on large areas growing a single crop."
+      ],
+      "policy": [
+        "Direct farm support towards production that lowers emissions and protects wildlife.",
+        "Fund better manure handling, efficient livestock production and protection of natural land.",
+        "Enforce limits on land clearing and water use in areas with intensive livestock and feed production."
+      ],
+      "metrics": [
+        "methane released per kilogram of milk or meat",
+        "the share of purchases meeting manure or land-use rules",
+        "warming gases per kilogram of product up to the farm gate, in kilograms of CO2 equivalent"
+      ],
+      "caution": "A broad label such as “regenerative” does not by itself prove a climate benefit. Check what changed and how it was measured.",
+      "outcomes": {
+        "personal": [
+          "Choosing traceable products can support better farming practices, though shoppers have limited control.",
+          "Track methane released per kilogram of milk or meat."
+        ],
+        "community": [
+          "Large buyers can make specific land, water and manure standards part of regular purchasing.",
+          "Track the share of purchases meeting manure or land-use rules."
+        ],
+        "policy": [
+          "Funding and enforcement can help farms change practices across a whole region.",
+          "Track warming gases per kilogram of product up to the farm gate, in kilograms of CO2 equivalent."
+        ]
+      }
+    }
+  },
+  "methane": {
+    "lensId": "methane",
+    "actionId": "methane",
+    "description": "This gas traps heat in the atmosphere. Human activities release it when animals digest food, waste breaks down, or fuel escapes from wells, pipes and mines. The rows show the share assigned to each source.",
+    "lens": {
+      "title": "Where human-caused methane comes from",
+      "eyebrow": "Understanding the comparison",
+      "intro": "This gas traps heat in the atmosphere. Human activities release it when animals digest food, waste breaks down, or fuel escapes from wells, pipes and mines. The rows show the share assigned to each source.",
+      "scaleNote": "Each value is a percentage of estimated human-caused methane releases worldwide. The underlying total is about 390 million tonnes a year. These are shares of methane itself, not of all warming gases.",
+      "takeaway": "Cattle, oil and gas systems, and waste are major sources in this comparison. Different sources need different ways to prevent releases.",
+      "groupTitles": {
+        "primary": "Largest sources",
+        "secondary": "Other sources"
+      },
+      "items": {
+        "methane.cattle": {
+          "label": "Cattle",
+          "note": "Microbes help cattle digest grass and other feed. That process produces methane, which the animals release mainly by burping."
+        },
+        "methane.oil_and_gas": {
+          "label": "Oil and gas",
+          "note": "Gas can escape while oil and gas are extracted, processed and moved through pipelines."
+        },
+        "methane.landfills": {
+          "label": "Landfills",
+          "note": "Buried food and other waste can produce methane as they break down without oxygen. This row also includes releases from wastewater."
+        },
+        "methane.other_anthropogenic_sources": {
+          "label": "Other human-caused sources",
+          "note": "This groups smaller sources, including burning fuels and plant material and some industrial processes."
+        },
+        "methane.rice": {
+          "label": "Rice",
+          "note": "Flooded rice fields have little oxygen in their soil. Microbes breaking down plant material there can produce methane."
+        },
+        "methane.coal_mines": {
+          "label": "Coal mines",
+          "note": "Methane can escape from coal seams during mining and after a mine has closed."
+        },
+        "methane.manure": {
+          "label": "Manure",
+          "note": "Stored animal waste can release methane as it breaks down, especially when little oxygen is present."
+        }
+      }
+    },
+    "actions": {
+      "title": "Methane: what can help",
+      "definition": "A powerful warming gas escapes from oil and gas equipment, mines, waste and farms. Preventing these releases can help slow warming in the near term.",
+      "whyItMatters": "Many releases can be measured and prevented, especially leaks from fuel equipment and gas from waste systems.",
+      "confidence": "Strong evidence",
+      "confidenceNote": "Evidence is particularly strong for preventing releases from fossil fuels, waste and local wastewater systems.",
+      "strongestAction": "Find and stop leaks, and prevent gas from escaping from waste.",
+      "personal": [
+        "Replace some beef with lower-emission foods and avoid wasting food that could end up buried in landfill.",
+        "Separate food scraps when your local collection system can process them with a real climate benefit.",
+        "Store food carefully and choose household equipment that helps prevent repeated spoilage."
+      ],
+      "community": [
+        "Keep food and garden waste out of landfill where suitable processing is available, and capture gas from existing landfill sites.",
+        "Improve gas controls at sewage treatment plants and the handling of stored animal waste.",
+        "Measure local releases and report results so improvements can be checked."
+      ],
+      "policy": [
+        "Require operators to measure and report releases, find and repair leaks, and stop avoidable releases of gas into the air. Capture gas from coal mines where practical.",
+        "Use fees or limits to make oil, gas and coal operators responsible for reducing releases.",
+        "Use ground monitoring and satellites to check whether operators meet the rules."
+      ],
+      "metrics": [
+        "the amount of methane kept out of the air each year",
+        "the percentage reduction in the rate of leaks",
+        "the percentage of food and other organic waste kept out of landfill"
+      ],
+      "caution": "Preventing gas from escaping is usually more effective than trying to deal with it after release.",
+      "outcomes": {
+        "personal": [
+          "Food choices and less food waste can reduce some releases linked to your purchases.",
+          "Track the amount of methane kept out of the air each year."
+        ],
+        "community": [
+          "Better waste and sewage systems can reduce releases across a community.",
+          "Track the percentage reduction in the rate of leaks."
+        ],
+        "policy": [
+          "Leak rules and monitoring can cut releases from major operators.",
+          "Track the percentage of food and other organic waste kept out of landfill."
+        ]
+      }
+    }
+  },
+  "carbon_emission": {
+    "lensId": "carbon_emission",
+    "actionId": "carbon_emission",
+    "description": "Power, travel, buildings, factories and land use all release gases that warm the planet. The percentages show how this comparison divides its tracked emissions among those activities.",
+    "lens": {
+      "title": "Where emissions come from",
+      "eyebrow": "Understanding the comparison",
+      "intro": "Power, travel, buildings, factories and land use all release gases that warm the planet. The percentages show how this comparison divides its tracked emissions among those activities.",
+      "scaleNote": "These are percentage shares within the app’s tracked comparison. They are not measurements of the amount released, and they should not be treated as a complete global emissions inventory.",
+      "takeaway": "Many parts of daily life depend on the same power, transport and production systems. Changes to those systems can help people and businesses reduce emissions.",
+      "groupTitles": {
+        "primary": "Larger shares",
+        "secondary": "Other shares"
+      },
+      "items": {
+        "carbon_emission.power_plants": {
+          "label": "Power plants",
+          "note": "Burning coal, oil or gas to make electricity releases carbon dioxide, which can affect the climate for a long time. Percentages are shares within this comparison, not a verified global inventory."
+        },
+        "carbon_emission.cars_and_trucks": {
+          "label": "Cars and trucks",
+          "note": "Cars, vans and trucks use large amounts of petrol and diesel. Burning those fuels releases carbon dioxide."
+        },
+        "carbon_emission.factories": {
+          "label": "Factories",
+          "note": "Making steel, cement and other products uses heat and fuel. Some chemical steps also release gases, even apart from the fuel used."
+        },
+        "carbon_emission.buildings": {
+          "label": "Buildings",
+          "note": "Heating, cooling and making the materials used in buildings all contribute to emissions."
+        },
+        "carbon_emission.deforestation": {
+          "label": "Deforestation",
+          "note": "Removing forests releases some of the carbon stored in trees and soils. Damaged land can also store less carbon."
+        },
+        "carbon_emission.planes_and_ships": {
+          "label": "Planes and ships",
+          "note": "Moving people and goods around the world uses fuel and releases warming gases."
+        },
+        "carbon_emission.farming": {
+          "label": "Farming",
+          "note": "Growing crops, raising animals and using farm equipment contribute to the emissions tracked here."
+        },
+        "carbon_emission.materials": {
+          "label": "Materials",
+          "note": "Goods and the materials used to make them carry emissions from production, including when they are imported."
+        }
+      }
+    },
+    "actions": {
+      "title": "Carbon: what can help",
+      "definition": "Burning fossil fuels and changing how land is used add warming gases to the air. Power stations, vehicles, buildings and factories all contribute.",
+      "whyItMatters": "Personal choices matter, but the available power, transport and building systems shape what people can change.",
+      "confidence": "Strong evidence",
+      "confidenceNote": "These actions work across whole systems. The most useful choice depends on the source of emissions.",
+      "strongestAction": "Reduce fossil-fuel use where practical, and improve the systems that people rely on.",
+      "personal": [
+        "Choose alternatives to petrol, diesel, oil and gas for travel and home energy when practical.",
+        "When replacing long-lasting equipment, consider electric options that avoid years of continued fossil-fuel use.",
+        "Use fewer high-emission materials and take fewer flights when suitable alternatives exist."
+      ],
+      "community": [
+        "Switch suitable buildings and vehicle fleets to electricity.",
+        "Include emissions from running equipment and making materials in major purchasing decisions.",
+        "Measure actual releases from operations instead of relying on green branding."
+      ],
+      "policy": [
+        "Use emissions charges, tax changes, cleaner-power rules and factory standards. Gradually remove subsidies that encourage fossil-fuel use.",
+        "Plan cleaner electricity, better buildings and transport together so each supports the others.",
+        "Protect forests, soils and other places that store carbon and absorb it from the air."
+      ],
+      "metrics": [
+        "yearly warming gases avoided, in millions of tonnes of CO2 equivalent",
+        "the share of direct fossil-fuel use replaced",
+        "emissions from running each building, vehicle or system"
+      ],
+      "caution": "Small household changes alone cannot replace changes to major energy and production systems.",
+      "outcomes": {
+        "personal": [
+          "Replacing fossil fuels can reduce the emissions from your home and travel.",
+          "Track yearly warming gases avoided, in millions of tonnes of CO2 equivalent."
+        ],
+        "community": [
+          "Shared purchasing and equipment changes can reduce emissions across many buildings and vehicles.",
+          "Track the share of direct fossil-fuel use replaced."
+        ],
+        "policy": [
+          "Infrastructure and rules can make lower-emission choices available to more people.",
+          "Track emissions from running each building, vehicle or system."
+        ]
+      }
+    }
+  },
+  "electricity_generation": {
+    "lensId": "electricity_generation",
+    "actionId": "electricity_generation",
+    "description": "Power stations and renewable sources supply energy for homes, transport, factories and computers. These rows show how much of the world’s electricity came from each source in 2024.",
+    "lens": {
+      "title": "How the world makes electricity",
+      "eyebrow": "Understanding the comparison",
+      "intro": "Power stations and renewable sources supply energy for homes, transport, factories and computers. These rows show how much of the world’s electricity came from each source in 2024.",
+      "scaleNote": "Each number is the percentage of global electricity produced by that source in 2024. It measures electricity output, not the source’s share of emissions.",
+      "takeaway": "Coal and gas together still supplied more than half of global electricity in this 2024 comparison. Lower-emission sources also made a substantial contribution.",
+      "groupTitles": {
+        "primary": "Largest sources",
+        "secondary": "Other sources"
+      },
+      "items": {
+        "electricity_generation.coal": {
+          "label": "Coal",
+          "note": "Burning this fuel produced the largest share of the world’s electricity in 2024."
+        },
+        "electricity_generation.natural_gas": {
+          "label": "Natural gas",
+          "note": "Power stations burning this fuel supplied the second-largest share in 2024."
+        },
+        "electricity_generation.hydro": {
+          "label": "Hydropower",
+          "note": "Moving water turns turbines to make electricity. This was the largest renewable source in the 2024 comparison."
+        },
+        "electricity_generation.nuclear": {
+          "label": "Nuclear",
+          "note": "Heat from splitting atoms is used to make electricity. It is a major source with low carbon emissions."
+        },
+        "electricity_generation.wind": {
+          "label": "Wind",
+          "note": "Moving air turns turbines. It supplied more electricity than solar in the 2024 comparison."
+        },
+        "electricity_generation.solar": {
+          "label": "Solar",
+          "note": "Panels turn sunlight into electricity. This was the fastest-growing major source in 2024, although its total was still below wind and hydropower."
+        },
+        "electricity_generation.bioenergy_waste": {
+          "label": "Bioenergy + waste",
+          "note": "Burning plant material and some kinds of waste supplied a small share of electricity in 2024."
+        },
+        "electricity_generation.oil": {
+          "label": "Oil",
+          "note": "Some power stations burn oil. It supplied only a small share of the global total in 2024."
+        }
+      }
+    },
+    "actions": {
+      "title": "Electricity: what can help",
+      "definition": "The sources used to make power affect the footprint of everything that runs on it, from home heating to factories and computers.",
+      "whyItMatters": "Replacing coal power, adding cleaner sources and improving power networks can reduce emissions across many activities.",
+      "confidence": "Strong evidence",
+      "confidenceNote": "Evidence is especially strong for replacing coal, adding renewable power, expanding networks and balancing supply and demand.",
+      "strongestAction": "Replace coal power with cleaner sources and build the networks needed to use them.",
+      "personal": [
+        "Choose a cleaner electricity plan or community power scheme when its claims can be checked.",
+        "If your provider offers reliable information, move flexible uses such as charging to times with cleaner power.",
+        "Consider rooftop solar or storage where it supports a cleaner and reliable local power supply."
+      ],
+      "community": [
+        "Use suitable solar panels, batteries and flexible electricity use in shared buildings.",
+        "Reduce the highest bursts of electricity use so the network is easier to run with cleaner power.",
+        "Ask large energy suppliers to show the effect of purchases at the times electricity is actually used, not only across a year."
+      ],
+      "policy": [
+        "Replace coal plants that release their carbon dioxide into the air, and reduce gas dependence as cleaner options become available.",
+        "Build power lines, storage and flexible supply fast enough to support more renewable energy.",
+        "Set rules that reward low emissions and the ability to balance changing supply and demand."
+      ],
+      "metrics": [
+        "the share of coal-generated electricity replaced",
+        "the share of electricity from cleaner sources",
+        "the highest electricity demand reduced or moved to another time"
+      ],
+      "caution": "New generation needs connections and power lines. Setting a generation target alone does not ensure the electricity can reach users.",
+      "outcomes": {
+        "personal": [
+          "A credible cleaner-power choice can reduce the footprint of your electricity use.",
+          "Track the share of coal-generated electricity replaced."
+        ],
+        "community": [
+          "Shared buildings can lower peak demand and use cleaner power more effectively.",
+          "Track the share of electricity from cleaner sources."
+        ],
+        "policy": [
+          "Cleaner generation and better networks can reduce emissions across the electricity system.",
+          "Track the highest electricity demand reduced or moved to another time."
+        ]
+      }
+    }
+  },
+  "conveyance_aviation": {
+    "lensId": "conveyance_aviation",
+    "actionId": "conveyance_aviation",
+    "description": "Travelling by road, rail and air uses energy and releases warming gases. These rows compare yearly totals for whole transport systems, not the emissions from one person’s trip.",
+    "lens": {
+      "title": "Yearly emissions from transport",
+      "eyebrow": "Understanding the comparison",
+      "intro": "Travelling by road, rail and air uses energy and releases warming gases. These rows compare yearly totals for whole transport systems, not the emissions from one person’s trip.",
+      "scaleNote": "Mt means million tonnes. Road estimates count gases by their warming effect, written as CO2e. The aviation figure counts only carbon dioxide from passenger and cargo flights in 2023. Because the rows count different things, do not add them into one total.",
+      "takeaway": "Cars and SUVs have the largest total in this comparison. The aircraft row includes both passengers and cargo, and excludes warming effects other than carbon dioxide.",
+      "groupTitles": {
+        "primary": "Larger yearly totals",
+        "secondary": "Other transport"
+      },
+      "items": {
+        "conveyance_aviation.cars_and_suvs": {
+          "label": "Cars and SUVs",
+          "note": "This working estimate covers personal road travel. A more direct check against transport-sector data is still needed."
+        },
+        "conveyance_aviation.passenger_and_cargo_aviation": {
+          "label": "Passenger and cargo aviation",
+          "note": "This is the IEA-based estimate of carbon dioxide released by global passenger and cargo flights in 2023. It excludes other warming effects of flying."
+        },
+        "conveyance_aviation.motorcycles": {
+          "label": "Motorcycles",
+          "note": "These vehicles release less in total than cars in this comparison. This is a yearly system estimate, not a per-trip figure."
+        },
+        "conveyance_aviation.rail": {
+          "label": "Rail",
+          "note": "Trains have a much smaller yearly total in this comparison. This figure alone does not tell you the emissions of a particular journey."
+        }
+      }
+    },
+    "actions": {
+      "title": "Transport: what can help",
+      "definition": "Cars, motorcycles, trains and aircraft use energy to move people and goods. Using less fuel starts with the trips that can be avoided or replaced.",
+      "whyItMatters": "Avoiding unnecessary trips can help now. Better vehicles, operations and fuels can reduce the impact of travel that remains.",
+      "confidence": "Strong evidence for fewer trips; fairly strong for technology",
+      "confidenceNote": "Evidence supports replacing trips and improving efficiency. Large supplies of truly low-emission aviation fuels are less certain.",
+      "strongestAction": "Avoid unnecessary car trips and flights, then reduce the impact of the travel you still need.",
+      "personal": [
+        "Combine errands and use public transport, cycling, walking, trains or online meetings when they work for the journey.",
+        "Fly less often for optional or repeated trips. When flying is necessary, favour direct and fuel-efficient routes.",
+        "When a vehicle is needed, consider a smaller electric or efficient model rather than another oversized vehicle."
+      ],
+      "community": [
+        "Improve commuting options and parking arrangements so people do not always need a car.",
+        "Replace suitable business flights with trains or online meetings, and record the flights that remain.",
+        "Switch suitable fleets to electricity and choose travel providers that use fuel efficiently."
+      ],
+      "policy": [
+        "Invest in buses, trains, safe walking routes and cycling so practical alternatives exist.",
+        "Combine vehicle standards with planning that puts homes closer to jobs and services.",
+        "Improve aircraft efficiency and fuels, and manage demand. Buying carbon offsets should not replace cutting emissions directly."
+      ],
+      "metrics": [
+        "kilometres of vehicle travel and flights avoided or replaced",
+        "the share of trips changed to walking, cycling, public transport, rail or online participation",
+        "road and aviation emissions per traveller"
+      ],
+      "caution": "The road estimates count several gases by warming effect; the flight estimate counts only carbon dioxide. Flying has other warming effects too. Do not add the chart rows into a single total.",
+      "outcomes": {
+        "personal": [
+          "Taking fewer trips, or using another way to travel, can reduce emissions.",
+          "Track kilometres of vehicle travel and flights avoided or replaced."
+        ],
+        "community": [
+          "Workplace travel and fleet choices can change many journeys at once.",
+          "Track the share of trips changed to walking, cycling, public transport, rail or online participation."
+        ],
+        "policy": [
+          "Better transport and planning can make lower-emission travel practical for more people.",
+          "Track road and aviation emissions per traveller."
+        ]
+      }
+    }
+  },
+  "freight_logistics": {
+    "lensId": "freight_logistics",
+    "actionId": "freight_logistics",
+    "description": "Trucks, ships, trains and aircraft carry goods between places. The rows compare carbon dioxide from running these transport services. Warehouses, ports and keeping goods cold are not extra transport types to add to the chart.",
+    "lens": {
+      "title": "Yearly emissions from moving goods",
+      "eyebrow": "Understanding the comparison",
+      "intro": "Trucks, ships, trains and aircraft carry goods between places. The rows compare carbon dioxide from running these transport services. Warehouses, ports and keeping goods cold are not extra transport types to add to the chart.",
+      "scaleNote": "MtCO2 means million tonnes of carbon dioxide. These yearly estimates come from the International Transport Forum’s model for 2015. They cover transport operations, not extra totals for facilities or infrastructure.",
+      "takeaway": "Road transport has the largest total in this model, followed by shipping. Moving suitable goods by rail or water and improving the remaining vehicles can both help.",
+      "groupTitles": {
+        "primary": "Largest yearly totals",
+        "secondary": "Other ways to move goods"
+      },
+      "items": {
+        "freight_logistics.road": {
+          "label": "Road",
+          "note": "Trucks have the largest total carbon dioxide emissions in this model of global goods transport."
+        },
+        "freight_logistics.sea": {
+          "label": "Sea",
+          "note": "Ships carry very large amounts of goods. Their yearly emissions total is second to road transport in this comparison."
+        },
+        "freight_logistics.air_freight": {
+          "label": "Air freight",
+          "note": "Aircraft have a smaller yearly total than trucks or ships here. But moving the same weight of goods the same distance by air can release much more carbon dioxide."
+        },
+        "freight_logistics.rail": {
+          "label": "Rail",
+          "note": "Trains carry large amounts of goods with a much smaller yearly carbon dioxide total in this comparison."
+        },
+        "freight_logistics.inland_waterways": {
+          "label": "Inland waterways",
+          "note": "Boats carrying goods on rivers and canals have the smallest total among the transport types shown here."
+        }
+      }
+    },
+    "actions": {
+      "title": "Freight and logistics: what can help",
+      "definition": "Goods travel by road, sea, rail, river and air. Warehouses, ports, delivery services and refrigerated storage connect these journeys.",
+      "whyItMatters": "Fewer empty trips, better loading and suitable shifts to rail or water can help. Vehicles, ships, fuels and facilities also need improvement.",
+      "confidence": "Fairly strong evidence",
+      "confidenceNote": "Efficiency and better use of transport are well established. Options without direct emissions vary by route and type of vehicle.",
+      "strongestAction": "Reduce empty trips, use suitable lower-emission transport, and improve the journeys that remain.",
+      "personal": [
+        "Group deliveries and avoid rush shipping when it is not needed.",
+        "Buy less often when this can reduce repeated small deliveries.",
+        "Remember that shipping companies, fleet owners and warehouses control more of this impact than individual shoppers."
+      ],
+      "community": [
+        "Use electric delivery vehicles where their range and charging suit the routes.",
+        "Ask transport companies to report emissions and efficiency separately for each type of transport.",
+        "Improve routes and loading, and reduce energy use in ships, warehouses, ports and refrigerated storage."
+      ],
+      "policy": [
+        "Build routes with suitable charging and other infrastructure for trucks with no tailpipe emissions.",
+        "Make it easier to move suitable loads by rail or water and transfer them between transport types.",
+        "Set standards for vehicles, ships, fuels and ports, and require large operators to report their emissions."
+      ],
+      "metrics": [
+        "carbon dioxide per tonne of goods moved one kilometre",
+        "tonnes of goods and travel distances shifted away from road or air",
+        "energy used by fleets, ships and facilities for the work they do"
+      ],
+      "caution": "Warehouses, refrigeration, ports and final delivery serve several transport types. Adding them as separate modes could count some activity twice.",
+      "outcomes": {
+        "personal": [
+          "Fewer separate deliveries can reduce some demand for goods transport.",
+          "Track carbon dioxide per tonne of goods moved one kilometre."
+        ],
+        "community": [
+          "Better loading, routes and equipment can reduce fuel use across a company’s deliveries.",
+          "Track tonnes of goods and travel distances shifted away from road or air."
+        ],
+        "policy": [
+          "Shared infrastructure and standards can support lower-emission goods transport.",
+          "Track energy used by fleets, ships and facilities for the work they do."
+        ]
+      }
+    }
+  },
+  "food_waste": {
+    "lensId": "food_waste",
+    "actionId": "food_waste",
+    "description": "Food that is thrown away has already used land, water and energy. It can also release methane when it breaks down. These figures estimate emissions from disposal, divided between homes, food services and shops.",
+    "lens": {
+      "title": "Emissions linked to discarded food",
+      "eyebrow": "Understanding the comparison",
+      "intro": "Food that is thrown away has already used land, water and energy. It can also release methane when it breaks down. These figures estimate emissions from disposal, divided between homes, food services and shops.",
+      "scaleNote": "Values are millions of tonnes of gases per year, compared by their warming effect (MtCO2e). The app splits a working total of 2.1 billion tonnes using UNEP’s shares of wasted food by weight. This assumes the same emissions per weight across settings; it is not a direct measurement of each setting.",
+      "takeaway": "Preventing food from being wasted avoids the need to produce it and deal with it later. These disposal estimates do not describe its whole journey from farm to plate.",
+      "groupTitles": {
+        "primary": "Largest estimated share",
+        "secondary": "Other estimated shares"
+      },
+      "items": {
+        "food_waste.homes": {
+          "label": "Homes",
+          "note": "This is the largest estimated share. It comes from applying the household share of wasted food by weight to a common disposal-emissions total. This assumes the same emissions per weight of waste in each setting."
+        },
+        "food_waste.restaurants": {
+          "label": "Restaurants",
+          "note": "This estimate represents food services, including restaurants. It uses their share of wasted food by weight, not separately measured emissions."
+        },
+        "food_waste.grocery_stores": {
+          "label": "Grocery stores",
+          "note": "This estimate represents retailers. It uses their share of wasted food by weight, not separately measured emissions."
+        }
+      }
+    },
+    "actions": {
+      "title": "Food waste: what can help",
+      "definition": "When food is thrown away, the resources used to produce it are also wasted. Buried scraps can release methane as they break down.",
+      "whyItMatters": "Preventing waste can reduce emissions and save money in homes, kitchens and businesses.",
+      "confidence": "Strong evidence",
+      "confidenceNote": "Research supports preventing waste, with benefits that often include lower food costs.",
+      "strongestAction": "Stop food becoming waste in the first place.",
+      "personal": [
+        "Plan what you buy, store it well and use leftovers.",
+        "Notice which foods you repeatedly throw away and change that pattern first.",
+        "Track what you save as well as what you throw away, so the benefit is visible."
+      ],
+      "community": [
+        "Weigh or record waste from each kitchen or site to find the main causes.",
+        "Adjust portions, purchasing and storage in schools, workplaces and other large kitchens.",
+        "Pass suitable surplus food to people who can use it, while also preventing the surplus next time."
+      ],
+      "policy": [
+        "Make date labels and guidance clearer so people understand them.",
+        "Provide food-scrap collection and processing that limits methane releases.",
+        "Require major shops and food services to report waste and work towards reductions."
+      ],
+      "metrics": [
+        "kilograms of food waste avoided",
+        "the percentage reduction in waste at each site",
+        "warming gases avoided by preventing waste, in kilograms of CO2 equivalent"
+      ],
+      "caution": "Composting can help with unavoidable scraps. Preventing edible food from being wasted also avoids the resources used to produce it.",
+      "outcomes": {
+        "personal": [
+          "Wasting less food can lower the footprint and cost of your meals.",
+          "Track kilograms of food waste avoided."
+        ],
+        "community": [
+          "Better kitchen planning can reduce waste across many meals.",
+          "Track the percentage reduction in waste at each site."
+        ],
+        "policy": [
+          "Clear labels, targets and collection systems can help more people and businesses reduce waste.",
+          "Track warming gases avoided by preventing waste, in kilograms of CO2 equivalent."
+        ]
+      }
+    }
+  },
+  "fertilizer_production": {
+    "lensId": "fertilizer_production",
+    "actionId": "fertilizer_production",
+    "description": "Factories make ammonia, a chemical used to supply crops with nitrogen, a nutrient they need to grow. Making it usually uses fuel and releases warming gases. These figures are estimates for production.",
+    "lens": {
+      "title": "Emissions from making crop nutrients",
+      "eyebrow": "Understanding the comparison",
+      "intro": "Factories make ammonia, a chemical used to supply crops with nitrogen, a nutrient they need to grow. Making it usually uses fuel and releases warming gases. These figures are estimates for production.",
+      "scaleNote": "Values are millions of tonnes of gases per year, compared by their warming effect (MtCO2e). The 440 total is split into coal-based and gas-based estimates. Add the two fuel rows only; adding the total again would count the same emissions twice. Releases after use on fields are outside this comparison.",
+      "takeaway": "Both the fuel used in factories and how much is made affect emissions. The split between coal and gas is a working estimate, not a final source inventory.",
+      "groupTitles": {
+        "primary": "Production total",
+        "secondary": "Parts of that total"
+      },
+      "items": {
+        "fertilizer_production.ammonia_production": {
+          "label": "Ammonia production",
+          "note": "The estimated yearly total for making this chemical is about 440 million tonnes of CO2e. The next two rows divide up this total. CO2e compares different gases by how much warming they cause."
+        },
+        "fertilizer_production.coal_based_fertilizer": {
+          "label": "Coal-based fertilizer",
+          "note": "This estimate covers making ammonia using coal. That route releases more warming gases for a given amount of product than the gas-based route."
+        },
+        "fertilizer_production.gas_based_fertilizer": {
+          "label": "Gas-based fertilizer",
+          "note": "This estimate covers making ammonia using natural gas. It has a lower footprint per amount produced than the coal-based route, but still releases warming gases."
+        }
+      }
+    },
+    "actions": {
+      "title": "Fertilizer: what can help",
+      "definition": "Factories make chemicals that help crops grow. Producing them releases warming gases, and using too much on fields can cause further harm.",
+      "whyItMatters": "Making ammonia with fewer emissions and matching nitrogen use to crop needs both matter. Results depend on the crop, soil and location.",
+      "confidence": "Fairly strong evidence",
+      "confidenceNote": "The overall approach is supported, but the right amount and method vary across farms and regions.",
+      "strongestAction": "Give crops the nitrogen they need without excess, and make ammonia with fewer emissions.",
+      "personal": [
+        "Focus here if you manage land or buy food for an organisation; most individuals have limited direct control.",
+        "Where reliable information exists, support suppliers that use crop nutrients efficiently.",
+        "Do not assume that adding more always makes crops better able to cope with difficult conditions."
+      ],
+      "community": [
+        "Measure soil and crop needs to decide how much nutrient to use and when to apply it.",
+        "Reward farms that grow the needed crops while wasting less nitrogen.",
+        "Try lower-emission ammonia or suitable alternative nutrients where practical, and measure the result."
+      ],
+      "policy": [
+        "Support ways to make ammonia with near-zero emissions.",
+        "Set nutrient-use standards and support farmers in avoiding excess application.",
+        "Base targets on measured crop and soil needs, rather than simply encouraging higher or lower sales volumes."
+      ],
+      "metrics": [
+        "how effectively applied nitrogen is used by crops",
+        "kilograms of nitrogen applied per amount of crop produced",
+        "warming gases avoided in ammonia production, in millions of tonnes of CO2 equivalent"
+      ],
+      "caution": "A practice that works for one crop or region may not work the same way elsewhere.",
+      "outcomes": {
+        "personal": [
+          "People managing land can reduce excess use; other shoppers usually have less direct influence.",
+          "Track how effectively applied nitrogen is used by crops."
+        ],
+        "community": [
+          "Farm advice and purchasing rules can reward efficient nutrient use.",
+          "Track kilograms of nitrogen applied per amount of crop produced."
+        ],
+        "policy": [
+          "Cleaner production and farm support can address both factory and field emissions.",
+          "Track warming gases avoided in ammonia production, in millions of tonnes of CO2 equivalent."
+        ]
+      }
+    }
+  },
+  "mining_critical_minerals": {
+    "lensId": "mining_critical_minerals",
+    "actionId": "mining_critical_minerals",
+    "description": "Raw minerals need processing before they can be used in batteries, electronics and other products. Much of that work happens in a few countries. A disruption in one place can therefore affect supplies elsewhere.",
+    "lens": {
+      "title": "Where important minerals are processed",
+      "eyebrow": "Understanding the comparison",
+      "intro": "Raw minerals need processing before they can be used in batteries, electronics and other products. Much of that work happens in a few countries. A disruption in one place can therefore affect supplies elsewhere.",
+      "scaleNote": "Each percentage is a share of processing or refining, which turns raw minerals into usable materials. The rows cover different minerals and time periods. The 2035 figures are projections, not observations. These are supply shares, not emissions or a danger score; do not add them together.",
+      "takeaway": "Depending on a small number of processing centres can make supply chains vulnerable to disruption.",
+      "groupTitles": {
+        "primary": "Processing shares",
+        "secondary": "Other mineral shares"
+      },
+      "items": {
+        "mining_critical_minerals.top_3_refining_nations_average_share": {
+          "label": "Top 3 refining nations: average share",
+          "note": "This is the average combined share of the three leading countries for copper, lithium, nickel, cobalt, graphite and rare-earth processing."
+        },
+        "mining_critical_minerals.china_average_across_19_of_20_strategic_mineral_refining_chains": {
+          "label": "China: average across 19 of 20 mineral chains",
+          "note": "Across these 19 strategic mineral supply chains, China’s average share of refining is about 70%. This is not the share for every individual mineral."
+        },
+        "mining_critical_minerals.china_projected_battery_grade_graphite_share_in_2035": {
+          "label": "China: battery-grade graphite in 2035",
+          "note": "The projection puts China’s share at about 80% for graphite processed to the quality needed for batteries. It describes a possible future, not today’s output."
+        },
+        "mining_critical_minerals.china_projected_rare_earth_refining_share_in_2035": {
+          "label": "China: rare-earth refining in 2035",
+          "note": "The projection puts China’s share of processing this group of metals at about 80%. Future shares may change."
+        },
+        "mining_critical_minerals.china_projected_refined_lithium_share_in_2035": {
+          "label": "China: refined lithium in 2035",
+          "note": "The projection puts China’s share at about 60%, even with more processing expected in other countries."
+        },
+        "mining_critical_minerals.china_projected_refined_cobalt_share_in_2035": {
+          "label": "China: refined cobalt in 2035",
+          "note": "The projection puts China’s share at about 60%. This is a future estimate, not a measured current share."
+        }
+      }
+    },
+    "actions": {
+      "title": "Mining: what can help",
+      "definition": "Taking raw materials from the ground and processing them uses energy and water. The damage depends on local conditions and how well operations are managed.",
+      "whyItMatters": "Keeping materials in use, recycling them and improving rules for producers can have more influence than a product’s green label.",
+      "confidence": "Moderate evidence",
+      "confidenceNote": "Results vary by material and location. Some approaches are less established than those for power and buildings.",
+      "strongestAction": "Reuse and recycle materials where practical, and improve how extraction is managed.",
+      "personal": [
+        "Keep products longer and replace them less often.",
+        "Repair and reuse devices, and choose products that can last.",
+        "Recognise that large buyers and regulators have more control over extraction than individual shoppers."
+      ],
+      "community": [
+        "Make repair, reuse and recycled materials part of purchasing contracts.",
+        "Avoid replacing equipment and infrastructure before it is needed.",
+        "Check major purchases for where materials come from, water use and risks in processing."
+      ],
+      "policy": [
+        "Improve mining rules, recycling systems and standards for processing minerals.",
+        "Support electric mining equipment and cleaner processing where they offer real benefits.",
+        "Reduce wasteful demand for materials alongside planning for needed supplies."
+      ],
+      "metrics": [
+        "the amount of newly extracted material replaced by reused or recycled inputs",
+        "the share of recycled material in products",
+        "how much longer products stay in use"
+      ],
+      "caution": "Consumer choices alone cannot address the rules and business decisions that shape extraction.",
+      "outcomes": {
+        "personal": [
+          "Keeping and repairing products can reduce demand for new materials.",
+          "Track the amount of newly extracted material replaced by reused or recycled inputs."
+        ],
+        "community": [
+          "Large buyers can use fewer new materials and support repair and reuse.",
+          "Track the share of recycled material in products."
+        ],
+        "policy": [
+          "Rules for extraction and recycling can improve practices across supply chains.",
+          "Track how much longer products stay in use."
+        ]
+      }
+    }
+  },
+  "built_environment": {
+    "lensId": "built_environment",
+    "actionId": "built_environment",
+    "description": "Homes, offices and other buildings use energy for heating, cooling, lighting and equipment. Making their materials and building them also releases carbon dioxide. These rows cover those different stages.",
+    "lens": {
+      "title": "Emissions from buildings and construction",
+      "eyebrow": "Understanding the comparison",
+      "intro": "Homes, offices and other buildings use energy for heating, cooling, lighting and equipment. Making their materials and building them also releases carbon dioxide. These rows cover those different stages.",
+      "scaleNote": "These are rounded shares of global carbon dioxide emissions from energy use and industrial processes in 2023. The three rows use the same counting rules and add to 34%. Building location and size affect these totals; they are not extra rows to add.",
+      "takeaway": "Running buildings accounts for the largest share. Improving existing buildings and using fewer, lower-emission materials for new work address different parts of the problem.",
+      "groupTitles": {
+        "primary": "Parts of the buildings total",
+        "secondary": "Other parts"
+      },
+      "items": {
+        "built_environment.residential_operations": {
+          "label": "Running homes",
+          "note": "Heating, cooling, lighting and equipment in homes account for the largest building-related share shown here."
+        },
+        "built_environment.non_residential_operations": {
+          "label": "Running other buildings",
+          "note": "This includes offices, shops, schools, hospitals and other buildings that are not homes."
+        },
+        "built_environment.building_materials_construction": {
+          "label": "Building materials + construction",
+          "note": "Making materials such as cement and steel, and carrying out construction work, releases carbon dioxide before a building is used."
+        }
+      }
+    },
+    "actions": {
+      "title": "Buildings and housing: what can help",
+      "definition": "Buildings use energy throughout their lives, and making their materials also causes emissions. Their size, location and design affect how much is needed.",
+      "whyItMatters": "Improving existing buildings, placing homes near services and using fewer high-emission materials address different parts of the footprint.",
+      "confidence": "Strong evidence",
+      "confidenceNote": "Evidence supports better insulation and equipment, homes near services, and materials with fewer emissions. Their benefits can be measured.",
+      "strongestAction": "Improve existing buildings, build near services, and choose materials with lower emissions.",
+      "personal": [
+        "Improve insulation and reduce draughts in your current home where possible, before adding more space.",
+        "Consider smaller homes or locations closer to jobs and services when you have a real choice.",
+        "Repair, improve and reuse buildings where possible, rather than knocking them down and starting again."
+      ],
+      "community": [
+        "Improve shared buildings with insulation, better controls, efficient cooling and cleaner heating.",
+        "Add housing in existing neighbourhoods and near public transport, while protecting affordability and access.",
+        "Set limits on emissions from making construction materials, use materials efficiently, and ask suppliers for credible product reports."
+      ],
+      "policy": [
+        "Set building-efficiency standards and provide funding for upgrades and cleaner heating.",
+        "Allow compact housing near jobs, services and public transport.",
+        "Count emissions from construction and building use in building rules, and buy lower-emission cement and steel for public projects."
+      ],
+      "metrics": [
+        "energy used to run buildings per square metre",
+        "emissions from materials and construction per square metre or home",
+        "housing added in compact places with good access to services"
+      ],
+      "caution": "Size and location affect energy, transport and materials. They should not be counted as an extra emissions total on top of those effects.",
+      "outcomes": {
+        "personal": [
+          "Improving an existing home can reduce its energy use and avoid unnecessary new materials.",
+          "Track energy used to run buildings per square metre."
+        ],
+        "community": [
+          "Shared upgrades and careful construction can reduce emissions across many buildings.",
+          "Track emissions from materials and construction per square metre or home."
+        ],
+        "policy": [
+          "Planning and building rules can reduce both future energy demand and construction emissions.",
+          "Track housing added in compact places with good access to services."
+        ]
+      }
+    }
+  },
+  "deforestation_land_use": {
+    "lensId": "deforestation",
+    "actionId": "deforestation",
+    "description": "Forests are removed to make space for grazing animals, growing crops and producing other goods. These rows show how much forest was converted to different uses over the whole period from 2001 to 2022.",
+    "lens": {
+      "title": "What cleared forests are used for",
+      "eyebrow": "Understanding the comparison",
+      "intro": "Forests are removed to make space for grazing animals, growing crops and producing other goods. These rows show how much forest was converted to different uses over the whole period from 2001 to 2022.",
+      "scaleNote": "Values are millions of hectares of land converted between 2001 and 2022. A hectare is 10,000 square metres. These are totals over that period, not yearly figures or amounts of emissions.",
+      "takeaway": "Expanding cattle pasture is the largest named use in this comparison. Crops and tree plantations also account for substantial forest loss.",
+      "groupTitles": {
+        "primary": "Largest areas",
+        "secondary": "Other uses"
+      },
+      "items": {
+        "deforestation_land_use.pasture_expansion": {
+          "label": "Pasture expansion",
+          "note": "Forests were cleared to create more land for grazing animals, mainly cattle. This is the largest named use in the dataset. The area shown is the total for 2001–2022, not a single year."
+        },
+        "deforestation_land_use.oil_palm_soy_other_oilseeds": {
+          "label": "Oil palm + soy + other oilseeds",
+          "note": "More land was cleared to grow crops used for oils and other products, including animal feed."
+        },
+        "deforestation_land_use.forest_plantations": {
+          "label": "Forest plantations",
+          "note": "Natural forests were replaced by planted trees grown for products. A tree plantation does not replace all the functions of a natural forest."
+        },
+        "deforestation_land_use.other_commodities": {
+          "label": "Other commodities",
+          "note": "This groups other products whose links to forest clearing are not shown as separate rows in the study."
+        },
+        "deforestation_land_use.staple_crops": {
+          "label": "Staple crops",
+          "note": "Clearing for maize, rice, cassava and other widely eaten crops contributed to the total over this period."
+        },
+        "deforestation_land_use.cocoa_coffee": {
+          "label": "Cocoa + coffee",
+          "note": "Land cleared to grow these crops made up a smaller, but still substantial, part of the total."
+        },
+        "deforestation_land_use.rubber_fibre_crops": {
+          "label": "Rubber + fibre crops",
+          "note": "This covers land cleared for crops used to make rubber and fibres for products such as textiles."
+        }
+      }
+    },
+    "actions": {
+      "title": "Forest protection: what can help",
+      "definition": "Forests are cleared to produce goods such as beef, soy, palm oil and timber. Knowing where products come from helps identify and prevent that loss.",
+      "whyItMatters": "Tracing supplies, enforcing rules and protecting Indigenous peoples’ land rights are central to preventing forest loss.",
+      "confidence": "Strong evidence",
+      "confidenceNote": "Success still depends on enforcement and secure rights to land.",
+      "strongestAction": "Prevent forests from being cleared for goods and raw materials.",
+      "personal": [
+        "Buy less of products linked to forest clearing when their origins cannot be checked.",
+        "Prefer suppliers that can credibly trace products to their source.",
+        "Remember that shopping choices support, but do not replace, effective rules and enforcement."
+      ],
+      "community": [
+        "Require major suppliers to provide goods without recent forest clearing.",
+        "Check where goods came from and whether local and Indigenous land rights were respected.",
+        "Support restoring damaged land as well as protecting existing forest, without treating new planting as a replacement for preventing loss."
+      ],
+      "policy": [
+        "Require companies to check and report whether their supplies are linked to forest clearing.",
+        "Protect Indigenous land rights and give local authorities the means to enforce protections.",
+        "Align trade and farming rules with protecting existing forests."
+      ],
+      "metrics": [
+        "hectares of forest clearing avoided",
+        "the share of purchased goods traceable to their source",
+        "emissions avoided by preventing forest loss"
+      ],
+      "caution": "Land rights are part of how forest protection works. They should be respected in practice, not just mentioned in publicity.",
+      "outcomes": {
+        "personal": [
+          "Traceable purchases can reduce your connection to supply chains that clear forests.",
+          "Track hectares of forest clearing avoided."
+        ],
+        "community": [
+          "Buying standards can require suppliers to demonstrate that forests and land rights are protected.",
+          "Track the share of purchased goods traceable to their source."
+        ],
+        "policy": [
+          "Enforced protections and secure land rights can prevent clearing across larger areas.",
+          "Track emissions avoided by preventing forest loss."
+        ]
+      }
+    }
+  },
+  "plastics_petrochemicals": {
+    "lensId": "plastics_petrochemicals",
+    "actionId": "plastics_petrochemicals",
+    "description": "Making new plastic usually starts with oil or gas. Turning those raw materials into different plastics uses energy and releases warming gases, before the products are used or thrown away.",
+    "lens": {
+      "title": "Emissions from making new plastics",
+      "eyebrow": "Understanding the comparison",
+      "intro": "Making new plastic usually starts with oil or gas. Turning those raw materials into different plastics uses energy and releases warming gases, before the products are used or thrown away.",
+      "scaleNote": "Values are millions of tonnes of gases, compared by their warming effect (MtCO2e), from making new plastics in 2019. They are yearly production totals, not amounts of plastic waste or pollution leaking into nature.",
+      "takeaway": "Much of plastic’s climate impact begins during production. Reducing the need for new plastic can address that part of its footprint.",
+      "groupTitles": {
+        "primary": "Larger production totals",
+        "secondary": "Other plastic types"
+      },
+      "items": {
+        "plastics_petrochemicals.pet": {
+          "label": "PET",
+          "note": "Polyethylene terephthalate is often used for drink bottles and polyester fibres. This figure covers production of this plastic type, not just bottles."
+        },
+        "plastics_petrochemicals.other_plastics": {
+          "label": "Other plastics",
+          "note": "This groups the remaining types of new plastic that are not listed separately."
+        },
+        "plastics_petrochemicals.pp": {
+          "label": "PP",
+          "note": "Polypropylene is used in products such as food containers. The figure covers making this plastic worldwide."
+        },
+        "plastics_petrochemicals.hdpe": {
+          "label": "HDPE",
+          "note": "High-density polyethylene is a sturdy plastic used in products such as containers and pipes."
+        },
+        "plastics_petrochemicals.pvc": {
+          "label": "PVC",
+          "note": "Polyvinyl chloride is used in products such as pipes and building materials. This figure describes emissions from production."
+        },
+        "plastics_petrochemicals.lldpe": {
+          "label": "LLDPE",
+          "note": "Linear low-density polyethylene is a flexible plastic used in films and packaging."
+        },
+        "plastics_petrochemicals.ps": {
+          "label": "PS",
+          "note": "Polystyrene is used in products such as protective packaging and insulation."
+        },
+        "plastics_petrochemicals.pu": {
+          "label": "PU",
+          "note": "Polyurethane is used in products such as foam cushions and insulation."
+        },
+        "plastics_petrochemicals.ldpe": {
+          "label": "LDPE",
+          "note": "Low-density polyethylene is a flexible plastic used in products such as bags and films."
+        },
+        "plastics_petrochemicals.san_abs": {
+          "label": "SAN + ABS",
+          "note": "These are two related plastics: styrene acrylonitrile and acrylonitrile butadiene styrene. They are used in durable products such as appliance parts."
+        }
+      }
+    },
+    "actions": {
+      "title": "Plastics: what can help",
+      "definition": "Making new plastic from oil or gas uses resources and releases warming gases. Dealing with discarded products is only part of the problem.",
+      "whyItMatters": "Reusing products and reducing the need for newly made plastic can address impacts that recycling alone cannot remove.",
+      "confidence": "Strong evidence",
+      "confidenceNote": "Evidence supports purchasing rules and systems that reduce new plastic use and make reuse practical.",
+      "strongestAction": "Use less newly made plastic by reusing products and improving production rules.",
+      "personal": [
+        "Avoid plastic used only once where a longer-lasting option works.",
+        "Reduce purchases that create avoidable packaging.",
+        "Recycle where suitable systems exist, while also reducing and reusing."
+      ],
+      "community": [
+        "Provide refill or reuse systems and redesign packaging for large purchasing programmes.",
+        "Set expectations for reuse and recycled material in purchasing contracts.",
+        "Measure how much newly made plastic is avoided, not just how much waste is collected."
+      ],
+      "policy": [
+        "Make producers responsible for the waste costs of their products, require suitable recycled content, and reduce demand for new plastic.",
+        "Avoid building extra plastic factories where the need for new plastic can be reduced.",
+        "Build the collection, cleaning and refill systems that make reuse convenient."
+      ],
+      "metrics": [
+        "tonnes of newly made plastic replaced",
+        "how often products or containers are reused",
+        "the share of recycled material in products"
+      ],
+      "caution": "Recycling alone does not remove the need to reduce unnecessary production and waste.",
+      "outcomes": {
+        "personal": [
+          "Using durable products repeatedly can reduce demand for new plastic.",
+          "Track tonnes of newly made plastic replaced."
+        ],
+        "community": [
+          "Shared refill and reuse systems can reduce packaging across many purchases.",
+          "Track how often products or containers are reused."
+        ],
+        "policy": [
+          "Production and waste rules can make reduced use and reuse part of normal business practice.",
+          "Track the share of recycled material in products."
+        ]
+      }
+    }
+  },
+  "data_centers": {
+    "lensId": "data_centers",
+    "actionId": "data_centers",
+    "description": "Buildings full of computers store information and run online services. Both the computers and their cooling systems use electricity. The regional rows show use in 2024; the separate global figure looks ahead to 2030.",
+    "lens": {
+      "title": "Electricity used by data centres",
+      "eyebrow": "Understanding the comparison",
+      "intro": "Buildings full of computers store information and run online services. Both the computers and their cooling systems use electricity. The regional rows show use in 2024; the separate global figure looks ahead to 2030.",
+      "scaleNote": "TWh means terawatt-hours: one TWh is a billion kilowatt-hours of electricity. Regional figures are yearly demand in 2024. The 2030 figure is an IEA base-case projection, not a measurement or another region to add. Electricity use is not the same as emissions; the power source matters too.",
+      "takeaway": "The United States, China and Europe account for most use in this comparison. Future demand could grow substantially, but the 2030 estimate is uncertain.",
+      "groupTitles": {
+        "primary": "Leading regions in 2024",
+        "secondary": "Rest of world and future estimate"
+      },
+      "items": {
+        "data_centers.united_states": {
+          "label": "United States",
+          "note": "Used about 45% of the global data-centre total of 415 TWh in 2024. One TWh is a billion kilowatt-hours of electricity."
+        },
+        "data_centers.china": {
+          "label": "China",
+          "note": "Used about 25% of the global total in 2024."
+        },
+        "data_centers.europe": {
+          "label": "Europe",
+          "note": "Used about 15% of the global total in 2024."
+        },
+        "data_centers.rest_of_world": {
+          "label": "Rest of world",
+          "note": "Together, other regions used the remaining 15% of the global total in 2024."
+        },
+        "data_centers.global_total_2030": {
+          "label": "Global total 2030",
+          "note": "The IEA’s base-case projection is 945 TWh a year worldwide. This is an estimate of future use, not an observed value. Do not add it to the 2024 regional figures."
+        }
+      }
+    },
+    "actions": {
+      "title": "Data centres: what can help",
+      "definition": "Online services run on computers that need electricity and cooling. Their location, power supply and how fully the equipment is used affect the footprint.",
+      "whyItMatters": "Operators and governments control most of these choices. Clear reporting makes it easier to check real improvements.",
+      "confidence": "Fairly strong evidence",
+      "confidenceNote": "Use is increasingly measurable, but reporting is still less consistent than for buildings or electricity systems.",
+      "strongestAction": "Use equipment efficiently, choose suitable locations, and report actual energy and water use.",
+      "personal": [
+        "Recognise that most people have little direct control over the facilities running their apps.",
+        "Use digital services thoughtfully without assuming small personal changes have a large effect.",
+        "Support clear reporting from providers rather than relying on vague promises about using less data."
+      ],
+      "community": [
+        "Use servers efficiently and improve cooling and the timing of heavy computer tasks.",
+        "Where possible, choose sites with cleaner power. Check that local water supplies and power networks can meet the need.",
+        "Require large computing suppliers to report actual energy use and other operating impacts."
+      ],
+      "policy": [
+        "Plan large new facilities with electricity providers and require clear public reporting.",
+        "Check that local power and water systems can support proposed growth.",
+        "Reward real efficiency at the times facilities operate, not just claims that yearly renewable purchases match yearly use."
+      ],
+      "metrics": [
+        "electricity used for each computing task",
+        "how efficiently cooling systems work",
+        "signs of strain on local power and water supplies"
+      ],
+      "caution": "Buying as much renewable electricity as a facility uses over a year does not show what powers it at each hour.",
+      "outcomes": {
+        "personal": [
+          "Individual control is limited; provider choices and transparent reporting usually matter more.",
+          "Track electricity used for each computing task."
+        ],
+        "community": [
+          "Efficient equipment and suitable locations can reduce resource use and local strain.",
+          "Track how efficiently cooling systems work."
+        ],
+        "policy": [
+          "Planning and reporting can help communities assess new facilities before they are built.",
+          "Track signs of strain on local power and water supplies."
+        ]
+      }
+    }
+  },
+  "ai_compute": {
+    "lensId": "ai_data_centers",
+    "actionId": "ai_data_centers",
+    "description": "Training computer systems and using them to answer requests takes electricity, cooling and hardware. Building more facilities also affects land, water and local power networks. The percentages here are an illustrative breakdown of those pressures.",
+    "lens": {
+      "title": "Resources used to run AI",
+      "eyebrow": "Understanding the comparison",
+      "intro": "Training computer systems and using them to answer requests takes electricity, cooling and hardware. Building more facilities also affects land, water and local power networks. The percentages here are an illustrative breakdown of those pressures.",
+      "scaleNote": "These percentages are weights in the app’s indicative comparison, not measured shares of global AI emissions, electricity or water use. Different pressures can overlap. Use the rows to understand the issues, not to calculate a physical total.",
+      "takeaway": "AI can put pressure on several resources at once. The size of each effect depends on the equipment, location and work being done, and the evidence is still developing.",
+      "groupTitles": {
+        "primary": "Main resource demands",
+        "secondary": "Other connected demands"
+      },
+      "items": {
+        "ai_compute.high_density_electricity_draw": {
+          "label": "Concentrated electricity demand",
+          "note": "Large groups of specialised computers can draw much more power in one place than ordinary business computing equipment. These percentages are illustrative weights, not measured shares of emissions or resource use."
+        },
+        "ai_compute.cooling_intensity": {
+          "label": "Cooling demand",
+          "note": "Packing more powerful computers into a small space produces more heat. Removing it can require extra energy and, depending on the cooling system, water."
+        },
+        "ai_compute.chip_and_hardware_supply_chain": {
+          "label": "Making chips and servers",
+          "note": "Manufacturing the chips and equipment uses materials and energy before the computers are switched on."
+        },
+        "ai_compute.grid_expansion_and_congestion": {
+          "label": "Power-network limits and expansion",
+          "note": "Local power lines and equipment may not be able to supply a new facility without upgrades."
+        },
+        "ai_compute.land_and_campus_acceleration": {
+          "label": "Land and new facilities",
+          "note": "Building many facilities quickly changes how much land is used and how nearby communities experience that growth."
+        },
+        "ai_compute.water_and_thermal_rejection": {
+          "label": "Water use and waste heat",
+          "note": "Cooling systems must move heat away from the computers. Depending on the design, this can use local water or release heat into the surroundings."
+        },
+        "ai_compute.backup_resilience_stack": {
+          "label": "Backup power and equipment",
+          "note": "Keeping services running during outages can require extra equipment, stored energy and fuel."
+        },
+        "ai_compute.semiconductor_material_intensity": {
+          "label": "Materials for computer chips",
+          "note": "Producing more chips increases demand for raw materials and the industrial work needed to turn them into components."
+        }
+      }
+    },
+    "actions": {
+      "title": "AI: what can help",
+      "definition": "Training AI systems and using them to answer requests takes computing power. The size of the model, the number of requests and the equipment used affect energy and cooling needs.",
+      "whyItMatters": "This is a rapidly changing area. Useful evidence is growing, but estimates are less settled than for many established industries.",
+      "confidence": "Evidence still developing",
+      "confidenceNote": "Studies and reporting are uneven, and both the technology and its use are changing quickly.",
+      "strongestAction": "Use the least computing power that can do the task well.",
+      "personal": [
+        "Choose smaller tools for simple tasks when they work well.",
+        "Avoid complex AI processes when a simpler tool does the job.",
+        "Recognise that most individuals have limited influence over how providers run their equipment."
+      ],
+      "community": [
+        "Use models suited to each task and reduce the computing needed to produce an answer.",
+        "Schedule training and other demanding jobs to suit available power and equipment.",
+        "Track useful results alongside energy and equipment use, rather than judging success only by model size."
+      ],
+      "policy": [
+        "Require clearer reporting of computing resources used by major AI services.",
+        "Encourage efficient work and sensible scheduling rather than growth in computing alone.",
+        "Check power, cooling and reporting needs when planning new AI facilities."
+      ],
+      "metrics": [
+        "energy used to train a model or answer a set of requests",
+        "useful results for each unit of computing work",
+        "the share of computing use that providers publicly report"
+      ],
+      "caution": "The evidence is still developing. Do not treat an illustrative breakdown as a measured global footprint.",
+      "outcomes": {
+        "personal": [
+          "Using a suitable tool can avoid unnecessary computing, but the size of the benefit is uncertain.",
+          "Track energy used to train a model or answer a set of requests."
+        ],
+        "community": [
+          "Operators can compare useful results with energy use and improve how they run tasks.",
+          "Track useful results for each unit of computing work."
+        ],
+        "policy": [
+          "Clear reporting can make resource use easier to compare and plan for.",
+          "Track the share of computing use that providers publicly report."
+        ]
+      }
+    }
+  },
+  "air_conditioning_refrigerants": {
+    "lensId": "air_conditioning_refrigerants",
+    "actionId": "air_conditioning_refrigerants",
+    "description": "Air conditioners and fridges use fluids to move heat. Some can strongly warm the planet if they escape. The figures compare older high-warming gases with lower-warming replacements.",
+    "lens": {
+      "title": "Emissions from leaking cooling gases",
+      "eyebrow": "Understanding the comparison",
+      "intro": "Air conditioners and fridges use fluids to move heat. Some can strongly warm the planet if they escape. The figures compare older high-warming gases with lower-warming replacements.",
+      "scaleNote": "Values are millions of tonnes of gases per year, compared by their warming effect (MtCO2e). These are rough working estimates for leaks from cooling equipment. A direct global emissions table has not yet been established for these two rows.",
+      "takeaway": "Preventing leaks and using gases with a lower warming effect both help. The numerical split shown here has weak support and should be treated as provisional.",
+      "groupTitles": {
+        "primary": "Older gases",
+        "secondary": "Lower-warming replacements"
+      },
+      "items": {
+        "air_conditioning_refrigerants.old_refrigerants": {
+          "label": "Old refrigerants",
+          "note": "This rough estimate represents leaks of older HFCs, a family of gases used for cooling. Many cause strong warming when released. It is not a directly measured global total. CO2e compares their warming with carbon dioxide."
+        },
+        "air_conditioning_refrigerants.new_refrigerants": {
+          "label": "New refrigerants",
+          "note": "This rough estimate represents leaks of replacement gases with a lower warming effect. New equipment still needs good maintenance and gas recovery when it is retired."
+        }
+      }
+    },
+    "actions": {
+      "title": "Cooling equipment: what can help",
+      "definition": "Fluids inside fridges and air conditioners move heat. Some strongly warm the planet if they leak during use, servicing or disposal.",
+      "whyItMatters": "Preventing leaks and recovering these fluids stops gases from escaping directly into the air.",
+      "confidence": "Strong evidence",
+      "confidenceNote": "Evidence supports leak prevention, gas recovery and replacing high-warming gases under the Kigali agreement.",
+      "strongestAction": "Prevent leaks and replace gases that cause strong warming with suitable lower-warming options.",
+      "personal": [
+        "When replacing equipment, look for efficient models using a cooling gas with a lower warming effect.",
+        "Have cooling equipment properly maintained to prevent leaks.",
+        "Use shade, insulation and building design to reduce how much cooling is needed."
+      ],
+      "community": [
+        "Train technicians, check for leaks and recover cooling gases across the buildings you manage.",
+        "Keep records of gases added, removed and recovered during servicing or replacement.",
+        "Combine equipment upgrades with maintenance so new systems continue to work well without leaks."
+      ],
+      "policy": [
+        "Follow the Kigali agreement’s steps to reduce high-warming cooling gases and set good servicing standards.",
+        "Require gases to be collected for reuse or proper treatment when equipment is replaced or retired.",
+        "Set rules for equipment and building design that help people stay cool while using less energy."
+      ],
+      "metrics": [
+        "the percentage reduction in cooling-gas leaks",
+        "the amount of gas recovered or cleaned for reuse",
+        "the reduction in gases held in equipment, weighted by their warming effect"
+      ],
+      "caution": "New equipment alone is not enough if it leaks or its gases escape when it is thrown away.",
+      "outcomes": {
+        "personal": [
+          "Maintenance and suitable replacement choices can reduce releases from household cooling equipment.",
+          "Track the percentage reduction in cooling-gas leaks."
+        ],
+        "community": [
+          "Good servicing and gas recovery can prevent leaks across many buildings.",
+          "Track the amount of gas recovered or cleaned for reuse."
+        ],
+        "policy": [
+          "Standards and recovery rules can reduce releases throughout the life of cooling equipment.",
+          "Track the reduction in gases held in equipment, weighted by their warming effect."
+        ]
+      }
+    }
+  }
+}

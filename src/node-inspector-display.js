@@ -201,7 +201,7 @@ function getPlanetImpactSeverityMeta(node) {
   return { label:'Emerging planetary stress',className:'severity-emerging' };
 }
 
-export function buildHumanInspectorProfile(node) {
+function buildSourceHumanInspectorProfile(node) {
   const reach = node?.context?.reach || 'mixed';
   const impact = node?.humanImpact || null;
   const unvalidated = node?.node_kind !== 'response' && isUnvalidatedExpertProfile(node, impact);
@@ -215,7 +215,7 @@ export function buildHumanInspectorProfile(node) {
   return { severity,reach:`Reach: ${reach}`,mode:unvalidated ? 'unvalidated expert profile' : formatImpactMode(impact.confidence),summary:getHumanDisplaySummary(impact),domains,populations:impact.affectedPopulations || [],timeHorizon:impact.timeHorizon || null,basis:impact.basis || null,consequences:(impact.consequences || []).slice(0,4).map(simplifyInspectorImpactCopy) };
 }
 
-export function buildPlanetInspectorProfile(node) {
+function buildSourcePlanetInspectorProfile(node) {
   const reach = node?.context?.reach || 'mixed';
   const impact = node?.planetImpact || null;
   const unvalidated = node?.node_kind !== 'response' && isUnvalidatedExpertProfile(node, impact);
@@ -226,4 +226,30 @@ export function buildPlanetInspectorProfile(node) {
       : getPlanetImpactSeverityMeta(node);
   if (!impact) return { severity:{ label:'Impact not yet characterized',className:'severity-emerging' },reach:`Reach: ${reach}`,mode:'research boundary',summary:`A node-specific planetary-impact synthesis has not yet been curated for ${node?.name || 'this node'}.`,domains:[],systems:[],timeHorizon:null,basis:'explicit_uncurated_profile_boundary',consequences:['No Earth-system domain, affected system, or severity is inferred from the node label or sphere.'] };
   return { severity,reach:`Reach: ${reach}`,mode:unvalidated ? 'unvalidated expert profile' : formatImpactMode(impact.confidence),summary:getPlanetDisplaySummary(impact),domains:impact.domains || [],systems:impact.affectedSystems || [],timeHorizon:impact.timeHorizon || null,basis:impact.basis || null,consequences:(impact.consequences || []).slice(0,4).map(simplifyInspectorImpactCopy) };
+}
+
+export function buildHumanInspectorProfile(node) {
+  return { ...buildSourceHumanInspectorProfile(node), ...node?.readerCopy?.human };
+}
+
+export function buildPlanetInspectorProfile(node) {
+  return { ...buildSourcePlanetInspectorProfile(node), ...node?.readerCopy?.planet };
+}
+
+export function getNodeInspectorEconomicContext(node) {
+  return { ...node?.economicContext, ...node?.readerCopy?.economy };
+}
+
+export function getNodeInspectorMeasurement(node) {
+  const metric = node?.metric_contract || {};
+  return {
+    metric: metric.metric_name || 'No measurement has been reviewed yet.',
+    unit: metric.unit || 'Not specified',
+    geography: metric.geography || 'Not specified',
+    cadence: metric.cadence || node?.update_policy?.update_cadence || 'Not specified',
+    method: metric.transformation || 'A measurement method is not available yet.',
+    uncertainty: metric.uncertainty || 'The source does not give a separate uncertainty estimate.',
+    boundary: metric.failure_behavior || node?.regional_profile?.interpretation_boundary || node?.economicContext?.evidenceBoundary || 'Use the result only for the place, period and conditions covered by its source.',
+    ...node?.readerCopy?.measurement
+  };
 }

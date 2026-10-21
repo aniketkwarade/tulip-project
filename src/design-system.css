@@ -83,6 +83,17 @@
   --type-lead: var(--type-size-4);
   --type-heading: var(--type-size-5);
   --type-display: var(--type-size-6);
+  /* Reading surfaces follow the Inspector rather than a marketing hero scale. */
+  --type-inspector-title: 23px;
+  --type-inspector-section: var(--type-body);
+  --type-inspector-body: 15px;
+  --type-inspector-meta: var(--type-caption);
+  --type-page-title: 45px;
+  --type-overlay-title: 28px;
+  --weight-reading-heading: 600;
+  --weight-navigation: 700;
+  --space-reading-section: 32px;
+  --overlay-gutter: clamp(20px, 4vw, 56px);
   --weight-light: 300;
   --weight-regular: 400;
   /* TULIP uses a two-weight editorial system: Light and Regular only. */

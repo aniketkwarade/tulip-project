@@ -1,0 +1,497 @@
+{
+  "version": 1,
+  "reviewed_on": "2026-09-21",
+  "review_scope": "Offline 20-node audit and bounded source review; no independent scientific calibration. Historical findings are frozen, not live conditions.",
+  "nodes": [
+    {
+      "node_id": "temp",
+      "role": "global physical state",
+      "scoped_result": "2025 global annual temperature anomaly: +1.43°C above 1850–1900. WMO final assessment reports ±0.13°C.",
+      "observation_period": "2025 annual; separate June 2026 anomaly uses 1991–2020",
+      "anomaly_result": "Retain source-native temperature anomaly. No independent fixed-reference percentile recalculated from the frozen receipt.",
+      "criticality_status": "not_calibrated",
+      "main_pitfall": "The same annual observation and normalization receive both magnitude and threshold weights. Annual warming is not the Paris long-term warming measure; a global observation does not mean every place suffers equal harm.",
+      "method_needed": "Keep annual and long-term warming separate; link explicit warming scenarios to assessed impact endpoints with their uncertainty.",
+      "source_review_status": "WMO final 2025 value independently checked; full underlying multi-dataset series not reprocessed",
+      "reviewed_on": "2026-09-21",
+      "consequences": "No common harm value is calibrated. Impacts depend on the warming level, region, people and ecosystems exposed.",
+      "inputs": [],
+      "sources": [
+        {
+          "label": "WMO · 2025 assessment",
+          "url": "https://wmo.int/sites/default/files/2026-03/State%20of%20the%20Climate%202025_1%20pager_final.pdf"
+        }
+      ],
+      "receipt_sha256": "0746f3d9b4ac10bdea645ca25697f66d1bd13b3ce1ca097b132bcbd7c183c446"
+    },
+    {
+      "node_id": "methane",
+      "role": "emissions pressure; stored metric is atmospheric state",
+      "scoped_result": "March 2026 atmospheric methane concentration: 1,937.86 ppb in the frozen receipt.",
+      "observation_period": "2026-03",
+      "anomaly_result": "Do not assign an emissions percentile to a concentration observation.",
+      "criticality_status": "metric_scope_mismatch",
+      "main_pitfall": "Concentration is not an emissions rate. The momentum term uses the aggregate greenhouse-gas forcing index, not methane-specific emissions or concentration change.",
+      "method_needed": "An emissions inventory in mass/time with source/sink uncertainty, or a clearly named atmospheric-concentration assessment; methane-specific forcing for downstream consequences.",
+      "source_review_status": "Receipt checked; NOAA source/sink methodology checked; exact March observation not independently downloaded",
+      "reviewed_on": "2026-09-21",
+      "consequences": "Atmospheric concentration does not measure an emissions flow or attributable harm. The node needs an emissions-specific indicator.",
+      "inputs": [
+        {
+          "path": "public/noaa-gml-benchmarks.json",
+          "sha256": "4b4aa80d25c5273e27440689199191705ee1bdd8efc6209fec08948159397562"
+        }
+      ],
+      "sources": [
+        {
+          "label": "NOAA · methane sources and sinks",
+          "url": "https://gml.noaa.gov/ccgg/carbontracker-ch4/documentation_chem.html"
+        }
+      ],
+      "receipt_sha256": "fb75e27e4de480872a54ac8be3de13194c24741a0db329121c9418bb14d3211d"
+    },
+    {
+      "node_id": "carbon_emission",
+      "role": "emissions pressure; stored metric is atmospheric state",
+      "scoped_result": "June 2026 atmospheric CO2 concentration: 431.44 ppm in the frozen receipt.",
+      "observation_period": "2026-06",
+      "anomaly_result": "Do not assign an emissions percentile to a concentration observation.",
+      "criticality_status": "metric_scope_mismatch",
+      "main_pitfall": "An atmospheric stock is substituted for a flow. Falling emissions can coexist with increasing concentration, so the substitution can reverse a progress interpretation.",
+      "method_needed": "Specify gross/net anthropogenic emissions, gas coverage, units, time window, and inventory uncertainty; assess atmospheric concentration separately.",
+      "source_review_status": "Frozen receipt and source metadata inspected; exact June observation not independently downloaded",
+      "reviewed_on": "2026-09-21",
+      "consequences": "Atmospheric concentration does not measure an emissions flow or attributable harm. The node needs an emissions-specific indicator.",
+      "inputs": [
+        {
+          "path": "public/noaa-gml-benchmarks.json",
+          "sha256": "4b4aa80d25c5273e27440689199191705ee1bdd8efc6209fec08948159397562"
+        }
+      ],
+      "sources": [
+        {
+          "label": "NOAA · atmospheric CO2",
+          "url": "https://gml.noaa.gov/ccgg/trends/"
+        }
+      ],
+      "receipt_sha256": "aff362cec0d1cacd8758803a32e5d61c6f158204ab0b3b54a6ef46a6066a5762"
+    },
+    {
+      "node_id": "ocean_acidification",
+      "role": "global physical/chemical state",
+      "scoped_result": "2024 global surface-ocean mean pH: 8.042169; published uncertainty quantity 0.014035.",
+      "observation_period": "2024 annual",
+      "anomaly_result": "Below all 30 annual values in the fixed 1985–2014 pilot reference. The descriptive rank reaches 100 at the sample boundary; this is not 100% harm or probability.",
+      "criticality_status": "impact_model_missing",
+      "main_pitfall": "An empirical rank saturates at the edge of a historical sample and stops distinguishing further deterioration. pH alone is not organism damage or aragonite saturation. A transformed global mean is not the mean of the transformed local quantity.",
+      "method_needed": "Retain absolute pH and trend; add carbonate chemistry, regional/species exposure, and consequence response curves. Evaluate observation and baseline uncertainty jointly.",
+      "source_review_status": "40 frozen annual values recomputed; Copernicus native data file not independently reprocessed; NOAA carbonate-system definition checked",
+      "reviewed_on": "2026-09-21",
+      "consequences": "No biological damage estimate follows from this global pH value alone.",
+      "inputs": [
+        {
+          "path": "public/copernicus-global-ocean-ph-snapshot.json",
+          "sha256": "54d9c703064cb36f8e137c3cd92ebe9c1b096e1d4ca319bb0ff5525e5e937e03"
+        }
+      ],
+      "sources": [
+        {
+          "label": "Copernicus · ocean pH",
+          "url": "https://data.marine.copernicus.eu/product/GLOBAL_OMI_HEALTH_carbon_ph_area_averaged/services"
+        }
+      ],
+      "receipt_sha256": "18caf6ba84245defdb6011f687a5e664d69965a8bffeaa1d37c430b3e45563c7"
+    },
+    {
+      "node_id": "marine_heatwaves",
+      "role": "episodic hazard",
+      "scoped_result": "June 2026 marine-heatwave coverage: 33% of ocean area with trend retained, 22% after the source's detrending treatment; reported June rank 12 of 36 for the trend-retained series.",
+      "observation_period": "2026-06",
+      "anomaly_result": "Retain the reported rank with its 1991–2026 window. Full historical values are absent, so a common fixed-baseline percentile cannot be independently recalculated.",
+      "criticality_status": "impact_model_missing",
+      "main_pitfall": "Trend treatment changes the measured question and area by 11 percentage points. Monthly global area is neither event duration nor local thermal dose; detrending can remove long-term warming relevant to organisms.",
+      "method_needed": "Grid-cell intensity, event duration and cumulative thermal exposure, with a declared trend treatment and ecosystem-specific responses.",
+      "source_review_status": "Two retained source observations and definitions inspected; mutable NOAA page's June historical values not independently reverified",
+      "reviewed_on": "2026-09-21",
+      "consequences": "Ocean area exposed is measured; ecosystem loss is not quantified here.",
+      "inputs": [
+        {
+          "path": "public/noaa-marine-heatwave-snapshot.json",
+          "sha256": "1b1e55881a81644e8c2b861cccf4ebb5d0f52128850d60990b69fe7625825739"
+        }
+      ],
+      "sources": [
+        {
+          "label": "NOAA · marine heatwaves",
+          "url": "https://psl.noaa.gov/marine-heatwaves/"
+        }
+      ],
+      "receipt_sha256": "18ccdb771e3faaa31669498ba3994b3ce8e05ea1a369971869f955de11e3f1b3"
+    },
+    {
+      "node_id": "coral_bleaching",
+      "role": "ecosystem impact topic; stored metric is heat-stress exposure",
+      "scoped_result": "About 84.4% of global coral-reef area experienced bleaching-level heat stress between January 2023 and September 2025; mass bleaching documented in at least 83 countries and territories.",
+      "observation_period": "2023-01 through 2025-09; source update 2026-06-02",
+      "anomaly_result": "Retain source-native bleaching-level heat-stress finding and event extent; no local alert category inferred from the global fraction.",
+      "criticality_status": "consequence_scope_incomplete",
+      "main_pitfall": "Heat-stress exposure is not a census of bleached or dead coral. Updating a page in 2026 does not make this a current 2026 event measurement.",
+      "method_needed": "Reef-specific thermal stress, observed bleaching severity, mortality and recovery, with surveyed denominators and observation dates.",
+      "source_review_status": "NOAA Coral Reef Watch event page independently checked for extent, period and country count",
+      "reviewed_on": "2026-09-21",
+      "consequences": "Heat-stress exposure is documented. The percentage is not the fraction of coral that died.",
+      "inputs": [
+        {
+          "path": "public/coral-reef-watch-snapshot.json",
+          "sha256": "ae8b093cf59fd758a4eba770f2ab4fa8a79dbfd5d26576dc43351729d3b26db4"
+        }
+      ],
+      "sources": [
+        {
+          "label": "NOAA · global bleaching event",
+          "url": "https://coralreefwatch.noaa.gov/satellite/research/coral_bleaching_report.php"
+        }
+      ],
+      "receipt_sha256": "8e2cc81071b3a6ab89cefb69588f874bc0c223c28a012191cc0559e0b95f81a4"
+    },
+    {
+      "node_id": "sea_ice_season_loss",
+      "role": "seasonal climate state; stored metric is September extent",
+      "scoped_result": "September 2025 mean Arctic sea-ice extent: 4.75 million km², 25.94% below the 1981–2010 mean.",
+      "observation_period": "2025-09 monthly mean",
+      "anomaly_result": "Related extent indicator only: adverse historical rank 93.3 out of 100 against the fixed 1981–2010 reference (30 Septembers). This does not rank the length of the ice season.",
+      "criticality_status": "metric_scope_mismatch",
+      "main_pitfall": "September extent does not measure the duration of the ice season. Switching a baseline shifts the rank by 20 points. Neither the old 3.4 nor the new rank establishes ecosystem harm.",
+      "method_needed": "Use freeze-up/break-up dates and ice-season length for this node, or explicitly assess extent; fix the historical reference and retain absolute loss.",
+      "source_review_status": "Frozen 47-year NSIDC series recomputed; native CSV web fetch did not complete; values not independently re-downloaded",
+      "reviewed_on": "2026-09-21",
+      "consequences": "Extent loss is measured. Ice-season length and ecosystem consequences are not established by this indicator.",
+      "inputs": [
+        {
+          "path": "public/nsidc-sea-ice-snapshot.json",
+          "sha256": "ec4479aa3214c479997f6a26813debc8e869180a317eef1cbfa3cb3d31eda368"
+        }
+      ],
+      "sources": [
+        {
+          "label": "NSIDC · September extent",
+          "url": "https://noaadata.apps.nsidc.org/NOAA/G02135/north/monthly/data/N_09_extent_v4.0.csv"
+        }
+      ],
+      "receipt_sha256": "488047cb4fc0feb926bf1c8eef221f53e84a0dcba55bcb0fe0e8ff880e4a0539"
+    },
+    {
+      "node_id": "sea_level_rise",
+      "role": "slow climate state",
+      "scoped_result": "Latest native experimental altimetry value: +80.98 mm at decimal year 2025.1268 against the source datum; latest legacy monthly average: +80.63 mm.",
+      "observation_period": "early 2025; January complete, February partial",
+      "anomaly_result": "Reproduced +0.675 mm partial-2025/full-2024 comparison; matched January–February gives +0.644 mm but February remains partial; complete January comparison is +0.285 mm.",
+      "criticality_status": "impact_model_missing",
+      "main_pitfall": "The old annual momentum label hides a partial-year comparison. Matching months makes little difference in this sample, so this is a methodological defect, not proof of a large numerical error. Global altimetry is not local flood depth.",
+      "method_needed": "Require complete or explicitly matched periods; estimate trends with uncertainty. Coastal consequences require relative sea level, land motion, extremes, exposure and defences.",
+      "source_review_status": "1,557 frozen observations and exporter transformation inspected; original satellite product not independently reprocessed",
+      "reviewed_on": "2026-09-21",
+      "consequences": "Local flood depth, coastal losses and people affected require local sea level and exposure data.",
+      "inputs": [
+        {
+          "path": "public/noaa-global-mean-sea-level-snapshot.json",
+          "sha256": "b55b1a3290554cc1b35b72bcdf3e28dbbbbfc4c3ffd0742b551c46b95b3f1e9c"
+        }
+      ],
+      "sources": [
+        {
+          "label": "NOAA · experimental altimetry",
+          "url": "https://www.star.nesdis.noaa.gov/socd/lsa/SeaLevelRise/slr/slr_sla_gbl_keep_ref_90.csv"
+        }
+      ],
+      "receipt_sha256": "ee5e01ef47c02ce976393b86801a306f71e8f89b8ea397f4deba665bf8da21b5"
+    },
+    {
+      "node_id": "wet_bulb_heat",
+      "role": "heat hazard",
+      "scoped_result": "Across 24 selected grid locations in 2025, annual maximum wet-bulb temperature ranges from 17.74 to 31.01°C; four locations have at least one hour at or above 30°C.",
+      "observation_period": "2025 hourly summaries",
+      "anomaly_result": "No matching long-term wet-bulb reference is present. Retain location-specific values and threshold-hours only.",
+      "criticality_status": "impact_model_missing",
+      "main_pitfall": "No readings at 35°C does not establish safety. A grid-location hour is not a person-hour; health effects depend on duration, activity, conditions and vulnerability. A separate lost-work-hours series is not wet-bulb momentum.",
+      "method_needed": "Historical hourly baselines and validated heat-strain/health models with exposure, vulnerability and uncertainty; preserve local results.",
+      "source_review_status": "24 frozen NASA POWER summaries inspected and counts recomputed; hourly native data not re-ingested",
+      "reviewed_on": "2026-09-21",
+      "consequences": "These grid measurements do not quantify illness, deaths or people exposed.",
+      "inputs": [
+        {
+          "path": "public/power-heat-hazard-snapshot.json",
+          "sha256": "c9e9197776d7121bc73eaa4cc5f74da9c64844cbad8c70378b63e9a9679ad288"
+        }
+      ],
+      "sources": [
+        {
+          "label": "NASA · POWER data",
+          "url": "https://power.larc.nasa.gov/"
+        }
+      ],
+      "receipt_sha256": "5dd0a0d8c201683975c6b6bf3a3790a48857f9f4ab6ac427d6042179338a9148"
+    },
+    {
+      "node_id": "drought_persistence",
+      "role": "persistent hazard",
+      "scoped_result": "2025 SPI-6 threshold-month counts at six grid locations: Lagos 12, Cape Town 4, Singapore 2; Kolkata, Houston and Madrid 0. Lagos is below threshold at both edges of the retained year.",
+      "observation_period": "2025 monthly, six-month accumulation windows",
+      "anomaly_result": "December: Lagos and Cape Town moderately dry; Kolkata moderately wet; other three normal precipitation under Copernicus classes. Within-year longest runs are Lagos 12, Cape Town 3 and Singapore 2.",
+      "criticality_status": "impact_model_missing",
+      "main_pitfall": "A 12-month observed run may extend beyond both dataset boundaries. SPI-6 windows overlap and are not independent drought events. The old global burden totals and their reporting windows do not measure this local persistence.",
+      "method_needed": "Longer contiguous local records, a declared event definition and censored-duration handling; soil moisture, heat and consequence evidence for agricultural or hydrological impacts.",
+      "source_review_status": "72 frozen monthly values recomputed; Copernicus SPI definition and exact native categories independently checked against downloaded primary factsheet",
+      "reviewed_on": "2026-09-21",
+      "consequences": "Dry precipitation conditions are measured. Agricultural losses and water access require additional evidence.",
+      "inputs": [
+        {
+          "path": "public/copernicus-drought-persistence-snapshot.json",
+          "sha256": "ad90b6ab25da41d3382c11475f64eb22bc5c82b6f338b13d8810e2183e9688c6"
+        }
+      ],
+      "sources": [
+        {
+          "label": "Copernicus · SPI definition",
+          "url": "https://drought.emergency.copernicus.eu/data/factsheets/factsheet_spi.pdf"
+        }
+      ],
+      "receipt_sha256": "2064c65affdd53e93585554fbbbe26569434a0f76af30146c4cf3e00819493b2"
+    },
+    {
+      "node_id": "extreme_precipitation_intensity",
+      "role": "precipitation hazard",
+      "scoped_result": "2025 equal-location mean of annual maximum daily precipitation: 56.78 mm/day across 24 selected locations; 1991–2020 reference mean 48.41 mm/day.",
+      "observation_period": "2025 annual maxima of daily precipitation",
+      "anomaly_result": "Panel adverse rank 86.7; median local rank 61.7. Six locations are at least rank 90, nine below rank 50, and two exceed their observed 30-year maxima.",
+      "criticality_status": "impact_model_missing",
+      "main_pitfall": "Ranking an average and averaging or summarizing local ranks answer different questions. The panel is not a global representative sample. Annual maxima happen on different dates; their mean is not one rainfall event or a flood-loss estimate.",
+      "method_needed": "Keep local extremes and spatial support; use catchment runoff/inundation and exposure models for consequences. Specify future ensemble/model uncertainty where forecasting.",
+      "source_review_status": "24 sets of 30 baseline annual maxima and 2025 observations recomputed; native daily meteorology not re-ingested",
+      "reviewed_on": "2026-09-21",
+      "consequences": "Rainfall intensity is measured. Flood losses require catchment, drainage and exposure information.",
+      "inputs": [
+        {
+          "path": "public/power-heat-hazard-snapshot.json",
+          "sha256": "c9e9197776d7121bc73eaa4cc5f74da9c64844cbad8c70378b63e9a9679ad288"
+        }
+      ],
+      "sources": [
+        {
+          "label": "NASA · POWER data",
+          "url": "https://power.larc.nasa.gov/"
+        }
+      ],
+      "receipt_sha256": "6536c9c0698765cc6c5283b05d5f5f1a5bb11205f2a1f2223cd7415da2d1adbf"
+    },
+    {
+      "node_id": "amoc",
+      "role": "ocean circulation state",
+      "scoped_result": "February 2024 transport at RAPID's 26.5°N section: 11.895844 Sv.",
+      "observation_period": "2024-02 full sampled month; source release 2026-01",
+      "anomaly_result": "Exploratory lower-transport rank: 89.5 out of 100 against 19 earlier fully covered Februaries. This small reference is not an established climate normal or a collapse probability.",
+      "criticality_status": "impact_model_missing",
+      "main_pitfall": "Seasonal matching leaves only 19 reference observations. One month does not establish a persistent slowdown, imminent collapse, tipping probability or global exposure.",
+      "method_needed": "Longer trend/change-point analysis, multiple observing constraints and validated scenario-dependent consequence models. Preserve the observation lag.",
+      "source_review_status": "240 frozen monthly records inspected; primary RAPID page independently confirms section, series period and methodology; raw half-daily series not reprocessed",
+      "reviewed_on": "2026-09-21",
+      "consequences": "One low-transport month does not establish a persistent slowdown, collapse probability or resulting damage.",
+      "inputs": [
+        {
+          "path": "public/rapid-amoc-snapshot.json",
+          "sha256": "73e0acbfb4678d60f0508bed61946a7c1d6d4598327ae2fc0962adae6395d372"
+        }
+      ],
+      "sources": [
+        {
+          "label": "RAPID · integrated transports",
+          "url": "https://rapid.ac.uk/data/integrated-transports"
+        }
+      ],
+      "receipt_sha256": "de6145667acd91c5bfcd355c07f4fb5cbcc21f0c267969adeef7d1147c264687"
+    },
+    {
+      "node_id": "permafrost_thaw",
+      "role": "cryosphere state; stored metric is ground warming",
+      "scoped_result": "Assessed global permafrost temperature increase: 0.29 ± 0.12°C over 2007–2016.",
+      "observation_period": "2007–2016",
+      "anomaly_result": "Retain assessed warming with its uncertainty and period; no empirical rank from a single interval estimate.",
+      "criticality_status": "metric_scope_mismatch",
+      "main_pitfall": "Ground warming is not thawed area, released carbon or infrastructure loss. About 700 million people living in Arctic and high-mountain regions are not 700 million demonstrated victims of permafrost thaw.",
+      "method_needed": "Active-layer/thaw extent, ground-ice and carbon responses, and asset/community exposure at matching locations and dates.",
+      "source_review_status": "IPCC frozen assessment and locators inspected; regional population scope checked; full assessment estimate not independently reconstructed",
+      "reviewed_on": "2026-09-21",
+      "consequences": "Ground warming is assessed. Thawed volume, carbon released and infrastructure loss are not quantified here.",
+      "inputs": [
+        {
+          "path": "public/ipcc-global-cryosphere-impact-snapshot.json",
+          "sha256": "e35cc18c2b0472971dbe5a0e5748214ebff570a34c6c0e07380ff9ebff6268c4"
+        }
+      ],
+      "sources": [
+        {
+          "label": "IPCC · ocean and cryosphere assessment",
+          "url": "https://www.ipcc.ch/report/ar6/wg1/downloads/report/IPCC_AR6_WGI_Chapter09.pdf"
+        }
+      ],
+      "receipt_sha256": "05611ffbec14d001343baac9574c077e3b39401ed69bad61226f33cae5d193d7"
+    },
+    {
+      "node_id": "deforestation",
+      "role": "land-use pressure",
+      "scoped_result": "FAO 2015–2025 estimates: gross deforestation 10.9 million ha/year and net forest loss 4.12 million ha/year.",
+      "observation_period": "2015–2025 average rates",
+      "anomaly_result": "Retain both source-native rates; no invented percentile from one reporting interval.",
+      "criticality_status": "impact_model_missing",
+      "main_pitfall": "Net forest loss is not a human/economic burden measure, and a share of forest area per decade is not event persistence. Equal hectares can have very different carbon, habitat and community effects.",
+      "method_needed": "Separate gross loss and gains; quantify carbon, habitat quality, permanence and livelihoods with region-specific consequence methods.",
+      "source_review_status": "Both numerical rates and period independently checked against FAO FRA 2025",
+      "reviewed_on": "2026-09-21",
+      "consequences": "Forest area loss is estimated. Equal hectares need not mean equal carbon, habitat or community losses.",
+      "inputs": [],
+      "sources": [
+        {
+          "label": "FAO · forest resources assessment 2025",
+          "url": "https://www.fao.org/interactive/2025/forest-resources-assessment/en/"
+        }
+      ],
+      "receipt_sha256": "99b3a7943e544b84ad3d3e906e797378f4781ac5139e4fa0667b8bd5fd281b3a"
+    },
+    {
+      "node_id": "industry_farming",
+      "role": "broad economic activity",
+      "scoped_result": "Frozen 2024 drained-organic-agricultural-soil estimate: 830.20 Mt CO2/year over 24.59 million hectares; this is one agricultural pressure.",
+      "observation_period": "2024 for soil emissions/area; separate 2023 commodity demand",
+      "anomaly_result": "No whole-sector anomaly or harm score justified by these selected indicators.",
+      "criticality_status": "node_scope_too_broad",
+      "main_pitfall": "A narrow soil source stands in for all farming. Commodity tonnage is not automatically human harm, and hectares are not persistence. Benefits, gases, land, nutrients and water are mixed without common outcomes.",
+      "method_needed": "Split into explicit pressure/outcome indicators, retain food-system benefits, and compare consequences only within declared endpoints and scenarios.",
+      "source_review_status": "Frozen FAOSTAT World extract and receipt inspected; full bulk source retained by hash, not independently re-downloaded",
+      "reviewed_on": "2026-09-21",
+      "consequences": "This soil-emissions estimate covers one part of farming. It cannot represent the consequences of the whole sector.",
+      "inputs": [
+        {
+          "path": "public/faostat-agriculture-snapshot.json",
+          "sha256": "387705acad5be7242ce42533140288d885eacaa96f6c821f5043372aa9da9bc6"
+        }
+      ],
+      "sources": [
+        {
+          "label": "FAO · FAOSTAT",
+          "url": "https://www.fao.org/faostat/en/"
+        }
+      ],
+      "receipt_sha256": "a21101b4cff54cac61fe355127c981408766713e44d5a1564bbef3293c56af4d"
+    },
+    {
+      "node_id": "air_pollution_health_burden",
+      "role": "modeled human-health consequence",
+      "scoped_result": "WHO estimates 6.6 million deaths attributable to the joint effects of ambient and household air pollution in 2021.",
+      "observation_period": "2021 burden estimate; portal update 2025",
+      "anomaly_result": "An anomaly is unnecessary to retain this consequence endpoint. Numerical uncertainty interval is absent from the frozen receipt.",
+      "criticality_status": "endpoint_available_policy_scale_missing",
+      "main_pitfall": "This is air-pollution-attributable burden, not established climate-change-attributable burden. Adding separate ambient deaths double counts. The publication interval is not exposure duration.",
+      "method_needed": "Retain modeled deaths/year and underlying uncertainty. Compare only matching years, causes and counterfactuals; establish any climate attribution and an explicit policy utility scale separately.",
+      "source_review_status": "WHO portal independently checked for the 2021 joint estimate and source scope",
+      "reviewed_on": "2026-09-21",
+      "consequences": "The 6.6 million deaths are a modeled air-pollution burden, not a climate-attributable death estimate. A matching uncertainty interval is unavailable here.",
+      "inputs": [
+        {
+          "path": "public/who-air-pollution-impact-snapshot.json",
+          "sha256": "eb0285eb8eaed8caa59c601471b21076bbec37f57131d5df05c07fdff6fefecc"
+        }
+      ],
+      "sources": [
+        {
+          "label": "WHO · air pollution data",
+          "url": "https://www.who.int/data/gho/data/themes/air-pollution"
+        }
+      ],
+      "receipt_sha256": "fdaaa8b86562bd77fe43a8bc038ed64d0aad1bfb3f043e8db54b6940ee3609e9"
+    },
+    {
+      "node_id": "groundwater_depletion",
+      "role": "water-resource pressure/state; stored metric is water-table trend",
+      "scoped_result": "617/1,693 studied aquifer systems (36.44%) decline faster than 0.1 m/year; 210/1,693 (12.40%) faster than 0.5 m/year. Separate 542-system comparison reports 30% accelerating.",
+      "observation_period": "Variable multi-year monitoring windows; study published 2024",
+      "anomaly_result": "Retain study-defined decline bins and sample denominators; these are not universal safe/critical thresholds.",
+      "criticality_status": "consequence_scope_incomplete",
+      "main_pitfall": "Aquifer counts, monitoring-well counts, withdrawal coverage and storage volume have different denominators. The monitored sample is not a random sample of all aquifers; water-table decline alone does not establish volume depleted or people affected.",
+      "method_needed": "Aquifer-specific storage, recharge, abstraction, water quality, well access and affected demand; retain recovery counterevidence.",
+      "source_review_status": "Published counts and study scope independently checked against Nature; raw well-level analysis not re-run",
+      "reviewed_on": "2026-09-21",
+      "consequences": "Water-table decline is observed in the study sample. Storage volume lost and people affected are not established.",
+      "inputs": [
+        {
+          "path": "public/global-groundwater-level-trends-snapshot.json",
+          "sha256": "911ccfc7e890661b031de191de41ec4cc7b98ceeae514c58932b1048325d768b"
+        }
+      ],
+      "sources": [
+        {
+          "label": "Nature · groundwater study",
+          "url": "https://www.nature.com/articles/s41586-023-06879-8"
+        }
+      ],
+      "receipt_sha256": "1dd19af50c9d8ebb474f65df50ecb45541d51477f48a77ae69c77c792791ce27"
+    },
+    {
+      "node_id": "urban_water_rationing_zones",
+      "role": "administrative restriction and adaptation response",
+      "scoped_result": "Cape Town introduced Level 6B restrictions on 1 February 2018, including a limit of 50 litres per person per day.",
+      "observation_period": "Historical event beginning February 2018; full duration not independently corroborated",
+      "anomaly_result": "No common unusualness rank. The earlier restriction-person-day estimate depends on uncorroborated end-date and population assumptions.",
+      "criticality_status": "consequence_scope_incomplete",
+      "main_pitfall": "Stronger conservation raises the old burden score: holding other inputs fixed, 50% demand reduction gives 8.3 and 58.33% gives 8.6. Demand reduction can reflect both hardship and effective adaptation; it is not an unambiguous harm metric.",
+      "method_needed": "Separate restriction policy, conservation effectiveness, actual access/outages and health/economic consequences; independently verify the full event chronology before publication.",
+      "source_review_status": "Snapshot arithmetic verified; government announcement confirms start and 50-litre rule; exact City PDFs unavailable to web fetch, so full duration/population/revenue estimate not independently corroborated",
+      "reviewed_on": "2026-09-21",
+      "consequences": "Restrictions are documented. Stronger conservation does not necessarily mean greater harm; outages and access must be assessed separately.",
+      "inputs": [
+        {
+          "path": "public/cape-town-water-demand-rationing-impact-snapshot.json",
+          "sha256": "8d1eac022d7eaf085ff9b09a80fb5a2e8595670045e24263b1c3827224ac834a"
+        }
+      ],
+      "sources": [
+        {
+          "label": "South African government · restrictions announcement",
+          "url": "https://www.sanews.gov.za/node/37579"
+        }
+      ],
+      "receipt_sha256": "4a02abdec929186437018e6c6eeba0b690cbe2092a704fcf13d233addcf83a2a"
+    },
+    {
+      "node_id": "clean_electricity",
+      "role": "response/intervention",
+      "scoped_result": "No project-specific deployment, counterfactual or attributable outcome quantified in the selected profile.",
+      "observation_period": "not applicable",
+      "anomaly_result": "Not applicable to generic response effectiveness.",
+      "criticality_status": "not_applicable_response",
+      "main_pitfall": "A high danger score for a beneficial response confuses hazard, need and effectiveness. A generic label cannot establish avoided emissions, cost, reliability or equity.",
+      "method_needed": "A separate intervention assessment: delivered electricity, displaced generation, lifecycle emissions, system effects, cost, time and uncertainty under a defined counterfactual.",
+      "source_review_status": "Selected response profile and registry exclusion inspected; no project impact evaluation supplied",
+      "reviewed_on": "2026-09-21",
+      "consequences": "Benefits need a project-specific comparison with what would otherwise happen. No danger score applies.",
+      "inputs": [],
+      "sources": [],
+      "receipt_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+    },
+    {
+      "node_id": "ecosystem_restoration",
+      "role": "response/intervention",
+      "scoped_result": "No project-specific restored habitat, counterfactual or durable outcome quantified in the selected profile.",
+      "observation_period": "not applicable",
+      "anomaly_result": "Not applicable to generic response effectiveness.",
+      "criticality_status": "not_applicable_response",
+      "main_pitfall": "Restored hectares alone would hide habitat quality, additionality, permanence, leakage and tradeoffs. Generic response urgency cannot share a hazard meaning.",
+      "method_needed": "A separate intervention assessment with habitat type, ecological condition, carbon/water/community outcomes, counterfactual, permanence and uncertainty.",
+      "source_review_status": "Selected response profile and registry exclusion inspected; no project impact evaluation supplied",
+      "reviewed_on": "2026-09-21",
+      "consequences": "Benefits need a project-specific comparison, ecological condition and evidence of durability. No danger score applies.",
+      "inputs": [],
+      "sources": [],
+      "receipt_sha256": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+    }
+  ]
+}

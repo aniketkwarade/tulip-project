@@ -1,9 +1,11 @@
 /**
- * THE TULIP PROJECT - Application Orchestrator & UI Controller (Minimalist Realignment)
+ * Tulip Earth - Application Orchestrator & UI Controller (Minimalist Realignment)
  */
 
 import './design-system.css';
 import './style.css';
+import { getTulipAssessment, SCORE_METHOD_COPY } from './tulip-assessment.js';
+import { buildTulipScoreBreakdown } from './tulip-score-breakdown.js';
 import '@fortawesome/fontawesome-free/css/fontawesome.min.css';
 import '@fortawesome/fontawesome-free/css/solid.min.css';
 import { NODES, EDGES, PUBLISHED_NODES, PUBLISHED_EDGES, DISCOVERY_TRAILS } from './runtime-data.js';
@@ -28,17 +30,13 @@ import {
   PERSONAL_FOOTPRINT_MODULES as SHARED_PERSONAL_FOOTPRINT_MODULES,
   calculatePersonalFootprint as calculateSharedPersonalFootprint
 } from './personal-footprint-model.js';
-import { getTulipUrgencyBand as getTulipUrgencyBandV2 } from './tulip-urgency-v2.js';
-import {
-  TULIP_URGENCY_BANDS_V3,
-  getTulipUrgencyBandV3
-} from './tulip-urgency-v3.js';
 import {
   getRelationshipSemanticLabel,
   getRelationshipQuestionAuxiliary,
   isCausalRelationship
 } from './relationship-semantics.js';
 import { buildMonitoringSourceProfile } from './monitoring-sources.js';
+import { setInspectorCategoryLabel } from './inspector-category-symbols.js';
 import { PHENOMENON_SELECTOR_CONFIG } from './phenomenon-selector.js';
 import {
   SPHERE_LABELS as SHARED_SPHERE_LABELS,
@@ -46,12 +44,17 @@ import {
   buildHumanInspectorProfile,
   buildPlanetInspectorProfile,
   formatNodeSourceDate as formatSharedNodeSourceDate,
-  getNodeInspectorMeaning
+  getNodeInspectorMeaning,
+  getNodeInspectorEconomicContext,
+  getNodeInspectorMeasurement
 } from './node-inspector-display.js';
-import { getSearchRecoverySuggestions, searchNodes } from './search.js';
+import { initializeDesktopExperience } from './desktop-experience.js';
+import { desktopStore, DESKTOP_KEYS, validFootprintAnswers } from './desktop-storage.js';
 import { findRelatedPhenomenon } from './journey-context.js';
 import { getRelationshipDetail } from './relationship-details.js';
 import { hydrateRuntimeNodeDetails } from './node-details.js';
+import { renderInspectorPhoto } from './inspector-photo.js';
+
 import { formatOccurrenceDate, getRecentOccurrenceProfile } from './recent-occurrences.js';
 import {
   getPersonalFootprintInsights,
@@ -60,6 +63,11 @@ import {
 import { initializeLaunchExperience } from './launch-experience.js';
 import { formatMetricDisplayText } from './metric-display.js';
 import { getInterfaceScale } from './display-resolution.js';
+import './desktop-flat.css';
+import './inspector-photo.css';
+import './web-ios-parity.css';
+import './web-refinements.css';
+import { createNavigationViewStore, captureInspectorView, restoreInspectorView, revealWithinInspector } from './navigation-view-state.js';
 
 const TULIP_PRODUCTION_ORIGIN = 'https://tulip-project-six.vercel.app';
 
@@ -632,8 +640,14 @@ const shellScrollState = {
 let queuedSelectionToken = 0;
 const NODE_BY_ID = new Map(NODES.map(node => [node.id, node]));
 const ROUTABLE_NODE_BY_ID = new Map(PUBLISHED_NODES.map(node => [node.id, node]));
-const NAVIGATION_STATE_VERSION = 1;
+const NAVIGATION_STATE_VERSION = 2;
 const navigationSessionId = `tulip-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 9)}`;
+const navigationViews = createNavigationViewStore(navigationSessionId);
+let viewRestorationGeneration = 0;
+let pendingViewRestoration = false;
+let runtimeNodeDetailsPromise = null;
+let relationshipDetailPromise = null;
+let navigatingToNodeId = null;
 let navigationHistoryReady = false;
 let navigationEntryDepth = 0;
 const OUTGOING_EDGES_BY_SOURCE = new Map();
@@ -1072,19 +1086,7 @@ const PERSONAL_FOOTPRINT_QUESTIONS_DESKTOP_SNAPSHOT = [
 ];
 const PERSONAL_FOOTPRINT_QUESTIONS = SHARED_PERSONAL_FOOTPRINT_QUESTIONS;
 
-let personalFootprintState = {
-  geography: null,
-  hvac: null,
-  household_size: null,
-  home_type: null,
-  home_energy: null,
-  everyday_travel: null,
-  flights: null,
-  diet: null,
-  food_waste: null,
-  new_clothes: null,
-  other_stuff: null
-};
+let personalFootprintState = validFootprintAnswers(PERSONAL_FOOTPRINT_QUESTIONS, desktopStore.read(DESKTOP_KEYS.footprint));
 
 const PERSONAL_FOOTPRINT_BASELINE_SELECTIONS_DESKTOP_SNAPSHOT = Object.freeze({
   geography: 'mixed_car',
@@ -2127,6 +2129,7 @@ function setupFluidFooterNavigation() {
   track.addEventListener('pointerdown', event => {
     if (
       event.button !== 0 ||
+      event.pointerType !== 'touch' ||
       !window.matchMedia('(max-width: 950px)').matches ||
       event.target.closest('#search-container')
     ) return;
@@ -2213,17 +2216,8 @@ function forceExploreTabState() {
 
 function captureStudyWorkspaceState() {
   if (!currentSelectedNode || !graphInstance) return;
-  studyWorkspaceState = {
-    nodeId: currentSelectedNode.id,
-    camera: { ...graphInstance.camera },
-    targetCamera: graphInstance.targetCamera ? { ...graphInstance.targetCamera } : null,
-    layoutMode: graphInstance.layoutMode,
-    showAllAnalyzeConnections: graphInstance.showAllAnalyzeConnections,
-    userCollapsedAnalyzeConnections: graphInstance.userCollapsedAnalyzeConnections,
-    showIncomingInfluences: graphInstance.showIncomingInfluences,
-    showOutgoingInfluences: graphInstance.showOutgoingInfluences,
-    inspectorScrollTop: studyConsole?.scrollTop || 0
-  };
+  studyWorkspaceState = { nodeId: currentSelectedNode.id,
+    graph: graphInstance.captureViewState(), inspector: captureInspectorView(studyConsole) };
 }
 
 function getPhenomenaScrollContainer() {
@@ -2233,28 +2227,10 @@ function getPhenomenaScrollContainer() {
 }
 
 function restoreStudyWorkspaceState() {
-  if (!currentSelectedNode || !graphInstance || studyWorkspaceState?.nodeId !== currentSelectedNode.id) {
-    return false;
-  }
-
-  const state = studyWorkspaceState;
+  if (!currentSelectedNode || !graphInstance || studyWorkspaceState?.nodeId !== currentSelectedNode.id) return false;
   graphInstance.isFocusMode = true;
-  graphInstance.selectNode(currentSelectedNode, { instantSwap: true });
-  graphInstance.layoutMode = state.layoutMode;
-  graphInstance.showAllAnalyzeConnections = state.showAllAnalyzeConnections;
-  graphInstance.userCollapsedAnalyzeConnections = state.userCollapsedAnalyzeConnections;
-  graphInstance.showIncomingInfluences = state.showIncomingInfluences;
-  graphInstance.showOutgoingInfluences = state.showOutgoingInfluences;
-  graphInstance.invalidateAnalyzeCaches();
   setShellMode('study');
-
-  window.requestAnimationFrame(() => {
-    graphInstance.resizeCanvas();
-    graphInstance.camera = { ...state.camera };
-    graphInstance.targetCamera = state.targetCamera ? { ...state.targetCamera } : null;
-    graphInstance.requestRender();
-    if (studyConsole) studyConsole.scrollTop = state.inspectorScrollTop;
-  });
+  restoreNavigationView(studyWorkspaceState);
   return true;
 }
 
@@ -2264,6 +2240,7 @@ function setShellMode(mode) {
   const legendContainer = document.getElementById('c-legend-container');
   const searchContainer = document.getElementById('search-container');
   const filterDisclosure = document.getElementById('filter-disclosure');
+  const isSearch = mode === 'search';
   const isStudy = mode === 'study';
   const isPhenomena = mode === 'phenomena';
   const isPersonalFootprint = mode === 'personal-footprint';
@@ -2275,7 +2252,10 @@ function setShellMode(mode) {
   }
 
   const previousMode = appContainer?.dataset.viewMode || 'explore';
-  if (previousMode === 'study' && mode !== 'study') captureStudyWorkspaceState();
+  if (previousMode === 'study' && mode !== 'study') {
+    captureNavigationView();
+    captureStudyWorkspaceState();
+  }
   if (previousMode === 'phenomena' && mode !== 'phenomena') {
     shellScrollState.phenomena = getPhenomenaScrollContainer()?.scrollTop || 0;
   }
@@ -2288,7 +2268,7 @@ function setShellMode(mode) {
     if (previousMode !== mode) appContainer.scrollTop = 0;
   }
   if (graphInstance) {
-    if (isPhenomena || isPersonalFootprint) {
+    if (isSearch || isPhenomena || isPersonalFootprint) {
       graphInstance.pause();
     } else {
       graphInstance.resume();
@@ -2296,7 +2276,7 @@ function setShellMode(mode) {
   }
   if (mainContent) {
     mainContent.classList.toggle('focus-active', isStudy);
-    mainContent.style.display = (isPhenomena || isPersonalFootprint) ? 'none' : '';
+    mainContent.style.display = (isSearch || isPhenomena || isPersonalFootprint) ? 'none' : '';
   }
   if (studyConsole) {
     studyConsole.style.display = isStudy ? 'flex' : 'none';
@@ -2328,7 +2308,7 @@ function setShellMode(mode) {
     analyzeNodeKey.style.display = isStudy ? '' : 'none';
   }
   if (filterBar) {
-    filterBar.classList.toggle('hidden', isStudy || isPhenomena || isPersonalFootprint);
+    filterBar.classList.toggle('hidden', isSearch || isStudy || isPhenomena || isPersonalFootprint);
   }
   if (filterDisclosure && (isStudy || isPhenomena || isPersonalFootprint)) {
     filterDisclosure.open = false;
@@ -2349,7 +2329,9 @@ function setShellMode(mode) {
       setMobileSheetDetent('medium');
     }
   }
-  if (isStudy) {
+  if (isSearch) {
+    setActiveTab('search');
+  } else if (isStudy) {
     setActiveTab('study');
   } else if (isPhenomena) {
     setActiveTab('phenomena');
@@ -2359,6 +2341,7 @@ function setShellMode(mode) {
     forceExploreTabState();
   }
 
+  window.dispatchEvent(new CustomEvent('tulip:modechange', { detail: { mode, previousMode } }));
   updateMobileAppBar(mode);
 
   if (previousMode !== mode) {
@@ -2406,19 +2389,19 @@ function updateMobileAppBar(mode = document.getElementById('app-container')?.dat
     mobileBack.disabled = false;
     mobileBack.setAttribute('aria-label', selectionHistory.length ? 'Go back one analysis step' : 'Close analysis');
   }
-  if (sheetSphere) sheetSphere.textContent = currentSelectedNode
+  setInspectorCategoryLabel(sheetSphere, currentSelectedNode?.sphere, currentSelectedNode
     ? (SPHERE_LABELS[currentSelectedNode.sphere] || currentSelectedNode.sphere || 'TULIP topic')
-    : 'TULIP topic';
-  if (sheetTitle) sheetTitle.textContent = currentSelectedNode ? 'Evidence & score' : 'Select a topic';
+    : 'TULIP topic');
+  if (sheetTitle) sheetTitle.textContent = currentSelectedNode?.name || 'Select a topic';
   if (sheetDescription) sheetDescription.textContent = currentSelectedNode
-    ? 'Drag up for relationships, impacts, and actions'
+    ? formatNodeSourceDate(currentSelectedNode).replace('Most Recent Data:', 'Last updated')
     : 'Tap a point on the network to begin';
   if (sheetScore) {
-    const score = currentSelectedNode?.tulipScore ?? currentSelectedNode?.score?.baseline;
-    sheetScore.textContent = Number.isFinite(score) ? Number(score).toFixed(1) : '—';
-    sheetScore.setAttribute('aria-label', Number.isFinite(score) ? `TULIP urgency score ${Number(score).toFixed(1)}` : 'TULIP urgency score unavailable');
+    const score = getTulipAssessment(currentSelectedNode)?.value;
+    sheetScore.textContent = Number.isFinite(score) ? Number(score).toFixed(1) : (getTulipAssessment(currentSelectedNode)?.label || 'Not yet scored');
+    sheetScore.setAttribute('aria-label', getTulipAssessment(currentSelectedNode)?.accessibilityLabel || `TULIP Score: ${getTulipAssessment(currentSelectedNode)?.label || 'Not yet scored'}`);
   }
-  if (sheetModeled) sheetModeled.hidden = currentSelectedNode?.tulipUrgencyReceipt?.method !== 'modeled';
+  if (sheetModeled) sheetModeled.hidden = true;
 }
 
 function setMobileSheetDetent(detent, { animate = true } = {}) {
@@ -2426,7 +2409,6 @@ function setMobileSheetDetent(detent, { animate = true } = {}) {
   const grabber = document.getElementById('mobile-sheet-grabber');
   if (!sheet || !['peek', 'medium', 'full'].includes(detent)) return;
   sheet.style.removeProperty('--mobile-sheet-height');
-  sheet.style.setProperty('--mobile-sheet-rubber-y', '0px');
   sheet.classList.toggle('is-dragging', !animate);
   sheet.dataset.detent = detent;
   if (detent === 'peek') sheet.classList.remove('is-nav-compact');
@@ -2437,9 +2419,84 @@ function setMobileSheetDetent(detent, { animate = true } = {}) {
   if (animate) window.requestAnimationFrame(() => sheet.classList.remove('is-dragging'));
 }
 
+function cancelViewRestoration() {
+  viewRestorationGeneration++;
+  pendingViewRestoration = false;
+}
+
+function captureNavigationView() {
+  if (!navigationHistoryReady || !currentSelectedNode || !graphInstance || navigatingToNodeId || pendingViewRestoration
+      || graphInstance.selectedNode?.id !== currentSelectedNode.id) return;
+  // Search hides the inspector; retain its last visible reading position.
+  const liveInspector = captureInspectorView(studyConsole);
+  const saved = navigationViews.active?.viewContext;
+  const inspector = liveInspector || saved?.inspector;
+  const graph = liveInspector ? graphInstance.captureViewState() : saved?.graph || graphInstance.captureViewState();
+  const context = { nodeId: currentSelectedNode.id, graph, inspector };
+  navigationViews.save(context);
+  const state = window.history.state;
+  if (state?.tulipNavigation?.entryId === navigationViews.active?.entryId) {
+    try {
+      window.history.replaceState({ ...state, tulipNavigation: { ...state.tulipNavigation, viewContext: context } }, '');
+    } catch { /* In-memory history still works when browser state storage is restricted. */ }
+  }
+}
+
+function beforeGraphNavigation(node) {
+  captureNavigationView();
+  cancelViewRestoration();
+  navigatingToNodeId = node?.id || null;
+}
+
+function syncRestoredGraphControls() {
+  currentSelectedEdge = graphInstance.selectedEdge;
+  updateSelectedEdgeDetail(currentSelectedEdge, currentSelectedNode);
+  document.getElementById('layout-toggle-network')?.classList.toggle('active', graphInstance.layoutMode === 'network');
+  document.getElementById('layout-toggle-tree')?.classList.toggle('active', graphInstance.layoutMode === 'tree');
+  updateAnalyzeShowMoreButton(currentSelectedNode);
+  updateCausalLists(currentSelectedNode);
+}
+
+function restoreNavigationView(context) {
+  if (!context || context.nodeId !== currentSelectedNode?.id) return;
+  const generation = ++viewRestorationGeneration;
+  pendingViewRestoration = true;
+  const current = () => generation === viewRestorationGeneration && context.nodeId === currentSelectedNode?.id;
+  // Allow the study grid to mount before restoring its camera and reading anchor.
+  window.requestAnimationFrame(() => window.requestAnimationFrame(() => {
+    if (!current()) return;
+    graphInstance.resizeCanvas();
+    if (!graphInstance.restoreViewState(context.graph)) {
+      pendingViewRestoration = false;
+      graphInstance.zoomToFit();
+      return;
+    }
+    syncRestoredGraphControls();
+    restoreInspectorView(studyConsole, context.inspector);
+    let timeout;
+    const ready = Promise.allSettled([runtimeNodeDetailsPromise, relationshipDetailPromise]);
+    // Cached/published content is immediately usable even if evidence requests stall.
+    Promise.race([ready, new Promise(resolve => { timeout = window.setTimeout(resolve, 5000); })]).then(() => {
+      window.clearTimeout(timeout);
+      if (!current()) return;
+      restoreInspectorView(studyConsole, context.inspector);
+      pendingViewRestoration = false;
+      captureNavigationView();
+    });
+  }));
+}
+
 // Target and select node, focusing the 3D globe and loading diagnostics
 function targetAndSelectNode(node, navigationOptions = {}) {
   if (!node) return;
+  if (node.id === currentSelectedNode?.id && !navigationOptions.pathNodes && !navigationOptions.viewContext) {
+    const wasHidden = document.getElementById('app-container')?.dataset.viewMode !== 'study';
+    setShellMode('study');
+    if (wasHidden) restoreNavigationView(navigationViews.active?.viewContext);
+    return;
+  }
+  if (!navigationOptions.restoringHistory) beforeGraphNavigation(node);
+  else { cancelViewRestoration(); navigatingToNodeId = node.id; }
   hideAnalyseStarterPicker({ resumeGraph: false });
   trackEvent('node_selected', { node_id: node.id, sphere: node.sphere });
 
@@ -2539,16 +2596,19 @@ function createNavigationHistoryState(pathNodes, depth = navigationEntryDepth) {
       version: NAVIGATION_STATE_VERSION,
       sessionId: navigationSessionId,
       depth,
+      entryId: navigationViews.active?.entryId,
+      ancestorEntryIds: navigationViews.active?.ancestorEntryIds || [],
+      viewContext: navigationViews.active?.viewContext || null,
       pathIds: pathNodes.map(node => node.id)
     }
   };
 }
 
 function updateNavigationDocumentTitle(pathNodes) {
-  document.title = pathNodes.length ? `${pathNodes.at(-1).name} | TULIP` : 'TULIP';
+  document.title = pathNodes.length ? `${pathNodes.at(-1).name} | Tulip Earth` : 'Tulip Earth';
 }
 
-function writeNavigationHistory(mode = 'push') {
+function writeNavigationHistory(mode = 'push', ancestorEntryIds = null) {
   if (!navigationHistoryReady || mode === 'none') return;
   const pathNodes = getCurrentNavigationPath();
   const url = buildNavigationUrl(pathNodes);
@@ -2561,6 +2621,9 @@ function writeNavigationHistory(mode = 'push') {
   }
 
   const nextDepth = mode === 'push' ? navigationEntryDepth + 1 : navigationEntryDepth;
+  const previous = navigationViews.active;
+  const ancestors = ancestorEntryIds || [...(previous?.ancestorEntryIds || []), previous?.entryId].filter(Boolean);
+  navigationViews.create(pathNodes.map(node => node.id), ancestors);
   const state = createNavigationHistoryState(pathNodes, nextDepth);
   window.history[mode === 'replace' ? 'replaceState' : 'pushState'](state, '', url);
   navigationEntryDepth = nextDepth;
@@ -2568,6 +2631,9 @@ function writeNavigationHistory(mode = 'push') {
 }
 
 function resetExplorationState({ historyMode = 'push' } = {}) {
+  if (historyMode !== 'none') captureNavigationView();
+  cancelViewRestoration();
+  navigatingToNodeId = null;
   cancelPendingSelection();
   document.querySelectorAll('.filter-pill').forEach(pill => {
     pill.classList.toggle('active', pill.getAttribute('data-filter') === 'all');
@@ -2582,10 +2648,10 @@ function resetExplorationState({ historyMode = 'push' } = {}) {
   setShellMode('explore');
   selectNode(null, { historyMode, pathNodes: [] });
   studyWorkspaceState = null;
-  window.requestAnimationFrame(() => forceExploreTabState());
+  window.requestAnimationFrame(() => { if (!currentSelectedNode) forceExploreTabState(); });
 }
 
-function restoreNavigationPath(pathNodes, { historyMode = 'none' } = {}) {
+function restoreNavigationPath(pathNodes, { historyMode = 'none', viewContext = null, restoringHistory = false } = {}) {
   const normalizedPath = normalizeNavigationPath(pathNodes.map(node => node.id));
   if (!normalizedPath.length) {
     resetExplorationState({ historyMode });
@@ -2593,7 +2659,7 @@ function restoreNavigationPath(pathNodes, { historyMode = 'none' } = {}) {
   }
 
   targetAndSelectNode(normalizedPath.at(-1), {
-    historyMode,
+    historyMode, viewContext, restoringHistory,
     pathNodes: normalizedPath
   });
 }
@@ -2624,10 +2690,12 @@ function formatNodeSourceDate(node) {
 }
 
 function announceStudyShareStatus(message) {
-  if (!copyViewStatus) return;
-  copyViewStatus.textContent = message;
+  const inspectorStatus = document.getElementById('inspector-share-status');
+  if (copyViewStatus) copyViewStatus.textContent = message;
+  if (inspectorStatus) inspectorStatus.textContent = message;
   window.setTimeout(() => {
     if (copyViewStatus?.textContent === message) copyViewStatus.textContent = '';
+    if (inspectorStatus?.textContent === message) inspectorStatus.textContent = '';
   }, 1800);
 }
 
@@ -2645,6 +2713,20 @@ async function copyCurrentViewUrl() {
     window.prompt('Copy URL', shareUrl);
     announceStudyShareStatus('Link ready to copy');
   }
+}
+
+async function shareCurrentTopicLink() {
+  const url = buildNavigationUrl().toString();
+  if (navigator.share) {
+    try {
+      await navigator.share({ title: 'Tulip Earth', text: `Explore ${currentSelectedNode?.name || 'this topic'} in Tulip Earth.`, url });
+      announceStudyShareStatus('Link shared');
+      return;
+    } catch (error) {
+      if (error?.name === 'AbortError') return;
+    }
+  }
+  await copyCurrentViewUrl();
 }
 
 function normalizePdfText(value = '') {
@@ -2730,18 +2812,19 @@ async function registerPdfInterDisplay(pdf) {
 function buildPdfInspectorCards(hasSelectedRelationship) {
   const cards = [];
   const nodeName = currentSelectedNode?.name || getPdfElementText(consoleNodeName) || 'Selected node';
+  const assessment = getTulipAssessment(currentSelectedNode);
   cards.push({
     accent: [255, 255, 255],
     blocks: [
       { kind: 'kicker', text: getPdfElementText(consoleSphereBadge) || 'TULIP' },
       { kind: 'title', text: nodeName },
       { kind: 'body', text: getPdfElementText(consoleNodeMeaning) },
-      { kind: 'label', text: 'TULIP URGENCY' },
-      {
+      { kind: 'label', text: 'TULIP SCORE' },
+      ...(Number.isFinite(assessment?.value) ? [{
         kind: 'urgency',
-        score: getPdfElementText(document.getElementById('console-urgency-score')) || '0.0',
-        rating: getPdfElementText(document.getElementById('console-urgency-rating')) || 'Low'
-      }
+        score: assessment.value.toFixed(1),
+        rating: null
+      }] : [{ kind: 'body', text: assessment?.nodeKind === 'response' ? 'Response · no danger score' : 'Not yet scored' }])
     ]
   });
 
@@ -2797,7 +2880,7 @@ function buildPdfInspectorCards(hasSelectedRelationship) {
   if (planetDomains) planetBlocks.push({ kind: 'subhead', text: planetDomains });
   getPdfListItems(planetImpactConsequences).forEach(text => planetBlocks.push({ kind: 'bullet', text }));
   if (planetImpactPhysicalLimitItem && !planetImpactPhysicalLimitItem.hidden) {
-    planetBlocks.push({ kind: 'label', text: 'PHYSICAL LIMIT' });
+    planetBlocks.push({ kind: 'label', text: 'LIMITS AND UNCERTAINTY' });
     planetBlocks.push({ kind: 'body', text: getPdfElementText(planetImpactPhysicalLimit) });
   }
   cards.push({ accent: [146, 221, 176], blocks: planetBlocks });
@@ -3099,6 +3182,15 @@ function buildSamplePdfSections(hasSelectedRelationship) {
     }]
   });
 
+  const economy = getNodeInspectorEconomicContext(currentSelectedNode);
+  const measurement = getNodeInspectorMeasurement(currentSelectedNode);
+  sections.push({ title: 'Limits and measurement', items: [
+    { question: 'What are the limits?', answers: cleanAnswers([economy.physicalLimit, economy.evidenceBoundary]) },
+    { question: 'How is this measured?', answers: cleanAnswers([
+      measurement.metric, measurement.unit, measurement.geography, measurement.cadence,
+      measurement.method, measurement.uncertainty, measurement.boundary
+    ]) }
+  ] });
   return sections;
 }
 
@@ -3301,30 +3393,26 @@ function drawPdfDocumentHeader(pdf, brandLogoRaster, nodeName, sphereLabel, mean
   pdf.setTextColor(43, 40, 40);
   pdf.text(normalizePdfText(sphereLabel).toUpperCase(), headerX, 46.9);
 
-  let titleFontSize = 20;
-  const score = Math.max(1, Math.min(10, Number(scoreText) || 1));
-  const scoreLabel = score.toFixed(1);
-  const scorePillWidth = 15.7;
+  const titleFontSize = 20;
+  const score = Number(scoreText);
+  const hasScore = Number.isFinite(score) && score >= 1 && score <= 10;
+  const scoreLabel = hasScore ? score.toFixed(1) : (getTulipAssessment(currentSelectedNode)?.label || 'Not yet scored');
+  const scorePillWidth = hasScore ? 15.7 : 35;
   const availableTitleWidth = pdf.internal.pageSize.getWidth() - headerX - margin - scorePillWidth - 8;
   pdf.setFont('InterDisplay', 'normal');
   pdf.setFontSize(titleFontSize);
-  while (titleFontSize > 16 && pdf.getTextWidth(normalizePdfText(nodeName)) > availableTitleWidth) {
-    titleFontSize -= 0.5;
-    pdf.setFontSize(titleFontSize);
-  }
+  const titleLines = pdf.splitTextToSize(normalizePdfText(nodeName), availableTitleWidth);
   const titleY = 55.9;
-  pdf.text(normalizePdfText(nodeName), headerX, titleY);
-  const titleWidth = pdf.getTextWidth(normalizePdfText(nodeName));
-  const scoreX = Math.min(
-    pdf.internal.pageSize.getWidth() - margin - scorePillWidth,
-    headerX + titleWidth + 6.85
-  );
+  const titleLineHeight = 8.5;
+  pdf.text(titleLines, headerX, titleY, { lineHeightFactor: 1.2 });
+  const titleBottom = titleY + Math.max(0, titleLines.length - 1) * titleLineHeight;
+  const scoreX = pdf.internal.pageSize.getWidth() - margin - scorePillWidth;
   const titleScoreY = 49.15;
   const titleScoreHeight = 8.4;
-  drawPdfCapsule(pdf, scoreX, titleScoreY, scorePillWidth, titleScoreHeight, [0, 0, 0]);
+  if (hasScore) drawPdfCapsule(pdf, scoreX, titleScoreY, scorePillWidth, titleScoreHeight, [0, 0, 0]);
   pdf.setFont('InterDisplay', 'semibold');
-  pdf.setFontSize(16);
-  pdf.setTextColor(255, 255, 255);
+  pdf.setFontSize(hasScore ? 16 : 10);
+  pdf.setTextColor(...(hasScore ? [255, 255, 255] : [70, 70, 70]));
   pdf.text(
     scoreLabel,
     scoreX + scorePillWidth / 2,
@@ -3332,9 +3420,16 @@ function drawPdfDocumentHeader(pdf, brandLogoRaster, nodeName, sphereLabel, mean
     { align: 'center', baseline: 'middle' }
   );
 
+  pdf.setFontSize(7);
+  pdf.setTextColor(70, 70, 70);
+  if (getTulipAssessment(currentSelectedNode)?.valueLabel) {
+    pdf.setFont('InterDisplay', 'normal');
+    pdf.text(['Internal', 'estimate'], scoreX + scorePillWidth / 2, titleScoreY + titleScoreHeight + 3.2, { align: 'center', lineHeightFactor: 1.1 });
+  }
+
   pdf.setDrawColor(43, 40, 40);
   pdf.setLineWidth(0.22);
-  pdf.line(headerX, 57.95, Math.max(headerX + 35, scoreX - 7.3), 57.95);
+  pdf.line(headerX, titleBottom + 2.05, Math.max(headerX + 35, scoreX - 7.3), titleBottom + 2.05);
 
   pdf.setFont('InterDisplay', 'normal');
   pdf.setFontSize(12);
@@ -3343,16 +3438,21 @@ function drawPdfDocumentHeader(pdf, brandLogoRaster, nodeName, sphereLabel, mean
     normalizePdfText(meaning),
     pdf.internal.pageSize.getWidth() - headerX - margin
   );
-  pdf.text(meaningLines, headerX, 65.5, { lineHeightFactor: 1.18 });
-  return 65.5 + meaningLines.length * 5 + 8;
+  const meaningY = titleBottom + 9.6;
+  pdf.text(meaningLines, headerX, meaningY, { lineHeightFactor: 1.18 });
+  return meaningY + meaningLines.length * 5 + 8;
 }
 
-function drawPdfUrgencyGraph(pdf, x, y, width, scoreText, ratingText) {
-  const score = Math.max(1, Math.min(10, Number(scoreText) || 1));
+function drawPdfUrgencyGraph(pdf, x, y, width, scoreText) {
+  const score = Number(scoreText);
   pdf.setFont('InterDisplay', 'semibold');
   pdf.setFontSize(13);
   pdf.setTextColor(43, 40, 40);
-  pdf.text(`TULIP URGENCY SCORE: ${score.toFixed(1)} (${normalizePdfText(ratingText).toUpperCase()})`, x, y);
+  if (!Number.isFinite(score) || score < 1 || score > 10) {
+    pdf.text(getTulipAssessment(currentSelectedNode)?.nodeKind === 'response' ? 'Response · no danger score' : 'Not yet scored', x, y);
+    return y + 18;
+  }
+  pdf.text(`TULIP SCORE: ${score.toFixed(1)} / 10${getTulipAssessment(currentSelectedNode)?.valueLabel ? " · Internal estimate" : ""}`, x, y);
 
   const trackY = y + 6.15;
   const trackHeight = 5.5;
@@ -3500,7 +3600,7 @@ function captureCenteredGraphForExport(sourceCanvas) {
   return cropWhitePdfGraphCapture(snapshot, labels, captureViewportWidth, captureViewportHeight);
 }
 
-async function exportCurrentViewAsPdf() {
+async function exportCurrentViewAsPdf({ share = false } = {}) {
   const sourceCanvas = graphInstance?.canvas || document.getElementById('graph-canvas');
   if (!sourceCanvas || !studyConsole) {
     announceStudyShareStatus('PDF export unavailable');
@@ -3515,6 +3615,10 @@ async function exportCurrentViewAsPdf() {
   announceStudyShareStatus('Preparing PDF');
 
   try {
+    requestRuntimeNodeDetails(currentSelectedNode);
+    await runtimeNodeDetailsPromise;
+    if (hasSelectedRelationship) await relationshipDetailPromise;
+    if (currentSelectedNode && !currentSelectedNode.readerCopy) throw new Error('Reader copy is not loaded yet');
     await document.fonts?.ready;
     const [{ jsPDF }, graphCapture, brandLogoRaster] = await Promise.all([
       import('jspdf'),
@@ -3540,8 +3644,8 @@ async function exportCurrentViewAsPdf() {
     const nodeName = currentSelectedNode?.name || getPdfElementText(consoleNodeName) || 'Selected node';
     const sphereLabel = getPdfElementText(consoleSphereBadge) || 'TULIP';
     const meaning = getPdfElementText(consoleNodeMeaning);
-    const scoreText = getPdfElementText(document.getElementById('console-urgency-score')) || '1.0';
-    const ratingText = getPdfElementText(document.getElementById('console-urgency-rating')) || 'Low';
+    const assessment = getTulipAssessment(currentSelectedNode);
+    const scoreText = Number.isFinite(assessment?.value) ? assessment.value.toFixed(1) : '';
     const sourceDate = formatNodeSourceDate(currentSelectedNode)
       .replace(/^LAST UPDATED:/i, 'Most Recent Data:')
       .replace(/^MOST RECENT DATA:/, 'Most Recent Data:');
@@ -3600,6 +3704,7 @@ async function exportCurrentViewAsPdf() {
 
     const drawNumberedAnswers = (answers, y, bottomY, startNumber = 1) => {
       const remaining = [];
+      let partial = false;
       let cursorY = y;
       answers.forEach((answer, answerIndex) => {
         if (remaining.length) {
@@ -3611,7 +3716,15 @@ async function exportCurrentViewAsPdf() {
         const lines = pdf.splitTextToSize(normalizePdfText(answer), answerWidth);
         const requiredHeight = lines.length * answerLineHeight;
         if (cursorY + requiredHeight > bottomY) {
-          remaining.push(answer);
+          const count = Math.floor((bottomY - cursorY) / answerLineHeight);
+          if (requiredHeight > 180 && count > 0) {
+            pdf.setTextColor(...bodyColor);
+            pdf.text(`${startNumber + answerIndex}.`, numberX, cursorY);
+            pdf.text(lines.slice(0, count), answerX, cursorY, { lineHeightFactor: 1.2 });
+            cursorY += count * answerLineHeight;
+            remaining.push(lines.slice(count).join(' '));
+            partial = true;
+          } else remaining.push(answer);
           return;
         }
         pdf.setTextColor(...bodyColor);
@@ -3619,7 +3732,7 @@ async function exportCurrentViewAsPdf() {
         pdf.text(lines, answerX, cursorY, { lineHeightFactor: 1.2 });
         cursorY += requiredHeight;
       });
-      return { y: cursorY, remaining };
+      return { y: cursorY, remaining, partial };
     };
 
     const drawQuestionBlock = (item, y, bottomY, options = {}) => {
@@ -3630,7 +3743,7 @@ async function exportCurrentViewAsPdf() {
         bottomY,
         options.startNumber || 1
       );
-      return { y: answerResult.y, remaining: answerResult.remaining };
+      return { y: answerResult.y, remaining: answerResult.remaining, partial: answerResult.partial };
     };
 
     startPdfPage();
@@ -3679,8 +3792,7 @@ async function exportCurrentViewAsPdf() {
       margin,
       190.9,
       188,
-      scoreText,
-      ratingText
+      scoreText
     );
 
     let firstHumanRemaining = [];
@@ -3725,13 +3837,23 @@ async function exportCurrentViewAsPdf() {
       let continued = options.continued === true;
 
       while (true) {
+        pdf.setFont('InterDisplay', 'semibold');
+        pdf.setFontSize(questionFontSize);
         const questionLines = pdf.splitTextToSize(
           `${normalizePdfText(item.question)}${continued ? ' (continued)' : ''}`,
           answerWidth
         );
+        pdf.setFont('InterDisplay', 'normal');
+        pdf.setFontSize(answerFontSize);
+        const firstAnswerLines = answers.length
+          ? pdf.splitTextToSize(normalizePdfText(answers[0]), answerWidth).length
+          : 0;
+        // Normal paragraphs stay together. Oversized paragraphs need only one
+        // line to start, then continue without inserting empty pages.
+        const firstAnswerHeight = firstAnswerLines * answerLineHeight;
         const minimumBlockHeight = questionLines.length * questionLineHeight
           + 3.5
-          + (answers.length ? answerLineHeight : 0);
+          + (firstAnswerHeight > 180 ? answerLineHeight : firstAnswerHeight);
         if (pageTwoY + minimumBlockHeight > flowingContentBottom) {
           startFlowingPage(sectionTitle, true);
           continued = true;
@@ -3747,7 +3869,7 @@ async function exportCurrentViewAsPdf() {
         pageTwoY = result.y;
 
         if (!result.remaining.length) break;
-        if (consumedAnswerCount === 0) {
+        if (consumedAnswerCount === 0 && !result.partial) {
           throw new Error(`PDF answer is too long to fit on an A4 page: ${item.question}`);
         }
 
@@ -3821,6 +3943,20 @@ async function exportCurrentViewAsPdf() {
       });
     }
 
+    const measurementSection = sections.find(section => section.title === 'Limits and measurement');
+    if (measurementSection?.items?.length) {
+      startFlowingSection(measurementSection.title, sectionGap);
+      measurementSection.items.forEach((item, index) => {
+        drawFlowingQuestion(measurementSection.title, item, {}, index < measurementSection.items.length - 1 ? questionBlockGap : 0);
+      });
+    }
+
+    startFlowingSection('About TULIP Score', sectionGap);
+    drawFlowingQuestion('About TULIP Score', {
+      question: getTulipAssessment(currentSelectedNode)?.label || 'Not yet scored',
+      answers: [getTulipAssessment(currentSelectedNode)?.explanation, ...['summary', 'components', 'formula', 'missing', 'evidence', 'limits'].map(key => SCORE_METHOD_COPY[key])].filter(Boolean)
+    });
+
     const footerLineY = Math.max(253.46, pageTwoY + 3.5);
     const footerTextY = footerLineY + 6.94;
     pdf.setDrawColor(...bodyColor);
@@ -3831,7 +3967,20 @@ async function exportCurrentViewAsPdf() {
     pdf.setTextColor(...bodyColor);
     pdf.text(normalizePdfText(sourceDate), pageWidth / 2, footerTextY, { align: 'center' });
 
-    pdf.save(`tulip-${nodeSlug}.pdf`);
+    const fileName = `tulip-${nodeSlug}.pdf`;
+    if (share && navigator.share && navigator.canShare && typeof File !== 'undefined') {
+      const file = new File([pdf.output('blob')], fileName, { type: 'application/pdf' });
+      if (navigator.canShare({ files: [file] })) {
+        try {
+          await navigator.share({ files: [file], title: `Tulip Earth · ${currentSelectedNode?.name || 'Topic'}` });
+          announceStudyShareStatus('PDF shared');
+          return;
+        } catch (error) {
+          if (error?.name === 'AbortError') return;
+        }
+      }
+    }
+    pdf.save(fileName);
     announceStudyShareStatus('PDF saved');
   } catch (error) {
     console.error('Unable to export TULIP PDF:', error);
@@ -3843,16 +3992,26 @@ function initializeNavigationHistory() {
   const pathNodes = readNavigationPathFromUrl();
   navigationEntryDepth = 0;
   navigationHistoryReady = true;
+  navigationViews.create(pathNodes.map(node => node.id), []);
+  // User input always wins over deferred restoration; programmatic scrolling does not cancel it.
+  for (const name of ['pointerdown', 'touchstart', 'wheel', 'keydown']) {
+    document.addEventListener(name, () => {
+      cancelViewRestoration();
+    }, { capture: true, passive: true });
+  }
   window.history.replaceState(createNavigationHistoryState(pathNodes, 0), '', buildNavigationUrl(pathNodes));
   updateNavigationDocumentTitle(pathNodes);
 
   window.addEventListener('popstate', event => {
+    captureNavigationView();
+    cancelPendingSelection();
     const state = event.state?.tulipNavigation;
     navigationEntryDepth = state?.sessionId === navigationSessionId && Number.isFinite(state.depth) ? state.depth : 0;
     const restoredPath = state?.pathIds
       ? normalizeNavigationPath(state.pathIds)
       : readNavigationPathFromUrl();
-    restoreNavigationPath(restoredPath, { historyMode: 'none' });
+    const visit = navigationViews.activate(state, restoredPath.map(node => node.id));
+    restoreNavigationPath(restoredPath, { historyMode: 'none', viewContext: visit.viewContext, restoringHistory: true });
     updateNavigationDocumentTitle(restoredPath);
   });
 
@@ -4021,118 +4180,6 @@ function getNatureClimateEntry(node) {
   return null;
 }
 
-function renderTulipScoreMethodologyStats(registry) {
-  if (!registry) return;
-  const total = Number(registry.issue_node_count) || (registry.receipts ?? []).length;
-  const counts = registry.method_counts ?? {};
-  const setText = (id, value) => {
-    const element = document.getElementById(id);
-    if (element) element.textContent = value;
-  };
-  const countAndShare = value => {
-    const count = Number(value) || 0;
-    const share = total > 0 ? ((count / total) * 100).toFixed(1) : '0.0';
-    return `${count.toLocaleString()} (${share}%)`;
-  };
-
-  setText('tulip-score-live-count', total.toLocaleString());
-  setText('tulip-score-current-count', countAndShare(counts.current_data));
-  setText('tulip-score-impact-count', countAndShare(counts.impact_fallback));
-  setText('tulip-score-modeled-count', countAndShare(counts.modeled));
-  setText('tulip-score-response-count', (registry.excluded_response_node_ids ?? []).length.toLocaleString());
-
-  const generatedAt = new Date(registry.generated_at);
-  if (!Number.isNaN(generatedAt.getTime())) {
-    setText('tulip-score-registry-date', new Intl.DateTimeFormat('en', {
-      month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC'
-    }).format(generatedAt));
-  }
-}
-
-const TULIP_URGENCY_BANDS_V2_UI = Object.freeze([
-  Object.freeze({ label: 'Low', min: 1.0, max: 2.9, width: 2 }),
-  Object.freeze({ label: 'Elevated', min: 3.0, max: 4.9, width: 2 }),
-  Object.freeze({ label: 'Rising', min: 5.0, max: 6.9, width: 2 }),
-  Object.freeze({ label: 'Critical', min: 7.0, max: 10.0, width: 3 })
-]);
-
-const TULIP_URGENCY_BAND_COLORS = Object.freeze([
-  '#5ba6f5', '#78a8dc', '#9ca4d0', '#b49ab7', '#ca9197', '#dc7568', '#eb553d'
-]);
-
-function getActiveTulipUrgencyBands() {
-  return tulipUrgencyMethodVersion === 'tulip_urgency_v3'
-    ? TULIP_URGENCY_BANDS_V3.map(band => ({ ...band, width: band.max - band.min + 0.1 }))
-    : TULIP_URGENCY_BANDS_V2_UI;
-}
-
-function getActiveTulipUrgencyBand(score) {
-  return tulipUrgencyMethodVersion === 'tulip_urgency_v3'
-    ? getTulipUrgencyBandV3(score)
-    : getTulipUrgencyBandV2(score);
-}
-
-function renderTulipUrgencyBandScale() {
-  const bands = getActiveTulipUrgencyBands();
-  const bandContainer = document.getElementById('urgency-scale-bands');
-  const track = document.querySelector('.urgency-scale-track');
-  const axis = document.getElementById('urgency-scale-axis');
-  const methodologyBandDescription = document.getElementById('tulip-score-band-description');
-  const temperatureBandExample = document.getElementById('tulip-score-temperature-band-example');
-  if (bandContainer) {
-    bandContainer.replaceChildren();
-    bandContainer.style.gridTemplateColumns = bands.map(band => `${band.width}fr`).join(' ');
-    bands.forEach((band, index) => {
-      const label = document.createElement('span');
-      const abbreviation = document.createElement('span');
-      const tooltip = document.createElement('span');
-      const tooltipId = `urgency-band-tooltip-${index}`;
-      label.className = 'urgency-band-label';
-      label.dataset.urgencyBand = band.label;
-      label.tabIndex = 0;
-      label.setAttribute('aria-label', `${band.label}, scores ${band.min.toFixed(1)} to ${band.max.toFixed(1)}`);
-      label.setAttribute('aria-describedby', tooltipId);
-      label.style.setProperty('--urgency-band-color', TULIP_URGENCY_BAND_COLORS[index]);
-      abbreviation.className = 'urgency-band-abbreviation';
-      abbreviation.setAttribute('aria-hidden', 'true');
-      abbreviation.textContent = bands.length > 4 && band.width < 1 ? band.label.charAt(0) : band.label;
-      tooltip.id = tooltipId;
-      tooltip.className = 'urgency-band-tooltip';
-      tooltip.setAttribute('role', 'tooltip');
-      tooltip.textContent = band.label;
-      label.append(abbreviation, tooltip);
-      bandContainer.append(label);
-    });
-  }
-  if (track) {
-    const stops = bands.map((band, index) => {
-      const midpoint = ((((band.min + band.max) / 2) - 1) / 9) * 100;
-      return `${TULIP_URGENCY_BAND_COLORS[index]} ${midpoint.toFixed(3)}%`;
-    });
-    stops.unshift(`${TULIP_URGENCY_BAND_COLORS[0]} 0%`);
-    stops.push(`${TULIP_URGENCY_BAND_COLORS[bands.length - 1]} 100%`);
-    track.style.background = `linear-gradient(90deg, ${stops.join(', ')})`;
-  }
-  if (axis) {
-    const ticks = tulipUrgencyMethodVersion === 'tulip_urgency_v3' ? [1, 5, 7, 8, 9, 10] : [1, 3, 5, 7, 10];
-    axis.replaceChildren();
-    ticks.forEach(tick => {
-      const label = document.createElement('span');
-      label.textContent = String(tick);
-      label.style.left = `${urgencyScalePosition(tick)}%`;
-      axis.append(label);
-    });
-  }
-  if (methodologyBandDescription) {
-    methodologyBandDescription.innerHTML = tulipUrgencyMethodVersion === 'tulip_urgency_v3'
-      ? 'The result is rounded to one decimal place. <strong>1.0-4.9 is Low Concern, 5.0-6.9 is Elevated, 7.0-7.5 is Concerning, 7.6-8.1 is High Risk, 8.2-8.6 is Severe, 8.7-9.2 is Critical, and 9.3-10.0 is Extreme.</strong>'
-      : 'The result is rounded to one decimal place. <strong>1.0-2.9 is Low, 3.0-4.9 is Elevated, 5.0-6.9 is Rising, and 7.0-10.0 is Critical.</strong>';
-  }
-  if (temperatureBandExample) {
-    temperatureBandExample.textContent = `7.3, or ${getActiveTulipUrgencyBand(7.3)}`;
-  }
-}
-
 function requestTulipUrgencyRegistry() {
   if (tulipUrgencyRegistryRequested) return;
   tulipUrgencyRegistryRequested = true;
@@ -4151,24 +4198,26 @@ function requestTulipUrgencyRegistry() {
   loadJsonWithApiFallback(urgencyEndpoint, urgencyFallback, (registry, mode) => {
     tulipUrgencyRegistryStatus = 'ready';
     tulipUrgencyStatus = registry.status ?? null;
-    tulipUrgencyMethodVersion = registry.method_version ?? 'tulip_urgency_v2';
+    tulipUrgencyMethodVersion = tulipUrgencyHistoricalV2Preview || tulipUrgencyV3ShadowPreview
+      ? registry.method_version ?? 'tulip_urgency_v2'
+      : 'tulip_urgency_v3';
     tulipUrgencyByNodeId = new Map((registry.receipts ?? []).map(receipt => [receipt.node_id, receipt]));
-    renderTulipScoreMethodologyStats(registry);
-    renderTulipUrgencyBandScale();
     NODES.forEach(node => {
       node.tulipUrgencyReceipt = tulipUrgencyByNodeId.get(node.id) ?? null;
       const registryIsActive = tulipUrgencyStatus === 'approved' || tulipUrgencyV3ShadowPreview;
       if (registryIsActive && node.tulipUrgencyReceipt && node.node_kind !== 'response') {
-        node.score.baseline = node.tulipUrgencyReceipt.value;
-        node.score.band = node.tulipUrgencyReceipt.band;
-        node.tulipScore = node.tulipUrgencyReceipt.value;
-        node.impactScore = Math.round(node.tulipUrgencyReceipt.value * 10);
+        const assessment = getTulipAssessment(node);
+        const preview = tulipUrgencyHistoricalV2Preview || tulipUrgencyV3ShadowPreview;
+        node.score.baseline = assessment?.value ?? null;
+        node.score.band = null;
+        node.tulipScore = node.score.baseline;
+        node.impactScore = node.tulipScore == null ? null : Math.round(node.tulipScore * 10);
       }
     });
     if (tulipUrgencyStatus === 'approved' || tulipUrgencyV3ShadowPreview) {
       const rankedNorthAtlanticNodes = NODES
         .filter(node => node.name.startsWith('North Atlantic'))
-        .sort((a, b) => b.tulipScore - a.tulipScore);
+        .sort((a, b) => (b.tulipScore ?? -Infinity) - (a.tulipScore ?? -Infinity) || a.name.localeCompare(b.name));
       rankedNorthAtlanticNodes.forEach((node, index) => {
         node.isNorthAtlanticHighlightEligible = index < 18;
       });
@@ -4499,14 +4548,18 @@ function init() {
   const canvas = document.getElementById('graph-canvas');
   if (!canvas) return;
 
-  // Precalculate TULIP Score for all nodes so it is available in the graph engine and search suggestions
+  // Project the canonical assessment into the graph and search; unsupported scores remain null.
   NODES.forEach(node => {
-    node.tulipScore = node.score.baseline;
+    const assessment = getTulipAssessment(node);
+    node.tulipScore = assessment?.value ?? null;
+    node.score.baseline = assessment?.value ?? null;
+    node.score.band = null;
+    node.impactScore = Number.isFinite(assessment?.value) ? Math.round(assessment.value * 10) : null;
   });
 
   // Limit eligible ambient highlights for "North Atlantic" nodes to 18
   const northAtlanticNodes = NODES.filter(n => n.name.startsWith('North Atlantic'));
-  northAtlanticNodes.sort((a, b) => b.tulipScore - a.tulipScore);
+  northAtlanticNodes.sort((a, b) => (b.tulipScore ?? -Infinity) - (a.tulipScore ?? -Infinity) || a.name.localeCompare(b.name));
   northAtlanticNodes.forEach((node, idx) => {
     node.isNorthAtlanticHighlightEligible = (idx < 18);
   });
@@ -4515,6 +4568,8 @@ function init() {
   // Publish the complete defensible three-connected core. All other nodes
   // remain in the research registry until they earn three valid relationships.
   graphInstance = new TulipGraph(canvas, PUBLISHED_NODES, PUBLISHED_EDGES, scheduleSelectNode, null, handleSelectEdge);
+  graphInstance.onBeforeSelectNode = beforeGraphNavigation;
+  graphInstance.refinedExploreEdges = true;
   window.graphInstance = graphInstance;
 
   // Generate and set procedural profile avatar
@@ -4558,10 +4613,12 @@ function init() {
     }
     viewportResizeFrame = window.requestAnimationFrame(() => {
       viewportResizeFrame = null;
+      const inspectorView = captureInspectorView(studyConsole);
       adjustScale();
       if (graphInstance) {
         graphInstance.resizeCanvas();
       }
+      restoreInspectorView(studyConsole, inspectorView);
       updateGatewayArcLayout();
     });
   };
@@ -4605,6 +4662,45 @@ function init() {
     document.addEventListener('keydown', event => {
       if (event.key !== 'Escape' || studySharePopover.hidden) return;
       closeStudySharePopover({ restoreFocus: true });
+    });
+  }
+  const inspectorShareButton = document.getElementById('inspector-share-button');
+  const inspectorShareMenu = document.getElementById('inspector-share-menu');
+  if (inspectorShareButton && inspectorShareMenu) {
+    const closeInspectorShareMenu = ({ restoreFocus = false } = {}) => {
+      inspectorShareMenu.hidden = true;
+      inspectorShareButton.setAttribute('aria-expanded', 'false');
+      if (restoreFocus) inspectorShareButton.focus();
+    };
+    inspectorShareButton.addEventListener('click', event => {
+      event.stopPropagation();
+      const willOpen = inspectorShareMenu.hidden;
+      inspectorShareMenu.hidden = !willOpen;
+      inspectorShareButton.setAttribute('aria-expanded', String(willOpen));
+      if (willOpen) {
+        const saved = desktopStore.read(DESKTOP_KEYS.bookmarks, []);
+        const bookmarked = Array.isArray(saved) && saved.includes(currentSelectedNode?.id);
+        inspectorShareMenu.querySelector('[data-bookmark-label]').textContent = bookmarked ? 'Remove Bookmark' : 'Bookmark Topic';
+        inspectorShareMenu.querySelector('[role="menuitem"]')?.focus();
+      }
+    });
+    inspectorShareMenu.addEventListener('click', async event => {
+      const action = event.target.closest('[data-inspector-share]')?.dataset.inspectorShare;
+      if (!action) return;
+      closeInspectorShareMenu();
+      if (action === 'link') await shareCurrentTopicLink();
+      if (action === 'pdf') await exportCurrentViewAsPdf({ share: true });
+      if (action === 'bookmark' && currentSelectedNode) {
+        window.dispatchEvent(new CustomEvent('tulip:bookmark-toggle', { detail: { id: currentSelectedNode.id } }));
+        const saved = desktopStore.read(DESKTOP_KEYS.bookmarks, []);
+        announceStudyShareStatus(Array.isArray(saved) && saved.includes(currentSelectedNode.id) ? 'Topic bookmarked' : 'Bookmark removed');
+      }
+    });
+    document.addEventListener('click', event => {
+      if (!inspectorShareMenu.hidden && !event.target.closest('.inspector-share-control')) closeInspectorShareMenu();
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && !inspectorShareMenu.hidden) closeInspectorShareMenu({ restoreFocus: true });
     });
   }
   if (studyJourneyToggle && studyHistoryPopover) {
@@ -4685,7 +4781,11 @@ function init() {
       if (graphInstance) {
         graphInstance.layoutMode = 'tree';
         graphInstance.zoomToFit();
+        const selectionToken = queuedSelectionToken;
+        const topicId = currentSelectedNode?.id;
         setTimeout(() => {
+          if (selectionToken !== queuedSelectionToken || currentSelectedNode?.id !== topicId
+              || graphInstance.layoutMode !== 'tree' || pendingViewRestoration) return;
           graphInstance.resizeCanvas();
           graphInstance.zoomToFit();
         }, 80);
@@ -4946,7 +5046,6 @@ function init() {
   const sourcesView = document.getElementById('sources-view');
   const sourcesTabBtn = document.getElementById('sources-tab-btn');
   const appContainer = document.getElementById('app-container');
-  const appLogo = document.getElementById('app-logo');
 
   // Initialize Registries Dashboard elements
   registriesDashboard = document.getElementById('registries-dashboard');
@@ -5034,6 +5133,8 @@ function init() {
       renderRegistryDirectory();
       bindRegistryDirectoryTabs();
       setActiveRegistryTab('climate');
+      // The overview includes campaign totals even before its detail tab opens.
+      ensureRegistryTabContent('research');
       registriesInitialized = true;
       registriesInitializationPending = false;
     });
@@ -5087,9 +5188,7 @@ function init() {
     footerSearch?.setAttribute('aria-expanded', 'false');
     mobileMore?.setAttribute('aria-expanded', 'false');
     mobileMore?.setAttribute('aria-label', 'Open filters');
-    cancelPendingSelection();
-    setShellMode('explore');
-    graphInstance?.exitFocusMode();
+    resetExplorationState();
     window.requestAnimationFrame(() => {
       graphInstance?.resizeCanvas();
       if (window.matchMedia('(max-width: 950px)').matches) graphInstance?.zoomToFit();
@@ -5098,9 +5197,6 @@ function init() {
     });
   }
 
-  function handleLogoClick(e) {
-    handleExploreClick(e);
-  }
 
   function handleAnalyseClick(e) {
     if (e) e.preventDefault();
@@ -5129,7 +5225,6 @@ function init() {
     if (currentPhenomenonNode) {
       setShellMode('phenomena');
       setPhenomenonMode(currentPhenomenonMode);
-      window.requestAnimationFrame(positionPhenomenonModeToggleWithHeading);
       return;
     }
 
@@ -5148,7 +5243,19 @@ function init() {
   function handleTulipScoreClick(e) {
     if (e) e.preventDefault();
     closeFooterOverlays();
-    if (tulipScorePopup) tulipScorePopup.style.display = 'flex';
+    if (tulipScorePopup) {
+      const methodSections = [
+        ['summary', SCORE_METHOD_COPY.title],
+        ['components', 'People and nature'],
+        ['formula', 'How the score is calculated'],
+        ['missing', 'Estimates and missing evidence'],
+        ['evidence', 'What the evidence represents'],
+        ['limits', 'Limits of the score']
+      ];
+      tulipScorePopup.querySelector('[data-score-method-copy]').innerHTML = methodSections
+        .map(([key, title]) => `<section class="score-method-section"><h3>${escapeHtml(title)}</h3><p>${escapeHtml(SCORE_METHOD_COPY[key])}</p></section>`).join('');
+      tulipScorePopup.style.display = 'flex';
+    }
     lastFooterOverlayTrigger = e?.currentTarget || null;
     setFooterOverlayActive(true, tulipScorePopup);
   }
@@ -5184,36 +5291,12 @@ function init() {
     initializeRegistriesDashboard();
   }
 
+  document.getElementById('app-logo')?.addEventListener('click', handleExploreClick);
   if (footerExplore) footerExplore.addEventListener('click', handleExploreClick);
-  footerSearch?.addEventListener('click', event => {
-    event.preventDefault();
-    closeFooterOverlays();
-    setShellMode('explore');
-    const willOpen = !document.body.classList.contains('mobile-search-open');
-    document.body.classList.toggle('mobile-search-open', willOpen);
-    document.body.classList.remove('mobile-filters-open');
-    footerSearch.setAttribute('aria-expanded', String(willOpen));
-    mobileMore?.setAttribute('aria-expanded', 'false');
-    mobileMore?.setAttribute('aria-label', 'Open filters');
-    setActiveTab(willOpen ? 'search' : 'explore');
-    if (willOpen) {
-      window.requestAnimationFrame(() => {
-        const searchInput = document.getElementById('node-search-input');
-        searchInput?.focus({ preventScroll: true });
-        searchInput?.select();
-      });
-    }
-  });
   if (footerAnalyse) footerAnalyse.addEventListener('click', handleAnalyseClick);
-  if (appLogo) appLogo.addEventListener('click', handleLogoClick);
   if (footerPhenomena) footerPhenomena.addEventListener('click', handlePhenomenaClick);
   if (footerPersonalFootprint) footerPersonalFootprint.addEventListener('click', handlePersonalFootprintClick);
   setupFluidFooterNavigation();
-  document.getElementById('activity-compare-next')?.addEventListener('click', () => {
-    setPhenomenonMode('footprint');
-    phenomenaSelector?.querySelector('.phenomena-selector-btn:not(.active)')?.focus({ preventScroll: true });
-    phenomenaSelector?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
-  });
   if (footerTulipScore) footerTulipScore.addEventListener('click', handleTulipScoreClick);
   if (urgencyScoreGuideButton) urgencyScoreGuideButton.addEventListener('click', handleTulipScoreClick);
   if (footerRegistries) footerRegistries.addEventListener('click', handleRegistriesClick);
@@ -5233,6 +5316,14 @@ function init() {
   const mobileStudySheet = document.getElementById('mobile-study-sheet');
   const mobileSheetGrabber = document.getElementById('mobile-sheet-grabber');
   const mobileSheetSummary = document.querySelector('.mobile-sheet-summary');
+  if (mobileStudySheet && mobileSheetSummary) {
+    const resizePeek = new ResizeObserver(() => {
+      const height = mobileSheetSummary.getBoundingClientRect().height + 100;
+      mobileStudySheet.style.setProperty('--reader-sheet-peek', `${Math.max(196, height)}px`);
+    });
+    resizePeek.observe(mobileSheetSummary);
+  }
+
   const mobileExplorePrompt = document.getElementById('mobile-explore-prompt');
 
   let mobileInspectorScrollFrame = 0;
@@ -5334,8 +5425,8 @@ function init() {
   mobileStudyShare?.addEventListener('click', async () => {
     const url = buildNavigationUrl().toString();
     const shareData = {
-      title: currentSelectedNode ? `${currentSelectedNode.name} — TULIP` : 'TULIP analysis',
-      text: currentSelectedNode ? `Explore ${currentSelectedNode.name} in TULIP.` : 'Explore this TULIP analysis.',
+      title: currentSelectedNode ? `${currentSelectedNode.name} — Tulip Earth` : 'Tulip Earth analysis',
+      text: currentSelectedNode ? `Explore ${currentSelectedNode.name} in Tulip Earth.` : 'Explore this Tulip Earth analysis.',
       url
     };
     try {
@@ -5362,11 +5453,6 @@ function init() {
   if (mobileStudySheet && mobileSheetGrabber) {
     let sheetDrag = null;
     let suppressSheetClickUntil = 0;
-    const rubberBandDistance = (distance, dimension) => {
-      const normalizedDistance = Math.max(0, distance);
-      const safeDimension = Math.max(1, dimension);
-      return (1 - (1 / ((normalizedDistance * 0.55 / safeDimension) + 1))) * safeDimension;
-    };
     const getSheetDetentHeights = () => {
       const viewportHeight = window.visualViewport?.height || window.innerHeight;
       const full = Math.max(410, viewportHeight - 146);
@@ -5392,7 +5478,6 @@ function init() {
       if (Math.abs(sheetDrag.lastY - sheetDrag.startY) > 5) {
         suppressSheetClickUntil = performance.now() + 350;
       }
-      mobileStudySheet.style.setProperty('--mobile-sheet-rubber-y', '0px');
       mobileStudySheet.classList.remove('is-dragging');
       mobileSheetGrabber.releasePointerCapture?.(sheetDrag.pointerId);
       sheetDrag = null;
@@ -5409,7 +5494,6 @@ function init() {
         lastTime: performance.now(),
         velocityY: 0
       };
-      mobileStudySheet.style.setProperty('--mobile-sheet-rubber-y', '0px');
       mobileStudySheet.classList.add('is-dragging');
       mobileSheetGrabber.setPointerCapture?.(event.pointerId);
     });
@@ -5426,14 +5510,7 @@ function init() {
 
       const rawHeight = sheetDrag.startHeight - (event.clientY - sheetDrag.startY);
       const nextHeight = Math.min(heights.full, Math.max(heights.peek, rawHeight));
-      let rubberOffset = 0;
-      if (rawHeight > heights.full) {
-        rubberOffset = -rubberBandDistance(rawHeight - heights.full, heights.full) * 0.32;
-      } else if (rawHeight < heights.peek) {
-        rubberOffset = rubberBandDistance(heights.peek - rawHeight, heights.full) * 0.32;
-      }
       mobileStudySheet.style.setProperty('--mobile-sheet-height', `${nextHeight}px`);
-      mobileStudySheet.style.setProperty('--mobile-sheet-rubber-y', `${rubberOffset}px`);
     });
     mobileSheetGrabber.addEventListener('pointerup', finishSheetDrag);
     mobileSheetGrabber.addEventListener('pointercancel', finishSheetDrag);
@@ -5485,6 +5562,12 @@ function init() {
   if (phenomenonModeActionsBtn) {
     phenomenonModeActionsBtn.addEventListener('click', () => setPhenomenonMode('actions'));
   }
+  document.getElementById('activity-sources-link')?.addEventListener('click', event => {
+    event.preventDefault();
+    if (!currentPhenomenonNode) return;
+    renderActivitySources(currentPhenomenonNode, getSelectionPhenomenonLens(currentPhenomenonNode));
+    document.getElementById('activity-sources-dialog')?.showModal();
+  });
   if (phenomenonActionBridgeBtn) {
     phenomenonActionBridgeBtn.addEventListener('click', () => setPhenomenonMode('actions'));
   }
@@ -5595,187 +5678,6 @@ function init() {
       first.focus();
     }
   });
-
-  // Wire up search box
-  const searchInput = document.getElementById('node-search-input');
-  const searchResults = document.getElementById('search-results');
-
-  if (searchInput && searchResults) {
-    let searchResultsExpanded = false;
-    let lastSearchQuery = '';
-    if (!searchInput.dataset.shortcutBound) {
-      document.addEventListener('keydown', (event) => {
-        if (!(event.metaKey || event.ctrlKey) || event.key.toLowerCase() !== 'k') return;
-        event.preventDefault();
-        searchInput.focus();
-        searchInput.select();
-      });
-      searchInput.dataset.shortcutBound = 'true';
-    }
-
-    function handleSearch() {
-      const query = searchInput.value.trim();
-      if (query !== lastSearchQuery) {
-        searchResultsExpanded = false;
-        lastSearchQuery = query;
-      }
-      if (!query) {
-        searchResults.style.display = 'none';
-        searchResults.innerHTML = '';
-        searchInput.setAttribute('aria-expanded', 'false');
-        searchInput.removeAttribute('aria-activedescendant');
-        return;
-      }
-
-      const matches = searchNodes(PUBLISHED_NODES, query, PUBLISHED_NODES.length);
-      searchResults.style.display = 'block';
-      searchInput.setAttribute('aria-expanded', 'true');
-      searchInput.removeAttribute('aria-activedescendant');
-      searchResults.innerHTML = '';
-
-      if (!matches.length) {
-        const recovery = document.createElement('div');
-        recovery.className = 'search-recovery';
-        const title = document.createElement('strong');
-        title.textContent = 'No direct match yet';
-        const guidance = document.createElement('span');
-        guidance.textContent = 'Try a broader topic:';
-        const suggestions = document.createElement('div');
-        suggestions.className = 'search-recovery-suggestions';
-        getSearchRecoverySuggestions(PUBLISHED_NODES).forEach((node, index) => {
-          const suggestion = document.createElement('button');
-          suggestion.type = 'button';
-          suggestion.className = 'search-recovery-suggestion';
-          suggestion.id = `search-recovery-${index}`;
-          suggestion.setAttribute('role', 'option');
-          suggestion.setAttribute('aria-selected', 'false');
-          suggestion.textContent = node.id === 'temp' ? 'Global warming' : node.name;
-          suggestion.addEventListener('click', () => {
-            targetAndSelectNode(node, { selectionContext: query });
-            closeSearch();
-          });
-          suggestions.appendChild(suggestion);
-        });
-        recovery.append(title, guidance, suggestions);
-        searchResults.appendChild(recovery);
-        return;
-      }
-
-      const visibleMatches = searchResultsExpanded ? matches : matches.slice(0, 5);
-      const resultSummary = document.createElement('div');
-      resultSummary.className = 'search-results-summary';
-      resultSummary.setAttribute('role', 'presentation');
-      resultSummary.textContent = matches.length === 1
-        ? '1 topic found'
-        : `${matches.length} topics found · showing ${visibleMatches.length}`;
-      searchResults.appendChild(resultSummary);
-
-      visibleMatches.forEach(({ node, matchedTerm }, index) => {
-        const item = document.createElement('div');
-        item.className = 'search-result-item';
-        item.id = `search-result-${index}`;
-        item.setAttribute('role', 'option');
-        item.setAttribute('aria-selected', 'false');
-        item.tabIndex = -1;
-        
-        const sphereKey = node.sphere ? node.sphere : 'core';
-        const sphereLabel = SPHERE_LABELS[sphereKey] || sphereKey;
-
-        const copy = document.createElement('span');
-        copy.className = 'search-result-copy';
-        const label = document.createElement('span');
-        label.textContent = node.name;
-        copy.appendChild(label);
-        if (matchedTerm && String(matchedTerm).toLowerCase() !== node.name.toLowerCase()) {
-          const matchReason = document.createElement('small');
-          matchReason.textContent = `Matches “${matchedTerm}”`;
-          copy.appendChild(matchReason);
-        }
-
-        const meta = document.createElement('span');
-        meta.className = 'search-result-meta';
-        const sphereBadge = document.createElement('span');
-        sphereBadge.className = 'search-result-sphere-badge';
-        sphereBadge.textContent = sphereLabel;
-        const score = document.createElement('strong');
-        score.className = 'search-result-score';
-        const numericScore = Number(node.tulipScore);
-        const scoreBand = Number.isFinite(numericScore) ? getActiveTulipUrgencyBand(numericScore) : null;
-        score.textContent = Number.isFinite(numericScore)
-          ? scoreBand
-          : 'Risk unavailable';
-        score.setAttribute('aria-label', Number.isFinite(numericScore)
-          ? `Risk assessment: ${scoreBand}`
-          : 'Risk assessment unavailable');
-        meta.append(sphereBadge, score);
-        item.append(copy, meta);
-
-        item.addEventListener('click', () => {
-          targetAndSelectNode(node, { selectionContext: query });
-          closeSearch();
-        });
-
-        searchResults.appendChild(item);
-      });
-
-      if (!searchResultsExpanded && matches.length > visibleMatches.length) {
-        const viewAll = document.createElement('button');
-        viewAll.type = 'button';
-        viewAll.className = 'search-view-all';
-        viewAll.id = 'search-view-all';
-        viewAll.setAttribute('role', 'option');
-        viewAll.setAttribute('aria-selected', 'false');
-        viewAll.textContent = `View all ${matches.length} results`;
-        viewAll.addEventListener('click', () => {
-          searchResultsExpanded = true;
-          handleSearch();
-          searchInput.focus();
-        });
-        searchResults.appendChild(viewAll);
-      }
-    }
-
-    searchInput.addEventListener('input', handleSearch);
-
-    searchInput.addEventListener('keydown', (e) => {
-      const options = [...searchResults.querySelectorAll('[role="option"]')];
-      const activeId = searchInput.getAttribute('aria-activedescendant');
-      const activeIndex = options.findIndex(option => option.id === activeId);
-      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
-        if (!options.length) return;
-        e.preventDefault();
-        const direction = e.key === 'ArrowDown' ? 1 : -1;
-        const nextIndex = activeIndex < 0
-          ? (direction > 0 ? 0 : options.length - 1)
-          : (activeIndex + direction + options.length) % options.length;
-        options.forEach((option, index) => option.setAttribute('aria-selected', String(index === nextIndex)));
-        searchInput.setAttribute('aria-activedescendant', options[nextIndex].id);
-        options[nextIndex].scrollIntoView({ block: 'nearest' });
-      } else if (e.key === 'Enter') {
-        const activeItem = options.find(option => option.id === activeId) || options[0];
-        if (activeItem) activeItem.click();
-      } else if (e.key === 'Escape') {
-        closeSearch();
-      }
-    });
-
-    document.addEventListener('click', (e) => {
-      if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
-        closeSearch();
-      }
-    });
-
-    function closeSearch() {
-      searchResults.style.display = 'none';
-      searchResults.innerHTML = '';
-      searchInput.setAttribute('aria-expanded', 'false');
-      searchInput.removeAttribute('aria-activedescendant');
-      searchInput.value = '';
-      searchResultsExpanded = false;
-      lastSearchQuery = '';
-      searchInput.blur();
-    }
-  }
 
   document.querySelectorAll('.suggested-journey-btn').forEach(button => {
     const trail = DISCOVERY_TRAILS[button.getAttribute('data-trail-id')];
@@ -5918,6 +5820,36 @@ function getRelationshipDescription(edge, sourceName, targetName) {
 
 let selectedRelationshipDetailKey = null;
 
+function renderSelectedEdgeSources(detail) {
+  const section = document.getElementById('connection-detail-sources');
+  const links = document.getElementById('connection-detail-source-links');
+  if (!section || !links) return;
+  links.replaceChildren();
+
+  const seen = new Set();
+  for (const source of Array.isArray(detail?.sources) ? detail.sources : []) {
+    const href = safeHttpsUrl(source?.url);
+    if (!href.startsWith('https://') || seen.has(href)) continue;
+    seen.add(href);
+    const url = new URL(href);
+    const link = document.createElement('a');
+    link.href = href;
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
+    link.className = 'connection-detail-source-link';
+    const pathParts = url.pathname.split('/').filter(Boolean);
+    const lastPart = pathParts.at(-1)?.replace(/\.html?$/i, '');
+    const pageName = /^(index|home|en)$/i.test(lastPart || '') ? pathParts.at(-2) : lastPart;
+    const shortPageName = pageName?.replace(/[-_]+/g, ' ').slice(0, 32).trim();
+    link.textContent = url.hostname === 'doi.org'
+      ? `DOI ${url.pathname.slice(1)}`
+      : `${url.hostname.replace(/^www\./, '')}${shortPageName ? ` · ${shortPageName}` : ''}`;
+    if (source.section) link.title = source.section;
+    links.append(link);
+  }
+  section.hidden = seen.size === 0;
+}
+
 async function hydrateSelectedEdgeDescription(edge, sourceName, targetName) {
   const edgeKey = `${edge.source}->${edge.target}`;
   selectedRelationshipDetailKey = edgeKey;
@@ -5928,6 +5860,7 @@ async function hydrateSelectedEdgeDescription(edge, sourceName, targetName) {
     connectionDetailReason.textContent = detail.plain_language?.trim()
       || detail.description?.trim()
       || getRelationshipDescription(edge, sourceName, targetName);
+    renderSelectedEdgeSources(detail);
   } catch (error) {
     if (selectedRelationshipDetailKey !== edgeKey) return;
     console.warn('[Relationship Detail] Reader-facing explanation could not be loaded.', error);
@@ -5944,6 +5877,7 @@ function updateSelectedEdgeDetail(edge, node = currentSelectedNode) {
   );
 
   connectionDetailSection.hidden = !isSelectedNodeRelationship;
+  renderSelectedEdgeSources(null);
   if (!isSelectedNodeRelationship) {
     selectedRelationshipDetailKey = null;
     return;
@@ -5953,7 +5887,7 @@ function updateSelectedEdgeDetail(edge, node = currentSelectedNode) {
   const targetName = NODE_BY_ID.get(edge.target)?.name || edge.target;
   setConnectionQuestionMarkup(edge, node);
   connectionDetailReason.textContent = getRelationshipDescription(edge, sourceName, targetName);
-  void hydrateSelectedEdgeDescription(edge, sourceName, targetName);
+  relationshipDetailPromise = hydrateSelectedEdgeDescription(edge, sourceName, targetName);
   const edgeKey = `${edge.source}->${edge.target}`;
   const isCausal = isCausalRelationship(edge);
   if (relationshipTriggerSelect) relationshipTriggerSelect.value = isCausal && edge.target === node.id ? edgeKey : '';
@@ -5967,6 +5901,17 @@ function syncRelationshipEvidenceStudyState() {
     const isStudying = Boolean(select.value);
     select.classList.toggle('is-studying', isStudying);
     select.closest('.relationship-evidence-field')?.classList.toggle('is-studying', isStudying);
+    const row = select.parentElement?.querySelector('.reader-relationship-rail');
+    if (row) {
+      const changed = row.dataset.selection !== select.value;
+      const buttons = [...row.querySelectorAll('button')].sort((a, b) => Number(a.dataset.order) - Number(b.dataset.order));
+      buttons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.edge === select.value)));
+      const focusedButton = buttons.includes(document.activeElement) ? document.activeElement : null;
+      if (changed) row.firstElementChild.replaceChildren(...buttons.filter(button => button.dataset.edge === select.value), ...buttons.filter(button => button.dataset.edge !== select.value));
+      focusedButton?.focus({ preventScroll: true });
+      if (changed && select.value) row.scrollLeft = 0;
+      row.dataset.selection = select.value;
+    }
   });
 }
 
@@ -5988,11 +5933,8 @@ function handleSelectEdge(edge) {
   currentSelectedEdge = edge;
   graphInstance?.setSelectedEdge?.(currentSelectedEdge);
   updateSelectedEdgeDetail(currentSelectedEdge, currentSelectedNode);
-  window.requestAnimationFrame(() => {
-    connectionDetailSection?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    connectionDetailSection?.setAttribute('tabindex', '-1');
-    window.setTimeout(() => connectionDetailSection?.focus({ preventScroll: true }), 280);
-  });
+  window.dispatchEvent(new CustomEvent('tulip:relationshipchange', { detail: { edge } }));
+  revealWithinInspector(studyConsole, connectionDetailSection);
 }
 
 function populateRelationshipEvidencePicker(node) {
@@ -6033,6 +5975,36 @@ function populateRelationshipEvidencePicker(node) {
   }
   relationshipTriggerSelect.disabled = incoming.length === 0;
   relationshipEffectSelect.disabled = outgoing.length === 0;
+  for (const [select, title] of [[relationshipTriggerSelect, 'Triggers'], [relationshipEffectSelect, 'Effects']]) {
+    select.hidden = true;
+    const field = select.parentElement;
+    field.querySelector('.reader-relationship-rail')?.remove();
+    const heading = field.querySelector('span');
+    if (heading) heading.textContent = title;
+    const rail = document.createElement('div');
+    rail.className = 'reader-relationship-rail';
+    rail.setAttribute('role', 'group');
+    rail.setAttribute('aria-label', title);
+    const track = document.createElement('div');
+    track.className = 'reader-relationship-track';
+    [...select.options].filter(option => option.value).forEach((option, index) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.dataset.edge = option.value;
+      button.dataset.order = index;
+      button.textContent = option.textContent.replace(/^[^·]+·\s*/, '');
+      button.setAttribute('aria-pressed', 'false');
+      button.addEventListener('click', () => {
+        select.value = option.value;
+        select.dispatchEvent(new Event('change'));
+        rail.scrollLeft = 0;
+      });
+      track.appendChild(button);
+    });
+    rail.appendChild(track);
+    field.appendChild(rail);
+    field.hidden = select.disabled;
+  }
   relationshipEvidencePickerSection.hidden = incoming.length + outgoing.length === 0;
   syncRelationshipEvidenceStudyState();
 }
@@ -6475,16 +6447,16 @@ function renderMonitoringEvidenceCard(profile) {
     const evidenceDate = formatMonitoringSourceDate(evidence.asOf) || evidence.asOf;
     const score = Number.isFinite(evidence.score) ? evidence.score.toFixed(1) : null;
     const scoreMarkup = score
-      ? `<strong>${escapeHtml(score)} <small>/ 10</small></strong>${evidence.band ? `<span>${escapeHtml(evidence.band)}</span>` : ''}${evidence.method === 'modeled' ? '<span class="urgency-modeled-tag">Modeled</span>' : ''}`
+      ? `<strong>${escapeHtml(score)}</strong>`
       : '<span>Reviewed snapshot</span>';
     return `
       <article class="monitoring-evidence-card">
         <div class="monitoring-evidence-heading">
           <div>
-            <div class="monitoring-card-kicker">Latest reviewed evidence</div>
+            <div class="monitoring-card-kicker">Supporting evidence</div>
             <h3>${escapeHtml(evidence.methodLabel)}</h3>
           </div>
-          <div class="monitoring-evidence-score" role="img" aria-label="${score ? `TULIP urgency score ${score} out of 10${evidence.band ? `, ${evidence.band}` : ''}` : 'Reviewed TULIP snapshot'}">
+          <div class="monitoring-evidence-score" role="img" aria-label="${score ? `TULIP Score ${score} out of 10` : 'Reviewed TULIP snapshot'}">
             ${scoreMarkup}
           </div>
         </div>
@@ -6530,7 +6502,7 @@ function renderMonitoringSource(node) {
     return;
   }
 
-  const profile = buildMonitoringSourceProfile(
+  let profile = buildMonitoringSourceProfile(
     node,
     monitoringSourceRegistry?.sources || [],
     nodeSourceDateRegistry.entries?.[node.id] || null,
@@ -6550,6 +6522,24 @@ function renderMonitoringSource(node) {
     return;
   }
 
+  if (profile.evidenceSnapshot) {
+    const assessment = getTulipAssessment(node);
+    profile = {
+      ...profile,
+      evidenceSnapshot: {
+        ...profile.evidenceSnapshot,
+        score: assessment?.value ?? null,
+        band: null,
+        reviewStatus: assessment?.label || 'Not yet scored',
+      },
+    };
+  }
+  if (node.readerCopy?.measurement) {
+    const reader = getNodeInspectorMeasurement(node);
+    profile = { ...profile, metricName: reader.metric, meaning: reader.meaning || reader.method,
+      unit: reader.unit, geography: reader.geography, cadenceLabel: reader.cadence,
+      transformation: reader.method, uncertainty: reader.uncertainty, failureBehavior: reader.boundary };
+  }
   const source = profile.measurementSource;
   const sourceHref = safeHttpsUrl(source.url, '');
   const hasSourceLink = sourceHref !== 'about:blank';
@@ -6563,6 +6553,9 @@ function renderMonitoringSource(node) {
     ? `<a class="monitoring-snapshot-link" href="${escapeHtml(source.snapshotPath)}" target="_blank" rel="noopener noreferrer">View TULIP’s reviewed snapshot (JSON) <span aria-hidden="true">↗</span></a>`
     : '';
 
+  const technicalOpen = monitoringSourceBody.dataset.topicId === node.id
+    && monitoringSourceBody.querySelector('.monitoring-technical-details')?.open;
+  monitoringSourceBody.dataset.topicId = node.id;
   monitoringSourceBody.innerHTML = `
     <article class="monitoring-measurement-card">
       <div class="monitoring-measurement-heading">
@@ -6600,7 +6593,7 @@ function renderMonitoringSource(node) {
       </div>
     </article>
 
-    <details class="monitoring-technical-details">
+    <details id="monitoring-technical-details" class="monitoring-technical-details"${technicalOpen ? ' open' : ''}>
       <summary>Technical details</summary>
       <dl>
         ${renderMonitoringTechnicalRow('Metric ID', profile.metricId)}
@@ -7067,9 +7060,9 @@ function renderHumanImpact(node) {
 
   const profile = buildHumanInspectorProfile(node);
   const sectionHeader = document.querySelector('.human-impact-section > .section-header .section-header-label');
-  if (sectionHeader) sectionHeader.textContent = node?.node_kind === 'response' ? 'Benefits for Humans' : 'Impact on Humans';
-  humanImpactSeverity.textContent = profile.severity.label.toUpperCase();
-  humanImpactSeverity.className = `human-impact-severity ${profile.severity.className}`;
+  if (sectionHeader) sectionHeader.textContent = 'Human impact';
+  humanImpactSeverity.textContent = '';
+  humanImpactSeverity.hidden = true;
   humanImpactReach.textContent = `${profile.reach.toUpperCase()} | ${profile.mode.toUpperCase()}`;
   humanImpactReach.title = profile.timeHorizon || profile.basis
     ? `Time horizon: ${profile.timeHorizon || 'unspecified'} | Basis: ${profile.basis || 'unspecified'}`
@@ -7083,7 +7076,7 @@ function renderHumanImpact(node) {
     : '';
   humanImpactConsequences.innerHTML = renderImpactConsequences(profile.consequences, 'human');
 
-  const economicContext = node?.economicContext || null;
+  const economicContext = getNodeInspectorEconomicContext(node);
   const hasHumanEconomic = Boolean(economicContext?.hiddenCost || economicContext?.whoPays);
   if (humanImpactEconomic) {
     humanImpactEconomic.hidden = !hasHumanEconomic;
@@ -7105,9 +7098,9 @@ function renderPlanetImpact(node) {
 
   const profile = buildPlanetInspectorProfile(node);
   const sectionHeader = document.querySelector('.planet-impact-section > .section-header .section-header-label');
-  if (sectionHeader) sectionHeader.textContent = node?.node_kind === 'response' ? 'Benefits for the Planet' : 'Impact on the Planet';
-  planetImpactSeverity.textContent = profile.severity.label.toUpperCase();
-  planetImpactSeverity.className = `planet-impact-severity ${profile.severity.className}`;
+  if (sectionHeader) sectionHeader.textContent = 'Planet impact';
+  planetImpactSeverity.textContent = '';
+  planetImpactSeverity.hidden = true;
   planetImpactReach.textContent = `${profile.reach.toUpperCase()} | ${profile.mode.toUpperCase()}`;
   planetImpactReach.title = profile.timeHorizon || profile.basis
     ? `Time horizon: ${profile.timeHorizon || 'unspecified'} | Basis: ${profile.basis || 'unspecified'}`
@@ -7121,7 +7114,7 @@ function renderPlanetImpact(node) {
     : '';
   planetImpactConsequences.innerHTML = renderImpactConsequences(profile.consequences, 'planet');
 
-  const economicContext = node?.economicContext || null;
+  const economicContext = getNodeInspectorEconomicContext(node);
   const hasPlanetEconomic = Boolean(economicContext?.physicalLimit);
   if (planetImpactEconomic) {
     planetImpactEconomic.hidden = !hasPlanetEconomic;
@@ -7137,7 +7130,7 @@ function renderWhatCanBeDone(node) {
     return;
   }
 
-  const economicContext = node?.economicContext || null;
+  const economicContext = getNodeInspectorEconomicContext(node);
   responseDefaultDriver.textContent = formatMetricDisplayText(economicContext?.defaultDriver || 'Structural response guidance has not been curated for this node yet.');
   const levers = economicContext?.systemLevers || [];
   responseSystemLevers.innerHTML = levers.length > 0
@@ -7150,8 +7143,10 @@ let runtimeNodeDetailsStatus = 'idle';
 
 function refreshSelectedNodeDetailSurfaces(node) {
   if (!node || currentSelectedNode?.id !== node.id) return;
+  const reading = captureInspectorView(studyConsole);
+  renderInspectorPhoto(document.getElementById('console-node-photo'), node.photo, node.name);
   if (consoleNodeMeaning) consoleNodeMeaning.innerHTML = formatMetricDisplayText(getNodeMeaning(node));
-  if (nodeSourceDate) nodeSourceDate.textContent = formatNodeSourceDate(node);
+  if (nodeSourceDate) nodeSourceDate.textContent = formatNodeSourceDate(node).replace('Most Recent Data:', 'Last updated');
   renderMonitoringSource(node);
   renderRecentOccurrences(node);
   renderHumanImpact(node);
@@ -7159,6 +7154,9 @@ function refreshSelectedNodeDetailSurfaces(node) {
   renderWhatCanBeDone(node);
   renderPhenomenonLens(node);
   updateTulipUrgencyProfile(node);
+  // Keep a fresh inspector at its top edge as details arrive, while retaining
+  // the reader's position farther down.
+  restoreInspectorView(studyConsole, reading?.scrollTop <= 1 ? { ...reading, anchor: null } : reading);
 }
 
 function requestRuntimeNodeDetails(node) {
@@ -7166,7 +7164,7 @@ function requestRuntimeNodeDetails(node) {
   if (runtimeNodeDetailsStatus === 'loading') return;
 
   runtimeNodeDetailsStatus = 'loading';
-  void hydrateRuntimeNodeDetails(NODES)
+  runtimeNodeDetailsPromise = hydrateRuntimeNodeDetails(NODES)
     .then(() => {
       runtimeNodeDetailsStatus = 'ready';
       const selectedNode = currentSelectedNode
@@ -7178,6 +7176,45 @@ function requestRuntimeNodeDetails(node) {
       runtimeNodeDetailsStatus = 'error';
       console.warn('[Node Detail] Reader-facing node evidence could not be loaded.', error);
     });
+}
+
+function renderActivitySources(selection, lens) {
+  if (!lens || !phenomenonLensSource) return;
+  const sources = new Map();
+  const registry = monitoringSourceRegistry?.sources || [];
+  const add = (url, label, note) => {
+    const href = safeHttpsUrl(url, '');
+    if (!href || href === 'about:blank') return;
+    if (sources.has(href)) {
+      const entry = sources.get(href);
+      if (note && !entry.notes.includes(note)) entry.notes.push(note);
+      return;
+    }
+    const registered = registry.find(source => source.url === href);
+    sources.set(href, { label: label || registered?.name || new URL(href).hostname.replace(/^www\./, ''), notes: note ? [note] : [] });
+  };
+  add(lens.source?.url, lens.source?.label,
+    [lens.source?.baseline, lens.source?.method, lens.source?.boundary].filter(Boolean).join(' · '));
+  for (const item of lens.items || lens.groups?.flatMap(group => group.items || []) || []) {
+    add(item.portionSource, null, `Serving-size reference: ${item.label}`);
+  }
+  for (const node of selection.nodes || []) {
+    const date = nodeSourceDateRegistry.entries?.[node.id];
+    const profile = buildMonitoringSourceProfile(node, registry, date);
+    add(profile?.sourceUrl, profile?.sourceName, `Background and measurements: ${node.name}`);
+    add(date?.source_url, null, `Background and measurements: ${node.name}`);
+    for (const url of [...(node.source_urls || []), ...(node.calibration?.source_urls || [])]) {
+      add(url, null, `Category background: ${node.name}`);
+    }
+  }
+  document.getElementById('activity-sources-title').textContent = `${selection.label || 'Category'} sources`;
+  phenomenonLensSource.innerHTML = `
+    ${!lens.source ? '<p>These sources provide category context. The chart’s working estimates and limitations are described in its notes.</p>' : ''}
+    ${sources.size ? `<ul>${[...sources].map(([url, source]) => `<li>
+      <a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(source.label)} <span aria-hidden="true">↗</span></a>
+      ${source.notes.map(note => `<p>${escapeHtml(note)}</p>`).join('')}
+    </li>`).join('')}</ul>` : '<p>No linked sources have been recorded for this category yet.</p>'}
+  `;
 }
 
 function renderPhenomenonLens(node) {
@@ -7222,26 +7259,11 @@ function renderPhenomenonLens(node) {
   phenomenonLensTitle.textContent = lens.title || 'Phenomenon lens';
   phenomenonLensIntro.textContent = lens.intro || 'A separate visualization surface for phenomenon-specific data.';
   phenomenonLensScale.innerHTML = `
-    <span class="phenomenon-lens-scale-unit">${escapeHtml(unitLabel)}</span>
-    <span class="phenomenon-lens-scale-note">${escapeHtml(getUnitExplanation(unitLabel))}</span>
+    <span class="phenomenon-lens-scale-note">${escapeHtml(node?.key === 'food'
+      ? 'CO₂e puts different gases on the same warming scale. Values are per kilogram of food, not per serving.'
+      : lens.scaleNote || getUnitExplanation(unitLabel))}</span>
   `;
-  const source = lens.source || null;
-  if (source?.label) {
-    const sourceHref = safeHttpsUrl(source.url, '');
-    const hasSourceLink = sourceHref !== 'about:blank';
-    const sourceLabel = hasSourceLink
-      ? `<a href="${escapeHtml(sourceHref)}" target="_blank" rel="noopener noreferrer">${escapeHtml(source.label)} <span aria-hidden="true">↗</span></a>`
-      : `<span>${escapeHtml(source.label)}</span>`;
-    const sourceMeta = [source.baseline, source.method, source.boundary]
-      .filter(Boolean)
-      .map(value => `<span class="phenomenon-lens-source-meta">${escapeHtml(value)}</span>`)
-      .join('');
-    phenomenonLensSource.innerHTML = `${sourceLabel}${sourceMeta}`;
-    phenomenonLensSource.hidden = false;
-  } else {
-    phenomenonLensSource.textContent = '';
-    phenomenonLensSource.hidden = true;
-  }
+  renderActivitySources(node, lens);
   phenomenonLensTakeaway.textContent = lens.takeaway || '';
   phenomenonLensAxis.style.display = 'grid';
 
@@ -7284,8 +7306,6 @@ function renderPhenomenonLens(node) {
 
   const renderPhenomenonRow = (item, index) => {
     const widthPct = Math.max(0, Math.min(100, ((item.value || 0) / axisMax) * 100));
-    const scenarioLow = (item.value || 0) * 0.85;
-    const scenarioHigh = (item.value || 0) * 1.15;
     const components = Array.isArray(item.components) ? item.components : [];
     const componentTotal = components.reduce((sum, component) => sum + (component.value || 0), 0);
     const normalizedComponents = componentTotal > 0
@@ -7305,7 +7325,7 @@ function renderPhenomenonLens(node) {
               <div class="phenomenon-row-speculative-line">
                 <span class="phenomenon-row-speculative-label">${escapeHtml(item.label)}</span>
                 <span class="phenomenon-row-speculative-separator">-</span>
-                <span class="phenomenon-row-speculative-number" aria-label="Scenario range ${escapeHtml(formatPhenomenonValue(scenarioLow))} to ${escapeHtml(formatPhenomenonValue(scenarioHigh))}">${escapeHtml(formatPhenomenonValue(scenarioLow))}–${escapeHtml(formatPhenomenonValue(scenarioHigh))}</span>
+                <span class="phenomenon-row-speculative-number" aria-label="Projected value ${escapeHtml(formatPhenomenonValue(item.value || 0))}">${escapeHtml(formatPhenomenonValue(item.value || 0))}</span>
                 <span class="phenomenon-row-speculative-unit">${escapeHtml(metricUnitLabel)}</span>
               </div>
             `
@@ -7337,6 +7357,7 @@ function renderPhenomenonLens(node) {
               </div>
             </div>
           `}
+        ${item.note ? `<p class="phenomenon-row-note">${escapeHtml(item.note)}</p>` : ''}
       </article>
     `;
   };
@@ -7393,22 +7414,6 @@ function renderPhenomenonSelector() {
   });
 }
 
-function positionPhenomenonModeToggleWithHeading() {
-  if (!phenomenaView || !phenomenaFocusNameText || !phenomenonModeFootprintBtn) return;
-
-  const focusCard = phenomenaView.querySelector('.phenomena-shell > .phenomena-focus-card');
-  const focusMeta = focusCard?.querySelector(':scope > .phenomena-focus-meta');
-  const headingRow = focusMeta?.querySelector('.phenomena-focus-heading-row');
-  const modeToggle = phenomenonModeFootprintBtn.closest('.phenomena-mode-toggle');
-  if (!focusCard || !focusMeta || !headingRow || !modeToggle) return;
-
-  if (window.matchMedia('(min-width: 951px)').matches) {
-    if (modeToggle.parentElement !== headingRow) headingRow.append(modeToggle);
-  } else if (modeToggle.parentElement !== focusCard) {
-    focusCard.insertBefore(modeToggle, focusMeta);
-  }
-}
-
 function normalizePhenomenonFocusIconToDiet() {
   const svg = phenomenaFocusIcon?.querySelector('svg');
   if (!svg) return;
@@ -7428,8 +7433,6 @@ function normalizePhenomenonFocusIconToDiet() {
   const scale = Math.min(2, Math.max(0.8, dietVisualHeight / visualHeight));
   svg.style.setProperty('--phenomena-icon-normalize-scale', scale.toFixed(4));
 }
-
-window.addEventListener('resize', positionPhenomenonModeToggleWithHeading, { passive: true });
 
 function setPhenomenonMode(mode) {
   currentPhenomenonMode = mode === 'actions' ? 'actions' : 'footprint';
@@ -7493,7 +7496,6 @@ async function setActivePhenomenonNode(node) {
     }
   }));
   requestAnimationFrame(() => {
-    positionPhenomenonModeToggleWithHeading();
     normalizePhenomenonFocusIconToDiet();
   });
 }
@@ -7625,6 +7627,7 @@ function withTrailingPeriod(text) {
 }
 
 function buildImpactContext(profile) {
+  if (profile?.outcomes) return profile.outcomes;
   const metrics = Array.isArray(profile?.metrics) ? profile.metrics.filter(Boolean) : [];
   const personalMetric = metrics[2] || metrics[0] || 'household-scale demand and routine-use patterns';
   const communityMetric = metrics[1] || metrics[0] || 'institution-level operating and procurement metrics';
@@ -7682,7 +7685,7 @@ function renderPhenomenonActionBridge(profile) {
 
   phenomenonActionBridgeKicker.textContent = '';
   phenomenonActionBridgeTitle.textContent = profile?.strongestAction || 'See the linked action pathways for this footprint.';
-  phenomenonActionBridgeNote.textContent = 'Switch to Actions for personal, community, and policy levers.';
+  phenomenonActionBridgeNote.textContent = 'Switch to Actions for steps people, organisations and governments can take.';
 }
 
 function setActiveActionNode(node) {
@@ -8364,6 +8367,9 @@ function renderPersonalFootprintBubbleChart(result) {
           `;
         }).join('')}
       </div>
+      <div class="desktop-footprint-contributions" aria-label="Carbon contribution by answer">
+        ${result.breakdown.map(item => `<button type="button" data-footprint-review="${escapeHtml(item.key)}"><span>${escapeHtml(item.label || PERSONAL_FOOTPRINT_QUESTIONS.find(q => q.key === item.key)?.title || item.key)}</span><strong>${Number(item.carbon || 0).toFixed(1)} tCO2e/yr</strong><small>Review answer →</small></button>`).join('')}
+      </div>
     </section>
   `;
 }
@@ -8549,7 +8555,7 @@ async function downloadPersonalFootprintSummary() {
     const globalRank = estimateGlobalCarbonPercentile(result.carbonTotal);
 
     pdf.setProperties({
-      title: 'TULIP - Your Footprint Summary',
+      title: 'Tulip Earth - Your Footprint Summary',
       subject: 'Personal carbon, water, land, and material footprint summary',
       author: 'TULIP',
       creator: 'TULIP'
@@ -8746,7 +8752,7 @@ async function downloadPersonalFootprintSummary() {
       pdf.setDrawColor(...line);
       pdf.line(margin, pageHeight - 14, pageWidth - margin, pageHeight - 14);
       setFont('normal', 8, muted);
-      pdf.text('TULIP  |  Personal impact summary', margin, pageHeight - 8.5);
+      pdf.text('Tulip Earth  |  Personal impact summary', margin, pageHeight - 8.5);
       pdf.text(`${pageNumber} / ${pageCount}`, pageWidth - margin, pageHeight - 8.5, { align: 'right' });
     }
 
@@ -8761,6 +8767,7 @@ async function downloadPersonalFootprintSummary() {
 function restartPersonalFootprint() {
   if (!window.confirm('Restart this assessment and clear all 11 answers?')) return;
   personalFootprintState = Object.fromEntries(PERSONAL_FOOTPRINT_QUESTIONS.map(question => [question.key, null]));
+  desktopStore.write(DESKTOP_KEYS.footprint, personalFootprintState);
   personalFootprintPreviousMetrics = null;
   personalFootprintLastInteraction = null;
   personalFootprintWasComplete = false;
@@ -8928,6 +8935,7 @@ function renderPersonalFootprint() {
         if (!questionKey || !optionValue) return;
         personalFootprintLastInteraction = { questionKey, optionValue };
         personalFootprintState[questionKey] = optionValue;
+        desktopStore.write(DESKTOP_KEYS.footprint, personalFootprintState);
         if (!personalFootprintStartedTracked) {
           personalFootprintStartedTracked = true;
           trackEvent('footprint_started');
@@ -8970,6 +8978,7 @@ function renderPersonalFootprint() {
     });
   }
   bindPersonalFootprintResultActions();
+  document.querySelectorAll('[data-footprint-review]').forEach(button => button.addEventListener('click', () => focusPersonalFootprintQuestion(button.dataset.footprintReview)));
 }
 
 
@@ -8979,7 +8988,10 @@ function jumpToHistoryStep(index) {
     const pathNodes = [...selectionHistory, currentSelectedNode].filter(Boolean).slice(0, index + 1);
     if (studyHistoryPopover) studyHistoryPopover.hidden = true;
     if (studyJourneyToggle) studyJourneyToggle.setAttribute('aria-expanded', 'false');
-    targetAndSelectNode(pathNodes.at(-1), { pathNodes, historyMode: 'push' });
+    const visit = navigationViews.ancestor(index);
+    const ancestorEntryIds = (navigationViews.active?.ancestorEntryIds || []).slice(0, index);
+    studyJourneyToggle?.focus({ preventScroll: true });
+    targetAndSelectNode(pathNodes.at(-1), { pathNodes, historyMode: 'push', ancestorEntryIds, viewContext: visit?.viewContext || null });
   }
 }
 
@@ -9704,6 +9716,9 @@ function syncEditorialArcState() {
 function setGraphFilter(filterValue) {
   if (!graphInstance) return;
   graphInstance.setFilter(filterValue);
+  document.querySelectorAll('#filter-bar .filter-pill').forEach(pill => {
+    pill.setAttribute('aria-pressed', String(pill.dataset.filter === filterValue));
+  });
   if (editorialArcsLayer) {
     editorialArcsLayer.classList.toggle('hidden', filterValue !== 'all');
   }
@@ -9861,11 +9876,11 @@ function initEditorialArcs() {
 }
 
 // --- NODE SELECTION & DYNAMIC CONTENT WRITER ---
-function selectNode(node, { historyMode = 'push', pathNodes = null, motionOrigin = null } = {}) {
+function selectNode(node, { historyMode = 'push', pathNodes = null, motionOrigin = null, viewContext = null, ancestorEntryIds = null } = {}) {
   const previousSelectedNode = currentSelectedNode;
   const isNewSelection = Boolean(node && (!currentSelectedNode || currentSelectedNode.id !== node.id));
 
-  if (isNewSelection || !node) {
+  if (isNewSelection || !node || (pathNodes && !viewContext)) {
     clearSelectedEdgeDetail();
   }
 
@@ -9900,8 +9915,9 @@ function selectNode(node, { historyMode = 'push', pathNodes = null, motionOrigin
   if (appContainer) appContainer.classList.remove('sources-active');
 
   currentSelectedNode = node;
+  renderInspectorPhoto(document.getElementById('console-node-photo'), node?.photo, node?.name);
   updateMobileAppBar();
-  writeNavigationHistory(historyMode);
+  writeNavigationHistory(historyMode, ancestorEntryIds);
   updateSelectedEdgeDetail(currentSelectedEdge, currentSelectedNode);
   syncEditorialArcState();
   const mainContent = document.getElementById('main-content');
@@ -9967,7 +9983,7 @@ function selectNode(node, { historyMode = 'push', pathNodes = null, motionOrigin
       }, 50);
     }
 
-    window.requestAnimationFrame(() => forceExploreTabState());
+    window.requestAnimationFrame(() => { if (!currentSelectedNode) forceExploreTabState(); });
     window.dispatchEvent(new CustomEvent('tulip:nodechange', {
       detail: { node: null, previousNode: previousSelectedNode, path: [] }
     }));
@@ -10012,7 +10028,9 @@ function selectNode(node, { historyMode = 'push', pathNodes = null, motionOrigin
 
   if (graphInstance) {
     // Defer canvas resizing slightly to allow the layout grid to settle, then zoom to fit
-    setTimeout(() => {
+    const selectionToken = queuedSelectionToken;
+    if (!viewContext) setTimeout(() => {
+      if (selectionToken !== queuedSelectionToken || currentSelectedNode?.id !== node.id || pendingViewRestoration) return;
       graphInstance.resizeCanvas();
       graphInstance.zoomToFit();
     }, 50);
@@ -10026,20 +10044,20 @@ function selectNode(node, { historyMode = 'push', pathNodes = null, motionOrigin
 
   // Populate Simulation intervention dials
   if (consoleNodeName) consoleNodeName.textContent = node.name;
-  if (nodeSourceDate) nodeSourceDate.textContent = formatNodeSourceDate(node);
+  if (nodeSourceDate) nodeSourceDate.textContent = formatNodeSourceDate(node).replace('Most Recent Data:', 'Last updated');
   if (motionOrigin) {
     window.requestAnimationFrame(() => playNodeBridgeTransition(node, motionOrigin));
   }
   if (dashboardActiveNodeName) dashboardActiveNodeName.textContent = 'available across the platform';
   if (consoleSphereBadge) {
     const sphereKey = node.sphere || 'core';
-    consoleSphereBadge.textContent = (SPHERE_LABELS[sphereKey] || sphereKey).toUpperCase();
+    setInspectorCategoryLabel(consoleSphereBadge, sphereKey, (SPHERE_LABELS[sphereKey] || sphereKey).toUpperCase());
     consoleSphereBadge.className = `sphere-badge ${graphInstance ? graphInstance.getNodeColorType(node) : 'grey'}`;
   }
   const consoleImpactBadge = document.getElementById('console-impact-badge');
   if (consoleImpactBadge) {
     const badgeLabel = node.node_kind === 'response' ? 'LEVERAGE' : 'IMPACT';
-    consoleImpactBadge.textContent = `${badgeLabel}: ${node.impactScore || 50}/100`;
+    consoleImpactBadge.textContent = getTulipAssessment(node)?.label || 'Not yet scored';
   }
   if (consoleNodeMeaning) {
     consoleNodeMeaning.innerHTML = formatMetricDisplayText(getNodeMeaning(node));
@@ -10063,11 +10081,17 @@ function selectNode(node, { historyMode = 'push', pathNodes = null, motionOrigin
   renderFeedbackLoops(node);
 
   const currentPath = [...selectionHistory, node].filter(Boolean);
-  if (isNewSelection) {
+  if (isNewSelection && !viewContext) {
     if (studyConsole) studyConsole.scrollTop = 0;
     if (consoleNodeName) {
       consoleNodeName.setAttribute('tabindex', '-1');
-      window.requestAnimationFrame(() => consoleNodeName.focus({ preventScroll: true }));
+      const focusAtSelection = document.activeElement;
+      window.requestAnimationFrame(() => {
+        if (!document.body.classList.contains('desktop-guide-active') &&
+            (document.activeElement === focusAtSelection || document.activeElement === document.body)) {
+          consoleNodeName.focus({ preventScroll: true });
+        }
+      });
     }
   }
   window.dispatchEvent(new CustomEvent('tulip:nodechange', {
@@ -10077,6 +10101,9 @@ function selectNode(node, { historyMode = 'push', pathNodes = null, motionOrigin
       path: currentPath.map(pathNode => ({ id: pathNode.id, name: pathNode.name }))
     }
   }));
+
+  navigatingToNodeId = null;
+  if (viewContext) restoreNavigationView(viewContext);
 
   // Registries now live in a shared footer directory rather than a node-scoped loader surface.
 
@@ -14266,168 +14293,49 @@ function fadeElement(el, updateCallback) {
 
 
 // --- TULIP URGENCY SCORE ---
-function getScoreBandDetails(score) {
-  const band = getActiveTulipUrgencyBand(score);
-  const classByBand = {
-    'Low Concern': 'rating-low',
-    Low: 'rating-low',
-    Elevated: 'rating-elevated',
-    Rising: 'rating-significant',
-    Concerning: 'rating-concerning',
-    'High Risk': 'rating-high-risk',
-    Severe: 'rating-severe',
-    Critical: 'rating-critical',
-    Extreme: 'rating-extreme'
-  };
-  return { label: band, className: `urgency-status-tag ${classByBand[band] ?? 'rating-critical'}` };
-}
-
-function urgencyScalePosition(score) {
-  return ((Math.max(1, Math.min(10, score)) - 1) / 9) * 100;
-}
-
 function updateTulipUrgencyProfile(node) {
-  const receipt = tulipUrgencyByNodeId.get(node.id) ?? node.tulipUrgencyReceipt ?? null;
-  const registryIsActive = tulipUrgencyStatus === 'approved' || tulipUrgencyV3ShadowPreview;
-  const useReceipt = registryIsActive && receipt?.method_version === tulipUrgencyMethodVersion;
-  const baselineScore = useReceipt ? receipt.value : node.score.baseline;
-  const isResponseNode = node.node_kind === 'response';
-  const urgencySection = document.querySelector('.urgency-section');
-  const sectionHeading = document.querySelector('.urgency-section .section-header .section-header-label');
-  if (urgencySection) urgencySection.style.display = isResponseNode ? 'none' : '';
-  if (isResponseNode) return;
-  if (sectionHeading) {
-    sectionHeading.textContent = tulipUrgencyV3ShadowPreview
-      ? 'TULIP Urgency - v3 shadow'
-      : tulipUrgencyHistoricalV2Preview
-        ? 'TULIP Urgency - v2 historical'
-        : 'TULIP Urgency';
+  const assessment = getTulipAssessment(node);
+  if (!assessment) return;
+  const section = document.querySelector('.urgency-section');
+  document.getElementById('inspector-share-button')?.setAttribute('aria-label', `Share or bookmark ${node.name}`);
+  if (section) {
+    const priorExplanation = document.getElementById('score-status-explanation');
+    if (priorExplanation?.open) priorExplanation.close();
+    priorExplanation?.remove();
+    const breakdown = buildTulipScoreBreakdown(node.name, assessment);
+    const componentMarkup = breakdown.components.map(component => `<section class="score-component" aria-label="${escapeHtml(component.label)}, ${escapeHtml(component.weight)} of score">
+      <div class="score-component-heading"><h4>${escapeHtml(component.label)} <span>${escapeHtml(component.weight)}</span></h4><strong>${escapeHtml(component.value)}<small> / 10</small></strong></div>
+      <p>${escapeHtml(component.explanation)}</p></section>`).join('');
+    section.style.display = '';
+    section.innerHTML = `<button class="tulip-score-status${Number.isFinite(assessment.value) ? '' : ' is-unscored'}" id="console-urgency-score" type="button" aria-label="${escapeHtml(Number.isFinite(assessment.value) ? `TULIP Score ${assessment.value.toFixed(1)} out of 10` : assessment.label)}. Show explanation" aria-haspopup="dialog" aria-expanded="false" aria-controls="score-status-explanation">
+        <span class="score-status-value">${escapeHtml(Number.isFinite(assessment.value) ? assessment.value.toFixed(1) : assessment.label)}</span>
+      </button>
+      <dialog id="score-status-explanation" class="score-explanation-sheet" hidden aria-labelledby="score-explanation-title">
+        <header><strong id="score-explanation-title">TULIP Score</strong><button type="button" class="ui-close" data-score-done aria-label="Close score explanation"><span aria-hidden="true">×</span></button></header>
+        <div class="score-explanation-scroll"><h3>${escapeHtml(breakdown.topic)}</h3><p>${escapeHtml(breakdown.summary)}</p>${componentMarkup}
+          ${breakdown.formula ? `<div class="score-calculation"><h4>The calculation</h4><p>${escapeHtml(breakdown.formula)}</p></div>` : ''}
+          ${breakdown.note ? `<p class="score-rounding-note">${escapeHtml(breakdown.note)}</p>` : ''}</div>
+      </dialog>`;
+    const button = section.querySelector('button');
+    const explanation = section.querySelector('#score-status-explanation');
+    section.after(explanation);
+    button.addEventListener('click', () => {
+      explanation.hidden = false;
+      explanation.showModal();
+      button.setAttribute('aria-expanded', 'true');
+    });
+    explanation.querySelector('[data-score-done]').addEventListener('click', () => explanation.close());
+    explanation.addEventListener('close', () => {
+      explanation.hidden = true;
+      button.setAttribute('aria-expanded', 'false');
+      button.focus();
+    });
   }
-
-  const scoreEl = document.getElementById('console-urgency-score');
-  const ratingEl = document.getElementById('console-urgency-rating');
-  const modeledTag = document.getElementById('console-urgency-modeled');
-  const bandDetails = getScoreBandDetails(baselineScore);
-  if (scoreEl) scoreEl.textContent = baselineScore.toFixed(1);
-  const mobileSheetScore = document.getElementById('mobile-sheet-score');
-  const mobileSheetModeled = document.getElementById('mobile-sheet-modeled');
-  if (mobileSheetScore) {
-    mobileSheetScore.textContent = baselineScore.toFixed(1);
-    mobileSheetScore.setAttribute('aria-label', `TULIP urgency score ${baselineScore.toFixed(1)}`);
-  }
-  if (mobileSheetModeled) mobileSheetModeled.hidden = !(useReceipt && receipt.method === 'modeled');
-  if (ratingEl) {
-    ratingEl.textContent = bandDetails.label;
-    ratingEl.className = bandDetails.className;
-  }
-  if (modeledTag) modeledTag.hidden = !(useReceipt && receipt.method === 'modeled');
-
-  const scoreMarker = document.getElementById('urgency-score-marker');
-  const markerValue = document.getElementById('urgency-marker-value');
-  if (scoreMarker) {
-    scoreMarker.hidden = false;
-    scoreMarker.style.left = `${Math.max(4, Math.min(96, urgencyScalePosition(baselineScore)))}%`;
-  }
-  if (markerValue) markerValue.textContent = baselineScore.toFixed(1);
-
-  const trust = buildUrgencyTrustProfile(node, receipt, {
-    useReceipt,
-    score: baselineScore,
-    fallbackAsOf: nodeSourceDateRegistry?.entries?.[node.id]?.source_date || null
-  });
-  const trustFieldValues = {
-    'urgency-evidence-quality': trust.evidenceQuality,
-    'urgency-evidence-method': trust.method,
-    'urgency-review-status': trust.reviewStatus,
-    'urgency-evidence-scope': trust.scope,
-    'urgency-evidence-date': trust.asOf,
-    'urgency-evidence-confidence': trust.confidence,
-    'urgency-why-label': trust.whyLabel,
-    'urgency-why-copy': trust.why,
-    'urgency-uncertainty-copy': trust.uncertainty,
-    'urgency-source-summary': trust.sourceCount
-      ? `${trust.sourceCount} source${trust.sourceCount === 1 ? '' : 's'} • ${trust.method} • ${trust.reviewNote}`
-      : `${trust.method} • ${trust.reviewNote}`
-  };
-  Object.entries(trustFieldValues).forEach(([id, value]) => {
-    const element = document.getElementById(id);
-    if (element) element.textContent = value;
-  });
-  document.querySelectorAll('[data-urgency-band]').forEach(label => {
-    label.classList.toggle('is-active', label.dataset.urgencyBand === bandDetails.label);
-  });
-  const urgencyScale = document.getElementById('tulip-urgency-scale');
-  if (urgencyScale) {
-    urgencyScale.setAttribute('aria-label', `TULIP urgency score ${baselineScore.toFixed(1)}, in the ${bandDetails.label} band, on a scale from 1 to 10.`);
-  }
-}
-
-function playWelcomeSplash() {
-  const splash = document.getElementById('quote-splash');
-  if (!splash) return;
-  graphInstance?.pause();
-  const splashVisitCountKey = 'tulip_welcome_splash_visit_count_v2';
-  const splashHoldMs = 10000;
-  const splashDemoRequested = new URLSearchParams(window.location.search).get('demoSplash') === '1';
-  let dismissed = false;
-  let splashTimerId = null;
-
-  const getSplashVisitCount = () => {
-    try {
-      return Number(window.localStorage.getItem(splashVisitCountKey)) || 0;
-    } catch {
-      return 0;
-    }
-  };
-
-  const recordSplashVisit = visitCount => {
-    try {
-      window.localStorage.setItem(splashVisitCountKey, String(visitCount + 1));
-    } catch {
-      // Storage can be unavailable in private or restricted browsing modes.
-    }
-  };
-
-  const finishSplash = () => {
-    splash.setAttribute('aria-hidden', 'true');
-  };
-
-  const dismissSplash = (method = 'timer') => {
-    if (dismissed) return;
-    dismissed = true;
-    if (splashTimerId) {
-      window.clearTimeout(splashTimerId);
-      splashTimerId = null;
-    }
-    if (!splashDemoRequested) recordSplashVisit(splashVisitCount);
-    document.body.classList.remove('splash-active');
-    splash.classList.add('is-hidden');
-    graphInstance?.resume();
-    trackEvent('splash_enter', { method });
-  };
-
-  const splashVisitCount = getSplashVisitCount();
-  if (!splashDemoRequested && splashVisitCount >= 2) {
-    document.body.classList.remove('splash-active');
-    splash.classList.add('is-hidden');
-    finishSplash();
-    graphInstance?.resume();
-    return;
-  }
-
-  splash.setAttribute('aria-hidden', 'false');
-  splash.addEventListener('click', () => dismissSplash('splash'), { once: true });
-  splash.addEventListener('keydown', event => {
-    if (event.key !== 'Enter' && event.key !== ' ') return;
-    event.preventDefault();
-    dismissSplash('keyboard');
-  });
-  splashTimerId = window.setTimeout(() => dismissSplash('timer'), splashHoldMs);
-  splash.addEventListener('transitionend', (event) => {
-    if (event.target !== splash || event.propertyName !== 'opacity') return;
-    if (!splash.classList.contains('is-hidden')) return;
-    finishSplash();
-  });
+  const mobile = document.getElementById('mobile-sheet-score');
+  if (mobile) { mobile.textContent = Number.isFinite(assessment.value) ? assessment.value.toFixed(1) : assessment.label;
+    mobile.setAttribute('aria-label', assessment.accessibilityLabel || assessment.label); }
+  const modeled = document.getElementById('mobile-sheet-modeled');
+  if (modeled) modeled.hidden = true;
 }
 
 function shouldGateTouchDevices() {
@@ -14468,7 +14376,7 @@ function bindTouchDeviceGateShareActions() {
   if (!gate || gate.dataset.shareBound === 'true') return;
 
   const shareUrl = 'https://tulip-project-six.vercel.app';
-  const shareTitle = 'TULIP';
+  const shareTitle = 'Tulip Earth';
   const shareNote = document.getElementById('touch-device-gate-share-note');
 
   gate.addEventListener('click', async (event) => {
@@ -14480,7 +14388,7 @@ function bindTouchDeviceGateShareActions() {
 
     if (action === 'native' && navigator.share) {
       try {
-        await navigator.share({ title: shareTitle, text: 'Explore TULIP on desktop', url: shareUrl });
+        await navigator.share({ title: shareTitle, text: 'Explore Tulip Earth on desktop', url: shareUrl });
       } catch {
         // Ignore aborted native share sheets.
       }
@@ -14512,7 +14420,7 @@ function hardenExternalLinks(root = document) {
 }
 
 // Start application
-window.onload = () => {
+function startApplication() {
   initTelemetry();
   hardenExternalLinks();
   const externalLinkObserver = new MutationObserver(mutations => {
@@ -14529,11 +14437,26 @@ window.onload = () => {
     return;
   }
   adjustScale();
-  init();
-  initializeLaunchExperience();
+  try {
+    init();
+    initializeLaunchExperience();
+  } catch (error) {
+    console.error('Unable to prepare the TULIP graph', error);
+    document.getElementById('graph-canvas').dataset.renderError = 'true';
+  }
   if (graphInstance) {
     graphInstance.resizeCanvas();
     updateGatewayArcLayout();
   }
-  playWelcomeSplash();
-};
+  initializeDesktopExperience({
+    nodes: PUBLISHED_NODES, edges: PUBLISHED_EDGES,
+    getGraph: () => graphInstance, getSelected: () => currentSelectedNode,
+    selectNode: targetAndSelectNode, reset: resetExplorationState, back: undoLastSelection,
+    setMode: setShellMode, getMode: () => document.getElementById('app-container').dataset.viewMode
+  });
+}
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', startApplication, { once: true });
+} else {
+  startApplication();
+}

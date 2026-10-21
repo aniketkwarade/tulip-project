@@ -12,16 +12,17 @@ const [html, css, main, server, preview] = await Promise.all([
   readFile(path.join(root, 'public/share-preview.png'))
 ]);
 
-assert.match(html, /id="quote-splash"[^>]*role="button"[^>]*tabindex="0"[^>]*aria-label="Enter TULIP"/);
-assert.doesNotMatch(html, /id="enter-tulip-btn"/);
-assert.match(main, /event\.key !== 'Enter' && event\.key !== ' '/);
-assert.match(main, /dismissSplash\('keyboard'\)/);
-assert.match(main, /const splashHoldMs = 10000;/);
+const onboarding = await readFile(path.join(root, 'src/desktop-onboarding.js'), 'utf8');
+assert.doesNotMatch(html, /id="quote-splash"/);
+assert.match(onboarding, /Start Quick Start/);
+assert.match(onboarding, /Explore on my own/);
+assert.match(onboarding, /firstFrameRendered/);
+assert.match(onboarding, /8000/);
 assert.match(html, /document\.documentElement\.classList\.add\('touch-device-gated'\)/);
 assert.match(html, /phoneSizedViewport[\s\S]*?max-width: 767px[\s\S]*?if \(phoneSizedViewport &&/);
 assert.match(html, /id="touch-device-gate"[^>]*hidden[^>]*aria-hidden="true"/);
 assert.match(html, /This experience is currently designed for desktop browsers\./);
-assert.match(html, /Please reopen TULIP on a laptop or desktop browser for the intended experience\./);
+assert.match(html, /Please reopen Tulip Earth on a laptop or desktop browser for the intended experience\./);
 assert.match(main, /function shouldGateTouchDevices\(\)/);
 assert.match(main, /function shouldGateTouchDevices\(\)[\s\S]*?max-width: 767px[\s\S]*?return phoneSizedViewport &&/);
 assert.match(main, /const selectedNode = currentSelectedNode[\s\S]*?NODE_BY_ID\.get\(currentSelectedNode\.id\)[\s\S]*?refreshSelectedNodeDetailSurfaces\(selectedNode\)/);

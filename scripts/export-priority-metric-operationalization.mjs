@@ -74,12 +74,29 @@ const explicitOntologyCandidates = INGESTION_JOB_CONTRACTS
   }));
 
 const candidates = [...liveNodeCandidates, ...explicitOntologyCandidates]
-  .sort((a, b) => b.score - a.score || b.ownerId.localeCompare(a.ownerId));
+  .sort((a, b) => Number(topHubIds.has(b.ownerId)) - Number(topHubIds.has(a.ownerId))
+    || b.score - a.score || b.ownerId.localeCompare(a.ownerId));
 
-const selected = candidates;
+// Several nodes can refer to one metric. Preserve their scope metadata while
+// scheduling the metric once; duplicate labels must not multiply ingestion.
+const selectedByMetric = new Map();
+for (const candidate of candidates) {
+  const existing = selectedByMetric.get(candidate.contract.metric_id);
+  if (existing) {
+    existing.ownerAliases.push({ node_id: candidate.ownerId, metric_name: candidate.contract.metric_name,
+      unit: candidate.contract.unit, geography: candidate.contract.geography,
+      source_id: candidate.contract.source_id });
+  } else {
+    selectedByMetric.set(candidate.contract.metric_id, { ...candidate, ownerAliases: [] });
+  }
+}
+const selected = [...selectedByMetric.values()];
 
 const generatedAt = new Date().toISOString();
 const readinessForBinding = (source, metricId) => {
+  if (source.platform_integration?.reference_only_metric_ids?.includes(metricId)) {
+    return 'support_or_catalog_only';
+  }
   const measurementReadyMetricIds = source.platform_integration?.measurement_ready_metric_ids;
   if (Array.isArray(measurementReadyMetricIds) && measurementReadyMetricIds.includes(metricId)) {
     return 'measurement_snapshot_available';
@@ -92,7 +109,7 @@ const readinessForBinding = (source, metricId) => {
   }
   return 'support_or_catalog_only';
 };
-const bindings = selected.map(({ ownerId, contract, source, score, bindingScope }, index) => {
+const bindings = selected.map(({ ownerId, contract, source, score, bindingScope, ownerAliases }, index) => {
   const measurementReadiness = readinessForBinding(source, contract.metric_id);
   const stageByReadiness = {
     measurement_snapshot_available: 'validated_measurement_snapshot_bound',
@@ -102,6 +119,7 @@ const bindings = selected.map(({ ownerId, contract, source, score, bindingScope 
   return {
     priority: index + 1,
     node_id: ownerId,
+    ...(ownerAliases.length ? { owner_aliases: ownerAliases } : {}),
     node_name: nodeById.get(ownerId)?.name || ownerId.split('_').map(part => part[0]?.toUpperCase() + part.slice(1)).join(' '),
     node_degree: degree.get(ownerId) || 0,
     top_25_hub: topHubIds.has(ownerId),

@@ -1,0 +1,26 @@
+import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
+
+const payload = JSON.parse(await readFile(new URL('../artifacts/tulip-calibration-2026-09-22/europe-heat-823-region-universe.json', import.meta.url), 'utf8'));
+assert.equal(payload.version, 'tulip_europe_heat_823_region_universe_2026_09_23_v1');
+assert.equal(payload.productionRatingsEnabled, 0);
+assert.equal(payload.publishedCoverage.countries, 35);
+assert.equal(payload.publishedCoverage.regions, 823);
+assert.equal(payload.checks.countryCount, 35);
+assert.equal(payload.checks.regionCount, 823);
+assert.equal(payload.checks.uniqueRegionIds, 823);
+assert.equal(payload.checks.presentInEurostat2019Week22, 823);
+assert.equal(payload.checks.presentInEurostat2022Week22, 789);
+assert.equal(payload.checks.boundaryDriftIds.length, 34);
+assert.equal(payload.checks.countryCountsMatchArticle, true);
+assert.equal(payload.countries.reduce((sum, country) => sum + country.regions.length, 0), 823);
+assert.equal(payload.regions.length, 823);
+assert.equal(new Set(payload.regions.map(region => region.id)).size, 823);
+assert(payload.regions.every(region => region.presentInEurostat2019Week22));
+assert.equal(payload.countries.find(country => country.code === 'IT').regions.length, 103);
+assert(payload.countries.find(country => country.code === 'IT').regions.some(region => region.id === 'ITG2'));
+assert.equal(payload.countries.find(country => country.code === 'NO').regions.length, 11);
+assert.equal(payload.countries.find(country => country.code === 'UK').regions.length, 12);
+assert.match(payload.interpretation.boundary, /not the authors’ unpublished metadata table/i);
+assert.equal(payload.digest.length, 64);
+console.log('Europe heat 823-region universe checks passed.');

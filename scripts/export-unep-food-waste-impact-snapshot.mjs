@@ -4,7 +4,7 @@ import path from 'node:path';
 const OUTPUT_PATH = path.resolve('public/unep-food-waste-impact-snapshot.json');
 const snapshot = {
   version: 'unep_food_waste_index_2024_report_snapshot_v1',
-  captured_at: new Date().toISOString(),
+  captured_at: '2026-07-31T16:28:18.932Z',
   source: {
     id: 'unep_food_waste_index',
     name: 'UNEP Food Waste Index Report 2024',

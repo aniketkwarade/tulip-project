@@ -1,0 +1,21 @@
+import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
+import { readFile } from 'node:fs/promises';
+
+const snapshot = JSON.parse(await readFile(new URL('../artifacts/tulip-calibration-2026-09-22/hydropower-reliability-reference-snapshot.json', import.meta.url), 'utf8'));
+assert.equal(snapshot.productionRatingsEnabled, 0);
+assert.equal(snapshot.status, 'generation_volume_separated_from_reliability_with_direct_outage_case');
+assert.equal(snapshot.endpoints.generationVolumeContext.latestYear, 2025);
+assert.equal(snapshot.endpoints.generationVolumeContext.latestTWh, 4432.3);
+assert.equal(snapshot.endpoints.globalReliabilityState2023.capacityFactorPercentLessThan, 40);
+assert.equal(snapshot.endpoints.ecuadorServiceConsequence2024.aprilPowerCutsHoursPerDayUpTo, 8);
+assert.equal(snapshot.endpoints.ecuadorServiceConsequence2024.novemberPowerCutsHoursPerDayUpTo, 14);
+assert.equal(snapshot.endpoints.ecuadorServiceConsequence2024.estimatedIndustryLossUsdPerOutageHour, 12_000_000);
+assert.equal(snapshot.endpoints.humanConsequences.compatibleGlobalHarmedPersonCount, null);
+assert.equal(snapshot.endpoints.ecosystemConsequences.compatibleDirectEcosystemConditionLossPercent, null);
+assert(snapshot.tulipUse.prohibited.some(rule => /total global hydropower generation.*shortfall/i.test(rule)));
+assert.equal(snapshot.tulipUse.currentCatalogueRecommendation.rating, 'C 4.8');
+assert.deepEqual(snapshot.tulipUse.currentCatalogueRecommendation.domains, ['human']);
+const expectedDigest = createHash('sha256').update(JSON.stringify({ sources: snapshot.sources, currentWindow: snapshot.currentWindow, endpoints: snapshot.endpoints, tulipUse: snapshot.tulipUse, unresolvedForTulip: snapshot.unresolvedForTulip })).digest('hex');
+assert.equal(snapshot.snapshotDigest, expectedDigest);
+console.log('Hydropower-reliability reference passed: total generation stays separate from reliability and direct outage consequences remain geographically bounded.');

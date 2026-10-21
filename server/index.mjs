@@ -131,6 +131,7 @@ const FILE_MAP = {
   '/api/source-attachments': 'node-source-attachments.json',
   '/api/tulip/sources': 'tulip-source-registry.json',
   '/api/tulip/sources/operational': 'tulip-operational-sources.json',
+  '/api/tulip/score-assessments': 'tulip-assessments.json',
   '/api/tulip/urgency-scores': 'tulip-urgency-v3-scores.json',
   '/api/tulip/urgency-v2-scores': 'tulip-urgency-scores.json',
   '/api/tulip/urgency-v3-shadow-scores': 'tulip-urgency-v3-shadow-scores.json',

@@ -231,7 +231,7 @@ export function buildMonitoringSourceProfile(
   const evidenceSnapshot = !isResponse && urgencyReceipt
     ? Object.freeze({
       score: Number.isFinite(Number(urgencyReceipt.value)) ? Number(urgencyReceipt.value) : null,
-      band: urgencyReceipt.band || null,
+      band: null,
       asOf: urgencyReceipt.as_of || null,
       method: urgencyReceipt.method || null,
       methodLabel: evidenceMethod.label,

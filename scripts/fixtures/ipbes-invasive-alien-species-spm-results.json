@@ -1,0 +1,65 @@
+{
+  "source": {
+    "title": "Summary for Policymakers of the Thematic Assessment Report on Invasive Alien Species and their Control",
+    "publisher": "Intergovernmental Science-Policy Platform on Biodiversity and Ecosystem Services",
+    "assessmentYear": 2023,
+    "publicationDate": "2024-01-15",
+    "doi": "https://doi.org/10.5281/zenodo.7430692",
+    "recordUrl": "https://zenodo.org/records/11254974",
+    "pdfUrl": "https://zenodo.org/records/11254974/files/Summary%20for%20policymakers_IPBES%20IAS%20Assessment.pdf?download=1",
+    "pdfBytes": 9993456,
+    "pdfSha256": "dc7b05e0c8b42bbb827f76f279ba640241edae37f6604652c7c85077f97e5339",
+    "extractedWith": "Manual transcription from the approved Summary for Policymakers, checked against key messages A1-A5 and B2-B4."
+  },
+  "coverage": {
+    "regions": "all regions of Earth",
+    "realms": {
+      "terrestrialDocumentedImpactSharePercent": 75,
+      "freshwaterDocumentedImpactSharePercent": 14,
+      "marineDocumentedImpactSharePercent": 10
+    },
+    "establishedAlienSpeciesLowerBound": 37000,
+    "invasiveAlienSpeciesWithDocumentedImpactsLowerBound": 3500,
+    "newAlienSpeciesRecordedPerYearApprox": 200
+  },
+  "ecosystemEndpoints": {
+    "recordedGlobalExtinctionsWithInvasiveSpeciesAsContributorPercent": 60,
+    "recordedGlobalExtinctionsWithInvasiveSpeciesAsSoleDriverPercent": 16,
+    "invasiveSpeciesCausingDocumentedLocalExtinctions": 218,
+    "documentedLocalExtinctions": 1215,
+    "reportsOfNativeSpeciesImpactsThatAreNegativePercent": 85,
+    "documentedImpactsOnIslandsPercent": 20,
+    "globalExtinctionsWithInvasiveSpeciesAsMajorCauseReportedFromIslandsPercent": 90,
+    "irreversibilityFinding": "Some invasive alien species cause complex and irreversible outcomes after ecosystems cross thresholds beyond which restoration is not possible."
+  },
+  "humanEndpoints": {
+    "annualGlobalEconomicCost2019UsdBillionLowerBound": 423,
+    "damageShareOfCostPercent": 92,
+    "managementShareOfCostPercent": 8,
+    "documentedNatureContributionImpactsThatAreNegativePercent": 80,
+    "documentedQualityOfLifeImpactsThatAreNegativePercent": 85,
+    "invasiveSpeciesWithNegativeNatureContributionImpactsPercent": 16,
+    "invasiveSpeciesWithNegativeQualityOfLifeImpactsPercent": 7,
+    "frequentlyReportedImpact": "reduction in food supply",
+    "affectedPathways": [
+      "livelihoods",
+      "water security",
+      "food security",
+      "human health"
+    ]
+  },
+  "trendAndManagement": {
+    "economicCostQuadrupledEveryDecadeSinceYear": 1970,
+    "businessAsUsualAlienSpeciesIncreaseBy2050Versus2005Percent": 36,
+    "islandEradicationAttempts": 998,
+    "successfulIslandEradicationAttemptsPercent": 88,
+    "boundary": "The historical increase is a burden trend, not the recovery time of one consequence. Eradication success is concentrated in specific contexts and does not imply that all impacts are reversible."
+  },
+  "evidenceLanguage": {
+    "globalExtinctionAttribution": "established but incomplete",
+    "economicCost": "established but incomplete",
+    "negativeHumanImpacts": "well established",
+    "irreversibleEcosystemOutcomes": "well established",
+    "futureMagnitude": "difficult to predict because of complex interactions and feedbacks"
+  }
+}

@@ -182,7 +182,9 @@ const ACTIVE_PLATFORM_INTEGRATIONS = {
     public_file: 'wmo-unesco-glacier-water-impact-snapshot.json',
     artifact_kind: 'reviewed_global_glacier_mass_and_meltwater_dependence_snapshot',
     served_metric_ids: ['glacier_runoff_share_of_water_supply'],
-    measurement_ready_metric_ids: ['glacier_runoff_share_of_water_supply']
+    measurement_ready_metric_ids: [],
+    reference_only_metric_ids: ['glacier_runoff_share_of_water_supply'],
+    measurement_readiness_note: 'The snapshot supplies glacier mass and glacier-plus-snow dependence context, not glacier-only seasonal runoff share or volume. The direct metric observation remains missing.'
   },
   copernicus_marine_global_ocean_ph: {
     route: 'https://data.marine.copernicus.eu/product/GLOBAL_OMI_HEALTH_carbon_ph_area_averaged/services',
@@ -1824,7 +1826,7 @@ const NORTHSTAR_PILOT_SOURCES = [
     url: 'https://wmo.int/resources/publication-series/state-of-global-water-resources/state-of-global-water-resources-2024',
     access_classification: 'open_download',
     fit: ['metric_ingestion', 'glacier_meltwater_dependency', 'glacier_runoff_share_of_water_supply', 'global_accumulated_impact'],
-    notes: 'Official WMO glacier mass-balance and UNESCO/UN-Water dependence findings. The reviewed snapshot retains glacier mass, glacier-plus-snow human exposure, consecutive loss years and the 19-region denominator separately.'
+    notes: 'Official WMO glacier mass-balance and UNESCO/UN-Water dependence findings, retained as reference context. The snapshot does not measure glacier-only seasonal runoff share or volume, attributable human shortage, or ecological condition loss.'
   },
   {
     audit_index: 452,
@@ -3963,6 +3965,10 @@ for (const line of lines) {
           artifact_version: platformIntegration.version,
           served_metric_ids: platformIntegration.served_metric_ids || platformIntegration.metric_contract_ids || null,
           measurement_ready_metric_ids: platformIntegration.measurement_ready_metric_ids || null,
+          ...(platformIntegration.reference_only_metric_ids ? {
+            reference_only_metric_ids: platformIntegration.reference_only_metric_ids,
+            measurement_readiness_note: platformIntegration.measurement_readiness_note
+          } : {}),
           record_count: platformIntegration.record_count
         }
       : null
@@ -4009,6 +4015,10 @@ for (const source of NORTHSTAR_PILOT_SOURCES) {
           artifact_version: platformIntegration.version,
           served_metric_ids: platformIntegration.served_metric_ids || platformIntegration.metric_contract_ids || null,
           measurement_ready_metric_ids: platformIntegration.measurement_ready_metric_ids || null,
+          ...(platformIntegration.reference_only_metric_ids ? {
+            reference_only_metric_ids: platformIntegration.reference_only_metric_ids,
+            measurement_readiness_note: platformIntegration.measurement_readiness_note
+          } : {}),
           record_count: platformIntegration.record_count
         }
       : null
