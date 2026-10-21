@@ -1,0 +1,30 @@
+{
+  "version": "tulip_nature_area_weighting_decision_2026_09_27_v1_candidate",
+  "status": "provisional_internal_policy_choice_not_empirical_calibration",
+  "construct": "aggregate_current_attributable_consequence",
+  "selectedPrinciple": "fixed_physical_area_for_comparable_condition_loss",
+  "selectedExperimentPolicyId": "area_two_family_emphasis",
+  "decisionBasis": "For the agreed total-harm construct, identical attributable condition loss over the same physical area should not receive an extra premium solely because one ecosystem family has a smaller mapped distribution. Family-relative losses remain visible separately.",
+  "weightRule": "family weight = fixed mapped family area / fixed total area of the frozen compatible family group",
+  "indexRule": "index = sum(disjoint cohort area * attributable comparable degradation fraction) / fixed compatible group area",
+  "meaning": "An extent-weighted, condition-normalized policy index within a declared compatible group. It is not the percentage of all nature destroyed or a measured ecological exchange rate.",
+  "conditions": [
+    "Condition indicators must have a reviewed, common interpretation; the shared percent sign or separate reference-to-collapse normalizations do not prove equivalence.",
+    "The ecosystem universe, reference extents, overlap rules and subtype inheritance remain fixed within the method version.",
+    "A real area denominator needs harmonized reference boundaries and a reviewed exclusive spatial partition or explicit overlap allocation. Summing mapped source areas alone does not prove a physical union.",
+    "Loss of composition, connectivity, function or other material characteristics cannot be silently replaced by one convenient cover or extent metric.",
+    "Current condition stock is not multiplied by historical observation length or assumed recovery duration.",
+    "An unknown or unassessed family is not zero and is not removed from the denominator.",
+    "An unfamiliar ecosystem or incompatible endpoint requires a versioned extension and calibration review before admission.",
+    "The current two-family experiment cannot serve as a global nature denominator for the catalogue."
+  ],
+  "rejectedHiddenPreference": "Equal weights across differently sized families give more influence per lost unit area in a smaller mapped family. That may be a defensible conservation preference, but it is not selected implicitly for this total-harm candidate.",
+  "limitations": [
+    "Physical area alone cannot establish ecological importance, biological condition, causality or irreplaceability.",
+    "Area weighting can underrepresent unique small ecosystems if uniqueness is part of the desired construct. No automatic uniqueness bonus is included; any such rule would need an explicit method revision.",
+    "A cross-family condition exchange remains a TULIP value choice even after indicator and source review. The present synthetic experiment does not validate it.",
+    "Nature numerical benchmark thresholds, complete ecosystem coverage and whole-node assessments remain unfinished."
+  ],
+  "publicReady": false,
+  "publicScoresChanged": false
+}

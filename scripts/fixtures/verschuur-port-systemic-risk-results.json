@@ -1,0 +1,49 @@
+{
+  "source": {
+    "doi": "10.1038/s41558-023-01754-w",
+    "articlePdfSha256": "22657a230b29c22df818667ff384e3c295a4dfe8db97e8828e372458a3a289e4",
+    "articlePdfBytes": 4191890,
+    "supplementaryMethodsSha256": "480847479d1fc7c004e1c41a86258207c6effe219567a0d4bb93992dd206ee0d",
+    "supplementaryMethodsBytes": 2239777,
+    "extractedWith": "pypdf 6.10.0",
+    "checkedOn": "2026-09-23"
+  },
+  "coverage": {
+    "ports": 1320,
+    "tradeCountries": 207,
+    "supplyChainCountries": 184,
+    "supplyChainSectors": 11,
+    "vesselMovementYears": [2019, 2020],
+    "tradeFlowModelYear": 2015,
+    "operationalThresholdPeriod": [1979, 2018]
+  },
+  "downtime": {
+    "globalMeanExpectedDaysPerPortYear": 1.4,
+    "portsAboveFiveExpectedDaysPercent": 5,
+    "knockOnDowntimeLargerThanDirectForPortShare": "around two-thirds"
+  },
+  "annualRisk": {
+    "maritimeTradeAtRiskUsdBillion": 81,
+    "maritimeTradeAtRiskBillionTonnes": 117,
+    "industryOutputAtRiskUsdBillion": 95.8,
+    "finalConsumptionAtRiskUsdBillion": 26.3,
+    "forwardEconomicActivityAtRiskUsdBillion": 122.1,
+    "additionalUpstreamIndustryOutputAtRiskUsdBillion": 173,
+    "importTradeCrossBorderPercent": 63,
+    "exportTradeCrossBorderPercent": 58,
+    "industryOutputCrossBorderPercent": 64,
+    "consumptionCrossBorderPercent": 60
+  },
+  "methodBoundary": {
+    "includedHazards": [
+      "non-cyclonic wind, temperature, waves and overtopping above operational thresholds",
+      "cyclone wind",
+      "pluvial flooding",
+      "fluvial flooding",
+      "coastal flooding"
+    ],
+    "excludedFromClimateHazardSet": ["earthquake", "tsunami"],
+    "economicQuantity": "expected annual activity at risk from modeled downtime, not an observed cash-loss total",
+    "networkBoundary": "main results include forward supply-chain dependencies; the additional upstream estimate is reported separately"
+  }
+}

@@ -1,6 +1,6 @@
 {
   "version": "2026-07-14",
-  "generated_at": "2026-08-01T18:22:20.864Z",
+  "generated_at": "2026-09-23T20:45:34.552Z",
   "generated_from": "tulip-source-intake-audit-2026-07-14.md",
   "notes": "Operational-open sources are the first integration tier. They remain snapshot candidates, not implied live feeds.",
   "sources": [
@@ -5034,7 +5034,7 @@
       "needs_login": false,
       "can_be_treated_as_live_feed": false,
       "platform_use": "Active scheduled snapshot integration bound to explicit node metric contracts.",
-      "notes": "Official WMO glacier mass-balance and UNESCO/UN-Water dependence findings. The reviewed snapshot retains glacier mass, glacier-plus-snow human exposure, consecutive loss years and the 19-region denominator separately.",
+      "notes": "Official WMO glacier mass-balance and UNESCO/UN-Water dependence findings, retained as reference context. The snapshot does not measure glacier-only seasonal runoff share or volume, attributable human shortage, or ecological condition loss.",
       "platform_integration": {
         "active": true,
         "route": "https://wmo.int/resources/publication-series/state-of-global-water-resources/state-of-global-water-resources-2024",
@@ -5043,14 +5043,16 @@
         "updated_at": null,
         "generated_at": null,
         "captured_at": "2026-07-31T18:12:40.094Z",
-        "artifact_version": "wmo_sgwr_2024_unesco_wwdr_2025_glacier_water_v1",
+        "artifact_version": "wmo_sgwr_2024_unesco_wwdr_2025_glacier_water_v2_context_only",
         "served_metric_ids": [
           "glacier_runoff_share_of_water_supply"
         ],
-        "measurement_ready_metric_ids": [
+        "measurement_ready_metric_ids": [],
+        "record_count": null,
+        "reference_only_metric_ids": [
           "glacier_runoff_share_of_water_supply"
         ],
-        "record_count": null
+        "measurement_readiness_note": "The snapshot supplies glacier mass and glacier-plus-snow dependence context, not glacier-only seasonal runoff share or volume. The direct metric observation remains missing."
       }
     },
     {

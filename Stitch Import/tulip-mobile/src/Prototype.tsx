@@ -1,21 +1,41 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type ComponentType, type CSSProperties, type FormEvent, type PointerEvent as ReactPointerEvent, type TouchEvent as ReactTouchEvent } from "react";
 import { createPortal } from "react-dom";
+import * as Dialog from "@radix-ui/react-dialog";
+import '../../../src/inspector-photo.css';
+// @ts-ignore -- shared vector category symbols are JavaScript outside this TS project.
+import { getInspectorCategorySymbol } from '../../../src/inspector-category-symbols.js';
+import relationshipsSymbol from '@fortawesome/fontawesome-free/svgs/solid/diagram-project.svg?url';
+import humansSymbol from '@fortawesome/fontawesome-free/svgs/solid/people-group.svg?url';
+import planetSymbol from '@fortawesome/fontawesome-free/svgs/solid/earth-americas.svg?url';
+import responseSymbol from '@fortawesome/fontawesome-free/svgs/solid/lightbulb.svg?url';
+import eventsSymbol from '@fortawesome/fontawesome-free/svgs/solid/newspaper.svg?url';
+import measurementSymbol from '@fortawesome/fontawesome-free/svgs/solid/ruler-combined.svg?url';
+import sourcesSymbol from '@fortawesome/fontawesome-free/svgs/solid/link.svg?url';
 import {
   ActivityLogIcon,
+  BackpackIcon,
+  BarChartIcon,
   CheckCircledIcon,
   ChevronRightIcon,
   ClockIcon,
+  CookieIcon,
   Cross1Icon,
+  DotFilledIcon,
   ExternalLinkIcon,
+  FileTextIcon,
   GlobeIcon,
   HamburgerMenuIcon,
+  HomeIcon,
+  PaperPlaneIcon,
   PersonIcon,
   RocketIcon,
 } from "@radix-ui/react-icons";
-import { BottomSheet, Carousel, KeyboardInput, MobileScroll, useKeyboard } from "./mobile";
+import { BottomSheet, Carousel, KeyboardInput, MobileScroll, useKeyboard, useScreenPortal } from "./mobile";
 
 import mobileNodeCatalog from "./mobile-node-catalog.json";
 import mobileActivitySnapshot from "./mobile-activity-snapshot.json";
+// @ts-ignore -- shared local search is JavaScript outside this TS project.
+import { getNodeSearchTerms, searchNodes } from "../../../src/search.js";
 // @ts-ignore -- production relationship grammar helper is JavaScript.
 import { getRelationshipQuestionAuxiliary } from "../../../src/relationship-semantics.js";
 // @ts-ignore -- production Personal Footprint context helpers are JavaScript.
@@ -25,7 +45,7 @@ import { formatMetricDisplayText, metricizeDisplayValue } from "../../../src/met
 // @ts-ignore -- shared production Personal Footprint model is JavaScript.
 import * as SharedFootprintModel from "../../../src/personal-footprint-model.js";
 // @ts-ignore -- shared production TULIP urgency bands are JavaScript.
-import { TULIP_URGENCY_BANDS_V3, getTulipUrgencyBandV3 } from "../../../src/tulip-urgency-v3.js";
+import { SCORE_METHOD_COPY } from "../../../src/tulip-score-method.js";
 // Lazy registry assets from the desktop build. Vite emits these as standalone
 // files so the large directories are downloaded only when someone opens them.
 // @ts-ignore -- Vite asset URL imports are resolved at build time.
@@ -36,6 +56,13 @@ import pipelineRegistryUrl from "../../../public/pipeline-lineage-registry.json?
 import researchBacklogUrl from "../../../public/research-backlog.json?url";
 
 type Screen = "search" | "explore" | "analyse" | "activity" | "footprint";
+function InspectorCategorySymbol({sphere,collapsed = false}:{sphere:string;collapsed?:boolean}) {
+  return <svg className={`inspector-category-symbol${collapsed ? " analysis-collapsed-category-symbol" : ""}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{getInspectorCategorySymbol(sphere).map((d:string) => <path key={d} d={d} />)}</svg>;
+}
+const INSPECTOR_SECTION_SYMBOLS = { relationships:relationshipsSymbol, humans:humansSymbol, planet:planetSymbol, response:responseSymbol, events:eventsSymbol, measurement:measurementSymbol, sources:sourcesSymbol };
+function InspectorSectionSymbol({kind}:{kind:keyof typeof INSPECTOR_SECTION_SYMBOLS}) {
+  return <span className="inspector-section-symbol" data-symbol={kind} aria-hidden="true" style={{maskImage:`url("${INSPECTOR_SECTION_SYMBOLS[kind]}")`,WebkitMaskImage:`url("${INSPECTOR_SECTION_SYMBOLS[kind]}")`}} />;
+}
 type Icon = ComponentType<{ width?: number; height?: number }>;
 type DesktopNode = { id: string; name: string };
 type AppPoint = { x:number; y:number };
@@ -45,11 +72,7 @@ type QuickStartStep = {
   id:string;
   screen:Screen;
   target:string;
-  title:string;
-  body:string;
-  placement:"above"|"below";
-  padding?:number;
-  spotlight?:"target"|"canvas-center";
+  instruction:string;
 };
 type QuickStartRect = {
   x:number;
@@ -76,6 +99,8 @@ type DesktopEdgeData = {
 };
 type DesktopGraph = {
   nodes: DesktopNodeData[];
+  incomingEdgesById: Map<string,DesktopEdgeData[]>;
+  outgoingEdgesById: Map<string,DesktopEdgeData[]>;
   width: number;
   height: number;
   sphereRadius: number;
@@ -88,6 +113,9 @@ type DesktopGraph = {
   selectedNode?: DesktopNodeData | null;
   rotationX: number;
   rotationY: number;
+  freeSphereRotation?: boolean;
+  freeRotationOrientation?: [number,number,number,number] | null;
+  freeRotationIdleAxis?: [number,number,number];
   needsCentering?: boolean;
   isDraggingGlobe?: boolean;
   isPanningCamera?: boolean;
@@ -102,6 +130,7 @@ type DesktopGraph = {
   ctx: CanvasRenderingContext2D;
   mobileHighlightedLabelsAsPills?: boolean;
   mobileLineOpacityMultiplier?: number;
+  ambientLineRhythm?: boolean;
   mobileLineWidthMultiplier?: number;
   mobileAmbientEdgeStride?: number;
   mobileHighlightedLabelColor?: string;
@@ -116,6 +145,10 @@ type DesktopGraph = {
   handleVisibilityChange?: EventListener;
   resizeCanvas: () => void;
   requestRender: () => void;
+  worldToScreen: (x:number,y:number) => AppPoint;
+  findBestHitNode: (point:AppPoint) => DesktopNodeData | null;
+  onSelectNode: (node:DesktopNodeData, interaction?:{ motionOrigin?:AppPoint }) => void;
+  onReselectNode?: (node:DesktopNodeData, interaction?:{ motionOrigin?:AppPoint }) => void;
   exitFocusMode: () => void;
   selectNode: (node: DesktopNodeData, options?: { instantSwap?: boolean }) => void;
   setFilter: (filter: string) => void;
@@ -126,8 +159,24 @@ type DesktopGraph = {
   updatePhysics: (...args:any[]) => void;
   draw: () => void;
   isNodeInteractiveInAnalyze: (node: DesktopNodeData) => boolean;
+  getCollapsedAnalyzeSelection: (
+    incomingEdges:DesktopEdgeData[],
+    outgoingEdges:DesktopEdgeData[],
+    maxConnections?:number,
+    selectedNode?:DesktopNodeData,
+    feedbackNodeIds?:Set<string>,
+  ) => {
+    displayedDriverEdges:DesktopEdgeData[];
+    displayedImpactEdges:DesktopEdgeData[];
+    representativeCandidates:any[];
+  };
   destroy: () => void;
 };
+
+function systemPrefersReducedMotion() {
+  return document.documentElement.dataset.tulipReduceMotion === "true"
+    || window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
 type FootprintAnswer = Record<string, string | null>;
 type FootprintOption = {
   value: string;
@@ -160,9 +209,16 @@ type ExploreInfoSection = "score" | "sources" | "registries" | "about" | "contac
 type TulipNativeBridge = {
   haptic:(kind?:"selection"|"light"|"medium"|"rotation"|"rotationMomentum"|"success") => void;
   share:(payload:{ title:string; text:string; url:string }) => void;
+  interpretQuery?:(query:string, previousTopic?:string) => Promise<string[]>;
+  printTopic?:(payload:{title:string;html:string}) => void;
+  notificationSettings?:() => void;
+  notificationOnboarding?:() => void;
+  exit?:() => void;
   startupReady?:() => void;
-  navigationState?:(payload:{ active:Screen; visible:boolean; compact:boolean; quickStartActive:boolean }) => void;
+  navigationState?:(payload:{ active:Screen; visible:boolean; compact:boolean; quickStartActive:boolean; onboardingActive?:boolean }) => void;
   openInspector?:(name:string) => void;
+  exploreFrameReady?:(token:number) => void;
+  quickStartPrompt?:(payload:{step:number; text:string; leaving:boolean; x:number; y:number; width:number; height:number; fontSize:number} | null) => void;
 };
 type SourceRegistryRecord = {
   id:string;
@@ -184,97 +240,231 @@ type SourceRegistryRecord = {
 const ANALYSE_HISTORY_STORAGE_KEY = "tulip-mobile-analyse-history-v1";
 const ANALYSE_HISTORY_LIMIT = 24;
 const QUICK_START_STORAGE_KEY = "tulip-mobile-quick-start-v1";
+const INTRO_STORAGE_KEY = "tulip-mobile-introduction-v1";
+const INTRO_RETRY_KEY = "tulip-mobile-introduction-retry";
+const NOTIFICATION_ONBOARDING_KEY = "tulip-mobile-notification-onboarding-v1";
+const INTRO_PAGES = [
+  { heading:"Your planet. Better understood.", copy:"Explore how human choices affect our climate, nature, and the resources we depend on.", artwork:"planet" },
+  { heading:"One change leads to another.", copy:"See what causes an environmental problem, what it affects next, and how the consequences reach us.", artwork:"connections" },
+  { heading:"Make your footprint visible.", copy:"Estimate the carbon emissions and resource use behind how you eat, travel, live, and shop.", artwork:"footprint" },
+  { heading:"See what we can change.", copy:"Explore solutions, from everyday choices to changes in our communities, businesses, and policies.", artwork:"solutions" },
+] as const;
+
+const INTRO_PAGE_DURATION_MS = 5250;
+const INTRO_TRANSITION_DURATION_MS = 800;
+
+function introductionTiming(name:"page"|"transition") {
+  const configured = (window as Window & {
+    __TULIP_INTRO_PAGE_MS__?:number;
+    __TULIP_INTRO_TRANSITION_MS__?:number;
+  })[name === "page" ? "__TULIP_INTRO_PAGE_MS__" : "__TULIP_INTRO_TRANSITION_MS__"];
+  if (typeof configured === "number" && Number.isFinite(configured) && configured >= 0) return configured;
+  return name === "page" ? INTRO_PAGE_DURATION_MS : INTRO_TRANSITION_DURATION_MS;
+}
+
+function readIntroductionPage():number | null {
+  // A deliberate deep link must never be redirected into onboarding.
+  if (window.location.hash && window.location.hash !== "#explore") return null;
+  if (hasCompletedQuickStart()) return null;
+  try {
+    const saved = window.localStorage.getItem(INTRO_STORAGE_KEY);
+    if (saved === "complete") return null;
+    const page = Number(saved);
+    return Number.isInteger(page) && page >= 0 && page < INTRO_PAGES.length ? page : 0;
+  } catch { return 0; }
+}
+
+function saveIntroduction(value:number | "complete") {
+  try { window.localStorage.setItem(INTRO_STORAGE_KEY,String(value)); } catch { /* Storage may be unavailable. */ }
+}
+
+function IntroductionArtwork({ page }: { page:number }) {
+  const artwork = INTRO_PAGES[page].artwork;
+  if (artwork === "planet") return <div className="introduction-artwork is-planet" data-artwork="planet" aria-hidden="true">
+    <div className="introduction-planet"><GlobeIcon width={112} height={112} /></div>
+    <span className="introduction-orbit orbit-one" /><span className="introduction-orbit orbit-two" />
+    <span className="introduction-node node-one"><DotFilledIcon /></span>
+    <span className="introduction-node node-two"><DotFilledIcon /></span>
+    <span className="introduction-node node-three"><DotFilledIcon /></span>
+  </div>;
+  if (artwork === "connections") return <div className="introduction-artwork is-connections" data-artwork="connections" aria-hidden="true">
+    <span className="introduction-link link-one" /><span className="introduction-link link-two" />
+    <span className="introduction-chain-node chain-one"><DotFilledIcon /></span>
+    <span className="introduction-chain-node chain-two"><DotFilledIcon /></span>
+    <span className="introduction-chain-node chain-three"><DotFilledIcon /></span>
+    <span className="introduction-chain-pulse pulse-primary" />
+    <span className="introduction-chain-pulse pulse-secondary" />
+  </div>;
+  if (artwork === "footprint") return <div className="introduction-artwork is-footprint" data-artwork="footprint" aria-hidden="true">
+    <span className="introduction-life-route route-food" /><span className="introduction-life-route route-travel" />
+    <span className="introduction-life-route route-home" /><span className="introduction-life-route route-shop" />
+    <span className="introduction-footprint-center"><PersonIcon width={34} height={34} /></span>
+    <span className="introduction-life-icon life-food"><CookieIcon width={25} height={25} /></span>
+    <span className="introduction-life-icon life-travel"><PaperPlaneIcon width={25} height={25} /></span>
+    <span className="introduction-life-icon life-home"><HomeIcon width={25} height={25} /></span>
+    <span className="introduction-life-icon life-shop"><BackpackIcon width={25} height={25} /></span>
+  </div>;
+  return <div className="introduction-artwork is-solutions" data-artwork="solutions" aria-hidden="true">
+    <div className="introduction-action-grid">
+      <span className="introduction-action-tile action-everyday"><BackpackIcon width={32} height={32} /></span>
+      <span className="introduction-action-tile action-community"><GlobeIcon width={32} height={32} /></span>
+      <span className="introduction-action-tile action-business"><BarChartIcon width={32} height={32} /></span>
+      <span className="introduction-action-tile action-policy"><FileTextIcon width={32} height={32} /></span>
+    </div>
+  </div>;
+}
+
+function IntroductionStory({ page, current = false }: { page:number; current?:boolean }) {
+  return <div className={`introduction-story${current ? " is-current" : " is-outgoing"}`} aria-hidden={current ? undefined : true}>
+    <IntroductionArtwork page={page} />
+    <div className="introduction-glass">
+      {current ? <>
+        <h1 id="introduction-heading" tabIndex={-1}>{INTRO_PAGES[page].heading}</h1>
+        <p id="introduction-copy">{INTRO_PAGES[page].copy}</p>
+      </> : <>
+        <h1>{INTRO_PAGES[page].heading}</h1>
+        <p>{INTRO_PAGES[page].copy}</p>
+      </>}
+    </div>
+  </div>;
+}
+
+function Introduction({ page, phase, covered, onPage, onContinue, onReady, onFailure }: {
+  page:number; phase:"pages"|"notifications"|"waiting"|"error"|"revealing"; covered:boolean;
+  onPage:(page:number) => void; onContinue:() => void; onReady:() => void; onFailure:() => void;
+}) {
+  const dialogRef = useRef<HTMLElement>(null);
+  const transitionTimerRef = useRef<number | null>(null);
+  const [outgoingPage,setOutgoingPage] = useState<number | null>(null);
+  const [transitionDirection,setTransitionDirection] = useState<"forward"|"backward">("forward");
+  const pageDuration = introductionTiming("page");
+  const transitionDuration = introductionTiming("transition");
+  useEffect(() => {
+    if (!covered && phase === "pages") dialogRef.current?.querySelector<HTMLElement>("#introduction-heading")?.focus({preventScroll:true});
+    dialogRef.current?.querySelector(".mobile-scroll")?.scrollTo(0,0);
+  },[page,covered,phase]);
+  const changePage = useCallback((next:number, direction:"forward"|"backward" = "forward") => {
+    if (outgoingPage !== null || next === page || next < 0 || next >= INTRO_PAGES.length) return;
+    setTransitionDirection(direction);
+    setOutgoingPage(page);
+    onPage(next);
+    if (transitionTimerRef.current !== null) window.clearTimeout(transitionTimerRef.current);
+    transitionTimerRef.current = window.setTimeout(() => {
+      transitionTimerRef.current = null;
+      setOutgoingPage(null);
+    },systemPrefersReducedMotion() ? Math.min(200,transitionDuration) : transitionDuration);
+  },[onPage,outgoingPage,page,transitionDuration]);
+  useEffect(() => () => {
+    if (transitionTimerRef.current !== null) window.clearTimeout(transitionTimerRef.current);
+  },[]);
+  useEffect(() => {
+    if (covered || phase !== "pages") return;
+    const timer = window.setTimeout(() => {
+      if (page < INTRO_PAGES.length - 1) changePage(page + 1,"forward");
+      else onContinue();
+    },pageDuration);
+    return () => window.clearTimeout(timer);
+  },[changePage,covered,onContinue,outgoingPage,page,pageDuration,phase]);
+  useEffect(() => {
+    if (phase !== "waiting" || covered) return;
+    const canvas = document.querySelector<HTMLCanvasElement>(".desktop-sphere-canvas");
+    let frame:number | undefined;
+    let settled = false;
+    const timeout = window.setTimeout(() => { settled = true; onFailure(); },8000);
+    const inspect = () => {
+      if (settled) return;
+      if (canvas?.dataset.renderError) {
+        settled = true;
+        window.clearTimeout(timeout);
+        onFailure();
+      } else if (canvas?.dataset.firstFrameRendered === "true") {
+        settled = true;
+        window.clearTimeout(timeout);
+        // Let the successful canvas draw reach the compositor before removing its cover.
+        frame = window.requestAnimationFrame(onReady);
+      }
+    };
+    const observer = new MutationObserver(inspect);
+    if (canvas) observer.observe(canvas,{attributes:true,attributeFilter:["data-first-frame-rendered","data-render-error"]});
+    inspect();
+    return () => { observer.disconnect(); window.clearTimeout(timeout); if (frame !== undefined) window.cancelAnimationFrame(frame); };
+  },[phase,covered,onReady,onFailure]);
+  const retry = () => {
+    // A failed dynamic import is cached for the lifetime of a document. A reload
+    // retries that import too, without remounting a successfully prepared sphere.
+    try { window.sessionStorage.setItem(INTRO_RETRY_KEY,"true"); } catch { /* Manual continue remains available. */ }
+    window.location.reload();
+  };
+  const progressStyle = {"--introduction-transition-duration":`${transitionDuration}ms`} as CSSProperties;
+  return <section ref={dialogRef} className="introduction" role="dialog" aria-modal="true" aria-labelledby="introduction-heading" aria-describedby="introduction-copy" data-page={page + 1} data-page-duration={pageDuration} data-direction={transitionDirection} data-phase={phase} data-covered={covered} data-transitioning={outgoingPage !== null} style={progressStyle} inert={covered || phase === "revealing" || phase === "notifications"}>
+    <MobileScroll className="introduction-scroll" engine="native"><div className="introduction-content">
+      <img className="introduction-brandmark" src="/assets/tulip/tulip-earth-logo.svg" alt="Tulip Earth" width={126} height={52} />
+      <div className="introduction-story-stage" aria-live="polite" aria-atomic="true">
+        {outgoingPage !== null ? <IntroductionStory key={`outgoing-${outgoingPage}`} page={outgoingPage} /> : null}
+        <IntroductionStory key={`current-${page}`} page={page} current />
+      </div>
+      <p className="introduction-status" role={phase === "error" ? "alert" : "status"}>{phase === "error" ? "The sphere couldn’t load. Please try again." : phase === "waiting" ? "Preparing your sphere…" : ""}</p>
+      {phase === "error" ? <button className="introduction-primary" onClick={retry}>Retry</button> : page > 0 && phase === "pages" ? <button className="introduction-back" disabled={outgoingPage !== null} onClick={() => changePage(page - 1,"backward")}>Back</button> : null}
+    </div></MobileScroll>
+  </section>;
+}
 const QUICK_START_STEPS:QuickStartStep[] = [
   {
     id:"explore-spin",
     screen:"explore",
     target:'[data-quick-start="explore-canvas"]',
-    title:"Spin to explore",
-    body:"Watch the gesture, then drag the globe in any direction.",
-    placement:"above",
-    spotlight:"canvas-center",
-    padding:10,
+    instruction:"Spin to explore",
   },
   {
     id:"explore-node",
     screen:"explore",
     target:'[data-quick-start="explore-canvas"]',
-    title:"Reveal connections",
-    body:"Tap a node to see its connected phenomena.",
-    placement:"above",
-    spotlight:"canvas-center",
-    padding:10,
+    instruction:"Tap to open a topic",
   },
   {
     id:"explore-reset",
     screen:"explore",
     target:'[data-quick-start="explore-canvas"]',
-    title:"Reset the globe",
-    body:"Swipe diagonally from the bottom-left toward the middle-right.",
-    placement:"above",
-    spotlight:"canvas-center",
-    padding:10,
+    instruction:"Reset sphere by swiping from bottom left",
+  },
+  {
+    id:"explore-different-node",
+    screen:"explore",
+    target:'[data-quick-start="explore-canvas"]',
+    instruction:"Tap to open a different topic",
   },
   {
     id:"explore-open-analyse",
     screen:"explore",
     target:'[data-quick-start="explore-canvas"]',
-    title:"Open a phenomenon",
-    body:"Tap a node to reveal its connections, then tap that same node again.",
-    placement:"above",
-    spotlight:"canvas-center",
-    padding:10,
-  },
-  {
-    id:"analyse-inspector",
-    screen:"analyse",
-    target:'[data-quick-start="analyse-grab-zone"]',
-    title:"Meet the inspector",
-    body:"Analyse opens with deeper evidence, impacts and relationships.",
-    placement:"above",
-    padding:18,
-  },
-  {
-    id:"analyse-scroll",
-    screen:"analyse",
-    target:'.analysis-detail-content',
-    title:"Read the evidence",
-    body:"Scroll through the inspector to review the full analysis.",
-    placement:"above",
-    spotlight:"canvas-center",
-    padding:10,
+    instruction:"Tap again to Analyse the topic",
   },
   {
     id:"analyse-collapse",
     screen:"analyse",
     target:'[data-quick-start="analyse-grab-zone"]',
-    title:"Explore connections",
-    body:"Drag the inspector down to reveal connected phenomena.",
-    placement:"above",
-    padding:18,
+    instruction:"Swipe down to see connected topics",
   },
   {
     id:"analyse-node",
     screen:"analyse",
     target:'[data-quick-start="analyse-node"]',
-    title:"Follow a connection",
-    body:"Tap any connected phenomenon to learn more.",
-    placement:"above",
-    spotlight:"canvas-center",
-    padding:10,
+    instruction:"Tap a connected topic to learn about it",
+  },
+  {
+    id:"analyse-back",
+    screen:"analyse",
+    target:'.analysis-sheet-shell',
+    instruction:"Swipe from the left edge to go back",
   },
   {
     id:"return-explore",
     screen:"analyse",
-    target:'[data-quick-start="nav-explore"] .nav-icon',
-    title:"Return to Explore",
-    body:"Tap Explore to return to the globe.",
-    placement:"above",
-    padding:8,
+    target:'[data-quick-start="nav-explore"]',
+    instruction:"Tap Explore to reset",
   },
 ];
-const QUICK_START_EXPLORE_CANVAS_STEPS = new Set(["explore-spin","explore-node","explore-reset","explore-open-analyse"]);
-const QUICK_START_LIVE_STEPS = new Set([...QUICK_START_EXPLORE_CANVAS_STEPS,"analyse-scroll","analyse-collapse","analyse-node"]);
+const QUICK_START_EXPLORE_CANVAS_STEPS = new Set(["explore-spin","explore-node","explore-reset","explore-different-node","explore-open-analyse"]);
 
 function hasCompletedQuickStart() {
   if (typeof window === "undefined") return true;
@@ -321,6 +511,8 @@ const desktopNodes = mobileNodeCatalog as DesktopNodeData[];
 const desktopNodeByName = new Map(desktopNodes.map((node) => [node.name,node]));
 const desktopSearchIndex = desktopNodes.map((node) => ({ node,name:node.name.toLowerCase() }));
 const EXPLORE_MOBILE_ZOOM = 0.975 * 1.15;
+const EXPLORE_SELECTION_ZOOM_MULTIPLIER = 1.15;
+const EXPLORE_CONNECTION_LIMIT = 15;
 const EXPLORE_MAX_RENDER_PIXEL_RATIO = 2.75;
 const EXPLORE_RENDER_PIXEL_BUDGET = 2_250_000;
 const EXPLORE_NATIVE_REST_MAX_RENDER_PIXEL_RATIO = 3;
@@ -332,6 +524,22 @@ const ACTIVITY_SIDE_SWIPE_INSET = 200;
 const ANALYSE_COLLAPSE_GESTURE_HEIGHT_RATIO = .65;
 const ACCIDENTAL_TOUCH_SLOP = 12;
 const SEARCH_HISTORY_KEY = "tulip_mobile_search_history_v1";
+const ANALYSE_STARTING_POINTS_KEY = "tulip_analyse_starting_points_used_v1";
+function readUsedAnalyseStartingPoints():string[] {
+  try {
+    const saved = JSON.parse(window.localStorage.getItem(ANALYSE_STARTING_POINTS_KEY) || "[]");
+    return Array.isArray(saved) ? [...new Set(saved.filter((name):name is string => typeof name === "string"))] : [];
+  } catch { return []; }
+}
+const ANDROID_BOOKMARK_KEY = "tulip_android_bookmarks_v1";
+const ANDROID_LAST_TOPIC_KEY = "tulip_android_last_topic_v1";
+function readAndroidBookmarks():string[] {
+  try {
+    const saved = JSON.parse(window.localStorage.getItem(ANDROID_BOOKMARK_KEY) || "[]");
+    return Array.isArray(saved) ? saved.filter((name):name is string => typeof name === "string") : [];
+  } catch { return []; }
+}
+const escapePrintHtml = (value:unknown) => String(value ?? "").replace(/[&<>"']/g,(character) => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"})[character] || character);
 const DEFAULT_SEARCH_HISTORY = ["Carbon Emission", "Ocean Acidification"];
 const SUGGESTED_SEARCH_TOPICS = [
   "Global Temperature",
@@ -453,13 +661,56 @@ const exploreFilters = [
 
 const humanizeKey = (value: string) => value.replace(/_/g, " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
 
+
+type InspectorPhotoData = {
+  asset:string; width:number; height:number; alt:string; caption:string;
+  credit:string; creditUrl?:string; sourceUrl:string; license:string; licenseUrl:string;
+};
+
+function InspectorPhotoViewer({ photo, name, onClose, onError, trigger }: {
+  photo:InspectorPhotoData; name:string; onClose:() => void; onError:() => void;
+  trigger:React.RefObject<HTMLButtonElement | null>;
+}) {
+  const { screenRef } = useScreenPortal();
+  const swipe = useRef<{id:number;x:number;y:number} | null>(null);
+  return <Dialog.Root open onOpenChange={(open) => { if (!open) onClose(); }}>
+    <Dialog.Portal container={screenRef.current ?? undefined}>
+      <Dialog.Overlay className="inspector-photo-viewer-overlay" />
+      <Dialog.Content className="inspector-photo-viewer mobile-photo-viewer" aria-describedby="mobile-photo-caption" onCloseAutoFocus={(event) => { event.preventDefault(); trigger.current?.focus({preventScroll:true}); }}>
+        <header className="inspector-photo-viewer-header"><Dialog.Title>Photo of {name}</Dialog.Title><Dialog.Close className="inspector-photo-viewer-close" aria-label="Close photograph"><Cross1Icon /></Dialog.Close></header>
+        <div className="inspector-photo-viewer-stage" onPointerDown={(event) => {
+          if (!event.isPrimary || event.button !== 0) return;
+          swipe.current = {id:event.pointerId,x:event.clientX,y:event.clientY};
+          event.currentTarget.setPointerCapture(event.pointerId);
+        }} onPointerUp={(event) => {
+          const start = swipe.current; swipe.current = null;
+          if (!start || start.id !== event.pointerId) return;
+          const dx = event.clientX - start.x, dy = event.clientY - start.y;
+          if (dy < -64 && -dy > Math.abs(dx) * 1.2) onClose();
+        }} onPointerCancel={() => { swipe.current = null; }}>
+          <img src={photo.asset} width={photo.width} height={photo.height} alt={photo.alt} draggable={false} onError={onError} />
+        </div>
+        <p className="inspector-photo-viewer-hint">Swipe up on the photo to close</p>
+        <div className="inspector-photo-viewer-details"><Dialog.Description id="mobile-photo-caption">{photo.caption}</Dialog.Description><p className="inspector-photo-credit"><a href={photo.creditUrl || photo.sourceUrl} target="_blank" rel="noopener noreferrer">Photo: {photo.credit}</a> · <a href={photo.licenseUrl} target="_blank" rel="noopener noreferrer">{photo.license}</a>{photo.creditUrl ? <> · <a href={photo.sourceUrl} target="_blank" rel="noopener noreferrer">Source</a></> : null} · Cropped</p></div>
+      </Dialog.Content>
+    </Dialog.Portal>
+  </Dialog.Root>;
+}
+
 type MobileInspectorProfile = {
   name:string;
   sphere:string;
   updated:string;
   description:string;
-  urgency:number;
-  urgencyBand:string;
+  photo?:InspectorPhotoData | null;
+  urgency:number | null;
+  assessment:Assessment;
+  scoreBreakdown?:{
+    topic:string; summary:string;
+    components:{id:string;label:string;weight:string;value:string;explanation:string}[];
+    formula:string | null; note:string | null;
+  };
+  urgencyBand:string | null;
   incoming:MobileRelationshipEntry[];
   outgoing:MobileRelationshipEntry[];
   human:Record<string,any>;
@@ -691,78 +942,74 @@ function calculateFootprintMobileSnapshot(answers: FootprintAnswer) {
 
 const calculateFootprint = (answers:FootprintAnswer) => SharedFootprintModel.calculatePersonalFootprint(answers) as FootprintResult;
 
-function cloneQuickStartVisual(source:HTMLElement) {
-  const clone = source.cloneNode(true) as HTMLElement;
-  const sourceElements = [source,...Array.from(source.querySelectorAll<HTMLElement>("*"))];
-  const cloneElements = [clone,...Array.from(clone.querySelectorAll<HTMLElement>("*"))];
-  sourceElements.forEach((sourceElement,index) => {
-    const cloneElement = cloneElements[index];
-    if (!cloneElement) return;
-    const computedStyle = window.getComputedStyle(sourceElement);
-    for (const property of Array.from(computedStyle)) {
-      cloneElement.style.setProperty(property,computedStyle.getPropertyValue(property),computedStyle.getPropertyPriority(property));
-    }
-    cloneElement.removeAttribute("id");
-    cloneElement.removeAttribute("data-quick-start");
-    cloneElement.removeAttribute("aria-live");
-    cloneElement.setAttribute("tabindex","-1");
-    if (sourceElement instanceof HTMLInputElement && cloneElement instanceof HTMLInputElement) cloneElement.value = sourceElement.value;
-    if (sourceElement instanceof HTMLCanvasElement && cloneElement instanceof HTMLCanvasElement) {
-      cloneElement.width = sourceElement.width;
-      cloneElement.height = sourceElement.height;
-      try {
-        cloneElement.getContext("2d")?.drawImage(sourceElement,0,0);
-      } catch {
-        // The live canvas remains interactive underneath if a browser declines to copy its pixels.
-      }
-    }
-  });
-  clone.setAttribute("aria-hidden","true");
-  return clone;
-}
-
-function QuickStartTour({ stepIndex, onAdvance, onSkip }: { stepIndex:number; onAdvance:() => void; onSkip:() => void }) {
+function QuickStartTour({ stepIndex, onAdvance }: { stepIndex:number; onAdvance:() => void }) {
   const step = QUICK_START_STEPS[stepIndex];
   const [spotlight,setSpotlight] = useState<QuickStartRect | null>(null);
   const [gestureDemoComplete,setGestureDemoComplete] = useState(step.id !== "explore-spin");
-  const [spinExplorationProgress,setSpinExplorationProgress] = useState(0);
-  const [awaitingAnalyseConfirmation,setAwaitingAnalyseConfirmation] = useState(false);
-  const highlightRef = useRef<HTMLDivElement>(null);
+  const [exitingStep,setExitingStep] = useState<number | null>(null);
+  const promptRef = useRef<HTMLElement>(null);
+  const promptAnchorRef = useRef<HTMLDivElement>(null);
+  const hasSpotlight = spotlight !== null;
+  // Keep one web-owned guide/focus target; iOS supplies only its visual glass
+  // presentation. Older wrappers and browsers keep the CSS glass fallback.
+  useLayoutEffect(() => {
+    const present = (window as Window & {TULIPNative?:TulipNativeBridge}).TULIPNative?.quickStartPrompt;
+    const panel = promptRef.current;
+    const anchor = promptAnchorRef.current;
+    if (!present || !panel || !anchor) return;
+    let previous = "";
+    const measure = () => {
+      // Measure the resting slot, not the sliding glass. The native overlay
+      // must not inherit a transient off-screen origin during an animation.
+      const rect = anchor.getBoundingClientRect();
+      const text = panel.querySelector("p")!;
+      const payload = {step:stepIndex + 1,text:step.instruction,leaving:exitingStep === stepIndex,
+        x:rect.x,y:rect.y,width:rect.width,height:rect.height,fontSize:parseFloat(getComputedStyle(text).fontSize)};
+      const signature = JSON.stringify(payload);
+      if (signature !== previous) { previous = signature; present(payload); }
+    };
+    const observer = new ResizeObserver(measure);
+    observer.observe(anchor);
+    window.addEventListener("resize",measure);
+    measure();
+    return () => { observer.disconnect(); window.removeEventListener("resize",measure); };
+  },[stepIndex,step.instruction,exitingStep,hasSpotlight]);
+  useEffect(() => () => {
+    (window as Window & {TULIPNative?:TulipNativeBridge}).TULIPNative?.quickStartPrompt?.(null);
+    delete document.documentElement.dataset.tulipNativeQuickStartPrompt;
+  },[]);
+  useEffect(() => {
+    if (hasSpotlight) promptRef.current?.focus({preventScroll:true});
+  },[step.id,hasSpotlight]);
   const gestureDemoCompleteRef = useRef(gestureDemoComplete);
-  const pendingAnalyseNodeRef = useRef<string | null>(null);
   const onAdvanceRef = useRef(onAdvance);
   onAdvanceRef.current = onAdvance;
   gestureDemoCompleteRef.current = gestureDemoComplete;
-
-  useEffect(() => {
-    pendingAnalyseNodeRef.current = null;
-    setAwaitingAnalyseConfirmation(false);
-    setSpinExplorationProgress(0);
-  },[step.id]);
 
   useEffect(() => {
     if (step.id !== "explore-spin") {
       setGestureDemoComplete(true);
       return;
     }
+    if (systemPrefersReducedMotion()) {
+      gestureDemoCompleteRef.current = true;
+      setGestureDemoComplete(true);
+      return;
+    }
     setGestureDemoComplete(false);
     gestureDemoCompleteRef.current = false;
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const duration = reducedMotion ? 160 : 2550;
+    const duration = 2550;
     const startedAt = performance.now();
     let animationFrame = 0;
     const animateGesture = (now:number) => {
       const linearProgress = Math.min(1,(now - startedAt) / duration);
       const progress = 1 - Math.pow(1 - linearProgress,3);
-      const directionProgress = linearProgress <= .5
+      const rotationOffset = linearProgress <= .5
         ? 1 - Math.pow(1 - (linearProgress / .5),3)
         : 1 - (1 - Math.pow(1 - ((linearProgress - .5) / .5),3)) * 1.35;
-      window.dispatchEvent(new CustomEvent("tulip:quick-start-spin-demo",{detail:{progress,rotationOffset:directionProgress}}));
-      if (linearProgress < 1) {
-        animationFrame = window.requestAnimationFrame(animateGesture);
-        return;
-      }
-      setGestureDemoComplete(true);
+      window.dispatchEvent(new CustomEvent("tulip:quick-start-spin-demo",{detail:{progress,rotationOffset}}));
+      if (linearProgress < 1) animationFrame = window.requestAnimationFrame(animateGesture);
+      else setGestureDemoComplete(true);
     };
     animationFrame = window.requestAnimationFrame(animateGesture);
     return () => {
@@ -775,19 +1022,22 @@ function QuickStartTour({ stepIndex, onAdvance, onSkip }: { stepIndex:number; on
     const app = document.querySelector<HTMLElement>(".tulip-app");
     if (!app) return;
     let advanceTimer:number | null = null;
+    let exitTimer:number | null = null;
     let advanceScheduled = false;
     let exploredSpinDistance = 0;
+    let practiceSwipes = 0;
     let targetPointer:{ id:number; x:number; y:number } | null = null;
     const scheduleAdvance = (delay = 180) => {
       if (advanceScheduled) return;
       advanceScheduled = true;
-      advanceTimer = window.setTimeout(() => onAdvanceRef.current(),delay);
-    };
-    const handleDocumentClick = (event:MouseEvent) => {
-      if (QUICK_START_LIVE_STEPS.has(step.id) || step.id === "analyse-inspector") return;
-      const target = app.querySelector<HTMLElement>(step.target);
-      if (!target || !(event.target instanceof Node) || !target.contains(event.target)) return;
-      scheduleAdvance();
+      advanceTimer = window.setTimeout(() => {
+        if (systemPrefersReducedMotion()) {
+          onAdvanceRef.current();
+          return;
+        }
+        setExitingStep(stepIndex);
+        exitTimer = window.setTimeout(() => onAdvanceRef.current(),180);
+      },delay);
     };
     const handlePointerDown = (event:PointerEvent) => {
       const target = app.querySelector<HTMLElement>(step.target);
@@ -798,213 +1048,187 @@ function QuickStartTour({ stepIndex, onAdvance, onSkip }: { stepIndex:number; on
     const handlePointerUp = (event:PointerEvent) => {
       const pointer = targetPointer;
       targetPointer = null;
-      if (!pointer || pointer.id !== event.pointerId) return;
+      if (!pointer || pointer.id !== event.pointerId || step.id !== "explore-spin") return;
       const movement = Math.hypot(event.clientX - pointer.x,event.clientY - pointer.y);
-      if (step.id === "explore-spin") {
-        if (!gestureDemoCompleteRef.current || movement < 28) return;
-        exploredSpinDistance += movement;
-        const progress = Math.min(1,exploredSpinDistance / 180);
-        setSpinExplorationProgress(progress);
-        if (progress >= 1) scheduleAdvance(1100);
-        return;
-      }
-      if (QUICK_START_LIVE_STEPS.has(step.id)) return;
-      if (movement <= ACCIDENTAL_TOUCH_SLOP) scheduleAdvance();
+      if (!gestureDemoCompleteRef.current || movement < 28) return;
+      exploredSpinDistance += movement;
+      practiceSwipes += 1;
+      if (practiceSwipes >= 2 && exploredSpinDistance >= 180) scheduleAdvance(700);
     };
     const handlePointerCancel = () => { targetPointer = null; };
     const handleExploreNodeTap = (event:Event) => {
-      const nodeId = String((event as CustomEvent<{id?:string}>).detail?.id || "");
-      if (step.id === "explore-node") {
-        scheduleAdvance();
-        return;
-      }
-      if (step.id !== "explore-open-analyse" || !nodeId) return;
-      if (pendingAnalyseNodeRef.current === nodeId) {
-        scheduleAdvance();
-        return;
-      }
-      pendingAnalyseNodeRef.current = nodeId;
-      setAwaitingAnalyseConfirmation(true);
+      const detail = (event as CustomEvent<{id:string;confirmed:boolean}>).detail;
+      if (!detail?.id) return;
+      if (step.id === "explore-node" || step.id === "explore-different-node") scheduleAdvance();
+      if (step.id === "explore-open-analyse" && detail.confirmed) scheduleAdvance();
     };
     const handleExploreReset = () => {
       if (step.id === "explore-reset") scheduleAdvance();
     };
     const handleAnalyseInspectorState = (event:Event) => {
-      const expanded = Boolean((event as CustomEvent<{expanded?:boolean}>).detail?.expanded);
-      if (step.id === "analyse-collapse" && !expanded) scheduleAdvance();
+      const detail = (event as CustomEvent<{expanded?:boolean;interaction?:string}>).detail;
+      if (step.id === "analyse-collapse" && detail?.expanded === false && detail.interaction === "drag") scheduleAdvance();
     };
     const handleAnalyseNodeTap = () => {
-      if (step.id === "analyse-node") scheduleAdvance();
+      if (step.id === "analyse-node") scheduleAdvance(400);
     };
-    const handleScroll = (event:Event) => {
-      if (step.id !== "analyse-scroll" || !(event.target instanceof HTMLElement)) return;
-      if (!event.target.matches(".analyse-scroll .mobile-scroll") || event.target.scrollTop < 36) return;
-      scheduleAdvance();
+    const handleAnalyseBack = () => {
+      if (step.id === "analyse-back") scheduleAdvance(400);
+    };
+    const handleExploreNavigation = () => {
+      if (step.id === "return-explore") scheduleAdvance();
+    };
+
+    // Disable unrelated controls for pointer, keyboard, and assistive input.
+    // The actual gesture surface remains live; the guide never simulates success.
+    const changedInert = new Map<HTMLElement,boolean>();
+    const updateInert = () => {
+      const allowed = step.id === "return-explore" ? '[data-quick-start="nav-explore"]'
+        : step.id === "analyse-collapse" ? ".quick-start-no-controls"
+        : step.id === "analyse-node" ? '.analyse-causal-relation'
+        : step.id === "analyse-back" ? ".quick-start-no-controls"
+        : step.target;
+      app.querySelectorAll<HTMLElement>("button,a,input,summary,[role=button]").forEach((control) => {
+        if (control.closest(".quick-start-layer")) return;
+        if (control.closest(allowed)) {
+          if (changedInert.has(control)) control.inert = changedInert.get(control)!;
+          return;
+        }
+        if (!changedInert.has(control)) changedInert.set(control,control.inert);
+        control.inert = true;
+      });
     };
     const measure = () => {
       const target = app.querySelector<HTMLElement>(step.target);
-      if (!target) {
-        setSpotlight(null);
-        return;
-      }
+      if (!target) { setSpotlight(null); return; }
       const appRect = app.getBoundingClientRect();
-      const targetRect = target.getBoundingClientRect();
-      const padding = step.padding || 0;
-      let x = targetRect.left - appRect.left - padding;
-      let y = targetRect.top - appRect.top - padding;
-      let width = targetRect.width + (padding * 2);
-      let height = targetRect.height + (padding * 2);
-      if (step.spotlight === "canvas-center") {
-        const size = Math.max(240,Math.min(appRect.width - 20,appRect.height - 330));
-        x = (targetRect.left - appRect.left) + (targetRect.width - size) / 2;
-        y = (targetRect.top - appRect.top) + (targetRect.height - size) / 2;
-        width = size;
-        height = size;
+      const scale = appRect.width / app.clientWidth || 1;
+      if (step.id === "analyse-node" && promptRef.current) {
+        // Keep every choice below the bubble, including when system text wraps.
+        const top = `${Math.ceil((promptRef.current.getBoundingClientRect().bottom - appRect.top) / scale) + 12}px`;
+        if (app.style.getPropertyValue("--quick-start-content-top") !== top) app.style.setProperty("--quick-start-content-top",top);
       }
-      x = Math.max(8,Math.min(appRect.width - width - 8,x));
-      y = Math.max(8,Math.min(appRect.height - height - 8,y));
-      setSpotlight({
-        x,
-        y,
-        width,
-        height,
-        targetX:targetRect.left - appRect.left,
-        targetY:targetRect.top - appRect.top,
-        targetWidth:targetRect.width,
-        targetHeight:targetRect.height,
-        containerWidth:appRect.width,
-        containerHeight:appRect.height,
-      });
+      const targetRect = target.getBoundingClientRect();
+      let x = (targetRect.left - appRect.left) / scale;
+      let y = (targetRect.top - appRect.top) / scale;
+      let width = targetRect.width / scale;
+      let height = targetRect.height / scale;
+      if (QUICK_START_EXPLORE_CANVAS_STEPS.has(step.id)) {
+        const node = target.dataset.quickStartNode ? JSON.parse(target.dataset.quickStartNode) as AppPoint : null;
+        if (node && step.id !== "explore-spin" && step.id !== "explore-reset") {
+          x += node.x - 28;
+          y += node.y - 28;
+          width = height = 56;
+        } else if (step.id === "explore-reset") {
+          x += width * .12;
+          y += height * .72;
+          width *= .65;
+          height *= .1;
+        } else {
+          x += width * .22;
+          y += height * .47;
+          width *= .56;
+          height *= .12;
+        }
+      } else if (step.id === "analyse-back") {
+        y += Math.min(height * .28,200);
+        x += width * .14;
+        width *= .72;
+        height = 72;
+      }
+      const next:QuickStartRect = {
+        x,y,width,height,
+        targetX:(targetRect.left - appRect.left) / scale,
+        targetY:(targetRect.top - appRect.top) / scale,
+        targetWidth:targetRect.width / scale,targetHeight:targetRect.height / scale,
+        containerWidth:app.clientWidth,containerHeight:app.clientHeight,
+      };
+      setSpotlight((previous) => previous && Object.keys(next).every((key) =>
+        Math.abs(next[key as keyof QuickStartRect] - previous[key as keyof QuickStartRect]) < 1) ? previous : next);
     };
-    const resizeObserver = new ResizeObserver(measure);
+    const refresh = () => { updateInert(); measure(); };
+    const resizeObserver = new ResizeObserver(refresh);
     resizeObserver.observe(app);
     const mutationObserver = new MutationObserver((mutations) => {
       if (mutations.every((mutation) => (mutation.target as Element).closest?.(".quick-start-layer"))) return;
-      measure();
+      refresh();
     });
     mutationObserver.observe(app,{childList:true,subtree:true});
-    window.addEventListener("pointerdown",handlePointerDown,true);
-    window.addEventListener("pointerup",handlePointerUp,true);
-    window.addEventListener("pointercancel",handlePointerCancel,true);
-    window.addEventListener("click",handleDocumentClick,true);
-    window.addEventListener("tulip:explore-node-tap",handleExploreNodeTap);
-    window.addEventListener("tulip:explore-reset",handleExploreReset);
-    window.addEventListener("tulip:analyse-inspector-state",handleAnalyseInspectorState);
-    window.addEventListener("tulip:analyse-node-tap",handleAnalyseNodeTap);
-    window.addEventListener("scroll",handleScroll,true);
-    window.addEventListener("resize",measure);
-    const firstFrame = window.requestAnimationFrame(measure);
-    const settleTimer = window.setTimeout(measure,260);
+    const events:Array<[string,EventListener]> = [
+      ["pointerdown",handlePointerDown as EventListener],
+      ["pointerup",handlePointerUp as EventListener],
+      ["pointercancel",handlePointerCancel],
+      ["tulip:explore-node-tap",handleExploreNodeTap],
+      ["tulip:explore-reset",handleExploreReset],
+      ["tulip:analyse-inspector-state",handleAnalyseInspectorState],
+      ["tulip:analyse-node-tap",handleAnalyseNodeTap],
+      ["tulip:analyse-back",handleAnalyseBack],
+      ["tulip:explore-navigation",handleExploreNavigation],
+    ];
+    events.forEach(([name,listener]) => window.addEventListener(name,listener,true));
+    const firstFrame = window.requestAnimationFrame(refresh);
+    // Follow moving canvas nodes and sheet settling without a React render per frame.
+    const geometryTimer = window.setInterval(measure,120);
     return () => {
       window.cancelAnimationFrame(firstFrame);
-      window.clearTimeout(settleTimer);
+      window.clearInterval(geometryTimer);
       if (advanceTimer !== null) window.clearTimeout(advanceTimer);
+      if (exitTimer !== null) window.clearTimeout(exitTimer);
       resizeObserver.disconnect();
       mutationObserver.disconnect();
-      window.removeEventListener("pointerdown",handlePointerDown,true);
-      window.removeEventListener("pointerup",handlePointerUp,true);
-      window.removeEventListener("pointercancel",handlePointerCancel,true);
-      window.removeEventListener("click",handleDocumentClick,true);
-      window.removeEventListener("tulip:explore-node-tap",handleExploreNodeTap);
-      window.removeEventListener("tulip:explore-reset",handleExploreReset);
-      window.removeEventListener("tulip:analyse-inspector-state",handleAnalyseInspectorState);
-      window.removeEventListener("tulip:analyse-node-tap",handleAnalyseNodeTap);
-      window.removeEventListener("scroll",handleScroll,true);
-      window.removeEventListener("resize",measure);
+      app.style.removeProperty("--quick-start-content-top");
+      changedInert.forEach((wasInert,control) => { control.inert = wasInert; });
+      events.forEach(([name,listener]) => window.removeEventListener(name,listener,true));
     };
-  },[step]);
+  },[step,stepIndex]);
 
-  useEffect(() => {
-    const app = document.querySelector<HTMLElement>(".tulip-app");
-    const target = app?.querySelector<HTMLElement>(step.target);
-    const highlight = highlightRef.current;
-    if (!app || !target || !highlight || !spotlight) return;
-    if (QUICK_START_LIVE_STEPS.has(step.id)) {
-      highlight.replaceChildren();
-      return;
-    }
-    const visual = cloneQuickStartVisual(target);
-    visual.classList.add("quick-start-visual-clone");
-    visual.style.position = "absolute";
-    visual.style.left = `${spotlight.targetX - spotlight.x}px`;
-    visual.style.top = `${spotlight.targetY - spotlight.y}px`;
-    visual.style.width = `${spotlight.targetWidth}px`;
-    visual.style.height = `${spotlight.targetHeight}px`;
-    visual.style.margin = "0";
-    visual.style.pointerEvents = "none";
-    visual.style.userSelect = "none";
-    visual.style.animation = "none";
-    visual.style.transition = "none";
-    highlight.replaceChildren(visual);
-    return () => highlight.replaceChildren();
-  },[spotlight,step]);
-
-  useEffect(() => {
-    if (step.id !== "analyse-inspector" || !spotlight) return;
-    document.querySelector<HTMLButtonElement>('.analysis-sheet-handle[aria-label="Expand node inspector"]')?.click();
-    const timer = window.setTimeout(() => onAdvanceRef.current(),1400);
-    return () => window.clearTimeout(timer);
-  },[spotlight,step.id]);
-
-  useEffect(() => {
-    const handleKeyDown = (event:KeyboardEvent) => {
-      if (event.key === "Escape") onSkip();
-    };
-    window.addEventListener("keydown",handleKeyDown);
-    return () => window.removeEventListener("keydown",handleKeyDown);
-  },[onSkip]);
-
-  if (!spotlight) {
-    return <div className="quick-start-layer is-waiting" role="dialog" aria-label="Quick Start guide" data-step={step.id}><section className="quick-start-panel quick-start-panel-centered"><h2>Getting this step ready…</h2><div className="quick-start-actions"><button className="quick-start-skip" onClick={onSkip}>Skip</button></div></section></div>;
-  }
+  if (!spotlight) return <div className="quick-start-layer is-waiting" role="dialog" aria-label="Quick Start guide" data-step={step.id} />;
 
   const {x,y,width,height,containerWidth,containerHeight} = spotlight;
-  const belowSpace = containerHeight - (y + height);
-  const aboveSpace = y;
-  const placement = step.placement === "above"
-    ? (aboveSpace >= 166 || belowSpace < aboveSpace ? "above" : "below")
-    : (belowSpace >= 166 || aboveSpace < belowSpace ? "below" : "above");
-  const panelStyle = placement === "above"
-    ? { bottom:Math.max(16,containerHeight - y + 14) }
-    : { top:Math.max(16,y + height + 14) };
-  const blockerStyles:CSSProperties[] = [
-    {left:0,top:0,width:containerWidth,height:y},
-    {left:0,top:y,width:x,height},
-    {left:x + width,top:y,width:Math.max(0,containerWidth - x - width),height},
-    {left:0,top:y + height,width:containerWidth,height:Math.max(0,containerHeight - y - height)},
-  ];
   const highlightStyle = {left:x,top:y,width,height} as CSSProperties;
-  const isLiveSurfaceStep = QUICK_START_LIVE_STEPS.has(step.id);
+  const target = {x:spotlight.targetX,y:spotlight.targetY,width:spotlight.targetWidth,height:spotlight.targetHeight};
+  // Block only outside the expected surface, leaving vertical and horizontal
+  // gestures owned by their existing scrollers and inspector.
+  const interaction = step.id === "return-explore" ? {x:x - 10,y:y - 10,width:width + 20,height:height + 20}
+    : target;
+  const blockerStyles:CSSProperties[] = [
+    {left:0,top:0,width:containerWidth,height:Math.max(0,interaction.y)},
+    {left:0,top:interaction.y,width:Math.max(0,interaction.x),height:interaction.height},
+    {left:interaction.x + interaction.width,top:interaction.y,width:Math.max(0,containerWidth - interaction.x - interaction.width),height:interaction.height},
+    {left:0,top:interaction.y + interaction.height,width:containerWidth,height:Math.max(0,containerHeight - interaction.y - interaction.height)},
+  ];
+  const gesture = step.id === "explore-reset" ? "reset" : step.id === "analyse-back" ? "back"
+    : step.id === "explore-spin" && !gestureDemoComplete ? "spin" : null;
+  const gestureStyle = gesture === "reset" ? {
+    left:target.x + target.width * .15,top:target.y + target.height * .78,
+    "--gesture-x":`${target.width * .57}px`,"--gesture-y":`${-target.height * .26}px`,
+  } as CSSProperties : gesture === "back" ? {
+    left:target.x + 24,top:y + height / 2,"--gesture-x":`${target.width / 2 - 24}px`,"--gesture-y":"0px",
+  } as CSSProperties : highlightStyle;
   return <div className="quick-start-layer" role="dialog" aria-label="Quick Start guide" data-step={step.id}>
-    {!isLiveSurfaceStep ? <div className="quick-start-dimmer" aria-hidden="true" /> : null}
-    {!isLiveSurfaceStep ? blockerStyles.map((style,index) => <div className="quick-start-blocker" style={style} key={index} />) : null}
-    <div ref={highlightRef} className="quick-start-highlight" style={highlightStyle} aria-hidden="true" />
-    {step.id === "explore-spin" && !gestureDemoComplete ? <>
-      <div className="quick-start-target-lock" aria-hidden="true" />
-      <div className="quick-start-spin-demo" style={highlightStyle} aria-hidden="true">
-        <i className="quick-start-touch-dot is-primary" />
-        <i className="quick-start-touch-dot is-echo" />
+    {step.id === "return-explore" ? <div className="quick-start-dimmer" aria-hidden="true" /> : null}
+    {blockerStyles.map((style,index) => <div className="quick-start-blocker" style={style} key={index} />)}
+    {step.id === "return-explore" ?
+      <div className="quick-start-highlight" style={highlightStyle} aria-hidden="true">
+        <span className="nav-pill-indicator" />
+        <img className="nav-icon" src={navItems.find(item => item.id === "explore")!.iconSrc} alt="" />
       </div>
-    </> : null}
-    <section className={`quick-start-panel is-${placement}`} style={panelStyle} aria-live="polite">
-      <div className="quick-start-progress" aria-label={`Step ${stepIndex + 1} of ${QUICK_START_STEPS.length}`}><i style={{width:`${((stepIndex + 1) / QUICK_START_STEPS.length) * 100}%`}} /></div>
-      <h2>{step.title}</h2>
-      <p>{step.id === "explore-spin" && gestureDemoComplete
-        ? spinExplorationProgress >= 1
-          ? "Great—watch the globe settle."
-          : spinExplorationProgress >= .45
-            ? "Keep spinning—try another direction."
-            : "Now drag the globe freely to explore."
-        : step.id === "explore-open-analyse" && awaitingAnalyseConfirmation
-          ? "Now tap that same node again to open Analyse."
-          : step.body}</p>
-    </section>
-    <button className="quick-start-skip-menu" onClick={onSkip}>Skip</button>
+    : null}
+    {step.id === "explore-spin" && !gestureDemoComplete ? <div className="quick-start-target-lock" aria-hidden="true" /> : null}
+    {gesture ? <div key={gesture} className={`quick-start-gesture is-${gesture}`} style={gestureStyle} aria-hidden="true">
+      <i className="quick-start-touch-dot is-primary" /><i className="quick-start-touch-dot is-echo" />
+    </div> : null}
+    <div ref={promptAnchorRef} className="quick-start-prompt-anchor" style={{"--quick-start-slide":`${containerWidth}px`} as CSSProperties}>
+      <section key={step.id} ref={promptRef} tabIndex={-1} className={`quick-start-panel${stepIndex > 0 ? " is-entering" : ""}`} data-leaving={exitingStep === stepIndex} aria-live="polite" aria-atomic="true">
+        <span className="quick-start-step-number" role="progressbar" aria-label="Quick Start progress" aria-valuemin={1} aria-valuemax={QUICK_START_STEPS.length} aria-valuenow={stepIndex + 1} aria-valuetext={`Step ${stepIndex + 1} of ${QUICK_START_STEPS.length}`}>{stepIndex + 1}</span>
+        <div className="quick-start-prompt-viewport"><p>{step.instruction}</p></div>
+      </section>
+    </div>
   </div>;
 }
 
-function Brand({ compact = false }: { compact?: boolean }) {
-  return <div className={`brand ${compact ? "brand-compact" : ""}`} aria-label="The Tulip Project">{!compact ? <img src="/assets/tulip/logo-monogram.svg" alt="" /> : null}<span>THE<br className={compact ? "brand-break" : ""} /> TULIP<br className={compact ? "brand-break" : ""} /> PROJECT</span></div>;
+function Brand() {
+  return <div className="brand"><img src="/assets/tulip/tulip-earth-logo.svg" alt="Tulip Earth" width={434.89} height={178.3} /></div>;
 }
 
 type FullscreenDocument = Document & {
@@ -1032,8 +1256,8 @@ function ExploreTopBar({ onOpenInfo, onStartQuickStart }: { onOpenInfo:(section:
   const share = () => {
     setMenuOpen(false);
     nativeBridge?.share({
-      title:"The TULIP Project",
-      text:"Explore how environmental causes and consequences connect with The TULIP Project.",
+      title:"Tulip Earth",
+      text:"Explore how environmental causes and consequences connect with Tulip Earth.",
       url:"https://tulip-project-six.vercel.app/",
     });
   };
@@ -1041,8 +1265,8 @@ function ExploreTopBar({ onOpenInfo, onStartQuickStart }: { onOpenInfo:(section:
     setMenuOpen(false);
     onStartQuickStart();
   };
-  const menu = <section className="explore-menu-screen" role="dialog" aria-modal="true" aria-labelledby="explore-menu-title"><header><h1 id="explore-menu-title">Menu</h1><button className="explore-menu-cancel" onClick={() => setMenuOpen(false)} aria-label="Close TULIP menu">Cancel</button></header><nav className="explore-menu-popover" role="menu"><div className="explore-menu-items"><button role="menuitem" onClick={startQuickStart}>Quick Start</button>{([['score','TULIP Score'],['sources','Sources'],['registries','Registries'],['about','About'],['contact','Contact'],['privacy','Privacy']] as Array<[ExploreInfoSection,string]>).map(([section,label]) => <button key={section} role="menuitem" onClick={() => openInfo(section)}>{label}</button>)}{nativeBridge ? <button role="menuitem" onClick={share}>Share TULIP</button> : null}</div></nav></section>;
-  return <header className="top-bar explore-top-bar"><Brand /><div className="explore-menu-wrap"><button className="icon-button explore-menu-button" onClick={() => setMenuOpen(true)} aria-label="Open TULIP menu" aria-expanded={menuOpen} aria-hidden={menuOpen || undefined} tabIndex={menuOpen ? -1 : 0}><HamburgerMenuIcon width={27} height={27} /></button>{menuOpen ? createPortal(menu,document.querySelector(".tulip-app") || document.body) : null}</div></header>;
+  const menu = <section className="explore-menu-screen" role="dialog" aria-modal="true" aria-labelledby="explore-menu-title"><header><h1 id="explore-menu-title">Menu</h1><button className="explore-menu-cancel" onClick={() => setMenuOpen(false)} aria-label="Close TULIP menu">Cancel</button></header><nav className="explore-menu-popover" role="menu"><div className="explore-menu-items"><button role="menuitem" onClick={startQuickStart}>Quick Start</button>{nativeBridge?.notificationSettings ? <button role="menuitem" onClick={() => { setMenuOpen(false); nativeBridge.notificationSettings?.(); }}>Notifications</button> : null}{([['about','About'],['score','TULIP Score'],['sources','Sources'],['registries','Registries'],['privacy','Privacy'],['contact','Contact']] as Array<[ExploreInfoSection,string]>).map(([section,label]) => <button key={section} role="menuitem" onClick={() => openInfo(section)}>{label}</button>)}{nativeBridge ? <button role="menuitem" onClick={share}>Share</button> : null}</div></nav></section>;
+  return <header className="top-bar explore-top-bar"><Brand /><div className="explore-menu-wrap"><button className="icon-button explore-menu-button" onClick={() => setMenuOpen(true)} aria-label="Open Tulip Earth menu" aria-expanded={menuOpen} aria-hidden={menuOpen || undefined} tabIndex={menuOpen ? -1 : 0}><HamburgerMenuIcon width={27} height={27} /></button>{menuOpen ? createPortal(menu,document.querySelector(".tulip-app") || document.body) : null}</div></header>;
 }
 
 function BottomNav({ active, compact = false, onChange, onExploreLongPress }: { active: Screen; compact?:boolean; onChange: (screen: Screen) => void; onExploreLongPress:() => void }) {
@@ -1217,11 +1441,17 @@ function BottomNav({ active, compact = false, onChange, onExploreLongPress }: { 
 function ExploreScreen({ active, suspended, activeFilter, resetKey, onOpenInfo, onStartQuickStart, onAnalyse }: { active: boolean; suspended:boolean; activeFilter:string; resetKey:number; onOpenInfo:(section:ExploreInfoSection) => void; onStartQuickStart:() => void; onAnalyse: (name: string, origin?:AppPoint) => void }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const graphRef = useRef<DesktopGraph | null>(null);
+  const presentationRef = useRef({active,suspended});
+  presentationRef.current = {active,suspended};
   const selectedNodeIdRef = useRef<string | null>(null);
   const selectedZoomRef = useRef<number | null>(null);
-  const preSelectionViewRef = useRef<{ rotationX:number; rotationY:number; cameraX:number; cameraY:number; zoom:number } | null>(null);
+  const preSelectionViewRef = useRef<{ rotationX:number; rotationY:number; orientation:[number,number,number,number] | null; idleAxis:[number,number,number]; cameraX:number; cameraY:number; zoom:number } | null>(null);
+  const previousResetKeyRef = useRef(resetKey);
+  const [connectionSummary,setConnectionSummary] = useState<{ triggers:number; effects:number } | null>(null);
   const activeFilterRef = useRef(activeFilter);
   activeFilterRef.current = activeFilter;
+  const onAnalyseRef = useRef(onAnalyse);
+  onAnalyseRef.current = onAnalyse;
 
   useEffect(() => {
     let cancelled = false;
@@ -1243,8 +1473,12 @@ function ExploreScreen({ active, suspended, activeFilter, resetKey, onOpenInfo, 
       createMobileGraphNodes(graphSnapshot.graphNodes),
       createMobileGraphEdges(graphSnapshot.graphEdges),
       (node: DesktopNode, interaction?:{ motionOrigin?:AppPoint }) => {
-        canvas.dispatchEvent(new CustomEvent("tulip:explore-node-tap",{bubbles:true,detail:{id:node.id,name:node.name}}));
-        if (selectedNodeIdRef.current === node.id) {
+        const confirmed = selectedNodeIdRef.current === node.id;
+        if (canvas.closest<HTMLElement>(".tulip-app")?.dataset.quickStartStep === "explore-node") {
+          canvas.dataset.quickStartFirstNode = node.id;
+        }
+        canvas.dispatchEvent(new CustomEvent("tulip:explore-node-tap",{bubbles:true,detail:{id:node.id,name:node.name,confirmed}}));
+        if (confirmed) {
           const canvasRect = canvas.getBoundingClientRect();
           const scale = canvas.clientWidth > 0 ? canvasRect.width / canvas.clientWidth : 1;
           const origin = interaction?.motionOrigin
@@ -1253,25 +1487,50 @@ function ExploreScreen({ active, suspended, activeFilter, resetKey, onOpenInfo, 
                 y:(interaction.motionOrigin.y - canvasRect.top) / Math.max(scale,.001),
               }
             : undefined;
-          onAnalyse(node.name,origin);
+          onAnalyseRef.current(node.name,origin);
           return;
         }
-        selectedZoomRef.current = graphRef.current?.targetCamera?.zoom ?? graphRef.current?.camera.zoom ?? EXPLORE_MOBILE_ZOOM;
+        const currentZoom = graphRef.current?.targetCamera?.zoom ?? graphRef.current?.camera.zoom ?? EXPLORE_MOBILE_ZOOM;
         if (!preSelectionViewRef.current) {
           preSelectionViewRef.current = {
             rotationX:graph.rotationX,
             rotationY:graph.rotationY,
+            orientation:graph.freeRotationOrientation ? [...graph.freeRotationOrientation] : null,
+            idleAxis:graph.freeRotationIdleAxis ? [...graph.freeRotationIdleAxis] : [0,-1,0],
             cameraX:graph.camera.x,
             cameraY:graph.camera.y,
-            zoom:selectedZoomRef.current,
+            zoom:currentZoom,
           };
+          selectedZoomRef.current = Math.min(
+            EXPLORE_MOBILE_ZOOM * 1.4,
+            currentZoom * EXPLORE_SELECTION_ZOOM_MULTIPLIER,
+          );
         }
         selectedNodeIdRef.current = node.id;
+        setConnectionSummary({
+          triggers:graph.incomingEdgesById.get(node.id)?.length ?? 0,
+          effects:graph.outgoingEdgesById.get(node.id)?.length ?? 0,
+        });
         canvas.dataset.selectedNodeId = node.id;
-        canvas.dataset.selectionZoom = selectedZoomRef.current.toFixed(4);
+        canvas.dataset.selectionZoom = (selectedZoomRef.current ?? currentZoom).toFixed(4);
       },
     ) as DesktopGraph;
       graphRef.current = graph;
+    graph.onReselectNode = graph.onSelectNode;
+    const app = canvas.closest<HTMLElement>(".tulip-app");
+    const originalHitNode = graph.findBestHitNode.bind(graph);
+    graph.findBestHitNode = (point) => {
+      const step = app?.dataset.quickStartStep;
+      const node = originalHitNode(point);
+      if (!step) return node;
+      if (step === "explore-open-analyse") return node?.id === selectedNodeIdRef.current ? node : null;
+      if (step !== "explore-node" && step !== "explore-different-node") return null;
+      if (selectedNodeIdRef.current || (step === "explore-different-node" && node?.id === canvas.dataset.quickStartFirstNode)) return null;
+      return node;
+    };
+    let guideNodeId:string | null = null;
+    let lastGuideStep:string | undefined;
+    let lastGuideMeasure = 0;
     graph.exportBackgroundColor = "#000000";
     graph.mobileLineOpacityMultiplier = .408;
     canvas.dataset.mobileLineOpacityMultiplier = graph.mobileLineOpacityMultiplier.toFixed(3);
@@ -1294,9 +1553,13 @@ function ExploreScreen({ active, suspended, activeFilter, resetKey, onOpenInfo, 
     canvas.dataset.targetFrameDurationMs = String(graph.targetFrameDurationMs);
     canvas.dataset.targetRefreshRate = String(targetRefreshRate);
     const isNativeApp = Boolean((window as Window & { __TULIP_NATIVE_APP__?:boolean }).__TULIP_NATIVE_APP__);
+    graph.freeSphereRotation = isNativeApp;
+    graph.ambientLineRhythm = isNativeApp;
     const originalDraw = graph.draw.bind(graph);
     let interactionQualityActive:boolean | null = null;
     let hasPresentedFirstFrame = false;
+    let pendingExploreFrameToken:number | null = null;
+    let reportedExploreFrameToken:number | null = null;
     const applyAdaptiveNativeResolution = (interacting:boolean) => {
       if (!isNativeApp || interactionQualityActive === interacting) return;
       interactionQualityActive = interacting;
@@ -1328,10 +1591,66 @@ function ExploreScreen({ active, suspended, activeFilter, resetKey, onOpenInfo, 
         || graph.touchGesture
         || graph.touchMomentum
       ));
-      originalDraw();
+      try {
+        originalDraw();
+      } catch (error) {
+        canvas.dataset.renderError = "true";
+        graph.pause();
+        console.error("Explore sphere could not render",error);
+        return;
+      }
+      const guideStep = app?.dataset.quickStartStep;
+      if (guideStep && ["explore-node","explore-different-node","explore-open-analyse"].includes(guideStep)) {
+        // Keep the chosen label still and measure at a low frequency. The globe
+        // renderer owns its frames; React only receives changed guide geometry.
+        graph.autoRotatePausedUntil = Date.now() + 240;
+        graph.touchMomentum = null;
+        if (guideStep !== lastGuideStep) guideNodeId = null;
+        if (performance.now() - lastGuideMeasure > 100) {
+          lastGuideMeasure = performance.now();
+          const candidate = selectedNodeIdRef.current ? graph.selectedNode : graph.nodes
+            .filter((node) => Number(node.z) >= .14 && (guideStep !== "explore-different-node" || node.id !== canvas.dataset.quickStartFirstNode))
+            .filter((node) => {
+              const point = graph.worldToScreen(node.x,node.y);
+              return point.x > 48 && point.x < graph.width - 48 && point.y > graph.height * .25 && point.y < graph.height * .65
+                && (graph.incomingEdgesById.get(node.id)?.length || graph.outgoingEdgesById.get(node.id)?.length);
+            })
+            .sort((a,b) => Number(b.id === guideNodeId) - Number(a.id === guideNodeId)
+              || Number(graph.ambientHighlightSet.has(b.id)) - Number(graph.ambientHighlightSet.has(a.id))
+              || Number(b.z) - Number(a.z))[0];
+          if (candidate) {
+            guideNodeId = candidate.id;
+            const point = graph.worldToScreen(candidate.x,candidate.y);
+            canvas.dataset.quickStartNode = JSON.stringify({id:candidate.id,name:candidate.name,x:point.x,y:point.y});
+          }
+        }
+      } else if (guideStep !== lastGuideStep) {
+        delete canvas.dataset.quickStartNode;
+      }
+      lastGuideStep = guideStep;
       if (!hasPresentedFirstFrame) {
         hasPresentedFirstFrame = true;
         canvas.dataset.firstFrameRendered = "true";
+      }
+      const nativeWindow = window as Window & {
+        __TULIP_EXPLORE_PREPARE_TOKEN__?:number;
+        TULIPNative?:TulipNativeBridge;
+      };
+      const token = nativeWindow.__TULIP_EXPLORE_PREPARE_TOKEN__;
+      if (isNativeApp && Number.isInteger(token) && token !== pendingExploreFrameToken
+          && token !== reportedExploreFrameToken && presentationRef.current.active
+          && !presentationRef.current.suspended
+          && canvas.dataset.nativePreparedExploreToken === String(token)) {
+        pendingExploreFrameToken = token!;
+        // Two presentation frames let WebKit commit the fresh canvas before
+        // native chrome removes the outgoing tab.
+        window.requestAnimationFrame(() => window.requestAnimationFrame(() => {
+          pendingExploreFrameToken = null;
+          if (nativeWindow.__TULIP_EXPLORE_PREPARE_TOKEN__ !== token
+              || !canvas.isConnected || presentationRef.current.suspended) return;
+          reportedExploreFrameToken = token!;
+          nativeWindow.TULIPNative?.exploreFrameReady?.(token!);
+        }));
       }
     };
     graph.touchTapSlop = ACCIDENTAL_TOUCH_SLOP;
@@ -1349,6 +1668,41 @@ function ExploreScreen({ active, suspended, activeFilter, resetKey, onOpenInfo, 
     graph.isNodeInteractiveInAnalyze = (node: DesktopNodeData) => (
       node.id === graph.selectedNode?.id || isDesktopInteractiveFocusNode(node)
     );
+    graph.getCollapsedAnalyzeSelection = (incomingEdges,outgoingEdges) => {
+      const totalConnections = incomingEdges.length + outgoingEdges.length;
+      if (totalConnections <= EXPLORE_CONNECTION_LIMIT) {
+        return {
+          displayedDriverEdges:incomingEdges,
+          displayedImpactEdges:outgoingEdges,
+          representativeCandidates:[],
+        };
+      }
+
+      const hasBothDirections = incomingEdges.length > 0 && outgoingEdges.length > 0;
+      const incomingShare = Math.round(EXPLORE_CONNECTION_LIMIT * (incomingEdges.length / totalConnections));
+      const maximumIncoming = hasBothDirections ? EXPLORE_CONNECTION_LIMIT - 1 : EXPLORE_CONNECTION_LIMIT;
+      let incomingLimit = Math.min(
+        incomingEdges.length,
+        maximumIncoming,
+        Math.max(incomingEdges.length ? 1 : 0,incomingShare),
+      );
+      let outgoingLimit = Math.min(
+        outgoingEdges.length,
+        EXPLORE_CONNECTION_LIMIT - incomingLimit,
+      );
+      const unfilled = EXPLORE_CONNECTION_LIMIT - incomingLimit - outgoingLimit;
+      if (unfilled > 0) {
+        const incomingRoom = incomingEdges.length - incomingLimit;
+        const addIncoming = Math.min(unfilled,incomingRoom);
+        incomingLimit += addIncoming;
+        outgoingLimit += Math.min(unfilled - addIncoming,outgoingEdges.length - outgoingLimit);
+      }
+      return {
+        displayedDriverEdges:incomingEdges.slice(0,incomingLimit),
+        displayedImpactEdges:outgoingEdges.slice(0,outgoingLimit),
+        representativeCandidates:[],
+      };
+    };
     const lockExploreCameraOrigin = () => {
       const originX = graph.width / 2;
       const originY = graph.height / 2 + EXPLORE_CAMERA_VERTICAL_OFFSET;
@@ -1362,13 +1716,21 @@ function ExploreScreen({ active, suspended, activeFilter, resetKey, onOpenInfo, 
       if (canvas.dataset.cameraOrigin !== encodedOrigin) canvas.dataset.cameraOrigin = encodedOrigin;
     };
     const originalUpdatePhysics = graph.updatePhysics.bind(graph);
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const mobileNodeById = new Map(graph.nodes.map((node) => [node.id,node]));
     let lastAmbientFillAt = 0;
     graph.updatePhysics = (...args:any[]) => {
+      graph.mobileAutoRotateSpeedMultiplier = app?.dataset.onboardingActive === "true"
+        ? (reducedMotion.matches || document.documentElement.dataset.tulipReduceMotion === "true" ? 0 : .3)
+        : 1.4;
       originalUpdatePhysics(...args);
       lockExploreCameraOrigin();
       canvas.dataset.rotationX = graph.rotationX.toFixed(5);
       canvas.dataset.rotationY = graph.rotationY.toFixed(5);
+      if ((window as Window & { __TULIP_ROTATION_DEBUG__?:boolean }).__TULIP_ROTATION_DEBUG__
+        && graph.freeRotationOrientation) {
+        canvas.dataset.freeRotationOrientation = graph.freeRotationOrientation.map((value) => value.toFixed(5)).join(",");
+      }
       if (graph.isFocusMode || graph.selectedNode) return;
       const targetCount = 7;
       const activeNodes = graph.ambientHighlights
@@ -1391,7 +1753,7 @@ function ExploreScreen({ active, suspended, activeFilter, resetKey, onOpenInfo, 
         let bestIndex = 0;
         let bestScore = -Infinity;
         candidates.forEach((node,index) => {
-          const priority = Math.max(.1,Number(node.tulipScore ?? node.score?.baseline ?? 0));
+          const priority = Math.max(.1,Number(node.tulipScore ?? 0));
           const distance = activeNodes.length
             ? Math.min(...activeNodes.map((activeNode) => Math.hypot(
                 Number(node.sphereX ?? 0) - Number(activeNode.sphereX ?? 0),
@@ -1417,10 +1779,19 @@ function ExploreScreen({ active, suspended, activeFilter, resetKey, onOpenInfo, 
     graphContext.fillText = (text:string,x:number,y:number,maxWidth?:number) => {
       graphContext.save();
       const isAmbientRotation = !graph.isFocusMode && !graph.selectedNode && !selectedNodeIdRef.current;
-      graphContext.shadowColor = isAmbientRotation ? "rgba(0,0,0,.96)" : "rgba(0,0,0,0)";
-      graphContext.shadowBlur = isAmbientRotation ? (isNativeApp ? 3 : 7) : 0;
+      const selectedTopicName = graph.selectedNode?.name ?? "";
+      const isHighlightedTopicLabel = graph.isFocusMode
+        && Boolean(selectedNodeIdRef.current)
+        && graphContext.fillStyle === "#101014"
+        && selectedTopicName.includes(text.trim());
+      graphContext.shadowColor = isAmbientRotation
+        ? "rgba(0,0,0,.68)"
+        : isHighlightedTopicLabel
+          ? "rgba(0,0,0,.42)"
+          : "rgba(0,0,0,0)";
+      graphContext.shadowBlur = isAmbientRotation ? (isNativeApp ? 4 : 7) : isHighlightedTopicLabel ? 4 : 0;
       graphContext.shadowOffsetX = 0;
-      graphContext.shadowOffsetY = isAmbientRotation ? 2 : 0;
+      graphContext.shadowOffsetY = isAmbientRotation || isHighlightedTopicLabel ? 2 : 0;
       if (maxWidth === undefined) originalFillText(text,x,y);
       else originalFillText(text,x,y,maxWidth);
       graphContext.restore();
@@ -1477,6 +1848,7 @@ function ExploreScreen({ active, suspended, activeFilter, resetKey, onOpenInfo, 
       selectedNodeIdRef.current = null;
       selectedZoomRef.current = null;
       preSelectionViewRef.current = null;
+      setConnectionSummary(null);
       delete canvas.dataset.selectedNodeId;
       delete canvas.dataset.selectionZoom;
       delete canvas.dataset.cameraZoom;
@@ -1485,6 +1857,8 @@ function ExploreScreen({ active, suspended, activeFilter, resetKey, onOpenInfo, 
         graph.targetCamera = null;
         graph.rotationX = preSelectionView.rotationX;
         graph.rotationY = preSelectionView.rotationY;
+        graph.freeRotationOrientation = preSelectionView.orientation ? [...preSelectionView.orientation] : null;
+        graph.freeRotationIdleAxis = [...preSelectionView.idleAxis];
         graph.camera.x = preSelectionView.cameraX;
         graph.camera.y = preSelectionView.cameraY;
         graph.camera.zoom = preSelectionView.zoom;
@@ -1492,7 +1866,7 @@ function ExploreScreen({ active, suspended, activeFilter, resetKey, onOpenInfo, 
         graph.isDraggingGlobe = false;
         graph.touchGesture = null;
         graph.touchMomentum = null;
-        graph.autoRotatePausedUntil = performance.now() + 420;
+        graph.autoRotatePausedUntil = graph.freeSphereRotation ? 0 : Date.now() + 420;
         canvas.dataset.restoredRotation = `${preSelectionView.rotationX.toFixed(5)},${preSelectionView.rotationY.toFixed(5)}`;
         canvas.dataset.restoredZoom = preSelectionView.zoom.toFixed(4);
         canvas.dataset.resetCount = String(Number(canvas.dataset.resetCount || 0) + 1);
@@ -1511,6 +1885,7 @@ function ExploreScreen({ active, suspended, activeFilter, resetKey, onOpenInfo, 
     };
     const completesResetGesture = (gesture:ResetGesture | null,clientX:number,clientY:number) => {
       if (!gesture?.candidate || !selectedNodeIdRef.current) return false;
+      if (app?.dataset.quickStartStep && app.dataset.quickStartStep !== "explore-reset") return false;
       const rect = canvas.getBoundingClientRect();
       const dx = clientX - gesture.x;
       const dy = clientY - gesture.y;
@@ -1561,13 +1936,22 @@ function ExploreScreen({ active, suspended, activeFilter, resetKey, onOpenInfo, 
     const applyMobileFraming = () => {
       window.requestAnimationFrame(() => {
         resizeForPrototype();
+        // Deep links keep Explore mounted but paused. Present one frame behind
+        // the startup cover so canvas/font setup is paid during warmup instead
+        // of stalling the first later navigation into Explore.
+        if (!presentationRef.current.active || presentationRef.current.suspended) graph.draw();
+        const prepareToken = (window as Window & { __TULIP_EXPLORE_PREPARE_TOKEN__?:number }).__TULIP_EXPLORE_PREPARE_TOKEN__;
+        if (Number.isInteger(prepareToken) && presentationRef.current.active && !presentationRef.current.suspended) {
+          canvas.dataset.nativePreparedExploreToken = String(prepareToken);
+          graph.requestRender();
+        }
       });
     };
 
       graph.setFilter(activeFilterRef.current);
       canvas.dataset.activeFilter = activeFilterRef.current;
       applyMobileFraming();
-      if (!active || suspended) graph.pause();
+      if (!presentationRef.current.active || presentationRef.current.suspended) graph.pause();
 
       cleanup = () => {
       canvas.removeEventListener("touchstart",handleTouchStart);
@@ -1590,12 +1974,16 @@ function ExploreScreen({ active, suspended, activeFilter, resetKey, onOpenInfo, 
       graph.resizeCanvas = () => undefined;
       graphRef.current = null;
       };
+    }).catch((error:unknown) => {
+      if (cancelled) return;
+      if (canvasRef.current) canvasRef.current.dataset.renderError = "true";
+      console.error("Explore sphere could not initialize",error);
     });
     return () => {
       cancelled = true;
       cleanup();
     };
-  }, [onAnalyse]);
+  }, []);
 
   useEffect(() => {
     const graph = graphRef.current;
@@ -1607,30 +1995,39 @@ function ExploreScreen({ active, suspended, activeFilter, resetKey, onOpenInfo, 
   useEffect(() => {
     const graph = graphRef.current;
     if (!graph) return;
+    const shouldReset = previousResetKeyRef.current !== resetKey;
+    previousResetKeyRef.current = resetKey;
     if (active) {
+      const hadSelection = Boolean(selectedNodeIdRef.current || graph.isFocusMode || graph.selectedNode);
       selectedNodeIdRef.current = null;
       selectedZoomRef.current = null;
       preSelectionViewRef.current = null;
+      setConnectionSummary(null);
       if (canvasRef.current) {
         delete canvasRef.current.dataset.selectedNodeId;
         delete canvasRef.current.dataset.selectionZoom;
         delete canvasRef.current.dataset.cameraZoom;
       }
-      graph.exitFocusMode();
-      graph.rotationX = .2;
-      graph.rotationY = 0;
+      if (hadSelection) graph.exitFocusMode();
+      if (shouldReset) {
+        graph.rotationX = .2;
+        graph.rotationY = 0;
+        graph.freeRotationOrientation = null;
+        graph.freeRotationIdleAxis = [0,-1,0];
+      }
       graph.isDraggingGlobe = false;
       graph.isPanningCamera = false;
       graph.touchGesture = null;
       graph.touchMomentum = null;
       graph.targetCamera = null;
       graph.needsCentering = false;
-      graph.autoRotatePausedUntil = performance.now() + 1200;
-      if (canvasRef.current) {
+      graph.autoRotatePausedUntil = graph.freeSphereRotation ? 0 : Date.now() + 1200;
+      if (shouldReset && canvasRef.current) {
         canvasRef.current.dataset.resetCount = String(Number(canvasRef.current.dataset.resetCount || 0) + 1);
       }
       graph.resume();
-      graph.resizeCanvas();
+      const stage = canvasRef.current?.parentElement;
+      if (stage && (graph.width !== stage.clientWidth || graph.height !== stage.clientHeight)) graph.resizeCanvas();
       window.requestAnimationFrame(() => {
         if (!canvasRef.current?.parentElement) return;
         graph.defaultZoom = EXPLORE_MOBILE_ZOOM;
@@ -1638,6 +2035,10 @@ function ExploreScreen({ active, suspended, activeFilter, resetKey, onOpenInfo, 
         graph.camera.x = graph.width / 2;
         graph.camera.y = graph.height / 2 + EXPLORE_CAMERA_VERTICAL_OFFSET;
         graph.requestRender();
+        const prepareToken = (window as Window & { __TULIP_EXPLORE_PREPARE_TOKEN__?:number }).__TULIP_EXPLORE_PREPARE_TOKEN__;
+        if (Number.isInteger(prepareToken)) {
+          canvasRef.current.dataset.nativePreparedExploreToken = String(prepareToken);
+        }
       });
     } else {
       graph.pause();
@@ -1652,7 +2053,8 @@ function ExploreScreen({ active, suspended, activeFilter, resetKey, onOpenInfo, 
       return;
     }
     graph.resume();
-    graph.resizeCanvas();
+    const stage = canvasRef.current?.parentElement;
+    if (stage && (graph.width !== stage.clientWidth || graph.height !== stage.clientHeight)) graph.resizeCanvas();
     graph.requestRender();
   },[active,suspended]);
 
@@ -1674,7 +2076,10 @@ function ExploreScreen({ active, suspended, activeFilter, resetKey, onOpenInfo, 
       const progress = Number(detail?.progress);
       const rotationOffset = Number(detail?.rotationOffset);
       if (!active || !graph || !canvas || !Number.isFinite(progress)) return;
-      if (demoStartRotationY === null || progress <= .01) demoStartRotationY = graph.rotationY;
+      if (demoStartRotationY === null || progress <= .01) {
+        demoStartRotationY = graph.rotationY;
+        graph.freeRotationOrientation = null;
+      }
       graph.needsCentering = false;
       graph.touchMomentum = null;
       graph.isDraggingGlobe = progress < 1;
@@ -1692,11 +2097,17 @@ function ExploreScreen({ active, suspended, activeFilter, resetKey, onOpenInfo, 
     return () => window.removeEventListener("tulip:quick-start-spin-demo",handleQuickStartSpinDemo);
   },[active]);
 
-  return <div className={`explore-screen app-screen ${active ? "is-active" : "is-inactive"}`} aria-hidden={!active}><div className="sphere-stage"><canvas ref={canvasRef} data-quick-start="explore-canvas" className="desktop-sphere-canvas" aria-label="Interactive TULIP network sphere. Tap a node to reveal connections, move the sphere to inspect them, tap a connected node to follow it, or swipe diagonally from bottom left to middle right to reset." /></div><ExploreTopBar onOpenInfo={onOpenInfo} onStartQuickStart={onStartQuickStart} /></div>;
+  return <div className={`explore-screen app-screen ${active ? "is-active" : "is-inactive"}`} aria-hidden={!active}><div className="sphere-stage"><canvas ref={canvasRef} data-quick-start="explore-canvas" className="desktop-sphere-canvas" aria-label="Interactive Tulip Earth network sphere. Tap a node to reveal connections, move the sphere to inspect them, tap a connected node to follow it, or swipe diagonally from bottom left to middle right to reset." /></div>{connectionSummary ? <div className="explore-connection-summary" role="status" aria-live="polite"><span><strong>{connectionSummary.triggers}</strong> Triggers</span><i aria-hidden="true" /><span><strong>{connectionSummary.effects}</strong> Effects</span></div> : null}<ExploreTopBar onOpenInfo={onOpenInfo} onStartQuickStart={onStartQuickStart} /></div>;
 }
 
 function SearchScreen({ onClose, onResult }: { onClose: () => void; onResult: (name: string) => void }) {
+  const isAndroid = Boolean((window as Window & { __TULIP_ANDROID_APP__?:boolean }).__TULIP_ANDROID_APP__);
+  const [section,setSection] = useState<"search"|"bookmarks">("search");
+  const [bookmarks] = useState(readAndroidBookmarks);
+  const [answerProfile,setAnswerProfile] = useState<{query:string;profile:MobileInspectorProfile} | null>(null);
   const [query, setQuery] = useState("");
+  const [interpretation, setInterpretation] = useState<{ query:string; terms:string[] } | null>(null);
+  const [interpreting, setInterpreting] = useState(false);
   const [openHistoryName, setOpenHistoryName] = useState<string | null>(null);
   const [history, setHistory] = useState<string[]>(() => {
     try {
@@ -1710,6 +2121,28 @@ function SearchScreen({ onClose, onResult }: { onClose: () => void; onResult: (n
   const screenRef = useRef<HTMLDivElement>(null);
   const frozenHeaderRef = useRef<HTMLElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const androidBridge = (window as Window & { TULIPNative?:TulipNativeBridge }).TULIPNative;
+  useEffect(() => {
+    const trimmed = query.trim();
+    const directMatch = desktopSearchIndex.some((entry) => entry.name.includes(trimmed.toLowerCase()));
+    const needsInterpretation = trimmed.length >= 5 && (!directMatch || /[? ]/.test(trimmed));
+    if (!androidBridge?.interpretQuery || !needsInterpretation) {
+      setInterpreting(false);
+      setInterpretation(null);
+      return;
+    }
+    let cancelled = false;
+    setInterpreting(true);
+    const timer = window.setTimeout(() => {
+      let previousTopic = "";
+      try { previousTopic = window.localStorage.getItem(ANDROID_LAST_TOPIC_KEY) || ""; } catch { /* Context is optional. */ }
+      void androidBridge.interpretQuery!(trimmed,previousTopic)
+        .then((terms) => { if (!cancelled) setInterpretation({query:trimmed,terms}); })
+        .catch(() => { if (!cancelled) setInterpretation({query:trimmed,terms:[]}); })
+        .finally(() => { if (!cancelled) setInterpreting(false); });
+    },300);
+    return () => { cancelled = true; window.clearTimeout(timer); };
+  },[androidBridge,query,history]);
   useEffect(() => {
     const screen = screenRef.current;
     const header = frozenHeaderRef.current;
@@ -1725,15 +2158,68 @@ function SearchScreen({ onClose, onResult }: { onClose: () => void; onResult: (n
       window.removeEventListener("resize",syncHeight);
     };
   },[]);
-  const visibleNodes = useMemo(() => {
+  const visibleNodes = useMemo<DesktopNodeData[]>(() => {
     const normalizedQuery = query.trim().toLowerCase();
     if (!normalizedQuery) return [];
-    return desktopSearchIndex
+    let learnedCounts: Record<string,number> = {};
+    if ((window as Window & { __TULIP_ANDROID_APP__?:boolean }).__TULIP_ANDROID_APP__) {
+      try { learnedCounts = JSON.parse(window.localStorage.getItem("tulip_android_search_learning_v1") || "{}"); }
+      catch { /* Local ranking remains deterministic. */ }
+    }
+    const learnedScore = (name:string) => Math.min(4,Math.log2(1 + (Number(learnedCounts[name]) || 0)));
+    const direct = desktopSearchIndex
       .filter((entry) => entry.name.includes(normalizedQuery))
-      .sort((a,b) => Number(b.name.startsWith(normalizedQuery)) - Number(a.name.startsWith(normalizedQuery)) || a.name.localeCompare(b.name))
+      .sort((a,b) => Number(b.name.startsWith(normalizedQuery)) - Number(a.name.startsWith(normalizedQuery)) || learnedScore(b.node.name) - learnedScore(a.node.name) || a.name.localeCompare(b.name))
       .slice(0,8)
       .map((entry) => entry.node);
-  }, [query]);
+    if (direct.length && !query.includes("?")) return direct;
+    const exactLocalMatches: DesktopNodeData[] = searchNodes(desktopNodes,query,8).map((match:{node:DesktopNodeData}) => match.node);
+    const stopWords = new Set(["about","after","again","could","does","from","have","into","lasting","longer","many","much","their","there","these","this","those","what","when","where","which","while","with","would","your","are","why","how","the","and","for","has","its","more","than"]);
+    const meaningfulWords = normalizedQuery.replace(/[^a-z0-9 ]/g," ").split(/\s+/).filter((word) => word.length >= 4 && !stopWords.has(word)).map((word) => word.replace(/ies$/, "").replace(/ing$/, "").replace(/s$/, ""));
+    const lexicalMatches = meaningfulWords.length ? desktopNodes.map((node) => {
+      const terms = getNodeSearchTerms(node).join(" ").toLowerCase();
+      const score = meaningfulWords.reduce((total,word) => total + (terms.includes(word) ? 5 : 0),0);
+      return {node,score:score + (score ? learnedScore(node.name) : 0)};
+    }).filter((entry) => entry.score > 0).sort((a,b) => b.score - a.score || a.node.name.localeCompare(b.node.name)).slice(0,8).map((entry) => entry.node) : [];
+    const contextualNames = /allerg|pollen|hay fever/.test(normalizedQuery)
+      ? ["Pollen Allergen Spikes", ...(/longer|spring|season/.test(normalizedQuery) ? ["Global Temperature"] : [])]
+      : /(water|lake|river)/.test(normalizedQuery) && /(green|scum|bloom)/.test(normalizedQuery)
+        ? ["Harmful Algal Blooms"]
+        : /wilt/.test(normalizedQuery) && /(hot|heat)/.test(normalizedQuery)
+          ? ["Farm Heat Stress", "Atmospheric Evaporative Demand"] : [];
+    const contextualMatches = contextualNames.map((name) => desktopNodeByName.get(name)).filter((node):node is DesktopNodeData => Boolean(node));
+    const localMatches = exactLocalMatches.length ? exactLocalMatches : contextualMatches.length ? contextualMatches : lexicalMatches;
+    const terms = interpretation?.query === query.trim() ? interpretation.terms : [];
+    if (!terms.length) return direct.length ? direct : localMatches;
+    const words = terms.flatMap((term) => term.toLowerCase().split(/[^a-z0-9]+/)).filter((word) => word.length > 3);
+    const ranked = desktopSearchIndex.map((entry) => {
+      const termScore = terms.reduce((score,term) => score + (entry.name.includes(term.toLowerCase()) ? 8 : 0),0);
+      const wordScore = words.reduce((score,word) => score + (entry.name.includes(word) ? 2 : 0),0);
+      return {node:entry.node,score:termScore + wordScore + (termScore || wordScore ? learnedScore(entry.node.name) : 0)};
+    }).filter((entry) => entry.score > 0)
+      .sort((a,b) => b.score - a.score || a.node.name.localeCompare(b.node.name))
+      .slice(0,8).map((entry) => entry.node);
+    return ranked.length ? ranked : direct.length ? direct : localMatches;
+  }, [query,interpretation]);
+  const showAnswer = isAndroid && (query.includes("?") || query.trim().split(/\s+/).length >= 5);
+  useEffect(() => {
+    const primary = visibleNodes[0];
+    if (!showAnswer || !primary) { setAnswerProfile(null); return; }
+    let cancelled = false;
+    void loadInspectorProfiles().then((profiles) => {
+      const profile = resolveInspectorProfile(primary.name,profiles);
+      if (!cancelled && profile) setAnswerProfile({query:query.trim(),profile});
+    }).catch(() => { if (!cancelled) setAnswerProfile(null); });
+    return () => { cancelled = true; };
+  },[query,showAnswer,visibleNodes]);
+  const currentAnswer = answerProfile?.query === query.trim() && answerProfile.profile.name === visibleNodes[0]?.name ? answerProfile.profile : null;
+  const answerText = currentAnswer ? /\b(why|cause|causing|driver|driving)\b|longer/.test(query.toLowerCase())
+    ? currentAnswer.incoming[0]?.[1] || currentAnswer.description
+    : /\b(effect|impact|happen|lead to)\b/.test(query.toLowerCase())
+      ? currentAnswer.outgoing[0]?.[1] || currentAnswer.description
+      : /\b(action|solution|help|do about)\b/.test(query.toLowerCase())
+        ? currentAnswer.response.defaultDriver || currentAnswer.description
+        : currentAnswer.description : "";
   const historyNodes = useMemo(() => history.map((name) => desktopNodeByName.get(name)).filter(Boolean) as DesktopNodeData[], [history]);
   const closeSearch = () => { keyboard.hide(); onClose(); };
   const saveHistory = (nextHistory: string[]) => {
@@ -1748,17 +2234,28 @@ function SearchScreen({ onClose, onResult }: { onClose: () => void; onResult: (n
   const chooseNode = (node: DesktopNodeData) => {
     const nextHistory = [node.name, ...history.filter((name) => name !== node.name)].slice(0,5);
     saveHistory(nextHistory);
+    if ((window as Window & { __TULIP_ANDROID_APP__?:boolean }).__TULIP_ANDROID_APP__) {
+      try {
+        const key = "tulip_android_search_learning_v1";
+        const counts = JSON.parse(window.localStorage.getItem(key) || "{}");
+        counts[node.name] = Math.min(1000,(Number(counts[node.name]) || 0) + 1);
+        window.localStorage.setItem(key,JSON.stringify(counts));
+        window.localStorage.setItem(ANDROID_LAST_TOPIC_KEY,node.name);
+      } catch { /* Search keeps working without storage. */ }
+    }
     keyboard.hide();
     onResult(node.name);
   };
   return <div ref={screenRef} className="app-screen search-screen">
     <header ref={frozenHeaderRef} className="search-frozen-header">
       <div className="search-brand-row search-controls-row"><button className="icon-button muted" onClick={closeSearch} aria-label="Close search"><Cross1Icon width={20} height={20} /></button></div>
-      <label className="search-line" data-quick-start="search-field"><KeyboardInput ref={inputRef} value={query} onChange={(event) => { setOpenHistoryName(null); setQuery(event.target.value); }} onBlur={() => keyboard.hide()} placeholder="Search a topic" aria-label="Search TULIP" autoComplete="off" /></label>
+      {isAndroid ? <div className="android-search-tabs" role="tablist" aria-label="Search sections"><button type="button" role="tab" aria-selected={section === "search"} onClick={() => setSection("search")}>Search</button><button type="button" role="tab" aria-selected={section === "bookmarks"} onClick={() => { keyboard.hide(); setSection("bookmarks"); }}>Bookmarks</button></div> : null}
+      {section === "search" ? <label className="search-line" data-quick-start="search-field"><KeyboardInput ref={inputRef} value={query} onChange={(event) => { setOpenHistoryName(null); setQuery(event.target.value); }} onBlur={() => keyboard.hide()} placeholder="Search a topic" aria-label="Search Tulip Earth" autoComplete="off" /></label> : null}
     </header>
     <MobileScroll className="search-scroll-surface" engine="native">
       <main className="search-surface" onPointerDown={(event) => { if (!(event.target as HTMLElement).closest(".search-history-item")) setOpenHistoryName(null); }}>
-        {query.trim() ? <section className="search-results-list" aria-label="Search suggestions" aria-live="polite">{visibleNodes.map((node) => <button key={node.id} onClick={() => chooseNode(node)}><span>{node.name}</span><ExternalLinkIcon aria-hidden="true" /></button>)}{visibleNodes.length === 0 ? <p className="search-no-match">No matching topics</p> : null}</section> : <div className="search-discovery"><section className="search-history" aria-labelledby="recent-searches-heading"><h2 id="recent-searches-heading">Recent Searches</h2>{historyNodes.map((node) => <SearchHistoryItem key={node.id} node={node} open={openHistoryName === node.name} onOpen={() => setOpenHistoryName(node.name)} onChoose={() => chooseNode(node)} onRemove={() => removeHistoryNode(node.name)} />)}{historyNodes.length ? <button className="search-clear-history" onClick={() => saveHistory([])}>Clear all</button> : <p className="search-empty-history">No recent searches</p>}</section><section className="search-suggestions" aria-labelledby="suggested-topics-heading"><h2 id="suggested-topics-heading">Suggested Topics</h2><div>{suggestedSearchNodes.map((node) => <button key={node.id} onClick={() => chooseNode(node)}>{node.name}</button>)}</div></section></div>}
+        {section === "search" && showAnswer && currentAnswer ? <section className="android-search-answer" aria-label="Ask Tulip Earth answer"><p className="android-search-answer-eyebrow">ASK TULIP EARTH · LOCAL GRAPH</p><h2>This sounds like {currentAnswer.name}</h2><p>{answerText}</p><button type="button" onClick={() => { const node = desktopNodeByName.get(currentAnswer.name); if (node) chooseNode(node); }}>Open topic →</button></section> : null}
+        {section === "bookmarks" ? <section className="android-bookmark-list" aria-label="Bookmarks">{bookmarks.length ? bookmarks.map((name) => <button key={name} type="button" onClick={() => { keyboard.hide(); onResult(name); }}>{name}<ExternalLinkIcon aria-hidden="true" /></button>) : <p>Open a topic in Analyse and tap the bookmark button to save it here.</p>}</section> : query.trim() ? <section className="search-results-list" aria-label="Search suggestions" aria-live="polite">{visibleNodes.map((node) => <button key={node.id} onClick={() => chooseNode(node)}><span>{node.name}</span><ExternalLinkIcon aria-hidden="true" /></button>)}{visibleNodes.length === 0 ? <p className="search-no-match">{interpreting ? "Understanding your question on this device…" : "No matching topics"}</p> : null}</section> : <div className="search-discovery"><section className="search-history" aria-labelledby="recent-searches-heading"><h2 id="recent-searches-heading">Recent Searches</h2>{historyNodes.map((node) => <SearchHistoryItem key={node.id} node={node} open={openHistoryName === node.name} onOpen={() => setOpenHistoryName(node.name)} onChoose={() => chooseNode(node)} onRemove={() => removeHistoryNode(node.name)} />)}{historyNodes.length ? <button className="search-clear-history" onClick={() => saveHistory([])}>Clear all</button> : <p className="search-empty-history">No recent searches</p>}</section><section className="search-suggestions" aria-labelledby="suggested-topics-heading"><h2 id="suggested-topics-heading">Suggested Topics</h2><div>{suggestedSearchNodes.map((node) => <button key={node.id} onClick={() => chooseNode(node)}>{node.name}</button>)}</div></section></div>}
       </main>
     </MobileScroll>
   </div>;
@@ -1853,7 +2350,7 @@ function formatAppDate(value:string) {
 
 function RecentMajorEvents({ profile }: { profile:MobileRecentOccurrenceProfile }) {
   return <details className="detail-section inspector-block inspector-disclosure recent-major-events" open>
-    <summary><span>{profile.title}</span><ChevronRightIcon /></summary>
+    <summary><span className="inspector-symbol-label"><InspectorSectionSymbol kind="events" />{profile.title}</span><ChevronRightIcon /></summary>
     <div className="recent-major-events-list">
       {profile.occurrences.map((occurrence) => <article className="recent-major-event-card" key={occurrence.id}>
         <p className="recent-major-event-meta"><time dateTime={occurrence.date}>{formatRecentEventDate(occurrence.date)}</time><span aria-hidden="true">·</span><span>{occurrence.place}</span></p>
@@ -1890,7 +2387,8 @@ function AnalyseRelationshipScroller({ profile, onSelectNode }: { profile: Analy
     };
   }, [profile.name]);
 
-  const relationship = (label:string,direction:"effects"|"triggers") => (
+  const relationship = (label:string,direction:"effects"|"triggers") => !desktopNodeByName.has(label)
+    ? <p key={label} className="analyse-causal-empty">{label}</p> : (
     <button
       key={label}
       type="button"
@@ -1944,10 +2442,10 @@ type AnalyseSheetDrag = {
   unlockSafariChrome:boolean;
 };
 
-type AnalyseScreenProps = { name:string; initiallyExpanded?:boolean; entryOrigin?:AppPoint | null; transition?:"idle"|"forward"|"back"; onSelectNode:(name:string) => void; onBack:() => void; onExpandedChange?:(name:string,expanded:boolean) => void; onNavCompactChange?:(compact:boolean) => void };
+type AnalyseScreenProps = { active?:boolean; name:string; initiallyExpanded?:boolean; entryOrigin?:AppPoint | null; transition?:"idle"|"forward"|"back"; onSelectNode:(name:string) => void; onBack:() => void; onExpandedChange?:(name:string,expanded:boolean) => void; onNavCompactChange?:(compact:boolean) => void };
 
 function AnalyseScreen(props:AnalyseScreenProps) {
-  const { name } = props;
+  const { active = true,name } = props;
   const [profile,setProfile] = useState<MobileInspectorProfile | null>(() => inspectorProfilesCache ? resolveInspectorProfile(name,inspectorProfilesCache) : null);
   const [loadFailed,setLoadFailed] = useState(false);
   useEffect(() => {
@@ -1961,14 +2459,75 @@ function AnalyseScreen(props:AnalyseScreenProps) {
     });
     return () => { cancelled = true; };
   },[name]);
-  if (!profile) return <div className="analyse-screen app-screen is-inspector-loading" role="status"><p>{loadFailed ? "Inspector data could not be loaded." : "Loading inspector…"}</p></div>;
+  if (!profile) return <div className={`analyse-screen app-screen is-inspector-loading ${active ? "is-active" : "is-inactive"}`} role="status" aria-hidden={!active}><p>{loadFailed ? "Inspector data could not be loaded." : "Loading inspector…"}</p></div>;
   return <AnalyseScreenContent {...props} profile={profile} />;
 }
 
-function AnalyseScreenContent({ name, profile, initiallyExpanded = false, entryOrigin, transition = "idle", onSelectNode, onBack, onExpandedChange, onNavCompactChange }: AnalyseScreenProps & { profile:MobileInspectorProfile }) {
+function AnalyseStartingPoints({ used, onSelect }: {used:string[];onSelect:(name:string,total:number) => void}) {
+  const [profiles,setProfiles] = useState<Record<string,MobileInspectorProfile>>(inspectorProfilesCache || {});
+  const [loadFailed,setLoadFailed] = useState(false);
+  useEffect(() => {
+    let cancelled = false;
+    void loadInspectorProfiles().then((loaded) => { if (!cancelled) setProfiles(loaded); }).catch(() => { if (!cancelled) setLoadFailed(true); });
+    return () => { cancelled = true; };
+  },[]);
+  const ranked = useMemo(() => Object.values(profiles)
+    .filter((profile) => profile.assessment?.nodeKind === "issue" && Number.isFinite(profile.assessment.value))
+    .sort((a,b) => (b.assessment.value! - a.assessment.value!) || a.name.localeCompare(b.name)),[profiles]);
+  const unused = ranked.filter((profile) => !used.includes(profile.name));
+  const startingPoints = (unused.length ? unused : ranked).slice(0,6);
+  return <div className="analyse-starting-screen app-screen is-active">
+    <MobileScroll className="analyse-starting-scroll"><main className="analyse-starting-content">
+      <header><h1>Analyse</h1><p>Choose a topic to see its connections and impacts.</p></header>
+      <div className="analyse-starting-heading"><h2>Starting points</h2><span>Highest current TULIP Scores</span></div>
+      {startingPoints.length ? <div className="analyse-starting-list">{startingPoints.map((profile) => <button type="button" key={profile.name} onClick={() => onSelect(profile.name,ranked.length)}>
+        <span className="analyse-starting-topic"><small><InspectorCategorySymbol sphere={profile.sphere} />{profile.sphere}</small><strong>{profile.name}</strong></span>
+        <span className="analyse-starting-score"><strong>{profile.assessment.value?.toFixed(1)}</strong><ChevronRightIcon aria-hidden="true" /></span>
+      </button>)}</div> : <p className="analyse-starting-status" role="status">{loadFailed ? "Starting points could not be loaded." : "Loading starting points…"}</p>}
+      <p className="analyse-starting-note">Scores are provisional internal estimates of current impact.</p>
+    </main></MobileScroll>
+  </div>;
+}
+
+function AnalyseScreenContent({ active = true,name, profile, initiallyExpanded = false, entryOrigin, transition = "idle", onSelectNode, onBack, onExpandedChange, onNavCompactChange }: AnalyseScreenProps & { profile:MobileInspectorProfile }) {
+  const androidNative = Boolean((window as Window & { __TULIP_ANDROID_APP__?:boolean }).__TULIP_ANDROID_APP__);
+  const androidBridge = (window as Window & { TULIPNative?:TulipNativeBridge }).TULIPNative;
+  const [actionMenuOpen,setActionMenuOpen] = useState(false);
+  const [shareStatus,setShareStatus] = useState("");
+  useEffect(() => { setActionMenuOpen(false); setShareStatus(""); },[name,active]);
+  const shareTopic = async () => {
+    const url = new URL("https://tulip-project-six.vercel.app/");
+    const node = desktopNodeByName.get(profile.name);
+    if (node) url.searchParams.set("node",node.id);
+    const payload = {title:profile.name,text:`Explore ${profile.name} in Tulip Earth.`,url:url.href};
+    try {
+      if (androidNative && androidBridge) androidBridge.share(payload);
+      else if (navigator.share) await navigator.share(payload);
+      else { await navigator.clipboard.writeText(url.href); setShareStatus("Link copied"); return; }
+      setActionMenuOpen(false);
+    } catch (error) {
+      if ((error as Error).name !== "AbortError") setShareStatus("Unable to share right now. Please try again.");
+    }
+  };
+  const [isBookmarked,setIsBookmarked] = useState(() => readAndroidBookmarks().includes(name));
+  const toggleBookmark = () => {
+    const current = readAndroidBookmarks();
+    const next = current.includes(name) ? current.filter((item) => item !== name) : [name,...current];
+    try { window.localStorage.setItem(ANDROID_BOOKMARK_KEY,JSON.stringify(next)); } catch { /* Bookmark remains available for this session. */ }
+    setIsBookmarked(next.includes(name));
+    setActionMenuOpen(false);
+  };
+  const printTopic = () => {
+    const assessment = profile.assessment;
+    const scoreCopy = assessment ? `<h2>TULIP Score</h2><p>${assessment.value != null ? assessment.value.toFixed(1) + " / 10" : escapePrintHtml(assessment.label)}${assessment.valueLabel ? " · " + escapePrintHtml(assessment.valueLabel) : ""}</p><p>${escapePrintHtml(assessment.explanation)}</p>` : "";
+    const list = (items:MobileRelationshipEntry[]) => `<ul>${items.map(([label,detail]) => `<li><strong>${escapePrintHtml(label)}</strong>${detail ? ` — ${escapePrintHtml(detail)}` : ""}</li>`).join("")}</ul>`;
+    const html = `<!doctype html><html><head><meta charset="utf-8"><style>body{font-family:sans-serif;color:#17171b;line-height:1.5;padding:28px;max-width:780px;margin:auto}h1{font-size:30px}h2{font-size:18px;margin-top:28px}p,li{font-size:13px}footer{margin-top:36px;font-size:11px;color:#555}</style></head><body><h1>${escapePrintHtml(profile.name)}</h1><p>${escapePrintHtml(profile.sphere)} · Last updated ${escapePrintHtml(formatAppDate(profile.updated))}</p><p>${escapePrintHtml(profile.description)}</p><h2>Triggers</h2>${list(profile.incoming)}<h2>Effects</h2>${list(profile.outgoing)}<h2>Impact on Humans</h2><p>${escapePrintHtml(profile.human.summary)}</p><h2>Impact on the Planet</h2><p>${escapePrintHtml(profile.planet.summary)}</p><h2>What Can Be Done</h2><p>${escapePrintHtml(profile.response.defaultDriver)}</p><ul>${(profile.response.levers || []).map((item:string) => `<li>${escapePrintHtml(item)}</li>`).join("")}</ul>${scoreCopy}<h2>Monitoring Sources</h2><ul>${profile.sources.map(([label,url]) => `<li>${escapePrintHtml(label)} — ${escapePrintHtml(url)}</li>`).join("")}</ul><footer>Tulip Earth · This is an educational summary. See original sources for methods and limitations.</footer></body></html>`;
+    androidBridge?.printTopic?.({title:profile.name,html});
+    setActionMenuOpen(false);
+  };
   const sheetRef = useRef<HTMLDivElement>(null);
   const inspectorScrolledRef = useRef(false);
-  const backSwipeRef = useRef<{ pointerId:number; x:number; y:number } | null>(null);
+  const backSwipeRef = useRef<{ pointerId:number; x:number; y:number; fromLeftEdge:boolean } | null>(null);
   const ignoreHandleClickUntilRef = useRef(0);
   const dragStartRef = useRef<AnalyseSheetDrag | null>(null);
   const collapseRegionRef = useRef<{ pointerId:number; x:number; y:number } | null>(null);
@@ -1978,12 +2537,38 @@ function AnalyseScreenContent({ name, profile, initiallyExpanded = false, entryO
   const dragSettleFrameRef = useRef<number | null>(null);
   const pendingDragTranslateRef = useRef<number | null>(null);
   const expandedCueTimerRef = useRef<number | null>(null);
-  const [expanded,setExpanded] = useState(false);
+  const [expanded,setExpanded] = useState(initiallyExpanded && !entryOrigin);
+  const [scoreExplanationOpen,setScoreExplanationOpen] = useState(false);
+  const keyboard = useKeyboard();
+  const photoTriggerRef = useRef<HTMLButtonElement>(null);
+  const photoKey = `${name}:${profile.photo?.asset || ""}`;
+  const currentPhotoKey = useRef(photoKey); currentPhotoKey.current = photoKey;
+  const [failedPhotoKey,setFailedPhotoKey] = useState<string | null>(null);
+  const [photoViewer,setPhotoViewer] = useState<{key:string;name:string;photo:InspectorPhotoData} | null>(null);
+  const headerPhoto = active && profile.name === name && failedPhotoKey !== photoKey ? profile.photo : null;
+  const photoFailed = () => { if (currentPhotoKey.current === photoKey) { setFailedPhotoKey(photoKey); setPhotoViewer(null); } };
+  useEffect(() => { setPhotoViewer(null); },[name,active]);
+
   const [isInspectorScrolled,setIsInspectorScrolled] = useState(false);
   const [showExpandedCue,setShowExpandedCue] = useState(false);
   const [openingFromExplore,setOpeningFromExplore] = useState(Boolean(entryOrigin));
   const [isSheetDragging,setIsSheetDragging] = useState(false);
   const [connection, setConnection] = useState<{label:string;detail:string;direction:"incoming"|"outgoing"} | null>(null);
+  useLayoutEffect(() => {
+    const shell = sheetRef.current;
+    const screen = shell?.closest<HTMLElement>(".analyse-screen");
+    const header = shell?.querySelector<HTMLElement>(".analysis-sheet-grab-zone");
+    if (!shell || !screen || !header) return;
+    const measure = () => {
+      const peek = Math.min(shell.clientHeight,Math.max(COLLAPSED_ANALYSE_PEEK,header.offsetHeight + 100));
+      screen.style.setProperty("--analysis-collapsed-peek",`${peek}px`);
+    };
+    const observer = new ResizeObserver(measure);
+    observer.observe(header);
+    observer.observe(shell);
+    measure();
+    return () => observer.disconnect();
+  },[name]);
   const prioritizeSelected = useCallback((entries:MobileRelationshipEntry[],direction:"incoming"|"outgoing") => {
     if (!connection || connection.direction !== direction) return entries;
     const selectedIndex = entries.findIndex(([label]) => label === connection.label);
@@ -2149,7 +2734,7 @@ function AnalyseScreenContent({ name, profile, initiallyExpanded = false, entryO
         ? drag.velocity < 0
         : projectedTranslate < drag.collapsedTranslate * .5;
     setExpanded(shouldExpand);
-    window.dispatchEvent(new CustomEvent("tulip:analyse-inspector-state",{detail:{expanded:shouldExpand,name}}));
+    window.dispatchEvent(new CustomEvent("tulip:analyse-inspector-state",{detail:{expanded:shouldExpand,name,interaction:!cancelled && travelled > ANALYSE_SHEET_GESTURE_SLOP ? "drag" : undefined}}));
     setIsSheetDragging(false);
     const shell = sheetRef.current;
     if (shell) {
@@ -2176,11 +2761,14 @@ function AnalyseScreenContent({ name, profile, initiallyExpanded = false, entryO
     };
   },[settleSheetDrag]);
   const beginSheetDrag = (event: React.PointerEvent<HTMLElement>, gestureStartY = event.clientY) => {
+    if ((event.target as Element).closest(".inspector-photo-viewer")) return;
+    if (event.currentTarget.closest<HTMLElement>(".tulip-app")?.dataset.quickStartStep === "analyse-back") return;
     event.stopPropagation();
     if (!event.isPrimary || (event.pointerType === "mouse" && event.button !== 0)) return;
     const shell = sheetRef.current;
     if (!shell) return;
-    const collapsedTranslate = Math.max(0,shell.clientHeight - COLLAPSED_ANALYSE_PEEK);
+    const peek = parseFloat(getComputedStyle(shell).getPropertyValue("--analysis-collapsed-peek")) || COLLAPSED_ANALYSE_PEEK;
+    const collapsedTranslate = Math.max(0,shell.clientHeight - peek);
     const startTranslate = expanded ? 0 : collapsedTranslate;
     const rect = shell.getBoundingClientRect();
     const scale = rect.height > 0 ? rect.height / shell.clientHeight : 1;
@@ -2191,7 +2779,7 @@ function AnalyseScreenContent({ name, profile, initiallyExpanded = false, entryO
     pendingDragTranslateRef.current = null;
     setIsSheetDragging(true);
     applySheetDragVisual(startTranslate);
-    event.currentTarget.setPointerCapture(event.pointerId);
+    // Capture only a real drag; early capture retargets a handle tap to its parent.
   };
   const moveSheetDrag = (event: React.PointerEvent<HTMLElement>) => {
     event.stopPropagation();
@@ -2199,6 +2787,9 @@ function AnalyseScreenContent({ name, profile, initiallyExpanded = false, entryO
     if (!drag || drag.pointerId !== event.pointerId) return;
     if (event.cancelable) event.preventDefault();
     const movement = (event.clientY - drag.y) / drag.scale;
+    if (Math.abs(movement) > ANALYSE_SHEET_GESTURE_SLOP && !event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.setPointerCapture(event.pointerId);
+    }
     const nextTranslate = Math.max(0,Math.min(drag.collapsedTranslate,drag.startTranslate + movement));
     const now = performance.now();
     const elapsed = Math.max(1,now - drag.lastTime);
@@ -2238,6 +2829,8 @@ function AnalyseScreenContent({ name, profile, initiallyExpanded = false, entryO
     onLostPointerCapture:finishSheetDrag,
   });
   const beginCollapseRegion = (event:React.PointerEvent<HTMLDivElement>) => {
+    if ((event.target as Element).closest(".inspector-photo-viewer")) return;
+    if (event.currentTarget.closest<HTMLElement>(".tulip-app")?.dataset.quickStartStep === "analyse-back") return;
     if (!expanded || !event.isPrimary || (event.pointerType === "mouse" && event.button !== 0)) return;
     const screen = event.currentTarget.closest<HTMLElement>(".analyse-screen");
     const screenRect = screen?.getBoundingClientRect();
@@ -2290,21 +2883,53 @@ function AnalyseScreenContent({ name, profile, initiallyExpanded = false, entryO
     "--entry-origin-y":`${entryOrigin.y}px`,
   } as CSSProperties : undefined;
   const beginBackSwipe = (event:ReactPointerEvent<HTMLDivElement>) => {
+    if (event.pointerType === "touch") return;
     const localX = event.clientX - event.currentTarget.getBoundingClientRect().left;
-    if (!event.isPrimary || localX > 28 || (event.pointerType === "mouse" && event.button !== 0)) return;
-    backSwipeRef.current = { pointerId:event.pointerId,x:event.clientX,y:event.clientY };
+    const target = event.target as Element;
+    if (!event.isPrimary || event.button !== 0 || !target.closest(".analysis-sheet-shell")
+      || target.closest("button,a,summary,.mobile-carousel")) return;
+    backSwipeRef.current = { pointerId:event.pointerId,x:event.clientX,y:event.clientY,fromLeftEdge:localX <= 28 };
   };
-  const finishBackSwipe = (event:ReactPointerEvent<HTMLDivElement>) => {
+  const commitBackSwipe = (pointerId:number,x:number,y:number) => {
     const start = backSwipeRef.current;
     backSwipeRef.current = null;
-    if (!start || start.pointerId !== event.pointerId) return;
-    const dx = event.clientX - start.x;
-    const dy = event.clientY - start.y;
-    if (dx >= 64 && dx > Math.abs(dy) * 1.35) onBack();
+    if (!start || start.pointerId !== pointerId) return;
+    const dx = x - start.x;
+    const dy = y - start.y;
+    if ((dx <= -64 || (start.fromLeftEdge && dx >= 64)) && Math.abs(dx) > Math.abs(dy) * 1.5) onBack();
   };
-  return <div className={`analyse-screen app-screen ${expanded ? "is-inspector-expanded" : ""} ${openingFromExplore ? "is-opening-from-explore" : ""} ${transition === "idle" ? "" : `is-node-${transition}`}`} onPointerDownCapture={beginCollapseRegion} onPointerMoveCapture={moveCollapseRegion} onPointerUpCapture={finishCollapseRegion} onPointerCancelCapture={(event) => finishCollapseRegion(event,true)} onPointerDown={beginBackSwipe} onPointerUp={finishBackSwipe} onPointerCancel={() => { backSwipeRef.current = null; }}>
+  const beginTouchBackSwipe = (event:ReactTouchEvent<HTMLDivElement>) => {
+    const target = event.target as Element;
+    const touch = event.touches.length === 1 ? event.touches[0] : null;
+    if (!touch || !target.closest(".analysis-sheet-shell") || target.closest("button,a,summary,.mobile-carousel")) {
+      backSwipeRef.current = null;
+      return;
+    }
+    backSwipeRef.current = {pointerId:-1,x:touch.clientX,y:touch.clientY,fromLeftEdge:touch.clientX - event.currentTarget.getBoundingClientRect().left <= 28};
+  };
+  return <div className={`analyse-screen app-screen ${active ? "is-active" : "is-inactive"} ${expanded ? "is-inspector-expanded" : ""} ${openingFromExplore ? "is-opening-from-explore" : ""} ${transition === "idle" ? "" : `is-node-${transition}`}`} aria-hidden={!active} onPointerDownCapture={beginCollapseRegion} onPointerMoveCapture={moveCollapseRegion} onPointerUpCapture={finishCollapseRegion} onPointerCancelCapture={(event) => finishCollapseRegion(event,true)} onPointerDown={beginBackSwipe} onPointerUp={(event) => { if (event.pointerType !== "touch") commitBackSwipe(event.pointerId,event.clientX,event.clientY); }} onPointerCancel={(event) => { if (event.pointerType !== "touch") backSwipeRef.current = null; }} onTouchStart={beginTouchBackSwipe} onTouchEnd={(event) => { const touch = event.changedTouches[0]; if (touch) commitBackSwipe(-1,touch.clientX,touch.clientY); }} onTouchCancel={() => { backSwipeRef.current = null; }}>
     <AnalyseRelationshipScroller profile={profile} onSelectNode={onSelectNode} />
-    {showExpandedCue ? <div className="analysis-expanded-cue" role="status" aria-live="polite">Swipe down to explore more.</div> : null}
+    <BottomSheet open={actionMenuOpen} onOpenChange={setActionMenuOpen} title="Share" snap={0.4}>
+      <div className="mobile-inspector-share-options">
+        <button type="button" onClick={() => { void shareTopic(); }}>{!androidNative && !navigator.share ? "Copy Link" : "Share Link"}</button>
+        {androidNative ? <><button type="button" onClick={printTopic}>Export PDF</button><button type="button" onClick={toggleBookmark}>{isBookmarked ? "Remove Bookmark" : "Bookmark Topic"}</button></> : null}
+        {shareStatus ? <p role="status">{shareStatus}</p> : null}
+      </div>
+    </BottomSheet>
+    {showExpandedCue && !photoViewer ? <div className="analysis-expanded-cue" role="status" aria-live="polite">Swipe down to explore more.</div> : null}
+    {photoViewer && headerPhoto && photoViewer.key === photoKey ? <InspectorPhotoViewer photo={photoViewer.photo} name={photoViewer.name} onClose={() => setPhotoViewer(null)} onError={photoFailed} trigger={photoTriggerRef} /> : null}
+    <BottomSheet open={scoreExplanationOpen} onOpenChange={setScoreExplanationOpen} title="TULIP Score" snap={0.75}>
+      <div className="score-explanation">
+        <h3>{profile.name}</h3>
+        <p>{profile.scoreBreakdown?.summary || profile.assessment?.explanation || SCORE_METHOD_COPY.missing}</p>
+        {profile.scoreBreakdown?.components.map((component) => <section className="score-component" key={component.id} aria-label={`${component.label}, ${component.weight} of score`}>
+          <div className="score-component-heading"><h4>{component.label} <span>{component.weight}</span></h4><strong>{component.value}<small> / 10</small></strong></div>
+          <p>{component.explanation}</p>
+        </section>)}
+        {profile.scoreBreakdown?.formula ? <div className="score-calculation"><h4>The calculation</h4><p>{profile.scoreBreakdown.formula}</p></div> : null}
+        {profile.scoreBreakdown?.note ? <p className="score-rounding-note">{profile.scoreBreakdown.note}</p> : null}
+      </div>
+    </BottomSheet>
     {openingFromExplore ? <div className="analyse-entry-node" style={entryStyle} aria-hidden="true"><span>{profile.name}</span></div> : null}
     <div ref={sheetRef} className={`analysis-sheet-shell ${expanded ? "is-expanded" : "is-collapsed"}${isSheetDragging ? " is-dragging" : ""}${isInspectorScrolled ? " is-inspector-scrolled" : ""}`} style={sheetStyle}>
       <MobileScroll className="analyse-scroll" engine="native">
@@ -2312,19 +2937,27 @@ function AnalyseScreenContent({ name, profile, initiallyExpanded = false, entryO
           <div className="analysis-sheet-grab-zone" data-quick-start="analyse-grab-zone" {...bindSheetDrag()}>
             <button className="analysis-sheet-handle" type="button" aria-label={expanded ? "Collapse node inspector" : "Expand node inspector"} aria-expanded={expanded} onClick={toggleSheet}><span /></button>
             <div className="analysis-title-row">
-              <div><p className="eyebrow accent">{profile.sphere}</p><h1 title={profile.name}>{profile.name}</h1><p className="analysis-source-date">Last updated {formatAppDate(profile.updated)}</p></div>
-              <div className="mobile-score-lockup" aria-label={`TULIP urgency ${profile.urgency.toFixed(1)}, ${profile.urgencyBand}`}><strong>{profile.urgency.toFixed(1)}</strong><span>{profile.urgencyBand}</span></div>
+              <div><p className="eyebrow accent"><InspectorCategorySymbol sphere={profile.sphere} />{profile.sphere}</p><h1 title={profile.name}><InspectorCategorySymbol sphere={profile.sphere} collapsed /><span>{profile.name}</span></h1><p className="analysis-source-date">Last updated {formatAppDate(profile.updated)}</p></div>
+              <div className="mobile-inspector-header-actions"><button type="button" className="mobile-score-summary" onClick={() => setScoreExplanationOpen(true)} aria-label={`${profile.assessment?.accessibilityLabel || profile.assessment?.label || "Not yet scored"} Explain TULIP Score`}>
+                {profile.assessment?.value != null ? <div className="mobile-score-lockup"><strong>{profile.assessment.value.toFixed(1)}</strong></div> : <span className="assessment-note">{profile.assessment?.label || "Not yet scored"}</span>}
+              </button><button type="button" className="mobile-inspector-share" aria-label={`Share ${profile.name}`} aria-haspopup="dialog" onClick={() => { keyboard.hide(); setShareStatus(""); setActionMenuOpen(true); }}>
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m13 4 8 7-8 7v-4c-5 0-8 2-10 6 0-8 4-12 10-12V4Z" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              </button></div>
             </div>
           </div>
           <div className="analysis-detail-content" aria-hidden={!expanded}>
+            {expanded && headerPhoto ? <figure className="inspector-photo"><button ref={photoTriggerRef} type="button" className="inspector-photo-trigger" aria-label={`View photograph of ${name}`} aria-haspopup="dialog" onClick={() => {
+              if (performance.now() < ignoreHandleClickUntilRef.current) return;
+              keyboard.hide(); setPhotoViewer({key:photoKey,name,photo:headerPhoto});
+            }}><img src={headerPhoto.asset} width={headerPhoto.width} height={headerPhoto.height} alt={headerPhoto.alt} decoding="async" draggable={false} onError={photoFailed} /></button></figure> : null}
             <section className="detail-section overview-section"><p className="body-copy">{profile.description}</p></section>
-            <section className="detail-section relationship-section"><p className="eyebrow">Relationships</p><h3>Pick a <strong className="relationship-trigger-word">Trigger</strong></h3><Carousel key={`incoming-${connection?.direction === "incoming" ? connection.label : "none"}`} engine="native" ariaLabel="Pick a Trigger">{incomingRelationships.map(([label,detail]) => <button key={label} aria-pressed={connection?.direction === "incoming" && connection.label === label} onClick={() => setConnection({label,detail,direction:"incoming"})}>{label}</button>)}</Carousel><h3>Pick an <strong className="relationship-effect-word">Effect</strong></h3><Carousel key={`outgoing-${connection?.direction === "outgoing" ? connection.label : "none"}`} engine="native" ariaLabel="Pick an Effect">{outgoingRelationships.map(([label,detail]) => <button key={label} aria-pressed={connection?.direction === "outgoing" && connection.label === label} onClick={() => setConnection({label,detail,direction:"outgoing"})}>{label}</button>)}</Carousel>{connection ? <article className="connection-card" aria-live="polite"><p className="connection-question">{connectionQuestion}</p><p className="connection-answer">{connection.detail}</p></article> : null}</section>
-            <section className="detail-section inspector-block"><div className="inspector-block-heading"><p className="eyebrow">Impact on Humans</p></div><p className="body-copy">{profile.human.summary}</p><p className="affects"><strong>AFFECTS:</strong> {profile.human.domains.join(", ") || "No additional domain asserted"}</p><ul className="consequence-list">{profile.human.consequences.map((item:string) => <li key={item}>{item}</li>)}</ul><InspectorField label="Hidden Cost"><p>{profile.human.hiddenCost}</p></InspectorField><InspectorField label="Who Pays for It"><p>{profile.human.whoPays}</p></InspectorField></section>
-            <section className="detail-section inspector-block"><div className="inspector-block-heading"><p className="eyebrow">Impact on the Planet</p></div><p className="body-copy">{profile.planet.summary}</p><p className="affects"><strong>AFFECTS:</strong> {profile.planet.domains.join(", ") || "No additional system asserted"}</p><ul className="consequence-list">{profile.planet.consequences.map((item:string) => <li key={item}>{item}</li>)}</ul><InspectorField label="Physical Limit"><p>{profile.planet.physicalLimit}</p></InspectorField></section>
-            <section className="detail-section inspector-block"><p className="eyebrow">What Can Be Done</p><InspectorField label="Default Driver"><p>{profile.response.defaultDriver}</p></InspectorField><InspectorField label="System Levers"><ul className="lever-list">{profile.response.levers.map((item:string) => <li key={item}>{item}</li>)}</ul></InspectorField></section>
+            <section className="detail-section relationship-section"><p className="eyebrow inspector-symbol-label"><InspectorSectionSymbol kind="relationships" />Relationships</p><h3 className="relationship-trigger-word">Triggers</h3><Carousel key={`incoming-${connection?.direction === "incoming" ? connection.label : "none"}`} engine="native" ariaLabel="Pick a Trigger">{incomingRelationships.map(([label,detail]) => <button key={label} aria-pressed={connection?.direction === "incoming" && connection.label === label} onClick={() => setConnection({label,detail,direction:"incoming"})}>{label}</button>)}</Carousel><h3 className="relationship-effect-word">Effects</h3><Carousel key={`outgoing-${connection?.direction === "outgoing" ? connection.label : "none"}`} engine="native" ariaLabel="Pick an Effect">{outgoingRelationships.map(([label,detail]) => <button key={label} aria-pressed={connection?.direction === "outgoing" && connection.label === label} onClick={() => setConnection({label,detail,direction:"outgoing"})}>{label}</button>)}</Carousel>{connection ? <article className="connection-card" aria-live="polite"><p className="connection-question">{connectionQuestion}</p><p className="connection-answer">{connection.detail}</p></article> : null}</section>
+            <section className="detail-section inspector-block"><div className="inspector-block-heading"><p className="eyebrow inspector-symbol-label"><InspectorSectionSymbol kind="humans" />Impact on Humans</p></div><p className="body-copy">{profile.human.summary}</p><p className="affects"><strong>AFFECTS:</strong> {profile.human.domains.join(", ") || "No additional domain asserted"}</p><ul className="consequence-list">{profile.human.consequences.map((item:string) => <li key={item}>{item}</li>)}</ul><InspectorField label="Hidden Cost"><p>{profile.human.hiddenCost}</p></InspectorField><InspectorField label="Who Pays for It"><p>{profile.human.whoPays}</p></InspectorField></section>
+            <section className="detail-section inspector-block"><div className="inspector-block-heading"><p className="eyebrow inspector-symbol-label"><InspectorSectionSymbol kind="planet" />Impact on the Planet</p></div><p className="body-copy">{profile.planet.summary}</p><p className="affects"><strong>AFFECTS:</strong> {profile.planet.domains.join(", ") || "No additional system asserted"}</p><ul className="consequence-list">{profile.planet.consequences.map((item:string) => <li key={item}>{item}</li>)}</ul><InspectorField label="Limits and uncertainty"><p>{profile.planet.physicalLimit}</p></InspectorField></section>
+            <section className="detail-section inspector-block"><p className="eyebrow inspector-symbol-label"><InspectorSectionSymbol kind="response" />What Can Be Done</p><InspectorField label="What drives this"><p>{profile.response.defaultDriver}</p></InspectorField><InspectorField label="Actions that can help"><ul className="lever-list">{profile.response.levers.map((item:string) => <li key={item}>{item}</li>)}</ul></InspectorField></section>
             {profile.recentOccurrences ? <RecentMajorEvents key={profile.name} profile={profile.recentOccurrences} /> : null}
-            <details className="detail-section inspector-block inspector-disclosure"><summary><span>How This Is Measured</span><ChevronRightIcon /></summary><dl className="measurement-grid"><div><dt>Metric</dt><dd>{formatMetricDisplayText(profile.measurement.metric)}</dd></div><div><dt>Unit</dt><dd>{formatMetricDisplayText(profile.measurement.unit)}</dd></div><div><dt>Geography</dt><dd>{formatMetricDisplayText(profile.measurement.geography)}</dd></div><div><dt>Cadence</dt><dd>{formatMetricDisplayText(profile.measurement.cadence)}</dd></div><div><dt>Method</dt><dd>{formatMetricDisplayText(profile.measurement.method)}</dd></div><div><dt>Uncertainty</dt><dd>{formatMetricDisplayText(profile.measurement.uncertainty)}</dd></div><div><dt>Interpretation boundary</dt><dd>{formatMetricDisplayText(profile.measurement.boundary)}</dd></div></dl></details>
-            <details className="detail-section inspector-block inspector-disclosure monitoring-block"><summary><span>Monitoring Sources</span><ChevronRightIcon /></summary><div className="monitoring-links">{profile.sources.map(([label,url]) => <a key={url} href={url} target="_blank" rel="noreferrer"><span>{label}</span><ExternalLinkIcon /></a>)}</div></details>
+            <details className="detail-section inspector-block inspector-disclosure"><summary><span className="inspector-symbol-label"><InspectorSectionSymbol kind="measurement" />How This Is Measured</span><ChevronRightIcon /></summary><dl className="measurement-grid"><div><dt>Metric</dt><dd>{formatMetricDisplayText(profile.measurement.metric)}</dd></div><div><dt>Unit</dt><dd>{formatMetricDisplayText(profile.measurement.unit)}</dd></div><div><dt>Geography</dt><dd>{formatMetricDisplayText(profile.measurement.geography)}</dd></div><div><dt>Cadence</dt><dd>{formatMetricDisplayText(profile.measurement.cadence)}</dd></div><div><dt>Method</dt><dd>{formatMetricDisplayText(profile.measurement.method)}</dd></div><div><dt>Uncertainty</dt><dd>{formatMetricDisplayText(profile.measurement.uncertainty)}</dd></div><div><dt>Interpretation boundary</dt><dd>{formatMetricDisplayText(profile.measurement.boundary)}</dd></div></dl></details>
+            <details className="detail-section inspector-block inspector-disclosure monitoring-block"><summary><span className="inspector-symbol-label"><InspectorSectionSymbol kind="sources" />Monitoring Sources</span><ChevronRightIcon /></summary><div className="monitoring-links">{profile.sources.map(([label,url]) => <a key={url} href={url} target="_blank" rel="noreferrer"><span>{label}</span><ExternalLinkIcon /></a>)}</div></details>
           </div>
         </main>
       </MobileScroll>
@@ -2335,7 +2968,7 @@ function AnalyseScreenContent({ name, profile, initiallyExpanded = false, entryO
 const formatImpactValue = (value: number) => Number(value || 0).toLocaleString("en-US", { maximumFractionDigits: 2 });
 const compactImpactUnit = (unit: string) => formatMetricDisplayText(String(unit || "relative value")).replace(" per year", "/yr").replace(" per kg food", "/kg");
 
-function ActivityScreen({ resetRequest, onNavCompactChange }: { resetRequest:number; onNavCompactChange?:(compact:boolean) => void }) {
+function ActivityScreen({ active = true,resetRequest, onNavCompactChange }: { active?:boolean; resetRequest:number; onNavCompactChange?:(compact:boolean) => void }) {
   const [scope,setScope] = useState(activityProfiles[0]?.key || "food");
   const [view,setView] = useState<"impact"|"actions">("impact");
   const [scopeTransition,setScopeTransition] = useState<"next"|"previous"|null>(null);
@@ -2415,7 +3048,7 @@ function ActivityScreen({ resetRequest, onNavCompactChange }: { resetRequest:num
     const selected = rail?.querySelector<HTMLElement>(".activity-scope-list button.selected");
     if (!rail || !selected) return;
     const centeredLeft = selected.offsetLeft - (rail.clientWidth - selected.offsetWidth) / 2;
-    rail.scrollTo({left:Math.max(0,centeredLeft),behavior:"smooth"});
+    rail.scrollTo({left:Math.max(0,centeredLeft),behavior:systemPrefersReducedMotion() ? "auto" : "smooth"});
   },[scope]);
   useEffect(() => () => {
     if (scopeTransitionTimerRef.current !== null) window.clearTimeout(scopeTransitionTimerRef.current);
@@ -2436,7 +3069,7 @@ function ActivityScreen({ resetRequest, onNavCompactChange }: { resetRequest:num
       setScopeTransition(null);
       scroller?.scrollTo({top:0,behavior:"auto"});
     };
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches || currentIndex <= defaultIndex) {
+    if (systemPrefersReducedMotion() || currentIndex <= defaultIndex) {
       setScope(activityProfiles[defaultIndex].key);
       finish();
       return;
@@ -2490,7 +3123,7 @@ function ActivityScreen({ resetRequest, onNavCompactChange }: { resetRequest:num
     "--activity-glow": profile.theme.glow,
     "--activity-gradient": `linear-gradient(90deg, ${profile.theme.start} 0%, ${profile.theme.end} 100%)`,
   } as CSSProperties;
-  return <div ref={screenRef} className="app-screen activity-screen" style={themeStyle} onPointerDownCapture={beginEdgeSwipe} onPointerUpCapture={finishEdgeSwipe} onPointerCancelCapture={() => { edgeSwipeRef.current = null; }}><header ref={frozenHeaderRef} className="activity-frozen-header"><div className="page-heading"><div><h1>Activity Impacts</h1></div></div><Carousel className="scope-carousel activity-scope-carousel" contentClassName="scope-list activity-scope-list" engine="native" ariaLabel="Activity categories">{activityProfiles.map((item) => <button key={item.key} className={scope === item.key ? "selected" : ""} onClick={() => { setScopeTransition(null); setScope(item.key); }}>{item.label}</button>)}</Carousel></header><MobileScroll className="activity-scroll-surface" engine="native"><main key={`${scope}-${view}`} className={`page-content activity-content${scopeTransition ? ` is-scope-${scopeTransition}` : ""}`}><section className="activity-focus"><div className="activity-focus-heading"><div><p className="eyebrow">Activity</p><h2>{profile.label}</h2></div><div className="segment-control activity-mode-toggle" aria-label="Activity content mode"><button className={view === "impact" ? "selected" : ""} onClick={() => setView("impact")}>Impact</button><button data-quick-start="activity-actions" className={view === "actions" ? "selected" : ""} onClick={() => setView("actions")}>Actions</button></div></div></section>{view === "impact" ? <ActivityImpactPanel profile={profile} /> : <ActivityActionsPanel profile={profile} />}</main></MobileScroll></div>;
+  return <div ref={screenRef} className={`app-screen activity-screen ${active ? "is-active" : "is-inactive"}`} aria-hidden={!active} style={themeStyle} onPointerDownCapture={beginEdgeSwipe} onPointerUpCapture={finishEdgeSwipe} onPointerCancelCapture={() => { edgeSwipeRef.current = null; }}><header ref={frozenHeaderRef} className="activity-frozen-header"><div className="page-heading"><div><h1>Activity Impacts</h1></div></div><Carousel className="scope-carousel activity-scope-carousel" contentClassName="scope-list activity-scope-list" engine="native" ariaLabel="Activity categories">{activityProfiles.map((item) => <button key={item.key} className={scope === item.key ? "selected" : ""} onClick={() => { setScopeTransition(null); setScope(item.key); }}>{item.label}</button>)}</Carousel></header><MobileScroll className="activity-scroll-surface" engine="native"><main key={`${scope}-${view}`} className={`page-content activity-content${scopeTransition ? ` is-scope-${scopeTransition}` : ""}`}><section className="activity-focus"><div className="activity-focus-heading"><div><p className="eyebrow">Activity</p><h2>{profile.label}</h2></div><div className="segment-control activity-mode-toggle" aria-label="Activity content mode"><button className={view === "impact" ? "selected" : ""} onClick={() => setView("impact")}>Impact</button><button data-quick-start="activity-actions" className={view === "actions" ? "selected" : ""} onClick={() => setView("actions")}>Actions</button></div></div></section>{view === "impact" ? <ActivityImpactPanel profile={profile} /> : <ActivityActionsPanel profile={profile} />}</main></MobileScroll></div>;
 }
 
 function ActivityImpactPanel({ profile }: { profile: ActivityProfile }) {
@@ -2519,6 +3152,9 @@ function ActivityActionTier({ icon: CardIcon, title, items, tone }: { icon: Icon
 
 type FootprintMetricTrend = "up" | "down" | "neutral";
 type FootprintMetricKey = "carbon" | "water" | "land" | "material";
+const FOOTPRINT_SELECTION_ACK_MS = 60;
+const FOOTPRINT_FORWARD_EXIT_MS = 180;
+const FOOTPRINT_FORWARD_SETTLE_MS = 220;
 
 function getFootprintMetricTrend(currentValue:number, previousValue:number | undefined):FootprintMetricTrend {
   if (typeof previousValue !== "number") return "neutral";
@@ -2538,7 +3174,7 @@ function FootprintMetricStrip({ result, trends }: { result: ReturnType<typeof ca
   return <section className={`footprint-metric-strip ${hasAnswers ? "has-values" : "is-empty"}`} aria-label="Current footprint metrics" aria-live="polite">{metrics.map((metric) => <span className={`footprint-metric-chip ${metric.tone} is-${metric.trend}`} key={metric.label}>{metric.trend === "neutral" ? <i aria-hidden="true" /> : <i aria-hidden="true">{metric.trend === "up" ? "↑" : "↓"}</i>}<strong>{metric.label}</strong><span>{metric.value}</span></span>)}</section>;
 }
 
-function FootprintScreen({ resetRequest, onNavCompactChange }: { resetRequest:number; onNavCompactChange:(compact:boolean) => void }) {
+function FootprintScreen({ active = true,resetRequest, onNavCompactChange }: { active?:boolean; resetRequest:number; onNavCompactChange:(compact:boolean) => void }) {
   const [answers, setAnswers] = useState<FootprintAnswer>({});
   const [step, setStep] = useState(0);
   const [questionTransition,setQuestionTransition] = useState<"idle" | "back-exit" | "back-enter" | "forward-exit" | "forward-enter" | "forward-settle">("idle");
@@ -2568,7 +3204,7 @@ function FootprintScreen({ resetRequest, onNavCompactChange }: { resetRequest:nu
     setStep(footprintQuestions.length);
     window.requestAnimationFrame(() => {
       screenRef.current?.querySelector<HTMLElement>(".footprint-scroll-surface .mobile-scroll")
-        ?.scrollTo({top:0,behavior:"smooth"});
+        ?.scrollTo({top:0,behavior:systemPrefersReducedMotion() ? "auto" : "smooth"});
     });
   },[resetRequest]);
   useEffect(() => {
@@ -2654,11 +3290,11 @@ function FootprintScreen({ resetRequest, onNavCompactChange }: { resetRequest:nu
             forwardSettleTimerRef.current = window.setTimeout(() => {
               forwardSettleTimerRef.current = null;
               setQuestionTransition("idle");
-            },420);
+            },FOOTPRINT_FORWARD_SETTLE_MS);
           });
         });
-      },420);
-    },90);
+      },FOOTPRINT_FORWARD_EXIT_MS);
+    },FOOTPRINT_SELECTION_ACK_MS);
   };
   const cancelBackTransition = () => {
     if (backExitTimerRef.current !== null) window.clearTimeout(backExitTimerRef.current);
@@ -2719,7 +3355,7 @@ function FootprintScreen({ resetRequest, onNavCompactChange }: { resetRequest:nu
     backSwipeRef.current = { x:event.clientX,y:event.clientY };
   };
   const finishPointerBackSwipe = (event:ReactPointerEvent<HTMLElement>) => completeBackSwipe(event.clientX,event.clientY);
-  return <div ref={screenRef} className={`app-screen footprint-screen ${showingSummary ? "is-summary" : "is-questionnaire"}`}><header ref={frozenHeaderRef} className="footprint-frozen-header"><div className="footprint-title-row"><div><h1>My Footprint</h1><p className="subtitle">A benchmark estimate across home, travel, food and purchasing.</p></div></div>{showingSummary || result.answered === 0 ? null : <FootprintMetricStrip result={result} trends={metricTrends} />}<div className="progress-track"><i style={{width:`${showingSummary ? 100 : ((step + 1) / footprintQuestions.length) * 100}%`}} /></div></header><MobileScroll key={showingSummary ? "footprint-summary" : "footprint-questions"} className="footprint-scroll-surface"><main className={`page-content footprint-content is-${questionTransition}`} onTouchStart={beginBackSwipe} onTouchEnd={finishBackSwipe} onTouchCancel={() => { backSwipeRef.current = null; }} onPointerDown={beginPointerBackSwipe} onPointerUp={finishPointerBackSwipe} onPointerCancel={() => { backSwipeRef.current = null; }}>{!showingSummary ? <section className="question-card"><p className="question-number">{question.title}</p><div className="answer-list" data-quick-start="footprint-answers">{question.options.map((option) => <button key={option.value} className={selected === option.value ? "selected" : ""} onClick={() => choose(option.value)} aria-pressed={selected === option.value}><strong>{option.label}</strong></button>)}</div></section> : <FootprintSummary result={result} onReview={() => setStep(0)} onReset={reset} />}</main></MobileScroll></div>;
+  return <div ref={screenRef} className={`app-screen footprint-screen ${active ? "is-active" : "is-inactive"} ${showingSummary ? "is-summary" : "is-questionnaire"}`} aria-hidden={!active}><header ref={frozenHeaderRef} className="footprint-frozen-header"><div className="footprint-title-row"><div><h1>My Footprint</h1><p className="subtitle">A benchmark estimate across home, travel, food and purchasing.</p></div></div>{showingSummary || result.answered === 0 ? null : <FootprintMetricStrip result={result} trends={metricTrends} />}<div className="progress-track"><i style={{width:`${showingSummary ? 100 : ((step + 1) / footprintQuestions.length) * 100}%`}} /></div></header><MobileScroll key={showingSummary ? "footprint-summary" : "footprint-questions"} className="footprint-scroll-surface"><main className={`page-content footprint-content is-${questionTransition}`} onTouchStart={beginBackSwipe} onTouchEnd={finishBackSwipe} onTouchCancel={() => { backSwipeRef.current = null; }} onPointerDown={beginPointerBackSwipe} onPointerUp={finishPointerBackSwipe} onPointerCancel={() => { backSwipeRef.current = null; }}>{!showingSummary ? <section className="question-card"><p className="question-number">{question.title}</p><div className="answer-list" data-quick-start="footprint-answers">{question.options.map((option) => <button key={option.value} className={selected === option.value ? "selected" : ""} onClick={() => choose(option.value)} aria-pressed={selected === option.value}><strong>{option.label}</strong></button>)}</div></section> : <FootprintSummary result={result} onReview={() => setStep(0)} onReset={reset} />}</main></MobileScroll></div>;
 }
 
 function FootprintSummary({ result, onReview, onReset }: { result: ReturnType<typeof calculateFootprint>; onReview: () => void; onReset: () => void }) {
@@ -2740,13 +3376,11 @@ function MetricCard({ label, value, unit, tone, context }: { label:string; value
 }
 
 function TulipScoreInfo() {
-  const bandDescription = TULIP_URGENCY_BANDS_V3.map((band:Record<string,any>) => `${band.min.toFixed(1)}–${band.max.toFixed(1)} is ${band.label}`).join(", ").replace(/, ([^,]+)$/,", and $1");
-  const exampleBand = getTulipUrgencyBandV3(7.3);
-  return <div className="desktop-info-copy score-info-copy"><p className="info-eyebrow">Global urgency · 1.0 to 10.0</p><h2>How urgent is this issue now?</h2><p>The TULIP Score is a 1–10 urgency rating for climate and environmental problems. It combines evidence about how serious a problem is now, how close it is to a dangerous level, whether it is getting worse, and how widely it is happening.</p><details open><summary>Choose the evidence</summary><div><p>TULIP prefers recent, global measurements. When those are available, it asks four questions: <strong>How large is the problem now? How close is it to a dangerous threshold? How quickly is it changing? How much of the world does it affect?</strong></p><p>If current measurements are incomplete, TULIP uses documented harm that has already occurred—to natural systems, people, and the economy. A model estimate is used only as a last resort and is clearly marked <strong>Modeled</strong>.</p></div></details><details><summary>Translate to one scale</summary><div><p>Climate problems are measured in incompatible units: degrees of warming, tonnes of pollution, hectares lost, people exposed, or dollars of damage. Before combining them, TULIP translates every measurement to a common <strong>0–1 scale</strong>.</p><p><strong>0 means the reference condition. About 0.33 means concerning. About 0.67 means critical. 1 means extreme.</strong> A measurement between two points receives a value between them. This makes different kinds of problems comparable without pretending their original units are the same.</p></div></details><details><summary>Blend the four signals</summary><div><p>For issues with current data, current magnitude counts for <strong>30%</strong>, dangerous-threshold position for <strong>30%</strong>, momentum for <strong>25%</strong>, and geographic extent for <strong>15%</strong>.</p><p><strong>(magnitude × 0.30) + (threshold × 0.30) + (momentum × 0.25) + (extent × 0.15) = the weighted composite.</strong></p><p>When TULIP uses documented harm instead, the blend changes to <strong>35% physical or ecological harm, 30% harm to people or the economy, 20% persistence, and 15% geographic extent</strong>.</p><p><strong>TULIP Score = 1 + (9 × weighted composite).</strong> The result is rounded to one decimal place. <strong>{bandDescription}.</strong></p></div></details><details><summary>See the formula in action</summary><div><p>For Global Temperature, TULIP translates the evidence into four values: <strong>0.62 for current magnitude, 0.62 for threshold position, 0.71 for momentum, and 1.00 for global extent.</strong></p><p><strong>(0.62 × 0.30) + (0.62 × 0.30) + (0.71 × 0.25) + (1.00 × 0.15) ≈ 0.70.</strong> Convert it to 1–10: <strong>1 + (9 × 0.70) = 7.3.</strong> Global Temperature therefore receives a TULIP Score of <strong>7.3, or {exampleBand}</strong>.</p><p>A 7.3 does not mean 73% damage or a 73% chance of disaster. It means the available evidence places the issue high on TULIP's urgency scale. The score does not measure scientific confidence, popularity, or how easy the issue is to solve.</p><p><strong>Receipt verification is computational, not scientific proof.</strong> It checks that stored components reproduce the score and band and that hashed content has not changed. Scientific review separately evaluates the measurement, anchors, transformation, scoring route, and continuing source support.</p></div></details></div>;
+  return <div className="desktop-info-copy score-info-copy"><h2>{SCORE_METHOD_COPY.title}</h2>{["summary","components","formula","missing","evidence","limits"].map(key => <p key={key}>{SCORE_METHOD_COPY[key]}</p>)}</div>;
 }
 
 function AboutTulipInfo() {
-  return <div className="desktop-info-copy"><h2>Tracking Use, Loss, and Impact on the Planet</h2><p className="info-lead">The TULIP Project helps people understand how human choices affect Earth’s atmosphere, oceans, ecosystems, economies, and future.</p><p>It brings climate data and interconnected relationships into one explorable system.</p><p>This makes complex causes and consequences easier to understand without reducing them to a single story.</p><section><h3>What You Can Do</h3><ul><li>Explore connected environmental causes and effects</li><li>Follow what drives a problem and what it affects next</li><li>Understand how human activity influences the climate</li><li>Estimate your personal carbon, water, land, and material footprints</li></ul></section><p>TULIP combines public datasets, institutional monitoring, reported disclosures, and modeled relationships.</p><p>Not every connection carries the same level of certainty, and TULIP is not a substitute for primary scientific institutions.</p></div>;
+  return <div className="desktop-info-copy"><h2>Tracking Use, Loss, and Impact on the Planet</h2><p className="info-lead">Tulip Earth helps people understand how human choices affect Earth’s atmosphere, oceans, ecosystems, economies, and future.</p><p>It brings climate data and interconnected relationships into one explorable system.</p><p>This makes complex causes and consequences easier to understand without reducing them to a single story.</p><section><h3>What You Can Do</h3><ul><li>Explore connected environmental causes and effects</li><li>Follow what drives a problem and what it affects next</li><li>Understand how human activity influences the climate</li><li>Estimate your personal carbon, water, land, and material footprints</li></ul></section><p>Tulip Earth combines public datasets, institutional monitoring, reported disclosures, and modeled relationships.</p><p>Not every connection carries the same level of certainty, and Tulip Earth is not a substitute for primary scientific institutions.</p></div>;
 }
 
 function ContactTulipInfo() {
@@ -2766,12 +3400,12 @@ function ContactTulipInfo() {
       setStatus("This form could not send right now. Email aniket1.warade@gmail.com instead.");
     }
   };
-  if (isNativeApp) return <div className="desktop-info-copy"><h2>Contact</h2><p className="info-lead">For partnerships, research collaboration, platform questions, data discussions, and institutional outreach related to TULIP.</p><p>Contact opens your email app. TULIP receives only the information you choose to include after you send the message.</p><a className="direct-email-link" href="mailto:aniket1.warade@gmail.com?subject=TULIP%20app%20support">Email TULIP support</a></div>;
-  return <div className="desktop-info-copy"><h2>Contact</h2><p className="info-lead">For partnerships, research collaboration, platform questions, data discussions, and institutional outreach related to TULIP.</p><form className="mobile-contact-form" onSubmit={submit}><input type="hidden" name="_subject" value="New TULIP contact form message" /><input type="hidden" name="_template" value="table" /><label><span>Name</span><KeyboardInput name="name" autoComplete="name" maxLength={100} required /></label><label><span>Email</span><KeyboardInput type="email" name="email" autoComplete="email" maxLength={160} required /></label><label><span>Organization <small>Optional</small></span><KeyboardInput name="organization" autoComplete="organization" maxLength={140} /></label><label><span>Topic</span><select name="topic" required defaultValue=""><option value="" disabled>Select a topic</option><option>Platform question</option><option>Research collaboration</option><option>Data or evidence</option><option>Partnership</option><option>Other</option></select></label><label><span>Message</span><textarea name="message" rows={7} maxLength={4000} required /></label><p className="contact-privacy-note">Submitting sends the information above to TULIP so we can respond. It is not used for advertising or tracking.</p><button type="submit">Send message</button><p className="contact-status" role="status" aria-live="polite">{status}</p></form><a className="direct-email-link" href="mailto:aniket1.warade@gmail.com">aniket1.warade@gmail.com</a></div>;
+  if (isNativeApp) return <div className="desktop-info-copy"><h2>Contact</h2><p className="info-lead">For partnerships, research collaboration, platform questions, data discussions, and institutional outreach related to Tulip Earth.</p><p>Contact opens your email app. Tulip Earth receives only the information you choose to include after you send the message.</p><a className="direct-email-link" href="mailto:aniket1.warade@gmail.com?subject=Tulip%20Earth%20app%20support">Email Tulip Earth support</a></div>;
+  return <div className="desktop-info-copy"><h2>Contact</h2><p className="info-lead">For partnerships, research collaboration, platform questions, data discussions, and institutional outreach related to Tulip Earth.</p><form className="mobile-contact-form" onSubmit={submit}><input type="hidden" name="_subject" value="New Tulip Earth contact form message" /><input type="hidden" name="_template" value="table" /><label><span>Name</span><KeyboardInput name="name" autoComplete="name" maxLength={100} required /></label><label><span>Email</span><KeyboardInput type="email" name="email" autoComplete="email" maxLength={160} required /></label><label><span>Organization <small>Optional</small></span><KeyboardInput name="organization" autoComplete="organization" maxLength={140} /></label><label><span>Topic</span><select name="topic" required defaultValue=""><option value="" disabled>Select a topic</option><option>Platform question</option><option>Research collaboration</option><option>Data or evidence</option><option>Partnership</option><option>Other</option></select></label><label><span>Message</span><textarea name="message" rows={7} maxLength={4000} required /></label><p className="contact-privacy-note">Submitting sends the information above to Tulip Earth so we can respond. It is not used for advertising or tracking.</p><button type="submit">Send message</button><p className="contact-status" role="status" aria-live="polite">{status}</p></form><a className="direct-email-link" href="mailto:aniket1.warade@gmail.com">aniket1.warade@gmail.com</a></div>;
 }
 
 function PrivacyTulipInfo() {
-  return <div className="desktop-info-copy privacy-info-copy"><h2>Privacy</h2><p className="info-lead">TULIP does not use advertising trackers or sell personal information.</p><section><h3>Information stored on this device</h3><p>Search history, Analyse navigation history, and footprint answers may be stored locally so the app can preserve your progress. This information stays on your device and can be removed by deleting the app or clearing its data.</p></section><section><h3>When you contact TULIP</h3><p>The app opens your email app when you choose Contact. TULIP receives only the information you choose to include after you send the email. Correspondence is used only to respond to your request and maintain necessary records; it is not used for advertising or cross-app tracking.</p></section><section><h3>External sources</h3><p>Links to scientific sources open outside TULIP. Those sites have their own privacy practices. TULIP does not automatically send your footprint answers or app history to those sites.</p></section><section><h3>Your choices</h3><p>You can use the graph, Analyse, Activity Impacts, and My Footprint without creating an account or contacting TULIP. To ask about retained correspondence or request deletion, email the address below.</p></section><a className="direct-email-link" href="mailto:aniket1.warade@gmail.com">aniket1.warade@gmail.com</a><a className="direct-email-link" href="https://tulip-project-six.vercel.app/privacy.html" target="_blank" rel="noreferrer">View the full privacy policy</a></div>;
+  return <div className="desktop-info-copy privacy-info-copy"><h2>Privacy</h2><p className="info-lead">Tulip Earth does not use advertising trackers or sell personal information.</p><section><h3>Information stored on this device</h3><p>Search history, Analyse navigation history, and footprint answers may be stored locally so the app can preserve your progress. This information stays on your device and can be removed by deleting the app or clearing its data.</p></section><section><h3>When you contact Tulip Earth</h3><p>The app opens your email app when you choose Contact. Tulip Earth receives only the information you choose to include after you send the email. Correspondence is used only to respond to your request and maintain necessary records; it is not used for advertising or cross-app tracking.</p></section><section><h3>External sources</h3><p>Links to scientific sources open outside Tulip Earth. Those sites have their own privacy practices. Tulip Earth does not automatically send your footprint answers or app history to those sites.</p></section><section><h3>Your choices</h3><p>You can use the graph, Analyse, Activity Impacts, and My Footprint without creating an account or contacting Tulip Earth. To ask about retained correspondence or request deletion, email the address below.</p></section><a className="direct-email-link" href="mailto:aniket1.warade@gmail.com">aniket1.warade@gmail.com</a><a className="direct-email-link" href="https://tulip-project-six.vercel.app/privacy.html" target="_blank" rel="noreferrer">View the full privacy policy</a></div>;
 }
 
 function SourceDirectoryInfo({ mode }: { mode:"sources"|"registries" }) {
@@ -2822,7 +3456,7 @@ function SourceRecord({ source }: { source:SourceRegistryRecord }) {
 }
 
 function ExploreInfoPanel({ section, onClose }: { section:ExploreInfoSection; onClose:() => void }) {
-  const titles:Record<ExploreInfoSection,string> = {score:"TULIP Score",sources:"Sources",registries:"Registries",about:"About TULIP",contact:"Contact",privacy:"Privacy"};
+  const titles:Record<ExploreInfoSection,string> = {score:"TULIP Score",sources:"Sources",registries:"Registries",about:"About Tulip Earth",contact:"Contact",privacy:"Privacy"};
   return <section className="explore-info-panel" role="dialog" aria-modal="true" aria-labelledby="explore-info-title"><header><h1 id="explore-info-title">{titles[section]}</h1><button className="icon-button" onClick={onClose} aria-label={`Close ${titles[section]}`}><Cross1Icon width={22} height={22} /></button></header><MobileScroll className="explore-info-scroll"><main>{section === "score" ? <TulipScoreInfo /> : section === "sources" ? <SourceDirectoryInfo mode="sources" /> : section === "registries" ? <SourceDirectoryInfo mode="registries" /> : section === "about" ? <AboutTulipInfo /> : section === "privacy" ? <PrivacyTulipInfo /> : <ContactTulipInfo />}</main></MobileScroll></section>;
 }
 
@@ -2843,6 +3477,8 @@ export default function Prototype() {
   const [infoSection,setInfoSection] = useState<ExploreInfoSection | null>(null);
   const [activeFilter, setActiveFilter] = useState("all");
   const [nodeName, setNodeName] = useState(initialAnalyseCache?.current.name || "Global Temperature");
+  const [analyseHasSelection,setAnalyseHasSelection] = useState(Boolean(initialAnalyseCache));
+  const [usedAnalyseStartingPoints,setUsedAnalyseStartingPoints] = useState(readUsedAnalyseStartingPoints);
   const [analyseExpandedOnOpen,setAnalyseExpandedOnOpen] = useState(initialAnalyseCache?.current.expanded || false);
   const [analyseEntryOrigin,setAnalyseEntryOrigin] = useState<AppPoint | null>(null);
   const [analyseTransition,setAnalyseTransition] = useState<"idle"|"forward"|"back">("idle");
@@ -2861,18 +3497,86 @@ export default function Prototype() {
   const [startupWarmupVisible,setStartupWarmupVisible] = useState(
     () => !Boolean((window as Window & { __TULIP_NATIVE_APP__?:boolean }).__TULIP_NATIVE_APP__),
   );
+  const [nativeStartupVisible,setNativeStartupVisible] = useState(() => (window as Window & { __TULIP_NATIVE_STARTUP_COMPLETE__?:boolean }).__TULIP_NATIVE_STARTUP_COMPLETE__ === false);
+  const [introductionPage,setIntroductionPage] = useState(readIntroductionPage);
+  const [introductionPhase,setIntroductionPhase] = useState<"pages"|"notifications"|"waiting"|"error"|"revealing">(() => {
+    try { return window.sessionStorage.getItem(INTRO_RETRY_KEY) === "true" ? "waiting" : "pages"; } catch { return "pages"; }
+  });
+  const [revealReducedMotion,setRevealReducedMotion] = useState(false);
+  const onboardingActive = introductionPage !== null;
+  const onboardingActiveRef = useRef(onboardingActive);
+  onboardingActiveRef.current = onboardingActive;
+  const revealStartedRef = useRef(false);
+  const introductionActionRef = useRef(false);
+  const startupCovered = startupWarmupVisible || nativeStartupVisible;
   const [quickStartStep,setQuickStartStep] = useState<number | null>(null);
   const [quickStartCompleteVisible,setQuickStartCompleteVisible] = useState(false);
   const quickStartAutoPendingRef = useRef(
     !hasCompletedQuickStart()
-      && window.matchMedia("(max-width: 700px)").matches
       && (!window.location.hash || window.location.hash === "#explore"),
   );
   const quickStartCompleteTimerRef = useRef<number | null>(null);
   const analyseHistoryRef = useRef<AnalyseHistoryEntry[]>(initialAnalyseCache?.history || []);
   const analyseNodeNameRef = useRef(nodeName);
+  const analyseFromStartingPointRef = useRef(false);
   const analyseExpandedRef = useRef(initialAnalyseCache?.current.expanded || false);
   const analyseTransitionTimerRef = useRef<number | null>(null);
+  useEffect(() => {
+    try { window.sessionStorage.removeItem(INTRO_RETRY_KEY); } catch { /* Optional retry state. */ }
+    const handleStartupComplete = () => setNativeStartupVisible(false);
+    window.addEventListener("tulip-native-startup-complete",handleStartupComplete);
+    return () => window.removeEventListener("tulip-native-startup-complete",handleStartupComplete);
+  },[]);
+  const changeIntroductionPage = (page:number) => {
+    introductionActionRef.current = false;
+    setIntroductionPage(page);
+    setIntroductionPhase("pages");
+    saveIntroduction(page);
+  };
+  const continueIntroduction = () => {
+    if (introductionActionRef.current) return;
+    introductionActionRef.current = true;
+    setIntroductionPage(3);
+    saveIntroduction(3);
+    const nativeBridge = (window as Window & { TULIPNative?:TulipNativeBridge }).TULIPNative;
+    let notificationsComplete = false;
+    try { notificationsComplete = window.localStorage.getItem(NOTIFICATION_ONBOARDING_KEY) === "complete"; } catch { /* Optional persistence. */ }
+    if (nativeBridge?.notificationOnboarding && !notificationsComplete) {
+      keyboard.hide();
+      setIntroductionPhase("notifications");
+      return;
+    }
+    setIntroductionPhase("waiting");
+  };
+  useEffect(() => {
+    if (introductionPhase !== "notifications") return;
+    const complete = (event:Event) => {
+      if ((event as CustomEvent<{action?:string}>).detail?.action !== "completeNotificationOnboarding") return;
+      try { window.localStorage.setItem(NOTIFICATION_ONBOARDING_KEY,"complete"); } catch { /* Optional persistence. */ }
+      setIntroductionPhase("waiting");
+    };
+    window.addEventListener("tulip-native-navigation",complete);
+    (window as Window & { TULIPNative?:TulipNativeBridge }).TULIPNative?.notificationOnboarding?.();
+    return () => window.removeEventListener("tulip-native-navigation",complete);
+  },[introductionPhase]);
+  const beginIntroductionReveal = useCallback(() => {
+    if (revealStartedRef.current) return;
+    revealStartedRef.current = true;
+    saveIntroduction("complete");
+    setRevealReducedMotion(systemPrefersReducedMotion());
+    setIntroductionPhase("revealing");
+  },[]);
+  const failIntroduction = useCallback(() => setIntroductionPhase("error"),[]);
+  useEffect(() => {
+    if (!onboardingActive || introductionPhase !== "revealing") return;
+    const timer = window.setTimeout(() => {
+      quickStartAutoPendingRef.current = false;
+      // Atomic handoff: preserve the same canvas, orientation and camera.
+      setIntroductionPage(null);
+      setQuickStartStep(0);
+    },revealReducedMotion ? 200 : 900);
+    return () => window.clearTimeout(timer);
+  },[onboardingActive,introductionPhase,revealReducedMotion]);
   useEffect(() => {
     let cancelled = false;
     let dismissed = false;
@@ -3110,6 +3814,7 @@ export default function Prototype() {
   }, []);
   useEffect(() => {
     const syncHash = () => {
+      if (onboardingActiveRef.current) return;
       const next = window.location.hash.slice(1) as Screen;
       if (navItems.some((item) => item.id === next)) setScreen(next);
     };
@@ -3125,12 +3830,15 @@ export default function Prototype() {
     const isReselection = nextScreen === screen;
     if (isReselection && nextScreen === "activity") setActivityResetKey((value) => value + 1);
     if (isReselection && nextScreen === "footprint") setFootprintResetKey((value) => value + 1);
-    if (nextScreen === "explore") setExploreResetKey((value) => value + 1);
+    if (isReselection && nextScreen === "explore") setExploreResetKey((value) => value + 1);
     if (nextScreen === "analyse") {
+      setAnalyseHasSelection(false);
+      analyseFromStartingPointRef.current = false;
+      analyseHistoryRef.current = [];
       setAnalyseExpandedOnOpen(false);
       setAnalyseEntryOrigin(null);
       analyseExpandedRef.current = false;
-      writeAnalyseNavigationCache({ name:nodeName,expanded:false },analyseHistoryRef.current);
+      try { window.sessionStorage.removeItem(ANALYSE_HISTORY_STORAGE_KEY); } catch { /* Navigation remains usable. */ }
     }
     window.location.hash = nextScreen;
     setScreen(nextScreen);
@@ -3138,11 +3846,18 @@ export default function Prototype() {
   useEffect(() => {
     if (!Boolean((window as Window & { __TULIP_NATIVE_APP__?:boolean }).__TULIP_NATIVE_APP__)) return;
     const handleNativeNavigation = (event:Event) => {
-      const detail = (event as CustomEvent<{ action?:string; screen?:string; filter?:string; active?:boolean }>).detail;
+      const detail = (event as CustomEvent<{ action?:string; screen?:string; filter?:string; active?:boolean; token?:number }>).detail;
       if (detail?.action === "setRenderingActive") {
         setNativeRenderingActive(detail.active !== false);
         return;
       }
+      if (detail?.action === "prepareExplore" && Number.isInteger(detail.token)) {
+        (window as Window & { __TULIP_EXPLORE_PREPARE_TOKEN__?:number }).__TULIP_EXPLORE_PREPARE_TOKEN__ = detail.token;
+        setNativeRenderingActive(true);
+        if (!onboardingActiveRef.current) navigate("explore");
+        return;
+      }
+      if (onboardingActiveRef.current) return;
       if (detail?.action === "select") {
         const nextScreen = detail.screen as Screen;
         if (navItems.some((item) => item.id === nextScreen)) navigate(nextScreen);
@@ -3173,19 +3888,18 @@ export default function Prototype() {
     return () => window.removeEventListener("tulip-native-navigation",handleNativeNavigation);
   },[keyboard,screen]);
   const startQuickStart = useCallback(() => {
+    if (onboardingActiveRef.current) return;
     quickStartAutoPendingRef.current = false;
     setFiltersOpen(false);
     setInfoSection(null);
     setQuickStartCompleteVisible(false);
+    setActiveFilter("all");
+    const canvas = document.querySelector<HTMLElement>('[data-quick-start="explore-canvas"]');
+    if (canvas) delete canvas.dataset.quickStartFirstNode;
     keyboard.hide();
-    if (screen !== "explore") navigate("explore");
+    navigate("explore");
     setQuickStartStep(0);
   },[keyboard,screen]);
-  const skipQuickStart = useCallback(() => {
-    saveQuickStartCompletion();
-    setQuickStartStep(null);
-    keyboard.hide();
-  },[keyboard]);
   const finishQuickStart = useCallback(() => {
     saveQuickStartCompletion();
     setQuickStartStep(null);
@@ -3196,7 +3910,7 @@ export default function Prototype() {
     quickStartCompleteTimerRef.current = window.setTimeout(() => {
       quickStartCompleteTimerRef.current = null;
       setQuickStartCompleteVisible(false);
-    },3200);
+    },4200);
   },[keyboard]);
   const advanceQuickStart = useCallback(() => {
     if (quickStartStep === null) return;
@@ -3218,10 +3932,10 @@ export default function Prototype() {
     }
   },[quickStartStep]);
   useEffect(() => {
-    if (startupWarmupVisible || !quickStartAutoPendingRef.current) return;
+    if (startupCovered || onboardingActive || !quickStartAutoPendingRef.current) return;
     quickStartAutoPendingRef.current = false;
     startQuickStart();
-  },[startupWarmupVisible,startQuickStart]);
+  },[startupCovered,onboardingActive,startQuickStart]);
   const playAnalyseTransition = useCallback((direction:"forward"|"back") => {
     if (analyseTransitionTimerRef.current !== null) window.clearTimeout(analyseTransitionTimerRef.current);
     setAnalyseTransition(direction);
@@ -3231,7 +3945,12 @@ export default function Prototype() {
     },360);
   },[]);
   const showAnalysis = useCallback((name: string, initiallyExpanded = false, entryOrigin?:AppPoint) => {
+    if ((window as Window & { __TULIP_ANDROID_APP__?:boolean }).__TULIP_ANDROID_APP__) {
+      try { window.localStorage.setItem(ANDROID_LAST_TOPIC_KEY,name); } catch { /* Search remains available. */ }
+    }
     keyboard.hide();
+    setAnalyseHasSelection(true);
+    analyseFromStartingPointRef.current = false;
     analyseHistoryRef.current = [];
     analyseNodeNameRef.current = name;
     analyseExpandedRef.current = initiallyExpanded;
@@ -3243,6 +3962,29 @@ export default function Prototype() {
     window.location.hash = "analyse";
     setScreen("analyse");
   }, [keyboard]);
+  const openAnalyseStartingPoint = useCallback((name:string,total:number) => {
+    setUsedAnalyseStartingPoints((current) => {
+      const next = current.includes(name) ? current : [...current,name];
+      const saved = next.length >= total ? [] : next;
+      try { window.localStorage.setItem(ANALYSE_STARTING_POINTS_KEY,JSON.stringify(saved)); } catch { /* Keep this session's order. */ }
+      return saved;
+    });
+    showAnalysis(name,true);
+    analyseFromStartingPointRef.current = true;
+  },[showAnalysis]);
+  useEffect(() => {
+    const openPendingTopic = () => {
+      const nativeWindow = window as Window & { __TULIP_PENDING_TOPIC__?:string };
+      const topic = nativeWindow.__TULIP_PENDING_TOPIC__;
+      const node = desktopNodes.find((item) => item.id === topic) || desktopNodeByName.get(topic || "");
+      if (!node) return;
+      nativeWindow.__TULIP_PENDING_TOPIC__ = "";
+      showAnalysis(node.name,true);
+    };
+    openPendingTopic();
+    window.addEventListener("tulip-android-open-topic",openPendingTopic);
+    return () => window.removeEventListener("tulip-android-open-topic",openPendingTopic);
+  },[showAnalysis]);
   const openAnalysisNode = useCallback((name:string) => {
     if (name === nodeName) return;
     keyboard.hide();
@@ -3258,7 +4000,15 @@ export default function Prototype() {
   },[keyboard,nodeName,playAnalyseTransition]);
   const goBackInAnalysis = useCallback(() => {
     const previous = analyseHistoryRef.current.at(-1);
-    if (!previous) return;
+    if (!previous) {
+      if (analyseFromStartingPointRef.current) {
+        analyseFromStartingPointRef.current = false;
+        setAnalyseHasSelection(false);
+        setInspectorNavCompact(false);
+        try { window.sessionStorage.removeItem(ANALYSE_HISTORY_STORAGE_KEY); } catch { /* Navigation remains usable. */ }
+      }
+      return;
+    }
     const nextHistory = analyseHistoryRef.current.slice(0,-1);
     analyseHistoryRef.current = nextHistory;
     analyseNodeNameRef.current = previous.name;
@@ -3268,7 +4018,30 @@ export default function Prototype() {
     playAnalyseTransition("back");
     setNodeName(previous.name);
     writeAnalyseNavigationCache(previous,nextHistory);
+    window.dispatchEvent(new CustomEvent("tulip:analyse-back"));
   },[playAnalyseTransition]);
+  useEffect(() => {
+    if (!(window as Window & { __TULIP_ANDROID_APP__?:boolean }).__TULIP_ANDROID_APP__) return;
+    const handleBack = () => {
+      if (document.querySelector(".explore-menu-screen")) {
+        document.dispatchEvent(new KeyboardEvent("keydown",{key:"Escape"}));
+      } else if (infoSection) {
+        setInfoSection(null);
+      } else if (filtersOpen) {
+        setFiltersOpen(false);
+      } else if (onboardingActive || quickStartStep !== null) {
+        return;
+      } else if (screen === "analyse" && analyseHistoryRef.current.length) {
+        goBackInAnalysis();
+      } else if (screen !== "explore") {
+        navigate("explore");
+      } else {
+        (window as Window & { TULIPNative?:TulipNativeBridge }).TULIPNative?.exit?.();
+      }
+    };
+    window.addEventListener("tulip-android-back",handleBack);
+    return () => window.removeEventListener("tulip-android-back",handleBack);
+  },[screen,infoSection,filtersOpen,onboardingActive,quickStartStep,goBackInAnalysis]);
   const rememberAnalyseExpanded = useCallback((name:string,expanded:boolean) => {
     if (name !== analyseNodeNameRef.current) return;
     analyseExpandedRef.current = expanded;
@@ -3276,35 +4049,61 @@ export default function Prototype() {
   },[]);
   const openAnalysisFromExplore = useCallback((name:string,origin?:AppPoint) => {
     const nativeBridge = (window as Window & { TULIPNative?:TulipNativeBridge }).TULIPNative;
-    if (nativeBridge?.openInspector) {
+    if (nativeBridge?.openInspector && quickStartStep === null) {
       nativeBridge.openInspector(name);
       return;
     }
-    showAnalysis(name,true,origin);
-  },[showAnalysis]);
-  const bottomNavVisible = !keyboard.visible && !infoSection;
-  const bottomNavCompact = (screen === "analyse" && inspectorNavCompact)
+    showAnalysis(name,true,quickStartStep === null ? origin : undefined);
+  },[showAnalysis,quickStartStep]);
+  // Reserve native chrome while a returning installation is about to resume
+  // Quick Start, including the brief interval after the native splash fades.
+  const onboardingOwnsNavigation = onboardingActive || (quickStartStep === null && quickStartAutoPendingRef.current);
+  const bottomNavVisible = !onboardingOwnsNavigation && !keyboard.visible && !infoSection;
+  const bottomNavCompact = quickStartStep === null && ((screen === "analyse" && inspectorNavCompact)
     || (screen === "activity" && activityNavCompact)
-    || (screen === "footprint" && footprintNavCompact);
+    || (screen === "footprint" && footprintNavCompact));
   useEffect(() => {
     (window as Window & { TULIPNative?:TulipNativeBridge }).TULIPNative?.navigationState?.({
       active:screen,
       visible:bottomNavVisible,
       compact:bottomNavCompact,
       quickStartActive:quickStartStep !== null,
+      onboardingActive:onboardingOwnsNavigation,
     });
-  },[bottomNavCompact,bottomNavVisible,quickStartStep,screen]);
-  return <div className={`tulip-app${quickStartStep !== null ? " is-quick-start" : ""}${bottomNavVisible ? " has-bottom-nav" : ""}`}>
-    {startupWarmupVisible ? <div className="startup-warmup" role="status" aria-label="Preparing TULIP"><img src="/assets/app-icon/tulip-icon-192.png?v=20260813-1" alt="" aria-hidden="true" width={192} height={192} /></div> : null}
-    <ExploreScreen active={screen === "explore"} suspended={screen !== "explore" || filtersOpen || Boolean(infoSection) || !nativeRenderingActive} activeFilter={activeFilter} resetKey={exploreResetKey} onOpenInfo={setInfoSection} onStartQuickStart={startQuickStart} onAnalyse={openAnalysisFromExplore} />
+  },[bottomNavCompact,bottomNavVisible,quickStartStep,screen,onboardingOwnsNavigation]);
+  return <div data-onboarding-active={onboardingActive} data-introduction-phase={onboardingActive ? introductionPhase : undefined} data-introduction-page={introductionPage ?? undefined} data-reveal-reduced-motion={revealReducedMotion} data-quick-start-step={quickStartStep === null ? undefined : QUICK_START_STEPS[quickStartStep].id} className={`tulip-app${quickStartStep !== null ? " is-quick-start" : ""}${bottomNavVisible ? " has-bottom-nav" : ""}`}>
+    {startupWarmupVisible ? <div className="startup-warmup" role="status" aria-label="Preparing Tulip Earth"><img src="/assets/app-icon/tulip-earth-loading.png?v=20260920-glow" alt="" aria-hidden="true" width={320} height={320} /></div> : null}
+    <div className="app-surfaces" inert={onboardingActive} aria-hidden={onboardingActive || undefined}>
+    <ExploreScreen active={screen === "explore"} suspended={screen !== "explore" || filtersOpen || Boolean(infoSection) || !nativeRenderingActive || (onboardingActive && introductionPage !== 3)} activeFilter={activeFilter} resetKey={exploreResetKey} onOpenInfo={setInfoSection} onStartQuickStart={startQuickStart} onAnalyse={openAnalysisFromExplore} />
     {screen === "search" ? <SearchScreen onClose={() => navigate("explore")} onResult={(name) => showAnalysis(name)} /> : null}
-    {screen === "analyse" ? <AnalyseScreen key={nodeName} name={nodeName} initiallyExpanded={analyseExpandedOnOpen} entryOrigin={analyseEntryOrigin} transition={analyseTransition} onSelectNode={openAnalysisNode} onBack={goBackInAnalysis} onExpandedChange={rememberAnalyseExpanded} onNavCompactChange={setInspectorNavCompact} /> : null}
-    {screen === "activity" ? <ActivityScreen resetRequest={activityResetKey} onNavCompactChange={setActivityNavCompact} /> : null}
-    {screen === "footprint" ? <FootprintScreen resetRequest={footprintResetKey} onNavCompactChange={setFootprintNavCompact} /> : null}
-    {bottomNavVisible ? <BottomNav active={screen} compact={bottomNavCompact} onChange={navigate} onExploreLongPress={() => setFiltersOpen(true)} /> : null}
+    {analyseHasSelection ? <AnalyseScreen key={nodeName} active={screen === "analyse"} name={nodeName} initiallyExpanded={analyseExpandedOnOpen} entryOrigin={analyseEntryOrigin} transition={analyseTransition} onSelectNode={openAnalysisNode} onBack={goBackInAnalysis} onExpandedChange={rememberAnalyseExpanded} onNavCompactChange={setInspectorNavCompact} /> : screen === "analyse" ? <AnalyseStartingPoints used={usedAnalyseStartingPoints} onSelect={openAnalyseStartingPoint} /> : null}
+    <ActivityScreen active={screen === "activity"} resetRequest={activityResetKey} onNavCompactChange={setActivityNavCompact} />
+    <FootprintScreen active={screen === "footprint"} resetRequest={footprintResetKey} onNavCompactChange={setFootprintNavCompact} />
+    {bottomNavVisible ? <BottomNav active={screen} compact={bottomNavCompact} onChange={(next) => {
+      if (quickStartStep !== null && (QUICK_START_STEPS[quickStartStep].id !== "return-explore" || next !== "explore")) return;
+      navigate(next);
+      if (next === "explore") window.dispatchEvent(new CustomEvent("tulip:explore-navigation"));
+    }} onExploreLongPress={() => { if (quickStartStep === null) setFiltersOpen(true); }} /> : null}
     {infoSection ? <ExploreInfoPanel section={infoSection} onClose={() => setInfoSection(null)} /> : null}
     <BottomSheet open={filtersOpen} onOpenChange={setFiltersOpen} title="Pick a System" snap={0.62}><div className="explore-filter-list">{exploreFilters.map(([value,label]) => <button key={value} className={activeFilter === value ? "active" : ""} onClick={() => { setActiveFilter(value); setFiltersOpen(false); }} aria-pressed={activeFilter === value}><span className="filter-swatch" data-filter={value} /><span>{label}</span>{activeFilter === value ? <CheckCircledIcon /> : null}</button>)}</div></BottomSheet>
-    {quickStartStep !== null ? <QuickStartTour stepIndex={quickStartStep} onAdvance={advanceQuickStart} onSkip={skipQuickStart} /> : null}
-    {quickStartCompleteVisible ? <div className="quick-start-complete" role="status" aria-live="polite"><CheckCircledIcon /><span><strong>You’re ready.</strong> Explore TULIP at your own pace.</span></div> : null}
+    </div>
+    {introductionPage !== null ? <Introduction page={introductionPage} phase={introductionPhase} covered={startupCovered} onPage={changeIntroductionPage} onContinue={continueIntroduction} onReady={beginIntroductionReveal} onFailure={failIntroduction} /> : null}
+    {quickStartStep !== null ? <QuickStartTour stepIndex={quickStartStep} onAdvance={advanceQuickStart} /> : null}
+    {quickStartCompleteVisible ? <div className="quick-start-complete" role="status" aria-live="polite">
+      <div className="quick-start-celebration" aria-hidden="true">
+        <img src="/assets/app-icon/tulip-earth-loading.png?v=20260920-glow" alt="" />
+        {Array.from({length:12},(_,index) => <i key={index} style={{"--spark-angle":`${index * 30}deg`,"--spark-distance":`${66 + (index % 3) * 14}px`,"--spark-delay":`${(index % 4) * 40}ms`} as CSSProperties} />)}
+      </div>
+      <strong>You’re ready.</strong><p>Explore Tulip Earth at your own pace.</p>
+    </div> : null}
   </div>;
 }
+
+type Assessment = {
+  valueKind?: string | null;
+  valueLabel?: string | null;
+  accessibilityLabel?: string;
+  nodeId:string; nodeKind:string; version:string; status:string;
+  value:number | null; label:string; explanation:string;
+  horizon:{start:number;end:number}; scenario:string;
+};

@@ -1,0 +1,63 @@
+{
+  "version": "tulip_calibration_decisions_2026_09_28_v1",
+  "status": "internal_benchmark_choices_partially_closed",
+  "construct": "aggregate_current_attributable_consequence",
+  "combinationDecisionVersion": "tulip_equal_domain_combination_2026_09_28_v1",
+  "weights": { "human": 0.5, "ecosystem": 0.5 },
+  "humanHealth": {
+    "decision": "select_fixed_annual_absolute_daly_benchmarks_for_internal_endpoint_experiments",
+    "anchorFile": "docs/tulip-calibration/human-health-anchor-candidate.json",
+    "anchorVersion": "tulip_human_health_absolute_daly_anchors_2026_09_27_candidate_v1",
+    "middleBenchmarks": { "3": 100000, "5": 1000000, "7": 10000000, "9": 100000000 },
+    "rationale": "Keep continuous, source-native annual health loss. Each middle two-point step represents ten times the lost healthy years. Fixed absolute amounts compare aggregate health loss, rather than rarity, exposure, catalogue rank or the severity of an individual case.",
+    "outerReference": "WHO GHE global all-cause DALYs in 2021; frozen for this method version, not refitted to a newer catalogue or annual total.",
+    "outerBenchmarkDalys": 3013734614.04409,
+    "sourceWorkbookSha256": "483ac1ae68d9191d9f739c2493cd8aaf2a92e87aecf0522ff7655a1d08501de7",
+    "interpolation": "piecewise_log1p_canonical_unit",
+    "logOffsetDalys": 1,
+    "zeroRule": "Verified zero for the declared health endpoint only; no data is not zero.",
+    "admittedScope": "An annual attributable DALY endpoint with a matched geography, source model, counterfactual and causal boundary. This selection does not establish coverage of all human consequences.",
+    "notEstablished": [
+      "The four middle thresholds are TULIP policy choices, not WHO thresholds or scientifically determined equivalences.",
+      "A health-only endpoint does not supply services, livelihoods or a complete human component where those outcomes are material.",
+      "Independent scientific review and empirical validation of a complete replacement node are not completed by selecting these benchmarks."
+    ],
+    "internalNumericalBenchmarkChoiceClosed": true,
+    "completeHumanCalibration": false
+  },
+  "nature": {
+    "decision": "retain_area_weighting_only_for_reviewed_comparable_condition_loss",
+    "referenceDecisionFile": "docs/tulip-calibration/nature-aggregation-selection.json",
+    "rationale": "Identical loss of comparable ecological condition over the same physical area receives the same contribution. Smaller ecosystem families do not silently receive a larger per-area weight.",
+    "withinTypeRule": "Use a fixed, reviewed outcome profile with reference conditions, terminal characteristics and documented overlap. Keep composition, structure, function and connectivity visible. One cover percentage cannot silently represent the whole profile.",
+    "unknownRule": "Unmeasured material characteristics or ecosystem families are unknown, not zero; no denominator or weight renormalization.",
+    "stockRule": "Current condition stock is not multiplied by observation history or assumed future recovery years.",
+    "numericalBenchmarks": null,
+    "remainingCalibration": [
+      "A supported common interpretation and trade-off rule across ecological characteristics, including species and functional losses.",
+      "A harmonized exclusive spatial reference, or explicit allocation for overlapping assets, that covers the intended nature scope.",
+      "Fixed numerical consequence amounts for 3, 5, 7 and 9 tested on compatible external outcome cases. The two-family synthetic fractions are not admissible evidence."
+    ],
+    "completeNatureCalibration": false
+  },
+  "nonHealthHuman": {
+    "decision": "no_automatic_conversion_to_dalys",
+    "serviceRule": "Where a supported model estimates health effects of a service loss, enter those effects once in the health endpoint. Keep residual non-health wellbeing effects separate until an explicit, supported equivalence and overlap rule exists.",
+    "displacementRule": "Do not equate movements with unique harmed people or the displaced stock. Do not treat IDMC wellbeing life-years as DALYs. Its worked-example parameter ambiguity remains unresolved.",
+    "completeCalibration": false
+  },
+  "scoreLanguage": {
+    "decision": "replace_individual_severity_and_recovery_labels_with_aggregate_magnitude_meanings",
+    "rule": "The score describes aggregate harm on a nonlinear policy scale. A low total may contain severe individual outcomes. A high total need not imply that every affected person or ecosystem has permanent harm.",
+    "historicalReferenceCases": "docs/tulip-calibration/score-meaning-anchors.json",
+    "historicalCasesRemainAuditOnly": true,
+    "nineNotThreeTimesThree": true
+  },
+  "publication": {
+    "publicScoresChanged": false,
+    "wholeMethodCalibrated": false,
+    "wholeNodeNumericalRatingsApproved": false,
+    "phoneInstallationAuthorizedByThisDecision": false,
+    "productionPublicationAuthorizedByThisDecision": false
+  }
+}

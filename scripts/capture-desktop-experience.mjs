@@ -1,0 +1,46 @@
+import { chromium } from '@playwright/test';
+import { mkdir, writeFile } from 'node:fs/promises';
+const output = new URL('../artifacts/desktop-ios-import-2026-09-21/', import.meta.url).pathname;
+await mkdir(output, { recursive: true });
+const browser = await chromium.launch({ channel: 'chrome' });
+const context = await browser.newContext({ viewport: { width: 1440, height: 1000 } });
+const page = await context.newPage();
+const errors = []; page.on('pageerror', error => errors.push(error.message));
+const cdp = await context.newCDPSession(page);
+await cdp.send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-reduced-transparency', value: 'no-preference' }, { name: 'prefers-reduced-motion', value: 'no-preference' }] });
+async function openSearch() {
+  await page.keyboard.press('Control+k');
+  if (!(await page.locator('#desktop-search-input').isVisible())) { await page.locator('#node-search-input').fill(''); await page.keyboard.press('Enter'); }
+  await page.locator('#desktop-search-input').waitFor();
+}
+const capture = name => page.screenshot({ path: `${output}${name}.png` });
+await page.goto('http://127.0.0.1:4317', { waitUntil: 'domcontentloaded' });
+await page.locator('#desktop-welcome-title').waitFor();
+await page.waitForTimeout(2400); await capture('01-welcome');
+for (let i=0;i<3;i++) await page.getByRole('button',{name:'Next',exact:true}).click();
+await page.getByRole('button',{name:'Start Quick Start',exact:true}).click();
+await page.locator('#desktop-guide').waitFor(); await page.waitForTimeout(1000); await capture('02-quick-start');
+await page.getByRole('button',{name:'Exit Quick Start'}).click();
+await openSearch();
+await page.locator('#desktop-search-input').fill('What causes ocean acidification?');
+await page.locator('.desktop-discovery-card').waitFor(); await capture('04-search');
+await page.locator('.desktop-discovery-card [data-topic]').first().click();
+await page.waitForTimeout(800); await capture('05-analyse');
+await page.locator('#footer-btn-phenomena').click(); await page.waitForTimeout(1000); await capture('06-activity');
+await page.locator('#footer-btn-personal-footprint').click();
+await page.locator('.personal-footprint-question-card').first().waitFor(); await page.waitForTimeout(700); await capture('07-footprint-questions');
+for (const id of await page.locator('.personal-footprint-question-card').evaluateAll(cards=>cards.map(card=>card.id))) await page.locator(`#${id} [data-personal-footprint-option]`).first().click();
+await page.locator('#personal-footprint-results-start').scrollIntoViewIfNeeded(); await page.waitForTimeout(700); await capture('08-footprint-results');
+await page.locator('.desktop-footprint-contributions').scrollIntoViewIfNeeded(); await page.waitForTimeout(500); await capture('12-footprint-breakdown');
+await page.goto('http://127.0.0.1:4317/?glassReview=1', { waitUntil: 'domcontentloaded' });
+await page.locator('#desktop-glass-review').waitFor(); await page.waitForTimeout(4500); await capture('03-glass-comparison');
+const refraction=await page.locator('#desktop-glass-review').getAttribute('data-refraction-mean-ms');
+const actualRefraction=await page.locator('#desktop-glass-review').evaluate(el=>el.dataset.refractionMeanMs);
+await page.setViewportSize({width:3840,height:2160});await page.goto('http://127.0.0.1:4317', { waitUntil: 'domcontentloaded' });
+await openSearch();await page.locator('#desktop-quick-start').click();await page.waitForTimeout(600);await capture('09-desktop-4k');
+await page.getByRole('button',{name:'Exit Quick Start'}).click();
+await page.setViewportSize({width:1024,height:768});await page.waitForTimeout(600);await capture('10-laptop');
+await page.setViewportSize({width:720,height:500});await openSearch();await page.locator('#desktop-search-input').waitFor();await page.waitForTimeout(400);await capture('11-zoom-reflow');
+await writeFile(`${output}capture-results.json`,JSON.stringify({browser: `Google Chrome ${browser.version()}`,errors,refractionMeanCpuSubmissionMs:Number(actualRefraction),viewports:['1440x1000','3840x2160','1024x768','720x500 (200% reflow equivalent)'],note:'Google Chrome normal motion/transparency emulated per browser context; system settings unchanged. Refraction timing is CPU copy/submission time, not total GPU frame time.'},null,2));
+console.log(JSON.stringify({browser: `Google Chrome ${browser.version()}`,errors,refractionMeanCpuSubmissionMs:actualRefraction,output}));
+await browser.close();

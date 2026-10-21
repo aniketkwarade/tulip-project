@@ -1,0 +1,100 @@
+{
+  "version": "tulip_score_meaning_anchors_2026_09_27_v1",
+  "status": "proposed_calibration_benchmarks_not_runtime_policy",
+  "purpose": "Define the intended meaning of 3, 5, 7 and 9 before choosing a score transformation.",
+  "assessment": "current_harm_from_latest_compatible_evidence",
+  "provenance": "Internally authored TULIP value judgments. All numerical reference cases are hypothetical, not observations or independently validated equivalences.",
+  "referenceScope": "People currently affected at a fixed assessment date; nature measured against a fixed ecosystem type and its full declared distribution. These reference cases describe current consequences, not future event probabilities.",
+  "domainRule": "Targets apply to each domain separately, or to an overall case with both domains at the same target. Mixed cases retain the declared 50/50 combination. A structurally excluded domain is distinct from an unknown or measured-zero domain.",
+  "legacyAxisOrder": ["severity", "reach", "persistence"],
+  "legacyMethodVersion": "tulip_internal_rubric_2026_09_23_v6",
+  "anchors": [
+    {
+      "targetScore": 3,
+      "meaning": "Limited, recoverable harm",
+      "plainEnglish": "Real damage, usually affecting a small group or area, with recovery relatively quick and little lasting loss.",
+      "humanReference": {
+        "consequence": "Mild, reversible symptoms affecting 5,000 people, lasting two weeks, with no lasting injury in this hypothetical case.",
+        "peopleAffected": 5000,
+        "durationDays": 14,
+        "legacyAxes": [1, 1, 1]
+      },
+      "ecosystemReference": {
+        "consequence": "A small decline in ecosystem condition affecting 0.5% of its fixed distribution, with recovery within three months.",
+        "relativeSeverityPercent": 5,
+        "affectedDistributionPercent": 0.5,
+        "recoveryMonths": 3,
+        "legacyAxes": [1, 1, 1]
+      }
+    },
+    {
+      "targetScore": 5,
+      "meaning": "Substantial harm",
+      "plainEnglish": "Damage that materially affects daily life or ecosystem health. Recovery is possible but takes meaningful time and effort.",
+      "humanReference": {
+        "consequence": "An interruption of an essential service causes documented material hardship for 100,000 people for six months, with managed alternatives and eventual recovery.",
+        "peopleAffected": 100000,
+        "durationMonths": 6,
+        "legacyAxes": [2, 2, 2]
+      },
+      "ecosystemReference": {
+        "consequence": "A material decline in ecosystem condition affecting 5% of its fixed distribution, with recovery taking five years.",
+        "relativeSeverityPercent": 20,
+        "affectedDistributionPercent": 5,
+        "recoveryYears": 5,
+        "legacyAxes": [2, 2, 2]
+      }
+    },
+    {
+      "targetScore": 7,
+      "meaning": "Severe harm",
+      "plainEnglish": "A large burden of serious illness, major displacement, prolonged loss of basic services, or major damage to how an ecosystem supports life. Recovery is difficult; some losses can last for years.",
+      "humanReference": {
+        "consequence": "Severe illness affects 10 million people, with consequences lasting five years before recovery in this hypothetical case.",
+        "peopleAffected": 10000000,
+        "durationYears": 5,
+        "legacyAxes": [3, 3, 3]
+      },
+      "ecosystemReference": {
+        "consequence": "A major decline in ecosystem condition affects 20% of its fixed distribution, with recovery taking twenty years.",
+        "relativeSeverityPercent": 50,
+        "affectedDistributionPercent": 20,
+        "recoveryYears": 20,
+        "legacyAxes": [3, 3, 3]
+      }
+    },
+    {
+      "targetScore": 9,
+      "meaning": "Extreme, enduring harm",
+      "plainEnglish": "Very large losses of life, health, habitable places, or ecosystem function. The damage is extensive and much of it is permanent or takes generations to recover.",
+      "humanReference": {
+        "consequence": "Permanent disability affects 10 million people. The count describes people with attributable harm, not everyone exposed to a hazard.",
+        "peopleAffected": 10000000,
+        "recovery": "permanent",
+        "legacyAxes": [4, 3, 4]
+      },
+      "ecosystemReference": {
+        "consequence": "A very large decline in ecosystem condition affects 20% of its fixed distribution, with irreversible loss of defining features in the affected area.",
+        "relativeSeverityPercent": 80,
+        "affectedDistributionPercent": 20,
+        "recovery": "irreversible",
+        "legacyAxes": [4, 3, 4]
+      }
+    }
+  ],
+  "ecologyPercentageMeaning": "Relative severity is the change in a suitable condition indicator divided by the change from its reference to a documented collapse state. It is not percentage of habitat area lost or probability of collapse. The indicator, reference, collapse state and distribution denominator must be fixed and justified for each assessment.",
+  "stressCases": [
+    {
+      "id": "mild_extensive_persistent",
+      "domain": "ecosystem",
+      "legacyAxes": [1, 4, 4],
+      "purpose": "Slight ecosystem condition loss over a very large distribution, persisting more than fifty years. The current average ties this with the severe reference case. Whether the total burdens are equivalent must be justified, not inferred from equal axis sums."
+    },
+    {
+      "id": "severe_local_permanent",
+      "domain": "ecosystem",
+      "legacyAxes": [4, 1, 4],
+      "purpose": "Very severe, irreversible ecosystem damage confined to less than one percent of the fixed distribution. This also ties with the severe reference case under the current average. Locality alone does not make the damage mild."
+    }
+  ]
+}

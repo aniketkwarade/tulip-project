@@ -1,0 +1,9 @@
+{
+  "title": "How the TULIP Score works",
+  "summary": "TULIP Score compares current harm using the newest reliable evidence available for each topic. The evidence period is shown with the rating. A separate 2027\u20132036 outlook describes direction under SSP2-4.5 and does not change the current score.",
+  "components": "People and nature are assessed separately. Harm to people includes health, safety and essential services. Harm to nature includes ecosystem condition and function. When both apply, each receives equal weight and the same consequence is counted only once.",
+  "formula": "Each component rates severity, reach and persistence from 0 to 4 and weights those three questions equally. TULIP converts the combined result to one decimal score from 1.0 to 10.0. Higher numbers mean greater current harm under TULIP\u2019s declared method.",
+  "missing": "Every issue receives a rating. When a direct measurement is unavailable, TULIP uses a documented conversion, a bounded evidence-based judgment or named comparable topics. The evidence confidence and low-to-high score range show how much support that estimate has.",
+  "evidence": "Physical climate records provide context, but unusual weather, exposure, source counts and graph connections do not equal harm. The score uses documented consequences and keeps the historical record, current evidence window, reference baseline and future outlook separate.",
+  "limits": "The range is a transparent low-to-high assessment, not a probability forecast. Scores are alternative views of overlapping climate pathways and must not be added together. Response topics describe interventions and do not receive danger scores."
+}

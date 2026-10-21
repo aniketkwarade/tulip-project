@@ -142,6 +142,35 @@ function extractWorldBankDisplacementRecords(indicatorPayload, countriesPayload)
     .sort((a, b) => b.observation_year - a.observation_year || a.country_code.localeCompare(b.country_code));
 }
 
+function excludeTrailingAllZeroPlaceholderYears(records) {
+  const byYear = new Map();
+  for (const record of records) {
+    const group = byYear.get(record.observation_year) || [];
+    group.push(record);
+    byYear.set(record.observation_year, group);
+  }
+  const years = [...byYear.keys()].sort((a, b) => b - a);
+  const excludedYears = [];
+  for (const year of years) {
+    const rows = byYear.get(year);
+    const positiveRows = rows.filter(record => record.new_displacement_movements > 0).length;
+    const reportedMovements = rows.reduce((sum, record) => sum + record.new_displacement_movements, 0);
+    if (positiveRows > 0 || reportedMovements > 0) break;
+    excludedYears.push({
+      year,
+      countryRows: rows.length,
+      positiveRows,
+      reportedMovements,
+      reason: 'All recognized-country rows are zero in a trailing release year; treat the slice as an unreleased or placeholder observation, not a measured zero-displacement year.',
+    });
+  }
+  const excluded = new Set(excludedYears.map(row => row.year));
+  return {
+    records: records.filter(record => !excluded.has(record.observation_year)),
+    excludedYears,
+  };
+}
+
 async function main() {
   const [hdxApiPayload, emdatDocsHtml, idmcHomeHtml, idmcApiHtml, worldBankIndicatorPayload, worldBankCountriesPayload] = await Promise.all([
     fetchJson(HDX_API_URL),
@@ -157,8 +186,9 @@ async function main() {
   const sampleDatasets = extractSampleDatasets(hdxApiPayload);
   const flagship = extractIdmcFlagship(idmcHomeHtml);
   const idmcApiIsLogin = detectIdmcApiLogin(idmcApiHtml);
-  const records = extractWorldBankDisplacementRecords(worldBankIndicatorPayload, worldBankCountriesPayload);
-  if (!records.length) throw new Error('World Bank VC.IDP.NWDS returned no country-year disaster displacement records.');
+  const extractedRecords = extractWorldBankDisplacementRecords(worldBankIndicatorPayload, worldBankCountriesPayload);
+  const { records, excludedYears } = excludeTrailingAllZeroPlaceholderYears(extractedRecords);
+  if (!records.length) throw new Error('World Bank VC.IDP.NWDS returned no usable country-year disaster displacement records.');
   const latestObservationYear = Math.max(...records.map(record => record.observation_year));
   const latestRecords = records.filter(record => record.observation_year === latestObservationYear);
 
@@ -172,7 +202,7 @@ async function main() {
     cadence: 'annual World Bank indicator release check with release-triggered refresh',
     provenance: 'IDMC annual new-displacement estimates for disasters redistributed through the World Bank Indicators API VC.IDP.NWDS, limited to recognized country records.',
     uncertainty: 'Figures count displacement movements rather than unique people; rapid estimates, repeat displacement, event coverage, revisions, evacuation classification, and reporting access affect totals. The country-year API omits event-level confidence and hazard details.',
-    failure_behavior: 'Retain the last validated country-year snapshot and mark stale; reject an empty or structurally changed response; never replace missing country-years with zero or label the figures as climate-attributed migration.',
+    failure_behavior: 'Retain the last validated country-year snapshot and mark stale; reject an empty or structurally changed response; exclude trailing all-zero country-year slices as unreleased placeholders; never replace missing country-years with zero or label the figures as climate-attributed migration.',
     snapshot_family: 'disaster_displacement_measurement_and_support',
     source: {
       id: 'idmc',
@@ -201,7 +231,8 @@ async function main() {
       displacement_record_count: records.length,
       displacement_latest_observation_year: latestObservationYear,
       displacement_latest_country_count: latestRecords.length,
-      displacement_latest_reported_movements: latestRecords.reduce((sum, record) => sum + record.new_displacement_movements, 0)
+      displacement_latest_reported_movements: latestRecords.reduce((sum, record) => sum + record.new_displacement_movements, 0),
+      excluded_trailing_all_zero_years: excludedYears,
     },
     tools: [
       {
@@ -295,7 +326,8 @@ async function main() {
     idmc_api_access: snapshot.tools.find(tool => tool.id === 'idmc_api')?.access,
     displacement_records: records.length,
     latest_observation_year: latestObservationYear,
-    latest_country_count: latestRecords.length
+    latest_country_count: latestRecords.length,
+    excluded_trailing_all_zero_years: excludedYears.map(row => row.year)
   }, null, 2));
 }
 

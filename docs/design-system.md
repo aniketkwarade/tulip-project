@@ -52,14 +52,14 @@ There are six base sizes: 12, 14, 16, 18, 24, and 40 px. Use the semantic aliase
 
 Use `--tracking-label` for compact interface labels and `--tracking-kicker` for uppercase section kickers. Avoid uppercase body copy.
 
-The shared weight system has two roles:
+The shared weight system uses these roles:
 
 - `--weight-display-supporting` / `--weight-display` / `--weight-light` (`300`): atmospheric display text and large supporting statements
 - `--weight-display-secondary` / `--weight-display-emphasis` (`350`): major nested headings such as results and lens titles
 - `--weight-display-primary` (`400`): the leading title for each tab or screen
-- `--weight-regular` (`400`): every other text role, including section headings, editorial titles, controls, labels, tabs, card titles, numbers, links, statuses, and emphasis
+- `--weight-regular` (`400`): body copy and ordinary controls, labels, card titles, numbers, links, and statuses
 
-Inter Display Regular is the platform ceiling. The semantic and legacy aliases (`--weight-title`, `--weight-ui`, `--weight-emphasis`, `--weight-medium`, `--weight-semibold`, `--weight-bold`, and `--weight-extrabold`) all resolve to `400` so older components stay inside the system. Use scale, spacing, contrast, casing, and placement—not weight above Regular—to establish hierarchy.
+Regular remains the default. The website uses `--weight-reading-heading` (`600`) for reading headings and chart names/values, and `--weight-navigation` (`700`) for its four main tabs. Legacy weight aliases remain `400`. The shared website composition in `src/web-refinements.css` also defines the approved page/overlay title and reading-spacing roles.
 
 ### Spacing
 

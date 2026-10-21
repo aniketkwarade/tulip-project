@@ -1,0 +1,27 @@
+import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
+
+const payload = JSON.parse(await readFile(new URL('../artifacts/tulip-calibration-2026-09-22/europe-heat-national-population-benchmark.json', import.meta.url), 'utf8'));
+assert.equal(payload.version, 'tulip_europe_heat_national_population_benchmark_2026_09_23_v2');
+assert.equal(payload.productionRatingsEnabled, 0);
+assert.equal(payload.checks.countries, 35);
+assert.deepEqual(payload.checks.years, ['2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022']);
+assert.deepEqual(payload.checks.completeRegionalYears, ['2017', '2018', '2019']);
+assert.equal(payload.checks.maximumNationalPopulationYear, '2020');
+assert.equal(payload.checks.maximumNationalPopulation, 538_378_677);
+assert.equal(payload.checks.maximumNationalStillBelowPublishedStatementBy, 4_621_323);
+assert.equal(payload.checks.latestNationalPopulation, 538_272_629);
+assert.equal(payload.checks.latestSupplementedRegionalSensitivityTotal, 536_118_912);
+assert.equal(payload.checks.latestNationalMinusSupplementedRegionalSensitivity, 2_153_717);
+assert.equal(payload.checks.publishedStatementMinusLatestNational, 4_727_371);
+assert.equal(payload.checks.publishedStatementMinusLatestSupplementedRegionalSensitivity, 6_881_088);
+assert.equal(payload.totalsByYear['2019'].nationalTotal, 537_234_136);
+assert.equal(payload.totalsByYear['2019'].regionalObservedTotal, 535_213_466);
+assert.equal(payload.countryGaps2019[0].country, 'FR');
+assert.equal(payload.countryGaps2019[0].nationalMinusRegional, 2_193_703);
+assert.equal(payload.sources.boundarySupplement.version, 'tulip_europe_heat_population_boundary_supplement_2026_09_23_v3');
+assert.match(payload.findings.remainingMismatch, /source-vintage or author-panel/i);
+assert.match(payload.findings.remainingMismatch, /not validated by Eurostat/i);
+assert.match(payload.findings.ratingRule, /Do not change any TULIP rating/i);
+assert.equal(payload.digest.length, 64);
+console.log('Europe heat national-population benchmark checks passed.');

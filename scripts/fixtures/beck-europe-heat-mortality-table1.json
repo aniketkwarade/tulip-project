@@ -1,0 +1,92 @@
+{
+  "source": {
+    "title": "Mortality burden attributed to anthropogenic warming during Europe’s 2022 record-breaking summer",
+    "doi": "https://doi.org/10.1038/s41612-024-00783-2",
+    "pdfUrl": "https://link.springer.com/content/pdf/10.1038/s41612-024-00783-2.pdf",
+    "pdfSha256": "38f5e96e0717aad097129895dd6dc576b578bd6c8957f770e78c78b68a09b8d9",
+    "pdfBytes": 1008861,
+    "table": "Table 1",
+    "page": 3,
+    "extractedWith": "pypdf 6.10.0"
+  },
+  "table1": {
+    "2022": {
+      "factualHeatDeaths": { "estimate": 68593, "lower95": 42229, "upper95": 95891 },
+      "counterfactualHeatDeaths": { "estimate": 30439, "lower95": 9641, "upper95": 57383 },
+      "anthropogenicHeatDeaths": { "estimate": 38154, "lower95": 21722, "upper95": 58571 },
+      "anthropogenicSharePercent": { "estimate": 56, "lower95": 39, "upper95": 77 }
+    },
+    "Women": {
+      "factualHeatDeaths": { "estimate": 37983, "lower95": 22369, "upper95": 51385 },
+      "counterfactualHeatDeaths": { "estimate": 15482, "lower95": 5030, "upper95": 28804 },
+      "anthropogenicHeatDeaths": { "estimate": 22501, "lower95": 12219, "upper95": 33210 },
+      "anthropogenicSharePercent": { "estimate": 59, "lower95": 44, "upper95": 79 }
+    },
+    "Men": {
+      "factualHeatDeaths": { "estimate": 25385, "lower95": 16703, "upper95": 33885 },
+      "counterfactualHeatDeaths": { "estimate": 11359, "lower95": 3945, "upper95": 20322 },
+      "anthropogenicHeatDeaths": { "estimate": 14026, "lower95": 8131, "upper95": 20717 },
+      "anthropogenicSharePercent": { "estimate": 55, "lower95": 39, "upper95": 77 }
+    },
+    "Age <65": {
+      "factualHeatDeaths": { "estimate": 5565, "lower95": 1003, "upper95": 9757 },
+      "counterfactualHeatDeaths": { "estimate": 2863, "lower95": -1025, "upper95": 6973 },
+      "anthropogenicHeatDeaths": { "estimate": 2702, "lower95": 800, "upper95": 4768 },
+      "anthropogenicSharePercent": { "estimate": 49, "lower95": 24, "upper95": 157 }
+    },
+    "Age 65–79": {
+      "factualHeatDeaths": { "estimate": 11085, "lower95": 987, "upper95": 20759 },
+      "counterfactualHeatDeaths": { "estimate": 5500, "lower95": -2087, "upper95": 14417 },
+      "anthropogenicHeatDeaths": { "estimate": 5585, "lower95": 1807, "upper95": 10764 },
+      "anthropogenicSharePercent": { "estimate": 50, "lower95": 27, "upper95": 141 }
+    },
+    "Age >80": {
+      "factualHeatDeaths": { "estimate": 38978, "lower95": 29127, "upper95": 48394 },
+      "counterfactualHeatDeaths": { "estimate": 15097, "lower95": 5933, "upper95": 26612 },
+      "anthropogenicHeatDeaths": { "estimate": 23881, "lower95": 16003, "upper95": 31539 },
+      "anthropogenicSharePercent": { "estimate": 61, "lower95": 45, "upper95": 79 }
+    },
+    "2015": {
+      "factualHeatDeaths": { "estimate": 51407, "lower95": 32855, "upper95": 70409 },
+      "counterfactualHeatDeaths": { "estimate": 28912, "lower95": 11592, "upper95": 49109 },
+      "anthropogenicHeatDeaths": { "estimate": 22495, "lower95": 12781, "upper95": 34860 },
+      "anthropogenicSharePercent": { "estimate": 44, "lower95": 29, "upper95": 65 }
+    },
+    "2016": {
+      "factualHeatDeaths": { "estimate": 37181, "lower95": 20315, "upper95": 54085 },
+      "counterfactualHeatDeaths": { "estimate": 18035, "lower95": 3680, "upper95": 36815 },
+      "anthropogenicHeatDeaths": { "estimate": 19146, "lower95": 9741, "upper95": 33241 },
+      "anthropogenicSharePercent": { "estimate": 51, "lower95": 31, "upper95": 83 }
+    },
+    "2017": {
+      "factualHeatDeaths": { "estimate": 46902, "lower95": 29158, "upper95": 64802 },
+      "counterfactualHeatDeaths": { "estimate": 23505, "lower95": 9188, "upper95": 42467 },
+      "anthropogenicHeatDeaths": { "estimate": 23397, "lower95": 12703, "upper95": 38192 },
+      "anthropogenicSharePercent": { "estimate": 50, "lower95": 34, "upper95": 70 }
+    },
+    "2018": {
+      "factualHeatDeaths": { "estimate": 50099, "lower95": 27567, "upper95": 73346 },
+      "counterfactualHeatDeaths": { "estimate": 25347, "lower95": 7887, "upper95": 48201 },
+      "anthropogenicHeatDeaths": { "estimate": 24752, "lower95": 12962, "upper95": 41742 },
+      "anthropogenicSharePercent": { "estimate": 49, "lower95": 32, "upper95": 72 }
+    },
+    "2019": {
+      "factualHeatDeaths": { "estimate": 51364, "lower95": 30174, "upper95": 73475 },
+      "counterfactualHeatDeaths": { "estimate": 23588, "lower95": 6506, "upper95": 46584 },
+      "anthropogenicHeatDeaths": { "estimate": 27776, "lower95": 15043, "upper95": 45933 },
+      "anthropogenicSharePercent": { "estimate": 54, "lower95": 36, "upper95": 79 }
+    },
+    "2020": {
+      "factualHeatDeaths": { "estimate": 47348, "lower95": 27593, "upper95": 67739 },
+      "counterfactualHeatDeaths": { "estimate": 22975, "lower95": 6208, "upper95": 45077 },
+      "anthropogenicHeatDeaths": { "estimate": 24373, "lower95": 13064, "upper95": 40984 },
+      "anthropogenicSharePercent": { "estimate": 51, "lower95": 33, "upper95": 78 }
+    },
+    "2021": {
+      "factualHeatDeaths": { "estimate": 50873, "lower95": 30998, "upper95": 70822 },
+      "counterfactualHeatDeaths": { "estimate": 28658, "lower95": 12236, "upper95": 49114 },
+      "anthropogenicHeatDeaths": { "estimate": 22215, "lower95": 11428, "upper95": 37428 },
+      "anthropogenicSharePercent": { "estimate": 44, "lower95": 29, "upper95": 62 }
+    }
+  }
+}

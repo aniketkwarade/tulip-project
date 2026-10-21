@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-09-19T19:58:22.560Z",
+  "generated_at": "2026-10-21T14:25:00.738Z",
   "provider": "Bing News RSS fallback (GDELT unavailable)",
   "source_policy": "Reputed article publishers only; government and dataset pages excluded.",
   "profiles": {
@@ -1574,9 +1574,37 @@
     },
     "occupational_heat_exposure": {
       "title": "Recent Major Events",
-      "updatedAt": "2026-09-01",
+      "updatedAt": "2026-10-21",
       "profileKind": "events",
       "occurrences": [
+        {
+          "id": "occupational_heat_exposure-90e3456ac871",
+          "date": "2026-10-18",
+          "place": "Regional reporting",
+          "title": "US workers facing deadly heat embrace tactic that targets major brands’ reputations",
+          "status": "reported",
+          "summary": "",
+          "sources": [
+            {
+              "label": "The Guardian",
+              "url": "https://www.theguardian.com/environment/2026/oct/18/workers-heat-protections"
+            }
+          ]
+        },
+        {
+          "id": "occupational_heat_exposure-0ce22753b20d",
+          "date": "2026-10-07",
+          "place": "Regional reporting",
+          "title": "Use of natural gas or propane in commercial kitchens exposes workers to air pollution and dangerous heat",
+          "status": "reported",
+          "summary": "",
+          "sources": [
+            {
+              "label": "Phys.org",
+              "url": "https://phys.org/news/2026-10-natural-gas-propane-commercial-kitchens.html"
+            }
+          ]
+        },
         {
           "id": "occupational_heat_exposure-645795745303",
           "date": "2026-07-08",
@@ -1588,34 +1616,6 @@
             {
               "label": "The Guardian",
               "url": "https://www.theguardian.com/environment/2026/jul/08/unions-europe-worker-protections-heat-stress-climate-crisis"
-            }
-          ]
-        },
-        {
-          "id": "occupational_heat_exposure-9fb39403701f",
-          "date": "2026-06-14",
-          "place": "Regional reporting",
-          "title": "‘It’s going to be extremely hot’: workers imperiled as sweltering World Cup temperatures are forecast",
-          "status": "reported",
-          "summary": "",
-          "sources": [
-            {
-              "label": "The Guardian",
-              "url": "https://www.theguardian.com/us-news/2026/jun/14/world-cup-heat-workers"
-            }
-          ]
-        },
-        {
-          "id": "occupational_heat_exposure-552c61b6d9a6",
-          "date": "2023-10-20",
-          "place": "Regional reporting",
-          "title": "Migrant workers toil in perilous heat to prepare for Cop28 climate talks in UAE",
-          "status": "reported",
-          "summary": "",
-          "sources": [
-            {
-              "label": "The Guardian",
-              "url": "https://www.theguardian.com/environment/2023/oct/20/cop28-migrant-workers-uae-heat-climate-crisis"
             }
           ]
         }
@@ -6082,7 +6082,7 @@
     },
     "compound_day_night_heat_extremes": {
       "title": "Recent Major Events",
-      "updatedAt": "2026-09-01",
+      "updatedAt": "2026-09-25",
       "profileKind": "events",
       "occurrences": [
         {
@@ -6100,6 +6100,20 @@
           ]
         },
         {
+          "id": "compound_day_night_heat_extremes-c5af85a9bab2",
+          "date": "2025-04-24",
+          "place": "Global study",
+          "title": "Urbanization brings earlier onset of summertime compound heatwaves",
+          "status": "reported",
+          "summary": "",
+          "sources": [
+            {
+              "label": "Communications Earth & Environment",
+              "url": "https://www.nature.com/articles/s43247-025-02315-z"
+            }
+          ]
+        },
+        {
           "id": "compound_day_night_heat_extremes-1c7682c4a944",
           "date": "2024-03-14",
           "place": "Global reporting",
@@ -6112,39 +6126,25 @@
               "url": "https://phys.org/news/2024-03-advances-compound-weather-climate-extremes.html"
             }
           ]
-        },
-        {
-          "id": "compound_day_night_heat_extremes-726111aaf608",
-          "date": "2023-09-22",
-          "place": "Global reporting",
-          "title": "Understanding compound events in a changing climate",
-          "status": "reported",
-          "summary": "",
-          "sources": [
-            {
-              "label": "Phys.org",
-              "url": "https://phys.org/news/2023-09-compound-events-climate.html"
-            }
-          ]
         }
       ]
     },
     "hail_hazard_shift": {
       "title": "Recent Major Events",
-      "updatedAt": "2026-09-01",
+      "updatedAt": "2026-10-21",
       "profileKind": "events",
       "occurrences": [
         {
-          "id": "hail_hazard_shift-963224484d0f",
-          "date": "2026-07-27",
+          "id": "hail_hazard_shift-642117e77338",
+          "date": "2026-10-07",
           "place": "Global reporting",
-          "title": "How do scientists know if climate change made a heat wave, extreme storm or wildfire worse?",
+          "title": "Severe Convective Storms in a Changing Climate",
           "status": "reported",
           "summary": "",
           "sources": [
             {
-              "label": "Phys.org",
-              "url": "https://phys.org/news/2026-07-scientists-climate-extreme-storm-wildfire.html"
+              "label": "Nature",
+              "url": "https://www.nature.com/collections/hhadbijhbf"
             }
           ]
         },
@@ -6163,16 +6163,16 @@
           ]
         },
         {
-          "id": "hail_hazard_shift-fbc0f269855f",
-          "date": "2023-10-12",
+          "id": "hail_hazard_shift-f520a4c3200c",
+          "date": "2026-05-31",
           "place": "Global reporting",
-          "title": "Likelihood of hail in Australia has changed substantially over the last four decades",
+          "title": "The household battery revolution that could change energy bills … and the world",
           "status": "reported",
           "summary": "",
           "sources": [
             {
-              "label": "Phys.org",
-              "url": "https://phys.org/news/2023-10-likelihood-hail-australia-substantially-decades.html"
+              "label": "The Guardian",
+              "url": "https://www.theguardian.com/environment/ng-interactive/2026/may/31/cheaper-energy-bills-battery-revolution-climate-crisis"
             }
           ]
         }
@@ -6229,48 +6229,48 @@
     },
     "north_atlantic_oscillation": {
       "title": "Recent Major Events",
-      "updatedAt": "2026-09-01",
+      "updatedAt": "2026-10-21",
       "profileKind": "events",
       "occurrences": [
         {
-          "id": "north_atlantic_oscillation-553532a67eb9",
-          "date": "2026-08-25",
+          "id": "north_atlantic_oscillation-684839fb9986",
+          "date": "2026-10-20",
           "place": "Global reporting",
-          "title": "Climate damage would obliterate any economic benefits of new North Sea fields, analysis shows",
+          "title": "Jackdaw North Sea gasfield to get go-ahead in blow to climate campaigners",
           "status": "reported",
           "summary": "",
           "sources": [
             {
               "label": "The Guardian",
-              "url": "https://www.theguardian.com/environment/2026/aug/25/climate-damage-economy-north-sea-oil-gas-fields-rosebank-jackdaw"
+              "url": "https://www.theguardian.com/environment/2026/oct/20/jackdaw-north-sea-gas-field-to-get-go-ahead-in-blow-to-climate-campaigners"
             }
           ]
         },
         {
-          "id": "north_atlantic_oscillation-b192f86b210e",
-          "date": "2025-06-05",
+          "id": "north_atlantic_oscillation-7e7cc230b72f",
+          "date": "2026-10-15",
           "place": "Global reporting",
-          "title": "Changing winds could amplify North Atlantic climate anomaly",
+          "title": "A perfect storm: how the super El Niño is devastating the fishing industry",
+          "status": "reported",
+          "summary": "",
+          "sources": [
+            {
+              "label": "The Guardian",
+              "url": "https://www.theguardian.com/news/2026/oct/15/a-perfect-storm-how-the-super-el-nino-is-devastating-the-fishing-industry"
+            }
+          ]
+        },
+        {
+          "id": "north_atlantic_oscillation-91f9a2cc03bb",
+          "date": "2026-10-11",
+          "place": "Global reporting",
+          "title": "At least 4 dead as cyclone Isaias drenches southern U.S.",
           "status": "reported",
           "summary": "",
           "sources": [
             {
               "label": "Phys.org",
-              "url": "https://phys.org/news/2025-06-amplify-north-atlantic-climate-anomaly.html"
-            }
-          ]
-        },
-        {
-          "id": "north_atlantic_oscillation-92fc3f952ff7",
-          "date": "2023-10-05",
-          "place": "Global reporting",
-          "title": "Non-native plants migrate north as climate change advances, study finds",
-          "status": "reported",
-          "summary": "",
-          "sources": [
-            {
-              "label": "Phys.org",
-              "url": "https://phys.org/news/2023-10-non-native-migrate-north-climate-advances.html"
+              "url": "https://phys.org/news/2026-10-dead-cyclone-isaias-drenches-southern.html"
             }
           ]
         }
@@ -15245,12 +15245,26 @@
     },
     "riverine_habitat_fragmentation": {
       "title": "Recent Major Events",
-      "updatedAt": "2026-09-01",
+      "updatedAt": "2026-10-21",
       "profileKind": "events",
       "occurrences": [
         {
+          "id": "riverine_habitat_fragmentation-f85609197e5d",
+          "date": "2026-10-16",
+          "place": "Regional reporting",
+          "title": "Latest Research and News",
+          "status": "reported",
+          "summary": "",
+          "sources": [
+            {
+              "label": "Nature",
+              "url": "https://www.nature.com/subjects/archaeology-and-heritage"
+            }
+          ]
+        },
+        {
           "id": "riverine_habitat_fragmentation-5451d58270fa",
-          "date": "2025-07-07",
+          "date": "2025-07-01",
           "place": "Regional reporting",
           "title": "Anthropogenic barriers strongly fragment fish habitat in the Mekong basin",
           "status": "reported",
@@ -15273,20 +15287,6 @@
             {
               "label": "Nature",
               "url": "https://www.nature.com/articles/s43247-025-02416-9"
-            }
-          ]
-        },
-        {
-          "id": "riverine_habitat_fragmentation-9833e7bd3f73",
-          "date": "2023-10-09",
-          "place": "Regional reporting",
-          "title": "Impoundments alter more than 200,000 kilometres of European river habitat",
-          "status": "reported",
-          "summary": "",
-          "sources": [
-            {
-              "label": "Nature",
-              "url": "https://www.nature.com/articles/s41467-023-40922-6"
             }
           ]
         }
@@ -15735,9 +15735,23 @@
     },
     "coastal_aquifer_degradation": {
       "title": "Recent Major Events",
-      "updatedAt": "2026-09-01",
+      "updatedAt": "2026-10-21",
       "profileKind": "events",
       "occurrences": [
+        {
+          "id": "coastal_aquifer_degradation-1d5065712a04",
+          "date": "2026-08-27",
+          "place": "Global reporting",
+          "title": "More than 380 coastal World Heritage Sites may face climate risks, new data shows",
+          "status": "reported",
+          "summary": "",
+          "sources": [
+            {
+              "label": "Mongabay",
+              "url": "https://news.mongabay.com/2026/08/more-than-380-coastal-world-heritage-sites-may-face-climate-risks-new-data-shows/"
+            }
+          ]
+        },
         {
           "id": "coastal_aquifer_degradation-fd9f6918c662",
           "date": "2026-05-04",
@@ -15753,30 +15767,16 @@
           ]
         },
         {
-          "id": "coastal_aquifer_degradation-e788281f13c9",
-          "date": "2025-04-30",
+          "id": "coastal_aquifer_degradation-3e598cd9aa1c",
+          "date": "2025-12-03",
           "place": "Global reporting",
-          "title": "Seawater Intrusion and Groundwater Management in Coastal Aquifers",
+          "title": "Coastal regions and climate change: How better risk assessment can help protect infrastructure and livelihoods",
           "status": "reported",
           "summary": "",
           "sources": [
             {
-              "label": "Nature",
-              "url": "https://www.nature.com/nature-index/topics/l4/seawater-intrusion-and-groundwater-management-in-coastal-aquifers"
-            }
-          ]
-        },
-        {
-          "id": "coastal_aquifer_degradation-a6f10e38b301",
-          "date": "2023-10-13",
-          "place": "Global reporting",
-          "title": "Climate Change Is Making Saltwater Intrusion Worse in Coastal Areas",
-          "status": "reported",
-          "summary": "",
-          "sources": [
-            {
-              "label": "Scientific American",
-              "url": "https://www.scientificamerican.com/article/climate-change-is-making-saltwater-intrusion-worse-in-coastal-areas/"
+              "label": "Phys.org",
+              "url": "https://phys.org/news/2025-12-coastal-regions-climate-infrastructure-livelihoods.html"
             }
           ]
         }

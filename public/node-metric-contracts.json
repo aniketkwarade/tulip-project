@@ -18762,13 +18762,14 @@
       "geography": "declared basin, aquifer, utility, catchment, floodplain, or administrative reporting area",
       "cadence": "event-based to monthly with annual accounting",
       "observation_time_field": "water_observation_time",
-      "source_id": "nasa_sea_level_change_portal",
-      "transformation": "Preserve water-balance boundary, source and use sector, denominator, event definition, reporting coverage, and model version; keep observed, modeled, permitted, and estimated quantities distinct.",
+      "source_id": "wmo_unesco_global_glacier_water_assessments",
+      "transformation": "The current WMO/UNESCO snapshot is reference context only. It reports global glacier mass loss and people dependent on glacier-plus-snow melt, not glacier-only seasonal runoff volume or its share of water supply. A direct observation must retain glacier and snow components, basin, season, numerator and supply denominator separately.",
       "uncertainty": "Gauge and well coverage, withdrawals, return flows, groundwater-surface-water exchange, infrastructure reporting, model resolution, and revisions affect estimates.",
-      "threshold_provenance": "Use the responsible agency standard or a fixed basin-specific hydrologic threshold with versioned provenance.",
-      "failure_behavior": "Do not infer zero flow, zero withdrawal, or zero impact from missing observations or transfer basin results to individual assets.",
-      "reviewed_at": "2026-07-18",
-      "contract_status": "reviewed_live_node_metric"
+      "threshold_provenance": "No glacier-only seasonal supply-share threshold or direct observation has been bound to the current snapshot.",
+      "failure_behavior": "Keep the requested runoff-share observation missing. Do not relabel mass loss, glacier-plus-snow dependence or regional meltwater benefits as measured glacier-only supply share or current human harm; missing harm is not zero.",
+      "reviewed_at": "2026-09-27",
+      "contract_status": "direct_metric_observation_missing",
+      "observation_status": "reference_context_only"
     },
     "oceanic_deoxygenation": {
       "metric_id": "dissolved_oxygen_inventory_and_deficit",

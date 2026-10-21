@@ -1,0 +1,21 @@
+import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
+import { readFile } from 'node:fs/promises';
+
+const snapshot = JSON.parse(await readFile(new URL('../artifacts/tulip-calibration-2026-09-22/marine-food-web-reorganization-reference-snapshot.json', import.meta.url), 'utf8'));
+assert.equal(snapshot.productionRatingsEnabled, 0);
+assert.equal(snapshot.status, 'direct_ecosystem_reorganization_evidence_separated_from_human_exposure');
+assert.deepEqual(snapshot.endpoints.caribbeanReefTrophicStructure.sourceReportedModernFoodChainShorteningPercentRange, { lower: 60, upper: 70 });
+assert.deepEqual(snapshot.endpoints.caribbeanReefTrophicStructure.abundanceWeightedDistributionInterquartileRangeReductionPercent, { panama: 53, dominicanRepublic: 60 });
+assert.equal(snapshot.endpoints.balticFoodWebStatus.subBasins, 7);
+assert.deepEqual(snapshot.endpoints.balticFoodWebStatus.yearsOfHarmonizedDataRange, { lower: 26, upper: 46 });
+assert.equal(snapshot.endpoints.globalReach.compatibleShareOfMarineEcosystemDistributionAffectedPercent, null);
+assert.equal(snapshot.endpoints.humanConsequences.compatibleUniqueHarmedPersonCount, null);
+assert(snapshot.tulipUse.prohibited.some(rule => /one billion people.*people harmed/i.test(rule)));
+assert.equal(snapshot.tulipUse.currentCatalogueRecommendation.rating, 'C 5.5');
+assert.equal(snapshot.tulipUse.currentCatalogueRecommendation.uncertainty, 'B 4.0 to D 7.0');
+assert.deepEqual(snapshot.tulipUse.currentCatalogueRecommendation.domains, ['ecosystem']);
+assert.deepEqual(snapshot.tulipUse.currentCatalogueRecommendation.axes.central, { severity: 2, reach: 1, persistence: 3 });
+const expectedDigest = createHash('sha256').update(JSON.stringify({ sources: snapshot.sources, currentWindow: snapshot.currentWindow, endpoints: snapshot.endpoints, tulipUse: snapshot.tulipUse, unresolvedForTulip: snapshot.unresolvedForTulip })).digest('hex');
+assert.equal(snapshot.snapshotDigest, expectedDigest);
+console.log('Marine-food-web reference passed: direct ecosystem reorganization stays separate from human exposure and global reach.');

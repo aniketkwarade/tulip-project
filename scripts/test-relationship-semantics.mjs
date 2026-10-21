@@ -81,9 +81,11 @@ assert.doesNotMatch(main, /causal-relation[^\n]*edge\.influence/);
 assert.doesNotMatch(main, /How does \$\{triggerName\} affect/);
 assert.match(main, /How \$\{getRelationshipQuestionAuxiliary\(/);
 
-assert.match(main, /showIncomingInfluences: graphInstance\.showIncomingInfluences/);
-assert.match(main, /graphInstance\.showIncomingInfluences = state\.showIncomingInfluences/);
-assert.match(main, /graphInstance\.showOutgoingInfluences = state\.showOutgoingInfluences/);
+assert.match(main, /graphInstance\.captureViewState\(\)/);
+assert.match(graph, /showIncomingInfluences: this\.showIncomingInfluences/);
+assert.match(main, /graphInstance\.restoreViewState\(/);
+assert.match(graph, /'showIncomingInfluences', 'showOutgoingInfluences'/);
+assert.match(graph, /this\[key\] = state\[key\]/);
 assert.match(graph, /filter\(isCausalRelationship\)/);
 assert.match(graph, /ctx\.setLineDash\(\[\]\)/);
 assert.match(propagation, /edges\.filter\(isCausalRelationship\)/);

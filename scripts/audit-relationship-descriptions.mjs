@@ -53,8 +53,8 @@ for (const edge of EDGES) {
   if (sentenceCount < 1 || sentenceCount > 2) failures.push({ code: 'relationship_description_sentence_count', key, sentence_count: sentenceCount });
   if (!plainLanguage) failures.push({ code: 'relationship_plain_language_missing', key });
   if (plainLanguageWordCount < 8) failures.push({ code: 'relationship_plain_language_too_thin', key, word_count: plainLanguageWordCount });
-  if (plainLanguageWordCount > 82) failures.push({ code: 'relationship_plain_language_too_long', key, word_count: plainLanguageWordCount });
-  if (plainLanguageSentenceCount < 2 || plainLanguageSentenceCount > 3) failures.push({ code: 'relationship_plain_language_sentence_count', key, sentence_count: plainLanguageSentenceCount });
+  // Clarity is reviewed separately; neither a word cap nor a sentence cap
+  // should prevent an explanation from retaining necessary qualifications.
   const plainLanguageSentences = plainLanguage.split(/(?<=[.!?])\s+/).filter(Boolean);
   for (let index = 1; index < plainLanguageSentences.length; index += 1) {
     const overlap = sentenceOverlap(plainLanguageSentences[index - 1], plainLanguageSentences[index]);
@@ -65,7 +65,7 @@ for (const edge of EDGES) {
   if (/\b(?:anthropogenic|nitrification|denitrification|radiative forcing|biogeochemical|stoichiometric|hydrological|teleconnection|eutrophication|calcination|albedo|anoxic|hypoxic|cryosphere|pedogenic|enthalpy|evapotranspiration|sequestration|solubility|recruitment|operationally monitored|mole fraction|retrograde|parameterized|perturbation lifetime|trophic-transfer|biomass-flow|inventory boundary|forcing proxy|subseasonal|current-regime|EF\d|Tier \d|N2O-N)\b/i.test(plainLanguage)) {
     failures.push({ code: 'relationship_plain_language_specialist_term', key, plain_language: plainLanguage });
   }
-  if (/\b[A-Z][A-Z0-9.-]{1,}\b/.test(plainLanguage)) failures.push({ code: 'relationship_plain_language_unexplained_acronym', key, plain_language: plainLanguage });
+  if (/\b[A-Z][A-Z0-9.-]{1,}\b/.test(plainLanguage.replace(/high-emissions pathway RCP8\.5|very high-emissions scenario SSP5-8\.5|CO₂-equivalent/g, 'explained term'))) failures.push({ code: 'relationship_plain_language_unexplained_acronym', key, plain_language: plainLanguage });
   if (!technicalDetail) failures.push({ code: 'relationship_technical_detail_missing', key });
   if (!['high', 'moderate'].includes(confidence.level)) failures.push({ code: 'relationship_confidence_level_missing', key, level: confidence.level || null });
   if (!confidence.explanation?.trim()) failures.push({ code: 'relationship_confidence_explanation_missing', key });

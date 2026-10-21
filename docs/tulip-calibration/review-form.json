@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "status": "blank_template_not_an_approval",
+  "reviewer": {"name": null, "affiliation": null, "expertise": [], "publicProfileUrl": null},
+  "independence": {"independentOfTulip": null, "involvedInSourceModels": [], "involvedInCalibrationDesign": null, "conflicts": null, "compensationDependsOnApproval": null},
+  "scope": {"policyVersion": "tulip_harm_2027_2036_v1", "packetSha256": null, "assessmentRevision": null, "nodeIds": [], "sourceDigests": {}, "calibrationDefinitionHashes": {}, "modelVersions": []},
+  "decisions": {"D1": null, "D2": null, "D3": null, "D4": null, "D5": null, "D6": null, "D7": null, "D8": null},
+  "findings": [],
+  "reproductionArtifacts": [],
+  "applicabilityAndExceptions": [],
+  "decision": null,
+  "requiredChanges": [],
+  "claimsSupported": [],
+  "claimsNotSupported": [],
+  "signedReportUrl": null,
+  "signedOn": null,
+  "integrationNote": "A completed form is evidence for human review. It is not directly imported as a production approval. Production reviews must bind to the exact policy, calibration and candidate definitions required by src/tulip-score-method.js."
+}

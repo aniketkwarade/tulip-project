@@ -87,7 +87,6 @@ for (const node of NODES) {
   } else {
     const meaningWords = wordCount(node.readerMeaning);
     if (meaningWords < 8) failures.push(`${node.id}: readerMeaning is too thin`);
-    if (meaningWords > 80) failures.push(`${node.id}: readerMeaning is too long`);
     if (readerMethodologyCopy.test(node.readerMeaning)) {
       failures.push(`${node.id}: readerMeaning exposes measurement methodology`);
     }

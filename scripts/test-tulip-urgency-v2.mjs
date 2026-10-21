@@ -197,27 +197,5 @@ assert.ok(rolloutReport.comparison.every(row => Number.isFinite(row.sensitivity.
   && typeof row.sensitivity.rank_unstable === 'boolean'));
 for (const row of rolloutReport.comparison) assert.equal(graphNodes.get(row.node_id).score.baseline, row.legacy_score);
 
-// Only the modeled score receives a visible modeled-tag path in the inspector implementation.
-const mainSource = fs.readFileSync(path.join(ROOT, 'src', 'main.js'), 'utf8');
-const htmlSource = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
-const styleSource = fs.readFileSync(path.join(ROOT, 'src', 'style.css'), 'utf8');
-assert.match(htmlSource, /id="console-urgency-modeled"[^>]*hidden/);
-assert.match(mainSource, /receipt\.method === 'modeled'/);
-assert.match(mainSource, /tulipUrgencyStatus === 'approved'/);
-
-// Displayed regions align exactly with score intervals 1–3, 3–5, 5–7 and 7–10.
-const urgencyBandLabels = ['Low', 'Elevated', 'Rising', 'Critical'];
-assert.deepEqual(
-  [...htmlSource.matchAll(/data-urgency-band="([^"]+)"/g)].map(match => match[1]),
-  urgencyBandLabels,
-);
-for (const label of urgencyBandLabels) {
-  assert.match(
-    htmlSource,
-    new RegExp(`data-urgency-band="${label}"[^>]*>[\\s\\S]*?class="urgency-band-abbreviation"[^>]*>${label}<\\/span>`),
-  );
-}
-assert.match(styleSource, /grid-template-columns:\s*2fr 2fr 2fr 3fr/);
-assert.match(htmlSource, /left:\s*22\.222%[\s\S]*left:\s*44\.444%[\s\S]*left:\s*66\.667%/);
-
-console.log('TULIP urgency v2 tests passed: normalization, hierarchy, receipts, shadow safety, sensitivity and modeled presentation.');
+// Numerical archive remains reproducible; v4 presentation is covered by assessment tests.
+console.log('Archived TULIP urgency v2 tests passed.');

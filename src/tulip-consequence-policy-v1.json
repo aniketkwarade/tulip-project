@@ -1,0 +1,96 @@
+{
+  "version": "tulip_consequence_benchmark_policy_2026_09_28_v1_experimental",
+  "status": "internally_authored_experimental_rulebook_not_scientifically_validated",
+  "construct": "aggregate_current_attributable_consequence",
+  "comparisonBasis": {
+    "catalogueGeography": "global",
+    "timeMeaning": "Current attributable harm using the latest compatible source evidence, with the source reporting year and lag disclosed. Human and nature inputs in a whole-node calculation must share a reporting year and geography.",
+    "regionalEvidence": "A regional endpoint can be retained as a scoped diagnostic; it does not establish global whole-node coverage.",
+    "climateHistory": "Use measured history and WMO standard normals as context and causal/model inputs, not an additional harm multiplier.",
+    "outlook": "A future scenario assessment is separate from the current-harm rating.",
+    "meaningBoundary": "Aggregate harm does not identify maximum local severity, rarity or conservation priority."
+  },
+  "combinationDecisionVersion": "tulip_equal_domain_combination_2026_09_28_v1",
+  "weights": { "human": 0.5, "ecosystem": 0.5 },
+  "interpolation": "piecewise_log1p_canonical_unit",
+  "rounding": "map_components_unrounded_then_average_then_one_decimal",
+  "human": {
+    "unit": "TULIP_human_loss_year",
+    "healthBridgeFactor": 1,
+    "functionBridgeFactor": 1,
+    "formula": "health_DALYs + supported_function_loss_years - supported_overlapping_loss_years",
+    "logOffset": 1,
+    "points": [
+      { "score": 1, "burden": 0 },
+      { "score": 3, "burden": 100000 },
+      { "score": 5, "burden": 1000000 },
+      { "score": 7, "burden": 10000000 },
+      { "score": 9, "burden": 100000000 },
+      { "score": 10, "burden": 3013734614.04409 }
+    ],
+    "scope": "Loss assigned to one reporting year under the declared source accounting convention. Lifetime years already included in mortality are not multiplied by duration again.",
+    "bridgeChoice": "One supported full-function year and one health DALY receive equal numerical contribution to the TULIP policy index. This is an explicit experimental TULIP equivalence, not a scientific unit identity or a claim that wellbeing life-years are DALYs.",
+    "profileRule": "A source-specific, fixed function-loss profile must define its population, characteristic, unit, parameter and accounting convention. No generic weight is assigned to all service outages, lost income or displaced people.",
+    "overlapRule": "Joint source cases must quantify the shared loss in common policy units or establish it is disjoint. An unknown overlap is not zero. Several distinct pathways cannot be merged by adding their headline aggregates.",
+    "displacementPrototype": {
+      "profileKind": "disaster_displacement_function_loss_proxy",
+      "reductionInFunction": 0.042,
+      "formula": "unique_affected_person_days * 0.042 / 365",
+      "role": "Explicitly modeled function proxy based on the IDMC methodological note; not directly measured health, not a default for other services and not a reproduction of the Bangladesh application.",
+      "durationRule": "Require supported affected-person time with repeat movements and overlapping spells resolved. Do not derive duration from TULIP severity levels or import the note's ordinal recovery factor silently.",
+      "sourceUrl": "https://api.internal-displacement.org/sites/default/files/publications/documents/2026_IDMC_A%20life-year%20approach%20for%20measuring%20the%20human%20cost%20of%20disaster%20displacement.pdf",
+      "sourceLocator": "PDF pages 3–4: e*T*N and the explicit 0.042 approximation; pages 6–7: ordinal recovery factor and limitations."
+    },
+    "referenceUrl": "https://cdn.who.int/media/docs/default-source/gho-documents/global-health-estimates/ghe2021_daly_global_new.xlsx?sfvrsn=cbefe871_3",
+    "referenceSha256": "483ac1ae68d9191d9f739c2493cd8aaf2a92e87aecf0522ff7655a1d08501de7"
+  },
+  "ecosystem": {
+    "unit": "TULIP_condition_equivalent_km2",
+    "formula": "sum(disjoint_allocated_area_km2 * fixed_profile_weighted_positive_attributable_condition_deficit)",
+    "classWeights": { "physical": 0.16666666666666666, "chemical": 0.16666666666666666, "composition": 0.16666666666666666, "structure": 0.16666666666666666, "function": 0.16666666666666666, "connectivity": 0.16666666666666666 },
+    "classSource": "UN SEEA ecosystem condition typology; the six classes organize measurements. Equal class weights and the TULIP harm thresholds below are our experimental choices, not UN recommendations for TULIP scoring.",
+    "referenceUrl": "https://seea.un.org/sites/seea.un.org/files/documents/EA/seea_ea_f124_web_12dec24.pdf",
+    "referenceLocator": "Sections 5.30–5.38 and 5.79–5.82: characteristic classification and optional hierarchical condition indices.",
+    "profileRule": "Each ecosystem type needs a fixed source-supported profile of terminal characteristics, coherent reference/degraded states and inherited feature weights. Include every class or a supported unchanged class. Normalizing unlike indicators does not empirically prove their equivalence; equal relative contributions are a stated index choice.",
+    "normalization": "Normalize each continuous characteristic between its supported intact and fully degraded states, with harm direction preserved. Compare matched current with-node and without-node cases under the same profile. Out-of-reference values require review rather than silent clipping.",
+    "lossRule": "Positive attributable losses are retained by spatial unit and feature; improvements are reported separately, not used to cancel unrelated harm. Total cover and its constituents cannot be weighted as independent copies of the same characteristic.",
+    "spatialRule": "Require a frozen, source-reviewed non-overlapping allocation of spatial units. Overlapping habitat or vertical assets need explicit allocation shares whose sum is at most one per footprint. Area alone cannot establish damaged condition or attribution.",
+    "timebase": "current_condition_stock",
+    "persistenceRule": "Do not multiply a current stock by the observation history or projected recovery. Lasting damage is represented by its current condition; recovery and irreplaceability remain explicit explanatory outcomes, without a hidden score premium.",
+    "logOffset": 1,
+    "points": [
+      { "score": 1, "burden": 0 },
+      { "score": 3, "burden": 1000 },
+      { "score": 5, "burden": 10000 },
+      { "score": 7, "burden": 100000 },
+      { "score": 9, "burden": 1000000 },
+      { "score": 10, "burden": 510000000 }
+    ],
+    "benchmarkChoice": "The middle decade-spaced amounts are TULIP area-and-condition benchmarks, selected for explicit aggregate magnitude, not fitted to the catalogue or inferred from climate exposure. They still require real compatible outcome challenge and review before numerical admission.",
+    "outerReference": {
+      "meaning": "Rounded spherical Earth surface area as a fixed physical outer reference, not a measured quantity of living habitat or a completed global ecosystem map.",
+      "radiusKm": 6371,
+      "formula": "4*pi*radiusKm^2, rounded to 510 million km2",
+      "sourceUrl": "https://nssdc.gsfc.nasa.gov/planetary/factsheet/earthfact.html",
+      "sourceLocator": "Bulk parameters, volumetric mean radius (km), 6371.000"
+    },
+    "limitations": [
+      "A spatially small but irreplaceable ecosystem can have a low aggregate reading; this is not a conservation-priority or local-severity score.",
+      "A species-loss percentage, potential extinction commitment, coral-cover change or physical exposure cannot enter as a complete ecosystem condition profile without its supported transfer model and coverage.",
+      "The six-class average is compensatory and can dilute a large loss in one characteristic; the underlying vector must remain visible and its sensitivity reviewed.",
+      "The bridge between ecosystem-specific reference scales is a TULIP index convention, not a demonstrated ecological exchange rate."
+    ]
+  },
+  "admission": {
+    "completeBothDomainsRequired": true,
+    "missingIsZero": false,
+    "unsupportedWeightRedistribution": false,
+    "responseDangerScore": false,
+    "assessorEnteredFinalNumbers": false,
+    "sourceCountsGraphRanksExposureAsHarm": false,
+    "scientificCalibrationApproved": false,
+    "wholeNodeNumericalRatingsApproved": false,
+    "publicReady": false
+  },
+  "requiredChallenges": [ "human_function_bridge", "ecological_class_weights", "area_vs_family_preference", "irreversible_small_area_cases", "compatible_real_outcome_profiles", "source_bound_counterfactuals", "joint_uncertainty", "source_changes", "unit_and_catalogue_invariance" ]
+}

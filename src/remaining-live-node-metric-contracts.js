@@ -181,7 +181,14 @@ const SPECS = Object.freeze({
   polar_infrastructure_failure: S('infrastructure', 'permafrost_related_asset_failure', 'Infrastructure service failures attributed to permafrost degradation', 'asset failures and service-hours lost per year', 'global_terrestrial_network_for_permafrost'),
   snow_drought: S('cryosphere', 'snow_water_equivalent_deficit', 'Snow-water-equivalent deficit below a fixed climatology', 'millimetres water equivalent and percentile', 'copernicus_climate_change_service'),
   firn_layer_depletion: S('cryosphere', 'firn_air_content_change', 'Firn air content and meltwater retention-capacity change', 'metres water equivalent', 'ice_sheet_mass_balance_inter_comparison_exercise'),
-  glacier_meltwater_dependency: S('water', 'glacier_runoff_share_of_water_supply', 'Glacier-derived runoff share of seasonal water supply', 'percent and million cubic metres per season', 'nasa_sea_level_change_portal'),
+  glacier_meltwater_dependency: S('water', 'glacier_runoff_share_of_water_supply', 'Glacier-derived runoff share of seasonal water supply', 'percent and million cubic metres per season', 'wmo_unesco_global_glacier_water_assessments', {
+    transformation: 'The current WMO/UNESCO snapshot is reference context only. It reports global glacier mass loss and people dependent on glacier-plus-snow melt, not glacier-only seasonal runoff volume or its share of water supply. A direct observation must retain glacier and snow components, basin, season, numerator and supply denominator separately.',
+    threshold_provenance: 'No glacier-only seasonal supply-share threshold or direct observation has been bound to the current snapshot.',
+    failure_behavior: 'Keep the requested runoff-share observation missing. Do not relabel mass loss, glacier-plus-snow dependence or regional meltwater benefits as measured glacier-only supply share or current human harm; missing harm is not zero.',
+    contract_status: 'direct_metric_observation_missing',
+    observation_status: 'reference_context_only',
+    reviewed_at: '2026-09-27'
+  }),
   oceanic_deoxygenation: S('ocean', 'dissolved_oxygen_inventory_and_deficit', 'Dissolved oxygen concentration and oxygen-deficit volume', 'micromoles per kilogram and cubic kilometres', 'noaa_world_ocean_database'),
   antarctic_bottom_water_decline: S('ocean', 'antarctic_bottom_water_transport_and_volume', 'Antarctic Bottom Water transport and volume below a declared density surface', 'sverdrups and cubic kilometres', 'copernicus_marine_service'),
   pacific_decadal_oscillation: S('climate', 'pacific_decadal_oscillation_index', 'Pacific Decadal Oscillation index', 'standardized index units', 'noaa_cpc_psl_climate_indices'),
@@ -394,8 +401,9 @@ function contract(spec) {
     uncertainty: spec.uncertainty || family.uncertainty,
     threshold_provenance: spec.threshold_provenance || family.threshold_provenance,
     failure_behavior: spec.failure_behavior || family.failure_behavior,
-    reviewed_at: REVIEWED_AT,
-    contract_status: 'reviewed_live_node_metric'
+    reviewed_at: spec.reviewed_at || REVIEWED_AT,
+    contract_status: spec.contract_status || 'reviewed_live_node_metric',
+    ...(spec.observation_status ? { observation_status: spec.observation_status } : {})
   });
 }
 

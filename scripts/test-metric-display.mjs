@@ -19,6 +19,9 @@ assert.equal(formatMetricDisplayText('12-inch-equivalent wafer'), '30.5 cm-equiv
 assert.equal(formatMetricDisplayText('last-mile delivery'), 'last-mile delivery');
 assert.equal(formatMetricDisplayText('trips made on foot or wheels'), 'trips made on foot or wheels');
 assert.equal(formatMetricDisplayText('a named rail yard'), 'a named rail yard');
+assert.equal(formatMetricDisplayText('an open paved port yard and container yards'), 'an open paved port yard and container yards');
+assert.equal(containsImperialDisplayUnit('an open paved port yard and container yards'), false);
+assert.equal(containsImperialDisplayUnit('a port yard 100 yards wide'), true);
 assert.equal(formatMetricDisplayText('tonne-miles and nautical miles'), 'tonne-kilometres and kilometres');
 assert.deepEqual(
   metricizeDisplayValue({ unit: 'feet or meters from station datum', url: 'https://example.com/10-miles' }),

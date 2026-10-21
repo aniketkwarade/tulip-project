@@ -1,0 +1,32 @@
+{
+  "version": "tulip_human_health_absolute_daly_anchors_2026_09_27_candidate_v1",
+  "status": "internal_calibration_candidate_not_public",
+  "domain": "human",
+  "outcomeKind": "attributable_dalys",
+  "unit": "DALY",
+  "reportingPeriodBasis": "single_calendar_year_estimate",
+  "basis": "fixed_absolute_burden",
+  "comparisonGeography": "global_absolute_burden",
+  "construct": "annual attributable health years lost, not exposure or rarity",
+  "interpolation": "piecewise linear in log(1 + DALYs) between adjacent anchor points",
+  "policyExplanation": "The decade-spaced middle thresholds are TULIP choices made before any current catalogue-score fit. A score around 9 represents health loss on the order of a major global cause in one year. The 10 ceiling is fixed to WHO's global 2021 all-cause DALY estimate. WHO did not endorse these score labels or thresholds.",
+  "sourceWorkbook": "https://cdn.who.int/media/docs/default-source/gho-documents/global-health-estimates/ghe2021_daly_global_new.xlsx?sfvrsn=cbefe871_3",
+  "sourceWorkbookSha256": "483ac1ae68d9191d9f739c2493cd8aaf2a92e87aecf0522ff7655a1d08501de7",
+  "points": [
+    { "score": 1, "burden": 0, "meaning": "No attributable annual health loss verified" },
+    { "score": 3, "burden": 100000, "meaning": "About one hundred thousand full-health years lost worldwide in a year" },
+    { "score": 5, "burden": 1000000, "meaning": "About one million full-health years lost worldwide in a year" },
+    { "score": 7, "burden": 10000000, "meaning": "About ten million full-health years lost worldwide in a year" },
+    { "score": 9, "burden": 100000000, "meaning": "About one hundred million full-health years lost worldwide in a year, comparable in scale to one major global disease category" },
+    { "score": 10, "burden": 3013734614.04409, "meaning": "WHO's modeled global annual burden from all causes in 2021, used only as a fixed outer reference", "sourceCell": "Global 2021!G10" }
+  ],
+  "boundaries": [
+    "This is only a health-DALY component candidate; it cannot score service loss, broader welfare loss, ecosystem damage, or a whole dual-domain node.",
+    "The zero anchor means verified zero, not missing evidence.",
+    "Cause rows in the WHO workbook are comparison cases, not TULIP nodes, and their ranks or percentiles do not define the thresholds.",
+    "The 2021 all-cause ceiling and all thresholds stay fixed for this method version when new nodes are added; any revision requires a new method version and full recheck.",
+    "WHO source models have uncertainty. A WHO cause point estimate without an uncertainty interval is not a zero-width interval.",
+    "This candidate is not independently adjudicated and is not ready for publication."
+  ],
+  "publicReady": false
+}

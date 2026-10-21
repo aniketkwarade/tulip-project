@@ -1,0 +1,282 @@
+/* Flat desktop surface preview. Geometry, graph rendering and data colors stay
+ * in their existing styles; this layer only supplies the surface treatment. */
+:root {
+  --flat-panel: #17191d;
+  --flat-control: #25282e;
+  --flat-hover: #32363e;
+  --flat-border: #3c414a;
+  --flat-selected: #b8d4ff;
+  --flat-selected-text: #14243b;
+  --flat-focus: #79b9ff;
+}
+
+body #app-container:is([data-view-mode="explore"], [data-view-mode="study"]) :is(
+  #filter-bar, .filter-pill, .study-journey-bar, .study-history-popover,
+  .study-share-popover, .study-history-reset, .study-history-icon-btn,
+  .study-journey-toggle, .trail-prompt-panel, .trail-branch-btn, .trail-hero-btn,
+  .layout-toggle-pill-group, .layout-toggle-btn, .layout-toggle-expand-btn,
+  .legend-key-pill, .legend-line, #search-results, .search-result-item, #node-search-input,
+  #study-console, #study-console *
+) {
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Opaque shells prevent graph labels from showing through reading surfaces. */
+body #app-container:is([data-view-mode="explore"], [data-view-mode="study"]) :is(
+  .study-history-popover, .study-share-popover,
+  .trail-prompt-panel, .legend-key-pill,
+  #search-results, .inspector-card, #study-console > .console-section
+) {
+  background: var(--flat-panel) !important;
+  border-color: var(--flat-border) !important;
+}
+
+/* The category pills stand alone without an enclosing capsule. */
+body #app-container #filter-bar {
+  background: none !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+}
+
+body #app-container:is([data-view-mode="explore"], [data-view-mode="study"]) :is(
+  .filter-pill, .layout-toggle-btn, .layout-toggle-expand-btn,
+  .study-history-reset, .trail-branch-btn, .trail-hero-btn,
+  .relationship-evidence-select, .urgency-axis-popover,
+  .urgency-scale-value, .urgency-band-tooltip, .urgency-score-guide-button
+) {
+  background: var(--flat-control) !important;
+  border-color: var(--flat-border) !important;
+}
+
+/* Nested reading sections share their opaque card rather than adding layers. */
+body #app-container[data-view-mode="study"] #study-console .inspector-card .console-section {
+  background: var(--flat-panel) !important;
+}
+
+body #study-console .urgency-status-tag {
+  background: color-mix(in srgb, var(--flat-status, #9ca4d0) 20%, var(--flat-panel)) !important;
+}
+body #study-console .rating-low { --flat-status: #2ed573; }
+body #study-console .rating-elevated { --flat-status: #ffa502; }
+body #study-console .rating-significant { --flat-status: #ff6b81; }
+body #study-console .rating-concerning { --flat-status: #b49ab7; }
+body #study-console .rating-high-risk { --flat-status: #ca9197; }
+body #study-console .rating-severe { --flat-status: #dc7568; }
+body #study-console .rating-critical { --flat-status: #ff4757; }
+body #study-console .rating-extreme { --flat-status: #eb553d; }
+body #study-console .rating-systemic { --flat-status: #ff2a5f; }
+
+body #app-container:is([data-view-mode="explore"], [data-view-mode="study"]) :is(
+  .filter-pill:hover, .layout-toggle-btn:hover,
+  .layout-toggle-expand-btn:hover:not(:disabled),
+  .study-history-reset:hover, .trail-branch-btn:hover:not(:disabled),
+  .trail-hero-btn:hover:not(:disabled), .relationship-evidence-select:hover,
+  .urgency-score-guide-button:hover, .search-result-item:hover,
+  .search-result-item[aria-selected="true"], .study-share-popover button:hover
+) {
+  background: var(--flat-hover) !important;
+  border-color: #697281 !important;
+  transform: none;
+}
+
+body #app-container:is([data-view-mode="explore"], [data-view-mode="study"]) :is(
+  .filter-pill.active, .layout-toggle-btn.active,
+  .layout-toggle-expand-btn.active, .relationship-evidence-select.is-studying,
+  .filter-pill.active:hover, .layout-toggle-btn.active:hover,
+  .layout-toggle-expand-btn.active:hover, .relationship-evidence-select.is-studying:hover
+) {
+  background: var(--flat-selected) !important;
+  border-color: var(--flat-selected) !important;
+  color: var(--flat-selected-text) !important;
+}
+
+body #app-container[data-view-mode="study"] .relationship-evidence-field.is-studying::after {
+  border-color: var(--flat-selected-text);
+}
+
+/* Keep the existing border space and control positions while quieting chrome. */
+body #app-container #filter-bar .filter-pill:not(.active) {
+  border-color: transparent !important;
+}
+
+body #app-container[data-view-mode] #layout-toggle-container .layout-toggle-pill-group {
+  background: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+body #app-container[data-view-mode="study"] #study-console > :is(.inspector-card, .console-section) {
+  border-color: transparent !important;
+}
+
+/* These unboxed controls retain their original position and silhouette. */
+body #app-container[data-view-mode="study"] .study-journey-bar {
+  background: #000 !important;
+}
+body #app-container[data-view-mode="study"] :is(.study-journey-toggle, .study-history-icon-btn) {
+  background: #000 !important;
+}
+body #app-container[data-view-mode="study"] :is(.study-journey-toggle:hover, .study-history-icon-btn:hover:not(:disabled)) {
+  color: var(--flat-selected);
+}
+
+body #app-container:is([data-view-mode="explore"], [data-view-mode="study"]) :is(
+  #filter-bar, .filter-pill, .study-history-popover,
+  .trail-prompt-panel, .layout-toggle-pill-group
+)::before,
+body #app-container:is([data-view-mode="explore"], [data-view-mode="study"]) .filter-pill::after {
+  display: none !important;
+}
+
+body #app-container:is([data-view-mode="explore"], [data-view-mode="study"]) :is(
+  #filter-bar, #study-controls-overlay, #layout-toggle-container, #study-console, #search-container
+) :is(button, select, input, a, [tabindex]):focus-visible {
+  outline: 2px solid var(--flat-focus) !important;
+  outline-offset: 3px;
+}
+
+/* Learning controls float over Explore, so they use the same solid material. */
+body :is(.desktop-guide-capsule, #desktop-guide-invitation, .desktop-guide-tools label) {
+  background: var(--flat-panel);
+  border: 1px solid var(--flat-border);
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+body .desktop-guide-capsule::before { display: none; }
+body .desktop-guide-number { border-color: var(--flat-selected); color: var(--flat-selected); }
+body .desktop-guide-tools select { background: var(--flat-control); border-color: var(--flat-border); }
+
+/* Desktop zoom can activate the compact layout; keep the material consistent. */
+@media (max-width: 950px) {
+  body #app-container:is([data-view-mode="explore"], [data-view-mode="study"]) :is(
+    .mobile-study-sheet, .mobile-sheet-summary, .mobile-analyse-sections,
+    .mobile-app-heading, .mobile-icon-btn, .mobile-sheet-score
+  ) {
+    background: var(--flat-panel) !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+  body #app-container[data-view-mode="study"] #mobile-analyse-sections button.active {
+    background: var(--flat-selected) !important;
+    color: var(--flat-selected-text) !important;
+    box-shadow: none !important;
+  }
+  body #app-container[data-view-mode="study"] #canvas-container::after {
+    display: none !important;
+  }
+  body:has(#app-container:is([data-view-mode="explore"], [data-view-mode="study"])) .tulip-footer-bar {
+    background: var(--flat-panel) !important;
+    box-shadow: none !important;
+  }
+  body:has(#app-container:is([data-view-mode="explore"], [data-view-mode="study"])) .tulip-footer-bar .footer-nav-indicator {
+    background: var(--flat-selected) !important;
+    box-shadow: none !important;
+  }
+  body:has(#app-container:is([data-view-mode="explore"], [data-view-mode="study"])) .tulip-footer-bar .footer-nav-btn:is(.active, .scrub-preview) {
+    color: var(--flat-selected-text) !important;
+  }
+}
+
+@media (forced-colors: active) {
+  body #app-container:is([data-view-mode="explore"], [data-view-mode="study"]) :is(
+    .filter-pill.active, .layout-toggle-btn.active,
+    .layout-toggle-expand-btn.active, .relationship-evidence-select.is-studying
+  ) {
+    background: Highlight !important;
+    color: HighlightText !important;
+    border-color: Highlight !important;
+  }
+}
+
+/* One opaque category rail; only the chosen category gets an inset pill. */
+@media (min-width: 951px) {
+  body #app-container #app-logo {
+    /* Pill midpoint: 51px + 37.95px / 2; compensate for the logo’s -12px margin. */
+    top: 81.975px;
+  }
+  body #app-container[data-view-mode="explore"] #header-center-area {
+    /* Equal gutters keep the rail on the sphere’s centerline, clear of the logo. */
+    left: 240px !important;
+    right: 240px !important;
+    width: auto;
+    max-width: none;
+    transform: none;
+  }
+  body #app-container[data-view-mode="explore"] #filter-bar {
+    background: var(--flat-panel) !important;
+    border: 1px solid var(--flat-border) !important;
+    border-radius: 999px !important;
+    padding: 5px;
+    gap: 2px;
+    max-width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+    justify-content: flex-start;
+    transform: scale(0.8625);
+    transform-origin: top center;
+  }
+  body #app-container #filter-bar .filter-pill {
+    padding-inline: 10px;
+    letter-spacing: .06em;
+    background: transparent !important;
+    border-color: transparent !important;
+  }
+  body #app-container #filter-bar .filter-pill:hover {
+    background: var(--flat-hover) !important;
+  }
+  body #app-container #filter-bar .filter-pill.active,
+  body #app-container #filter-bar .filter-pill.active:hover {
+    background: rgb(var(--filter-category-rgb)) !important;
+    color: #14171d !important;
+  }
+  body #app-container #filter-bar .filter-pill:focus-visible {
+    outline-offset: -2px;
+  }
+}
+
+/* Supplied wordmark, in solid white, links back to Explore. */
+body #app-container #app-logo {
+  background: none;
+  border: 0;
+  width: auto;
+}
+body #app-container #app-logo img {
+  width: 108.75px;
+  height: auto;
+  filter: none;
+  transform: none;
+}
+body #app-container #app-logo:focus-visible {
+  outline: 2px solid var(--flat-focus);
+  outline-offset: 4px;
+  border-radius: 12px;
+}
+#footer-quick-start {
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: inherit;
+  cursor: pointer;
+  white-space: nowrap;
+}
+@media (forced-colors: active) {
+  body #app-container #filter-bar .filter-pill.active {
+    background: Highlight !important;
+    color: HighlightText !important;
+  }
+}
+
+/* Give the restored learning link room without squeezing the supporting links. */
+@media (min-width: 951px) and (max-width: 1320px) {
+  #tulip-footer-bar .footer-right {
+    position: absolute;
+    bottom: 58px;
+    right: 22px;
+    gap: 16px;
+  }
+  #tulip-footer-bar .footer-right > * { flex: 0 0 auto; }
+}

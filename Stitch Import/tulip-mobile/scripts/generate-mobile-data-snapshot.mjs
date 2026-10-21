@@ -1,4 +1,5 @@
-import { readFile, writeFile } from "node:fs/promises";
+import { readFile, writeFile, mkdir, cp, rm } from "node:fs/promises";
+import { getNodePhoto } from "../../../src/node-photos.js";
 import { fileURLToPath } from "node:url";
 import { PUBLISHED_NODES, PUBLISHED_EDGES } from "../../../src/data.js";
 import { PHENOMENON_SELECTOR_CONFIG } from "../../../src/phenomenon-selector.js";
@@ -10,10 +11,14 @@ import {
   buildPlanetInspectorProfile,
   formatNodeSourceDate,
   getNodeInspectorMeaning,
+  getNodeInspectorEconomicContext,
+  getNodeInspectorMeasurement,
 } from "../../../src/node-inspector-display.js";
 import { getTulipUrgencyBandV3 } from "../../../src/tulip-urgency-v3.js";
 import { getRecentOccurrenceProfile } from "../../../src/recent-occurrences.js";
 import { formatMetricDisplayText, metricizeDisplayValue } from "../../../src/metric-display.js";
+import { getTulipAssessment } from "../../../src/tulip-assessment.js";
+import { buildTulipScoreBreakdown } from "../../../src/tulip-score-breakdown.js";
 
 const root = fileURLToPath(new URL("../../../",import.meta.url));
 const sourceDates = JSON.parse(await readFile(new URL("../../../src/node-source-dates.json",import.meta.url),"utf8"));
@@ -48,9 +53,10 @@ const graphNodes = nodes.map((node) => ({
   node_kind:node.node_kind,
   sphere:node.sphere,
   description:metricText(node.description),
-  tulipScore:node.tulipScore,
-  impactScore:node.impactScore,
-  score:node.score && typeof node.score === "object" ? { baseline:node.score.baseline } : node.score,
+  tulipScore:getTulipAssessment(node).value ?? null,
+  impactScore:Number.isFinite(getTulipAssessment(node).value) ? getTulipAssessment(node).value * 10 : null,
+  score:{ baseline:getTulipAssessment(node).value ?? null },
+  scoreAssessment:{ value:getTulipAssessment(node).value, label:getTulipAssessment(node).label },
   calibration:node.calibration ? { role:node.calibration.role,source_status:node.calibration.source_status } : undefined,
   context:node.context ? { reach:node.context.reach } : undefined,
   vector:node.vector ? { societal_fallout:node.vector.societal_fallout,human_drivenness:node.vector.human_drivenness } : undefined,
@@ -77,10 +83,11 @@ const profiles = Object.fromEntries(nodes.map((node) => {
     return [metricText(targetName),metricText(content.plain_language || relationshipText(edge,node.name,targetName)),`${edge.source}->${edge.target}`];
   });
   const metric = node.metric_contract || {};
-  const economy = node.economicContext || {};
+  const economy = getNodeInspectorEconomicContext(node);
   const humanProfile = buildHumanInspectorProfile(node);
   const planetProfile = buildPlanetInspectorProfile(node);
-  const urgency = Number(node.score?.baseline ?? (typeof node.impactScore === "number" ? node.impactScore / 10 : 0));
+  const assessment = getTulipAssessment(node);
+  const urgency = assessment.value ?? null;
   const recentOccurrenceProfile = getRecentOccurrenceProfile(node,{
     sourceDate:sourceDates?.entries?.[node.id]?.source_date || "",
   });
@@ -94,12 +101,14 @@ const profiles = Object.fromEntries(nodes.map((node) => {
     sphere:SPHERE_LABELS[node.sphere] || humanizeKey(node.sphere || "TULIP topic"),
     updated:formatNodeSourceDate(node,sourceDates).replace(/^Most Recent Data:\s*/i,"Last Updated: ").replace(/,\s*(\d{4})\b/," $1"),
     description:metricText(getNodeInspectorMeaning(node) || `Reviewed TULIP graph node: ${node.name}.`),
+    photo:getNodePhoto(node.id),
     urgency,
-    urgencyBand:urgency >= 1 && urgency <= 10 ? getTulipUrgencyBandV3(urgency) : "Not scored",
+    assessment,
+    scoreBreakdown:buildTulipScoreBreakdown(node.name,assessment),
+    urgencyBand:null,
     incoming:incoming.length ? incoming : [["No reviewed incoming relationship","No incoming relationship is asserted in the current reviewed graph."]],
     outgoing:outgoing.length ? outgoing : [["No reviewed outgoing relationship","No outgoing relationship is asserted in the current reviewed graph."]],
     human:{
-      severity:humanProfile.severity.label,
       reach:`${humanProfile.reach.replace(/^Reach:\s*/i,"")} · ${humanProfile.mode}`,
       summary:metricText(humanProfile.summary),
       domains:humanProfile.domains.map(metricText),
@@ -108,7 +117,6 @@ const profiles = Object.fromEntries(nodes.map((node) => {
       whoPays:metricText(economy.whoPays || "Burden allocation depends on the geography and relationship pathway under review."),
     },
     planet:{
-      severity:planetProfile.severity.label,
       reach:`${planetProfile.reach.replace(/^Reach:\s*/i,"")} · ${planetProfile.mode}`,
       summary:metricText(planetProfile.summary),
       domains:planetProfile.domains.map(metricText),
@@ -119,15 +127,7 @@ const profiles = Object.fromEntries(nodes.map((node) => {
       defaultDriver:metricText(economy.defaultDriver || "No singular default driver is asserted for this node."),
       levers:(economy.systemLevers || ["Use the reviewed incident relationships and measurement boundary to identify context-specific interventions."]).map(metricText),
     },
-    measurement:{
-      metric:metricText(metric.metric_name || "No reviewed live metric"),
-      unit:metricText(metric.unit || "Not specified"),
-      geography:metricText(metric.geography || "Not specified"),
-      cadence:metricText(metric.cadence || node.update_policy?.update_cadence || "Not specified"),
-      method:metricText(metric.transformation || "No transformation method is declared."),
-      uncertainty:metricText(metric.uncertainty || "Uncertainty is not separately declared."),
-      boundary:metricText(metric.failure_behavior || node.regional_profile?.interpretation_boundary || economy.evidenceBoundary || "Do not generalize beyond the reviewed evidence boundary."),
-    },
+    measurement:metricizeDisplayValue(getNodeInspectorMeasurement(node)),
     recentOccurrences:recentOccurrenceProfile ? {
       title:recentOccurrenceProfile.title,
       profileKind:recentOccurrenceProfile.profileKind || "events",
@@ -172,6 +172,9 @@ const relationshipContent = Object.fromEntries(edges.map((edge) => [
   }),
 ]));
 
+await rm(new URL('../public/node-photos/', import.meta.url), { recursive: true, force: true });
+await mkdir(new URL('../public/node-photos/', import.meta.url), { recursive: true });
+await cp(new URL('../../../public/node-photos/', import.meta.url), new URL('../public/node-photos/', import.meta.url), { recursive: true });
 await Promise.all([
   writeFile(graphOutputUrl,`${JSON.stringify({ graphNodes,graphEdges })}\n`),
   writeFile(catalogOutputUrl,`${JSON.stringify(nodeCatalog)}\n`),

@@ -1,3 +1,5 @@
+import { applyActivityLensReaderCopy, applyActivityGroupReaderCopy } from './activity-reader-copy.js';
+
 const DEFAULT_PHENOMENON_GROUP_LABELS = {
   primaryTitle: 'Top Drivers',
   secondaryTitle: 'Secondary Drivers'
@@ -240,7 +242,7 @@ export const PHENOMENON_LENSES = {
     },
     items: [
       {
-        label: 'Beef',
+        id: 'food.beef', label: 'Beef',
         value: 99.48,
         typicalPortion: '170 g cooked',
         portionSource: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC6610234/',
@@ -248,77 +250,77 @@ export const PHENOMENON_LENSES = {
         emphasis: 'Outlier'
       },
       {
-        label: 'Dark Chocolate',
+        id: 'food.dark_chocolate', label: 'Dark Chocolate',
         value: 46.65,
         typicalPortion: '30 g',
         portionSource: 'https://www.ecfr.gov/current/title-21/chapter-I/subchapter-B/part-101/subpart-A/section-101.12',
         note: 'Cocoa-related land-use change and processing make dark chocolate unusually emissions-intensive by product weight.'
       },
       {
-        label: 'Lamb & Mutton',
+        id: 'food.lamb_mutton', label: 'Lamb & Mutton',
         value: 39.72,
         typicalPortion: '150 g cooked',
         portionSource: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC6610234/',
         note: 'Ruminant methane and land demand keep lamb and mutton among the highest-footprint foods.'
       },
       {
-        label: 'Coffee',
+        id: 'food.coffee', label: 'Coffee',
         value: 28.53,
         typicalPortion: '~13 g grounds / 240 mL cup',
         portionSource: 'https://sca.coffee/s/2017-SCA-CHB-Program-Requirements-ba6g.pdf',
         note: 'Land-use change and farm-stage inputs make coffee footprint-heavy by product weight, though a brewed cup uses relatively little coffee.'
       },
       {
-        label: 'Cheese',
+        id: 'food.cheese', label: 'Cheese',
         value: 23.88,
         typicalPortion: '40 g',
         portionSource: 'https://fdc.nal.usda.gov/',
         note: 'Milk production is concentrated into a smaller finished product, keeping cheese relatively emissions-intensive.'
       },
       {
-        label: 'Seafood',
+        id: 'food.seafood', label: 'Seafood',
         value: 13.63,
         typicalPortion: '170 g cooked',
         portionSource: 'https://fdc.nal.usda.gov/',
         note: 'Uses farmed fish as the source benchmark; feed production and aquaculture operations make it a meaningful animal-protein footprint.'
       },
       {
-        label: 'Pork',
+        id: 'food.pork', label: 'Pork',
         value: 12.31,
         typicalPortion: '170 g cooked',
         portionSource: 'https://fdc.nal.usda.gov/',
         note: 'Lower than ruminant meat, but still materially heavier than most plant foods.'
       },
       {
-        label: 'Chicken',
+        id: 'food.chicken', label: 'Chicken',
         value: 9.87,
         typicalPortion: '170 g cooked',
         portionSource: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC6610234/',
         note: 'Lower than beef and lamb, though still well above legumes and most vegetables.'
       },
       {
-        label: 'Eggs',
+        id: 'food.eggs', label: 'Eggs',
         value: 4.67,
         typicalPortion: '2 large eggs (100 g)',
         portionSource: 'https://fdc.nal.usda.gov/',
         note: 'A moderate footprint relative to other animal proteins.'
       },
       {
-        label: 'Rice',
+        id: 'food.rice', label: 'Rice',
         value: 4.45,
         typicalPortion: '1 cup cooked (160 g)',
         portionSource: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC6610234/',
         note: 'Flooded cultivation makes rice stand out among staple crops because it produces methane.'
       },
       {
-        label: 'Tofu',
+        id: 'food.tofu', label: 'Tofu',
         value: 3.16,
         typicalPortion: '150 g',
         portionSource: 'https://fdc.nal.usda.gov/',
         note: 'A relatively low-footprint protein benchmark on the same product-weight basis.'
       },
       {
-        label: 'Vegetables',
+        id: 'food.vegetables', label: 'Vegetables',
         value: 0.98,
         typicalPortion: '1 cup cooked peas (160 g)',
         portionSource: 'https://fdc.nal.usda.gov/',
@@ -336,10 +338,10 @@ export const PHENOMENON_LENSES = {
     scaleNote: 'Research-backed annualized farming-heavy agrifood blocks using FAO synthesis, centered on 2019 accounting.',
     takeaway: 'This keeps the farming lens consistent with the rest of the heavy-emissions views while still showing which industrial agriculture blocks dominate.',
     items: [
-      { label: 'Cattle ranching', value: 9400, note: 'Best current reference estimate for the biggest industrial-livestock-heavy block in the FAO agrifood synthesis.' },
-      { label: 'Land clearing for cattle', value: 3300, note: 'Captures the annualized deforestation and conversion burden tied to livestock demand.' },
-      { label: 'Farm energy', value: 2900, note: 'Keeps farm-gate activity linked to its large downstream fuel and electricity burden.' },
-      { label: 'Land-clearing fires', value: 1300, note: 'A smaller but still material annual block in the farming-heavy emissions stack.' }
+      { id: 'industry_farming.cattle_ranching', label: 'Cattle ranching', value: 9400, note: 'Best current reference estimate for the biggest industrial-livestock-heavy block in the FAO agrifood synthesis.' },
+      { id: 'industry_farming.land_clearing_for_cattle', label: 'Land clearing for cattle', value: 3300, note: 'Captures the annualized deforestation and conversion burden tied to livestock demand.' },
+      { id: 'industry_farming.farm_energy', label: 'Farm energy', value: 2900, note: 'Keeps farm-gate activity linked to its large downstream fuel and electricity burden.' },
+      { id: 'industry_farming.land_clearing_fires', label: 'Land-clearing fires', value: 1300, note: 'A smaller but still material annual block in the farming-heavy emissions stack.' }
     ]
   },
   methane: {
@@ -352,13 +354,13 @@ export const PHENOMENON_LENSES = {
     scaleNote: 'Percentage share of the global anthropogenic methane baseline, estimated at approximately 390 MtCH₄/yr.',
     takeaway: 'This keeps methane in a standardized percentage share while preserving the source-attribution story users actually need.',
     items: [
-      { label: 'Cattle', value: 28, note: 'Ruminant digestion and enteric fermentation remains the single largest agricultural source.' },
-      { label: 'Oil and gas', value: 21, note: 'Fugitive emissions from extraction and transmission are the largest industrial source.' },
-      { label: 'Landfills', value: 15, note: 'Municipal solid waste and wastewater decomposition generate significant methane.' },
-      { label: 'Other anthropogenic sources', value: 15, note: 'Combustion, biofuels, and other smaller industrial processes combined.' },
-      { label: 'Rice', value: 8, note: 'Anaerobic conditions in flooded rice paddies trigger methanogenesis.' },
-      { label: 'Coal mines', value: 8, note: 'Venting and leakage from active and abandoned coal operations.' },
-      { label: 'Manure', value: 5, note: 'Stored livestock manure adds a secondary agricultural release channel.' }
+      { id: 'methane.cattle', label: 'Cattle', value: 28, note: 'Ruminant digestion and enteric fermentation remains the single largest agricultural source.' },
+      { id: 'methane.oil_and_gas', label: 'Oil and gas', value: 21, note: 'Fugitive emissions from extraction and transmission are the largest industrial source.' },
+      { id: 'methane.landfills', label: 'Landfills', value: 15, note: 'Municipal solid waste and wastewater decomposition generate significant methane.' },
+      { id: 'methane.other_anthropogenic_sources', label: 'Other anthropogenic sources', value: 15, note: 'Combustion, biofuels, and other smaller industrial processes combined.' },
+      { id: 'methane.rice', label: 'Rice', value: 8, note: 'Anaerobic conditions in flooded rice paddies trigger methanogenesis.' },
+      { id: 'methane.coal_mines', label: 'Coal mines', value: 8, note: 'Venting and leakage from active and abandoned coal operations.' },
+      { id: 'methane.manure', label: 'Manure', value: 5, note: 'Stored livestock manure adds a secondary agricultural release channel.' }
     ]
   },
   carbon_emission: {
@@ -371,14 +373,14 @@ export const PHENOMENON_LENSES = {
     scaleNote: 'Percentage share of the global tracked carbon pressure. These represent the key sectors contributing to total carbon emissions.',
     takeaway: 'This turns a broad atmospheric problem into an explainable portfolio of systems, showing how emissions distribute across major activities.',
     items: [
-      { label: 'Power plants', value: 26, note: 'Electricity remains the anchor sector for long-lived carbon loading.' },
-      { label: 'Cars and trucks', value: 18, note: 'Road transport, freight, and vehicle dependence drive persistent fossil demand.' },
-      { label: 'Factories', value: 16, note: 'Steel, cement, heat, and process emissions stay hard to eliminate.' },
-      { label: 'Buildings', value: 12, note: 'Heating, cooling, and embodied materials make the built environment visible.' },
-      { label: 'Deforestation', value: 9, note: 'Forest loss and degraded land turn ecological damage into atmospheric carbon.' },
-      { label: 'Planes and ships', value: 7.5, note: 'Global movement systems add a stubborn cross-border emissions channel.' },
-      { label: 'Farming', value: 6.5, note: 'Not the largest CO2 slice, but still part of the broader carbon stack.' },
-      { label: 'Materials', value: 5, note: 'Embedded emissions move through imported goods and industrial intermediates.' }
+      { id: 'carbon_emission.power_plants', label: 'Power plants', value: 26, note: 'Electricity remains the anchor sector for long-lived carbon loading.' },
+      { id: 'carbon_emission.cars_and_trucks', label: 'Cars and trucks', value: 18, note: 'Road transport, freight, and vehicle dependence drive persistent fossil demand.' },
+      { id: 'carbon_emission.factories', label: 'Factories', value: 16, note: 'Steel, cement, heat, and process emissions stay hard to eliminate.' },
+      { id: 'carbon_emission.buildings', label: 'Buildings', value: 12, note: 'Heating, cooling, and embodied materials make the built environment visible.' },
+      { id: 'carbon_emission.deforestation', label: 'Deforestation', value: 9, note: 'Forest loss and degraded land turn ecological damage into atmospheric carbon.' },
+      { id: 'carbon_emission.planes_and_ships', label: 'Planes and ships', value: 7.5, note: 'Global movement systems add a stubborn cross-border emissions channel.' },
+      { id: 'carbon_emission.farming', label: 'Farming', value: 6.5, note: 'Not the largest CO2 slice, but still part of the broader carbon stack.' },
+      { id: 'carbon_emission.materials', label: 'Materials', value: 5, note: 'Embedded emissions move through imported goods and industrial intermediates.' }
     ]
   },
   electricity_generation: {
@@ -391,14 +393,14 @@ export const PHENOMENON_LENSES = {
     scaleNote: 'Research-backed global electricity composition using 2024 activity. This is a source-mix footprint lens rather than a direct emissions-intensity lens.',
     takeaway: 'This makes the power system legible in one glance: fossil generation still dominates globally even as low-carbon sources continue to grow.',
     items: [
-      { label: 'Coal', value: 35, note: 'Largest single source of global electricity in 2024.' },
-      { label: 'Natural gas', value: 22, note: 'Second-largest source globally in 2024.' },
-      { label: 'Hydro', value: 14, note: 'Largest renewable source in the global mix.' },
-      { label: 'Nuclear', value: 9, note: 'One of the largest low-carbon sources in annual electricity output.' },
-      { label: 'Wind', value: 8, note: 'Wind remained ahead of solar in annual generation.' },
-      { label: 'Solar', value: 7, note: 'Fastest-growing major source, but still smaller than wind and hydro in annual output.' },
-      { label: 'Bioenergy + waste', value: 3, note: 'Small but still visible in the global generation mix.' },
-      { label: 'Oil', value: 2, note: 'Residual thermal generation; only a few percent globally.' }
+      { id: 'electricity_generation.coal', label: 'Coal', value: 35, note: 'Largest single source of global electricity in 2024.' },
+      { id: 'electricity_generation.natural_gas', label: 'Natural gas', value: 22, note: 'Second-largest source globally in 2024.' },
+      { id: 'electricity_generation.hydro', label: 'Hydro', value: 14, note: 'Largest renewable source in the global mix.' },
+      { id: 'electricity_generation.nuclear', label: 'Nuclear', value: 9, note: 'One of the largest low-carbon sources in annual electricity output.' },
+      { id: 'electricity_generation.wind', label: 'Wind', value: 8, note: 'Wind remained ahead of solar in annual generation.' },
+      { id: 'electricity_generation.solar', label: 'Solar', value: 7, note: 'Fastest-growing major source, but still smaller than wind and hydro in annual output.' },
+      { id: 'electricity_generation.bioenergy_waste', label: 'Bioenergy + waste', value: 3, note: 'Small but still visible in the global generation mix.' },
+      { id: 'electricity_generation.oil', label: 'Oil', value: 2, note: 'Residual thermal generation; only a few percent globally.' }
     ]
   },
   temp: {
@@ -431,13 +433,13 @@ export const PHENOMENON_LENSES = {
     scaleNote: 'Research-backed cumulative commodity-attribution lens using the strongest globally comparable deforestation dataset available. This is cumulative rather than annual and should be read that way.',
     takeaway: 'This shows the physical land-conversion story directly: cattle, oil crops, staple crops, plantations, and commodity expansion are the clearest forest-loss drivers.',
     items: [
-      { label: 'Pasture expansion', value: 51.2, note: 'Mainly cattle-related conversion and the largest named block in the commodity-attribution dataset.' },
-      { label: 'Oil palm + soy + other oilseeds', value: 19.5, note: 'Oilseed expansion is one of the clearest crop-linked forest conversion pathways.' },
-      { label: 'Forest plantations', value: 17.1, note: 'Plantation expansion remains a material contributor in the long-run land-conversion total.' },
-      { label: 'Other commodities', value: 14.6, note: 'Residual commodity pressure not cleanly broken out into named rows in the main study.' },
-      { label: 'Staple crops', value: 13.4, note: 'Maize, rice, cassava, and related staples still account for meaningful cumulative forest loss.' },
-      { label: 'Cocoa + coffee', value: 3.7, note: 'Smaller than pasture or oil crops, but still a visible and intuitive consumer-facing driver.' },
-      { label: 'Rubber + fibre crops', value: 2.4, note: 'A smaller but still real commodity block in the cumulative total.' }
+      { id: 'deforestation_land_use.pasture_expansion', label: 'Pasture expansion', value: 51.2, note: 'Mainly cattle-related conversion and the largest named block in the commodity-attribution dataset.' },
+      { id: 'deforestation_land_use.oil_palm_soy_other_oilseeds', label: 'Oil palm + soy + other oilseeds', value: 19.5, note: 'Oilseed expansion is one of the clearest crop-linked forest conversion pathways.' },
+      { id: 'deforestation_land_use.forest_plantations', label: 'Forest plantations', value: 17.1, note: 'Plantation expansion remains a material contributor in the long-run land-conversion total.' },
+      { id: 'deforestation_land_use.other_commodities', label: 'Other commodities', value: 14.6, note: 'Residual commodity pressure not cleanly broken out into named rows in the main study.' },
+      { id: 'deforestation_land_use.staple_crops', label: 'Staple crops', value: 13.4, note: 'Maize, rice, cassava, and related staples still account for meaningful cumulative forest loss.' },
+      { id: 'deforestation_land_use.cocoa_coffee', label: 'Cocoa + coffee', value: 3.7, note: 'Smaller than pasture or oil crops, but still a visible and intuitive consumer-facing driver.' },
+      { id: 'deforestation_land_use.rubber_fibre_crops', label: 'Rubber + fibre crops', value: 2.4, note: 'A smaller but still real commodity block in the cumulative total.' }
     ]
   },
   freight_logistics: {
@@ -457,11 +459,11 @@ export const PHENOMENON_LENSES = {
       boundary: 'Operational CO2 by freight mode; logistics facilities and infrastructure are not added as separate bars.'
     },
     items: [
-      { label: 'Road', value: 1460, note: 'Trucks make road freight the largest operational CO2 source in the modeled global baseline.' },
-      { label: 'Sea', value: 800, note: 'Maritime freight carries enormous volumes and forms the second-largest annual block.' },
-      { label: 'Air freight', value: 174, note: 'A smaller total than road or sea, but an especially carbon-intensive mode per tonne-kilometre.' },
-      { label: 'Rail', value: 79, note: 'Rail carries substantial freight with a much smaller global operational CO2 total.' },
-      { label: 'Inland waterways', value: 67, note: 'River and canal freight form the smallest named mode in the modeled baseline.' }
+      { id: 'freight_logistics.road', label: 'Road', value: 1460, note: 'Trucks make road freight the largest operational CO2 source in the modeled global baseline.' },
+      { id: 'freight_logistics.sea', label: 'Sea', value: 800, note: 'Maritime freight carries enormous volumes and forms the second-largest annual block.' },
+      { id: 'freight_logistics.air_freight', label: 'Air freight', value: 174, note: 'A smaller total than road or sea, but an especially carbon-intensive mode per tonne-kilometre.' },
+      { id: 'freight_logistics.rail', label: 'Rail', value: 79, note: 'Rail carries substantial freight with a much smaller global operational CO2 total.' },
+      { id: 'freight_logistics.inland_waterways', label: 'Inland waterways', value: 67, note: 'River and canal freight form the smallest named mode in the modeled baseline.' }
     ]
   },
   urbanization: {
@@ -700,10 +702,10 @@ export const PHENOMENON_LENSES = {
       boundary: 'Road rows use broader CO2e working estimates; aviation reports direct passenger-and-cargo CO2 and excludes non-CO2 warming. Rows are comparative, not additive.'
     },
     items: [
-      { label: 'Cars and SUVs', value: 3300, note: 'Dominant annual burden estimate for personal surface mobility pending a direct transport-sector extraction.' },
-      { label: 'Passenger and cargo aviation', value: 950, note: 'Observed annual aviation CO2 burden for 2023 based on the IEA sector context used in the research pack.' },
-      { label: 'Motorcycles', value: 200, note: 'Smaller than car dependence, but still a recurring annual surface-mobility burden.' },
-      { label: 'Rail', value: 40, note: 'Included as a lower-emissions annual comparator rather than a dominant burden source.' }
+      { id: 'conveyance_aviation.cars_and_suvs', label: 'Cars and SUVs', value: 3300, note: 'Dominant annual burden estimate for personal surface mobility pending a direct transport-sector extraction.' },
+      { id: 'conveyance_aviation.passenger_and_cargo_aviation', label: 'Passenger and cargo aviation', value: 950, note: 'Observed annual aviation CO2 burden for 2023 based on the IEA sector context used in the research pack.' },
+      { id: 'conveyance_aviation.motorcycles', label: 'Motorcycles', value: 200, note: 'Smaller than car dependence, but still a recurring annual surface-mobility burden.' },
+      { id: 'conveyance_aviation.rail', label: 'Rail', value: 40, note: 'Included as a lower-emissions annual comparator rather than a dominant burden source.' }
     ]
   },
   personal_conveyance: {
@@ -739,12 +741,12 @@ export const PHENOMENON_LENSES = {
       boundary: 'Global data-center electricity demand, split across the United States, China, Europe, and the rest of the world.'
     },
     items: [
-      { label: 'United States', value: 187, note: 'About 45% of the 415 TWh global data-center electricity total in 2024.' },
-      { label: 'China', value: 104, note: 'About 25% of the global total in 2024.' },
-      { label: 'Europe', value: 62, note: 'About 15% of the global total in 2024.' },
-      { label: 'Rest of world', value: 62, note: 'Residual 15% of global data-center electricity use in 2024.' },
+      { id: 'data_centers.united_states', label: 'United States', value: 187, note: 'About 45% of the 415 TWh global data-center electricity total in 2024.' },
+      { id: 'data_centers.china', label: 'China', value: 104, note: 'About 25% of the global total in 2024.' },
+      { id: 'data_centers.europe', label: 'Europe', value: 62, note: 'About 15% of the global total in 2024.' },
+      { id: 'data_centers.rest_of_world', label: 'Rest of world', value: 62, note: 'Residual 15% of global data-center electricity use in 2024.' },
       {
-        label: 'Global total 2030',
+        id: 'data_centers.global_total_2030', label: 'Global total 2030',
         value: 945,
         note: 'A base-case projection rather than observed activity, included as a growth marker.',
         speculative: true,
@@ -763,14 +765,14 @@ export const PHENOMENON_LENSES = {
     scaleNote: 'Percentage share of tracked resource and system burdens from rapid AI data center buildout.',
     takeaway: 'This highlights the relative pressure on electricity grids, cooling water, chip supply chains, and local grids from AI growth.',
     items: [
-      { label: 'High-density electricity draw', value: 31.5, note: 'Training and inference clusters push much higher power density than typical enterprise compute.' },
-      { label: 'Cooling intensity', value: 21, note: 'Heat removal becomes a major siting and water constraint as rack density climbs.' },
-      { label: 'Chip and hardware supply chain', value: 14, note: 'Semiconductor and server manufacturing add upstream industrial burden.' },
-      { label: 'Grid expansion and congestion', value: 10.5, note: 'Local networks can become the hidden bottleneck in rapid deployment.' },
-      { label: 'Land and campus acceleration', value: 7, note: 'Speed of buildout changes how communities feel the infrastructure footprint.' },
-      { label: 'Water and thermal rejection', value: 6, note: 'Advanced cooling still resolves into real local water and heat questions.' },
-      { label: 'Backup resilience stack', value: 5.5, note: 'Reliability requirements can widen the onsite energy and fuel footprint.' },
-      { label: 'Semiconductor material intensity', value: 4.5, note: 'AI scale-up also amplifies the upstream extraction and fabrication story.' }
+      { id: 'ai_compute.high_density_electricity_draw', label: 'High-density electricity draw', value: 31.5, note: 'Training and inference clusters push much higher power density than typical enterprise compute.' },
+      { id: 'ai_compute.cooling_intensity', label: 'Cooling intensity', value: 21, note: 'Heat removal becomes a major siting and water constraint as rack density climbs.' },
+      { id: 'ai_compute.chip_and_hardware_supply_chain', label: 'Chip and hardware supply chain', value: 14, note: 'Semiconductor and server manufacturing add upstream industrial burden.' },
+      { id: 'ai_compute.grid_expansion_and_congestion', label: 'Grid expansion and congestion', value: 10.5, note: 'Local networks can become the hidden bottleneck in rapid deployment.' },
+      { id: 'ai_compute.land_and_campus_acceleration', label: 'Land and campus acceleration', value: 7, note: 'Speed of buildout changes how communities feel the infrastructure footprint.' },
+      { id: 'ai_compute.water_and_thermal_rejection', label: 'Water and thermal rejection', value: 6, note: 'Advanced cooling still resolves into real local water and heat questions.' },
+      { id: 'ai_compute.backup_resilience_stack', label: 'Backup resilience stack', value: 5.5, note: 'Reliability requirements can widen the onsite energy and fuel footprint.' },
+      { id: 'ai_compute.semiconductor_material_intensity', label: 'Semiconductor material intensity', value: 4.5, note: 'AI scale-up also amplifies the upstream extraction and fabrication story.' }
     ]
   },
   built_environment: {
@@ -790,9 +792,9 @@ export const PHENOMENON_LENSES = {
       boundary: 'Residential and non-residential operations plus building materials and construction; rounded shares sum to 34% of global CO2.'
     },
     items: [
-      { label: 'Residential operations', value: 17, note: 'Energy used to heat, cool, light, and operate homes forms the largest single building-related block.' },
-      { label: 'Non-residential operations', value: 11, note: 'Offices, retail, institutions, and other commercial buildings add the second-largest operational block.' },
-      { label: 'Building materials + construction', value: 6, note: 'Cement, steel, and construction activity account for the embodied portion within this coherent boundary.' }
+      { id: 'built_environment.residential_operations', label: 'Residential operations', value: 17, note: 'Energy used to heat, cool, light, and operate homes forms the largest single building-related block.' },
+      { id: 'built_environment.non_residential_operations', label: 'Non-residential operations', value: 11, note: 'Offices, retail, institutions, and other commercial buildings add the second-largest operational block.' },
+      { id: 'built_environment.building_materials_construction', label: 'Building materials + construction', value: 6, note: 'Cement, steel, and construction activity account for the embodied portion within this coherent boundary.' }
     ]
   },
   building_operations: {
@@ -821,9 +823,9 @@ export const PHENOMENON_LENSES = {
     scaleNote: 'Annualized from the 2.1 GtCO2e food-waste-disposal burden using the UNEP mass split across households, food service, and retail.',
     takeaway: 'This keeps food waste on the same annual-emissions scale as food, farming, and heavy industry.',
     items: [
-      { label: 'Homes', value: 1260, note: 'Largest annualized emissions block after applying the UNEP waste-mass split to the 2.1 GtCO2e disposal burden.' },
-      { label: 'Restaurants', value: 580, note: 'Commercial preparation and service losses create the second-largest annualized burden.' },
-      { label: 'Grocery stores', value: 260, note: 'Smaller than households and restaurants, but still a material annual burden.' }
+      { id: 'food_waste.homes', label: 'Homes', value: 1260, note: 'Largest annualized emissions block after applying the UNEP waste-mass split to the 2.1 GtCO2e disposal burden.' },
+      { id: 'food_waste.restaurants', label: 'Restaurants', value: 580, note: 'Commercial preparation and service losses create the second-largest annualized burden.' },
+      { id: 'food_waste.grocery_stores', label: 'Grocery stores', value: 260, note: 'Smaller than households and restaurants, but still a material annual burden.' }
     ]
   },
   aviation: {
@@ -900,16 +902,16 @@ export const PHENOMENON_LENSES = {
     scaleNote: 'Research-backed primary-plastics production lens using 2019 emissions composition. This should be read as industrial production burden rather than full downstream waste leakage.',
     takeaway: 'The pattern is clear: a small number of major polymers carry an enormous industrial carbon burden before the waste story even begins.',
     items: [
-      { label: 'PET', value: 470, note: 'One of the largest named polymer burdens in primary plastic production.' },
-      { label: 'Other plastics', value: 426, note: 'Residual polymer bucket showing how large the tail of primary plastics still is.' },
-      { label: 'PP', value: 336, note: 'Polypropylene remains one of the biggest primary plastic burdens globally.' },
-      { label: 'HDPE', value: 246, note: 'High-density polyethylene carries a very large industrial burden in annual terms.' },
-      { label: 'PVC', value: 224, note: 'PVC remains one of the major named polymer burdens in primary production.' },
-      { label: 'LLDPE', value: 157, note: 'Linear low-density polyethylene remains a significant production block.' },
-      { label: 'PS', value: 134, note: 'Polystyrene is smaller than the top polymer groups but still material at global scale.' },
-      { label: 'PU', value: 112, note: 'Polyurethane remains a meaningful annual industrial burden.' },
-      { label: 'LDPE', value: 90, note: 'Low-density polyethylene adds another large polymer stream to the total footprint.' },
-      { label: 'SAN + ABS', value: 45, note: 'Smaller named category, but still substantial in absolute annual burden.' }
+      { id: 'plastics_petrochemicals.pet', label: 'PET', value: 470, note: 'One of the largest named polymer burdens in primary plastic production.' },
+      { id: 'plastics_petrochemicals.other_plastics', label: 'Other plastics', value: 426, note: 'Residual polymer bucket showing how large the tail of primary plastics still is.' },
+      { id: 'plastics_petrochemicals.pp', label: 'PP', value: 336, note: 'Polypropylene remains one of the biggest primary plastic burdens globally.' },
+      { id: 'plastics_petrochemicals.hdpe', label: 'HDPE', value: 246, note: 'High-density polyethylene carries a very large industrial burden in annual terms.' },
+      { id: 'plastics_petrochemicals.pvc', label: 'PVC', value: 224, note: 'PVC remains one of the major named polymer burdens in primary production.' },
+      { id: 'plastics_petrochemicals.lldpe', label: 'LLDPE', value: 157, note: 'Linear low-density polyethylene remains a significant production block.' },
+      { id: 'plastics_petrochemicals.ps', label: 'PS', value: 134, note: 'Polystyrene is smaller than the top polymer groups but still material at global scale.' },
+      { id: 'plastics_petrochemicals.pu', label: 'PU', value: 112, note: 'Polyurethane remains a meaningful annual industrial burden.' },
+      { id: 'plastics_petrochemicals.ldpe', label: 'LDPE', value: 90, note: 'Low-density polyethylene adds another large polymer stream to the total footprint.' },
+      { id: 'plastics_petrochemicals.san_abs', label: 'SAN + ABS', value: 45, note: 'Smaller named category, but still substantial in absolute annual burden.' }
     ]
   },
   air_conditioning_refrigerants: {
@@ -922,8 +924,8 @@ export const PHENOMENON_LENSES = {
     scaleNote: 'Annual burden estimate for cooling-sector refrigerant leakage, using the existing refrigerant hierarchy to separate legacy versus lower-GWP gases.',
     takeaway: 'This is the weakest annualization in the set and should be replaced once we pull a direct global refrigerant-emissions table.',
     items: [
-      { label: 'Old refrigerants', value: 720, note: 'Annual burden estimate representing the dominant legacy HFC tranche in global cooling leakage.' },
-      { label: 'New refrigerants', value: 180, note: 'Smaller annual burden estimate representing the lower-GWP replacement tranche.' }
+      { id: 'air_conditioning_refrigerants.old_refrigerants', label: 'Old refrigerants', value: 720, note: 'Annual burden estimate representing the dominant legacy HFC tranche in global cooling leakage.' },
+      { id: 'air_conditioning_refrigerants.new_refrigerants', label: 'New refrigerants', value: 180, note: 'Smaller annual burden estimate representing the lower-GWP replacement tranche.' }
     ]
   },
   fertilizer_production: {
@@ -936,9 +938,9 @@ export const PHENOMENON_LENSES = {
     scaleNote: 'Annualized ammonia burden estimate centered on a roughly 0.44 GtCO2e global production total and current route-intensity benchmarks.',
     takeaway: 'This keeps fertilizer in the common annual unit while preserving route logic as a temporary estimate rather than a final source table.',
     items: [
-      { label: 'Ammonia production', value: 440, note: 'Annual burden estimate for current fertilizer-feedstock ammonia production.' },
-      { label: 'Coal-based fertilizer', value: 240, note: 'Higher-emissions route estimate consistent with the strongest ammonia intensity benchmark in the report.' },
-      { label: 'Gas-based fertilizer', value: 200, note: 'Lower than the coal-route burden, but still materially emissions-intensive on an annual basis.' }
+      { id: 'fertilizer_production.ammonia_production', label: 'Ammonia production', value: 440, note: 'Annual burden estimate for current fertilizer-feedstock ammonia production.' },
+      { id: 'fertilizer_production.coal_based_fertilizer', label: 'Coal-based fertilizer', value: 240, note: 'Higher-emissions route estimate consistent with the strongest ammonia intensity benchmark in the report.' },
+      { id: 'fertilizer_production.gas_based_fertilizer', label: 'Gas-based fertilizer', value: 200, note: 'Lower than the coal-route burden, but still materially emissions-intensive on an annual basis.' }
     ]
   },
   mining_critical_minerals: {
@@ -951,12 +953,12 @@ export const PHENOMENON_LENSES = {
     scaleNote: 'Research-backed concentration framing using the refining and processing shares surfaced in the research staging data.',
     takeaway: 'This keeps the real story intact: a small number of refining hubs dominate strategic mineral supply chains, creating systemic chokepoints.',
     items: [
-      { label: 'Top 3 refining nations average share', value: 86, note: 'Average concentration across copper, lithium, nickel, cobalt, graphite, and rare-earth refining chains.' },
-      { label: 'China average across 19 of 20 strategic mineral refining chains', value: 70, note: 'The clearest single-system concentration signal in the current research pack.' },
-      { label: 'China projected battery-grade graphite share in 2035', value: 80, note: 'Graphite remains one of the most concentrated downstream processing chains.' },
-      { label: 'China projected rare-earth refining share in 2035', value: 80, note: 'Rare-earth processing remains highly concentrated even in forward-looking scenarios.' },
-      { label: 'China projected refined lithium share in 2035', value: 60, note: 'Lithium processing remains concentrated even after expected diversification.' },
-      { label: 'China projected refined cobalt share in 2035', value: 60, note: 'Cobalt refining concentration also remains structurally high in the current outlook.' }
+      { id: 'mining_critical_minerals.top_3_refining_nations_average_share', label: 'Top 3 refining nations average share', value: 86, note: 'Average concentration across copper, lithium, nickel, cobalt, graphite, and rare-earth refining chains.' },
+      { id: 'mining_critical_minerals.china_average_across_19_of_20_strategic_mineral_refining_chains', label: 'China average across 19 of 20 strategic mineral refining chains', value: 70, note: 'The clearest single-system concentration signal in the current research pack.' },
+      { id: 'mining_critical_minerals.china_projected_battery_grade_graphite_share_in_2035', label: 'China projected battery-grade graphite share in 2035', value: 80, note: 'Graphite remains one of the most concentrated downstream processing chains.' },
+      { id: 'mining_critical_minerals.china_projected_rare_earth_refining_share_in_2035', label: 'China projected rare-earth refining share in 2035', value: 80, note: 'Rare-earth processing remains highly concentrated even in forward-looking scenarios.' },
+      { id: 'mining_critical_minerals.china_projected_refined_lithium_share_in_2035', label: 'China projected refined lithium share in 2035', value: 60, note: 'Lithium processing remains concentrated even after expected diversification.' },
+      { id: 'mining_critical_minerals.china_projected_refined_cobalt_share_in_2035', label: 'China projected refined cobalt share in 2035', value: 60, note: 'Cobalt refining concentration also remains structurally high in the current outlook.' }
     ]
   },
   urban_sprawl_housing: {
@@ -1040,6 +1042,10 @@ export const PHENOMENON_LENSES = {
   }
 };
 
+for (const [id, lens] of Object.entries(PHENOMENON_LENSES)) {
+  PHENOMENON_LENSES[id] = applyActivityLensReaderCopy(id, lens);
+}
+
 export function getPhenomenonLensById(id) {
   if (!id) return null;
   const lens = PHENOMENON_LENSES[id];
@@ -1054,7 +1060,7 @@ export function getPhenomenonLensById(id) {
   return {
     ...lens,
     items,
-    groups
+    groups: applyActivityGroupReaderCopy(id, groups)
   };
 }
 

@@ -19259,7 +19259,7 @@
       "notes": "AI-assisted impact-fallback review completed against the six-check rubric. Approval covers the declared evidence boundary, normalized component contract, method route, and source support; it does not prove the original measurement or scientific claim true.",
       "review_evidence": {
         "metric_contract_id": "glacier_runoff_share_of_water_supply",
-        "metric_contract_source_id": "nasa_sea_level_change_portal",
+        "metric_contract_source_id": "wmo_unesco_global_glacier_water_assessments",
         "receipt_source_ids": [
           "wmo_unesco_global_glacier_water_assessments"
         ],

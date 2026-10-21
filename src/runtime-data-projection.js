@@ -1,4 +1,6 @@
+import { getTulipAssessment } from './tulip-assessment.js';
 import { metricizeDisplayValue } from './metric-display.js';
+import { getNodePhoto } from './node-photos.js';
 
 function pickDefined(source, keys) {
   if (!source) return undefined;
@@ -19,6 +21,7 @@ export function projectRuntimeNode(node) {
       'value',
       'sphere',
       'description',
+      'readerMeaning',
       'adjectives',
       'context',
       'score',
@@ -28,6 +31,9 @@ export function projectRuntimeNode(node) {
       'node_kind',
       'source_status'
     ]),
+    score: { baseline: getTulipAssessment(node)?.value ?? null, band: null },
+    tulipScore: getTulipAssessment(node)?.value ?? null,
+    impactScore: Number.isFinite(getTulipAssessment(node)?.value) ? getTulipAssessment(node).value * 10 : null,
     calibration: node.calibration
       ? pickDefined(node.calibration, ['role', 'source_status'])
       : undefined,
@@ -48,7 +54,7 @@ export function projectRuntimeNode(node) {
 }
 
 export function projectRuntimeNodeDetail(node) {
-  return metricizeDisplayValue({
+  const detail = metricizeDisplayValue({
     id: node.id,
     humanImpact: node.humanImpact,
     planetImpact: node.planetImpact,
@@ -98,9 +104,12 @@ export function projectRuntimeNodeDetail(node) {
       : undefined,
     metricAliases: node.metricAliases,
     readerMeaning: node.readerMeaning,
+    readerCopy: node.readerCopy,
     responseProfile: node.responseProfile,
     source_urls: node.source_urls
   });
+  // Attribution is verbatim publisher metadata, not measurement copy.
+  return { ...detail, photo: getNodePhoto(node.id) };
 }
 
 export function projectRuntimeEdge(edge) {

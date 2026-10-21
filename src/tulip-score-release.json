@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "active": "internal_estimates_v1",
+  "assessmentVersion": "tulip_authored_current_consequences_2026_09_28_v1",
+  "legacyArchive": "src/tulip-legacy-score-archive.json",
+  "rollbackLabel": "TULIP Legacy Score",
+  "rollbackMode": "explicit_catalogue_wide_only",
+  "legacyRevision": "sha256:95479becdc063adb272e1ae10d47b6acd765c45a9d8f4af8d3cee5769e1a98d0",
+  "publicFallback": false,
+  "assessmentFile": "src/tulip-reassessments/assessments-v1.json"
+}

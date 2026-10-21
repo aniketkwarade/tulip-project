@@ -1,5 +1,5 @@
 /**
- * THE TULIP PROJECT - Procedural Avatar Generator
+ * Tulip Earth - Procedural Avatar Generator
  * Generates a high-end abstract geometric profile avatar dataURL.
  */
 

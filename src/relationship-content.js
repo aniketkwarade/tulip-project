@@ -1,3 +1,5 @@
+import authoredRelationships from './reader-copy/relationships.json' with { type: 'json' };
+
 const PLAIN_LANGUAGE_OVERRIDES = Object.freeze({
   'industry_farming->nitrous_oxide': 'Industrial farming can release nitrous oxide when manure and crop residues add nitrogen to soil or are burned. Soil microbes convert some of that nitrogen into this powerful greenhouse gas.',
   'agricultural_nitrogen_application->nitrous_oxide': 'When farms add more nitrogen than plants can absorb, soil microbes can convert some of the excess into nitrous oxide, a powerful and long-lived greenhouse gas.',
@@ -444,7 +446,8 @@ function technicalDetail(edge, plainLanguage) {
 export function attachRelationshipContent(nodes, edges) {
   const nodeById = new Map(nodes.map(node => [node.id, node]));
   return edges.map(edge => {
-    const plainLanguage = plainLanguageSummary(edge, nodeById.get(edge.source)?.name);
+    const plainLanguage = authoredRelationships[`${edge.source}->${edge.target}`]
+      || plainLanguageSummary(edge, nodeById.get(edge.source)?.name);
     return {
       ...edge,
       relationship_content: {

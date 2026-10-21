@@ -1,0 +1,14 @@
+{
+  "version": "tulip_harm_2027_2036_v1",
+  "label": "TULIP Score",
+  "horizon": { "start": 2027, "end": 2036 },
+  "scenario": "SSP2-4.5",
+  "alternativeScenarios": ["SSP1-2.6", "SSP3-7.0"],
+  "geography": "global",
+  "comparisonGroup": "global_attributable_harm_2027_2036",
+  "weights": { "human": 0.5, "ecosystem": 0.5 },
+  "calibrationReview": null,
+  "bands": [],
+  "calibrations": {},
+  "candidates": {}
+}

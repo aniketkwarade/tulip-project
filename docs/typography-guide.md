@@ -38,7 +38,7 @@ If one tier needs to change everywhere, update it once in `design-system.css`.
 - Everything else: `--weight-regular` (`400`, Inter Display Regular)
 - Compatibility aliases: `--weight-title`, `--weight-ui`, and `--weight-emphasis` all resolve to Regular (`400`)
 
-Regular is the platform ceiling. The hierarchy comes from size, spacing, contrast, casing, and placement—not heavier weight. Do not use `500`, `600`, `700`, `800`, `900`, synthetic bold, or custom intermediate values above `400`.
+Regular remains the default. The approved website exceptions use `--weight-reading-heading` (`600`) for reading headings, chart names and values, and `--weight-navigation` (`700`) for the four main navigation tabs. Use these semantic tokens rather than literal heavier weights; body copy and ordinary controls remain Regular.
 
 ## Platform tab mapping
 
@@ -46,7 +46,7 @@ Regular is the platform ceiling. The hierarchy comes from size, spacing, contras
 - Analyse: “Choose a starting point” and the selected node name use Primary display.
 - Activity Impacts: the selected activity name uses Primary display; its footprint-lens title uses Secondary display.
 - My Footprint: “Your Annual Footprint” and “Your footprint results” both use Regular 400; the annual title remains primary through its larger scale and higher placement.
-- Navigation tab labels are controls, not display headings, and remain Regular.
+- Navigation tab labels are controls, not display headings, and use `--weight-navigation` on the website.
 
 ## Usage rules
 
@@ -58,5 +58,5 @@ Regular is the platform ceiling. The hierarchy comes from size, spacing, contras
 - Use Supporting only for large atmospheric display roles where scale supplies enough visual authority.
 - Use Secondary for a major nested display heading such as a lens title. Results headings may move to Regular when Light or 350 does not provide enough clarity, while scale and placement preserve their level.
 - Use Primary for the leading title of a tab or screen.
-- Use Regular for body copy, controls, labels, tabs, cards, numbers, links, statuses, and ordinary emphasis.
-- If a label needs more emphasis, adjust size, contrast, spacing, or casing while keeping the weight at Regular.
+- Use Regular for body copy, ordinary controls, labels, cards, numbers, links, statuses, and ordinary emphasis.
+- For other labels, use size, contrast, spacing, or casing to establish emphasis.

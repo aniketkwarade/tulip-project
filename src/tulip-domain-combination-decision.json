@@ -1,0 +1,25 @@
+{
+  "version": "tulip_equal_domain_combination_2026_09_28_v1",
+  "decidedOn": "2026-09-28",
+  "status": "user_confirmed_combination_only",
+  "policyId": "fixed_average",
+  "kernelCombination": "fixed_people_nature_50_50_without_scope_reweighting",
+  "meaning": "Combined current attributable harm with equal emphasis on people and ecosystem consequences",
+  "weights": {
+    "human": 0.5,
+    "ecosystem": 0.5
+  },
+  "formula": "0.5 * mapped_human_component + 0.5 * mapped_ecosystem_component",
+  "mappingOrder": "Map each domain against its fixed consequence benchmarks before averaging; round the final result once to one decimal.",
+  "userRationale": "People are part of the ecosystem; neither people nor nature should receive greater emphasis in the combined rating.",
+  "outcomeBoundaries": {
+    "human": "Consequences for people's health and wellbeing, including supported essential-service effects without repeating their resulting health loss",
+    "ecosystem": "Ecosystem condition, biodiversity and ecological functions; human health or wellbeing losses are not entered again as ecosystem outcomes"
+  },
+  "overlapRule": "One cause may produce distinct human and ecological consequences. Record each terminal consequence once; do not reuse the same human harm in both components or repeatedly count overlapping pathways within a component.",
+  "missingComponentRule": "Missing evidence is not verified zero and does not increase the other domain's weight. Endpoint-only diagnostics remain separate from complete combined ratings.",
+  "acceptedTradeOff": "A component of 10 and a component of 1 combine to 5.5 in either order. A 9–10 combined reading requires high harm across both components.",
+  "policyChoiceNotScientificConstant": true,
+  "scientificCalibrationApproved": false,
+  "wholeNodeNumericalRatingsApproved": false
+}

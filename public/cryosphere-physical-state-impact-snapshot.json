@@ -1,0 +1,96 @@
+{
+  "version": "cryosphere_physical_state_reviews_2026_09_26_v1",
+  "captured_at": "2026-09-26T00:00:00.000Z",
+  "sources": {
+    "firnObservations2019": {
+      "id": "vandecrux_greenland_firn_air_content_2019",
+      "publisher": "The Cryosphere; peer-reviewed primary research",
+      "title": "Firn data compilation reveals widespread decrease of firn air content in western Greenland",
+      "url": "https://doi.org/10.5194/tc-13-845-2019",
+      "publicationDate": "2019-03-21"
+    },
+    "firnSimulation2022": {
+      "id": "medley_greenland_antarctic_firn_processes_2022",
+      "publisher": "The Cryosphere; peer-reviewed modelling study constrained by observations",
+      "title": "Simulations of firn processes over the Greenland and Antarctic ice sheets: 1980–2021",
+      "url": "https://doi.org/10.5194/tc-16-3971-2022",
+      "publicationDate": "2022-10-19"
+    },
+    "firnResponse2024": {
+      "id": "vandecrux_greenland_firn_warming_response_2024",
+      "publisher": "The Cryosphere; peer-reviewed primary modelling research",
+      "title": "Greenland's firn responds more to warming than to cooling",
+      "url": "https://doi.org/10.5194/tc-18-3333-2024",
+      "publicationDate": "2024-07-25"
+    },
+    "iceCappedSummits2025": {
+      "id": "gilbertson_western_us_ice_capped_summits_2025",
+      "publisher": "Arctic, Antarctic, and Alpine Research; peer-reviewed primary research",
+      "title": "Rapid contemporary shrinking and loss of ice-capped summits in the western United States",
+      "url": "https://doi.org/10.1080/15230430.2025.2572898",
+      "publicationDate": "2025-11-10"
+    },
+    "peninsulaGroundingLine2024": {
+      "id": "wallis_antarctic_peninsula_grounding_line_2024",
+      "publisher": "The Cryosphere; peer-reviewed primary remote-sensing research",
+      "title": "Change in grounding line location on the Antarctic Peninsula measured using a tidal motion offset correlation method",
+      "url": "https://doi.org/10.5194/tc-18-4723-2024",
+      "publicationDate": "2024-10-18"
+    },
+    "berryGroundingLine2025": {
+      "id": "milillo_berry_glacier_grounding_line_retreat_2025",
+      "publisher": "Nature Communications; peer-reviewed primary remote-sensing research",
+      "title": "Rapid retreat of Berry Glacier, West Antarctica, linked to seawater intrusions revealed by radar interferometry",
+      "url": "https://doi.org/10.1038/s41467-025-64330-0",
+      "publicationDate": "2025"
+    }
+  },
+  "assessments": {
+    "firn_layer_depletion": {
+      "observation_period": "1996–2021, with direct point-observation comparisons through 2017",
+      "geography": "Greenland Ice Sheet, with Antarctic retention context kept separate",
+      "greenland_firn_air_content_loss_pct_1996_2021": 4.8,
+      "western_greenland_low_accumulation_fac_decline_pct": 23,
+      "western_greenland_fac_decline_uncertainty_pct": 16,
+      "retention_capacity_loss_top_10m_gt": 150,
+      "retention_capacity_loss_top_10m_uncertainty_gt": 100,
+      "retention_capacity_loss_full_column_gt": 540,
+      "retention_capacity_loss_full_column_uncertainty_gt": 440,
+      "direct_observation_count": 360,
+      "boundary": "Firn air content and retained meltwater are physical cryosphere states. They are not counts of people harmed, global ecosystem-collapse percentages or direct sea-level damage."
+    },
+    "ice_cap_decapitation": {
+      "observation_period": "approximately 1980–2024",
+      "geography": "five historically ice-capped summits in Washington State, United States",
+      "historically_ice_capped_summits": 5,
+      "summits_shrinking": 5,
+      "summits_losing_at_least_6m": 4,
+      "summits_still_topped_by_perennial_ice_2024": 2,
+      "late_summer_warming_c_since_1950": 2.75,
+      "boundary": "The survey measures summit ice and elevation change at five mountains. It does not establish global ice-cap area loss, harmed-person reach, ecosystem collapse or recovery time."
+    },
+    "ice_shelf_grounding_line_retreat": {
+      "observation_period": "1996–2023",
+      "geography": "Antarctic Peninsula and Berry Glacier, West Antarctica",
+      "antarctic_peninsula_coastline_mapped_km": 9300,
+      "antarctic_peninsula_max_retreat_km": 16.3,
+      "antarctic_peninsula_max_retreat_uncertainty_km": 0.5,
+      "berry_glacier_retreat_km_1996_2021": 18.1,
+      "berry_glacier_retreat_uncertainty_km": 0.4,
+      "berry_glacier_thinning_m_per_year": 11,
+      "berry_glacier_thinning_uncertainty_m_per_year": 1,
+      "berry_glacier_speed_increase_pct": 64,
+      "berry_glacier_speed_increase_uncertainty_pct": 5,
+      "berry_glacier_mass_loss_gt": 131,
+      "berry_glacier_mass_loss_uncertainty_gt": 23,
+      "boundary": "Grounding-line position, ice speed, thickness and mass are physical-state measurements. Coastline mapping is observation coverage, and retreat distance is not human reach or ecosystem-collapse severity."
+    }
+  },
+  "excluded_from_scoring": [
+    "satellite or mapped coastline coverage treated as affected ecosystem distribution",
+    "ice mass, volume, elevation or retreat distance treated as harmed-person reach",
+    "observation period treated as consequence persistence",
+    "future melt or sea-level projections added to the current score",
+    "downstream sea-level, flood, water-supply or ecosystem-node ratings copied into these physical-state nodes"
+  ]
+}

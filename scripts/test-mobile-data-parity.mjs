@@ -58,12 +58,12 @@ const nativeFootprintScreensSource = await readFile(new URL('../iOS/TULIPiOS/TUL
 
 for (const required of [
   'SharedFootprintModel.calculatePersonalFootprint',
-  'getTulipUrgencyBandV3'
+  'SCORE_METHOD_COPY'
 ]) assert(mobileSource.includes(required), `Mobile is not wired to desktop source: ${required}`);
 for (const required of [
   'PUBLISHED_NODES',
   'PUBLISHED_EDGES',
-  'getTulipUrgencyBandV3(urgency)',
+  'urgencyBand:null',
   'getNodeInspectorMeaning(node)',
   'getPhenomenonLensById(lensKey)',
   'getActionProfileById(item.lensKey || item.nodeIds?.[0] || item.key)',
@@ -78,12 +78,16 @@ for (const profile of Object.values(mobileInspectorProfiles)) {
 }
 
 function assertMetricDisplayCopy(value, path = '') {
+  // Raw source observations remain faithful to their native units; they are audit data, not reader copy.
+  if (path.includes('.assessment.evidenceAudit')) return;
   if (typeof value === 'string') {
     const isSourceUrl = /^https?:\/\//i.test(value);
+    // A local photo filename is an asset identifier, not displayed measurement copy.
+    const isPhotoAsset = path.endsWith('.photo.asset') && /^\/node-photos\/[a-z0-9-]+\.jpg$/.test(value);
     const isVerbatimEventTitle = /recentOccurrences\.occurrences\[\d+\]\.title$/.test(path);
     const isLexicalMile = /\b(?:last|first)[-\s]mile\b/i.test(value);
     assert(
-      isSourceUrl || isVerbatimEventTitle || isLexicalMile || !containsImperialDisplayUnit(value),
+      isSourceUrl || isPhotoAsset || isVerbatimEventTitle || isLexicalMile || !containsImperialDisplayUnit(value),
       `Imperial display unit leaked into ${path}: ${value}`
     );
     return;

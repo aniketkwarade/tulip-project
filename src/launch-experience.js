@@ -31,14 +31,24 @@ function dispatchEscape() {
 }
 
 function installVisibleCloseButton(overlay, label) {
-  if (!overlay || overlay.querySelector(':scope > .launch-overlay-close')) return;
+  if (!overlay || overlay.querySelector('.launch-overlay-close')) return;
   const button = document.createElement('button');
   button.type = 'button';
-  button.className = 'launch-overlay-close';
+  button.className = 'launch-overlay-close ui-close';
   button.setAttribute('aria-label', `Close ${label}`);
-  button.innerHTML = '<span aria-hidden="true">×</span><span>Close</span>';
+  button.innerHTML = '<span aria-hidden="true">×</span>';
   button.addEventListener('click', dispatchEscape);
-  overlay.prepend(button);
+  let heading = overlay.querySelector('.footer-overlay-heading-row');
+  if (!heading) {
+    const title = overlay.querySelector('h2');
+    if (title) {
+      heading = document.createElement('div');
+      heading.className = 'footer-overlay-heading-row';
+      title.before(heading);
+      heading.append(title);
+    }
+  }
+  (heading || overlay).append(button);
 }
 
 function installLiveRegion() {
@@ -214,27 +224,6 @@ function installScoreGuide() {
   });
 }
 
-function installActivityMetadata() {
-  const lensCard = document.querySelector('#phenomenon-lens-panel .phenomenon-lens-card');
-  if (!lensCard || document.getElementById('activity-source-status')) return;
-
-  const sourceStatus = document.createElement('div');
-  sourceStatus.id = 'activity-source-status';
-  sourceStatus.className = 'activity-source-status';
-  sourceStatus.setAttribute('aria-live', 'polite');
-  document.getElementById('phenomenon-lens-source')?.before(sourceStatus);
-
-  const updateActivityMeta = () => window.requestAnimationFrame(() => {
-    const forecast = Boolean(document.querySelector('#phenomenon-lens-rows .phenomenon-row.is-speculative'));
-    sourceStatus.textContent = forecast
-      ? 'Scenario range · forecast or modeled outlook'
-      : 'Observed or reference comparison';
-    sourceStatus.classList.toggle('is-forecast', forecast);
-  });
-  window.addEventListener('tulip:phenomenonchange', updateActivityMeta);
-  updateActivityMeta();
-}
-
 function installMobileUtilities() {
   const filterBar = document.getElementById('filter-bar');
   if (!filterBar || document.getElementById('mobile-launch-utilities')) return;
@@ -265,7 +254,6 @@ export function initializeLaunchExperience() {
   installLiveRegion();
   installSourceDirectory();
   installScoreGuide();
-  installActivityMetadata();
   installMobileUtilities();
 
   [

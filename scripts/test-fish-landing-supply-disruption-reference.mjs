@@ -1,0 +1,22 @@
+import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
+import { readFile } from 'node:fs/promises';
+
+const snapshot = JSON.parse(await readFile(new URL('../artifacts/tulip-calibration-2026-09-22/fish-landing-supply-disruption-reference-snapshot.json', import.meta.url), 'utf8'));
+assert.equal(snapshot.productionRatingsEnabled, 0);
+assert.equal(snapshot.status, 'production_volume_separated_from_human_consequence_with_bounded_peru_case');
+assert.equal(snapshot.endpoints.globalProductionContext.observation2023Tonnes, 78_372_507.279);
+assert.equal(snapshot.endpoints.globalProductionContext.observation2024Tonnes, 79_619_643.538);
+assert.equal(snapshot.endpoints.peruObservedDisruptionAndRecovery.bcrpLatestAnnualReport.fishingGdpChangePercent['2023'], -21.2);
+assert.equal(snapshot.endpoints.peruObservedDisruptionAndRecovery.bcrpLatestAnnualReport.fishingGdpChangePercent['2024'], 27.2);
+assert.equal(snapshot.endpoints.peruObservedDisruptionAndRecovery.bcrpLatestAnnualReport.directHumanConsumptionCatchChangePercent['2024'], -10.9);
+assert.equal(snapshot.endpoints.peruObservedDisruptionAndRecovery.faoAnchovetaRecovery.increasePercentApproximate, 65);
+assert.equal(snapshot.endpoints.humanConsequences.compatibleUniqueHarmedPersonCount, null);
+assert.equal(snapshot.endpoints.ecosystemConsequences.compatibleDirectEcosystemConditionLossPercent, null);
+assert(snapshot.tulipUse.prohibited.some(rule => /global tonnes landed.*people harmed/i.test(rule)));
+assert.equal(snapshot.tulipUse.currentCatalogueRecommendation.rating, 'C 4.8');
+assert.equal(snapshot.tulipUse.currentCatalogueRecommendation.uncertainty, 'B 3.3 to C 5.5');
+assert.deepEqual(snapshot.tulipUse.currentCatalogueRecommendation.domains, ['human']);
+const expectedDigest = createHash('sha256').update(JSON.stringify({ sources: snapshot.sources, currentWindow: snapshot.currentWindow, endpoints: snapshot.endpoints, tulipUse: snapshot.tulipUse, unresolvedForTulip: snapshot.unresolvedForTulip })).digest('hex');
+assert.equal(snapshot.snapshotDigest, expectedDigest);
+console.log('Fish-landing supply-disruption reference passed: catch volume stays separate from human harm, and the Peru case remains bounded by its direct evidence.');

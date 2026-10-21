@@ -11,7 +11,8 @@ const [
   privacy,
   support,
   guide,
-  typographyGuide
+  typographyGuide,
+  refinementStyles
 ] = await Promise.all([
   readFile(new URL('../src/design-system.css', import.meta.url), 'utf8'),
   readFile(new URL('../src/style.css', import.meta.url), 'utf8'),
@@ -22,7 +23,8 @@ const [
   readFile(new URL('../public/privacy.html', import.meta.url), 'utf8'),
   readFile(new URL('../public/support.html', import.meta.url), 'utf8'),
   readFile(new URL('../docs/design-system.md', import.meta.url), 'utf8'),
-  readFile(new URL('../docs/typography-guide.md', import.meta.url), 'utf8')
+  readFile(new URL('../docs/typography-guide.md', import.meta.url), 'utf8'),
+  readFile(new URL('../src/web-refinements.css', import.meta.url), 'utf8')
 ]);
 
 const requiredTokens = [
@@ -76,12 +78,14 @@ assert.match(productStyles, /\.relationship-trigger-word,[\s\S]*?var\(--text-pri
 assert.match(guide, /src\/design-system\.css/);
 assert.match(guide, /Do not add a raw color, radius, shadow, or type size/);
 assert.match(typographyGuide, /Inter Display Light/);
-assert.match(typographyGuide, /Regular is the platform ceiling/);
-assert.match(typographyGuide, /Do not use `500`, `600`, `700`, `800`, `900`/);
+assert.match(typographyGuide, /Regular remains the default/);
+assert.match(typographyGuide, /--weight-reading-heading/);
+assert.match(typographyGuide, /--weight-navigation/);
 
 const styleSources = [
   ['src/design-system.css', tokens],
   ['src/style.css', productStyles],
+  ['src/web-refinements.css', refinementStyles],
   ['src/launch-experience.css', launchStyles],
   ['src/main.js', main],
   ['src/graph.js', graph],
@@ -95,11 +99,15 @@ for (const [name, source] of styleSources) {
   const variationWeights = [...source.matchAll(/font-variation-settings\s*:\s*["']wght["']\s*(\d+)/g)].map((match) => Number(match[1]));
   const canvasWeights = [...source.matchAll(/(?:`|["'])(\d{3})\s+[^`"']*Inter Display/g)].map((match) => Number(match[1]));
   const violations = [...numericWeights, ...variationWeights, ...canvasWeights].filter((weight) => weight > 400);
-  assert.deepEqual(violations, [], `${name} contains typography weights above the Inter Display Regular ceiling`);
+  assert.deepEqual(violations, [], `${name} contains typography weights above Regular without an approved semantic token`);
 }
 
 assert.match(tokens, /--weight-light:\s*300/);
 assert.match(tokens, /--weight-regular:\s*400/);
+assert.match(tokens, /--weight-reading-heading:\s*600/);
+assert.match(tokens, /--weight-navigation:\s*700/);
+assert.equal([...refinementStyles.matchAll(/font-weight:\s*var\(--weight-navigation\)/g)].length, 1, 'Navigation emphasis must stay scoped to the footer tabs');
+assert.match(refinementStyles, /body #tulip-footer-bar \.footer-nav-btn\s*\{[^}]*font-weight:\s*var\(--weight-navigation\)/);
 for (const alias of ['medium', 'semibold', 'bold', 'extrabold', 'title', 'ui', 'emphasis']) {
   assert.match(tokens, new RegExp(`--weight-${alias}:\\s*var\\(--weight-regular\\)`));
 }
@@ -108,7 +116,7 @@ assert.match(tokens, /--weight-display-secondary:\s*350/);
 assert.match(tokens, /--weight-display-primary:\s*var\(--weight-regular\)/);
 assert.match(tokens, /--weight-display:\s*var\(--weight-display-supporting\)/);
 assert.match(tokens, /--weight-display-emphasis:\s*var\(--weight-display-secondary\)/);
-assert.match(index, /Inter\+Display:wght@300;350;400/);
+assert.match(index, /Inter\+Display:wght@300;350;400;600;700/);
 assert.match(privacy, /font-family:\s*"Inter Display"/);
 assert.match(support, /font-family:\s*"Inter Display"/);
 

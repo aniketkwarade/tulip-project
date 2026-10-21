@@ -7,6 +7,8 @@ const [html, main, css] = await Promise.all([
   readFile(new URL('../src/style.css', import.meta.url), 'utf8')
 ]);
 
+const searchExperience = await readFile(new URL('../src/desktop-search.js', import.meta.url), 'utf8');
+
 const expectedActivityIcons = [
   'airplane.png',
   'arrow-up-right.png',
@@ -40,9 +42,9 @@ const activityIconFiles = (await readdir(new URL('../public/activity-icons/ios/'
 
 assert.match(html, /Search a topic or select a highlighted node to begin\./);
 assert.doesNotMatch(html, /id="explore-start-guide"/);
-assert.match(main, /View all \$\{matches\.length\} results/);
-assert.match(main, /score\.textContent = Number\.isFinite\(numericScore\)\s*\? scoreBand\s*:\s*'Risk unavailable'/);
-assert.match(main, /Risk assessment: \$\{scoreBand\}/);
+assert.match(searchExperience, /View all \$\{matches\.length\} results/);
+assert.match(searchExperience, /Risk assessment:/);
+assert.match(searchExperience, /getTulipAssessment/);
 assert.doesNotMatch(main, /Urgency \$\{numericScore\.toFixed\(1\)\} · \$\{scoreBand\}/);
 assert.doesNotMatch(html, /CONTINUE THIS ANALYSIS/i);
 assert.doesNotMatch(html, /FROM YOUR ANALYSIS/i);
@@ -54,14 +56,9 @@ assert.match(html, /id="urgency-evidence-method"/);
 assert.match(html, /id="urgency-evidence-quality"/);
 assert.match(html, /id="urgency-review-status"/);
 assert.match(html, /id="urgency-uncertainty-copy"/);
-assert.match(html, /id="urgency-score-guide-button"[^>]*>See the full calculation<\/button>/);
-assert(html.includes('Here is how TULIP calculates the score.'));
-assert(html.includes('The formula is 1 + (9 × the weighted result).'));
-assert(html.includes('TULIP then builds the vector and calculates the weighted result.'));
-assert(html.includes('The vector is [current severity, distance to danger, speed of change, geographic reach].'));
-assert(html.includes('The reviewed factor vector is [0.84 for persistence, 0.95 for geographic reach, and 0.62 for causal role].'));
-assert(html.includes('TULIP does not use generated vectors, inherited vectors, expert-profile vectors, the legacy vector score'));
-assert.match(main, /urgencyScoreGuideButton\.addEventListener\('click', handleTulipScoreClick\)/);
+assert.match(html, /data-score-method-copy/);
+assert.match(main, /SCORE_METHOD_COPY/);
+assert.doesNotMatch(html, /Legacy urgency/);
 assert.match(css, /body\.footer-overlay-active #app-container\[data-view-mode="study"\] \.mobile-study-sheet\s*\{[\s\S]*?visibility:\s*hidden !important;/);
 assert.doesNotMatch(html, /Private by design/i);
 assert.doesNotMatch(html, /id="personal-footprint-progress-label"/);
@@ -77,7 +74,7 @@ assert.match(html, /id="personal-footprint-restart"/);
 assert.match(html, /id="personal-footprint-results-start"[^>]*hidden/);
 assert.doesNotMatch(html, /Your footprint estimate/);
 assert.match(main, /pdf\.save\('tulip-your-footprint\.pdf'\)/);
-assert.match(main, /title: 'TULIP - Your Footprint Summary'/);
+assert.match(main, /title: 'Tulip Earth - Your Footprint Summary'/);
 assert.match(main, /const questionHeight = questionLines\.length \* 4\.1/);
 assert.match(main, /const answerHeight = answerLines\.length \* 4\.7/);
 assert.match(main, /const rowHeight = questionHeight \+ answerHeight \+ 9/);

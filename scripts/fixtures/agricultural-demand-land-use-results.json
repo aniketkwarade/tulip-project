@@ -1,0 +1,85 @@
+{
+  "version": "tulip_agricultural_demand_land_use_extraction_2026_09_23_v1",
+  "extractedOn": "2026-09-23",
+  "extractedWith": "Nature article PDF and source workbook reviewed with pypdf and openpyxl; FAO analytical brief reviewed with pypdf.",
+  "sources": {
+    "biodiversity": {
+      "id": "cabernard_agri_food_land_use_biodiversity_2024",
+      "publisher": "Nature Portfolio",
+      "title": "Biodiversity impacts of recent land-use change driven by increases in agri-food imports",
+      "publicationDate": "2024-10-03",
+      "articleUrl": "https://www.nature.com/articles/s41893-024-01433-4",
+      "doi": "https://doi.org/10.1038/s41893-024-01433-4",
+      "pdfUrl": "https://www.nature.com/articles/s41893-024-01433-4.pdf",
+      "pdfBytes": 14509076,
+      "pdfSha256": "edfdb7ca1eacaea87ef985408b0415573af6f234412c6f24f353a9aeed52cd65",
+      "sourceData": {
+        "id": "cabernard_agri_food_land_use_biodiversity_source_data_2024",
+        "doi": "https://doi.org/10.5281/zenodo.13625061",
+        "apiUrl": "https://zenodo.org/api/records/13625061",
+        "archiveUrl": "https://zenodo.org/api/records/13625061/files/Source%20Data%20Figures.zip/content",
+        "archiveFileName": "Source Data Figures.zip",
+        "archiveBytes": 46242904,
+        "archiveMd5": "31422e82e692a2e6f58f2a923ffec762",
+        "archiveSha256": "fe9cc5ed2da40c3609ec592d4bbe4c0479e26854b6b18d2cdc0f017ed06bf413",
+        "workbook": "Source Data Figures/Source_Data_Figure_3.xlsx",
+        "sheet": "Tabelle1",
+        "netImpactCell": "B1"
+      }
+    },
+    "land": {
+      "id": "fao_land_statistics_2001_2023_2025",
+      "publisher": "Food and Agriculture Organization of the United Nations",
+      "title": "Land statistics 2001–2023: Global, regional and country trends",
+      "publicationDate": "2025-07-29",
+      "doi": "https://doi.org/10.4060/cd5765en",
+      "articleUrl": "https://www.fao.org/statistics/highlights-archive/highlights-detail/land-statistics-2001-2023.-global--regional-and-country-trends/",
+      "pdfUrl": "https://openknowledge.fao.org/server/api/core/bitstreams/6a9f71f4-885f-453a-813b-0397c772d37d/content",
+      "pdfBytes": 2022896,
+      "pdfSha256": "7e09d78c02e0e027e2e509d5fee0b7aad020042321cc340a0e0caa5ce8180ab9"
+    }
+  },
+  "biodiversityEndpoint": {
+    "period": { "start": 1995, "end": 2022 },
+    "metric": "Global potential species loss from land-use change",
+    "unit": "fraction of global species potentially committed to extinction",
+    "netExactFractionFromSourceWorkbook": 0.013896174054540059,
+    "netRoundedPercentReportedInArticle": 1.4,
+    "grossIncreasePercentReportedInArticle": 1.5,
+    "decreaseFromRestorationAndAbandonmentPercentReportedInArticle": -0.11,
+    "agricultureShareOfGlobalLandUseChangeImpactPercentLowerBound": 90,
+    "cropCultivationSharePercent": 72,
+    "pastureSharePercent": 21,
+    "modelCoverage": {
+      "countries": 189,
+      "sectors": 163,
+      "taxonomicGroups": 5,
+      "spatialResolutionArcMinutes": 15
+    },
+    "interpretation": "The endpoint estimates the share of global species that may eventually become extinct because of habitat conversion. It is a modelled commitment, not an observed extinction count or a percentage decline inside every affected ecosystem.",
+    "restorationFinding": "Reforestation, abandonment of agricultural land and conversion of cropland to rangeland reduced the modelled impact in some places, but those decreases were much smaller than the increases from natural-habitat conversion."
+  },
+  "landContext": {
+    "period": { "start": 2001, "end": 2023 },
+    "globalLandAreaMillionHa": 13000,
+    "agriculturalLand2023MillionHa": 4799,
+    "cropland2023MillionHa": 1571,
+    "permanentMeadowsAndPastures2023MillionHa": 3230,
+    "agriculturalLandChangeMillionHa": -75,
+    "agriculturalLandChangePercent": -2,
+    "croplandChangeMillionHa": 78,
+    "croplandChangePercent": 5,
+    "permanentMeadowsAndPasturesChangeMillionHa": -151,
+    "landProductivityChangePercent": 63,
+    "interpretation": "Agriculture occupied more than one-third of global land in 2023. Cropland expanded, but total agricultural land declined slightly because pasture area fell. A global statement that all agricultural land is expanding would therefore be false."
+  },
+  "evidenceBoundaries": [
+    "Country and sector coverage describes model coverage; it is not the percentage of the global ecosystem distribution harmed.",
+    "The 1.4% potential species loss endpoint is a global biodiversity-condition proxy; it is not a count of observed extinctions.",
+    "The 72% crop and 21% pasture shares partition the land-use biodiversity impact and must not be added to the 1.4% endpoint as extra harm.",
+    "The 1995–2022 model period is not a recovery duration.",
+    "The agricultural-land footprint and cropland trend are pressure context, not separate ecosystem severity or reach inputs.",
+    "Demand supplies food and is not itself an adverse human outcome. Food insecurity, prices, water stress, labour exposure and health effects require their own attributable evidence and remain in their dedicated nodes.",
+    "The OECD–FAO 2025–2034 baseline is not an SSP2-4.5 projection and cannot set the TULIP 2027–2036 outlook direction."
+  ]
+}

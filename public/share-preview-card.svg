@@ -37,7 +37,7 @@
   </g>
 
   <g font-family="Inter, Arial, sans-serif">
-    <text x="72" y="80" fill="#a9b8c8" font-size="18" font-weight="700" letter-spacing="4">THE TULIP PROJECT</text>
+    <text x="72" y="80" fill="#a9b8c8" font-size="18" font-weight="700" letter-spacing="4">Tulip Earth</text>
     <text x="72" y="210" fill="#ffffff" font-size="68" font-weight="500" letter-spacing="-2.5">
       <tspan x="72" dy="0">See how climate</tspan>
       <tspan x="72" dy="76">change connects.</tspan>
@@ -50,6 +50,6 @@
     </text>
 
     <rect x="72" y="396" width="236" height="48" rx="24" fill="#ffffff"/>
-    <text x="190" y="426" text-anchor="middle" fill="#0b0d12" font-size="15" font-weight="800" letter-spacing="1.8">EXPLORE TULIP</text>
+    <text x="190" y="426" text-anchor="middle" fill="#0b0d12" font-size="15" font-weight="800" letter-spacing="1.8">EXPLORE TULIP EARTH</text>
   </g>
 </svg>

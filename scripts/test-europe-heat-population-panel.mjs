@@ -1,0 +1,27 @@
+import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
+
+const payload = JSON.parse(await readFile(new URL('../artifacts/tulip-calibration-2026-09-22/europe-heat-population-panel.json', import.meta.url), 'utf8'));
+assert.equal(payload.version, 'tulip_europe_heat_population_panel_2026_09_23_v1');
+assert.equal(payload.productionRatingsEnabled, 0);
+assert.equal(payload.checks.regions, 823);
+assert.deepEqual(payload.checks.completeYears, ['2017', '2018', '2019']);
+assert.equal(payload.checks.overlappingValues, 6424);
+assert.equal(payload.checks.disagreementsOverOnePerson, 0);
+assert.equal(payload.coverageByYear['2015'].observedRegions, 798);
+assert.equal(payload.coverageByYear['2016'].observedRegions, 798);
+assert.equal(payload.coverageByYear['2017'].observedRegions, 823);
+assert.equal(payload.coverageByYear['2018'].observedRegions, 823);
+assert.equal(payload.coverageByYear['2019'].observedRegions, 823);
+assert.equal(payload.coverageByYear['2020'].observedRegions, 811);
+assert.equal(payload.coverageByYear['2021'].observedRegions, 801);
+assert.equal(payload.coverageByYear['2022'].observedRegions, 801);
+assert.equal(payload.checks.latestYearMissingRegions, 22);
+assert.equal(payload.checks.latestYearMissingIds.length, 22);
+assert(payload.checks.differenceFromPublishedCoverageFloor < 0);
+assert.equal(payload.regions.length, 823);
+assert.equal(new Set(payload.regions.map(region => region.id)).size, 823);
+assert(payload.regions.every(region => Object.keys(region.populationByYear).length === 8));
+assert.match(payload.interpretation.unresolved, /sensitivity case/i);
+assert.equal(payload.digest.length, 64);
+console.log('Europe heat population-panel checks passed.');

@@ -1,0 +1,721 @@
+[
+  {
+    "key": "food",
+    "lensId": "food",
+    "lens": {
+      "unitLabel": "kgCO2e per kg food",
+      "axisMax": 100,
+      "axisTicks": [
+        0,
+        20,
+        40,
+        60,
+        80,
+        100
+      ],
+      "source": {
+        "label": "Poore and Nemecek (2018), processed by Our World in Data",
+        "url": "https://ourworldindata.org/grapher/ghg-per-kg-poore",
+        "baseline": "2010 global averages",
+        "method": "Life-cycle meta-analysis",
+        "boundary": "Cradle-to-retail emissions per kilogram of food product; household cooking and waste are excluded."
+      },
+      "items": [
+        {
+          "id": "food.beef",
+          "value": 99.48,
+          "typicalPortion": "170 g cooked",
+          "portionSource": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6610234/",
+          "emphasis": "Outlier"
+        },
+        {
+          "id": "food.dark_chocolate",
+          "value": 46.65,
+          "typicalPortion": "30 g",
+          "portionSource": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-B/part-101/subpart-A/section-101.12"
+        },
+        {
+          "id": "food.lamb_mutton",
+          "value": 39.72,
+          "typicalPortion": "150 g cooked",
+          "portionSource": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6610234/"
+        },
+        {
+          "id": "food.coffee",
+          "value": 28.53,
+          "typicalPortion": "~13 g grounds / 240 mL cup",
+          "portionSource": "https://sca.coffee/s/2017-SCA-CHB-Program-Requirements-ba6g.pdf"
+        },
+        {
+          "id": "food.cheese",
+          "value": 23.88,
+          "typicalPortion": "40 g",
+          "portionSource": "https://fdc.nal.usda.gov/"
+        },
+        {
+          "id": "food.seafood",
+          "value": 13.63,
+          "typicalPortion": "170 g cooked",
+          "portionSource": "https://fdc.nal.usda.gov/"
+        },
+        {
+          "id": "food.pork",
+          "value": 12.31,
+          "typicalPortion": "170 g cooked",
+          "portionSource": "https://fdc.nal.usda.gov/"
+        },
+        {
+          "id": "food.chicken",
+          "value": 9.87,
+          "typicalPortion": "170 g cooked",
+          "portionSource": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6610234/"
+        },
+        {
+          "id": "food.eggs",
+          "value": 4.67,
+          "typicalPortion": "2 large eggs (100 g)",
+          "portionSource": "https://fdc.nal.usda.gov/"
+        },
+        {
+          "id": "food.rice",
+          "value": 4.45,
+          "typicalPortion": "1 cup cooked (160 g)",
+          "portionSource": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6610234/"
+        },
+        {
+          "id": "food.tofu",
+          "value": 3.16,
+          "typicalPortion": "150 g",
+          "portionSource": "https://fdc.nal.usda.gov/"
+        },
+        {
+          "id": "food.vegetables",
+          "value": 0.98,
+          "typicalPortion": "1 cup cooked peas (160 g)",
+          "portionSource": "https://fdc.nal.usda.gov/"
+        }
+      ]
+    }
+  },
+  {
+    "key": "industry_farming",
+    "lensId": "industry_farming",
+    "lens": {
+      "unitLabel": "MtCO2e per year",
+      "axisMax": 10000,
+      "axisTicks": [
+        0,
+        2000,
+        4000,
+        6000,
+        8000,
+        10000
+      ],
+      "items": [
+        {
+          "id": "industry_farming.cattle_ranching",
+          "value": 9400
+        },
+        {
+          "id": "industry_farming.land_clearing_for_cattle",
+          "value": 3300
+        },
+        {
+          "id": "industry_farming.farm_energy",
+          "value": 2900
+        },
+        {
+          "id": "industry_farming.land_clearing_fires",
+          "value": 1300
+        }
+      ]
+    }
+  },
+  {
+    "key": "methane",
+    "lensId": "methane",
+    "lens": {
+      "unitLabel": "% share of anthropogenic methane emissions",
+      "axisMax": 30,
+      "axisTicks": [
+        0,
+        10,
+        20,
+        30
+      ],
+      "items": [
+        {
+          "id": "methane.cattle",
+          "value": 28
+        },
+        {
+          "id": "methane.oil_and_gas",
+          "value": 21
+        },
+        {
+          "id": "methane.landfills",
+          "value": 15
+        },
+        {
+          "id": "methane.other_anthropogenic_sources",
+          "value": 15
+        },
+        {
+          "id": "methane.rice",
+          "value": 8
+        },
+        {
+          "id": "methane.coal_mines",
+          "value": 8
+        },
+        {
+          "id": "methane.manure",
+          "value": 5
+        }
+      ]
+    }
+  },
+  {
+    "key": "carbon_emission",
+    "lensId": "carbon_emission",
+    "lens": {
+      "unitLabel": "% share of tracked carbon pressure",
+      "axisMax": 30,
+      "axisTicks": [
+        0,
+        10,
+        20,
+        30
+      ],
+      "items": [
+        {
+          "id": "carbon_emission.power_plants",
+          "value": 26
+        },
+        {
+          "id": "carbon_emission.cars_and_trucks",
+          "value": 18
+        },
+        {
+          "id": "carbon_emission.factories",
+          "value": 16
+        },
+        {
+          "id": "carbon_emission.buildings",
+          "value": 12
+        },
+        {
+          "id": "carbon_emission.deforestation",
+          "value": 9
+        },
+        {
+          "id": "carbon_emission.planes_and_ships",
+          "value": 7.5
+        },
+        {
+          "id": "carbon_emission.farming",
+          "value": 6.5
+        },
+        {
+          "id": "carbon_emission.materials",
+          "value": 5
+        }
+      ]
+    }
+  },
+  {
+    "key": "electricity_generation",
+    "lensId": "electricity_generation",
+    "lens": {
+      "unitLabel": "% share of global electricity generation",
+      "axisMax": 40,
+      "axisTicks": [
+        0,
+        10,
+        20,
+        30,
+        40
+      ],
+      "items": [
+        {
+          "id": "electricity_generation.coal",
+          "value": 35
+        },
+        {
+          "id": "electricity_generation.natural_gas",
+          "value": 22
+        },
+        {
+          "id": "electricity_generation.hydro",
+          "value": 14
+        },
+        {
+          "id": "electricity_generation.nuclear",
+          "value": 9
+        },
+        {
+          "id": "electricity_generation.wind",
+          "value": 8
+        },
+        {
+          "id": "electricity_generation.solar",
+          "value": 7
+        },
+        {
+          "id": "electricity_generation.bioenergy_waste",
+          "value": 3
+        },
+        {
+          "id": "electricity_generation.oil",
+          "value": 2
+        }
+      ]
+    }
+  },
+  {
+    "key": "conveyance_aviation",
+    "lensId": "conveyance_aviation",
+    "lens": {
+      "unitLabel": "MtCO2 / CO2e per year",
+      "axisMax": 4000,
+      "axisTicks": [
+        0,
+        1000,
+        2000,
+        3000,
+        4000
+      ],
+      "source": {
+        "label": "TULIP transport synthesis with International Energy Agency aviation context",
+        "url": "https://www.iea.org/energy-system/transport/aviation",
+        "baseline": "Existing road-mode estimates and 2023 global aviation estimate",
+        "method": "Comparative transport synthesis",
+        "boundary": "Road rows use broader CO2e working estimates; aviation reports direct passenger-and-cargo CO2 and excludes non-CO2 warming. Rows are comparative, not additive."
+      },
+      "items": [
+        {
+          "id": "conveyance_aviation.cars_and_suvs",
+          "value": 3300
+        },
+        {
+          "id": "conveyance_aviation.passenger_and_cargo_aviation",
+          "value": 950
+        },
+        {
+          "id": "conveyance_aviation.motorcycles",
+          "value": 200
+        },
+        {
+          "id": "conveyance_aviation.rail",
+          "value": 40
+        }
+      ]
+    }
+  },
+  {
+    "key": "freight_logistics",
+    "lensId": "freight_logistics",
+    "lens": {
+      "unitLabel": "MtCO2 per year",
+      "axisMax": 1600,
+      "axisTicks": [
+        0,
+        400,
+        800,
+        1200,
+        1600
+      ],
+      "source": {
+        "label": "International Transport Forum, Transport Outlook 2019, Figure 2.9",
+        "url": "https://www.itf-oecd.org/itf-transport-outlook-2019",
+        "baseline": "2015 modeled baseline",
+        "method": "ITF global freight model",
+        "boundary": "Operational CO2 by freight mode; logistics facilities and infrastructure are not added as separate bars."
+      },
+      "items": [
+        {
+          "id": "freight_logistics.road",
+          "value": 1460
+        },
+        {
+          "id": "freight_logistics.sea",
+          "value": 800
+        },
+        {
+          "id": "freight_logistics.air_freight",
+          "value": 174
+        },
+        {
+          "id": "freight_logistics.rail",
+          "value": 79
+        },
+        {
+          "id": "freight_logistics.inland_waterways",
+          "value": 67
+        }
+      ]
+    }
+  },
+  {
+    "key": "food_waste",
+    "lensId": "food_waste",
+    "lens": {
+      "unitLabel": "MtCO2e per year",
+      "axisMax": 1400,
+      "axisTicks": [
+        0,
+        300,
+        600,
+        900,
+        1200
+      ],
+      "items": [
+        {
+          "id": "food_waste.homes",
+          "value": 1260
+        },
+        {
+          "id": "food_waste.restaurants",
+          "value": 580
+        },
+        {
+          "id": "food_waste.grocery_stores",
+          "value": 260
+        }
+      ]
+    }
+  },
+  {
+    "key": "fertilizer_production",
+    "lensId": "fertilizer_production",
+    "lens": {
+      "unitLabel": "MtCO2e per year",
+      "axisMax": 500,
+      "axisTicks": [
+        0,
+        100,
+        200,
+        300,
+        400,
+        500
+      ],
+      "items": [
+        {
+          "id": "fertilizer_production.ammonia_production",
+          "value": 440
+        },
+        {
+          "id": "fertilizer_production.coal_based_fertilizer",
+          "value": 240
+        },
+        {
+          "id": "fertilizer_production.gas_based_fertilizer",
+          "value": 200
+        }
+      ]
+    }
+  },
+  {
+    "key": "mining_critical_minerals",
+    "lensId": "mining_critical_minerals",
+    "lens": {
+      "unitLabel": "% share of refining or processing",
+      "axisMax": 100,
+      "axisTicks": [
+        0,
+        20,
+        40,
+        60,
+        80,
+        100
+      ],
+      "items": [
+        {
+          "id": "mining_critical_minerals.top_3_refining_nations_average_share",
+          "value": 86
+        },
+        {
+          "id": "mining_critical_minerals.china_average_across_19_of_20_strategic_mineral_refining_chains",
+          "value": 70
+        },
+        {
+          "id": "mining_critical_minerals.china_projected_battery_grade_graphite_share_in_2035",
+          "value": 80
+        },
+        {
+          "id": "mining_critical_minerals.china_projected_rare_earth_refining_share_in_2035",
+          "value": 80
+        },
+        {
+          "id": "mining_critical_minerals.china_projected_refined_lithium_share_in_2035",
+          "value": 60
+        },
+        {
+          "id": "mining_critical_minerals.china_projected_refined_cobalt_share_in_2035",
+          "value": 60
+        }
+      ]
+    }
+  },
+  {
+    "key": "built_environment",
+    "lensId": "built_environment",
+    "lens": {
+      "unitLabel": "% of global CO2 emissions",
+      "axisMax": 20,
+      "axisTicks": [
+        0,
+        5,
+        10,
+        15,
+        20
+      ],
+      "source": {
+        "label": "GlobalABC, Global Status Report for Buildings and Construction 2024/2025",
+        "url": "https://www.unep.org/resources/report/global-status-report-buildings-and-construction-20242025",
+        "baseline": "2023 global estimate",
+        "method": "Global sector estimate",
+        "boundary": "Residential and non-residential operations plus building materials and construction; rounded shares sum to 34% of global CO2."
+      },
+      "items": [
+        {
+          "id": "built_environment.residential_operations",
+          "value": 17
+        },
+        {
+          "id": "built_environment.non_residential_operations",
+          "value": 11
+        },
+        {
+          "id": "built_environment.building_materials_construction",
+          "value": 6
+        }
+      ]
+    }
+  },
+  {
+    "key": "deforestation_land_use",
+    "lensId": "deforestation",
+    "lens": {
+      "unitLabel": "million hectares converted (2001-2022)",
+      "axisMax": 55,
+      "axisTicks": [
+        0,
+        10,
+        20,
+        30,
+        40,
+        50
+      ],
+      "items": [
+        {
+          "id": "deforestation_land_use.pasture_expansion",
+          "value": 51.2
+        },
+        {
+          "id": "deforestation_land_use.oil_palm_soy_other_oilseeds",
+          "value": 19.5
+        },
+        {
+          "id": "deforestation_land_use.forest_plantations",
+          "value": 17.1
+        },
+        {
+          "id": "deforestation_land_use.other_commodities",
+          "value": 14.6
+        },
+        {
+          "id": "deforestation_land_use.staple_crops",
+          "value": 13.4
+        },
+        {
+          "id": "deforestation_land_use.cocoa_coffee",
+          "value": 3.7
+        },
+        {
+          "id": "deforestation_land_use.rubber_fibre_crops",
+          "value": 2.4
+        }
+      ]
+    }
+  },
+  {
+    "key": "plastics_petrochemicals",
+    "lensId": "plastics_petrochemicals",
+    "lens": {
+      "unitLabel": "MtCO2e per year",
+      "axisMax": 500,
+      "axisTicks": [
+        0,
+        100,
+        200,
+        300,
+        400,
+        500
+      ],
+      "items": [
+        {
+          "id": "plastics_petrochemicals.pet",
+          "value": 470
+        },
+        {
+          "id": "plastics_petrochemicals.other_plastics",
+          "value": 426
+        },
+        {
+          "id": "plastics_petrochemicals.pp",
+          "value": 336
+        },
+        {
+          "id": "plastics_petrochemicals.hdpe",
+          "value": 246
+        },
+        {
+          "id": "plastics_petrochemicals.pvc",
+          "value": 224
+        },
+        {
+          "id": "plastics_petrochemicals.lldpe",
+          "value": 157
+        },
+        {
+          "id": "plastics_petrochemicals.ps",
+          "value": 134
+        },
+        {
+          "id": "plastics_petrochemicals.pu",
+          "value": 112
+        },
+        {
+          "id": "plastics_petrochemicals.ldpe",
+          "value": 90
+        },
+        {
+          "id": "plastics_petrochemicals.san_abs",
+          "value": 45
+        }
+      ]
+    }
+  },
+  {
+    "key": "data_centers",
+    "lensId": "data_centers",
+    "lens": {
+      "unitLabel": "TWh per year",
+      "axisMax": 200,
+      "axisTicks": [
+        0,
+        50,
+        100,
+        150,
+        200
+      ],
+      "source": {
+        "label": "IEA, Energy and AI",
+        "url": "https://www.iea.org/reports/energy-and-ai/energy-demand-from-ai",
+        "baseline": "2024 observed regional demand · 2030 base-case scenario",
+        "method": "Observed electricity demand with a published scenario outlook",
+        "boundary": "Global data-center electricity demand, split across the United States, China, Europe, and the rest of the world."
+      },
+      "items": [
+        {
+          "id": "data_centers.united_states",
+          "value": 187
+        },
+        {
+          "id": "data_centers.china",
+          "value": 104
+        },
+        {
+          "id": "data_centers.europe",
+          "value": 62
+        },
+        {
+          "id": "data_centers.rest_of_world",
+          "value": 62
+        },
+        {
+          "id": "data_centers.global_total_2030",
+          "value": 945,
+          "speculative": true,
+          "hideBar": true,
+          "excludeFromScale": true
+        }
+      ]
+    }
+  },
+  {
+    "key": "ai_compute",
+    "lensId": "ai_data_centers",
+    "lens": {
+      "unitLabel": "% share of AI compute burden",
+      "axisMax": 40,
+      "axisTicks": [
+        0,
+        10,
+        20,
+        30,
+        40
+      ],
+      "items": [
+        {
+          "id": "ai_compute.high_density_electricity_draw",
+          "value": 31.5
+        },
+        {
+          "id": "ai_compute.cooling_intensity",
+          "value": 21
+        },
+        {
+          "id": "ai_compute.chip_and_hardware_supply_chain",
+          "value": 14
+        },
+        {
+          "id": "ai_compute.grid_expansion_and_congestion",
+          "value": 10.5
+        },
+        {
+          "id": "ai_compute.land_and_campus_acceleration",
+          "value": 7
+        },
+        {
+          "id": "ai_compute.water_and_thermal_rejection",
+          "value": 6
+        },
+        {
+          "id": "ai_compute.backup_resilience_stack",
+          "value": 5.5
+        },
+        {
+          "id": "ai_compute.semiconductor_material_intensity",
+          "value": 4.5
+        }
+      ]
+    }
+  },
+  {
+    "key": "air_conditioning_refrigerants",
+    "lensId": "air_conditioning_refrigerants",
+    "lens": {
+      "unitLabel": "MtCO2e per year",
+      "axisMax": 1000,
+      "axisTicks": [
+        0,
+        250,
+        500,
+        750,
+        1000
+      ],
+      "items": [
+        {
+          "id": "air_conditioning_refrigerants.old_refrigerants",
+          "value": 720
+        },
+        {
+          "id": "air_conditioning_refrigerants.new_refrigerants",
+          "value": 180
+        }
+      ]
+    }
+  }
+]
